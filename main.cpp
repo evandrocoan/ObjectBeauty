@@ -44,11 +44,11 @@
  */
 int main( int argumentsCount, char* argumentsStringList[] )
 {
-    FPRINTLN( 1, "Starting the main program..." );
+    PRINT( 1, "Starting the main program..." );
 
     if( argumentsCount > 1 )
     {
-        FPRINTLN( 1, "argumentsCount: %d, argumentsStringList[1]: %s", argumentsCount, argumentsStringList[ 1 ] );
+        PRINT( 1, "argumentsCount: %d, argumentsStringList[1]: %s", argumentsCount, argumentsStringList[ 1 ] );
     }
 
     return EXIT_SUCCESS;

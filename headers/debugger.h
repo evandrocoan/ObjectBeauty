@@ -114,22 +114,9 @@ do \
 while( 0 )
 
 /**
- * The same as LOG(...), but it is for standard program output.
- */
-#define FPRINT( level, ... ) \
-do \
-{ \
-    if( __computeDeggingLevel( #level ) ) \
-    { \
-        std::cout << format( __VA_ARGS__ ); \
-    } \
-} \
-while( 0 )
-
-/**
  * The same as LOGLN(...), but it is for standard program output.
  */
-#define FPRINTLN( level, ... ) \
+#define PRINT( level, ... ) \
 do \
 { \
     if( __computeDeggingLevel( #level ) ) \
@@ -139,6 +126,18 @@ do \
 } \
 while( 0 )
 
+/**
+ * The same as LOG(...), but it is for standard program output.
+ */
+#define PRINTLN( level, ... ) \
+do \
+{ \
+    if( __computeDeggingLevel( #level ) ) \
+    { \
+        std::cout << format( __VA_ARGS__ ); \
+    } \
+} \
+while( 0 )
 
 
 /**
@@ -298,34 +297,30 @@ inline bool __computeDeggingLevel( const char* debugLevel )
     return false;
 }
 
-
-
 #else
     #define LOG( level, ... )
     #define LOGLN( level, ... )
 
 
 /**
- * The same as LOG(...), but it is for standard program output when the debugging is disabled.
- */
-#define FPRINT( level, ... ) \
-do \
-{ \
-    std::cout << format( __VA_ARGS__ ); \
-} \
-while( 0 )
-
-
-/**
  * The same as LOGLN(...), but it is for standard program output when the debugging is disabled.
  */
-#define FPRINTLN( level, ... ) \
+#define PRINT( level, ... ) \
 do \
 { \
     std::cout << format( __VA_ARGS__ ) << std::endl; \
 } \
 while( 0 )
 
+/**
+ * The same as LOG(...), but it is for standard program output when the debugging is disabled.
+ */
+#define PRINTLN( level, ... ) \
+do \
+{ \
+    std::cout << format( __VA_ARGS__ ); \
+} \
+while( 0 )
 
 #endif // #if DEBUG_LEVEL > 0
 
