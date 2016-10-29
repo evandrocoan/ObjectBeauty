@@ -90,7 +90,7 @@ const char* const g_debugLevel = "a1 b1";
  * @param level     the debugging desired level to be printed.
  * @param ...       variable number os formating arguments parameters.
  */
-#define DEBUGGERLN( level, ... ) \
+#define LOG( level, ... ) \
 do \
 { \
     if( __computeDeggingLevel( #level ) ) \
@@ -101,9 +101,9 @@ do \
 while( 0 )
 
 /**
- * The same as DEBUGGERLN(...) just below, but do not put automatically a new line.
+ * The same as LOGLN(...) just below, but do not put automatically a new line.
  */
-#define DEBUGGER( level, ... ) \
+#define LOGLN( level, ... ) \
 do \
 { \
     if( __computeDeggingLevel( #level ) ) \
@@ -114,7 +114,7 @@ do \
 while( 0 )
 
 /**
- * The same as DEBUGGER(...), but it is for standard program output.
+ * The same as LOG(...), but it is for standard program output.
  */
 #define FPRINT( level, ... ) \
 do \
@@ -127,7 +127,7 @@ do \
 while( 0 )
 
 /**
- * The same as DEBUGGERLN(...), but it is for standard program output.
+ * The same as LOGLN(...), but it is for standard program output.
  */
 #define FPRINTLN( level, ... ) \
 do \
@@ -301,12 +301,12 @@ inline bool __computeDeggingLevel( const char* debugLevel )
 
 
 #else
-    #define DEBUGGER( stream, ... )
-    #define DEBUGGERLN( stream, ... )
+    #define LOG( level, ... )
+    #define LOGLN( level, ... )
 
 
 /**
- * The same as DEBUGGER(...), but it is for standard program output when the debugging is disabled.
+ * The same as LOG(...), but it is for standard program output when the debugging is disabled.
  */
 #define FPRINT( level, ... ) \
 do \
@@ -317,7 +317,7 @@ while( 0 )
 
 
 /**
- * The same as DEBUGGERLN(...), but it is for standard program output when the debugging is disabled.
+ * The same as LOGLN(...), but it is for standard program output when the debugging is disabled.
  */
 #define FPRINTLN( level, ... ) \
 do \
