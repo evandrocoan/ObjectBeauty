@@ -34,7 +34,7 @@
  * accept none or one command line argument.
  *
  * An example call to this program could be:
- * cat sudoku_unsolved.txt | ./main.o sudoku_solved.txt
+ * ./main.o solved.txt
  *
  * @param argumentsCount         one plus the argument counting passed to the program command line.
  * @param argumentsStringList    an argument list passed the program command line, where its first
@@ -44,11 +44,11 @@
  */
 int main( int argumentsCount, char* argumentsStringList[] )
 {
-    PRINT( 1, "Starting the main program..." );
+    PRINT( a1, "Starting the main program..." );
 
     if( argumentsCount > 1 )
     {
-        PRINT( 1, "argumentsCount: %d, argumentsStringList[1]: %s", argumentsCount, argumentsStringList[ 1 ] );
+        PRINT( a1, "argumentsCount: %d, argumentsStringList[1]: %s", argumentsCount, argumentsStringList[ 1 ] );
     }
 
     return EXIT_SUCCESS;

@@ -14,6 +14,15 @@ Formatting package for Sublime Text by the [Package Control](https://packagecont
 
 
 ___
+## How to Compile/Run it
+
+```
+g++ -std=c++11 main.cpp -o main
+```
+
+
+
+___
 ## Initial Motivation Standards
 
 > I think the best way to fix this is create a new `Beautifier` from 0. Why? Because I have seen the way Uncrustify is coded, and it is basically a structured programming for most things, and not fully documented. Therefore, it has a very high learning curve for new programmer get engaged/involved efficiently. Also is hard for new user to create a unified configuration file for all languages they use. For example, I to program on several languages, I need to create a big configuration file for each of them. In addition, when there is a change to my style, I need to go across several configuration files changing the same thing, if applicable on that target language.
