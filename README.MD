@@ -14,6 +14,14 @@ Formatting package for Sublime Text by the [Package Control](https://packagecont
 
 
 ___
+### Related formatting/beautifiers softwares
+
+1. https://github.com/sindresorhus/editorconfig-sublime
+1. https://github.com/uncrustify/uncrustify
+
+
+
+___
 ## How to Compile/Run it
 
 ```
