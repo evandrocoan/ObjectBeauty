@@ -1,0 +1,12 @@
+%YAML 1.2
+---
+name: Object-Beauty
+file_extensions:
+  - object-beauty
+scope: text.object-beauty
+contexts:
+  main:
+    - match: '#.*\n'
+      scope: comment.line.percentage.octave
+
+
