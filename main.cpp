@@ -44,11 +44,15 @@
  */
 int main( int argumentsCount, char* argumentsStringList[] )
 {
-    PRINT( a1, "Starting the main program..." );
+    PRINT( a1, "Starting the main program...\n" );
+    PRINT( a1, "argumentsCount: %d", argumentsCount );
 
     if( argumentsCount > 1 )
     {
-        PRINT( a1, "argumentsCount: %d, argumentsStringList[1]: %s", argumentsCount, argumentsStringList[ 1 ] );
+        for( int argumentIndex = 0; argumentIndex < argumentsCount; argumentIndex++ )
+        {
+            PRINT( a1, "argumentsStringList[%d]: %s", argumentIndex, argumentsStringList[ argumentIndex ] );
+        }
     }
 
     return EXIT_SUCCESS;
