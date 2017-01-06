@@ -1,0 +1,37 @@
+// SYNTAX TEST "Packages/Object Beautifier/Object-Beauty.sublime-syntax"
+
+
+
+// This is the name used to reference this scope around the settings files.
+// <- text.object-beauty comment.line.object-beauty
+
+// This is the name used to reference this scope around the settings files.
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ text.object-beauty comment.line.object-beauty
+
+
+
+# This is the name used to reference this scope around the settings files.
+// <- text.object-beauty comment.line.object-beauty
+
+# This is the name used to reference this scope around the settings files.
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ text.object-beauty comment.line.object-beauty
+
+
+
+Scope Name:
+// <- text.object-beauty, boldtext.object-beauty, declaration.tag
+
+Scope Name:
+//^^^^^^^^^ text.object-beauty, boldtext.object-beauty, declaration.tag
+
+
+
+c++_like_block_comment
+// <- text.object-beauty
+
+c++_like_block_comment
+//^^^^^^^^^^^^^^^^^^^^ text.object-beauty
+
+
+
+

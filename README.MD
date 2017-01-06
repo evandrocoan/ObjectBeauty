@@ -1,8 +1,8 @@
 
 # Object Beautifier
 
-Is an Advanced Object Oriented Programming Text and Source Code Beautifier which come in place to easy
-and improve the Source Code Beautifiers, using a well understood architecture, development
+Is an Universal Advanced Object Oriented Programming Text and Source Code Beautifier which come in 
+place to easy and improve the Source Code Beautifiers, using a well understood architecture, development
 and configuration process.
 
 1. [Object-oriented programming (OOP) - Wikipedia](https://en.wikipedia.org/wiki/Object-oriented_programming)

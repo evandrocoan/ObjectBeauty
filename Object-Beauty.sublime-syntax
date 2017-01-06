@@ -6,7 +6,8 @@ file_extensions:
 scope: text.object-beauty
 contexts:
   main:
-    - match: '#.*\n'
-      scope: comment.line.percentage.octave
-
+    - match: '(#|\/\/).*\n'
+      scope: comment.line.object-beauty
+    - match: '.*[^\\]:\s*'
+      scope: boldtext.object-beauty, declaration.tag
 
