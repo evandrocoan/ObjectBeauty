@@ -16,7 +16,7 @@ Scope Start:
 
 // Defines a expression which will map the ending of a exclusion block. Example, `\*/`
 Scope End:
-\*
+*/
 
 // First Unit Test to be performed for this Scope. He we put the sample input data to be
 // parsed and it must to generate a match for the specified Scope Expression.

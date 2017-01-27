@@ -8,7 +8,7 @@ and configuration process.
 1. [Object-oriented programming (OOP) - Wikipedia](https://en.wikipedia.org/wiki/Object-oriented_programming)
 1. [Initial check list Tasks and Features to do - Issues](https://github.com/evandrocoan/ObjectBeautifier/issues/1)
 
-Its main distribution standart is to be shipped together within its Configuration and Dynamic
+Its main distribution standard is to be shipped together within its Configuration and Dynamic
 Formatting package for Sublime Text by the [Package Control](https://packagecontrol.io/).
 
 
