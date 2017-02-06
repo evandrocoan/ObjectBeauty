@@ -1,10 +1,13 @@
 {
-	"folders":
-	[
-		{
-			"path": "."
-		}
-	],
+    "folders":
+    [
+        {
+            "path": "."
+        },
+        {
+            "path": "D:/User/Dropbox/Applications/SoftwareVersioning/SublimeText/Data/Packages"
+        },
+    ],
     "build_systems":
     [
         {
