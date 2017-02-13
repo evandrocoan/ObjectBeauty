@@ -22,6 +22,7 @@
 
 
 #include "headers/debugger.h"
+#include "classes/SourceCode.cpp"
 #include <cstdlib>
 #include <iostream>
 #include <sstream>
@@ -54,6 +55,9 @@ int main( int argumentsCount, char* argumentsStringList[] )
             PRINT( a1, "argumentsStringList[%d]: %s", argumentIndex, argumentsStringList[ argumentIndex ] );
         }
     }
+
+    PRINT( a1, "" );
+    SourceCode sourceCode;
 
     return EXIT_SUCCESS;
 }
