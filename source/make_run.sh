@@ -2,6 +2,7 @@
 
 make clean
 make
-./main argument1 argument2
 
+./main argument1 argument2
+wait $!
 

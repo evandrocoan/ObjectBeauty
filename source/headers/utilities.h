@@ -47,42 +47,37 @@
 
 /**
  * Missing string printf. This is safe and convenient but not exactly efficient.
- * 
+ *
  * @param fmt     a char array
  * @param ...     a variable length number of formating characters.
- * 
+ *
  * @see http://stackoverflow.com/a/10150393/4934640
  * @see http://stackoverflow.com/questions/2342162/stdstring-formatting-like-sprintf/10150393#10150393
  */
 inline std::string format(const char* fmt, ...)
 {
     int   size   = 512;
-    char* buffer = 0;
-    
-    buffer = new char[size];
-    
-    va_list vl;
-    
-    va_start(vl, fmt);
-    
-    int nsize = vsnprintf(buffer, size, fmt, vl);
-    
+    char* buffer = new char[size];
+
+    va_list var_args;
+    va_start(var_args, fmt);
+
+    int nsize = vsnprintf(buffer, size, fmt, var_args);
+
     //fail delete buffer and try again
     if(size<=nsize)
-    { 
+    {
         delete[] buffer;
-        
+
         buffer = 0;
         buffer = new char[nsize+1]; //+1 for /0
-        nsize  = vsnprintf(buffer, size, fmt, vl);
+        nsize  = vsnprintf(buffer, size, fmt, var_args);
     }
-    
+
     std::string ret(buffer);
-    
-    va_end(vl);
-    
+    va_end(var_args);
+
     delete[] buffer;
-    
     return ret;
 }
 

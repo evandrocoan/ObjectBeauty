@@ -82,6 +82,8 @@ const char* const g_debugLevel = "a1 b1";
 #include <string>
 #include <cstdarg>
 
+#include "libraries/tinyformat/tinyformat.h"
+
 /**
  * Print like function for logging putting a new line at the end of string. See the variables
  * 'g_debugLevel', 'g_debugMask', for the avalibles levels.
@@ -94,7 +96,7 @@ do \
 { \
     if( __computeDeggingLevel( #level ) ) \
     { \
-        std::cout << format( __VA_ARGS__ ) << std::endl; \
+        std::cout << tfm::format( __VA_ARGS__ ) << std::endl; \
     } \
 } \
 while( 0 )
@@ -107,7 +109,7 @@ do \
 { \
     if( __computeDeggingLevel( #level ) ) \
     { \
-            std::cout << format( __VA_ARGS__ ); \
+            std::cout << tfm::format( __VA_ARGS__ ); \
     } \
 } \
 while( 0 )
@@ -120,7 +122,7 @@ do \
 { \
     if( __computeDeggingLevel( #level ) ) \
     { \
-        std::cout << format( __VA_ARGS__ ) << std::endl; \
+        std::cout << tfm::format( __VA_ARGS__ ) << std::endl; \
     } \
 } \
 while( 0 )
@@ -133,7 +135,7 @@ do \
 { \
     if( __computeDeggingLevel( #level ) ) \
     { \
-        std::cout << format( __VA_ARGS__ ); \
+        std::cout << tfm::format( __VA_ARGS__ ); \
     } \
 } \
 while( 0 )
@@ -271,7 +273,7 @@ inline bool __computeDeggingLevel( const char* debugLevel )
 #define PRINT( level, ... ) \
 do \
 { \
-    std::cout << format( __VA_ARGS__ ) << std::endl; \
+    std::cout << tfm::format( __VA_ARGS__ ) << std::endl; \
 } \
 while( 0 )
 
@@ -281,7 +283,7 @@ while( 0 )
 #define PRINTLN( level, ... ) \
 do \
 { \
-    std::cout << format( __VA_ARGS__ ); \
+    std::cout << tfm::format( __VA_ARGS__ ); \
 } \
 while( 0 )
 

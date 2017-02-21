@@ -23,6 +23,7 @@
 
 #include "headers/debugger.h"
 #include "classes/SourceCode.cpp"
+
 #include <cstdlib>
 #include <iostream>
 #include <sstream>
@@ -57,8 +58,12 @@ int main( int argumentsCount, char* argumentsStringList[] )
     }
 
     PRINT( a1, "" );
-    SourceCode sourceCode;
 
+    // Most vexing parse: One way to force the compiler to consider this as a variable definition
+    // is to add an extra pair of parentheses.
+    SourceCode sourceCode( "Hi!" );
+
+    PRINT( a1, "Exiting main(2)" );
     return EXIT_SUCCESS;
 }
 

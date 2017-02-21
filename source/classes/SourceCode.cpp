@@ -36,7 +36,7 @@ public:
 
     SourceCode( std::string text_code ) : text_code( text_code )
     {
-        LOG( b1, "SourceCode::SourceCode(1)" );
+        LOG( b1, "SourceCode::SourceCode(1) text_code: %s", text_code );
     }
 
 private:
