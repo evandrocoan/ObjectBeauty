@@ -1,0 +1,3 @@
+[submodule "source/libraries/tinyformat"]
+	path = source/libraries/tinyformat
+	url = https://github.com/evandrocoan/tinyformat
