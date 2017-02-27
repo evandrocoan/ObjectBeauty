@@ -1,7 +1,19 @@
 
 Scope Class:
-block_comment
+block_comment_class
 
 Scope Blocks:
 c++_like_block_comment
 Matlab_like_block_coment
+
+
+Scope Class:
+line_comment_class
+
+Scope Blocks:
+c++_like_line_comment
+Matlab_like_line_coment
+Octave_like_line_coment
+
+
+
