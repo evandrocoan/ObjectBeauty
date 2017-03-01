@@ -2,7 +2,11 @@
     "folders":
     [
         {
-            "path": "."
+            "path": ".",
+            "folder_exclude_patterns":
+            [
+                "source/libraries/doctest/scripts/bench/catch",
+            ],
         },
         {
             "path": "D:/User/Dropbox/Applications/SoftwareVersioning/SublimeText/Data/Packages"
@@ -18,6 +22,18 @@
 
             "name": "Build Main file",
             "cmd": ["sh", "make_run.sh"],
+
+            // "target": "ansi_color_build",
+            "syntax": "Packages/ANSIescape/ANSI.tmLanguage"
+        },
+        {
+            "working_dir": "$project_path/source",
+            // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
+
+            "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+
+            "name": "Build Catch Driver Class",
+            "cmd": ["sh", "make_run.sh", "catch_tests"],
 
             // "target": "ansi_color_build",
             "syntax": "Packages/ANSIescape/ANSI.tmLanguage"
