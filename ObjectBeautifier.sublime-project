@@ -23,29 +23,17 @@
             "name": "Build Main file",
             "cmd": ["sh", "make_run.sh"],
 
-            // "target": "ansi_color_build",
-            "syntax": "Packages/ANSIescape/ANSI.tmLanguage"
-        },
-        {
-            "working_dir": "$project_path/source",
-            // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
-
-            "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
-
-            "name": "Build Catch Driver Class",
-            "cmd": ["sh", "make_run.sh", "catch_tests"],
-
-            // "target": "ansi_color_build",
-            "syntax": "Packages/ANSIescape/ANSI.tmLanguage"
-        },
-        {
-            "working_dir": "$project_path/source",
-            // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
-
-            "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
-
-            "name": "Build Doctest Driver Class",
-            "cmd": ["sh", "make_run.sh", "doctest_tests"],
+            "variants":
+            [
+                {
+                    "name": "Catch Driver Class",
+                    "cmd": ["sh", "make_run.sh", "catch_tests"],
+                },
+                {
+                    "name": "Do a Make Very Clean",
+                    "cmd": ["sh", "make_run.sh", "veryclean"],
+                }
+            ],
 
             // "target": "ansi_color_build",
             "syntax": "Packages/ANSIescape/ANSI.tmLanguage"
