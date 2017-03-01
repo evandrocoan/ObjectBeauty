@@ -4,17 +4,31 @@
 
 
 PROGRAM_BINARY              = main.exe
-PROGRAM_NAME                = main.cpp
+PROGRAM_MAIN_FILE_NAME      = main.cpp
 PROGRAM_MAIN_FOLDER_INCLUDE = .
 
+DRIVER_CLASS_TESTS_FILE  = unit_tests/catch_tests
+DRIVER_CLASS_SOURCE_NAME = unit_tests/catch_main
 
-main.exe: $(PROGRAM_NAME)
-	g++ --std=c++11 $(PROGRAM_NAME) -I $(PROGRAM_MAIN_FOLDER_INCLUDE) -o main
+
+main.exe: $(PROGRAM_MAIN_FILE_NAME)
+	g++ --std=c++11 $(PROGRAM_MAIN_FILE_NAME) -I $(PROGRAM_MAIN_FOLDER_INCLUDE) -o main
 
 
-clean :
+catch_tests: $(DRIVER_CLASS_SOURCE_NAME).o
+	g++ --std=c++11 $(DRIVER_CLASS_SOURCE_NAME).o $(DRIVER_CLASS_TESTS_FILE).cpp -I $(PROGRAM_MAIN_FOLDER_INCLUDE) -o main
+
+$(DRIVER_CLASS_SOURCE_NAME).o: $(DRIVER_CLASS_SOURCE_NAME).cpp
+	g++ $(DRIVER_CLASS_SOURCE_NAME).cpp -I $(PROGRAM_MAIN_FOLDER_INCLUDE) -c -o $(DRIVER_CLASS_SOURCE_NAME).o
+
+
+clean:
 	$(RM) $(PROGRAM_BINARY)
 
+
+veryclean:
+	$(RM) $(DRIVER_CLASS_SOURCE_NAME).o
+	$(RM) $(PROGRAM_BINARY)
 
 
 
