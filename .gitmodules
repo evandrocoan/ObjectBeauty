@@ -4,3 +4,6 @@
 [submodule "source/libraries/Catch"]
 	path = source/libraries/Catch
 	url = https://github.com/evandrocoan/Catch
+[submodule "source/libraries/doctest"]
+	path = source/libraries/doctest
+	url = https://github.com/evandrocoan/doctest
