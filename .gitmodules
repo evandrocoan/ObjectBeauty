@@ -1,3 +1,6 @@
 [submodule "source/libraries/tinyformat"]
 	path = source/libraries/tinyformat
 	url = https://github.com/evandrocoan/tinyformat
+[submodule "source/libraries/Catch"]
+	path = source/libraries/Catch
+	url = https://github.com/evandrocoan/Catch
