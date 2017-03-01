@@ -34,9 +34,33 @@ public:
         LOG( b1, "SourceCode::SourceCode(0)" );
     }
 
-    SourceCode( std::string text_code ) : text_code( text_code )
+    ~SourceCode()
     {
-        LOG( b1, "SourceCode::SourceCode(1) text_code: %s", text_code );
+        LOG( b1, "SourceCode::~SourceCode(0)" );
+        LOG( b1, "( ~SourceCode )    The object is being deleted." );
+    }
+
+    SourceCode( std::string text_code ) :
+        text_code( text_code )
+    {
+        LOG( b1, "SourceCode::SourceCode(1)" );
+        LOG( b1, "( SourceCode ) text_code: %s", text_code );
+    }
+
+    SourceCode( const SourceCode& another ) :
+        text_code( another.text_code )
+    {
+        LOG( b1, "SourceCode::SourceCode(1)" );
+        LOG( b1, "( SourceCode ) Calling the copy constructor." );
+    }
+
+    SourceCode& operator = ( const SourceCode& another )
+    {
+        LOG( b1, "SourceCode::SourceCode(1)" );
+        LOG( b1, "( SourceCode ) Calling the assignment operator." );
+
+        this->text_code = another.text_code;
+        return *this;
     }
 
 private:
