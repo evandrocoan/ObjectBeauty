@@ -30,6 +30,10 @@
                     "cmd": ["sh", "make_run.sh", "catch_tests"],
                 },
                 {
+                    "name": "Doctest Driver Class",
+                    "cmd": ["sh", "make_run.sh", "doctest_tests"],
+                },
+                {
                     "name": "Do a Make Very Clean",
                     "cmd": ["sh", "make_run.sh", "veryclean"],
                 }

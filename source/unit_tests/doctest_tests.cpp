@@ -21,21 +21,20 @@
 */
 
 
-#define CATCH_CONFIG_FAST_COMPILE
-#include "libraries/Catch/single_include/catch.hpp"
+#include "libraries/doctest/doctest/doctest.h"
 
 
-unsigned int Factorial( unsigned int number )
+unsigned int factorial( unsigned int number )
 {
-    return number <= 1 ? number : Factorial(number-1)*number;
+    return number <= 1 ? number : factorial(number-1)*number;
 }
 
-TEST_CASE( "Factorials are computed", "[factorial]" )
+TEST_CASE("testing the factorial function")
 {
-    REQUIRE( Factorial(1) == 1 );
-    REQUIRE( Factorial(2) == 2 );
-    REQUIRE( Factorial(3) == 6 );
-    REQUIRE( Factorial(10) == 3628800 );
+    CHECK(factorial(1) == 1);
+    CHECK(factorial(2) == 2);
+    CHECK(factorial(3) == 6);
+    CHECK(factorial(10) == 3628800);
 }
 
 
