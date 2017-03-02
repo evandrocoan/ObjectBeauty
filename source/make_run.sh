@@ -1,26 +1,24 @@
 
 
-if [[ $1 == "catch_tests" ]]
-then
-    make catch_tests
-    ./main
 
-elif [[ $1 == "doctest_tests" ]]
-then
-    make doctest_tests
-    ./main
+FIRST_COMMAND_ARGUMENT=$1
 
-elif [[ $1 == "veryclean" ]]
+if [[ $FIRST_COMMAND_ARGUMENT == "main" ]]
 then
-    make veryclean
-    make
-    ./main argument1 argument2
-
-else
     make clean
     make
     ./main argument1 argument2
 
+elif [[ $FIRST_COMMAND_ARGUMENT == "veryclean" ]]
+then
+    make $FIRST_COMMAND_ARGUMENT
+    make
+    ./main
+
+else
+    make clean
+    make $FIRST_COMMAND_ARGUMENT
+    ./main
 fi
 
 

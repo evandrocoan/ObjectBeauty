@@ -18,13 +18,17 @@
             "working_dir": "$project_path/source",
             // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
 
-            "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+            "file_regex": "^(..[^:]*):([\\d+):?(\\d+)?:? (.*)$|^\\(.*\\)\\((\\d+)\\)(.*)$",
 
             "name": "Build Main file",
-            "cmd": ["sh", "make_run.sh"],
+            "cmd": ["sh", "make_run.sh", "main"],
 
             "variants":
             [
+                {
+                    "name": "Visual Studio Compiler",
+                    "cmd": ["sh", "make_run.sh", "visual_studio"],
+                },
                 {
                     "name": "Catch Driver Class",
                     "cmd": ["sh", "make_run.sh", "catch_tests"],
