@@ -75,7 +75,6 @@ const char* const g_debugLevel = "a1 b1";
 #define DEBUG
 
 #include <stdlib.h>
-#include <unistd.h>
 #include <stdio.h>
 #include <cstring>
 #include <iostream>
@@ -174,8 +173,8 @@ inline bool __computeDeggingLevel( const char* debugLevel )
     inputLevelSize   = strlen( debugLevel );
     builtInLevelSize = strlen( g_debugLevel );
 
-    if( 2 > inputLevelSize > COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE
-        || 2 > builtInLevelSize > COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE )
+    if( ( 2 > inputLevelSize && inputLevelSize > COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE )
+        || ( 2 > builtInLevelSize && builtInLevelSize > COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE ) )
     {
         std::cout << "ERROR while processing the DEBUG LEVEL: " << debugLevel << std::endl;
         std::cout << "! The masks sizes are " << inputLevelSize << " and " << builtInLevelSize;
