@@ -21,6 +21,7 @@
 */
 
 
+// #define DOCTEST_CONFIG_COLORS_ANSI
 #include "libraries/doctest/doctest/doctest.h"
 
 

@@ -22,6 +22,8 @@
 
 
 #define CATCH_CONFIG_FAST_COMPILE
+#define CATCH_CONFIG_COLOUR_ANSI
+
 #include "libraries/Catch/single_include/catch.hpp"
 
 

@@ -23,7 +23,9 @@
 
 // This tells Catch to provide a main() - only do this in one cpp file
 #define CATCH_CONFIG_MAIN
+#define CATCH_CONFIG_COLOUR_ANSI
 #define CATCH_CONFIG_FAST_COMPILE
+
 #include "libraries/Catch/single_include/catch.hpp"
 
 

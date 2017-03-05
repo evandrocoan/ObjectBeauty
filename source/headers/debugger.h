@@ -200,6 +200,7 @@ inline bool __computeDeggingLevel( const char* debugLevel )
     do
     {
         strcpy( inputLevelChars[ inputLevels++ ], inputLevelToken );
+
     } while( ( inputLevelToken = strtok( NULL, separator ) ) != NULL );
 
     while( inputLevels-- > 0 )
