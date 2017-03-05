@@ -45,15 +45,16 @@ int main(int argc, char** argv)
     doctest::Context context; // initialize
 
     // defaults
-    context.addFilter("test-case-exclude", "*math*"); // Exclude test cases with "math" in their name
+    // context.addFilter("test-case-exclude", "*math*"); // Exclude test cases with "math" in their name
+    // context.setOption("sort", "name");                // Sort the test cases by their name
     context.setOption("abort-after", 5);              // Stop test execution after 5 failed assertions
-    context.setOption("sort", "name");                // Sort the test cases by their name
     context.setOption("force-colors", true);          // Forces the use of colors even when a tty cannot be detected
 
+    // Process the command line arguments
     context.applyCommandLine(argc, argv);
 
-    // overrides
-    context.setOption("no-breaks", true);             // don't break in the debugger when assertions fail
+    // Calls to context.setOption(2) after context.applyCommandLine(2), will override the command line parameters
+    // context.setOption("no-breaks", true);             // don't break in the debugger when assertions fail
 
     int res = context.run(); // run
 
