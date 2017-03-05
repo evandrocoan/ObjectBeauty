@@ -15,13 +15,13 @@
     "build_systems":
     [
         {
-            "working_dir": "$project_path/source",
+            "file_regex": "^(..[^:]*):([\\d+]):?(\\d+)?:? (.*)$|^\\(.*\\)\\((\\d+)\\)(.*)$",
             // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
-
-            "file_regex": "^(..[^:]*):([\\d+):?(\\d+)?:? (.*)$|^\\(.*\\)\\((\\d+)\\)(.*)$",
 
             "name": "Build Main file",
             "cmd": ["sh", "make_run.sh", "main"],
+
+            "working_dir": "$project_path/source",
 
             "variants":
             [
@@ -36,15 +36,18 @@
                 {
                     "name": "Doctest Driver Class",
                     "cmd": ["sh", "make_run.sh", "doctest_tests"],
+
+                    "target": "ansi_color_build",
+                    "syntax": "Packages/ANSIescape/ANSI.tmLanguage"
                 },
                 {
                     "name": "Do a Make Very Clean",
                     "cmd": ["sh", "make_run.sh", "veryclean"],
-                }
+                },
             ],
 
-            // "target": "ansi_color_build",
-            "syntax": "Packages/ANSIescape/ANSI.tmLanguage"
+            "target": "exec",
+            "syntax": "Packages/Text/Plain text.tmLanguage",
         }
     ]
 }
