@@ -21,12 +21,14 @@
 */
 
 
-// This tells to provide a main() - only do this in one cpp file
-// #define DOCTEST_CONFIG_COLORS_ANSI
+
+/**
+ * This tells to provide a main() - Only do this in one cpp file.
+ */
+#define DOCTEST_CONFIG_COLORS_ANSI
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include "libraries/doctest/doctest/doctest.h"
-
 
 
 
