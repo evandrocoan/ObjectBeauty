@@ -22,11 +22,19 @@ ___
 
 
 ___
-## How to Compile/Run it
+### How to Compile/Run it
 
+Open the folder `source` and run the following command.
 ```
-g++ -std=c++11 main.cpp -o main
+make
 ```
+Currently you need to have the `g++5.4.0` installed on your system.
+A build for Visual studio is also included. However I will add
+the build instructions after its first public version release.
+
+If you are on Windows, you can install `cygwin` and its `g++5.4.0`.
+If you open the file `source/Makfefile`, there are a few more build rules
+you may get interested with.
 
 
 
