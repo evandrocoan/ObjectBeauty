@@ -13,6 +13,7 @@
             "folder_exclude_patterns":
             [
                 "Packages/ObjectBeautifier",
+                "Packages/User/Color Highlighter",
             ],
         },
     ],
