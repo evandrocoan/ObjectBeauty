@@ -43,18 +43,18 @@
  */
 int main( int argumentsCount, char* argumentsStringList[] )
 {
-    PRINT( a1, "Starting the main program...\n" );
-    PRINT( a1, "argumentsCount: %d", argumentsCount );
+    LOG( a2, "Starting the main program...\n" );
+    LOG( a1, "argumentsCount: %d", argumentsCount );
 
     if( argumentsCount > 1 )
     {
         for( int argumentIndex = 0; argumentIndex < argumentsCount; argumentIndex++ )
         {
-            PRINT( a1, "argumentsStringList[%d]: %s", argumentIndex, argumentsStringList[ argumentIndex ] );
+            LOG( a1, "argumentsStringList[%d]: %s", argumentIndex, argumentsStringList[ argumentIndex ] );
         }
     }
 
-    PRINT( a1, "" );
+    LOG( a1, "" );
 
     // Uniform initialization syntax to solve the Most vexing parse.
     SourceCode sourceCode{ "if(hi)" };
@@ -62,7 +62,7 @@ int main( int argumentsCount, char* argumentsStringList[] )
     // http://stackoverflow.com/questions/10595451/why-copy-constructor-is-called-here-instead-of-normal-constructor-and-overloaded
     SourceCode s2 = sourceCode;
 
-    PRINT( a1, "Exiting main(2)" );
+    LOG( a1, "Exiting main(2)" );
     return EXIT_SUCCESS;
 }
 

@@ -61,6 +61,7 @@
      * Level A debugging:
      * a0   - Disabled all debug.
      * a1   - Basic debug messages.
+     * a2   - Function entrances
      *
      * Level B debugging:
      * b0   - Disabled all debug.
