@@ -59,15 +59,13 @@
      * mask 'a', 'b', 'c', etc.
      *
      * Level A debugging:
-     * a0   - Disabled all debug.
      * a1   - Basic debug messages.
      * a2   - Function entrances
      *
      * Level B debugging:
-     * b0   - Disabled all debug.
      * b1   - Basic debug messages.
      */
-    const char* const g_debugLevel = "a1 b1";
+    const char* const g_debugLevel = "a1 a2 b1";
 
 
     #define DEBUG
