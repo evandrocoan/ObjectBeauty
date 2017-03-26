@@ -24,7 +24,7 @@
             // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
 
             "name": "Build Main file",
-            "cmd": ["sh", "make_run.sh", "main"],
+            "cmd": ["sh", "choose_a_compiler.sh", "main"],
 
             "working_dir": "$project_path/source",
 
@@ -32,18 +32,18 @@
             [
                 {
                     "name": "Visual Studio Compiler",
-                    "cmd": ["sh", "make_run.sh", "visual_studio"],
+                    "cmd": ["sh", "choose_a_compiler.sh", "visual_studio"],
                 },
                 {
                     "name": "Doctest Driver Class",
-                    "cmd": ["sh", "make_run.sh", "doctest_tests"],
+                    "cmd": ["sh", "choose_a_compiler.sh", "doctest_tests"],
 
                     "target": "ansi_color_build",
                     "syntax": "Packages/ANSIescape/ANSI.tmLanguage"
                 },
                 {
                     "name": "Do a Make Very Clean",
-                    "cmd": ["sh", "make_run.sh", "veryclean"],
+                    "cmd": ["sh", "choose_a_compiler.sh", "veryclean"],
                 },
             ],
 

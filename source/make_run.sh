@@ -1,7 +1,13 @@
+#!/bin/sh
 
+
+# Import the helper functions.
+. ./timer_calculator.sh
 
 
 FIRST_COMMAND_ARGUMENT=$1
+
+
 
 if [[ $FIRST_COMMAND_ARGUMENT == "main" ]]
 then
@@ -20,4 +26,8 @@ fi
 
 
 wait $!
+
+printf "\n"
+showTheElapsedSeconds "$0"
+
 
