@@ -4,3 +4,6 @@
 [submodule "source/libraries/doctest"]
 	path = source/libraries/doctest
 	url = https://github.com/evandrocoan/doctest
+[submodule "source/libraries/syntect"]
+	path = source/libraries/syntect
+	url = https://github.com/evandrocoan/syntect
