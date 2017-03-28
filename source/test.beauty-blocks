@@ -1,0 +1,13 @@
+%YAML 1.2
+---
+contexts:
+
+  - match: (!|&&|\|\|)
+    scope: keyword.operator.logical.pawn
+
+  - match: (~|&|\||\^|<<|>>)
+    scope: keyword.operator.bitwise.pawn
+
+  - match: (\,|;)
+    scope: keyword.coma.pawn
+

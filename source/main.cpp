@@ -22,11 +22,22 @@
 
 #include "headers/debugger.h"
 #include "classes/SourceCode.cpp"
+#include "yaml-cpp/yaml.h"
 
 #include <iostream>
 #include <sstream>
 #include <cstdlib>
+#include <exception>
 
+#include <fstream>
+#include <string>
+#include <vector>
+
+void term_func()
+{
+   std::cout << "\n\n\nterm_func was called by terminate.\n\n\n\n" << std::endl;
+   exit( EXIT_FAILURE );
+}
 
 /**
  * Start the program execution and read the program argument list passed to it. This program
@@ -46,12 +57,34 @@ int main( int argumentsCount, char* argumentsStringList[] )
     LOG( a2, "Starting the main program...\n" );
     LOG( a1, "argumentsCount: %d", argumentsCount );
 
+    std::set_terminate( term_func );
+
     if( argumentsCount > 1 )
     {
         for( int argumentIndex = 0; argumentIndex < argumentsCount; argumentIndex++ )
         {
             LOG( a1, "argumentsStringList[%d]: %s", argumentIndex, argumentsStringList[ argumentIndex ] );
         }
+    }
+
+    std::cout << "YAML\n" << std::endl;
+
+    // https://learnxinyminutes.com/docs/yaml/
+    YAML::Node SyntaxFile = YAML::LoadFile("test.beauty-blocks");
+    const YAML::Node& blockContexts = SyntaxFile["contexts"];
+
+    try
+    {
+        for( auto it = blockContexts.begin(); it != blockContexts.end(); ++it )
+        {
+            const YAML::Node& sensor = *it;
+            std::cout << "match: " << sensor["match"].as<std::string>() << "\n";
+            std::cout << "scope: " << sensor["scope"].as<std::string>() << "\n\n";
+        }
+    }
+    catch(...)
+    {
+        LOG( a1, "Exception!!!!" );
     }
 
     LOG( a1, "" );
