@@ -7,27 +7,46 @@
 
 FIRST_COMMAND_ARGUMENT=$1
 
+runMainProgram()
+{
+    printf "\n"
+
+    if ./main
+    then
+        printf "Successfully ran \`./main\`.\n"
+    else
+        printf "Could not run \`./main\` properly!\n"
+        exit 1
+    fi
+}
 
 
 if [[ $FIRST_COMMAND_ARGUMENT == "main" ]]
 then
-    make clean
-    make
+    if make
+    then
+        runMainProgram
+    fi
 
 elif [[ $FIRST_COMMAND_ARGUMENT == "veryclean" ]]
 then
     make $FIRST_COMMAND_ARGUMENT
-    make
+
+    if make
+    then
+        runMainProgram
+    fi
 
 else
-    make clean
-    make $FIRST_COMMAND_ARGUMENT
+    if make $FIRST_COMMAND_ARGUMENT
+    then
+        runMainProgram
+    fi
+
 fi
 
 
 wait $!
-
-printf "\n"
 showTheElapsedSeconds "$0"
 
 
