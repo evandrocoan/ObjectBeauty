@@ -37,6 +37,24 @@ then
         runMainProgram
     fi
 
+elif [[ $FIRST_COMMAND_ARGUMENT == "visual_studio" ]]
+then
+    cur_dir=$(pwd)
+
+    mkdir -p libraries/yaml-cpp/bin_msvs
+    cd libraries/yaml-cpp/bin_msvs
+
+    cmake -G "Visual Studio 14 2015" ../
+    vs.bat devenv YAML_CPP.sln /Build Release
+
+    printf "\n"
+    cd $cur_dir
+
+    if make $FIRST_COMMAND_ARGUMENT
+    then
+        runMainProgram
+    fi
+
 else
     if make $FIRST_COMMAND_ARGUMENT
     then
