@@ -4,9 +4,6 @@
 [submodule "source/libraries/doctest"]
 	path = source/libraries/doctest
 	url = https://github.com/evandrocoan/doctest
-[submodule "source/libraries/syntect"]
-	path = source/libraries/syntect
-	url = https://github.com/evandrocoan/syntect
 [submodule "source/libraries/yaml-cpp"]
 	path = source/libraries/yaml-cpp
 	url = https://github.com/evandrocoan/yaml-cpp

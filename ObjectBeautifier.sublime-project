@@ -16,6 +16,9 @@
                 "Packages/User/Color Highlighter",
             ],
         },
+        {
+            "path": "D:/User/Dropbox/Applications/SoftwareVersioning/Forks/syntect",
+        },
     ],
     "build_systems":
     [
