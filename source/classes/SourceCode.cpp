@@ -43,7 +43,7 @@ public:
             text_code( text_code )
     {
         LOG( b1, "SourceCode::SourceCode(1)" );
-        LOG( b1, "( SourceCode ) text_code: %s", text_code );
+        LOG( b1, "( SourceCode ) text_code: %256s", text_code );
     }
 
     SourceCode( const SourceCode& another ) :
