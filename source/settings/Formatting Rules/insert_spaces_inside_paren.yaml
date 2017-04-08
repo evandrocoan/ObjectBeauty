@@ -12,6 +12,9 @@ definitions:
     # it to be parsed for any languages.
     - target_languages: Java, Octave, Matlab, C++, Pawn, C, Javascript
 
+    # How many spaces do you want to the formatter to set the parenthesis on the specific scopes.
+    - how_many: 1
+
     # Inclusion Blocks:
     # This will set which regions are set to allow the insertion process to happens. Each settings
     # file can have from 1 until several inclusion blocks it wants to. For example, I can include
@@ -39,6 +42,9 @@ tests:
     # Test is valid to.
     - language: Java
 
+    # Sets which setting are going to be used for this test scenario.
+    - how_many: 1
+
     # Sets the file name where this test file contents is supposed to be in.
     - file: test.java
 
@@ -55,3 +61,7 @@ tests:
     # Here will be output the test result from the input data just above.
     - result: |
         if( hi )
+
+
+
+
