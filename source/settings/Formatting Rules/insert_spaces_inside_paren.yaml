@@ -27,7 +27,10 @@ definitions:
     # by their declarations order. Each settings file can have from 0 until several exclusion
     # blocks it wants to. Defines a expression which will map the beginning of a exclusion
     # block. Setting this block to empty will not exclude anything. Example, `/\*\*`
-    - allowed_blocks: - c++_like_block_comment - Matlab_like_block_coment
+    - allowed_blocks: |
+        all_blocks
+        - c++_like_block_comment
+        - Matlab_like_block_coment
 
 
 tests:
