@@ -1,6 +1,6 @@
 /*********************** Licensing *******************************************************
 *
-*   Copyright 2016 @ Evandro Coan
+*   Copyright 2017 @ Evandro Coan
 *
 *   Program Main Page: https://github.com/evandrocoan/ObjectBeautifier
 *

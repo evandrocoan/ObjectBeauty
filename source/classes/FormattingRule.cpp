@@ -1,6 +1,6 @@
 /*********************** Licensing *******************************************************
 *
-*   Copyright 2016 @ Evandro Coan
+*   Copyright 2017 @ Evandro Coan
 *
 *   Program Main Page: https://github.com/evandrocoan/ObjectBeautifier
 *
@@ -27,7 +27,7 @@
 #pragma once
 
 /**
- * The formatting is performed abstracted of language
+ * Formatting Performed Abstracted of Language
  *
  * The languages still existing, however the formatting will not be based on languages
  * but in the formatting based in visual formatting concepts.
