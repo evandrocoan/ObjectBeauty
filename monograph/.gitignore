@@ -1,13 +1,15 @@
 
 
-
 *.pdf
 
-*.log
 *.aux
+*.bbl
+*.log
 *.out
 *.toc
 
+*.blg
+*.synctex.gz
 
 
 
