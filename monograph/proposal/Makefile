@@ -48,8 +48,10 @@ MAIN_FILE = main
 
 MyDoc.pdf: $(MAIN_FILE).tex refs.bib
 	latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode" -use-make $(MAIN_FILE).tex
-
-
+	# latex $(MAIN_FILE).tex
+	# bibtex $(MAIN_FILE).tex
+	# latex $(MAIN_FILE).tex
+	# latex $(MAIN_FILE).tex
 
 clean:
 	latexmk -CA
@@ -57,6 +59,7 @@ clean:
 	$(RM) $(MAIN_FILE).bbl
 	$(RM) $(MAIN_FILE).blg
 	$(RM) $(MAIN_FILE).fls
+	$(RM) $(MAIN_FILE).dvi
 	$(RM) $(MAIN_FILE).fdb_latexmk
 	$(RM) $(MAIN_FILE).synctex.gz
 	$(RM) $(MAIN_FILE).log
