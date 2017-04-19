@@ -10,6 +10,7 @@
 
 *.blg
 *.synctex.gz
-
+*.fdb_latexmk
+*.fls
 
 
