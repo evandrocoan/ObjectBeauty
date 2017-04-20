@@ -22,6 +22,7 @@
 \begin{document}
 
 \begin{titlepage}
+
     \center
 
     \Title{Universidade Federal de Santa Catarina - UFSC}
@@ -37,7 +38,9 @@
     \Title{Agentes e Realidade Virtual: Uma abordagem de ensino}\\[3cm]
 
     \begin{flushright}
+
         \begin{minipage}{0.518\textwidth}
+
             Proposta de Trabalho de Conclusão de Curso,
             a ser submetido ao Curso de Ciência da Computação
             para a obtenção do Grau de
@@ -45,7 +48,9 @@
 
             Orientador: Prof. Dr. Ricardo Azambuja Silveira
             Coorientador: Thiago Ângelo Gelaim
+
         \end{minipage}
+
     \end{flushright}
 
     \vspace*{\stretch{3}}
@@ -56,9 +61,30 @@
 
 
 \begin{abstract}
-    Com o avanço da tecnologia em vários setores que presenciamos, cada vez mais está sendo pesquisado sobre como incluir a tecnologia em escolas, para motivar e facilitar o aprendizado dos alunos. Um dos temas pesquisados atualmente é como ensinar um dado conteúdo para uma turma de alunos, de forma que, seja possível encontrar as dificuldades dos mesmos e nivelar a turma sempre que necessário. A realidade virtual existe há mais de vinte anos, mas era conhecida e viável apenas para empresas e instituições de ensino, que tinham computadores com desempenho considerável para a tal tecnologia \cite{vr_historia}. Com o avanço da tecnologia nos últimos anos, a realidade virtual vem sendo usufruída também por usuários finais, sendo possível explora-la para criar aplicações atrativas e facilitar o ensino, principalmente para crianças. Como a realidade virtual é novidade, se torna fácil cativar a atenção de indivíduos, lhe mostrando mais detalhe palpáveis e passando o conhecimento, que em muitos casos se torna difícil por se distraírem facilmente. Então, nesse trabalho será apresentado como unir realidade virtual e agentes com foco no ensino de indivíduos. Os agentes irão guiar o aprendizado do individuo utilizando realidade virtual para atrair o mesmo, mostrando o quão divertido pode ser estudar os mais diversos assuntos. Com a união das tecnologias que estão em alta, será possível mostrar para os indivíduos novos cenários e/ou aplicações durante a explicação de um determinado assunto, assim diminuindo abstrações, que em muitos casos é necessário concretizar ideias para melhor entendimento.
+
+    Com o avanço da tecnologia em vários setores que presenciamos, cada vez mais
+    está sendo pesquisado sobre como incluir a tecnologia em escolas, para motivar e facilitar o
+    aprendizado dos alunos. Um dos temas pesquisados atualmente é como ensinar um dado conteúdo para uma
+    turma de alunos, de forma que, seja possível encontrar as dificuldades dos mesmos e nivelar a turma
+    sempre que necessário. A realidade virtual existe há mais de vinte anos, mas era conhecida e viável
+    apenas para empresas e instituições de ensino, que tinham computadores com desempenho considerável
+    para a tal tecnologia \cite{vr_historia}. Com o avanço da tecnologia nos últimos anos, a realidade
+    virtual vem sendo usufruída também por usuários finais, sendo possível explora-la para criar
+    aplicações atrativas e facilitar o ensino, principalmente para crianças.
+
+    \medskip
+
+    Como a realidade virtual é novidade, se torna fácil cativar a atenção de indivíduos, lhe mostrando
+    mais detalhe palpáveis e passando o conhecimento, que em muitos casos se torna difícil por se
+    distraírem facilmente. Então, nesse trabalho será apresentado como unir realidade virtual e agentes
+    com foco no ensino de indivíduos. Os agentes irão guiar o aprendizado do individuo utilizando
+    realidade virtual para atrair o mesmo, mostrando o quão divertido pode ser estudar os mais diversos
+    assuntos. Com a união das tecnologias que estão em alta, será possível mostrar para os indivíduos
+    novos cenários e/ou aplicações durante a explicação de um determinado assunto, assim diminuindo
+    abstrações, que em muitos casos é necessário concretizar ideias para melhor entendimento.
 
     \textbf{Palavras-chave:} agentes, realidade virtual, educação
+
 \end{abstract}
 
 \newpage
@@ -67,34 +93,105 @@
 
 \section{Introdução}
 
-  \hspace*{5mm}Realidade virtual é uma tecnologia de interface avançada entre um usuário e um software, com o objetivo dessa recriar ao máximo a sensação de realidade para um indivíduo, levando-o a adotar essa interação como uma de suas realidades temporais \cite{livro_IA_BU}. Essa interação é realizada em tempo real, com o uso de técnicas e de equipamentos computacionais que ajudam na ampliação do sentimento de presença do usuário. Em suma, uma realidade ficcional, contudo através de relações intelectuais, a compreendemos como sendo muito próxima do universo real que conhecemos \cite{livro_IA_BU}. Para usufruir da realidade virtual, é necessário ter um dispositivo, onde um indivíduo o veste, e entra em imersão. Um dispositivo muito conhecido, é o óculos Rift que em conjunto com um smartphone que possui giroscópio, já é possível ter uma nova experiência. Existe também o CAVE (\textit{Cave Automatic Virtual Environment}), que é um sala onde são projetados gráficos em 3 dimensões, em suas paredes, e os usuários utilizam óculos 3D para poder visualizar-los, podendo então, explorar e interagir com objetos, desta forma mergulhando em um mundo virtual.\cite{caverna}
+    \hspace*{5mm}
 
-Realidade aumentada é a sobreposição de objetos e ambientes virtuais com o ambiente físico, através de algum dispositivo tecnológico. Com ofato dos objetos virtuais serem trazidos para o espaço físico do usuário (por sobreposição) permitiu interações tangíveis mais fáceis e naturais, sem o uso de equipamentos especiais. Por isso, a realidade aumentada vem sendo considerada uma possibilidade concreta de vir a ser a próxima geração de interface popular, ainda está engatinhando, mas já existe muitas aplicações, na medicina por exemplo, é usada para auxiliar no ensino \cite{aplicacoes_VR}. É possível ser usada nas mais variadas aplicações em espaços internos e externos \cite{realidadevirtual_e_realidadeaumentada}. Uma aplicação comum, são os aplicativos móveis desenvolvidos com a plataforma Vuforia, que é uma das plataformas utilizadas para desenvolvimento de qualquer tipo de aplicação de realidade aumentada, independentemente do dispositivo ou meio pelo qual a ferramenta será executada \cite{realidadevirtual_e_realidadeaumentada}, por exemplo, permite que os aplicativos móveis totalmente desenvolvidos para iOS e Android desfrutem da realidade aumentada.\cite{site_vuforia}
+    Realidade virtual é uma tecnologia de interface avançada entre um usuário e um
+    software, com o objetivo dessa recriar ao máximo a sensação de realidade para um indivíduo,
+    levando-o a adotar essa interação como uma de suas realidades temporais \cite{livro_IA_BU}. Essa
+    interação é realizada em tempo real, com o uso de técnicas e de equipamentos computacionais que
+    ajudam na ampliação do sentimento de presença do usuário. Em suma, uma realidade ficcional, contudo
+    através de relações intelectuais, a compreendemos como sendo muito próxima do universo real que
+    conhecemos \cite{livro_IA_BU}. Para usufruir da realidade virtual, é necessário ter um dispositivo,
+    onde um indivíduo o veste, e entra em imersão. Um dispositivo muito conhecido, é o óculos Rift que
+    em conjunto com um smartphone que possui giroscópio, já é possível ter uma nova experiência. Existe
+    também o CAVE (\textit{Cave Automatic Virtual Environment}), que é um sala onde são projetados
+    gráficos em 3 dimensões, em suas paredes, e os usuários utilizam óculos 3D para poder visualizar-
+    los, podendo então, explorar e interagir com objetos, desta forma mergulhando em um mundo
+    virtual.\cite{caverna}
 
-    A definição de inteligencia artificial segue duas linhas de pensamento entre os autores de livros didáticos. Segundo Haugeland, Bellman entre outros, inteligencia artificial é o 'estudo do processo de pensamento e raciocínio', onde 'sistemas pensam como seres humanos' ou até mesmo 'automatização de atividades que associamos ao pensamento humano'. Seguindo ponto de vista de Kurzweil, inteligencia artificial é 'estudo do comportamento', ou seja, 'sistemas atuam/se comportam como seres humanos' e/ou 'sistemas que atuam racionalmente' \cite{livro_IA_BU}. Inteligencia Artificial, pode ser utilizada em vários cenários, como no trânsito, mostrando qual é o melhor horário para ir até um determinado local, no clima, informando a temperatura de próximas horas, e também, na educação, podendo auxiliar indivíduos em seu aprendizado. Em inteligencia artificial existe os agentes, que podem fazer essas tarefas, tanto o trabalho de percepção, quanto o trabalho de ação, que em muitos casos, é gerar um alerta.
+    \medskip
+    Realidade aumentada é a sobreposição de objetos e ambientes virtuais com o ambiente físico, através
+    de algum dispositivo tecnológico. Com ofato dos objetos virtuais serem trazidos para o espaço físico
+    do usuário (por sobreposição) permitiu interações tangíveis mais fáceis e naturais, sem o uso de
+    equipamentos especiais. Por isso, a realidade aumentada vem sendo considerada uma possibilidade
+    concreta de vir a ser a próxima geração de interface popular, ainda está engatinhando, mas já existe
+    muitas aplicações, na medicina por exemplo, é usada para auxiliar no ensino \cite{aplicacoes_VR}. É
+    possível ser usada nas mais variadas aplicações em espaços internos e externos
+    \cite{realidadevirtual_e_realidadeaumentada}. Uma aplicação comum, são os aplicativos móveis
+    desenvolvidos com a plataforma Vuforia, que é uma das plataformas utilizadas para desenvolvimento de
+    qualquer tipo de aplicação de realidade aumentada, independentemente do dispositivo ou meio pelo
+    qual a ferramenta será executada \cite{realidadevirtual_e_realidadeaumentada}, por exemplo, permite
+    que os aplicativos móveis totalmente desenvolvidos para iOS e Android desfrutem da realidade
+    aumentada.\cite{site_vuforia}
 
-  Um agente em inteligencia artificial, é tudo que que pode ser considerado capaz de perceber seu ambiente por meio de sensores, e de agir sobre esse ambiente por intermédio de atuadores \cite{livro_IA_BU}. Um agente por exemplo, pode ter como sensor, uma câmera, um medidor de luminosidade, um medidor de umidade, entre outros. Já como atuadores, pode ser um ou mais motores, um braço mecânico etc. O funcionamento básico de um agente é, perceber algum comportamento através dos seus sensores, interpretar as percepções, e agir de alguma forma, ligando um lampada e/ou disparando um alarme, por exemplo. A ação executada pelo agente irá depender das percepções obtida e do conhecimento que o agente tem em relação as mesmas, então, quanto mais informações o agente conseguir obter, maior a chance do mesmo agir corretamente.
+    \medskip
+    A definição de inteligencia artificial segue duas linhas de pensamento entre os autores de
+    livros didáticos. Segundo Haugeland, Bellman entre outros, inteligencia artificial é o 'estudo
+    do processo de pensamento e raciocínio', onde `sistemas pensam como seres humanos' ou até mesmo
+    `automatização de atividades que associamos ao pensamento humano'. Seguindo ponto de vista de
+    Kurzweil, inteligencia artificial é `estudo do comportamento', ou seja, 'sistemas atuam/se
+    comportam como seres humanos' e/ou `sistemas que atuam racionalmente' \cite{livro_IA_BU}.
+    Inteligencia Artificial, pode ser utilizada em vários cenários, como no trânsito, mostrando qual
+    é o melhor horário para ir até um determinado local, no clima, informando a temperatura de
+    próximas horas, e também, na educação, podendo auxiliar indivíduos em seu aprendizado. Em
+    inteligencia artificial existe os agentes, que podem fazer essas tarefas, tanto o trabalho de
+    percepção, quanto o trabalho de ação, que em muitos casos, é gerar um alerta.
 
-  Um dos paradigmas de desenvolvimento de sistema multi-agente é conhecido como BDI, esse paradigma possibilita modelar o conhecimento baseado em estados mentais, semelhante ao raciocínio prático. O raciocínio descrito através da lógica formal aplicada na descrição de estados mentais, é a base para ações que selecionam um conjunto de desejos em função da crença dos agentes e como esses desejos concretos produzidos, como resultado do passo anterior, podem ser atingidos empregando meios que o agente dispõe. Os estados mentais no modelo BDI podem ser definidos como: \cite{livro_IA_BU}
+    \medskip
+    Um agente em inteligencia artificial, é tudo que que pode ser considerado capaz de perceber seu
+    ambiente por meio de sensores, e de agir sobre esse ambiente por intermédio de atuadores
+    \cite{livro_IA_BU}. Um agente por exemplo, pode ter como sensor, uma câmera, um medidor de
+    luminosidade, um medidor de umidade, entre outros. Já como atuadores, pode ser um ou mais motores,
+    um braço mecânico etc. O funcionamento básico de um agente é, perceber algum comportamento através
+    dos seus sensores, interpretar as percepções, e agir de alguma forma, ligando um lampada e/ou
+    disparando um alarme, por exemplo. A ação executada pelo agente irá depender das percepções obtida
+    e do conhecimento que o agente tem em relação as mesmas, então, quanto mais informações o agente
+    conseguir obter, maior a chance do mesmo agir corretamente.
+
+    \medskip
+    Um dos paradigmas de desenvolvimento de sistema multi-agente é conhecido como BDI, esse paradigma
+    possibilita modelar o conhecimento baseado em estados mentais, semelhante ao raciocínio prático. O
+    raciocínio descrito através da lógica formal aplicada na descrição de estados mentais, é a base
+    para ações que selecionam um conjunto de desejos em função da crença dos agentes e como esses
+    desejos concretos produzidos, como resultado do passo anterior, podem ser atingidos empregando
+    meios que o agente dispõe. Os estados mentais no modelo BDI podem ser definidos como:
+    \cite{livro_IA_BU}
+
     \begin{itemize}
-        \item Crenças: representam as características do ambiente, segundo o ponto de vista do agente, as quais são atualizadas apropriadamente após a percepção de cada ação;
-        \item Desejos: contêm informação sobre os objetivos a serem atingidos, bem como as prioridades e os custos associados com os vários objetivos;
-        \item Intenções representam o atual plano de ação escolhido para atingir objetivos. Os estados mentais capturam o componente deliberativo dos agentes e determinam o seu comportamento.
+
+        \item Crenças: representam as características do ambiente, segundo o ponto de vista do
+        agente, as quais são atualizadas apropriadamente após a percepção de cada ação;
+
+        \item Desejos: contêm informação sobre os objetivos a serem atingidos, bem como as
+        prioridades e os custos associados com os vários objetivos;
+
+        \item Intenções representam o atual plano de ação escolhido para atingir objetivos. Os
+        estados mentais capturam o componente deliberativo dos agentes e determinam o seu comportamento.
+
     \end{itemize}
 
-    A junção de agentes e realidade virtual, pode-se criar novos produtos de auxilio há indivíduos. Os agentes farão o trabalho de guiar o indivíduo, lhe mostrando exercícios e definições de um determinado assunto conforme seu nível de conhecimento, e a realidade virtual, proporcionando um nova experiência, onde é possível detalhar a explicação do corte de cônicas estudado em geometria analítica, por exemplo.
+    A junção de agentes e realidade virtual, pode-se criar novos produtos de auxilio há indivíduos.
+    Os agentes farão o trabalho de guiar o indivíduo, lhe mostrando exercícios e definições de um
+    determinado assunto conforme seu nível de conhecimento, e a realidade virtual, proporcionando um
+    nova experiência, onde é possível detalhar a explicação do corte de cônicas estudado em
+    geometria analítica, por exemplo.
 
 \newpage
 \section{Objetivos}
 
 \subsection{Objetivo geral}
 
-   \hspace*{5mm}Com um alto índice de dificuldades por parte de crianças, jovens e adultos em aprender um determinado conteúdo em sua jornada escolar, esse trabalho tem como objetivo auxiliar no aprendizado de qualquer indivíduo, mapeando suas dificuldade e o guiando até chegar em seus objetivos. Através de uma aplicação, o indivíduo será guiado conforme seu conhecimento prévio perante há um dado conteúdo e sua progressão ao longo de seu estudo.
+   \hspace*{5mm}Com um alto índice de dificuldades por parte de crianças, jovens e adultos em
+    aprender um determinado conteúdo em sua jornada escolar, esse trabalho tem como objetivo auxiliar no
+    aprendizado de qualquer indivíduo, mapeando suas dificuldade e o guiando até chegar em seus
+    objetivos. Através de uma aplicação, o indivíduo será guiado conforme seu conhecimento prévio
+    perante há um dado conteúdo e sua progressão ao longo de seu estudo.
+
 \subsection{Objetivos específicos}
     \hspace*{5mm}
 
-    É necessário dividir por dificuldade cada objetivo, pois alguns deles, terá uma implementação mais crua, pois o tempo para desenvolvimento do trabalho é limitado.
-
+    É necessário dividir por dificuldade cada objetivo, pois alguns deles, terá uma implementação
+    mais crua, pois o tempo para desenvolvimento do trabalho é limitado.
 
     \begin{itemize}
         \item Alta complexidade, onde definir o conhecimento do aluno, não apenas aplicando uma formula.
@@ -138,30 +235,78 @@ Realidade aumentada é a sobreposição de objetos e ambientes virtuais com o am
         &   &   &   &   &   &   &  &  &   &   &  x  \\ \hline
 
     \end{tabularx}
+
 \newpage
 \section{Método de pesquisa}
 
 \hspace*{5mm}
-        O trabalho em questão tem como objetivo melhorar o ensino de indivíduos usando as tecnologias atuais, para proporcionar aos indivíduos um conhecimento sólido, guiando os mesmos, com o intuito de eliminar e/ou evitar lacunas no aprendizado. Usando realidade virtual, é possível ser implementado muitas aplicações, tanto como aplicações focadas, onde o indivíduo está usando a mesma para aprender um determinado conteúdo, uma aplicação descontraída, onde o indivíduo tem o intuito de apenas se divertir, mas acaba agregando conhecimentos, ou uma aplicação mista, onde o indivíduo está usando a aplicação para aprender, mas a aplicação traz consigo um ambiente de diversão e inovação. Todas os tipos de aplicações, tem suporte há agentes, que irão guiar o indivíduo, testando seu conhecimento para remover possíveis lacunas de entendimento do conteúdo.
 
-        Para melhor entendimento, será usado o estudo de geometria, para demostrar algumas possíveis aplicações, relacionando-as com os tipos de aplicações definidos anteriormente.
+        O trabalho em questão tem como objetivo melhorar o ensino de indivíduos usando as
+        tecnologias atuais, para proporcionar aos indivíduos um conhecimento sólido, guiando os
+        mesmos, com o intuito de eliminar e/ou evitar lacunas no aprendizado. Usando realidade
+        virtual, é possível ser implementado muitas aplicações, tanto como aplicações focadas, onde
+        o indivíduo está usando a mesma para aprender um determinado conteúdo, uma aplicação
+        descontraída, onde o indivíduo tem o intuito de apenas se divertir, mas acaba agregando
+        conhecimentos, ou uma aplicação mista, onde o indivíduo está usando a aplicação para
+        aprender, mas a aplicação traz consigo um ambiente de diversão e inovação. Todas os tipos de
+        aplicações, tem suporte há agentes, que irão guiar o indivíduo, testando seu conhecimento
+        para remover possíveis lacunas de entendimento do conteúdo.
+
+        \medskip
+        Para melhor entendimento, será usado o estudo de geometria, para demostrar algumas possíveis
+        aplicações, relacionando-as com os tipos de aplicações definidos anteriormente.
 
         \begin{itemize}
+
             \item Aplicação focada
-            \subitem O indivíduo é instruído com definições e exemplos. O sistema de ensino é o tradicional, definições e exercícios.
-            \subitem O indivíduo é instruído com definições, exemplos e figuras, tanto figuras abstratas quando da cidade onde o indivíduo mora, por exemplo.
+
+            \subitem O indivíduo é instruído com definições e exemplos.
+            O sistema de ensino é o tradicional, definições e exercícios.
+
+            \subitem O indivíduo é instruído com definições, exemplos e figuras,
+            tanto figuras abstratas quando da cidade onde o indivíduo mora, por exemplo.
+
             \item Aplicação descontraída
-            \subitem O indivíduo se depara com figuras, mini games como quebra-cabeça, histórias etc. Mostra levemente assuntos relacionados há um dado conteúdo.
+            \subitem O indivíduo se depara com figuras, mini games como quebra-cabeça, histórias etc.
+            Mostra levemente assuntos relacionados há um dado conteúdo.
+
             \item Aplicação mista
-            \subitem O indivíduo tem como foco o aprendizado, e o método de ensino é focado em conteúdos práticos e descontraídos. Definições de um dado conteúdo fazem parte das regras de um jogo, por exemplo.
+            \subitem O indivíduo tem como foco o aprendizado, e o método de ensino é focado em
+            conteúdos práticos e descontraídos. Definições de um dado conteúdo fazem parte das regras
+            de um jogo, por exemplo.
+
         \end{itemize}
 
 
-        O estudo da ferramenta Unity 3D será uma das prioridades, pois como o foco do trabalho é leve inovação para o ensino, é preciso ultrapassar os limites da criatividade e escolher as melhores ferramentas do mercado para o desenvolvimento da aplicação. Unity 3D, é um motor de jogo 3D proprietário e uma IDE criado pela Unity Technologies. Unity é similar ao Blender, Virtools ou Torque Game Engine, em relação a sua forma primária de autoria de jogos: a sua interface gráfica. O motor cresceu a partir de uma adição de um suporte para a plataforma Mac OS X e depois se tornou um motor multi-plataforma. O Unity na grande maioria das vezes é usado na criação jogos de browser, em geral, aplicativos para smartphone e em conjunto com outras ferramentas, aplicações de realidade virtual e realidade aumentada. Com o unity, podemos simular um ambiente 3D, explorando ambientes do dia a dia, como por exemplo, mostrar para o indivíduo formas geométricas a partir de uma foto que o mesmo tirou. Com auxilio de outras ferramentas, como o Middle VR, assim é possível transformar o projeto desenvolvido no Unity 3D, em uma aplicação de realidade virtual, onde o indivíduo pode usar o óculos Rift para desfrutar da aplicação.
+        O estudo da ferramenta Unity 3D será uma das prioridades, pois como o foco do trabalho é
+        leve inovação para o ensino, é preciso ultrapassar os limites da criatividade e escolher as
+        melhores ferramentas do mercado para o desenvolvimento da aplicação. Unity 3D, é um motor de
+        jogo 3D proprietário e uma IDE criado pela Unity Technologies. Unity é similar ao Blender,
+        Virtools ou Torque Game Engine, em relação a sua forma primária de autoria de jogos: a sua
+        interface gráfica. O motor cresceu a partir de uma adição de um suporte para a plataforma
+        Mac OS X e depois se tornou um motor multi-plataforma. O Unity na grande maioria das vezes é
+        usado na criação jogos de browser, em geral, aplicativos para smartphone e em conjunto com
+        outras ferramentas, aplicações de realidade virtual e realidade aumentada. Com o unity,
+        podemos simular um ambiente 3D, explorando ambientes do dia a dia, como por exemplo, mostrar
+        para o indivíduo formas geométricas a partir de uma foto que o mesmo tirou. Com auxilio de
+        outras ferramentas, como o Middle VR, assim é possível transformar o projeto desenvolvido no
+        Unity 3D, em uma aplicação de realidade virtual, onde o indivíduo pode usar o óculos Rift
+        para desfrutar da aplicação.
 
-        Middle VR é um plugin para o Unit 3D, assim sendo possível adicionar interação há aplicação que um indivíduo está visualizando no óculos Rift. Middle VR suporta muitas funcionalidades, mas uma delas é a interação 3D, onde o indívíduo pode navegar e/ou manipular objetos que estão imerso na aplicação.
+        \medskip
+        Middle VR é um plugin para o Unit 3D, assim sendo possível adicionar interação há aplicação
+        que um indivíduo está visualizando no óculos Rift. Middle VR suporta muitas funcionalidades,
+        mas uma delas é a interação 3D, onde o indívíduo pode navegar e/ou manipular objetos que
+        estão imerso na aplicação.
 
-        Em relação aos agentes, será necessário estudar técnicas de avaliação de indivíduo, levando em consideração o quão difícil é um dado conteúdo, o tempo utilizado pelo indivíduo para resolver um dado exercício e a conclusão que o indivíduo chegou. Para cada processo citado anteriormente, terá um agente, e para coordenar todos os agentes (agentes escravos), terá um agente mestre, que irá decidir qual ação executar a partir dos dados recebidos pelos agentes escravos. A ação do agente mestre implicará no próximo exercício que o indivíduo terá que resolver. O Agente mestre, irá decidir um novo exercício dentre as seguintes categorias:
+        \medskip
+        Em relação aos agentes, será necessário estudar técnicas de avaliação de indivíduo, levando
+        em consideração o quão difícil é um dado conteúdo, o tempo utilizado pelo indivíduo para
+        resolver um dado exercício e a conclusão que o indivíduo chegou. Para cada processo citado
+        anteriormente, terá um agente, e para coordenar todos os agentes (agentes escravos), terá um
+        agente mestre, que irá decidir qual ação executar a partir dos dados recebidos pelos agentes
+        escravos. A ação do agente mestre implicará no próximo exercício que o indivíduo terá que
+        resolver. O Agente mestre, irá decidir um novo exercício dentre as seguintes categorias:
 
         \begin{itemize}
             \item Do mesmo assunto, mas com a mesma dificuldade.
@@ -170,34 +315,36 @@ Realidade aumentada é a sobreposição de objetos e ambientes virtuais com o am
             \item De assunto diferente, pois o indivíduo já domina o assunto anterior.
         \end{itemize}
 
-        Para modelar a sequência de exercícios, será usado a ideia de "fluxo em redes", que nada mais é do que um grafo. O grafo a ser usado será um grafo dirigido e sem laços que possui exatamente uma raiz e uma anti-raiz.
+        Para modelar a sequência de exercícios, será usado a ideia de "fluxo em redes", que nada
+        mais é do que um grafo. O grafo a ser usado será um grafo dirigido e sem laços que possui
+        exatamente uma raiz e uma anti-raiz.
 
 \newpage
 \section{Custos}
-	\begin{tabular}{l l l l}
-		\hline
-		Item					&	Quantidade	&	Valor Unitário (R\$)	&	Valor Total (R\$) \\
-		\hline
-		Impressão	&	200			&	0,10					&	20,00	\\
+    \begin{tabular}{l l l l}
+        \hline
+        Item                    &   Quantidade  &   Valor Unitário (R\$)    &   Valor Total (R\$) \\
+        \hline
+        Impressão               &   200         &   0,10                    &   20,00             \\
 
-		Programador	&	1			&	1500,00					&	1500,00	\\
-		Notebook	&	1 			&	2500,00					&	2500,00	\\
-		Desktop     &   1           &   3000,00                 &   3000,00 \\
-		Reserva de contingência	&	1 			&	4000,00					&	4000,00	\\
-		\hline
-		Total					&				&							&	11020,00
-	\end{tabular}
+        Programador             &   1           &   1500,00                 &   1500,00           \\
+        Notebook                &   1           &   2500,00                 &   2500,00           \\
+        Desktop                 &   1           &   3000,00                 &   3000,00           \\
+        Reserva de contingência &   1           &   4000,00                 &   4000,00           \\
+        \hline
+        Total                   &               &                           &   11020,00
+    \end{tabular}
 
 \newpage
 \section{Recursos Humanos}
     \begin{tabular}{l l}
         \hline
-        Nome            				& Função \\
+        Nome                            & Função                  \\
         \hline
-        Luiz Filipe Moresco da Silva    	& Autor \\
-        Ricardo Azambuja Silveira   	& Orientador \\
-        Renato Cislaghi 				& Coordenador de Projetos \\
-        Thiago Ângelo Gelaim            & Coorientador \\
+        Luiz Filipe Moresco da Silva    & Autor                   \\
+        Ricardo Azambuja Silveira       & Orientador              \\
+        Renato Cislaghi                 & Coordenador de Projetos \\
+        Thiago Ângelo Gelaim            & Coorientador            \\
         \hline
     \end{tabular}
     \\
@@ -205,32 +352,33 @@ Realidade aumentada é a sobreposição de objetos e ambientes virtuais com o am
 
 \newpage
 \section{Comunicação}
-	\begin{tabular}{l l l l}
-		\hline
-		O quê  & De quem & Para Quem & Como \\
-		\hline
-		Proposta de TCC         & Autor		& Renato Cislaghi   & Site de projetos \\
-		Relatório de TCC I      & Autor		& Renato Cislaghi   & Site de projetos \\
-		Prévia do TCC, em TCC I & Autor		& Banca             & E-mail \\
-		Defesa do TCC           & Autor		& Banca             & Pessoalmente \\
-		Reunião de Orientação   & Orientadores	& Autor		    & Pessoalmente \\
-		\hline
-	\end{tabular}
+    \begin{tabular}{l l l l}
+        \hline
+        O quê  & De quem & Para Quem & Como \\
+        \hline
+        Proposta de TCC         & Autor     & Renato Cislaghi   & Site de projetos \\
+        Relatório de TCC I      & Autor     & Renato Cislaghi   & Site de projetos \\
+        Prévia do TCC, em TCC I & Autor     & Banca             & E-mail \\
+        Defesa do TCC           & Autor     & Banca             & Pessoalmente \\
+        Reunião de Orientação   & Orientadores  & Autor         & Pessoalmente \\
+        \hline
+    \end{tabular}
+
 \newpage
 \section{Riscos}
     \begin{tabular}{|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|}
-    	\hline
-    	Riscos					& Probabilidade	&	Impacto	&	Prioridade	&	Resposta				& Prevenção \\
-    	\hline
-    	\hline
-    	Problemas com notebook		& Baixa			&	Médio	&	Alta		&   Usar desktop  & Manutenção preventiva \\
-    	\hline
-    	Problemas com o desktop   &   Baixa   &   Alto    & Alta    &   Usar o labUFSC  & Manutenção preventiva \\
-    	\hline
-    	Problemas com perda de dados				& Baixa			&	Alto	&	Alta		&	Uso do backup	& Backup periódicos\\
-    	\hline
-    	Problemas de Saúde		& Baixa			&	Alto	&	Alta		&	Tratamento adequado		& Cuidados diários apropriados		 \\
-    	\hline
+        \hline
+        Riscos                       & Probabilidade & Impacto & Prioridade & Resposta           & Prevenção                     \\
+        \hline
+        \hline
+        Problemas com notebook       & Baixa         & Médio   & Alta       & Usar desktop        & Manutenção preventiva        \\
+        \hline
+        Problemas com o desktop      & Baixa         & Alto    & Alta       & Usar o labUFSC      & Manutenção preventiva        \\
+        \hline
+        Problemas com perda de dados & Baixa         & Alto    & Alta       & Uso do backup       & Backup periódicos            \\
+        \hline
+        Problemas de Saúde           & Baixa         & Alto    & Alta       & Tratamento adequado & Cuidados diários apropriados \\
+        \hline
     \end{tabular}
 \newpage
 
