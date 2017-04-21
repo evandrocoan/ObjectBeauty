@@ -52,6 +52,21 @@
 
             "target": "exec",
             "syntax": "Packages/Text/Plain text.tmLanguage",
-        }
+        },
+        {
+            "osx":     { "file_regex": "^(...*?):([0-9]+): ([0-9]*)([^\\.]+)" },
+            "windows": { "file_regex": "^((?:.:)?[^:\n\r]*):([0-9]+):?([0-9]+)?:? (.*)$" },
+            "linux":   { "file_regex": "^(...*?):([0-9]+): ([0-9]*)([^\\.]+)" },
+
+            // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
+
+            "name": "Build Monograph Proposal",
+            "cmd": ["sh", "choose_a_compiler.sh", "$project_path/monograph/proposal", "sh make_run.sh"],
+
+            "working_dir": "$project_path/scripts",
+
+            "target": "exec",
+            "syntax": "Packages/Text/Plain text.tmLanguage",
+        },
     ]
 }

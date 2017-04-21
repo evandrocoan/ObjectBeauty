@@ -45,9 +45,11 @@ MAIN_FILE = main
 
 # -interaction=nonstopmode keeps the pdflatex backend from stopping at a
 # missing file reference and interactively asking you for an alternative.
+#
+# http://docs.miktex.org/manual/texfeatures.html#auxdirectory
 
 MyDoc.pdf: $(MAIN_FILE).tex refs.bib
-	latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode" -use-make $(MAIN_FILE).tex
+	latexmk -pdf -output-directory="cache" -aux-directory="cache" -pdflatex="pdflatex -interaction=nonstopmode" -use-make $(MAIN_FILE).tex
 	# latex $(MAIN_FILE).tex
 	# bibtex $(MAIN_FILE).tex
 	# latex $(MAIN_FILE).tex
@@ -55,6 +57,7 @@ MyDoc.pdf: $(MAIN_FILE).tex refs.bib
 
 clean:
 	latexmk -CA
+	$(RM) -r cache
 	$(RM) $(MAIN_FILE).aux
 	$(RM) $(MAIN_FILE).bbl
 	$(RM) $(MAIN_FILE).blg
