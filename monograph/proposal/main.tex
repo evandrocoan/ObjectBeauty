@@ -1,23 +1,171 @@
-% proposal.tex
+
+%
+% Licensing
+%
+%   Copyright 2017 @ Evandro Coan
+%
+%  This program is free software; you can redistribute it and/or modify it
+%  under the terms of the GNU General Public License as published by the
+%  Free Software Foundation; either version 3 of the License, or ( at
+%  your option ) any later version.
+%
+%  This program is distributed in the hope that it will be useful, but
+%  WITHOUT ANY WARRANTY; without even the implied warranty of
+%  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+%  General Public License for more details.
+%
+%  You should have received a copy of the GNU General Public License
+%  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%
+
+%
+% Simple Sectioned Essay Template - LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% `proposal.tex`
 % Based on http://www.latextemplates.com/template/simple-sectioned-essay
+%
+
+%----------------------------------------------------------------------------------------
+%   PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+% Sets this document font size to 12pt and set is type to article
 \documentclass[12pt]{article}
 
-\usepackage[utf8]{inputenc}
+% https://tex.stackexchange.com/questions/664/why-should-i-use-usepackaget1fontenc
 \usepackage[T1]{fontenc}
-\usepackage[a4paper, margin=2cm]{geometry}
+
+% Sets this document language usage to Portuguese
 \usepackage[brazil]{babel}
 
+% Required to change the page size to A4
+% \usepackage{geometry}
+%
+% Sets this document output papel to A4 within 2 centimeters margin
+% \geometry{a4paper}
+%
+% Set the page size to be A4 as opposed to the default US Letter
+\usepackage[a4paper, margin=2cm]{geometry}
 
-\usepackage{graphicx} % resizebox
-\usepackage{multirow}
-\usepackage{tabularx}
-\usepackage{hyperref}
-\usepackage{cite}
+% Sets the character set of this document to UTF-8
+\usepackage[utf8]{inputenc}
 
+% To use the font Times New Roman, instead of the default LaTeX font
 \usepackage{mathptmx}
-\linespread{1.2} % Line spacing
 
+% For web links with \url{https://www.python.org/downloads/}
+\usepackage{hyperref}
+
+% For the new command \latex
+\usepackage{xspace}
+
+% https://tex.stackexchange.com/questions/10377/texttt-overfull-hbox-problem
+% https://tex.stackexchange.com/questions/66052/should-i-load-microtype-with-pdflatex
+\usepackage{microtype}
+
+% Indent the first section paragraphs, https://tex.stackexchange.com/q/39227/119062
+\usepackage{indentfirst}
+
+% \lettrine{O}{nce} upon a time...
+% \lettrine[findent=2pt]{\fbox{\textbf{T}}}{ }his thesis deals with...
+%
+% https://tex.stackexchange.com/questions/164298/starting-a-paragraph-with-a-big-letter
+\usepackage{lettrine}
+
+% Required for including pictures, resizebox
+\usepackage{graphicx}
+
+% Allows putting an [H] in \begin{figure} to specify the exact location of the figure
+\usepackage{float}
+
+% Allows in-line images such as the example fish picture
+\usepackage{wrapfig}
+
+% Specifies the directory where pictures are stored
+\graphicspath{{Pictures/}}
+
+% How to automatically force latex to not justify the text when it is not wise?
+% https://tex.stackexchange.com/questions/365801/how-to-automatically-force-latex-to-not-justify-the-text-when-it-is-not-wise
+\usepackage{array,ragged2e}
+
+\usepackage{tabularx}
+\usepackage{multirow}
+
+
+%
+% New Macros
+%
+
+% Automatically put a `\medskip` spacing between paragraphs
+% https://tex.stackexchange.com/q/365976/119062
+\edef\restoreparindent{\parindent=\the\parindent\relax}
+\usepackage{parskip}
+\restoreparindent
+
+% Uncomment to remove all indentation from paragraphs
+%\setlength\parindent{0pt}
+
+% How could the `\everypar` justification statement be used?
+% https://tex.stackexchange.com/questions/365818/how-could-the-everypar-justification-statement-be-used
+\newbox\linebox \newbox\snapbox
+\def\eatlines{
+  \setbox\linebox\lastbox % check the last line
+  \ifvoid\linebox
+  \else % if it’s not empty
+    \unskip\unpenalty % take whatever is
+    {\eatlines} % above it;
+    \setbox\snapbox\hbox{\unhcopy\linebox}
+    \ifdim\wd\snapbox<.98\wd\linebox
+       \box\snapbox % take the one or the other,
+    \else \box\linebox \fi
+  \fi}
+
+% How could the `\everypar` justification statement be used?
+% https://tex.stackexchange.com/questions/365818/how-could-the-everypar-justification-statement-be-used
+\everypar={\setbox0=\lastbox \par
+   \vbox\bgroup \everypar={}\def\par{\endgraf\eatlines\egroup}}
+
+% Creates a new environment which can be used as:
+%
+% \begin{foo}
+%   Text...
+%
+%   Text ...
+% \end{foo}
+%
+% https://tex.stackexchange.com/questions/62333/push-long-words-in-a-new-line
+\newenvironment{foo}
+{\par
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+}
+{\par}
+
+
+%
+% New commands
+%
+
+% Line spacing
+\linespread{1.5}
+
+% Allow to push long words on new lines when they do not fit entirely on the current line.
+% https://tex.stackexchange.com/questions/62333/push-long-words-in-a-new-line
+\newcommand\lword[1]{\leavevmode\nobreak\hskip0pt plus\linewidth\penalty50\hskip0pt plus-\linewidth\nobreak{#1}}
+
+% Write the word LaTeX nicely.
+\newcommand{\latex}{\LaTeX\xspace}
+
+% Create a bold title all in upper case.
 \newcommand{\Title}[1]{\textbf{\MakeUppercase{#1}}}
+
+
+%----------------------------------------------------------------------------------------
+%   DOCUMENT CONTENTS
+%----------------------------------------------------------------------------------------
 
 \begin{document}
 
@@ -31,11 +179,14 @@
 
     \vspace*{\stretch{1}}
 
-    Luiz Filipe Moresco da Silva
+    Evandro Coan
 
     \vspace*{\stretch{2}}
 
-    \Title{Agentes e Realidade Virtual: Uma abordagem de ensino}\\[3cm]
+    \Title{Universal Source Code Beautifier}
+
+    \bigskip
+    Um Estudo Sobre Formatação de códigos\\[3cm]
 
     \begin{flushright}
 
@@ -43,12 +194,13 @@
 
             Proposta de Trabalho de Conclusão de Curso,
             a ser submetido ao Curso de Ciência da Computação
-            para a obtenção do Grau de
-            Bacharel em Ciência da Computação.
+            para a obtenção do Grau de Bacharel em Ciência da Computação.
 
             \medskip
-            Orientador: Prof. Dr. Ricardo Azambuja Silveira
-            Coorientador: Thiago Ângelo Gelaim
+            Orientador: Professor ...
+
+            \medskip
+            Coorientador: ...
 
         \end{minipage}
 
@@ -63,28 +215,35 @@
 
 \begin{abstract}
 
-    Com o avanço da tecnologia em vários setores que presenciamos, cada vez mais
-    está sendo pesquisado sobre como incluir a tecnologia em escolas, para motivar e facilitar o
-    aprendizado dos alunos. Um dos temas pesquisados atualmente é como ensinar um dado conteúdo para uma
-    turma de alunos, de forma que, seja possível encontrar as dificuldades dos mesmos e nivelar a turma
-    sempre que necessário. A realidade virtual existe há mais de vinte anos, mas era conhecida e viável
-    apenas para empresas e instituições de ensino, que tinham computadores com desempenho considerável
-    para a tal tecnologia \cite{vr_historia}. Com o avanço da tecnologia nos últimos anos, a realidade
-    virtual vem sendo usufruída também por usuários finais, sendo possível explora-la para criar
-    aplicações atrativas e facilitar o ensino, principalmente para crianças.
+    Os softwares formatadores de código fonte atuais, também conhecidos como Beautifiers, são
+    limitados a um conjunto similar, ou mesmo à uma única linguagem, e além de muitos, serem
+    limitados ao que eles podem fazer por você ao processar/formatar o código \cite{Terence}.
+    Portanto este trabalho tem como objetivo criar um formatador (software único) de fácil
+    configuração e expansão capaz de abranger todas as linguagens de programação que existem,
+    baseado em um uso específico de expressões regulares.
 
     \medskip
+    A metodologia abordada será de não ter a necessidade de ter-se conhecimento da sintaxe das
+    linguagens de programação que se irão fazer o parsing. Isso porque trataremos elas como texto
+    comum, e será o usuário final que fará a configuração das transformações que serão aplicados no
+    texto, dando liberdade de facilmente se configurar várias linguagens de programação (senão
+    todas), aproveitando o fato de que muitas deles compartilham estruturas semelhantes senão
+    idênticas.
 
-    Como a realidade virtual é novidade, se torna fácil cativar a atenção de indivíduos, lhe mostrando
-    mais detalhe palpáveis e passando o conhecimento, que em muitos casos se torna difícil por se
-    distraírem facilmente. Então, nesse trabalho será apresentado como unir realidade virtual e agentes
-    com foco no ensino de indivíduos. Os agentes irão guiar o aprendizado do individuo utilizando
-    realidade virtual para atrair o mesmo, mostrando o quão divertido pode ser estudar os mais diversos
-    assuntos. Com a união das tecnologias que estão em alta, será possível mostrar para os indivíduos
-    novos cenários e/ou aplicações durante a explicação de um determinado assunto, assim diminuindo
-    abstrações, que em muitos casos é necessário concretizar ideias para melhor entendimento.
+    \medskip
+    Como resultado espera-se ter um Beautifier Universal capaz de abranger todas as linguagens que
+    existem, senão que seja facilmente extensível para abrange-las. Os pontos positivos dessa
+    abordagem são a reusabilidade de componentes entre as linguagens. Por exemplo, `if/for/while`'s
+    em C++ e Java são da mesma estrutura. Assim temos que escrever somente uma vez a especificação
+    para um componente da linguagem.
 
-    \textbf{Palavras-chave:} agentes, realidade virtual, educação
+    \bigskip
+    \bigskip
+    \textbf{Palavras-chave:}
+    source, code, formatter, beautifier, prettyprint, universal, reuse, blocks, object, oriented,
+    programming, structured, parsing, parse, regular, expression, regex, C, C++,  grammar, Turing,
+    machine, automata, lexer, syntax, sublime, Java, Rust, shell, script, obfuscators, learning,
+    syntec, teamicide, concensus, indent, settings.
 
 \end{abstract}
 
@@ -96,86 +255,7 @@
 
     \hspace*{5mm}
 
-    Realidade virtual é uma tecnologia de interface avançada entre um usuário e um
-    software, com o objetivo dessa recriar ao máximo a sensação de realidade para um indivíduo,
-    levando-o a adotar essa interação como uma de suas realidades temporais \cite{livro_IA_BU}. Essa
-    interação é realizada em tempo real, com o uso de técnicas e de equipamentos computacionais que
-    ajudam na ampliação do sentimento de presença do usuário. Em suma, uma realidade ficcional, contudo
-    através de relações intelectuais, a compreendemos como sendo muito próxima do universo real que
-    conhecemos \cite{livro_IA_BU}. Para usufruir da realidade virtual, é necessário ter um dispositivo,
-    onde um indivíduo o veste, e entra em imersão. Um dispositivo muito conhecido, é o óculos Rift que
-    em conjunto com um smartphone que possui giroscópio, já é possível ter uma nova experiência. Existe
-    também o CAVE (\textit{Cave Automatic Virtual Environment}), que é um sala onde são projetados
-    gráficos em 3 dimensões, em suas paredes, e os usuários utilizam óculos 3D para poder visualizar-
-    los, podendo então, explorar e interagir com objetos, desta forma mergulhando em um mundo
-    virtual.\cite{caverna}
-
-    \medskip
-    Realidade aumentada é a sobreposição de objetos e ambientes virtuais com o ambiente físico, através
-    de algum dispositivo tecnológico. Com ofato dos objetos virtuais serem trazidos para o espaço físico
-    do usuário (por sobreposição) permitiu interações tangíveis mais fáceis e naturais, sem o uso de
-    equipamentos especiais. Por isso, a realidade aumentada vem sendo considerada uma possibilidade
-    concreta de vir a ser a próxima geração de interface popular, ainda está engatinhando, mas já existe
-    muitas aplicações, na medicina por exemplo, é usada para auxiliar no ensino \cite{aplicacoes_VR}. É
-    possível ser usada nas mais variadas aplicações em espaços internos e externos
-    \cite{realidadevirtual_e_realidadeaumentada}. Uma aplicação comum, são os aplicativos móveis
-    desenvolvidos com a plataforma Vuforia, que é uma das plataformas utilizadas para desenvolvimento de
-    qualquer tipo de aplicação de realidade aumentada, independentemente do dispositivo ou meio pelo
-    qual a ferramenta será executada \cite{realidadevirtual_e_realidadeaumentada}, por exemplo, permite
-    que os aplicativos móveis totalmente desenvolvidos para iOS e Android desfrutem da realidade
-    aumentada.\cite{site_vuforia}
-
-    \medskip
-    A definição de inteligencia artificial segue duas linhas de pensamento entre os autores de
-    livros didáticos. Segundo Haugeland, Bellman entre outros, inteligencia artificial é o 'estudo
-    do processo de pensamento e raciocínio', onde `sistemas pensam como seres humanos' ou até mesmo
-    `automatização de atividades que associamos ao pensamento humano'. Seguindo ponto de vista de
-    Kurzweil, inteligencia artificial é `estudo do comportamento', ou seja, 'sistemas atuam/se
-    comportam como seres humanos' e/ou `sistemas que atuam racionalmente' \cite{livro_IA_BU}.
-    Inteligencia Artificial, pode ser utilizada em vários cenários, como no trânsito, mostrando qual
-    é o melhor horário para ir até um determinado local, no clima, informando a temperatura de
-    próximas horas, e também, na educação, podendo auxiliar indivíduos em seu aprendizado. Em
-    inteligencia artificial existe os agentes, que podem fazer essas tarefas, tanto o trabalho de
-    percepção, quanto o trabalho de ação, que em muitos casos, é gerar um alerta.
-
-    \medskip
-    Um agente em inteligencia artificial, é tudo que que pode ser considerado capaz de perceber seu
-    ambiente por meio de sensores, e de agir sobre esse ambiente por intermédio de atuadores
-    \cite{livro_IA_BU}. Um agente por exemplo, pode ter como sensor, uma câmera, um medidor de
-    luminosidade, um medidor de umidade, entre outros. Já como atuadores, pode ser um ou mais motores,
-    um braço mecânico etc. O funcionamento básico de um agente é, perceber algum comportamento através
-    dos seus sensores, interpretar as percepções, e agir de alguma forma, ligando um lampada e/ou
-    disparando um alarme, por exemplo. A ação executada pelo agente irá depender das percepções obtida
-    e do conhecimento que o agente tem em relação as mesmas, então, quanto mais informações o agente
-    conseguir obter, maior a chance do mesmo agir corretamente.
-
-    \medskip
-    Um dos paradigmas de desenvolvimento de sistema multi-agente é conhecido como BDI, esse paradigma
-    possibilita modelar o conhecimento baseado em estados mentais, semelhante ao raciocínio prático. O
-    raciocínio descrito através da lógica formal aplicada na descrição de estados mentais, é a base
-    para ações que selecionam um conjunto de desejos em função da crença dos agentes e como esses
-    desejos concretos produzidos, como resultado do passo anterior, podem ser atingidos empregando
-    meios que o agente dispõe. Os estados mentais no modelo BDI podem ser definidos como:
-    \cite{livro_IA_BU}
-
-    \begin{itemize}
-
-        \item Crenças: representam as características do ambiente, segundo o ponto de vista do
-        agente, as quais são atualizadas apropriadamente após a percepção de cada ação;
-
-        \item Desejos: contêm informação sobre os objetivos a serem atingidos, bem como as
-        prioridades e os custos associados com os vários objetivos;
-
-        \item Intenções representam o atual plano de ação escolhido para atingir objetivos. Os
-        estados mentais capturam o componente deliberativo dos agentes e determinam o seu comportamento.
-
-    \end{itemize}
-
-    A junção de agentes e realidade virtual, pode-se criar novos produtos de auxilio há indivíduos.
-    Os agentes farão o trabalho de guiar o indivíduo, lhe mostrando exercícios e definições de um
-    determinado assunto conforme seu nível de conhecimento, e a realidade virtual, proporcionando um
-    nova experiência, onde é possível detalhar a explicação do corte de cônicas estudado em
-    geometria analítica, por exemplo.
+    Realidade ...
 
 \newpage
 \section{Objetivos}
@@ -209,31 +289,32 @@
    \begin{tabularx}{\linewidth}{|X|*{11}{c|}}
         \hline
         \multicolumn{1}{|c|}{\multirow{2}{*}{Etapas}} & \multicolumn{11}{|c|}{Meses}\\ \cline{2-12}
-        & fev & mar & abr & mai & jun & jul & ago & set & out & nov & dez   \\ \hline
+
+        & fev & mar & abr & mai & jun & jul & ago & set & out & nov & dez  \\ \hline
 
         Estudo da fundamentação teórica necessária
-        &  x  &  x  &  x   &     &      &      &      &      &      &     &      \\ \hline
+        &  x  &  x  &  x  &     &     &     &     &     &     &     &     \\ \hline
 
         Estudo da implementação de agentes na educação
-        &     &  x  &  x  &     &      &      &      &      &      &     &     \\ \hline
+        &     &  x  &  x  &     &     &     &     &     &     &     &     \\ \hline
 
         Estudo da ferramento Unity
-        &     &    &  x  &  x  &  x  &  x  &  x   &     &     &     &   \\ \hline
+        &     &     &  x  &  x  &  x  &  x  &  x  &     &     &     &     \\ \hline
 
         Escrita de um esboço do TCC
-        &     &     &     &     &  x & x  &  x  &   x   &    &    &     \\ \hline
+        &     &     &     &     &  x  &  x  &  x  &  x  &     &     &     \\ \hline
 
        Estudo da ferramenta Middler VR
-        &     &    &     &     &     &  x   &  x   &   &    &     &      \\ \hline
+        &     &     &     &     &     &  x  &  x  &     &     &     &     \\ \hline
 
         Finalização da escrita do TCC
-        &     &    &     &     &     &     &     &    &   x  &     &     \\ \hline
+        &     &     &     &     &     &     &     &     &  x  &     &     \\ \hline
 
         Ajustes finais no texto do TCC
-         &     &    &     &     &     &     &     &    &    x  &  x  &   \\ \hline
+        &     &     &     &     &     &     &     &     &  x  &  x  &     \\ \hline
 
         Defesa do TCC
-        &   &   &   &   &   &   &  &  &   &   &  x  \\ \hline
+        &     &     &     &     &     &     &     &     &     &     &  x  \\ \hline
 
     \end{tabularx}
 
@@ -242,83 +323,8 @@
 
 \hspace*{5mm}
 
-        O trabalho em questão tem como objetivo melhorar o ensino de indivíduos usando as
-        tecnologias atuais, para proporcionar aos indivíduos um conhecimento sólido, guiando os
-        mesmos, com o intuito de eliminar e/ou evitar lacunas no aprendizado. Usando realidade
-        virtual, é possível ser implementado muitas aplicações, tanto como aplicações focadas, onde
-        o indivíduo está usando a mesma para aprender um determinado conteúdo, uma aplicação
-        descontraída, onde o indivíduo tem o intuito de apenas se divertir, mas acaba agregando
-        conhecimentos, ou uma aplicação mista, onde o indivíduo está usando a aplicação para
-        aprender, mas a aplicação traz consigo um ambiente de diversão e inovação. Todas os tipos de
-        aplicações, tem suporte há agentes, que irão guiar o indivíduo, testando seu conhecimento
-        para remover possíveis lacunas de entendimento do conteúdo.
+        O trabalho...
 
-        \medskip
-        Para melhor entendimento, será usado o estudo de geometria, para demostrar algumas possíveis
-        aplicações, relacionando-as com os tipos de aplicações definidos anteriormente.
-
-        \begin{itemize}
-
-            \item Aplicação focada
-
-            \subitem O indivíduo é instruído com definições e exemplos.
-            O sistema de ensino é o tradicional, definições e exercícios.
-
-            \subitem O indivíduo é instruído com definições, exemplos e figuras,
-            tanto figuras abstratas quando da cidade onde o indivíduo mora, por exemplo.
-
-            \item Aplicação descontraída
-            \subitem O indivíduo se depara com figuras, mini games como quebra-cabeça, histórias etc.
-            Mostra levemente assuntos relacionados há um dado conteúdo.
-
-            \item Aplicação mista
-            \subitem O indivíduo tem como foco o aprendizado, e o método de ensino é focado em
-            conteúdos práticos e descontraídos. Definições de um dado conteúdo fazem parte das regras
-            de um jogo, por exemplo.
-
-        \end{itemize}
-
-
-        O estudo da ferramenta Unity 3D será uma das prioridades, pois como o foco do trabalho é
-        leve inovação para o ensino, é preciso ultrapassar os limites da criatividade e escolher as
-        melhores ferramentas do mercado para o desenvolvimento da aplicação. Unity 3D, é um motor de
-        jogo 3D proprietário e uma IDE criado pela Unity Technologies. Unity é similar ao Blender,
-        Virtools ou Torque Game Engine, em relação a sua forma primária de autoria de jogos: a sua
-        interface gráfica. O motor cresceu a partir de uma adição de um suporte para a plataforma
-        Mac OS X e depois se tornou um motor multi-plataforma. O Unity na grande maioria das vezes é
-        usado na criação jogos de browser, em geral, aplicativos para smartphone e em conjunto com
-        outras ferramentas, aplicações de realidade virtual e realidade aumentada. Com o unity,
-        podemos simular um ambiente 3D, explorando ambientes do dia a dia, como por exemplo, mostrar
-        para o indivíduo formas geométricas a partir de uma foto que o mesmo tirou. Com auxilio de
-        outras ferramentas, como o Middle VR, assim é possível transformar o projeto desenvolvido no
-        Unity 3D, em uma aplicação de realidade virtual, onde o indivíduo pode usar o óculos Rift
-        para desfrutar da aplicação.
-
-        \medskip
-        Middle VR é um plugin para o Unit 3D, assim sendo possível adicionar interação há aplicação
-        que um indivíduo está visualizando no óculos Rift. Middle VR suporta muitas funcionalidades,
-        mas uma delas é a interação 3D, onde o indívíduo pode navegar e/ou manipular objetos que
-        estão imerso na aplicação.
-
-        \medskip
-        Em relação aos agentes, será necessário estudar técnicas de avaliação de indivíduo, levando
-        em consideração o quão difícil é um dado conteúdo, o tempo utilizado pelo indivíduo para
-        resolver um dado exercício e a conclusão que o indivíduo chegou. Para cada processo citado
-        anteriormente, terá um agente, e para coordenar todos os agentes (agentes escravos), terá um
-        agente mestre, que irá decidir qual ação executar a partir dos dados recebidos pelos agentes
-        escravos. A ação do agente mestre implicará no próximo exercício que o indivíduo terá que
-        resolver. O Agente mestre, irá decidir um novo exercício dentre as seguintes categorias:
-
-        \begin{itemize}
-            \item Do mesmo assunto, mas com a mesma dificuldade.
-            \item Do mesmo assunto, mas com dificuldade superior ao anterior.
-            \item Do mesmo assunto, mas com dificuldade inferior ao anterior.
-            \item De assunto diferente, pois o indivíduo já domina o assunto anterior.
-        \end{itemize}
-
-        Para modelar a sequência de exercícios, será usado a ideia de ``fluxo em redes'', que nada
-        mais é do que um grafo. O grafo a ser usado será um grafo dirigido e sem laços que possui
-        exatamente uma raiz e uma anti-raiz.
 
 \newpage
 \section{Custos}
@@ -349,7 +355,6 @@
         \hline
     \end{tabular}
     \\
-    \\
 
 \newpage
 \section{Comunicação}
@@ -367,20 +372,49 @@
 
 \newpage
 \section{Riscos}
-    \begin{tabular}{|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|}
-        \hline
-        Riscos                       & Probabilidade & Impacto & Prioridade & Resposta           & Prevenção                     \\
-        \hline
-        \hline
-        Problemas com notebook       & Baixa         & Médio   & Alta       & Usar desktop        & Manutenção preventiva        \\
-        \hline
-        Problemas com o desktop      & Baixa         & Alto    & Alta       & Usar o labUFSC      & Manutenção preventiva        \\
-        \hline
-        Problemas com perda de dados & Baixa         & Alto    & Alta       & Uso do backup       & Backup periódicos            \\
-        \hline
-        Problemas de Saúde           & Baixa         & Alto    & Alta       & Tratamento adequado & Cuidados diários apropriados \\
-        \hline
-    \end{tabular}
+
+    \noindent\makebox[\textwidth]{%
+    \resizebox{1.1\linewidth}{!}{%
+    % \setlength\tabcolsep{1.0pt}
+    \begin{tabular}{|
+                     *1{>{\RaggedRight\arraybackslash}p{4.0cm}|} % Riscos
+                     *3{>{\RaggedRight\arraybackslash}p{0.9cm}|} % Probabilidade, Impacto, Prioridade
+                     *2{>{\RaggedRight\arraybackslash}p{4.0cm}|} % Resposta, Prevenção
+                    }
+    \hline Riscos  & Pro\-ba\-bi\-li\-da\-de & Im\-pac\-to & Prio\-ri\-da\-de & Es\-tra\-té\-gia de res\-pos\-ta & Ações de pre\-ven\-ção \\ \hline
+
+    % Row 1
+    % Riscos
+    \hline Problemas com perda de dados &
+    % Probabilidade
+    Baixa &
+    % Impacto
+    Alto &
+    % Prioridade
+    Alta &
+    % Estratégia de resposta
+    Uso do backup &
+    % Ações de prevenção
+    Backup periódicos \\ \hline
+
+    % Row 2
+    % Riscos
+    \hline Alteração do cronograma ou descontinuidade do projeto onde recebo uma bolsa &
+    % Probabilidade
+    Média &
+    % Impacto
+    Alto &
+    % Prioridade
+    Alta &
+    % Estratégia de resposta
+    Redefinição da data de entrega do trabalho &
+    % Ações de prevenção
+    Monitoramento contínuo das informações obtidas com superiores imediatos \\ \hline
+
+    \hline \end{tabular}
+    }%
+    }%
+
 \newpage
 
 \bibliographystyle{abbrv}
