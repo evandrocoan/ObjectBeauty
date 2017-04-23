@@ -94,6 +94,10 @@
 % https://tex.stackexchange.com/questions/365801/how-to-automatically-force-latex-to-not-justify-the-text-when-it-is-not-wise
 \usepackage{array,ragged2e}
 
+% Use its macro adjustwidth* to extend tables out of outer text border.
+% https://tex.stackexchange.com/questions/366155/how-to-write-a-table-a-little-larger-than-the-paragraphs-with-centered-columns
+\usepackage[strict]{changepage}
+
 \usepackage{tabularx}
 \usepackage{multirow}
 
@@ -376,14 +380,18 @@
 \newpage
 \section{Riscos}
 
-    \noindent\makebox[\textwidth]{%
-    \resizebox{1.1\linewidth}{!}{%
-    % \setlength\tabcolsep{1.0pt}
-    \begin{tabular}{|
-                     *1{>{\RaggedRight\arraybackslash}p{4.0cm}|} % Riscos
-                     *3{>{\RaggedRight\arraybackslash}p{0.9cm}|} % Probabilidade, Impacto, Prioridade
-                     *2{>{\RaggedRight\arraybackslash}p{4.0cm}|} % Resposta, Prevenção
-                    }
+    % https://tex.stackexchange.com/questions/366156/how-to-change-the-left-padding-for-one-latex-tables-cell
+    % https://tex.stackexchange.com/questions/366155/how-to-write-a-table-a-little-larger-than-the-paragraphs-with-centered-columns
+    %
+    \begin{adjustwidth}{-0.5\marginparwidth}{-0.5\marginparwidth}
+    \small
+    \begin{tabularx}{\linewidth}
+    {|
+        *1{                 >{\RaggedRight\arraybackslash\hsize=1.1\hsize }X       |} % Riscos
+        *3{@{\hspace{3.0pt}}>{\Centering\arraybackslash                   }p{0.9cm}|} % Probabilidade, Impacto, Prioridade
+        *2{                 >{\RaggedRight\arraybackslash\hsize=0.95\hsize}X       |} % Resposta, Prevenção
+    }
+
     \hline Riscos  & Pro\-ba\-bi\-li\-da\-de & Im\-pac\-to & Prio\-ri\-da\-de & Es\-tra\-té\-gia de res\-pos\-ta & Ações de pre\-ven\-ção \\ \hline
 
     % Row 1
@@ -414,9 +422,8 @@
     % Ações de prevenção
     Monitoramento contínuo das informações obtidas com superiores imediatos \\ \hline
 
-    \hline \end{tabular}
-    }%
-    }%
+    \hline \end{tabularx}
+    \end{adjustwidth}
 
 \newpage
 

@@ -10,6 +10,7 @@
 *.dvi
 
 *.blg
+*.gz(busy)
 *.synctex.gz
 *.fdb_latexmk
 *.fls
