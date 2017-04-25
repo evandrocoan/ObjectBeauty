@@ -98,6 +98,10 @@
 % https://tex.stackexchange.com/questions/366155/how-to-write-a-table-a-little-larger-than-the-paragraphs-with-centered-columns
 \usepackage[strict]{changepage}
 
+% No spacing between enumerated items with \usepackage{enumerate}
+% https://tex.stackexchange.com/questions/119919/no-spacing-between-enumerated-items-with-usepackageenumerate
+\usepackage[shortlabels]{enumitem}
+
 \usepackage{tabularx}
 \usepackage{multirow}
 
@@ -105,6 +109,20 @@
 %
 % New Macros
 %
+
+% Change background color for text block
+% https://tex.stackexchange.com/questions/238294/change-background-color-for-text-block
+\usepackage{framed}
+\usepackage[most]{tcolorbox}
+\definecolor{shadecolor}{RGB}{219, 229, 241}
+\newtcolorbox{myquote}{
+colback=shadecolor,
+grow to right by=-2mm,
+grow to left by=-2mm,
+boxrule=0pt,
+boxsep=0pt,
+breakable
+}
 
 % Automatically put a `\medskip` spacing between paragraphs
 % https://tex.stackexchange.com/q/365976/119062
@@ -128,7 +146,8 @@
     \ifdim\wd\snapbox<.98\wd\linebox
        \box\snapbox % take the one or the other,
     \else \box\linebox \fi
-  \fi}
+  \fi
+}
 
 % How could the `\everypar` justification statement be used?
 % https://tex.stackexchange.com/questions/365818/how-could-the-everypar-justification-statement-be-used
@@ -240,7 +259,7 @@
     \medskip
     Como resultado espera-se ter um Beautifier Universal capaz de abranger todas as linguagens que
     existem, senão que seja facilmente extensível para abrange-las. Os pontos positivos dessa
-    abordagem são a reusabilidade de componentes entre as linguagens. Por exemplo, `if/for/while`'s
+    abordagem são a reusabilidade de componentes entre as linguagens. Por exemplo, `if/for/while's
     em C++ e Java são da mesma estrutura. Assim temos que escrever somente uma vez a especificação
     para um componente da linguagem.
 
@@ -262,33 +281,195 @@
 
     \hspace*{5mm}
 
-    Realidade ...
+    A ideia de um software, que em certa extensão pode continuar um ramo do Trabalho de Conclusão de
+    Curso do aluno `Lucas Boppre Niehues', orientado do Professor `Olinto José Varela Furtado'
+    defendido em 2013/1, com o título: `Estudo e Criação de um Editor de Código Estruturado'. Donde
+    durante a leitura de seu TCC, encontra-se o seguinte trecho que faz ligação com uma das
+    propostas deste trabalho, no capítulo: `8.1.2 Separação de formato de exibição e de saída':
+
+    \medskip
+    \begin{myquote}
+    ``As formas que o código é exibido ao usuário e que ele é salvo em disco são controladas
+    por arquivos de configuração distintos. O arquivo ``theme.ini'' contém, entre outras
+    configurações, informações de como serializar a árvore sintática.''
+    \end{myquote}
+
+    \vspace{-5mm}
+    ...
+    \begin{myquote}
+    ``A configuração de formato de saída é dada da mesma forma, mas em um arquivo
+    separado, chamado ``output\_format.ini''. A decisão desta separação foi em vista de equipes
+    de programadores que queiram utilizar uma convenção única para os arquivos salvos,
+    mas manter a exibição a escolha de cada um. Assim os integrantes desta equipe podem
+    compartilhar os seus arquivos ``output\_format.ini'' enquanto personalizam o arquivo
+    ``theme.ini'' a seu gosto.''
+    \end{myquote}
+
+    Com base nisso, pode-se pensar na escrita de plugins para editores de texto/IDEs comuns como
+    Sublime Text. Assim ao carregar o arquivo do disco, este plugin chama o formatter e faz a
+    formatação de acordo com as configurações de exibição para o usuário. Após isso, quando o
+    usuário for salvar o arquivo, o arquivo com a formatação original é devolvido.
+
+    Para auxilar nesse processo, um módulo de autoconfiguração é de grande ajuda. Ele detecta como o
+    source code está formatado e cria arquivos de configuração para ele. Assim ao salvar o arquivo,
+    automaticamente ele é salvo no formato que ele foi lido. Então temos o mesmo beneficio de
+    editores estruturados, como proposto trabalho de `Lucas Boppre Niehues'. De inicio podemos
+    pensar com os seguinte objetivo/ideia para um TCC:
+
+    \medskip
+    \begin{myquote}
+    \begin{enumerate}[nolistsep]
+        \item Criar um formatador de fácil configuração e expansão para todas as linguagens de
+              programação existem e que irão existir.
+    \end{enumerate}
+    \end{myquote}
+
+
+\subsection{Problema}
+
+    O problema proposto a se resolver é criar um Beautifier Universal. Os softwares atuais são
+    limitados a um conjunto similar, ou mesmo à uma única linguagem, e além de muitos, serem
+    limitados ao que eles podem fazer por você ao processar/formatar o código \cite{Terence}.
+
+    Logo abaixo há algumas regras de formatação básica encontrados no serviço online
+    \url{http://prettyprinter.de/} acessado em março/2017:
+
+    \medskip
+    \begin{myquote}
+    \begin{enumerate}[nolistsep]
+        \item Add new lines after ``\{'' and before ``\}''
+        \item Add new lines before ``\{''
+        \item Remove empty lines
+        \item Add comment lines before function
+        \item Add new lines after ``;''
+        \item Add new lines after ``\}''
+        \item Remove new lines
+        \item Reduce whitespace
+        \item Put the code again in the input box above after submit
+    \end{enumerate}
+    \end{myquote}
+
+    A partir deste ponto, apresenta-se um esboço sobre o problema, soluções, informações como
+    porquês de se querer fazer um software assim, ou ainda de querer-se o beautifying:
+
+    \begin{enumerate}
+
+        \item
+
+        Motivação: Existem muitas ferramentas distintas, por vezes pagas, e dificilmente completas
+        \cite{Terence}.
+
+        \item
+
+        Muitas linguagens de programação existem, assim sempre ter fazer um software Beautifier para
+        cada uma delas é muito trabalhoso \cite{Terence}. Mas a abordagem para um Beautifier
+        Universal proposta nesse trabalho, permite que facilmente novas linguagens sejam
+        adicionadas, sendo elas completamente diferentes das anteriores, ou similares. No caso de
+        similaridades, basta reutilizar as estruturas de configuração das linguagens já existentes.
+
+        \item
+
+        Preocupa-se de fazer um Beautifier para cada uma delas por que programadores atualmente
+        trabalham diariamente com varias dessas linguagens, e elas não são similares. Assim precisa-
+        se configurar vários beautifiers para fazer a formatação. Isso é um problema por que,
+        somente alguns beautifiers são mais completos, e toda vez que precisa-se fazer uma alteração
+        no estilo de formatação, precisa-se propagar manualmente a mesma mudança ao longo de vários
+        arquivos de configuração de programas distintos, o que é ruim pois toma ao usuário muito
+        tempo de aprender a lidar com várias e muito diferentes tipos de configurações
+        \cite{Schweitzer}.
+
+        \item
+
+        No caso do Beautifier que propõem-se, uma mudança no estilo é propagada para todas as
+        linguagens. E caso queira-se deixar alguma linguagem fora da regra, basta remover ela da
+        lista ao qual esse bloco da configuração se aplica, e `a)' deixar ela de fora assim nenhuma
+        mudança é aplicada a ela. Ou `b)' criar um novo bloco que inclua somente ela com a
+        configuração desejada.
+
+        \item
+
+        A seguir, temos algumas frases sobre o assunto:
+
+        \begin{myquote}
+        % \setlength{\itemindent}{5pt}
+        ``One of absolute worst, worst methods of teamicide for software developers is to engage
+        in these kinds of passive-aggressive formatting wars. I know because I've been there.
+        They destroy peer relationships, and depending on the type of formatting, can also damage
+        your ability to effectively compare revisions in source control, which is really scary.
+        I can't even imagine how bad it would get if the lead was guilty of this behavior. That's
+        leading by example, all right. Bad example.'', \cite{Atwood}.
+        \end{myquote}
+        \vspace{-5mm}
+        ...
+        \begin{myquote}
+        ``So yes, absurd as it may sound, fighting over whitespace characters and other seemingly
+        trivial issues of code layout is actually justified. Within reason of course -- when done
+        openly, in a fair and concensus building way, and without stabbing your teammates in the
+        face along the way.'', \cite{Atwood}.
+        \end{myquote}
+
+        \begin{myquote}``
+        I'd say there are two main reasons to enforce a single code format in a project. First has to
+        do with version control: with everybody formatting the code identically, all changes in the
+        files are guaranteed to be meaningful. No more just adding or removing a space here or there,
+        let alone reformatting an entire file as a `side effect' of actually changing just a line or
+        two.'', \cite{Geukens}.
+        \end{myquote}
+
+    \end{enumerate}
+
 
 \newpage
 \section{Objetivos}
 
-\subsection{Objetivo geral}
+    O objeto neste trabalho de TCC proposto aqui não é inicialmente suportar todas as regras de
+    formatação de todas as linguagens de programação, mas a criação de uma estrutura básica inicial
+    e robusta que sejam capaz de ser desenvolvida a ponto de ser facilmente expandida, tanto na
+    adição de novos módulos de processamento no programa escrito, tanto pelo usuário final na
+    escrita dos arquivos de programação.
 
-   \hspace*{5mm}Com um alto índice de dificuldades por parte de crianças, jovens e adultos em
-    aprender um determinado conteúdo em sua jornada escolar, esse trabalho tem como objetivo auxiliar no
-    aprendizado de qualquer indivíduo, mapeando suas dificuldade e o guiando até chegar em seus
-    objetivos. Através de uma aplicação, o indivíduo será guiado conforme seu conhecimento prévio
-    perante há um dado conteúdo e sua progressão ao longo de seu estudo.
 
-\subsection{Objetivos específicos}
-    \hspace*{5mm}
+\subsection{Objetivos Gerais}
 
-    É necessário dividir por dificuldade cada objetivo, pois alguns deles, terá uma implementação
-    mais crua, pois o tempo para desenvolvimento do trabalho é limitado.
+    \begin{enumerate}
 
-    \begin{itemize}
-        \item Alta complexidade, onde definir o conhecimento do aluno, não apenas aplicando uma formula.
-        \subitem Determinar um dado exercício como fácil, médio ou difícil
-        \subitem Determinar o nível de entendimento de um individuo em relação ao um conteúdo
-        \item Média complexidade, pois é o desenvolvimento de uma aplicação usando agentes e realidade virtual
-        \subitem Implementar software com suporte a realidade virtual
-        \subitem Implementar agentes que para guiar o individuo em um dado conteúdo
-    \end{itemize}
+        \item
+
+        Escrever o programa em C++ ou afins, para permitir também que a formação/beautifying seja
+        (em trabalhos futuros/talvez nesse) dinâmico, isto é, na medida que você digita o texto, ele
+        é formatado para você. Assim você pode focar mais em escrever o código, ao invés que se
+        preocupar com o espaçamento, alinhamento, parenteses, linhas novas, e o que mais que seja.
+
+        \item
+
+        Utilizar o Framework `doctest` para escrita dos Testes de Unidade. Pois após procurar e
+        testar alguns frameworks para testes de unidade em C++, entrou-se este como servindo muito
+        bem as requisitos do projecto. Ele causa baixíssimo incremento no tempo de compilação e
+        permite que os testes possam ser escritos no mesmo arquivo onde encontram-se o código do
+        programa, sem que eles sejam compilados.
+
+        \item
+
+        Utilizar uma versão/algoritmo multi-core, assim cada uma das regras pode ser processada em
+        paralelo e sobre o mesmo source code original. Essa parte é bastante complexa de ser escrita
+        por que as regras entre si podem gerar conflitos sobre o que elas estão fazendo. Assim para
+        resolver esse problema, fazer com que cada regra processada gere um objeto de mudanças que
+        essa regra está propondo. Assim no final do processamento de todas as regras, será realizado
+        um fusão das mudanças que cada uma decidiu realizer, e caso duas regras queriam mudar o
+        mesmo pedaço/trecho de código, será lançada um exceção e uma nova classe de mudanças/regra
+        deve estar disponível para resolver esse conflito. Caso não exista, ambas as mudanças são
+        descartadas e somente as mudanças sem conflitos são refletidas no código.
+
+    \end{enumerate}
+
+
+\newpage
+\section{Método de pesquisa}
+
+\hspace*{5mm}
+
+        O trabalho...
+
 
 \newpage
 \section{Cronograma}
@@ -324,13 +505,6 @@
         &     &     &     &     &     &     &     &     &     &     &  x  \\ \hline
 
     \end{tabularx}
-
-\newpage
-\section{Método de pesquisa}
-
-\hspace*{5mm}
-
-        O trabalho...
 
 
 \newpage
