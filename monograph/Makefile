@@ -48,8 +48,15 @@ MAIN_FILE = main
 #
 # http://docs.miktex.org/manual/texfeatures.html#auxdirectory
 
-MyDoc.pdf: $(MAIN_FILE).tex refs.bib
-	latexmk -pdf -output-directory="cache" -aux-directory="cache" -pdflatex="pdflatex -interaction=nonstopmode" -use-make $(MAIN_FILE).tex
+# How do I write the 'cd' command in a makefile?
+# http://stackoverflow.com/questions/1789594/how-do-i-write-the-cd-command-in-a-makefile
+.ONESHELL:
+
+MyDoc.pdf: proposal/$(MAIN_FILE).tex
+	cd ./proposal;
+	pwd;
+	latexmk -pdf -output-directory=".cache" -aux-directory=".cache" -pdflatex="pdflatex -interaction=nonstopmode" -use-make $(MAIN_FILE).tex
+	cd ..
 	# latex $(MAIN_FILE).tex
 	# bibtex $(MAIN_FILE).tex
 	# latex $(MAIN_FILE).tex

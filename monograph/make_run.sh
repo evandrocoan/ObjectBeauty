@@ -8,7 +8,8 @@
 # make clean
 make
 
-cp cache/main.pdf .
+pwd
+cp proposal/.cache/main.pdf ./proposal.pdf
 
 
 wait $!
