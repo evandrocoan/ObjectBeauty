@@ -111,6 +111,35 @@
 % New Macros
 %
 
+% Writing code in latex document. Usage: \begin & \end {lstlisting}
+% http://stackoverflow.com/questions/3175105/writing-code-in-latex-document
+\usepackage{listings}
+
+% Incompatible color definition when using tikz with color package
+% https://tex.stackexchange.com/questions/150369/incompatible-color-definition-when-using-tikz-with-color-package
+\usepackage{xcolor}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
 % Change background color for text block
 % https://tex.stackexchange.com/questions/238294/change-background-color-for-text-block
 \usepackage{framed}
