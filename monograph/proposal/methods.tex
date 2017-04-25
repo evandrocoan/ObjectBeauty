@@ -13,43 +13,26 @@
     processo independente de linguagem, mas de dialetos como este exemplo tirado do PDF em anexo a este e-mail
     `Initial check list tasks to do.pdf':
 
-    \begin{lstlisting}[style=yaml_style]
-    ---
-    key: value
-    map:
-        key1: "foo:bar"
-        key2: value2
-    list:
-      - element1
-      - element2
-    # This is a ção vaca comment
-    listOfMaps:
-      - key1: value1a
-        key2: value1b
-      - key1: value2a
-        key2: value2b
-    ---
-
-    \end{lstlisting}
+    \begin{lstlisting}
     // This is the name used to reference this scope around the settings files.
     Scope Name:
     %c++_like_block_comment
 
-    // This set on which languages this block should be included. Setting it to empty will allow
-    // it to be parsed for any languages.
+    // This set on which languages this block should be included. Setting it
+    // to empty will allow it to be parsed for any languages.
     Language Inclusion:
     Java, C++, Pawn
 
-    // Defines a expression which will map the beginning of a exclusion block. Example, `/\*\*`
+    // Defines a expression which will map the beginning of a exclusion block.
     Scope Start:
-    /**
+    /\*\*
 
-    // Defines a expression which will map the ending of a exclusion block. Example, `\*/`
+    // Defines a expression which will map the ending of a exclusion block.
     Scope End:
-    \*
-
-
+    \\\*
+    \end{lstlisting}
     \vspace*{-4mm}
+
     A abordagem acima é uma abordagem ingênua, portanto somente brevemente ilustrativa. O real motor
     para o software é baseado em expressões regulares e um pilha de contextos. Esta ideia foi
     inicialmente desenvolvida pelo editor de texto `Sublime Text' \cite{Skinner}. Este editor
