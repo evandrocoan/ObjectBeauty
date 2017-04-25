@@ -1,0 +1,50 @@
+
+
+
+\section{Objetivos}
+
+    O objeto neste trabalho de TCC proposto aqui não é inicialmente suportar todas as regras de
+    formatação de todas as linguagens de programação, mas a criação de uma estrutura básica inicial
+    e robusta que sejam capaz de ser desenvolvida a ponto de ser facilmente expandida, tanto na
+    adição de novos módulos de processamento no programa escrito, tanto pelo usuário final na
+    escrita dos arquivos de programação.
+
+
+
+\subsection{Objetivos Gerais}
+
+    \begin{enumerate}
+
+        \item
+
+        Escrever o programa em C++ ou afins, para permitir também que a formação/beautifying seja
+        (em trabalhos futuros/talvez nesse) dinâmico, isto é, na medida que você digita o texto, ele
+        é formatado para você. Assim você pode focar mais em escrever o código, ao invés que se
+        preocupar com o espaçamento, alinhamento, parenteses, linhas novas, e o que mais que seja.
+
+        \item
+
+        Utilizar o Framework `doctest` para escrita dos Testes de Unidade. Pois após procurar e
+        testar alguns frameworks para testes de unidade em C++, entrou-se este como servindo muito
+        bem as requisitos do projecto. Ele causa baixíssimo incremento no tempo de compilação e
+        permite que os testes possam ser escritos no mesmo arquivo onde encontram-se o código do
+        programa, sem que eles sejam compilados.
+
+        \item
+
+        Utilizar uma versão/algoritmo multi-core, assim cada uma das regras pode ser processada em
+        paralelo e sobre o mesmo source code original. Essa parte é bastante complexa de ser escrita
+        por que as regras entre si podem gerar conflitos sobre o que elas estão fazendo. Assim para
+        resolver esse problema, fazer com que cada regra processada gere um objeto de mudanças que
+        essa regra está propondo. Assim no final do processamento de todas as regras, será realizado
+        um fusão das mudanças que cada uma decidiu realizer, e caso duas regras queriam mudar o
+        mesmo pedaço/trecho de código, será lançada um exceção e uma nova classe de mudanças/regra
+        deve estar disponível para resolver esse conflito. Caso não exista, ambas as mudanças são
+        descartadas e somente as mudanças sem conflitos são refletidas no código.
+
+    \end{enumerate}
+
+
+
+
+

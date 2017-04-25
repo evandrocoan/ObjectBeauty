@@ -1,0 +1,150 @@
+
+
+
+
+\section{Introdução}
+
+    \hspace*{5mm}
+
+    A ideia de um software, que em certa extensão pode continuar um ramo do Trabalho de Conclusão de
+    Curso do aluno `Lucas Boppre Niehues', orientado do Professor `Olinto José Varela Furtado'
+    defendido em 2013/1, com o título: `Estudo e Criação de um Editor de Código Estruturado'. Donde
+    durante a leitura de seu TCC, encontra-se o seguinte trecho que faz ligação com uma das
+    propostas deste trabalho, no capítulo: `8.1.2 Separação de formato de exibição e de saída':
+
+    \medskip
+    \begin{myquote}
+    ``As formas que o código é exibido ao usuário e que ele é salvo em disco são controladas
+    por arquivos de configuração distintos. O arquivo ``theme.ini'' contém, entre outras
+    configurações, informações de como serializar a árvore sintática.''
+    \end{myquote}
+
+    \vspace{-5mm}
+    ...
+    \begin{myquote}
+    ``A configuração de formato de saída é dada da mesma forma, mas em um arquivo
+    separado, chamado ``output\_format.ini''. A decisão desta separação foi em vista de equipes
+    de programadores que queiram utilizar uma convenção única para os arquivos salvos,
+    mas manter a exibição a escolha de cada um. Assim os integrantes desta equipe podem
+    compartilhar os seus arquivos ``output\_format.ini'' enquanto personalizam o arquivo
+    ``theme.ini'' a seu gosto.''
+    \end{myquote}
+
+    Com base nisso, pode-se pensar na escrita de plugins para editores de texto/IDEs comuns como
+    Sublime Text. Assim ao carregar o arquivo do disco, este plugin chama o formatter e faz a
+    formatação de acordo com as configurações de exibição para o usuário. Após isso, quando o
+    usuário for salvar o arquivo, o arquivo com a formatação original é devolvido.
+
+    Para auxilar nesse processo, um módulo de autoconfiguração é de grande ajuda. Ele detecta como o
+    source code está formatado e cria arquivos de configuração para ele. Assim ao salvar o arquivo,
+    automaticamente ele é salvo no formato que ele foi lido. Então temos o mesmo beneficio de
+    editores estruturados, como proposto trabalho de `Lucas Boppre Niehues'. De inicio podemos
+    pensar com os seguinte objetivo/ideia para um TCC:
+
+    \medskip
+    \begin{myquote}
+    \begin{enumerate}[nolistsep]
+        \item Criar um formatador de fácil configuração e expansão para todas as linguagens de
+              programação existem e que irão existir.
+    \end{enumerate}
+    \end{myquote}
+
+
+
+\subsection{Problema}
+
+    O problema proposto a se resolver é criar um Beautifier Universal. Os softwares atuais são
+    limitados a um conjunto similar, ou mesmo à uma única linguagem, e além de muitos, serem
+    limitados ao que eles podem fazer por você ao processar/formatar o código \cite{Terence}.
+
+    Logo abaixo há algumas regras de formatação básica encontrados no serviço online
+    \url{http://prettyprinter.de/} acessado em março/2017:
+
+    \medskip
+    \begin{myquote}
+    \begin{enumerate}[nolistsep]
+        \item Add new lines after ``\{'' and before ``\}''
+        \item Add new lines before ``\{''
+        \item Remove empty lines
+        \item Add comment lines before function
+        \item Add new lines after ``;''
+        \item Add new lines after ``\}''
+        \item Remove new lines
+        \item Reduce whitespace
+        \item Put the code again in the input box above after submit
+    \end{enumerate}
+    \end{myquote}
+
+    A partir deste ponto, apresenta-se um esboço sobre o problema, soluções, informações como
+    porquês de se querer fazer um software assim, ou ainda de querer-se o beautifying:
+
+    \begin{enumerate}
+
+        \item
+
+        Motivação: Existem muitas ferramentas distintas, por vezes pagas, e dificilmente completas
+        \cite{Terence}.
+
+        \item
+
+        Muitas linguagens de programação existem, assim sempre ter fazer um software Beautifier para
+        cada uma delas é muito trabalhoso \cite{Terence}. Mas a abordagem para um Beautifier
+        Universal proposta nesse trabalho, permite que facilmente novas linguagens sejam
+        adicionadas, sendo elas completamente diferentes das anteriores, ou similares. No caso de
+        similaridades, basta reutilizar as estruturas de configuração das linguagens já existentes.
+
+        \item
+
+        Preocupa-se de fazer um Beautifier para cada uma delas por que programadores atualmente
+        trabalham diariamente com varias dessas linguagens, e elas não são similares. Assim precisa-
+        se configurar vários beautifiers para fazer a formatação. Isso é um problema por que,
+        somente alguns beautifiers são mais completos, e toda vez que precisa-se fazer uma alteração
+        no estilo de formatação, precisa-se propagar manualmente a mesma mudança ao longo de vários
+        arquivos de configuração de programas distintos, o que é ruim pois toma ao usuário muito
+        tempo de aprender a lidar com várias e muito diferentes tipos de configurações
+        \cite{Schweitzer}.
+
+        \item
+
+        No caso do Beautifier que propõem-se, uma mudança no estilo é propagada para todas as
+        linguagens. E caso queira-se deixar alguma linguagem fora da regra, basta remover ela da
+        lista ao qual esse bloco da configuração se aplica, e `a)' deixar ela de fora assim nenhuma
+        mudança é aplicada a ela. Ou `b)' criar um novo bloco que inclua somente ela com a
+        configuração desejada.
+
+        \item
+
+        A seguir, temos algumas frases sobre o assunto:
+
+        \begin{myquote}
+        % \setlength{\itemindent}{5pt}
+        ``One of absolute worst, worst methods of teamicide for software developers is to engage
+        in these kinds of passive-aggressive formatting wars. I know because I've been there.
+        They destroy peer relationships, and depending on the type of formatting, can also damage
+        your ability to effectively compare revisions in source control, which is really scary.
+        I can't even imagine how bad it would get if the lead was guilty of this behavior. That's
+        leading by example, all right. Bad example.'', \cite{Atwood}.
+        \end{myquote}
+        \vspace{-5mm}
+        ...
+        \begin{myquote}
+        ``So yes, absurd as it may sound, fighting over whitespace characters and other seemingly
+        trivial issues of code layout is actually justified. Within reason of course -- when done
+        openly, in a fair and concensus building way, and without stabbing your teammates in the
+        face along the way.'', \cite{Atwood}.
+        \end{myquote}
+
+        \begin{myquote}``
+        I'd say there are two main reasons to enforce a single code format in a project. First has to
+        do with version control: with everybody formatting the code identically, all changes in the
+        files are guaranteed to be meaningful. No more just adding or removing a space here or there,
+        let alone reformatting an entire file as a `side effect' of actually changing just a line or
+        two.'', \cite{Geukens}.
+        \end{myquote}
+
+    \end{enumerate}
+
+
+
+
+
