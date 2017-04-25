@@ -69,7 +69,8 @@
 % https://tex.stackexchange.com/questions/66052/should-i-load-microtype-with-pdflatex
 \usepackage{microtype}
 
-% Indent the first section paragraphs, https://tex.stackexchange.com/q/39227/119062
+% Indent the first section paragraphs
+% https://tex.stackexchange.com/q/39227/119062
 \usepackage{indentfirst}
 
 % \lettrine{O}{nce} upon a time...
@@ -169,6 +170,10 @@ breakable
 \exhyphenpenalty=10000
 }
 {\par}
+
+% Underfull \hbox in bibliography
+% https://tex.stackexchange.com/questions/10924/underfull-hbox-in-bibliography
+\apptocmd{\thebibliography}{\raggedright}{}{}
 
 
 %
