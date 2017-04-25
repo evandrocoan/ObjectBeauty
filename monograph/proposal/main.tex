@@ -1,4 +1,3 @@
-
 %
 % Licensing
 %
@@ -28,6 +27,7 @@
 % Based on http://www.latextemplates.com/template/simple-sectioned-essay
 %
 
+
 %----------------------------------------------------------------------------------------
 %   PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
@@ -53,17 +53,22 @@
 % Sets the character set of this document to UTF-8
 \usepackage[utf8]{inputenc}
 
-% For web links and paths with \path{..} and \url{https://www.python.org/downloads/}
-\usepackage{hyperref}
+
+
+%----------------------------------------------------------------------------------------
+%   File settings
+%----------------------------------------------------------------------------------------
+
+% Utilities files
+\input{../latex_utilities/basic}
+\input{../latex_utilities/commands}
+\input{../latex_utilities/programming}
 
 % To use the font Times New Roman, instead of the default LaTeX font
 % \usepackage{mathptmx}
 %
 % more up-to-date than 'mathptmx'
 \usepackage{newtxtext,newtxmath}
-
-% For the new command \latex
-\usepackage{xspace}
 
 % https://tex.stackexchange.com/questions/10377/texttt-overfull-hbox-problem
 % https://tex.stackexchange.com/questions/66052/should-i-load-microtype-with-pdflatex
@@ -73,113 +78,16 @@
 % https://tex.stackexchange.com/q/39227/119062
 \usepackage{indentfirst}
 
-% \lettrine{O}{nce} upon a time...
-% \lettrine[findent=2pt]{\fbox{\textbf{T}}}{ }his thesis deals with...
-%
-% https://tex.stackexchange.com/questions/164298/starting-a-paragraph-with-a-big-letter
-\usepackage{lettrine}
-
-% Required for including pictures, resizebox
-\usepackage{graphicx}
-
-% Allows putting an [H] in \begin{figure} to specify the exact location of the figure
-\usepackage{float}
-
-% Allows in-line images such as the example fish picture
-\usepackage{wrapfig}
+% Line spacing
+\linespread{1.5}
 
 % Specifies the directory where pictures are stored
-\graphicspath{{Pictures/}}
-
-% How to automatically force latex to not justify the text when it is not wise?
-% https://tex.stackexchange.com/questions/365801/how-to-automatically-force-latex-to-not-justify-the-text-when-it-is-not-wise
-\usepackage{array,ragged2e}
-
-% Use its macro adjustwidth* to extend tables out of outer text border.
-% https://tex.stackexchange.com/questions/366155/how-to-write-a-table-a-little-larger-than-the-paragraphs-with-centered-columns
-\usepackage[strict]{changepage}
-
-% No spacing between enumerated items with \usepackage{enumerate}
-% https://tex.stackexchange.com/questions/119919/no-spacing-between-enumerated-items-with-usepackageenumerate
-\usepackage[shortlabels]{enumitem}
-
-\usepackage{tabularx}
-\usepackage{multirow}
-
-
-%
-% New Macros
-%
-
-\input{../latex_utilities/programming}
-
-% Automatically put a `\medskip` spacing between paragraphs
-% https://tex.stackexchange.com/q/365976/119062
-\edef\restoreparindent{\parindent=\the\parindent\relax}
-\usepackage{parskip}
-\restoreparindent
-
-% Uncomment to remove all indentation from paragraphs
-%\setlength\parindent{0pt}
-
-% How could the `\everypar` justification statement be used?
-% https://tex.stackexchange.com/questions/365818/how-could-the-everypar-justification-statement-be-used
-\newbox\linebox \newbox\snapbox
-\def\eatlines{
-  \setbox\linebox\lastbox % check the last line
-  \ifvoid\linebox
-  \else % if it’s not empty
-    \unskip\unpenalty % take whatever is
-    {\eatlines} % above it;
-    \setbox\snapbox\hbox{\unhcopy\linebox}
-    \ifdim\wd\snapbox<.98\wd\linebox
-       \box\snapbox % take the one or the other,
-    \else \box\linebox \fi
-  \fi
-}
-
-% How could the `\everypar` justification statement be used?
-% https://tex.stackexchange.com/questions/365818/how-could-the-everypar-justification-statement-be-used
-\everypar={\setbox0=\lastbox \par
-   \vbox\bgroup \everypar={}\def\par{\endgraf\eatlines\egroup}}
-
-% Creates a new environment which can be used as:
-%
-% \begin{foo}
-%   Text...
-%
-%   Text ...
-% \end{foo}
-%
-% https://tex.stackexchange.com/questions/62333/push-long-words-in-a-new-line
-\newenvironment{foo}
-{\par
-\hyphenpenalty=10000
-\exhyphenpenalty=10000
-}
-{\par}
+\graphicspath{{pictures/}}
 
 % Underfull \hbox in bibliography
 % https://tex.stackexchange.com/questions/10924/underfull-hbox-in-bibliography
 \apptocmd{\thebibliography}{\raggedright}{}{}
 
-
-%
-% New commands
-%
-
-% Line spacing
-\linespread{1.5}
-
-% Allow to push long words on new lines when they do not fit entirely on the current line.
-% https://tex.stackexchange.com/questions/62333/push-long-words-in-a-new-line
-\newcommand\lword[1]{\leavevmode\nobreak\hskip0pt plus\linewidth\penalty50\hskip0pt plus-\linewidth\nobreak{#1}}
-
-% Write the word LaTeX nicely.
-\newcommand{\latex}{\LaTeX\xspace}
-
-% Create a bold title all in upper case.
-\newcommand{\Title}[1]{\textbf{\MakeUppercase{#1}}}
 
 
 %----------------------------------------------------------------------------------------

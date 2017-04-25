@@ -1,0 +1,79 @@
+
+
+
+%
+% New Macros
+%
+
+% Automatically put a `\medskip` spacing between paragraphs
+% https://tex.stackexchange.com/q/365976/119062
+\edef\restoreparindent{\parindent=\the\parindent\relax}
+\usepackage{parskip}
+\restoreparindent
+
+% Uncomment to remove all indentation from paragraphs
+%\setlength\parindent{0pt}
+
+% How could the `\everypar` justification statement be used?
+% https://tex.stackexchange.com/questions/365818/how-could-the-everypar-justification-statement-be-used
+\newbox\linebox \newbox\snapbox
+\def\eatlines{
+  \setbox\linebox\lastbox % check the last line
+  \ifvoid\linebox
+  \else % if it’s not empty
+    \unskip\unpenalty % take whatever is
+    {\eatlines} % above it;
+    \setbox\snapbox\hbox{\unhcopy\linebox}
+    \ifdim\wd\snapbox<.98\wd\linebox
+       \box\snapbox % take the one or the other,
+    \else \box\linebox \fi
+  \fi
+}
+
+% How could the `\everypar` justification statement be used?
+% https://tex.stackexchange.com/questions/365818/how-could-the-everypar-justification-statement-be-used
+\everypar={\setbox0=\lastbox \par
+   \vbox\bgroup \everypar={}\def\par{\endgraf\eatlines\egroup}}
+
+% Creates a new environment which can be used as:
+%
+% \begin{foo}
+%   Text...
+%
+%   Text ...
+% \end{foo}
+%
+% https://tex.stackexchange.com/questions/62333/push-long-words-in-a-new-line
+\newenvironment{foo}
+{\par
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+}
+{\par}
+
+
+
+%
+% New commands
+%
+
+% Allow to push long words on new lines when they do not fit entirely on the current line.
+% https://tex.stackexchange.com/questions/62333/push-long-words-in-a-new-line
+\newcommand\lword[1]{\leavevmode\nobreak\hskip0pt plus\linewidth\penalty50\hskip0pt plus-\linewidth\nobreak{#1}}
+
+
+% For the new command \latex
+\usepackage{xspace}
+
+% Write the word LaTeX nicely.
+\newcommand{\latex}{\LaTeX\xspace}
+
+
+% Create a bold title all in upper case.
+\newcommand{\Title}[1]{\textbf{\MakeUppercase{#1}}}
+
+
+
+
+
+
