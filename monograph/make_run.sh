@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Import the helper functions.
-. $1/timer_calculator.sh
+. ../scripts/timer_calculator.sh
 
 
 
