@@ -41,18 +41,225 @@
     utilizada pelo usuário para definir em quais regiões uma Máquina de Turing (linguagens C++/Rust)
     devem fazer/propor as alterações no código.
 
+
+\subsection{Pontos}
+
     Os pontos positivos dessa abordagem para um formatador de código são a reusabilidade de
     componentes entre as linguagens pelo usuário final da aplicação ao invés do programador, o que
     torna este software muito mais genérico e abre a possibilidades de maior sucesso para a criação
     definitiva de um formatador Universal de códigos das linguagens de programação, quaisquer sejam
-    elas. Por exemplo, `if/for/while''s em linguagens de programação como C++ e Java são da mesma
+    elas. Por exemplo, `if/for/while'\textquotesingle s em linguagens de programação como C++ e Java são da mesma
     estrutura. Assim temos que escrever somente uma vez a especificação para um componente da
     linguagem sem recorrer a programação de do código do programa. Isso tem a vantagem de por der
     ser configurado pelo usuário final ao invés do programador, assim fica mais simples de
     configurar e expandir o conjunto de linguagens disponíveis ao processamento/beautifying.
 
+    Softwares existentes e similares:
+
+    \medskip
+    \begin{myquote}
+    \begin{enumerate}[leftmargin=*]
+
+        \item
+
+        CodeBeautify is an online code beautifier which allows you to beautify your source code:
+        \url{http://codebeautify.org/}.
+
+        \item
+
+        A universal code formatter, written in Dart: \url{https://pub.dartlang.org/packages/unifmt}.
+
+        \item
+
+        Google-java-format is a program that reformats Java source code to comply with Google Java
+        Style: \url{https://github.com/google/google-java-format}.
+
+        \item
+
+        CodeFormatter is a Sublime Text 2/3 plugin that supports format (beautify) source code.
+        \url{https://github.com/akalongman/sublimetext-codeformatter} and
+        \url{https://github.com/aukaost/SublimePrettyYAML}
+
+        \item
+
+        UniversalIndentGUI offers a live preview for setting the parameters of nearly any indenter.
+        You change the value of a parameter and directly see how your reformatted code will look
+        like. Save your beauty looking code or create an anywhere usable batch/shell script to
+        reformat whole directories or just one file even out of the editor of your choice that
+        supports external tool calls: \url{http://universalindent.sourceforge.net/} and
+        \url{https://github.com/danblakemore/universal-indent-gui}.
+
+    \end{enumerate}
+    \end{myquote}
+
+
+\subsection{Listagens}
+
+    Algumas bibliotecas existentes, e potencialmente utilizadas como `syntect` para o auxílio na
+    construção do produto de software:
+
+    \medskip
+    \begin{myquote}
+    \begin{enumerate}[nolistsep]
+
+        \item \url{https://github.com/jbeder/yaml-cpp}
+        \item \url{https://github.com/trishume/syntect}
+        \item \url{https://github.com/onqtam/doctest}
+        \item \url{https://github.com/c42f/tinyformat}
+        \item \url{https://github.com/limetext/lime}
+        \item \url{https://forum.sublimetext.com/t/disassembling-sublime-text/24824}
+
+    \end{enumerate}
+    \end{myquote}
+
+    Aqui uma lista básica de formatters/beautifiers acessado no endereço
+    \lword{\url{http://www.softpanorama.org/Utilities/beautifiers.shtml}} em março/2017:
+
+    \begin{sloppypar}
+    \medskip
+    \begin{myquote}
+    \begin{enumerate}[nolistsep,leftmargin=*]
+
+        \item CB210.ZIP - C Beautifier 2.10 - polish C source code (19,406 bytes, 06/22/92)
+        \item CL121.ZIP - Codelister 1.21 - print C code with stats (51,110 bytes, 01/10/94)
+
+        \item CPC200.ZIP - CodePrint for C/C++ 2.00 is a full-featured command line driven source
+        code reformatter and pretty printer for C++ and C; over 20 customization features including
+        auto-indent, adjustable tab spacing, indent styles, flow lines, comment alignment, and line
+        editing for consistent white space (140,605 bytes, 01/26/96)
+
+        \item CSCOP120.ZIP - c-scope 1.20 analyzes C source code and produces various reports
+        (48,505 bytes, 06/30/95)
+
+        \item HTML : \url{http://www.digital-mines.com/htb/}
+        \item HTML : \url{http://www.datacomm.ch/mwoog/software/perl/beautifier.html}
+        \item HTML : \url{http://www.watson-net.com/free/perl/s_fhtml.asp}
+        \item SQL : \url{http://www.netbula.com/products/sqlb}
+        \item Oracle PLSQL : \url{http://www.revealnet.com}
+        \item GPL \url{http://www.geocities.com/~starkville/vancbj.html}
+        \item GPL \url{http://kevinkelley.mystarband.net/java/dent.html}
+        \item Free \url{http://www.tiobe.com/jacobe.htm}
+        \item Free \url{http://www.mmsindia.com/JPretty.html}
+        \item Free \url{http://members.magnet.at/johann.langhofer/products/jxbeauty/overview.html} (has JBuilder support)
+        \item Free \url{http://www.semdesigns.com/Products/Formatters/JavaFormatter.html}
+        \item Commercial \$24.99 \url{http://smartbeautify.com}
+        \item Commercial \$129 \url{http://www.jindent.com}
+        \item Google \url{http://directory.google.com/Top/Computers/Programming/Languages/Java/Development_Tools/Code_Beautifiers/?tc=1}
+        \item Java, SQL, HTML, C++ : \url{http://www.semdesigns.com/Products/DMS/DMSToolkit.html}
+        \item Java JIndent \url{http://home.wtal.de/software-solutions/jindent}
+        \item Java Pat \url{http://javaregex.com/cgi-bin/pat/jbeaut.asp}
+        \item Java JStyle \url{http://www.redrival.com/greenrd/java/jstyle}
+        \item Java JPrettyPrinter \url{http://www.epoch.com.tw/download/ms/java/java.htm}
+        \item Java JxBeauty \url{http://members.nextra.at/johann.langhofer/download/jxbeauty} and the JxBeauty Home
+        \item Java beautify percolator
+        \item Java list \url{http://www.java.about.com/compute/java/library/weekly/aa102499.htm}
+        \item Java html present VasJava2HTML
+        \item Java code colorifier and beautifier \url{http://www.mycgiserver.com/~lisali/jccb}
+        \item Perl : \url{http://www.consultix-inc.com/www.consultix-inc.com/talk.htm}
+        \item Perl : \url{http://www.consultix-inc.com/www.consultix-inc.com/perl_beautifier.html}
+        \item Fortran beautifier : \url{http://www.aeem.iastate.edu/Fortran/tools.html}
+
+        \item C++ : BCPP site is at \url{http://dickey.his.com/bcpp/bcpp.html} or at \url{http://www.clark.net/pub/dickey}.
+        BCPP ftp site is at \url{ftp://dickey.his.com/bcpp/bcpp.tar.gz}
+
+        \item C++ : \url{http://www.consultix-inc.com/c++b.html}
+        \item C : \url{http://www.chips.navy.mil/oasys/c/} and mirror at Oasys
+        \item C++, C, Java, Oracle Pro-C Beautifier \url{http://www.geocities.com/~starkville/main.html}
+
+        \item C++, C beautifier \url{http://users.erols.com/astronaut/vim/ccb-1.07.tar.gz} and site at
+        \url{http://users.erols.com/astronaut/vim/#vimlinks_src}
+
+        \item GC! GreatCode! is a powerful C/C++ source code beautifier Windows 95/98/NT/2000
+        \url{http://perso.club-internet.fr/cbeaudet}
+
+        \item C++ beautifier `SourceStyler' \url{https://web.archive.org/web/20061205061102/http://ochresoftware.com/}
+        \item JavaScript : \url{http://jsbeautifier.org/}
+
+    \end{enumerate}
+    \end{myquote}
+    \end{sloppypar}
+
+\begin{comment}
 
 
 
+\subsection{Revisão de literatura}
+
+    Estudei/busquei ao longo do que há de publicações científicas sobre o assunto e entrei alguns trabalhos
+    na área específica e similar aos trabalhos feitos pelor formatadores de códigos (Beautifiers). Nessa
+    modalidade de trabalho, pode-se confundir-se com artigos que tratam sobre o `Prettyprint`, que trata-se
+    de colorir o texto e exibir-lo ao usuário. O que não é o que se busca nesse trabalho, mas sim fazer
+    alterações no texto sobre a forma como ele é estruturado, apresentado ao usuário e salvo em disco.
+    Seguem as seguintes publicações:
+
+    \url{https://www.researchgate.net/publication/228540036_An_industrial_application_of_context-sensitive_formatting}
+
+    \url{http://www.suodenjoki.dk/us/archive/2010/cpp-checkstyle.htm}
+
+    \url{http://www.basicinputoutput.com/2014/08/uncrustify-your-bios.html}
+
+    \url{http://prettyprinter.de/}
+    \url{http://www.softpanorama.org/Utilities/beautifiers.shtml}
+
+    Towards a universal code formatter through machine learning:
+    --
+    In this paper, we solve the formatter construction problem
+    using a novel approach, one that automatically derives formatters
+    for any given language without intervention from a
+    language expert. We introduce a code formatter called CODEBUFF
+    that uses machine learning to abstract formatting rules
+    from a representative corpus, using a carefully designed feature
+    set. Our experiments on Java, SQL, and ANTLR grammars
+    show that CODEBUFF is efficient, has excellent accuracy,
+    and is grammar invariant for a given language. It also generalizes
+    to a 4th language tested during manuscript preparation.
+    -->
+    \url{http://dl.acm.org/citation.cfm?id=2997383}
+    \url{http://homepages.cwi.nl/~jurgenv/papers/SLE16.pdf}
+
+    \url{https://www.google.com/search?q=universal+source+code+formatter}
+    \url{https://www.google.com/search?q=universal+source+code+beautifier}
+
+    \url{http://en.wikipedia.org/wiki/Indent_style}
+    \url{https://en.wikipedia.org/wiki/Programming_style}
+    \url{https://en.wikipedia.org/wiki/Scope_(computer_science)}
+
+    \url{http://wiki.c2.com/?CodingStyle}
+    \url{https://github.com/google/code-prettify}
+    \url{https://github.com/uncrustify/uncrustify}
+
+    \url{https://en.wikipedia.org/wiki/Prettyprint}
+    \url{https://www.researchgate.net/search.Search.html?query=formatting%20source%20code&type=publication}
+    \url{https://www.researchgate.net/search.Search.html?query=pretty%20print%20source%20code&type=publication}
+
+    \url{https://github.com/gchpaco/gopprint}
+    \url{http://dl.acm.org.sci-hub.io/citation.cfm?id=357115}
+    \url{https://www.cs.indiana.edu/~sabry/papers/yield-pp.pdf}
+
+    \url{http://www.worldcat.org/title/beautiful-code-a-customizable-code-beautifier-for-java/oclc/56564674}
+    \url{https://www.researchgate.net/publication/34736049_Beautiful_code_a_customizable_code_beautifier_for_Java}
+    \url{https://vufind.carli.illinois.edu/vf-ncc/Record/ncc_118189/Holdings}
+
+    \url{https://www.researchgate.net/publication/4283921_Smart_Formatter_Learning_Coding_Style_from_Existing_Source_Code}
+    \url{http://www.ing.unisannio.it/mdipenta/index.html}
+    \url{https://github.com/iain/rspec-smart-formatter}
+
+    \url{https://www.researchgate.net/publication/2543984_Source_Code_Files_as_Structured_Documents}
+    \url{https://en.wikipedia.org/wiki/SrcML}
+
+    \url{https://www.researchgate.net/publication/228540036_An_industrial_application_of_context-sensitive_formatting}
+    \url{https://www.researchgate.net/publication/234809222_Program_indentation_and_comprehensibility}
 
 
+
+    Aqui encontra-se o lado oposto dessas ferramentas, Source Code Obfuscators, que servem para destruir
+    o visual do código. Usualmente utilizado para dificultar a leitura por outras pessoas ou ainda reduzir
+    o tamanho de códigos de linguagens scripting que devem ser carregadas/baixadas por navegadores de internet,
+    assim diminuindo o tráfego de internet e salvando/economizando largura de banda para download:
+
+    \url{https://en.wikipedia.org/wiki/Obfuscation_(software)}
+
+    \url{http://www.semdesigns.com/Products/Obfuscators/index.html}
+
+
+\end{comment}

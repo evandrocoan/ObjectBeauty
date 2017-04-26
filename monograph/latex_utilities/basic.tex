@@ -2,7 +2,9 @@
 
 
 % For web links and paths with \path{..} and \url{https://www.python.org/downloads/}
-\usepackage{hyperref}
+%
+% https://tex.stackexchange.com/questions/3033/forcing-linebreaks-in-url
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
 
 % \lettrine{O}{nce} upon a time...
 % \lettrine[findent=2pt]{\fbox{\textbf{T}}}{ }his thesis deals with...

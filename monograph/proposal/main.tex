@@ -84,9 +84,20 @@
 % Specifies the directory where pictures are stored
 \graphicspath{{pictures/}}
 
+% Uncomment to remove all indentation from paragraphs
+%\setlength\parindent{0pt}
+
+% Bad formatting using URLs in bibtex
+% https://tex.stackexchange.com/questions/22888/bad-formatting-using-urls-in-bibtex
+\usepackage{etoolbox}
+
 % Underfull \hbox in bibliography
 % https://tex.stackexchange.com/questions/10924/underfull-hbox-in-bibliography
 \apptocmd{\thebibliography}{\raggedright}{}{}
+
+% How to avoid overfull error with url package?
+% https://tex.stackexchange.com/questions/261776/how-to-avoid-overfull-error-with-url-package
+\Urlmuskip=0mu plus 3mu
 
 
 
