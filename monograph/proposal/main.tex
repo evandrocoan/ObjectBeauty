@@ -105,6 +105,16 @@
 % https://tex.stackexchange.com/questions/261776/how-to-avoid-overfull-error-with-url-package
 \Urlmuskip=0mu plus 1mu
 
+% Automatically put a `\medskip` spacing between paragraphs
+% https://tex.stackexchange.com/questions/365976/how-to-stop-the-package-usepackageparskip-disabling-the-paragraph-indentation
+% \edef\restoreparindent{\parindent=\the\parindent\relax}
+% \usepackage{parskip}
+% \restoreparindent
+%
+% How to restore the parskip skips between list items?
+% https://tex.stackexchange.com/questions/366848/how-to-restore-the-parskip-skips-between-list-items
+\parskip=0.5\baselineskip \advance\parskip by 0pt plus 2pt
+
 
 
 %----------------------------------------------------------------------------------------
