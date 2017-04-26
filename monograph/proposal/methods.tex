@@ -118,7 +118,7 @@
     \medskip
     \begin{sloppypar}
     \begin{myquote}\RaggedRight
-    \begin{enumerate}[leftmargin=*]
+    \begin{enumerate}[leftmargin=*,parsep=0pt]
 
         \item CB210.ZIP - C Beautifier 2.10 - polish C source code (19,406 bytes, 06/22/92)
         \item CL121.ZIP - Codelister 1.21 - print C code with stats (51,110 bytes, 01/10/94)
@@ -179,77 +179,103 @@
     \end{myquote}
     \end{sloppypar}
 
-\begin{comment}
-
-
 
 \subsection{Revisão de literatura}
 
-    Estudei/busquei ao longo do que há de publicações científicas sobre o assunto e entrei alguns trabalhos
-    na área específica e similar aos trabalhos feitos pelor formatadores de códigos (Beautifiers). Nessa
-    modalidade de trabalho, pode-se confundir-se com artigos que tratam sobre o `Prettyprint`, que trata-se
-    de colorir o texto e exibir-lo ao usuário. O que não é o que se busca nesse trabalho, mas sim fazer
-    alterações no texto sobre a forma como ele é estruturado, apresentado ao usuário e salvo em disco.
-    Seguem as seguintes publicações:
+    Após a busca do que há de publicações científicas sobre o assunto e entra-se alguns trabalhos na
+    área específica e similar aos trabalhos feitos pelor formatadores de códigos (Beautifiers).
+    Nessa modalidade de trabalho, pode-se confundir-se com artigos que tratam sobre o `Prettyprint`,
+    que trata-se de colorir o texto e exibir-lo ao usuário. O que não é o que se busca nesse
+    trabalho, mas sim fazer alterações no texto sobre a forma como ele é estruturado, apresentado ao
+    usuário e salvo em disco. Seguem as seguintes publicações:
 
-    \url{https://www.researchgate.net/publication/228540036_An_industrial_application_of_context-sensitive_formatting}
+    % How to add `parsep` to `itemsep` and set `parsep` to 0pt, when declaring my list?
+    % https://tex.stackexchange.com/questions/366904/how-to-add-parsep-to-itemsep-and-set-parsep-to-0pt-when-declaring-my-list
+    \begin{sloppypar}
+    \begin{myquote}\RaggedRight
+    \begin{enumerate}[leftmargin=*,parsep=0pt]
 
-    \url{http://www.suodenjoki.dk/us/archive/2010/cpp-checkstyle.htm}
+    \item \url{https://www.researchgate.net/publication/228540036_An_industrial_application_of_context-sensitive_formatting}
 
-    \url{http://www.basicinputoutput.com/2014/08/uncrustify-your-bios.html}
+    \item \url{http://www.suodenjoki.dk/us/archive/2010/cpp-checkstyle.htm}
 
-    \url{http://prettyprinter.de/}
-    \url{http://www.softpanorama.org/Utilities/beautifiers.shtml}
+    \item \url{http://www.basicinputoutput.com/2014/08/uncrustify-your-bios.html}
+
+    \item \url{http://prettyprinter.de/}
+
+    \item \url{http://www.softpanorama.org/Utilities/beautifiers.shtml}
+
+    \item
 
     Towards a universal code formatter through machine learning:
-    --
-    In this paper, we solve the formatter construction problem
-    using a novel approach, one that automatically derives formatters
-    for any given language without intervention from a
-    language expert. We introduce a code formatter called CODEBUFF
-    that uses machine learning to abstract formatting rules
-    from a representative corpus, using a carefully designed feature
-    set. Our experiments on Java, SQL, and ANTLR grammars
-    show that CODEBUFF is efficient, has excellent accuracy,
-    and is grammar invariant for a given language. It also generalizes
-    to a 4th language tested during manuscript preparation.
-    -->
-    \url{http://dl.acm.org/citation.cfm?id=2997383}
-    \url{http://homepages.cwi.nl/~jurgenv/papers/SLE16.pdf}
 
-    \url{https://www.google.com/search?q=universal+source+code+formatter}
-    \url{https://www.google.com/search?q=universal+source+code+beautifier}
+    In this paper, we solve the formatter construction problem using a novel approach, one that
+    automatically derives formatters for any given language without intervention from a language
+    expert. We introduce a code formatter called CODEBUFF that uses machine learning to abstract
+    formatting rules from a representative corpus, using a carefully designed feature set. Our
+    experiments on Java, SQL, and ANTLR grammars show that CODEBUFF is efficient, has excellent
+    accuracy, and is grammar invariant for a given language. It also generalizes to a 4th language
+    tested during manuscript preparation.
 
-    \url{http://en.wikipedia.org/wiki/Indent_style}
-    \url{https://en.wikipedia.org/wiki/Programming_style}
-    \url{https://en.wikipedia.org/wiki/Scope_(computer_science)}
+    \item \url{http://dl.acm.org/citation.cfm?id=2997383}
+    \begin{enumerate}[nolistsep,topsep=0pt,label=$\star$]
+        \item \url{http://homepages.cwi.nl/~jurgenv/papers/SLE16.pdf}
+    \end{enumerate}
 
-    \url{http://wiki.c2.com/?CodingStyle}
-    \url{https://github.com/google/code-prettify}
-    \url{https://github.com/uncrustify/uncrustify}
+    \item \url{https://www.google.com/search?q=universal+source+code+formatter}
+    \begin{enumerate}[nolistsep,topsep=0pt,label=$\star$]
+        \item \url{https://www.google.com/search?q=universal+source+code+beautifier}
+    \end{enumerate}
 
-    \url{https://en.wikipedia.org/wiki/Prettyprint}
-    \url{https://www.researchgate.net/search.Search.html?query=formatting%20source%20code&type=publication}
-    \url{https://www.researchgate.net/search.Search.html?query=pretty%20print%20source%20code&type=publication}
+    \item \url{http://en.wikipedia.org/wiki/Indent_style}
+    \begin{enumerate}[nolistsep,topsep=0pt,label=$\star$]
+        \item \url{https://en.wikipedia.org/wiki/Programming_style}
+        \item \url{https://en.wikipedia.org/wiki/Scope_(computer_science)}
+    \end{enumerate}
 
-    \url{https://github.com/gchpaco/gopprint}
-    \url{http://dl.acm.org.sci-hub.io/citation.cfm?id=357115}
-    \url{https://www.cs.indiana.edu/~sabry/papers/yield-pp.pdf}
+    \item \url{http://wiki.c2.com/?CodingStyle}
+    \begin{enumerate}[nolistsep,topsep=0pt,label=$\star$]
+        \item \url{https://github.com/google/code-prettify}
+        \item \url{https://github.com/uncrustify/uncrustify}
+    \end{enumerate}
 
-    \url{http://www.worldcat.org/title/beautiful-code-a-customizable-code-beautifier-for-java/oclc/56564674}
-    \url{https://www.researchgate.net/publication/34736049_Beautiful_code_a_customizable_code_beautifier_for_Java}
-    \url{https://vufind.carli.illinois.edu/vf-ncc/Record/ncc_118189/Holdings}
+    \item \url{https://en.wikipedia.org/wiki/Prettyprint}
+    \begin{enumerate}[nolistsep,topsep=0pt,label=$\star$]
+        \item \url{https://www.researchgate.net/search.Search.html?query=formatting%20source%20code&type=publication}
+        \item \url{https://www.researchgate.net/search.Search.html?query=pretty%20print%20source%20code&type=publication}
+    \end{enumerate}
 
-    \url{https://www.researchgate.net/publication/4283921_Smart_Formatter_Learning_Coding_Style_from_Existing_Source_Code}
-    \url{http://www.ing.unisannio.it/mdipenta/index.html}
-    \url{https://github.com/iain/rspec-smart-formatter}
+    \item \url{https://github.com/gchpaco/gopprint}
+    \begin{enumerate}[nolistsep,topsep=0pt,label=$\star$]
+        \item \url{http://dl.acm.org.sci-hub.io/citation.cfm?id=357115}
+        \item \url{https://www.cs.indiana.edu/~sabry/papers/yield-pp.pdf}
+    \end{enumerate}
 
-    \url{https://www.researchgate.net/publication/2543984_Source_Code_Files_as_Structured_Documents}
-    \url{https://en.wikipedia.org/wiki/SrcML}
+    \item \url{http://www.worldcat.org/title/beautiful-code-a-customizable-code-beautifier-for-java/oclc/56564674}
+    \begin{enumerate}[nolistsep,topsep=0pt,label=$\star$]
+        \item \url{https://www.researchgate.net/publication/34736049_Beautiful_code_a_customizable_code_beautifier_for_Java}
+        \item \url{https://vufind.carli.illinois.edu/vf-ncc/Record/ncc_118189/Holdings}
+    \end{enumerate}
 
-    \url{https://www.researchgate.net/publication/228540036_An_industrial_application_of_context-sensitive_formatting}
-    \url{https://www.researchgate.net/publication/234809222_Program_indentation_and_comprehensibility}
+    \item \url{https://www.researchgate.net/publication/4283921_Smart_Formatter_Learning_Coding_Style_from_Existing_Source_Code}
+    \begin{enumerate}[nolistsep,topsep=0pt,label=$\star$]
+        \item \url{http://www.ing.unisannio.it/mdipenta/index.html}
+        \item \url{https://github.com/iain/rspec-smart-formatter}
+    \end{enumerate}
 
+    \item \url{https://www.researchgate.net/publication/2543984_Source_Code_Files_as_Structured_Documents}
+    \begin{enumerate}[nolistsep,topsep=0pt,label=$\star$]
+        \item \url{https://en.wikipedia.org/wiki/SrcML}
+    \end{enumerate}
+
+    \item \url{https://www.researchgate.net/publication/228540036_An_industrial_application_of_context-sensitive_formatting}
+    \begin{enumerate}[nolistsep,topsep=0pt,label=$\star$]
+        \item \url{https://www.researchgate.net/publication/234809222_Program_indentation_and_comprehensibility}
+    \end{enumerate}
+
+    \end{enumerate}
+    \end{myquote}
+    \end{sloppypar}
 
 
     Aqui encontra-se o lado oposto dessas ferramentas, Source Code Obfuscators, que servem para destruir
@@ -257,9 +283,15 @@
     o tamanho de códigos de linguagens scripting que devem ser carregadas/baixadas por navegadores de internet,
     assim diminuindo o tráfego de internet e salvando/economizando largura de banda para download:
 
-    \url{https://en.wikipedia.org/wiki/Obfuscation_(software)}
+    \begin{sloppypar}
+    \begin{myquote}\RaggedRight
+    \begin{enumerate}[leftmargin=*,parsep=0pt]
 
-    \url{http://www.semdesigns.com/Products/Obfuscators/index.html}
+    \item \url{https://en.wikipedia.org/wiki/Obfuscation_(software)}
 
+    \item \url{http://www.semdesigns.com/Products/Obfuscators/index.html}
 
-\end{comment}
+    \end{enumerate}
+    \end{myquote}
+    \end{sloppypar}
+
