@@ -59,6 +59,17 @@
 %   File settings
 %----------------------------------------------------------------------------------------
 
+% Author name
+%
+% What do \makeatletter and \makeatother do?
+% https://tex.stackexchange.com/questions/8351/what-do-makeatletter-and-makeatother-do
+%
+% How can I use @author, @date, and @title after maketitle?
+% https://tex.stackexchange.com/questions/27710/how-can-i-use-author-date-and-title-after-maketitle
+\makeatletter
+\author{Evandro Coan}        \let\Author\@author
+\makeatother
+
 % Utilities files
 \input{../latex_utilities/basic}
 \input{../latex_utilities/commands}
