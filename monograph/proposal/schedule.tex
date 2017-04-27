@@ -5,12 +5,13 @@
 
     \begin{adjustwidth}{-0.5\marginparwidth}{-0.5\marginparwidth}
     \small
-    \begin{tabularx}{\linewidth}{|X|*{11}{c|}}
+    \begin{tabularx}{\linewidth}{|BX|*{11}{^c|}}
 
         \hline
-        \multicolumn{1}{|c|}{\multirow{2}{*}{Etapas}} & \multicolumn{11}{|c|}{Meses} \\
+        \multicolumn{1}{|c|}{\multirow{2}{*}{{\bfseries Etapas}}} & \multicolumn{11}{|c|}{{\bfseries Meses}} \\
         \cline{2-12}
 
+        \rowstyle{\bfseries}
         & ago & set & out & dez & jan & fev & mar & abr & mai & jun & jul   \\ \hline
 
         Escrita da revisão bibliográfica
@@ -42,13 +43,15 @@
     % https://tex.stackexchange.com/questions/367075/how-to-align-a-vertical-line-at-the-end-of-the-multicolumn-in-a-table
     \begin{tabular}
     {|
-        *1{@{\hspace{3.0pt}}>{ \RaggedRight\arraybackslash\hsize=1.1\hsize }p{3.9cm}|} % Item
-        *1{@{\hspace{3.0pt}}>{ \RaggedRight\arraybackslash\hsize=1.1\hsize }p{1.9cm}|} % Quantidade
-        *1{@{\hspace{3.0pt}}>{ \RaggedRight\arraybackslash\hsize=1.1\hsize }p{3.0cm}|} % Valor, Valor
-        *1{@{\hspace{3.0pt}}>{ \RaggedRight\arraybackslash\hsize=1.1\hsize }p{2.6cm}|} % Valor, Valor
+        *1{@{\hspace{3.0pt}}>{ \RaggedRight\arraybackslash\hsize=1.1\hsize }Bp{3.9cm}|} % Item
+        *1{@{\hspace{3.0pt}}>{ \RaggedRight\arraybackslash\hsize=1.1\hsize }^p{2.0cm}|} % Quantidade
+        *1{@{\hspace{3.0pt}}>{ \RaggedRight\arraybackslash\hsize=1.1\hsize }^p{3.2cm}|} % Valor, Valor
+        *1{@{\hspace{3.0pt}}>{ \RaggedRight\arraybackslash\hsize=1.1\hsize }^p{2.8cm}|} % Valor, Valor
     }
 
-        \hline Item             &   Quantidade  &   Valor Unitário (R\$)    &   Valor Total (R\$) \\ \hline
+        \hline
+        \rowstyle{\bfseries}
+        Item                    &   Quantidade  &   Valor Unitário (R\$)    &   Valor Total (R\$) \\ \hline
         CD                      &   1           &   5,00                    &   5,00              \\ \hline
         Impressão               &   800         &   0,15                    &   120,00            \\ \hline
         Reserva Gerencial       &   1           &   20,00                   &   20,00             \\ \hline
@@ -57,14 +60,17 @@
 
     \end{tabular}
 
+    \medskip
     \hfill\cite{Silva}
 
 
 \section{Recursos Humanos}
 
-    \begin{tabular}{|l|l|}
+    \begin{tabular}{|Bl|^l|}
 
-        \hline Nome                     & Função                  \\ \hline
+        \hline
+        \rowstyle{\bfseries}
+        Nome                            & Função                  \\ \hline
         Luiz Filipe Moresco da Silva    & Autor                   \\ \hline
         Ricardo Azambuja Silveira       & Orientador              \\ \hline
         Renato Cislaghi                 & Coordenador de Projetos \\ \hline
@@ -74,17 +80,20 @@
 
 
 \section{Comunicação}
-    \begin{tabular}{|l|l|l|l|}
+
+    \begin{tabular}{|Bl|^l|^l|^l|}
+
         \hline
-        O quê  & De quem & Para Quem & Como \\
-        \hline
-        Proposta de TCC         & Autor     & Renato Cislaghi   & Site de projetos \\
-        Relatório de TCC I      & Autor     & Renato Cislaghi   & Site de projetos \\
-        Prévia do TCC, em TCC I & Autor     & Banca             & E-mail \\
-        Defesa do TCC           & Autor     & Banca             & Pessoalmente \\
-        Reunião de Orientação   & Orientadores  & Autor         & Pessoalmente \\
-        \hline
+        \rowstyle{\bfseries}
+        O quê  & De quem & Para Quem & Como                                        \\ \hline
+        Proposta de TCC         & Autor     & Renato Cislaghi   & Site de projetos \\ \hline
+        Relatório de TCC I      & Autor     & Renato Cislaghi   & Site de projetos \\ \hline
+        Prévia do TCC, em TCC I & Autor     & Banca             & E-mail           \\ \hline
+        Defesa do TCC           & Autor     & Banca             & Pessoalmente     \\ \hline
+        Reunião de Orientação   & Orientadores  & Autor         & Pessoalmente     \\ \hline
+
     \end{tabular}
+
     \hfill\cite{Silva}
 
 
@@ -97,16 +106,19 @@
     \small
     \begin{tabularx}{\linewidth}
     {|
-        *1{                 >{\RaggedRight\arraybackslash\hsize=1.1\hsize }X       |} % Riscos
-        *3{@{\hspace{3.0pt}}>{\Centering\arraybackslash                   }p{0.9cm}|} % Probabilidade, Impacto, Prioridade
-        *2{                 >{\RaggedRight\arraybackslash\hsize=0.95\hsize}X       |} % Resposta, Prevenção
+        *1{                 >{\RaggedRight\arraybackslash\hsize=1.1\hsize }BX       |} % Riscos
+        *3{@{\hspace{3.0pt}}>{\Centering\arraybackslash                   }^p{0.9cm}|} % Probabilidade, Impacto, Prioridade
+        *2{                 >{\RaggedRight\arraybackslash\hsize=0.95\hsize}^X       |} % Resposta, Prevenção
     }
 
-    \hline Riscos  & Pro\-ba\-bi\-li\-da\-de & Im\-pac\-to & Prio\-ri\-da\-de & Es\-tra\-té\-gia de res\-pos\-ta & Ações de pre\-ven\-ção \\ \hline
+    \hline
+
+    \rowstyle{\bfseries}
+    Riscos  & 1 & 2 & 3 & Estratégia de resposta & Ações de prevenção \\ \hline
 
     % Row 1
     % Riscos
-    \hline Problemas com perda de dados &
+    Problemas com perda de dados &
     % Probabilidade
     Baixa &
     % Impacto
@@ -120,7 +132,7 @@
 
     % Row 2
     % Riscos
-    \hline Alteração do cronograma ou descontinuidade do projeto onde recebo uma bolsa &
+    Alteração do cronograma ou descontinuidade do projeto onde recebo uma bolsa &
     % Probabilidade
     \rlap{Média} &
     % Impacto
@@ -133,7 +145,11 @@
     Monitoramento contínuo das informações obtidas com superiores imediatos \\ \hline
 
     \end{tabularx}
+
+    \hfill {\small {\bfseries1}: Probabilidade, {\bfseries2}: Impacto, {\bfseries3}: Prioridade}
+
     \end{adjustwidth}
+
     \hfill\cite{Silva}
 
 

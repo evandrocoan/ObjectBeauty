@@ -107,6 +107,34 @@ boxsep=0pt,
 breakable,
 }
 
+% Make first row of table all bold
+%
+% Usage:
+% 1. Add `B` on the borders and `^` before each column definition.
+% 2. `\rowstyle{\bfseries}` before the row you want to bold.
+%
+% Example:
+% \begin{tabularx}{\linewidth}
+% {|
+%     *1{                 >{\RaggedRight\arraybackslash\hsize=1.1\hsize }BX       |} % Riscos
+%     *3{@{\hspace{3.0pt}}>{\Centering\arraybackslash                   }^p{0.9cm}|} % Probabilidade, Impacto, Prioridade
+%     *2{                 >{\RaggedRight\arraybackslash\hsize=0.95\hsize}^X       |} % Resposta, Prevenção
+% }
+%
+% \hline
+%
+% \rowstyle{\bfseries}
+% Riscos  & 1 & 2 & 3 & Estratégia de resposta & Ações de prevenção \\ \hline
+%
+%
+% https://tex.stackexchange.com/questions/4811/make-first-row-of-table-all-bold
+\usepackage{array}
+\newcolumntype{B}{>{\global\let\currentrowstyle\relax}}
+\newcolumntype{^}{>{\currentrowstyle}}
+\newcommand{\rowstyle}[1]{\gdef\currentrowstyle{#1}%
+  #1\ignorespaces
+}
+
 
 
 %
