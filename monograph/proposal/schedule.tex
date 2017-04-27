@@ -38,42 +38,44 @@
 
 \section{Custos}
 
-    \begin{tabular}{l l l l}
-        \hline
+    % How to align a vertical line at the end of the multicolumn in a table?
+    % https://tex.stackexchange.com/questions/367075/how-to-align-a-vertical-line-at-the-end-of-the-multicolumn-in-a-table
+    \begin{tabular}
+    {|
+        *1{@{\hspace{3.0pt}}>{ \RaggedRight\arraybackslash\hsize=1.1\hsize }p{3.9cm}|} % Item
+        *1{@{\hspace{3.0pt}}>{ \RaggedRight\arraybackslash\hsize=1.1\hsize }p{1.9cm}|} % Quantidade
+        *1{@{\hspace{3.0pt}}>{ \RaggedRight\arraybackslash\hsize=1.1\hsize }p{3.0cm}|} % Valor, Valor
+        *1{@{\hspace{3.0pt}}>{ \RaggedRight\arraybackslash\hsize=1.1\hsize }p{2.6cm}|} % Valor, Valor
+    }
 
-        Item                    &   Quantidade  &   Valor Unitário (R\$)    &   Valor Total (R\$) \\
-        \hline
-        Impressão               &   200         &   0,10                    &   20,00             \\
-
-        Programador             &   1           &   1500,00                 &   1500,00           \\
-        Notebook                &   1           &   2500,00                 &   2500,00           \\
-        Desktop                 &   1           &   3000,00                 &   3000,00           \\
-        Reserva de contingência &   1           &   4000,00                 &   4000,00           \\
-
-        \hline
-        Total                   &               &                           &   11020,00
+        \hline Item             &   Quantidade  &   Valor Unitário (R\$)    &   Valor Total (R\$) \\ \hline
+        CD                      &   1           &   5,00                    &   5,00              \\ \hline
+        Impressão               &   800         &   0,15                    &   120,00            \\ \hline
+        Reserva Gerencial       &   1           &   20,00                   &   20,00             \\ \hline
+        Reserva de Contingência &   1           &   20,00                   &   20,00             \\ \hline
+        Total                   & \multicolumn{2}{c|@{\hspace{3.0pt}}}{}    &   165,00            \\ \hline
 
     \end{tabular}
+
     \hfill\cite{Silva}
 
 
 \section{Recursos Humanos}
-    \begin{tabular}{l l}
-        \hline
-        Nome                            & Função                  \\
-        \hline
-        Luiz Filipe Moresco da Silva    & Autor                   \\
-        Ricardo Azambuja Silveira       & Orientador              \\
-        Renato Cislaghi                 & Coordenador de Projetos \\
-        Thiago Ângelo Gelaim            & Coorientador            \\
-        \hline
+    \begin{tabular}{|l|l|}
+
+        \hline Nome                     & Função                  \\ \hline
+        Luiz Filipe Moresco da Silva    & Autor                   \\ \hline
+        Ricardo Azambuja Silveira       & Orientador              \\ \hline
+        Renato Cislaghi                 & Coordenador de Projetos \\ \hline
+        Thiago Ângelo Gelaim            & Coorientador            \\ \hline
+
     \end{tabular}
     \\
 
 
 
 \section{Comunicação}
-    \begin{tabular}{l l l l}
+    \begin{tabular}{|l|l|l|l|}
         \hline
         O quê  & De quem & Para Quem & Como \\
         \hline
@@ -131,7 +133,7 @@
     % Ações de prevenção
     Monitoramento contínuo das informações obtidas com superiores imediatos \\ \hline
 
-    \hline \end{tabularx}
+    \end{tabularx}
     \end{adjustwidth}
     \hfill\cite{Silva}
 
