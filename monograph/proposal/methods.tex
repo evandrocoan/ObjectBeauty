@@ -3,15 +3,15 @@
 
 \section{Método de pesquisa}
 
-    A vantagem nesta abordagem é não ter a necessidade de ter-se conhecimento da sintaxe das linguagens
-    de programação que se irão fazer o parsing. Isso porque trataremos elas como texto comum, e será
-    o usuário final que fará a configuração das transformações que serão aplicados no texto, dando
-    liberdade de facilmente se configurar várias linguagens de programação, aproveitando o fato de que
-    muitas deles compartilham estruturas semelhantes senão idênticas.
+    A vantagem nesta abordagem é não ter a necessidade de ter-se conhecimento da sintaxe das
+    linguagens de programação que se irão fazer o parsing. Isso porque trataremos elas como texto
+    comum, e será o usuário final que fará a configuração das transformações que serão aplicados no
+    texto, dando liberdade de facilmente se configurar várias linguagens de programação,
+    aproveitando o fato de que muitas deles compartilham estruturas semelhantes senão idênticas.
 
-    A literatura/programas atuais são dependentes de linguagem de programação. Minha proposta é fazer este
-    processo independente de linguagem, mas de dialetos como este exemplo tirado do PDF em anexo a este e-mail
-    `Initial check list tasks to do.pdf':
+    A literatura/programas atuais são dependentes de linguagem de programação. Minha proposta é
+    fazer este processo independente de linguagem, mas de dialetos como este exemplo tirado do PDF
+    em anexo a este e-mail `Initial check list tasks to do.pdf':
 
     \begin{lstlisting}
     // This is the name used to reference this scope around the settings files.
@@ -48,11 +48,11 @@
     componentes entre as linguagens pelo usuário final da aplicação ao invés do programador, o que
     torna este software muito mais genérico e abre a possibilidades de maior sucesso para a criação
     definitiva de um formatador Universal de códigos das linguagens de programação, quaisquer sejam
-    elas. Por exemplo, `if/for/while'\textquotesingle s em linguagens de programação como C++ e Java são da mesma
-    estrutura. Assim temos que escrever somente uma vez a especificação para um componente da
-    linguagem sem recorrer a programação de do código do programa. Isso tem a vantagem de por der
-    ser configurado pelo usuário final ao invés do programador, assim fica mais simples de
-    configurar e expandir o conjunto de linguagens disponíveis ao processamento/beautifying.
+    elas. Por exemplo, `if/for/while'\textquotesingle s em linguagens de programação como C++ e Java
+    são da mesma estrutura. Assim temos que escrever somente uma vez a especificação para um
+    componente da linguagem sem recorrer a programação de do código do programa. Isso tem a vantagem
+    de por der ser configurado pelo usuário final ao invés do programador, assim fica mais simples
+    de configurar e expandir o conjunto de linguagens disponíveis ao processamento/beautifying.
 
     Softwares existentes e similares:
 
@@ -98,9 +98,8 @@
     Algumas bibliotecas existentes, e potencialmente utilizadas como `syntect` para o auxílio na
     construção do produto de software:
 
-    \medskip
     \begin{myquote}
-    \begin{enumerate}[nolistsep]
+    \begin{enumerate}[leftmargin=*,parsep=0pt]
 
         \item \url{https://github.com/jbeder/yaml-cpp}
         \item \url{https://github.com/trishume/syntect}
@@ -112,7 +111,7 @@
     \end{enumerate}
     \end{myquote}
 
-    Aqui uma lista básica de formatters/beautifiers acessado no endereço
+    Segue-se uma lista básica de formatters/beautifiers acessado no endereço
     \lword{\url{http://www.softpanorama.org/Utilities/beautifiers.shtml}} em março/2017:
 
     \medskip
@@ -278,10 +277,11 @@
     \end{sloppypar}
 
 
-    Aqui encontra-se o lado oposto dessas ferramentas, Source Code Obfuscators, que servem para destruir
-    o visual do código. Usualmente utilizado para dificultar a leitura por outras pessoas ou ainda reduzir
-    o tamanho de códigos de linguagens scripting que devem ser carregadas/baixadas por navegadores de internet,
-    assim diminuindo o tráfego de internet e salvando/economizando largura de banda para download:
+    Aqui encontra-se o lado oposto dessas ferramentas, Source Code Obfuscators, que servem para
+    destruir o visual do código. Usualmente utilizado para dificultar a leitura por outras pessoas
+    ou ainda reduzir o tamanho de códigos de linguagens scripting que devem ser carregadas/baixadas
+    por navegadores de internet, assim diminuindo o tráfego de internet e salvando/economizando
+    largura de banda para download:
 
     \begin{sloppypar}
     \begin{myquote}\RaggedRight
@@ -294,4 +294,7 @@
     \end{enumerate}
     \end{myquote}
     \end{sloppypar}
+
+
+
 

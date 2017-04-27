@@ -9,6 +9,12 @@
     adição de novos módulos de processamento no programa escrito, tanto pelo usuário final na
     escrita dos arquivos de programação.
 
+    A teoria da técnica empregada é muito simples, mas diferente das atuais por que é atribuído ao
+    usuário final a responsabilidade de dizer onde será realizado o beautifying do modulo que está
+    se configurando. Esse é o preço a pagar para permitir a criação de um Beautifier Universal.
+    Quando diz-se fácil configuração, refire-se a não necessidade de recorrer a programação ´C++',
+    i.e., alterar o código fonte do programa para permitir/especificar onde devem ser realizadas as
+    alterações de beautifying.
 
 
 \subsection{Objetivos Gerais}
@@ -32,17 +38,68 @@
 
         \item
 
-        Utilizar uma versão/algoritmo multi-core, assim cada uma das regras pode ser processada em
+        Utilizar uma versão/algoritmo multi-core, então cada uma das regras pode ser processada em
         paralelo e sobre o mesmo source code original. Essa parte é bastante complexa de ser escrita
-        por que as regras entre si podem gerar conflitos sobre o que elas estão fazendo. Assim para
+        por que as regras entre si podem gerar conflitos sobre o que elas estão fazendo. Para
         resolver esse problema, fazer com que cada regra processada gere um objeto de mudanças que
-        essa regra está propondo. Assim no final do processamento de todas as regras, será realizado
-        um fusão das mudanças que cada uma decidiu realizer, e caso duas regras queriam mudar o
-        mesmo pedaço/trecho de código, será lançada um exceção e uma nova classe de mudanças/regra
-        deve estar disponível para resolver esse conflito. Caso não exista, ambas as mudanças são
+        essa regra está propondo. No final do processamento de todas as regras, será realizado um
+        fusão das mudanças que cada uma decidiu realizer, e caso duas regras queriam mudar o mesmo
+        pedaço/trecho de código, será lançada um exceção e uma nova classe de mudanças/regra deve
+        estar disponível para resolver esse conflito. Caso não exista, ambas as mudanças são
         descartadas e somente as mudanças sem conflitos são refletidas no código.
 
     \end{enumerate}
+
+
+\subsection{Objetivos Específicos}
+
+
+    \begin{enumerate}[leftmargin=*]
+
+        \item
+
+        Um Produto de Software com uma ótima orientação a objetos e possibilidades de extensão das
+        funcionalidades.
+
+        \item
+
+        Classificar todas classes e tipos de formatações (beautifying) de código aplicáveis com
+        facilidade. Acredito que esse seja uma das partes a serem escritas e entregues na
+        monografia. Um estudo sobre o que é beautifying, como fazer e por que fazer.
+
+        \item
+
+        Implementação de um núcleo funcional e de uma pesquisa decente sobre o estado da arte. Um
+        dos pontos difíceis seria a marcação dos escopos, mas isso já é implementado pelo núcleo do
+        editor Sublime Text, assim provado como possível de ser feito.
+
+        \item
+
+        Inicialmente devido a limitação de tempo em 1 ano e meio para um TCC, podemos pensar somente
+        um núcleo básico, simples, reutilizável e que talvez possa ajudar no contexto da linguagem
+        que vocês desenvolvem.
+
+    \end{enumerate}
+
+
+\subsection{Trabalhos Futuros}
+
+    O número de recursos/funcionalidades e estratégias de otimizações para serem implementadas, e
+    etc, são imensas. Mas esses trabalhos podem ser muito mais para frente depois da entrega do TCC.
+    Hoje o controle de espaços em chamadas de funções, declarações de classes, comentários e etc,
+    são mais tranquilos de se entender e pensar. Entretanto no requisito e ajuste de indentação,
+    inserção/remoção de parenteses redundantes, etc ainda falta estudo sobre como deve ser
+    implementado isso.
+
+    Contudo essa especificação por parte do usuário é limitado a linguagens Livres de Contexto
+    (máquinas de pilha). Assim caso as especificações de escope precisarem ser feitas em termos de
+    linguagens Sensíveis ao Contexto ou ainda Recursivamente Enumeráveis, vai ser preciso tratar
+    esses elementos diretamente em C++ (máquina de turing).
+
+    Entretanto não consegue-se pensar facilmente em casos em que precise mais do que tratadores
+    Livres de Contexto para realizar a especificação de quais partes do código deve ser necessário
+    formatar. Sublime Text faz uso dessa técnica para o Highlight dos códigos das mais diversas
+    linguagens e acredita-se que tenha um bom resultado.
 
 
 
