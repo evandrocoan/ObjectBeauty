@@ -67,7 +67,11 @@
 % How can I use @author, @date, and @title after maketitle?
 % https://tex.stackexchange.com/questions/27710/how-can-i-use-author-date-and-title-after-maketitle
 \makeatletter
-\author{Evandro Coan}        \let\Author\@author
+\author{Evandro Coan}\let\Author\@author
+% \author{Someone}          \let\Author\@author
+% \date{Somewhen}           \let\Date\@date
+\def\Advisor{Thiago Ângelo Gelaim}
+\def\Supervisor{Jerusa Marchi}
 \makeatother
 
 % Utilities files
