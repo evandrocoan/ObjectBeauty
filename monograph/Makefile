@@ -19,7 +19,7 @@ all: MyDoc.pdf
 
 
 MAIN_FILE = main
-
+MAIN_FILE_FOLDER = proposal/
 
 
 # CUSTOM BUILD RULES
@@ -52,10 +52,11 @@ MAIN_FILE = main
 # http://stackoverflow.com/questions/1789594/how-do-i-write-the-cd-command-in-a-makefile
 .ONESHELL:
 
-MyDoc.pdf: proposal/$(MAIN_FILE).tex
-	cd ./proposal;
-	pwd;
+MyDoc.pdf: $(MAIN_FILE_FOLDER)$(MAIN_FILE).tex
+	cd ./$(MAIN_FILE_FOLDER)
+	pwd
 	latexmk -pdf -output-directory=".cache" -aux-directory=".cache" -pdflatex="pdflatex -interaction=nonstopmode" -use-make $(MAIN_FILE).tex
+	cp .cache/$(MAIN_FILE).pdf ../proposal.pdf
 	cd ..
 	# latex $(MAIN_FILE).tex
 	# bibtex $(MAIN_FILE).tex
@@ -64,7 +65,9 @@ MyDoc.pdf: proposal/$(MAIN_FILE).tex
 
 clean:
 	latexmk -CA
-	$(RM) -r cache
+	$(RM) proposal.pdf
+	$(RM) -r $(MAIN_FILE_FOLDER).cache
+	$(RM) -r $(MAIN_FILE_FOLDER)/main.pdf
 	$(RM) $(MAIN_FILE).aux
 	$(RM) $(MAIN_FILE).bbl
 	$(RM) $(MAIN_FILE).blg
