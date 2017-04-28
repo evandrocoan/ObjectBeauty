@@ -2,7 +2,7 @@
 
 
 # The time flag file path
-updateFlagFilePath="$(pwd)/.epos_flag_file.txt"
+updateFlagFilePath="/tmp/.time_flag.txt"
 
 # Save the current seconds
 if ! [ -f $updateFlagFilePath ]
@@ -11,7 +11,7 @@ then
     export scriptStartSecond=$(date +%s.%N)
     
     # Create a flag file to avoid override the initial time.
-    echo "The EPOS 1.1 time flag." > $updateFlagFilePath
+    echo "The time flag." > $updateFlagFilePath
 fi
 
 # Calculates and prints to the screen the seconds elapsed since this script started.
