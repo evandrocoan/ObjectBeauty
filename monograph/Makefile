@@ -2,6 +2,19 @@
 
 
 
+# The main latex file
+MAIN_FILE = main
+
+# The folder where the `MAIN_FILE` file is on
+MAIN_FILE_FOLDER = proposal/
+
+# This will be the pdf generated
+OUTPUT_FILE_NAME = proposta
+
+# This is the folder where the temporary files are going to be
+CACHE_FOLDER = .cache
+
+
 
 
 # Font:
@@ -12,28 +25,9 @@
 # file of the given name existing.
 .PHONY: MyDoc.pdf all clean
 
-
 # The first rule in a Makefile is the one executed by default ("make"). It
 # should always be the "all" rule, so that "make" and "make all" are identical.
 all: MyDoc.pdf
-
-
-MAIN_FILE = main
-MAIN_FILE_FOLDER = proposal/
-
-
-# CUSTOM BUILD RULES
-
-# In case you didn't know, '$@' is a variable holding the name of the target,
-# and '$<' is a variable holding the (first) dependency of a rule.
-# "raw2tex" and "dat2tex" are just placeholders for whatever custom steps
-# you might have.
-
-%.tex: %.raw
-	./raw2tex $< > $@
-
-%.tex: %.dat
-	./dat2tex $< > $@
 
 
 
@@ -42,42 +36,54 @@ MAIN_FILE_FOLDER = proposal/
 # -pdf tells latexmk to generate PDF directly (instead of DVI).
 # -pdflatex="" tells latexmk to call a specific backend with specific options.
 # -use-make tells latexmk to call make for generating missing files.
-
+#
 # -interaction=nonstopmode keeps the pdflatex backend from stopping at a
 # missing file reference and interactively asking you for an alternative.
 #
 # http://docs.miktex.org/manual/texfeatures.html#auxdirectory
-
+#
 # How do I write the 'cd' command in a makefile?
 # http://stackoverflow.com/questions/1789594/how-do-i-write-the-cd-command-in-a-makefile
 .ONESHELL:
 
+
 MyDoc.pdf: $(MAIN_FILE_FOLDER)$(MAIN_FILE).tex
+
+	# Enters to the proposal folder to build the files
 	cd ./$(MAIN_FILE_FOLDER)
-	pwd
-	latexmk -pdf -output-directory=".cache" -aux-directory=".cache" -pdflatex="pdflatex -interaction=nonstopmode" -use-make $(MAIN_FILE).tex
-	cp .cache/$(MAIN_FILE).pdf ../proposal.pdf
-	cd ..
-	# latex $(MAIN_FILE).tex
-	# bibtex $(MAIN_FILE).tex
-	# latex $(MAIN_FILE).tex
-	# latex $(MAIN_FILE).tex
+
+	# Creates the shell variable `current_dir` within the current folder path
+	$(eval current_dir := $(shell pwd)) echo $(current_dir) > /dev/null
+
+	# Call the latex specialized make file
+	latexmk \
+	-pdf \
+	-jobname="$(OUTPUT_FILE_NAME)" \
+	-output-directory="$(CACHE_FOLDER)" \
+	-aux-directory="$(CACHE_FOLDER)" \
+	-pdflatex="pdflatex -interaction=nonstopmode" \
+	-use-make $(MAIN_FILE).tex
+
+	# Copy the generated PDF file from the cache folder
+	cp $(CACHE_FOLDER)/$(OUTPUT_FILE_NAME).pdf $(current_dir)/$(OUTPUT_FILE_NAME).pdf
+
+
 
 clean:
 	latexmk -CA
 	$(RM) proposal.pdf
-	$(RM) -r $(MAIN_FILE_FOLDER).cache
-	$(RM) -r $(MAIN_FILE_FOLDER)/main.pdf
-	$(RM) $(MAIN_FILE).aux
-	$(RM) $(MAIN_FILE).bbl
-	$(RM) $(MAIN_FILE).blg
-	$(RM) $(MAIN_FILE).fls
-	$(RM) $(MAIN_FILE).dvi
-	$(RM) $(MAIN_FILE).fdb_latexmk
-	$(RM) $(MAIN_FILE).synctex.gz
-	$(RM) $(MAIN_FILE).log
-	$(RM) $(MAIN_FILE).out
-	$(RM) $(MAIN_FILE).pdf
-	$(RM) $(MAIN_FILE).toc
+	$(RM) -r $(MAIN_FILE_FOLDER)$(CACHE_FOLDER)
+	$(RM) -r $(MAIN_FILE_FOLDER)/$(OUTPUT_FILE_NAME).pdf
+	$(RM) $(OUTPUT_FILE_NAME).aux
+	$(RM) $(OUTPUT_FILE_NAME).bbl
+	$(RM) $(OUTPUT_FILE_NAME).blg
+	$(RM) $(OUTPUT_FILE_NAME).fls
+	$(RM) $(OUTPUT_FILE_NAME).dvi
+	$(RM) $(OUTPUT_FILE_NAME).fdb_latexmk
+	$(RM) $(OUTPUT_FILE_NAME).synctex.gz
+	$(RM) $(OUTPUT_FILE_NAME).log
+	$(RM) $(OUTPUT_FILE_NAME).out
+	$(RM) $(OUTPUT_FILE_NAME).pdf
+	$(RM) $(OUTPUT_FILE_NAME).toc
 
 
