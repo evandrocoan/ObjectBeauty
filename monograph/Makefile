@@ -6,7 +6,7 @@
 MAIN_FILE = main
 
 # The folder where the `MAIN_FILE` file is on
-MAIN_FILE_FOLDER = proposal/
+MAIN_FILE_FOLDER = proposal
 
 # This will be the pdf generated
 OUTPUT_FILE_NAME = proposta
@@ -16,6 +16,20 @@ CACHE_FOLDER = .cache
 
 
 
+##
+## Usage:
+##   make <target>
+##
+## Targets:
+##   all           generate all assets
+##   proposal      build the `proposal` to the `proposta.pdf` file
+##   thesis        build the `thesis` to the `monografia.pdf` file
+##
+
+# Print the usage instructions
+# https://gist.github.com/prwhite/8168133
+help:
+	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
 # Font:
 # https://tex.stackexchange.com/questions/40738/how-to-properly-make-a-latex-project
@@ -23,12 +37,15 @@ CACHE_FOLDER = .cache
 # You want latexmk to *always* run, because make does not have all the info.
 # Also, include non-file targets in .PHONY so they are run regardless of any
 # file of the given name existing.
-.PHONY: MyDoc.pdf all clean
+.PHONY: proposal thesis all clean help
+
+# How do I write the 'cd' command in a makefile?
+# http://stackoverflow.com/questions/1789594/how-do-i-write-the-cd-command-in-a-makefile
+.ONESHELL:
 
 # The first rule in a Makefile is the one executed by default ("make"). It
 # should always be the "all" rule, so that "make" and "make all" are identical.
-all: MyDoc.pdf
-
+all: proposal thesis
 
 
 # MAIN LATEXMK RULE
@@ -41,13 +58,7 @@ all: MyDoc.pdf
 # missing file reference and interactively asking you for an alternative.
 #
 # http://docs.miktex.org/manual/texfeatures.html#auxdirectory
-#
-# How do I write the 'cd' command in a makefile?
-# http://stackoverflow.com/questions/1789594/how-do-i-write-the-cd-command-in-a-makefile
-.ONESHELL:
-
-
-MyDoc.pdf: $(MAIN_FILE_FOLDER)$(MAIN_FILE).tex
+proposal: $(MAIN_FILE_FOLDER)/$(MAIN_FILE).tex
 
 	# Enters to the proposal folder to build the files
 	cd ./$(MAIN_FILE_FOLDER)
@@ -69,10 +80,12 @@ MyDoc.pdf: $(MAIN_FILE_FOLDER)$(MAIN_FILE).tex
 
 
 
-clean:
-	latexmk -CA
-	$(RM) proposal.pdf
-	$(RM) -r $(MAIN_FILE_FOLDER)$(CACHE_FOLDER)
+clean: veryclean
+
+veryclean: clean_proposal
+
+clean_proposal:
+	$(RM) -r $(MAIN_FILE_FOLDER)/$(CACHE_FOLDER)
 	$(RM) -r $(MAIN_FILE_FOLDER)/$(OUTPUT_FILE_NAME).pdf
 	$(RM) $(OUTPUT_FILE_NAME).aux
 	$(RM) $(OUTPUT_FILE_NAME).bbl
@@ -85,5 +98,9 @@ clean:
 	$(RM) $(OUTPUT_FILE_NAME).out
 	$(RM) $(OUTPUT_FILE_NAME).pdf
 	$(RM) $(OUTPUT_FILE_NAME).toc
+
+clean_thesis:
+
+
 
 
