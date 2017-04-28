@@ -26,7 +26,7 @@
             "file_regex": "^(..[^:]*):([\\d+]):?(\\d+)?:? (.*)$|^\\(.*\\)\\((\\d+)\\)(.*)$",
             // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
 
-            "name": "Build Main file",
+            "name": "Build Beautifier",
             "cmd": ["sh", "choose_a_compiler.sh", "main"],
 
             "working_dir": "$project_path/source",
@@ -45,7 +45,7 @@
                     "syntax": "Packages/ANSIescape/ANSI.tmLanguage"
                 },
                 {
-                    "name": "Do a Make Very Clean",
+                    "name": "Perform Make Very Clean",
                     "cmd": ["sh", "choose_a_compiler.sh", "veryclean"],
                 },
             ],
