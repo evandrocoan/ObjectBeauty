@@ -1,15 +1,13 @@
 #!/bin/sh
 
 # Import the helper functions.
-. ../scripts/timer_calculator.sh
+. ./timer_calculator.sh
 
 
+cd $1
 
 # make clean
-make
-
-# pwd
-# cp proposal/.cache/main.pdf ./proposal.pdf
+$2
 
 
 wait $!

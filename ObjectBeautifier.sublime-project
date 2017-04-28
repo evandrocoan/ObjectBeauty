@@ -61,10 +61,10 @@
             // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
 
             "name": "Build Monograph Proposal",
-            "cmd": ["sh", "make_run.sh"],
+            "cmd": ["sh", "make_run.sh", "../monograph", "make"],
 
             "shell": true,
-            "working_dir": "$project_path/monograph",
+            "working_dir": "$project_path/scripts",
 
             "target": "exec",
             "syntax": "Packages/Text/Plain text.tmLanguage",
