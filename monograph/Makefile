@@ -27,6 +27,7 @@ CACHE_FOLDER = .cache
 # http://stackoverflow.com/questions/1789594/how-do-i-write-the-cd-command-in-a-makefile
 .ONESHELL:
 
+
 ##
 ## Usage:
 ##   make <target>
@@ -87,7 +88,9 @@ proposal: $(MAIN_FILE_FOLDER)/$(MAIN_FILE).tex
 
 clean: veryclean
 
+
 veryclean: clean_proposal
+
 
 clean_proposal:
 	$(RM) -r $(MAIN_FILE_FOLDER)/$(CACHE_FOLDER)

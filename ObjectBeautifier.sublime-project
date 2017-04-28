@@ -61,10 +61,10 @@
             // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
 
             "name": "Build Monograph - Proposal",
-            "cmd": ["sh", "make_run.sh", "../monograph", "make proposal"],
+            "cmd": ["make", "proposal"],
 
             "shell": true,
-            "working_dir": "$project_path/scripts",
+            "working_dir": "$project_path/monograph",
 
             "target": "exec",
             "syntax": "Packages/Text/Plain text.tmLanguage",
@@ -77,10 +77,10 @@
             // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
 
             "name": "Build Monograph - Thesis",
-            "cmd": ["sh", "make_run.sh", "../monograph", "make thesis"],
+            "cmd": ["make", "thesis"],
 
             "shell": true,
-            "working_dir": "$project_path/scripts",
+            "working_dir": "$project_path/monograph",
 
             "target": "exec",
             "syntax": "Packages/Text/Plain text.tmLanguage",
@@ -93,10 +93,10 @@
             // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
 
             "name": "Build Monograph - Very Clean",
-            "cmd": ["sh", "make_run.sh", "../monograph", "make clean"],
+            "cmd": ["sh", "scripts/make_run.sh", ".", "make clean"],
 
             "shell": true,
-            "working_dir": "$project_path/scripts",
+            "working_dir": "$project_path/monograph",
 
             "target": "exec",
             "syntax": "Packages/Text/Plain text.tmLanguage",
