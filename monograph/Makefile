@@ -60,6 +60,9 @@ all: proposal thesis
 # http://docs.miktex.org/manual/texfeatures.html#auxdirectory
 proposal: $(MAIN_FILE_FOLDER)/$(MAIN_FILE).tex
 
+	# Start counting the compilation time and import its shell functions
+	. ./scripts/timer_calculator.sh
+
 	# Enters to the proposal folder to build the files
 	cd ./$(MAIN_FILE_FOLDER)
 
@@ -78,6 +81,8 @@ proposal: $(MAIN_FILE_FOLDER)/$(MAIN_FILE).tex
 	# Copy the generated PDF file from the cache folder
 	cp $(CACHE_FOLDER)/$(OUTPUT_FILE_NAME).pdf $(current_dir)/$(OUTPUT_FILE_NAME).pdf
 
+	# Calculate the elapsed seconds and print them to the screen
+	showTheElapsedSeconds "$(current_dir)"
 
 
 clean: veryclean
