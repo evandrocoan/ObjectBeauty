@@ -4,14 +4,118 @@
 
 \section{Introdução}
 
+    Perguntas como ``O que são boas práticas de programação?'' ou ainda ``O por quê estas práticas
+    são boas?'', não são fáceis de responder. Mas cada programador aprende a escrever seus códigos
+    em uma determinada maneira, com determinadas características como utilizar 4 ou 8 espaços para
+    indentação de linhas, sempre deixar uma linha em branco antes de cada estrutura de controle como
+    if\textquotesingle s, for\textquotesingle s, e afins.
 
+    Mas entrando o universo de boas práticas, há muitos coisas sobre discorrer. Assim neste trabalho
+    especificamente trabalhá-se sobre como realizar a melhor disposição/exibição do código de
+    programação na tela do computador, de modo que maximize e facilite o entendimento do mesmo.
+    Portanto permitindo que o programador dispersa mais tempe pensando sobre o problema, do que
+    tentar decifrar a informação que é apresentado para ele na tela.
+
+    Dentro desta área de trabalho, precisa-se também pensar muito bem sobre como compartilhar os
+    códigos de programação dos programadores entre si. Isso por que entra agora o problema da
+    diversidade de boas práticas de programação. Ela acontece por que muitas vezes, aquilo que é uma
+    boa prática para um `programador A', não é para o outro `programador B'. Por exemplo, imagine um
+    código onde um programador decidiu colocar antes de cada `if', uma linha em branco. Portanto é
+    de se esperar que sempre que vemos uma linha em branco nos podemos potencialmente encontrar um
+    `if'. Entretanto imagine que outro programador não gostou dessa regra e quando ele foi escrever
+    seu código que envolvia um `if', ele não colocou a essa tal linha em branco que o outro
+    programador vinha colocando. Então quando o primeiro programador for ler o código e procurar por
+    `if'es, ele vai estar esperando por linhas em branco. Mas vai perder algum tempo procurando até
+    perceber que o outro programador não as colocou.
+
+    Essas diferenças dão-se devido a diversidade de meios de se aprender programação, tanto quanto
+    aos gostos, aptidões e objetivos de cada programador. Assim hoje em dia isso torna-se um grande
+    problema por que cada vez mais precisamos de mais e mais programadores trabalhem juntos entre
+    si, desenvolvendo os mais diversos sistemas computações. Onde este último deve-se ao fato de que
+    a complexidade dos sistemas computacionais cresce cada vez mais, portanto requer-se que mais e
+    mais programadores trabalhem e compartilhem códigos.
+
+    Então além de nos preocupar-mos somente como o código é exibido na tela do computador, nós
+    precisamos nos preocupar sobre como ele será salvo no sistema de arquivos. Já que ao
+    compartilhar o código, é vital o uso de um sistema de versionamento para permitir a gerências de
+    projetos e os programadores em si, terem o controle de mudanças do código. O que permiti e
+    facilmente possa realizar o rastreamento de mudanças e permitir que se possa entender melhor o
+    que cada programador está fazendo a cada vez que ele formaliza um mudança no código através de
+    uma `commit', como no sistemas `git` por exemplo.
+
+    Isso por que quando trabalhos em um sistema de versionamento como `git' precisamos manter o
+    código dentre um único estilo ou boa prática definida como padrão, devido ao fato de que se
+    deixar-mos cada programador escrever como ele quiser, teremos muito ruído durante a revisão do
+    código e estamos determinando o que o programador fez/escreveu, se cada programador re-escreve o
+    histórico fazendo alterações como colocar linhas novas antes de cada if. Assim teremos ruído por
+    que o foco de um sistema de versionamento é olhar somente as mudanças que são significativas
+    para o código, como a criação de novas funções e não a adição de novas linhas em branco.
+
+    Sobre o último ponto, podemos pensar também sobre uma abordagem da criação de um novo sistema de
+    versão que foque somente nas mudanças significativas para o código, durante o momento da
+    revisão. Entretanto essa abordagem não é ideal por que, por exemplo, ela dá margem para que
+    programadores entrem em guerras tediantes e não produtivas de ajustes de código. Por exemplo,
+    imagine o quão seria todo dia que você acorda e começa a trabalhar, você tem que passar pelo
+    código colocando linhas novas antes de cada um dos if\textquotesingle s por que o programador do
+    turno da noite tinha acabado de remover eles?
 
 
 \section{Objetivos}
 
+    Estabelecer relações entre boas práticas de programação e eficiência em programar, além de uma
+    nova ferramenta ao apoio do programador com o intuito de automatizar o longo e diverso processo
+    de programação em equipes de desenvolvedores com distintas boas práticas de programação.
+
+\subsection{Objetivos específicos}
+
+    \begin{enumerate}
+
+        \item
+
+        Definir, estudar, determinar e classificar o que são boas práticas de programação e realizar
+        um estudo aprofundado sobre a as boas práticas da área de disposição visual, conhecidas
+        também como `Beautifying'.
+
+        \item
+
+        Um estudo sobre as mais diversas ferramentas existentes para o apoio de boas práticas de
+        programação, além de uma análise comparativa entre elas, determinando suas fraquezas e
+        pontos fortes.
+
+        \item
+
+        A definição de um padrão de floxo de desenvolvimento que permita equipes de programadores
+        com distintas boas práticas de programação, trabalhem em si sem intervir e iniciar guerras
+        de boas práticas.
+
+        \item
+
+        Propor uma ferramenta única que permita diversas e distintas boas práticas de programação serem
+        implementadas nas mais diversas linguagens de programação e que elas possam ser configuradas
+        e definidas ao gosto dos programadores que a usa.
+
+    \end{enumerate}
 
 
 \section{Método de pesquisa}
+
+    O trabalho será baseado em pesquisas em artigos, livros, teses, dissertações, sites de autores
+    confiáveis, e por meio de novas provas demonstradas e baseadas através de argumentos no decorrer
+    da evolução da monografia. Também sera apresentado os resultados decorridos da construção de uma
+    nova ferramenta que proprõe a solução de um dos problemas apresentados e explicados.
+
+    No último capítulo desta proposta encontra-se no tópico \autoref{sec:implementation} encontra-se
+    uma série de links e referências que forma pré-selecionadas e poderão ser utilizadas na
+    construção final deste trabalho. Notes que em si, as partes da última seção serão gradativamente
+    movida para primeira parte do texto onde encontra-se pesquisa teórica, no decorrer que suas
+    informações correlacionadas são incorporadas no trabalho escrito.
+
+    Assim no final da primeira parte desta obra que dará-se no final da conclusão da disciplina
+    intitulada de Trabalho de Conclusão de Curso 1, restarão somente as informações destinadas a
+    implementação da ferramenta proposta, que serão implementadas na segunda parte da monografia
+    denominada \nameref{sec:implementation}, que será desenvolvida no final da conclusão da
+    disciplina de Trabalho de Conclusão de Curso 2.
+
 
 
 
