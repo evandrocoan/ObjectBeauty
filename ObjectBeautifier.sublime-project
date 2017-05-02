@@ -1,4 +1,8 @@
 {
+    "settings":
+    {
+        "TEXroot": "./monograph/proposal/main.tex"
+    },
     "folders":
     [
         {
