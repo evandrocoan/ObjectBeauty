@@ -107,6 +107,7 @@ boxsep=0pt,
 breakable,
 }
 
+
 % Make first row of table all bold
 %
 % Usage:
@@ -134,6 +135,27 @@ breakable,
 \newcommand{\rowstyle}[1]{\gdef\currentrowstyle{#1}%
   #1\ignorespaces
 }
+
+
+% How to automatically put a [Go To Summary] | [Go Back] on each section?
+%
+% Use \addGoToSummary to turn it on, and
+% \removeGoToSummary to turn off the `[Go To Top]` label.
+%
+% https://tex.stackexchange.com/questions/367859/how-to-automatically-put-a-go-to-summary-go-back-on-each-section
+\definecolor{ultramarine}{RGB}{0,32,96}
+
+\newcommand{\goToSummaryText}{\hyperlink{summary}{\textcolor{ultramarine}{\small\mdseries [Go To Top]}}}
+
+\makeatletter
+\newcommand{\addGoToSummary}{\renewcommand{\Sectionformat}[2]{##1 \goToSummaryText}}
+\newcommand{\removeGoToSummary}{\renewcommand{\Sectionformat}[2]{##1}}
+\makeatother
+
+\let\oldtableofcontents\tableofcontents
+\renewcommand{\tableofcontents}{%
+  \hypertarget{summary}% Insert internal document link
+  \oldtableofcontents}
 
 
 

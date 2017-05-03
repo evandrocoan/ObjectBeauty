@@ -1,10 +1,23 @@
 
 
 
+
+% Incompatible color definition when using tikz with color package
+% https://tex.stackexchange.com/questions/150369/incompatible-color-definition-when-using-tikz-with-color-package
+\usepackage{xcolor}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\definecolor{link_color}{RGB}{26,13,178}
+
+
 % For web links and paths with \path{..} and \url{https://www.python.org/downloads/}
 %
 % https://tex.stackexchange.com/questions/3033/forcing-linebreaks-in-url
-\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[backref,colorlinks,linkcolor=link_color]{hyperref}
 
 % How to fix URL overfull & underfull on emumeration?
 % % https://tex.stackexchange.com/questions/366803/how-to-fix-url-overfull-underfull-on-emumeration
