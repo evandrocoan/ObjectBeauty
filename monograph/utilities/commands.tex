@@ -145,7 +145,11 @@ breakable,
 % https://tex.stackexchange.com/questions/367859/how-to-automatically-put-a-go-to-summary-go-back-on-each-section
 \definecolor{ultramarine}{RGB}{0,32,96}
 
-\newcommand{\goToSummaryText}{\hyperlink{summary}{\textcolor{ultramarine}{\small\mdseries [Go To Top]}}}
+\newcommand{\goToSummaryText}{
+  \hyperlink{summary} {\textcolor{ultramarine}{\small\mdseries [Go To Top]}}
+  {\small\mdseries |}
+  \Acrobatmenu{GoBack}{\textcolor{ultramarine}{\small\mdseries [Go Back]}}
+}
 
 \makeatletter
 \newcommand{\addGoToSummary}{\renewcommand{\Sectionformat}[2]{##1 \goToSummaryText}}
