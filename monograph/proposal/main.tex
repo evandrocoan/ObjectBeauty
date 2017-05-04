@@ -35,8 +35,11 @@
 % Sets this document font size to 12pt and set is type to article
 \documentclass[12pt]{article}
 
+% Will allow all displayable utf8 characters to be available as input
+% https://tex.stackexchange.com/questions/13067/utf8x-vs-utf8-inputenc
 % https://tex.stackexchange.com/questions/664/why-should-i-use-usepackaget1fontenc
 \usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 
 % Sets this document language usage to Portuguese
 \usepackage[brazil]{babel}
@@ -50,9 +53,6 @@
 % Set the page size to be A4 as opposed to the default US Letter
 \usepackage[a4paper, margin=2cm]{geometry}
 
-% Sets the character set of this document to UTF-8
-\usepackage[utf8]{inputenc}
-
 
 
 %----------------------------------------------------------------------------------------
@@ -60,9 +60,9 @@
 %----------------------------------------------------------------------------------------
 
 % Utilities files
-\input{../utilities/basic}
-\input{../utilities/commands}
-\input{../utilities/programming}
+\input{utilities/basic}
+\input{utilities/commands}
+\input{utilities/programming}
 
 % To use the font Times New Roman, instead of the default LaTeX font
 % \usepackage{mathptmx}
@@ -70,6 +70,7 @@
 % more up-to-date than 'mathptmx'
 \usepackage{newtxtext,newtxmath}
 
+% Always use it as should improve full justification
 % https://tex.stackexchange.com/questions/10377/texttt-overfull-hbox-problem
 % https://tex.stackexchange.com/questions/66052/should-i-load-microtype-with-pdflatex
 \usepackage{microtype}
@@ -88,8 +89,11 @@
 % Specifies the directory where pictures are stored
 \graphicspath{{pictures/}}
 
-% Uncomment to remove all indentation from paragraphs
-%\setlength\parindent{0pt}
+
+
+%----------------------------------------------------------------------------------------
+%   Bad Boxes settings
+%----------------------------------------------------------------------------------------
 
 % Bad formatting using URLs in bibtex
 % https://tex.stackexchange.com/questions/22888/bad-formatting-using-urls-in-bibtex
@@ -110,6 +114,9 @@
 % \edef\restoreparindent{\parindent=\the\parindent\relax}
 % \usepackage{parskip}
 % \restoreparindent
+%
+% Uncomment to remove all indentation from paragraphs
+%\setlength\parindent{0pt}
 %
 % How to restore the parskip skips between list items?
 % https://tex.stackexchange.com/questions/366848/how-to-restore-the-parskip-skips-between-list-items
