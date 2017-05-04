@@ -12,7 +12,7 @@ MAIN_FILE_FOLDER = proposal
 OUTPUT_FILE_NAME = proposta
 
 # This is the folder where the temporary files are going to be
-CACHE_FOLDER = .cache
+CACHE_FOLDER = cache
 
 
 # Font:
@@ -95,17 +95,8 @@ veryclean: clean_proposal
 clean_proposal:
 	$(RM) -r $(MAIN_FILE_FOLDER)/$(CACHE_FOLDER)
 	$(RM) -r $(MAIN_FILE_FOLDER)/$(OUTPUT_FILE_NAME).pdf
-	$(RM) $(OUTPUT_FILE_NAME).aux
-	$(RM) $(OUTPUT_FILE_NAME).bbl
-	$(RM) $(OUTPUT_FILE_NAME).blg
-	$(RM) $(OUTPUT_FILE_NAME).fls
-	$(RM) $(OUTPUT_FILE_NAME).dvi
-	$(RM) $(OUTPUT_FILE_NAME).fdb_latexmk
-	$(RM) $(OUTPUT_FILE_NAME).synctex.gz
-	$(RM) $(OUTPUT_FILE_NAME).log
-	$(RM) $(OUTPUT_FILE_NAME).out
 	$(RM) $(OUTPUT_FILE_NAME).pdf
-	$(RM) $(OUTPUT_FILE_NAME).toc
+
 
 clean_thesis:
 
