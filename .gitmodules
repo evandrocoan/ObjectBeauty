@@ -7,3 +7,6 @@
 [submodule "source/libraries/yaml-cpp"]
 	path = source/libraries/yaml-cpp
 	url = https://github.com/evandrocoan/yaml-cpp
+[submodule "monograph/proposal/utilities"]
+	path = monograph/proposal/utilities
+	url = https://github.com/evandrocoan/latex_utilities
