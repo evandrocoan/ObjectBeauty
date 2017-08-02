@@ -40,9 +40,10 @@ MAKEFLAGS += --silent
 ##   make <target>
 ##
 ## Targets:
-##   all           generate all assets
-##   proposal      build the `proposal` to the `proposta.pdf` file
-##   thesis        build the `thesis` to the `monografia.pdf` file
+##   all               generate all assets
+##   proposal          build the `proposal` to the `proposal.pdf` file
+##   thesis            build the `thesis` to the `thesis.pdf` file
+##   thesis_verbose    build the `thesis` to the `thesis.pdf` file with maximum output logs
 ##
 
 # Print the usage instructions
@@ -122,7 +123,7 @@ thesis: $(THESIS_FOLDER)/$(THESIS_MAIN_FILE).tex
 	showTheElapsedSeconds "$(current_dir)"
 
 
-thesis_: $(THESIS_FOLDER)/$(THESIS_MAIN_FILE).tex
+thesis_verbose: $(THESIS_FOLDER)/$(THESIS_MAIN_FILE).tex
 
 	# Start counting the compilation time and import its shell functions
 	. ./scripts/timer_calculator.sh
@@ -133,16 +134,18 @@ thesis_: $(THESIS_FOLDER)/$(THESIS_MAIN_FILE).tex
 	# Creates the shell variable `current_dir` within the current folder path
 	$(eval current_dir := $(shell pwd)) echo $(current_dir) > /dev/null
 
-	# Call the latex specialized make file
-	pdflatex \
+	# What is the difference between “-interaction=nonstopmode” and “-halt-on-error”?
+	# https://tex.stackexchange.com/questions/258814/what-is-the-difference-between-interaction-nonstopmode-and-halt-on-error
+	#
+	# What reasons (if any) are there for compiling in interactive mode?
+	# https://tex.stackexchange.com/questions/25267/what-reasons-if-any-are-there-for-compiling-in-interactive-mode
+	latexmk \
+	-pdf \
 	-jobname="$(THESIS_OUTPUT_NAME)" \
 	-output-directory="$(CACHE_FOLDER)" \
 	-aux-directory="$(CACHE_FOLDER)" \
-	--time-statistics \
-	--shell-escape \
-	--synctex=1 \
-	--interaction=batchmode \
-	$(THESIS_MAIN_FILE).tex
+	-pdflatex="pdflatex --synctex=1 --interaction=nonstopmode" \
+	-use-make $(THESIS_MAIN_FILE).tex
 
 	# Copy the generated PDF file from the cache folder
 	cp $(CACHE_FOLDER)/$(THESIS_OUTPUT_NAME).pdf $(current_dir)/$(THESIS_OUTPUT_NAME).pdf
