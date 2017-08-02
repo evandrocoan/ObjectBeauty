@@ -3,13 +3,16 @@
 
 
 # The main latex file
-MAIN_FILE = main
+THESIS_MAIN_FILE   = modelo-abntex2-ufsc
+PROPOSAL_MAIN_FILE = main
 
-# The folder where the `MAIN_FILE` file is on
-MAIN_FILE_FOLDER = proposal
+# The folder where the `PROPOSAL_MAIN_FILE` file is on
+THESIS_FOLDER   = thesis
+PROPOSAL_FOLDER = proposal
 
 # This will be the pdf generated
-OUTPUT_FILE_NAME = proposta
+THESIS_OUTPUT_NAME   = thesis
+PROPOSAL_OUTPUT_NAME = proposal
 
 # This is the folder where the temporary files are going to be
 CACHE_FOLDER = cache
@@ -26,6 +29,12 @@ CACHE_FOLDER = cache
 # How do I write the 'cd' command in a makefile?
 # http://stackoverflow.com/questions/1789594/how-do-i-write-the-cd-command-in-a-makefile
 .ONESHELL:
+
+# GNU Make silent by default
+# https://stackoverflow.com/questions/24005166/gnu-make-silent-by-default
+ifndef VERBOSE
+.SILENT:
+endif
 
 
 ##
@@ -59,13 +68,13 @@ all: proposal thesis
 # missing file reference and interactively asking you for an alternative.
 #
 # http://docs.miktex.org/manual/texfeatures.html#auxdirectory
-proposal: $(MAIN_FILE_FOLDER)/$(MAIN_FILE).tex
+proposal: $(PROPOSAL_FOLDER)/$(PROPOSAL_MAIN_FILE).tex
 
 	# Start counting the compilation time and import its shell functions
 	. ./scripts/timer_calculator.sh
 
 	# Enters to the proposal folder to build the files
-	cd ./$(MAIN_FILE_FOLDER)
+	cd ./$(PROPOSAL_FOLDER)
 
 	# Creates the shell variable `current_dir` within the current folder path
 	$(eval current_dir := $(shell pwd)) echo $(current_dir) > /dev/null
@@ -73,14 +82,43 @@ proposal: $(MAIN_FILE_FOLDER)/$(MAIN_FILE).tex
 	# Call the latex specialized make file
 	latexmk \
 	-pdf \
-	-jobname="$(OUTPUT_FILE_NAME)" \
+	-jobname="$(PROPOSAL_OUTPUT_NAME)" \
 	-output-directory="$(CACHE_FOLDER)" \
 	-aux-directory="$(CACHE_FOLDER)" \
 	-pdflatex="pdflatex -interaction=nonstopmode" \
-	-use-make $(MAIN_FILE).tex
+	-use-make $(PROPOSAL_MAIN_FILE).tex
 
 	# Copy the generated PDF file from the cache folder
-	cp $(CACHE_FOLDER)/$(OUTPUT_FILE_NAME).pdf $(current_dir)/$(OUTPUT_FILE_NAME).pdf
+	cp $(CACHE_FOLDER)/$(PROPOSAL_OUTPUT_NAME).pdf $(current_dir)/$(PROPOSAL_OUTPUT_NAME).pdf
+
+	# Calculate the elapsed seconds and print them to the screen
+	showTheElapsedSeconds "$(current_dir)"
+
+
+thesis: $(THESIS_FOLDER)/$(THESIS_MAIN_FILE).tex
+
+	# Start counting the compilation time and import its shell functions
+	. ./scripts/timer_calculator.sh
+
+	# Enters to the proposal folder to build the files
+	cd ./$(THESIS_FOLDER)
+
+	# Creates the shell variable `current_dir` within the current folder path
+	$(eval current_dir := $(shell pwd)) echo $(current_dir) > /dev/null
+
+	# Call the latex specialized make file
+	pdflatex \
+	-jobname="$(THESIS_OUTPUT_NAME)" \
+	-output-directory="$(CACHE_FOLDER)" \
+	-aux-directory="$(CACHE_FOLDER)" \
+	--time-statistics \
+	--shell-escape \
+	--synctex=1 \
+	--interaction=batchmode \
+	$(THESIS_MAIN_FILE).tex
+
+	# Copy the generated PDF file from the cache folder
+	cp $(CACHE_FOLDER)/$(THESIS_OUTPUT_NAME).pdf $(current_dir)/$(THESIS_OUTPUT_NAME).pdf
 
 	# Calculate the elapsed seconds and print them to the screen
 	showTheElapsedSeconds "$(current_dir)"
@@ -93,9 +131,12 @@ veryclean: clean_proposal
 
 
 clean_proposal:
-	$(RM) -r $(MAIN_FILE_FOLDER)/$(CACHE_FOLDER)
-	$(RM) -r $(MAIN_FILE_FOLDER)/$(OUTPUT_FILE_NAME).pdf
-	$(RM) $(OUTPUT_FILE_NAME).pdf
+	$(RM) -r $(THESIS_FOLDER)/$(CACHE_FOLDER)
+	$(RM) -r $(THESIS_FOLDER)/$(THESIS_OUTPUT_NAME).pdf
+	$(RM) -r $(PROPOSAL_FOLDER)/$(CACHE_FOLDER)
+	$(RM) -r $(PROPOSAL_FOLDER)/$(PROPOSAL_OUTPUT_NAME).pdf
+	$(RM) $(PROPOSAL_OUTPUT_NAME).pdf
+	$(RM) $(THESIS_OUTPUT_NAME).pdf
 
 
 clean_thesis:

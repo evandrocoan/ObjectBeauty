@@ -1,7 +1,7 @@
 {
     "settings":
     {
-        "TEXroot": "./monograph/proposal/main.tex"
+        "TEXroot": "./monograph/thesis/modelo-abntex2-ufsc.tex"
     },
     "folders":
     [
@@ -16,11 +16,11 @@
     "build_systems":
     [
         {
-            "file_regex": "^(..[^:]*):([\\d+]):?(\\d+)?:? (.*)$|^\\(.*\\)\\((\\d+)\\)(.*)$",
-            // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
-
             "name": "Build Beautifier",
             "cmd": ["sh", "choose_a_compiler.sh", "main"],
+
+            "file_regex": "^(..[^:]*):([\\d+]):?(\\d+)?:? (.*)$|^\\(.*\\)\\((\\d+)\\)(.*)$",
+            // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
 
             "working_dir": "$project_path/source",
 
@@ -47,15 +47,15 @@
             "syntax": "Packages/Text/Plain text.tmLanguage",
         },
         {
-            "osx":     { "file_regex": "^(...*?):([0-9]+): ([0-9]*)([^\\.]+)" },
-            "windows": { "file_regex": "^((?:.:)?[^:\n\r]*):([0-9]+):?([0-9]+)?:? (.*)$" },
-            "linux":   { "file_regex": "^(...*?):([0-9]+): ([0-9]*)([^\\.]+)" },
-
-            // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
-
             "name": "Build Monograph - Proposal",
             "cmd": ["make", "proposal"],
 
+            "osx":     { "file_regex": "^(...*?):([0-9]+): ([0-9]*)([^\\.]+)" },
+            "windows": { "file_regex": "^((?:.:)?[^:\n\r]*):([0-9]+):?([0-9]+)?:? (.*)$" },
+            "linux":   { "file_regex": "^(...*?):([0-9]+): ([0-9]*)([^\\.]+)" },
+
+            // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
+
             "shell": true,
             "working_dir": "$project_path/monograph",
 
@@ -63,15 +63,15 @@
             "syntax": "Packages/Text/Plain text.tmLanguage",
         },
         {
-            "osx":     { "file_regex": "^(...*?):([0-9]+): ([0-9]*)([^\\.]+)" },
-            "windows": { "file_regex": "^((?:.:)?[^:\n\r]*):([0-9]+):?([0-9]+)?:? (.*)$" },
-            "linux":   { "file_regex": "^(...*?):([0-9]+): ([0-9]*)([^\\.]+)" },
-
-            // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
-
             "name": "Build Monograph - Thesis",
             "cmd": ["make", "thesis"],
 
+            "osx":     { "file_regex": "^(...*?):([0-9]+): ([0-9]*)([^\\.]+)" },
+            "windows": { "file_regex": "^((?:.:)?[^:\n\r]*):([0-9]+):?([0-9]+)?:? (.*)$" },
+            "linux":   { "file_regex": "^(...*?):([0-9]+): ([0-9]*)([^\\.]+)" },
+
+            // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
+
             "shell": true,
             "working_dir": "$project_path/monograph",
 
@@ -79,14 +79,14 @@
             "syntax": "Packages/Text/Plain text.tmLanguage",
         },
         {
+            "name": "Build Monograph - Very Clean",
+            "cmd": ["sh", "scripts/make_run.sh", ".", "make clean"],
+
             "osx":     { "file_regex": "^(...*?):([0-9]+): ([0-9]*)([^\\.]+)" },
             "windows": { "file_regex": "^((?:.:)?[^:\n\r]*):([0-9]+):?([0-9]+)?:? (.*)$" },
             "linux":   { "file_regex": "^(...*?):([0-9]+): ([0-9]*)([^\\.]+)" },
 
             // "selector": "source.c, source.c++, source.c++11", // comment this to build from everywhere
-
-            "name": "Build Monograph - Very Clean",
-            "cmd": ["sh", "scripts/make_run.sh", ".", "make clean"],
 
             "shell": true,
             "working_dir": "$project_path/monograph",
