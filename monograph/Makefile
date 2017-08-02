@@ -32,9 +32,7 @@ CACHE_FOLDER = cache
 
 # GNU Make silent by default
 # https://stackoverflow.com/questions/24005166/gnu-make-silent-by-default
-ifndef VERBOSE
-.SILENT:
-endif
+MAKEFLAGS += --silent
 
 
 ##
@@ -96,6 +94,35 @@ proposal: $(PROPOSAL_FOLDER)/$(PROPOSAL_MAIN_FILE).tex
 
 
 thesis: $(THESIS_FOLDER)/$(THESIS_MAIN_FILE).tex
+
+	# Start counting the compilation time and import its shell functions
+	. ./scripts/timer_calculator.sh
+
+	# Enters to the proposal folder to build the files
+	cd ./$(THESIS_FOLDER)
+
+	# Creates the shell variable `current_dir` within the current folder path
+	$(eval current_dir := $(shell pwd)) echo $(current_dir) > /dev/null
+
+	# Call the latex specialized make file
+	pdflatex \
+	-jobname="$(THESIS_OUTPUT_NAME)" \
+	-output-directory="$(CACHE_FOLDER)" \
+	-aux-directory="$(CACHE_FOLDER)" \
+	--time-statistics \
+	--shell-escape \
+	--synctex=1 \
+	--interaction=batchmode \
+	$(THESIS_MAIN_FILE).tex
+
+	# Copy the generated PDF file from the cache folder
+	cp $(CACHE_FOLDER)/$(THESIS_OUTPUT_NAME).pdf $(current_dir)/$(THESIS_OUTPUT_NAME).pdf
+
+	# Calculate the elapsed seconds and print them to the screen
+	showTheElapsedSeconds "$(current_dir)"
+
+
+thesis_: $(THESIS_FOLDER)/$(THESIS_MAIN_FILE).tex
 
 	# Start counting the compilation time and import its shell functions
 	. ./scripts/timer_calculator.sh
