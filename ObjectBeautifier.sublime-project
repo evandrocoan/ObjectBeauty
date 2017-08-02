@@ -12,17 +12,6 @@
                 "source/libraries/doctest/scripts/bench/catch",
             ],
         },
-        {
-            "path": "D:/User/Dropbox/Applications/SoftwareVersioning/SublimeText/Data/Packages",
-            "folder_exclude_patterns":
-            [
-                "Packages/ObjectBeautifier",
-                "Packages/User/Color Highlighter",
-            ],
-        },
-        {
-            "path": "D:/User/Dropbox/Applications/SoftwareVersioning/Forks/syntect",
-        },
     ],
     "build_systems":
     [
