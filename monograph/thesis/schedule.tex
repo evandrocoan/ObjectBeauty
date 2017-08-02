@@ -1,0 +1,162 @@
+
+
+
+\section{Cronograma}
+
+    \begin{adjustwidth}{-0.5\marginparwidth}{-0.5\marginparwidth}
+    \small
+    \begin{tabularx}{\linewidth}{|BX|*{11}{^c|}}
+
+        \hline
+        \multicolumn{1}{|c|}{\multirow{2}{*}{{\bfseries Etapas}}} & \multicolumn{11}{|c|}{{\bfseries Meses}} \\
+        \cline{2-12}
+
+        \rowstyle{\bfseries}
+        & ago & set & out & dez & jan & fev & mar & abr & mai & jun & jul   \\ \hline
+
+        Escrita da revisão bibliográfica
+        &  x  &  x  &     &     &     &     &     &     &     &     &     \\ \hline
+
+        Classificar todas classes e tipos de formatações
+        &     &  x  &  x  &     &     &     &     &     &     &     &     \\ \hline
+
+        Implementação de um núcleo funcional
+        &     &     &  x  &  x  &     &     &     &     &     &     &     \\ \hline
+
+        Finalização da escrita do TCC
+        &     &     &     &  x  &  x  &     &     &     &     &     &     \\ \hline
+
+        Ajustes finais no texto do TCC
+        &     &     &     &     &  x  &  x  &  x  &  x  &     &     &     \\ \hline
+
+        Defesa do TCC
+        &     &     &     &     &     &     &     &     &  x  &  x  &  x  \\ \hline
+
+    \end{tabularx}
+    \end{adjustwidth}
+
+    \hfill \cite{Silva}
+
+
+\section{Custos}
+
+    % How to align a vertical line at the end of the multicolumn in a table?
+    % https://tex.stackexchange.com/questions/367075/how-to-align-a-vertical-line-at-the-end-of-the-multicolumn-in-a-table
+    \begin{tabular}
+    {|
+        *1{@{\hspace{3.0pt}}>{ \RaggedRight\arraybackslash\hsize=1.1\hsize }Bp{3.9cm}|} % Item
+        *1{@{\hspace{3.0pt}}>{ \RaggedRight\arraybackslash\hsize=1.1\hsize }^p{2.0cm}|} % Quantidade
+        *1{@{\hspace{3.0pt}}>{ \RaggedRight\arraybackslash\hsize=1.1\hsize }^p{3.2cm}|} % Valor, Valor
+        *1{@{\hspace{3.0pt}}>{ \RaggedRight\arraybackslash\hsize=1.1\hsize }^p{2.8cm}|} % Valor, Valor
+    }
+
+        \hline
+        \rowstyle{\bfseries}
+        Item                    &   Quantidade  &   Valor Unitário (R\$)    &   Valor Total (R\$) \\ \hline
+        CD                      &   1           &   5,00                    &   5,00              \\ \hline
+        Impressão               &   800         &   0,15                    &   120,00            \\ \hline
+        Reserva Gerencial       &   1           &   20,00                   &   20,00             \\ \hline
+        Reserva de Contingência &   1           &   20,00                   &   20,00             \\ \hline
+        Total                   & \multicolumn{2}{c|@{\hspace{3.0pt}}}{}    &   165,00            \\ \hline
+
+    \end{tabular}
+
+    \medskip
+    \hfill \cite{Silva}
+
+
+\section{Recursos Humanos}
+
+    \begin{tabular}{|Bl|^l|}
+
+        \hline
+        \rowstyle{\bfseries}
+        Nome                            & Função                  \\ \hline
+        \Author                         & Autor                   \\ \hline
+        \Advisor                        & Orientador              \\ \hline
+        Renato Cislaghi                 & Coordenador de Projetos \\ \hline
+        \Supervisor                     & Professor Responsável   \\ \hline
+
+    \end{tabular}
+
+    \medskip
+    \hfill \cite{Silva}
+
+
+\section{Comunicação}
+
+    \begin{tabular}{|Bl|^l|^l|^l|}
+
+        \hline
+        \rowstyle{\bfseries}
+        O quê  & De quem & Para Quem & Como                                        \\ \hline
+        Proposta de TCC         & Autor     & Renato Cislaghi   & Site de projetos \\ \hline
+        Relatório de TCC I      & Autor     & Renato Cislaghi   & Site de projetos \\ \hline
+        Prévia do TCC, em TCC I & Autor     & Banca             & E-mail           \\ \hline
+        Defesa do TCC           & Autor     & Banca             & Pessoalmente     \\ \hline
+        Reunião de Orientação   & Orientadores  & Autor         & Pessoalmente     \\ \hline
+
+    \end{tabular}
+
+    \medskip
+    \hfill \cite{Silva}
+
+
+\section{Riscos}
+
+    % https://tex.stackexchange.com/questions/366156/how-to-change-the-left-padding-for-one-latex-tables-cell
+    % https://tex.stackexchange.com/questions/366155/how-to-write-a-table-a-little-larger-than-the-paragraphs-with-centered-columns
+    %
+    \begin{adjustwidth}{-0.5\marginparwidth}{-0.5\marginparwidth}
+    \small
+    \begin{tabularx}{\linewidth}
+    {|
+        *1{                 >{\RaggedRight\arraybackslash\hsize=1.1\hsize }BX       |} % Riscos
+        *3{@{\hspace{3.0pt}}>{\Centering\arraybackslash                   }^p{0.9cm}|} % Probabilidade, Impacto, Prioridade
+        *2{                 >{\RaggedRight\arraybackslash\hsize=0.95\hsize}^X       |} % Resposta, Prevenção
+    }
+
+    \hline
+
+    \rowstyle{\bfseries}
+    Riscos  & a & b & c & Estratégia de resposta & Ações de prevenção \\ \hline
+
+    % Row 1
+    % Riscos
+    Problemas com perda de dados &
+    % Probabilidade
+    Baixa &
+    % Impacto
+    Alto &
+    % Prioridade
+    Alta &
+    % Estratégia de resposta
+    Uso do backup &
+    % Ações de prevenção
+    Backup periódicos \\ \hline
+
+    % Row 2
+    % Riscos
+    Alteração do cronograma ou descontinuidade do projeto onde recebo uma bolsa &
+    % Probabilidade
+    \rlap{Média} &
+    % Impacto
+    Alto &
+    % Prioridade
+    Alta &
+    % Estratégia de resposta
+    Redefinição da data de entrega do trabalho &
+    % Ações de prevenção
+    Monitoramento contínuo das informações obtidas com superiores imediatos \\ \hline
+
+    \end{tabularx}
+
+    \hfill {\small {\bfseries a}: Probabilidade, {\bfseries b}: Impacto, {\bfseries c}: Prioridade}
+
+    \end{adjustwidth}
+
+    \vspace*{-4mm}
+    \hfill\cite{Silva}
+
+
+
