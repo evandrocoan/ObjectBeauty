@@ -3,7 +3,7 @@
 
 
 # The main latex file
-THESIS_MAIN_FILE   = modelo-abntex2-ufsc
+THESIS_MAIN_FILE   = main
 PROPOSAL_MAIN_FILE = main
 
 # The folder where the `PROPOSAL_MAIN_FILE` file is on

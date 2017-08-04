@@ -1,7 +1,7 @@
 {
     "settings":
     {
-        "TEXroot": "./monograph/thesis/modelo-abntex2-ufsc.tex"
+        "TEXroot": "./monograph/thesis/main.tex"
     },
     "folders":
     [
