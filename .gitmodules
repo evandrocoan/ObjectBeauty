@@ -16,3 +16,6 @@
 [submodule "monograph/thesis/utilities"]
 	path = monograph/thesis/utilities
 	url = https://github.com/evandrocoan/latex_utilities
+[submodule "monograph/thesis/abntevandro"]
+	path = monograph/thesis/abntevandro
+	url = https://github.com/evandrocoan/abntevandro
