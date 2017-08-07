@@ -17,43 +17,48 @@
 %   PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-% Sets this document font size to 12pt and set is type to article
-\documentclass[12pt]{article}
+% Applying options to already loaded package
+% https://tex.stackexchange.com/questions/124049/applying-options-to-already-loaded-package
+\PassOptionsToPackage{backref,colorlinks,linkcolor=link_color,citecolor=dkgreen}{hyperref}
+\PassOptionsToPackage{strict}{changepage}
+\PassOptionsToPackage{shortlabels}{enumitem}
 
-% Will allow all displayable utf8 characters to be available as input
-% https://tex.stackexchange.com/questions/13067/utf8x-vs-utf8-inputenc
-% https://tex.stackexchange.com/questions/664/why-should-i-use-usepackaget1fontenc
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+% Rhe ABNT class hard codes the language to English. It needs to be edited to change it.
+\documentclass[
+    % -- opções da classe memoir --
+    10pt,               % tamanho da fonte
+    openright,          % capítulos começam em pág ímpar (insere página vazia caso preciso)
+    twoside,            % para impressão em recto e verso. Oposto a oneside
+    a5paper,            % tamanho do papel.
+    % -- opções da classe abntex2 --
+    % chapter=TITLE,     % títulos de capítulos convertidos em letras maiúsculas
+    % section=TITLE,     % títulos de seções convertidos em letras maiúsculas
+    % -- opções do pacote babel, idioma adicional para hifenização --
+    brazil,
+    english
+    ]{abntevandro/tex/latex/abntevandro/abntevandro}
 
-% Sets this document language usage to Portuguese
-\usepackage[brazil]{babel}
-
-% Required to change the page size to A4
-% \usepackage{geometry}
-%
-% Sets this document output papel to A4 within 2 centimeters margin
-% \geometry{a4paper}
-%
-% Set the page size to be A4 as opposed to the default US Letter
-\usepackage[a4paper, margin=2cm]{geometry}
-
+% ABNT Citations rules
+\usepackage[alf]{abntevandro/tex/latex/abntevandro/abntevandrocite}
+\usepackage{ufscthesisevandro/abntex2-ufsc}
 
 
 %----------------------------------------------------------------------------------------
 %   File settings
 %----------------------------------------------------------------------------------------
 
-% Utilities files
+% Load General Packages
 \input{utilities/basic}
 \input{utilities/commands}
 \input{utilities/programming}
+% \input{utilities/ufsc}
 
 % To use the font Times New Roman, instead of the default LaTeX font
 % \usepackage{mathptmx}
 %
 % more up-to-date than 'mathptmx'
-\usepackage{newtxtext,newtxmath}
+\usepackage{newtxtext}
+\usepackage{newtxmath}
 
 % Always use it as should improve full justification
 % https://tex.stackexchange.com/questions/10377/texttt-overfull-hbox-problem
@@ -63,13 +68,6 @@
 % Indent the first section paragraphs
 % https://tex.stackexchange.com/q/39227/119062
 \usepackage{indentfirst}
-
-% Why is the linespread factor as it is?
-% \linespread{1.5}
-% https://tex.stackexchange.com/questions/30073/why-is-the-linespread-factor-as-it-is
-\usepackage{setspace}
-% \doublespacing
-\onehalfspacing
 
 % Specifies the directory where pictures are stored
 \graphicspath{{pictures/}}
@@ -117,7 +115,7 @@
 
 % pdfTeX warning (ext4): destination with the same identifier (nam e{page.1}) has been already used, duplicate ignored
 % https://tex.stackexchange.com/questions/18924/pdftex-warning-ext4-destination-with-the-same-identifier-nam-epage-1-has
-\hypersetup{pageanchor=false}
+% \hypersetup{pageanchor=false}
 
 % Author name
 %
@@ -143,11 +141,10 @@
 \addGoToSummary
 
 \include{introduction}
-\include{schedule}
-\include{implementation}
+% \include{schedule}
+% \include{implementation}
 
 
-\bibliographystyle{abbrv}
 \bibliography{refs}
 
 
