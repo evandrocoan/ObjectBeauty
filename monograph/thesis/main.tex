@@ -118,7 +118,7 @@
 
 % pdfTeX warning (ext4): destination with the same identifier (nam e{page.1}) has been already used, duplicate ignored
 % https://tex.stackexchange.com/questions/18924/pdftex-warning-ext4-destination-with-the-same-identifier-nam-epage-1-has
-% \hypersetup{pageanchor=false}
+\hypersetup{pageanchor=false}
 
 % Author name
 %
@@ -139,6 +139,10 @@
 \include{cover}
 \include{abstract}
 \include{summary}
+
+% warning: destination with same identifier has been already used, duplicate ignored
+% https://tex.stackexchange.com/questions/13083/pdftex-warning-destination-with-same-identifier-has-been-already-used-duplicat
+\hypersetup{pageanchor=true}
 
 % To automatically put a [Go To Top] on each section
 \addGoToSummary
