@@ -120,22 +120,6 @@
 % https://tex.stackexchange.com/questions/18924/pdftex-warning-ext4-destination-with-the-same-identifier-nam-epage-1-has
 \hypersetup{pageanchor=false}
 
-% Author name
-%
-% What do \makeatletter and \makeatother do?
-% https://tex.stackexchange.com/questions/8351/what-do-makeatletter-and-makeatother-do
-%
-% How can I use @author, @date, and @title after maketitle?
-% https://tex.stackexchange.com/questions/27710/how-can-i-use-author-date-and-title-after-maketitle
-\makeatletter
-\author{Evandro Coan}\let\Author\@author
-% \author{Someone}          \let\Author\@author
-% \date{Somewhen}           \let\Date\@date
-\def\Advisor{Thiago Ângelo Gelaim}
-\def\Supervisor{Ricardo Azambuja Silveira}
-\makeatother
-
-
 \include{cover}
 \include{abstract}
 \include{summary}
@@ -148,8 +132,8 @@
 \addGoToSummary
 
 \include{introduction}
-% \include{schedule}
-% \include{implementation}
+\include{schedule}
+\include{implementation}
 
 
 \bibliography{refs}
