@@ -19,6 +19,6 @@
 [submodule "monograph/thesis/abntevandro"]
 	path = monograph/thesis/abntevandro
 	url = https://github.com/evandrocoan/abntevandro
-[submodule "monograph/thesis/ufscthesisevandro"]
-	path = monograph/thesis/ufscthesisevandro
-	url = https://github.com/evandrocoan/ufscthesisevandro
+[submodule "monograph/thesis/ufscthesis"]
+	path = monograph/thesis/ufscthesis
+	url = https://github.com/evandrocoan/ufscthesis
