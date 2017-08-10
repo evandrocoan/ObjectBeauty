@@ -11,6 +11,10 @@
 % 1. https://github.com/royertiago/tcc
 % 2. https://github.com/evandrocoan/abntex2-ufsc
 % 3. http://www.latextemplates.com/template/simple-sectioned-essay
+%
+% You can build this using the command:
+%
+% latexmk -pdf -jobname=output -output-directory=cache -aux-directory=cache -pdflatex="pdflatex -interaction=nonstopmode" -use-make main.tex
 
 
 %----------------------------------------------------------------------------------------
@@ -36,11 +40,11 @@
     % -- opções do pacote babel, idioma adicional para hifenização --
     brazil,
     english
-    ]{abntevandro/tex/latex/abntevandro/abntevandro}
+    ]{memoir}
 
-% ABNT Citations rules
-\usepackage[alf]{abntevandro/tex/latex/abntevandro/abntevandrocite}
-\usepackage{ufscthesis/abntex2-ufsc}
+% ABNT Citations rules, % Citação alfabética por autor-data [alf]
+% \usepackage[alf]{abntex2cite}
+% \usepackage{ufscthesis/abntex2-ufsc}
 
 
 %----------------------------------------------------------------------------------------
