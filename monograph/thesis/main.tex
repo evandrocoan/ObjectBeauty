@@ -28,50 +28,43 @@
 %----------------------------------------------------------------------------------------
 %   PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
+% You need to run `pdfTeX` 5 times on the following order: 1. `pdfTeX`, 2. `bibtex`, 3. `pdfTeX` 4.
+% `pdfTeX` 5. `pdfTeX` 6. `pdfTeX`, because the bibliography includes a cyclic reference to another
+% bibliography, so we need a last pass to fix the bibliography undefined references:
+%
+% To fix the warning `LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right`,
+% open the file `D:\User\Documents\latex\texmfs\install\tex\latex\abntex2\abntex2cite.sty` and
+% comment out these two lines:
+% 547: % \renewcommand{\bibcite}[2]{%
+% 548: %   \@newl@bel{b}{#1}{\hyper@@link[cite]{}{cite.#1}{#2}}}%
+\input{ufscthesis/setup/setup}
 
-% Applying options to already loaded package
-% https://tex.stackexchange.com/questions/124049/applying-options-to-already-loaded-package
-\PassOptionsToPackage{backref,colorlinks,linkcolor=link_color,citecolor=dkgreen}{hyperref}
-\PassOptionsToPackage{strict}{changepage}
-\PassOptionsToPackage{shortlabels}{enumitem}
+% Load the UFSC thesis settings
+\usepackage{ufscthesis/setup/ufscthesis}
 
-% Rhe ABNT class hard codes the language to English. It needs to be edited to change it.
-\documentclass[
-    % -- opções da classe memoir --
-    10pt,               % tamanho da fonte
-    openright,          % capítulos começam em pág ímpar (insere página vazia caso preciso)
-    twoside,            % para impressão em recto e verso. Oposto a oneside
-    a5paper,            % tamanho do papel.
-    % -- opções da classe abntex2 --
-    % chapter=TITLE,     % títulos de capítulos convertidos em letras maiúsculas
-    % section=TITLE,     % títulos de seções convertidos em letras maiúsculas
-    % -- opções do pacote babel, idioma adicional para hifenização --
-    brazil,
-    english
-    ]{memoir}
+% Load all required basic packages
+\input{ufscthesis/utilities/basic}
+\input{ufscthesis/utilities/commands}
 
-% ABNT Citations rules, % Citação alfabética por autor-data [alf]
-% \usepackage[alf]{abntex2cite}
-% \usepackage{ufscthesis/abntex2-ufsc}
+% Bad boxes settings and programming environments
+\input{ufscthesis/utilities/badboxes}
+\input{ufscthesis/utilities/programming}
+
+% Input a empty list of commands when on debug mode
+\input{ufscthesis/utilities/commands_list}
+
 
 
 %----------------------------------------------------------------------------------------
 %   File settings
 %----------------------------------------------------------------------------------------
 
-% Load General Packages
-\input{utilities/basic}
-\input{utilities/commands}
-\input{utilities/programming}
-% \input{utilities/ufsc}
-
-% If you want to see the text block frame, you can use the showframe package
-\usepackage{showframe}
+% Print page margins of a document
+% https://tex.stackexchange.com/questions/14508/print-page-margins-of-a-document
+\usepackage[showframe,pass]{geometry}
 
 % To use the font Times New Roman, instead of the default LaTeX font
-% \usepackage{mathptmx}
-%
-% more up-to-date than 'mathptmx'
+% more up-to-date than '\usepackage{mathptmx}'
 \usepackage{newtxtext}
 \usepackage{newtxmath}
 
@@ -80,51 +73,11 @@
 % https://tex.stackexchange.com/questions/66052/should-i-load-microtype-with-pdflatex
 \usepackage{microtype}
 
-% Indent the first section paragraphs
-% https://tex.stackexchange.com/q/39227/119062
-\usepackage{indentfirst}
-
-% Specifies the directory where pictures are stored
-\graphicspath{{pictures/}}
 
 
-
-%----------------------------------------------------------------------------------------
-%   Bad Boxes settings
-%----------------------------------------------------------------------------------------
-
-% Bad formatting using URLs in bibtex
-% https://tex.stackexchange.com/questions/22888/bad-formatting-using-urls-in-bibtex
-\usepackage{etoolbox}
-
-% Underfull \hbox in bibliography
-% https://tex.stackexchange.com/questions/10924/underfull-hbox-in-bibliography
-\apptocmd{\thebibliography}{\raggedright}{}{}
-
-% How to avoid overfull error with url package?
-% See also the `\usepackage{url}` declarationon the file `basic.tex`.
-% Set this to 2mu or 3mu if URL start troubling again.
-% https://tex.stackexchange.com/questions/261776/how-to-avoid-overfull-error-with-url-package
-\Urlmuskip=0mu plus 1mu
-
-% Automatically put a `\medskip` spacing between paragraphs
-% https://tex.stackexchange.com/questions/365976/how-to-stop-the-package-usepackageparskip-disabling-the-paragraph-indentation
-% \edef\restoreparindent{\parindent=\the\parindent\relax}
-% \usepackage{parskip}
-% \restoreparindent
-%
-% Uncomment to remove all indentation from paragraphs
-%\setlength\parindent{0pt}
-%
-% How to restore the parskip skips between list items?
-% https://tex.stackexchange.com/questions/366848/how-to-restore-the-parskip-skips-between-list-items
-\parskip=0.5\baselineskip \advance\parskip by 0pt plus 2pt
-
-
-
-%----------------------------------------------------------------------------------------
-%   DOCUMENT CONTENTS
-%----------------------------------------------------------------------------------------
+% %----------------------------------------------------------------------------------------
+% %   DOCUMENT CONTENTS
+% %----------------------------------------------------------------------------------------
 
 \begin{document}
 
@@ -149,6 +102,5 @@
 
 
 \bibliography{refs}
-
 
 \end{document}
