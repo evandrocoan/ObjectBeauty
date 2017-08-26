@@ -25,12 +25,17 @@
 % latexmk -pdf -jobname=output -output-directory=cache -aux-directory=cache -pdflatex="pdflatex -interaction=nonstopmode" -use-make main.tex
 
 
+
 %----------------------------------------------------------------------------------------
 %   PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
+
 % You need to run `pdfTeX` 5 times on the following order: 1. `pdfTeX`, 2. `bibtex`, 3. `pdfTeX` 4.
 % `pdfTeX` 5. `pdfTeX` 6. `pdfTeX`, because the bibliography includes a cyclic reference to another
-% bibliography, so we need a last pass to fix the bibliography undefined references:
+% bibliography, so we need a last pass to fix the bibliography undefined references.
+%
+% Fix recurring LaTeX Warning
+% https://github.com/abntex/abntex2/pull/189
 %
 % To fix the warning `LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right`,
 % open the file `D:\User\Documents\latex\texmfs\install\tex\latex\abntex2\abntex2cite.sty` and
@@ -73,6 +78,9 @@
 % https://tex.stackexchange.com/questions/66052/should-i-load-microtype-with-pdflatex
 \usepackage{microtype}
 
+% Thesis settings
+\input{settings}
+
 
 
 % %----------------------------------------------------------------------------------------
@@ -81,17 +89,110 @@
 
 \begin{document}
 
-% pdfTeX warning (ext4): destination with the same identifier (nam e{page.1}) has been already used, duplicate ignored
-% https://tex.stackexchange.com/questions/18924/pdftex-warning-ext4-destination-with-the-same-identifier-nam-epage-1-has
-\hypersetup{pageanchor=false}
+    % Retira espaço extra obsoleto entre as frases `Double space between sentences`
+    % https://tex.stackexchange.com/questions/4705/double-space-between-sentences
+    \frenchspacing
+
+    \input{pretexto/pretexto}
+
+
+
+    % ELEMENTOS TEXTUAIS
+    %
+    % Configura estilo das páginas.
+    \textual
+
+    \setlength\beforechapskip{50pt}
+    \setlength\midchapskip{20pt}
+    \setlength\afterchapskip{20pt}
+
+    % Configura estilo das páginas com logos
+    % \textualINEPUFSC
+
+    % Introdução (exemplo de capítulo sem numeração, mas presente no Sumário)
+    \include{chapters/chapter_1}
+
+    % PARTE
+    % \part{Preparação da pesquisa}
+
+    % Capitulo com exemplos de comandos inseridos de arquivo externo
+    % \include{chapters/chapter_2}
+
+    % PARTE
+    % \part{Referenciais teóricos}
+
+    % Capitulo de revisão de literatura
+    % \include{chapters/chapter_3}
+
+    % PARTE
+    % \part{Resultados}
+
+    % Primeiro capitulo de Resultados
+    % \include{chapters/chapter_4}
+
+    % Segundo capitulo de Resultados
+    %\include{chapters/chapter_5}
+
+    % Finaliza a parte no bookmark do PDF
+    % para que se inicie o bookmark na raiz
+    % e adiciona espaço de parte no Sumário
+    \phantompart
+
+    % Conclusão (outro exemplo de capítulo sem numeração e presente no sumário)
+    \include{chapters/conclusion}
+
+
+
+    % ELEMENTOS PÓS-TEXTUAIS
+    %
+    \postextual
+    \setlength\beforechapskip{0pt}
+    \setlength\midchapskip{15pt}
+    \setlength\afterchapskip{15pt}
+
+    % Referências bibliográficas
+    \bibliography{refs}
+
+    % Glossário, consulte o manual da classe abntex2 para orientações sobre o glossário.
+    % \glossary
+
+    % Apêndices, inicia os apêndices
+    \begin{apendicesenv}
+
+        % Imprime uma página indicando o início dos apêndices
+        \partapendices
+
+        \setlength\beforechapskip{50pt}
+        \setlength\midchapskip{20pt}
+        \setlength\afterchapskip{20pt}
+
+        \include{postexto/apendice_a}
+
+    \end{apendicesenv}
+
+    % Anexos, inicia os anexos
+    \begin{anexosenv}
+
+        % Imprime uma página indicando o início dos anexos
+        \partanexos
+
+        \setlength\beforechapskip{50pt}
+        \setlength\midchapskip{20pt}
+        \setlength\afterchapskip{20pt}
+
+        \include{postexto/anexo_a}
+
+    \end{anexosenv}
+
+    % INDICE REMISSIVO
+    \phantompart
+    \printindex
+
+
 
 \include{cover}
 \include{abstract}
 \include{summary}
-
-% warning: destination with same identifier has been already used, duplicate ignored
-% https://tex.stackexchange.com/questions/13083/pdftex-warning-destination-with-same-identifier-has-been-already-used-duplicat
-\hypersetup{pageanchor=true}
 
 % To automatically put a [Go To Top] on each section
 \addGoToSummary
@@ -99,8 +200,5 @@
 \include{introduction}
 \include{schedule}
 \include{implementation}
-
-
-\bibliography{refs}
 
 \end{document}

@@ -1,0 +1,106 @@
+
+
+% How to fix destination with the same identifier (name{page.A}) has been already used, duplicate ignored?
+% https://tex.stackexchange.com/questions/386446/how-to-fix-destination-with-the-same-identifier-namepage-a-has-been-already
+\hypersetup{pageanchor=false}
+
+
+% ELEMENTOS PRÉ-TEXTUAIS
+% \includepdf{pictures/FrenteCapaUFSC.pdf}
+
+% To automatically put a [Go To Top] on each section
+\addGoToSummary
+
+\pretextual
+
+% Capa
+\imprimircapa
+
+% Folha de rosto (o * indica que haverá a ficha bibliográfica)
+\imprimirfolhaderosto*
+
+% Inserir a ficha bibliografica
+%
+% Isto é um exemplo de Ficha Catalográfica, ou ``Dados internacionais de
+% catalogação-na-publicação''. Você pode utilizar este modelo como referência.
+% Porém, provavelmente a biblioteca da sua universidade lhe fornecerá um PDF
+% com a ficha catalográfica definitiva após a defesa do trabalho. Quando estiver
+% com o documento, salve-o como PDF no diretório do seu projeto e substitua todo
+% o conteúdo de implementação deste arquivo pelo comando abaixo:
+%
+% \begin{fichacatalografica}
+%    \includepdf{pretexto/ficha_catalografica.pdf}
+% \end{fichacatalografica}
+\include{pretexto/fichacatalografica}
+
+% Inserir errata
+
+% Inserir folha de aprovação
+
+% Isto é um exemplo de Folha de aprovação, elemento obrigatório da NBR
+% 14724/2011 (seção 4.2.1.3). Você pode utilizar este modelo até a aprovação
+% do trabalho. Após isso, substitua todo o conteúdo deste arquivo por uma
+% imagem da página assinada pela banca com o comando abaixo:
+% \includepdf{folhadeaprovacao_final.pdf}
+\include{pretexto/folhadeaprovacao}
+
+% Dedicatória
+\begin{dedicatoria}
+    \vspace*{\fill}
+    \centering
+    \noindent
+    \textit{ Este trabalho é dedicado às crianças adultas que,\\
+        quando pequenas, sonharam em se tornar cientistas.} \vspace*{\fill}
+\end{dedicatoria}
+
+% Agradecimentos
+\include{pretexto/agradecimentos}
+
+% Epígrafe
+\include{pretexto/epigrafe}
+
+% RESUMOS
+%
+% Ajusta o espaçamento dos parágrafos do resumo
+\setlength{\absparsep}{18pt}
+\include{pretexto/resumos}
+
+% inserir lista de ilustrações
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+
+% inserir lista de tabelas
+\pdfbookmark[0]{\listtablename}{lot}
+\listoftables*
+\cleardoublepage
+
+% inserir códigos fonte
+% ---
+\pdfbookmark[0]{\lstlistingname}{lol}
+\lstlistoflistings*
+\cleardoublepage
+
+% inserir lista de abreviaturas e siglas
+\include{pretexto/siglas}
+
+% Inserir lista de símbolos
+\include{pretexto/simbolos}
+
+% Disable the [Go To Top] on the table of contents section
+\removeGoToSummary
+
+% Inserir o sumario
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+
+% To automatically put a [Go To Top] on each section
+\addGoToSummary
+
+
+% How to fix destination with the same identifier (name{page.A}) has been already used, duplicate ignored?
+% https://tex.stackexchange.com/questions/386446/how-to-fix-destination-with-the-same-identifier-namepage-a-has-been-already
+\hypersetup{pageanchor=true}
+
+

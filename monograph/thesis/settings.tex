@@ -1,0 +1,149 @@
+
+
+% Thesis settings
+%
+
+% Informações de dados para CAPA e FOLHA DE ROSTO
+\titulo{Modelo Canônico de TCC, Monografia,  Dissertação, Tese ou Relatório}
+\subtitulo{Pós--Doutorado da UFSC com \abnTeX{}}
+\autor{Nome do Autor}
+\local{Florianópolis, Santa Catarina -- Brasil}
+\data{\today}
+\orientador{Prof. Dr. Nome do Orientador}
+\coorientador{Prof. Dr. Nome do Coorientador}
+\instituicao{Universidade Federal de Santa Catarina -- UFSC}
+\tipotrabalho{Tese de Doutorado}
+\programa{Programa de Pós--Graduação em Engenharia Elétrica -- PGEEL}
+\centro{Departamento de Engenharia Elétrica e Eletrônica -- EEL}
+
+% O preambulo deve conter o tipo do trabalho, o objetivo. O nome da instituição e a área de
+% concentração.
+\preambulo{Tese submetida ao Programa de Pós--Graduação em Engenharia Elétrica da Universidade
+Federal de Santa Catarina para a obtenção do Grau de Doutor em Engenharia Elétrica.}
+
+% Back references translation
+\ifenglish
+\else
+    % Configurações de códigos fonte no documento
+    \makeatletter
+    \@ifpackageloaded{listings}
+    {
+        % Listing -> Codigo fonte
+        \renewcommand{\lstlistingname}{Código--fonte}
+
+        % List of Listings -> Lista de códigos-fonte
+        \renewcommand{\lstlistlistingname}{Lista de códigos--fonte}
+
+        % Calculate the size of the header
+        \calculatelisteningsheader
+    }
+    \makeatother
+
+    % Configurações do pacote backref, paginas com as citações na bibliografia
+    \makeatletter
+    \@ifpackageloaded{backref}
+    {
+        % Usado sem a opção hyperpageref de backref
+        \renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+
+        % Texto padrão antes do número das páginas
+        \renewcommand{\backref}{}
+
+        % Define os textos da citação
+        \renewcommand*{\backrefalt}[4]
+        {
+            \ifcase #1
+                Nenhuma citação no texto.
+            \or
+                Citado na página #2.
+            \else
+                Citado #1 vezes nas páginas #2.
+            \fi
+        }
+    }{}
+    \makeatother
+\fi
+
+% Espaçamentos entre linhas e parágrafos
+%
+% ifpackageloaded question
+% https://tex.stackexchange.com/questions/70212/ifpackageloaded-question
+\makeatletter
+\@ifclassloaded{memoir}
+{
+    % Estilo de capítulos, ver classe para maiores detalhes.Veja outros estilos em:
+    % http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/memoir/memman.pdf
+    \chapterstyle{VZ14}
+    \setlength\beforechapskip{0pt}
+    \setlength\midchapskip{15pt}
+    \setlength\afterchapskip{15pt}
+
+    % O tamanho do parágrafo é dado por:
+    \setlength{\parindent}{1.3cm}
+
+    % Controle do espaçamento entre um parágrafo e outro. Tente também
+    % \onelineskip
+    \setlength{\parskip}{0.2cm}
+}{}
+\makeatother
+
+% Color settings across the document
+\makeatletter
+\@ifpackageloaded{xcolor}
+{
+    % RGB colors in absolute values from 0 to 255 by using `RGB` tag
+    \definecolor{darkblue}{RGB}{26,13,178}
+
+    % Definição de cores, RGB colors in percentage notation by using `rgb` tag
+    \definecolor{mygreen}{rgb}{0,0.6,0}
+    \definecolor{mygray}{rgb}{0.5,0.5,0.5}
+    \definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+    % Configurações de aparência do PDF final
+    \definecolor{figcolor}{rgb}{1,0.4,0}  % orange
+    \definecolor{tabcolor}{rgb}{1,0.4,0}  % orange
+    \definecolor{eqncolor}{rgb}{1,0.4,0}  % orange
+    \definecolor{linkcolor}{rgb}{1,0.4,0} % orange
+    \definecolor{citecolor}{rgb}{1,0.4,0} % orange
+    \definecolor{seccolor}{rgb}{0,0,1}    % blue
+    \definecolor{abscolor}{rgb}{0,0,1}    % blue
+    \definecolor{titlecolor}{rgb}{0,0,1}  % blue
+    \definecolor{biocolor}{rgb}{0,0,1}    % blue
+
+    % Alterando o aspecto da cor azul
+    \definecolor{blue}{RGB}{41,5,195}
+
+    % Informações do PDF
+    \@ifpackageloaded{hyperref}
+    {
+        \hypersetup
+        {
+            pdftitle={\@title},
+            colorlinks=true, % false: boxed links; true: colored links
+            linkcolor=darkblue, % color of internal links
+            citecolor=darkgreen, % color of links to bibliography
+            filecolor=black, % color of file links
+            urlcolor=linkcolor,
+            bookmarksdepth=4
+        }
+        \ifenglish
+            \hypersetup
+            {
+                pdfauthor={Author},
+                pdfsubject={Thesis' Abstract},
+                pdfcreator={LaTeX with abnTeX2 for UFSC},
+                pdfkeywords={abnt}{latex}{UFSC}{abntex2}{thesis},
+            }
+        \else
+            \hypersetup
+            {
+                pdfauthor={Autores},
+                pdfsubject={Resumo da tese},
+                pdfcreator={LaTeX com abnTeX2 para UFSC},
+                pdfkeywords={abnt}{latex}{UFSC}{abntex2}{tese},
+            }
+        \fi
+    }
+}{}
+\makeatother
+
