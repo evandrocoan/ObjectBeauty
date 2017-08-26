@@ -30,6 +30,22 @@
 %   PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
+% Uncomment the line `\englishtrue` to set the document default language to english.
+%
+% Is it possible to keep my translation together with original text?
+% https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
+\newif\ifenglish
+\englishfalse
+% \englishtrue % Will show Portuguese text only
+
+\ifenglish
+    % How to make \PassOptionsToPackage add the option as the last option?
+    % https://tex.stackexchange.com/questions/385895/how-to-make-passoptionstopackage-add-the-option-as-the-last-option
+    \PassOptionsToPackage{brazil,main=english,spanish,french}{babel}
+\else
+    \PassOptionsToPackage{main=brazil,english,spanish,french}{babel}
+\fi
+
 % You need to run `pdfTeX` 5 times on the following order: 1. `pdfTeX`, 2. `bibtex`, 3. `pdfTeX` 4.
 % `pdfTeX` 5. `pdfTeX` 6. `pdfTeX`, because the bibliography includes a cyclic reference to another
 % bibliography, so we need a last pass to fix the bibliography undefined references.
