@@ -5,11 +5,9 @@
 \hypersetup{pageanchor=false}
 
 
+
 % ELEMENTOS PRÉ-TEXTUAIS
 % \includepdf{pictures/FrenteCapaUFSC.pdf}
-
-% To automatically put a [Go To Top] on each section
-\addGoToSummary
 
 \pretextual
 
@@ -59,8 +57,8 @@
 % Epígrafe
 \include{pretexto/epigrafe}
 
+
 % RESUMOS
-%
 % Ajusta o espaçamento dos parágrafos do resumo
 \setlength{\absparsep}{18pt}
 \include{pretexto/resumos}
@@ -81,22 +79,30 @@
 \lstlistoflistings*
 \cleardoublepage
 
+
 % inserir lista de abreviaturas e siglas
 \include{pretexto/siglas}
 
 % Inserir lista de símbolos
 \include{pretexto/simbolos}
 
-% Disable the [Go To Top] on the table of contents section
-\removeGoToSummary
+% How to remove the self-reference of the ToC from the ToC?
+% https://tex.stackexchange.com/questions/10943/how-to-remove-the-self-reference-of-the-toc-from-the-toc
+\begin{KeepFromToc}
+    \pdfbookmark[0]{\contentsname}{toc}
 
-% Inserir o sumario
-\pdfbookmark[0]{\contentsname}{toc}
-\tableofcontents*
-\cleardoublepage
+    % Hyperref: Changing the linkcolor locally in the TOC
+    % https://tex.stackexchange.com/questions/88400/hyperref-changing-the-linkcolor-locally-in-the-toc
+    %
+    % underfull vbox (badness 10000) has occurred while \output is active with memoir
+    % https://tex.stackexchange.com/questions/65711/underfull-vbox-badness-10000-with-memoir
+    {\raggedbottom
+    \hypersetup{linkcolor=black}
+    \tableofcontents*}
 
-% To automatically put a [Go To Top] on each section
-\addGoToSummary
+    \cleardoublepage
+\end{KeepFromToc}
+
 
 
 % How to fix destination with the same identifier (name{page.A}) has been already used, duplicate ignored?
