@@ -13,6 +13,6 @@
 [submodule "monograph/scripts"]
 	path = monograph/scripts
 	url = https://github.com/evandrocoan/script_utilities
-[submodule "monograph/thesis/ufscthesis"]
-	path = monograph/thesis/ufscthesis
-	url = https://github.com/evandrocoan/ufscthesis
+[submodule "monograph/thesis/ufscthesisx"]
+	path = monograph/thesis/ufscthesisx
+	url = https://github.com/evandrocoan/ufscthesisx
