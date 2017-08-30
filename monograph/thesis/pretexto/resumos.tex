@@ -22,60 +22,57 @@
 \end{comment}
 
 
-% Changing babel package inside a single chapter
-% https://tex.stackexchange.com/questions/20987/changing-babel-package-inside-a-single-chapter
-%
-% Multiple-language document - babel - selectlanguage vs begin/end{otherlanguage}
-% https://tex.stackexchange.com/questions/36526/multiple-language-document-babel-selectlanguage-vs-begin-endotherlanguage
-\begin{otherlanguage*}{brazil}
-\begin{resumo}
 
-    Faz-se um estudo sobre o que é, para que servem os Beautifiers, assim como abordagens sobre o
-    que são boas práticas de programação e por que devemos segui-las para um boa eficiência ao
-    escrever códigos nas mais diversas linguagens de programação. Os softwares formatadores de
-    código fonte atuais, também conhecidos como Beautifiers, são limitados a um conjunto similar, ou
-    mesmo à uma única linguagem, e além de muitos, serem limitados ao que eles podem fazer por você
-    ao processar/formatar o código.
+\swapcontents
+{
+    % Changing babel package inside a single chapter
+    % https://tex.stackexchange.com/questions/20987/changing-babel-package-inside-a-single-chapter
+    %
+    % Multiple-language document - babel - selectlanguage vs begin/end{otherlanguage}
+    % https://tex.stackexchange.com/questions/36526/multiple-language-document-babel-selectlanguage-vs-begin-endotherlanguage
+    \addtotextpreliminarycontent{English's Abstract}
+    \begin{otherlanguage*}{english}
+    \begin{resumo}[Abstract]
 
-    Portanto espera-se o final do trabalho, conhecer-se quais são as ferramentas que existem e quais
-    delas são as melhores que podem ser utilizadas para o auxilio do programador durante a escrita
-    de códigos das mais diversas linguagens de programação. Além de proposta de uma nova ferramenta
-    com o intuído de centralizar em uma único programa o abordagem das mais diversas linguagens de
-    programação.
+        A study is made of what Beautifiers are for, as well as approaches to what are good
+        programming practices and why we should follow them for good efficiency when writing code in
+        the most diverse programming languages. Current source code formatting software, also known
+        as Beautifiers, is limited to a similar set, or even a single language, and, in addition to
+        many, be limited to what they can do for you when processing / formatting the code.
 
-    \imprimirpalavraschave{Palavras-chaves}{ fonte. código. formatador. embelezante. prettyprint.
-    universal. reuso. blocos. objeto. orientado. programação. estruturada. análise. analisador.
-    regular. expressão. regex. c. c++. gramática. turing. máquina. autômatos. lexer. sintaxe.
-    sublime. java. rust. shell. roteiro. ofuscadores. aprendizado. syntec. teamicide. consenso.
-    recuar. configurações. }
+        Therefore, it is expected at the end of the work, to know what tools exist and which of them
+        are the best that can be used to help the programmer while writing codes of the most diverse
+        programming languages. Besides the proposal of a new tool with the intuition of centralizing
+        in a single program the approach of the most diverse programming languages.
 
-\end{resumo}
-\end{otherlanguage*}
+        \imprimirpalavraschave{Keywords}{\wordslistunlabled{\palavraschaveingles}}
 
+    \end{resumo}
+    \end{otherlanguage*}
+}
+{
+    \addtotextpreliminarycontent{Resumo em Português}
+    \begin{otherlanguage*}{brazil}
+    \begin{resumo}
 
-% resumo em inglês
-\begin{otherlanguage*}{english}
-\begin{resumo}[Abstract]
+        Faz-se um estudo sobre o que é, para que servem os Beautifiers, assim como abordagens sobre
+        o que são boas práticas de programação e por que devemos segui-las para um boa eficiência ao
+        escrever códigos nas mais diversas linguagens de programação. Os softwares formatadores de
+        código fonte atuais, também conhecidos como Beautifiers, são limitados a um conjunto
+        similar, ou mesmo à uma única linguagem, e além de muitos, serem limitados ao que eles podem
+        fazer por você ao processar/formatar o código.
 
-    A study is made of what Beautifiers are for, as well as approaches to what are good programming
-    practices and why we should follow them for good efficiency when writing code in the most
-    diverse programming languages. Current source code formatting software, also known as
-    Beautifiers, is limited to a similar set, or even a single language, and, in addition to many,
-    be limited to what they can do for you when processing / formatting the code.
+        Portanto espera-se o final do trabalho, conhecer-se quais são as ferramentas que existem e
+        quais delas são as melhores que podem ser utilizadas para o auxilio do programador durante a
+        escrita de códigos das mais diversas linguagens de programação. Além de proposta de uma nova
+        ferramenta com o intuído de centralizar em uma único programa o abordagem das mais diversas
+        linguagens de programação.
 
-    Therefore, it is expected at the end of the work, to know what tools exist and which of them are
-    the best that can be used to help the programmer while writing codes of the most diverse
-    programming languages. Besides the proposal of a new tool with the intuition of centralizing in
-    a single program the approach of the most diverse programming languages.
+        \imprimirpalavraschave{Palavras-chaves}{\wordslistunlabled{\palavraschaveportugues}}
 
-    \imprimirpalavraschave{Keywords}{ source. code. formatter. beautifier. prettyprint.
-    universal. reuse. blocks. object. oriented. programming. structured. parsing. parse. regular.
-    expression. regex. C. C++.  grammar. turing. machine. automata. lexer. syntax. sublime. Java.
-    Rust. shell. script. obfuscators. learning. syntec. teamicide. concensus. indent. settings. }
-
-\end{resumo}
-\end{otherlanguage*}
-
+    \end{resumo}
+    \end{otherlanguage*}
+}
 
 
 

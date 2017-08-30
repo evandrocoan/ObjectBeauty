@@ -1,28 +1,109 @@
 
 
 % Thesis settings
-%
+\newcommand{\brazil}[1]{\foreignlanguage{brazil}{#1}}
+\newcommand{\english}[1]{\foreignlanguage{english}{#1}}
+\renewcommand{\mytextpreliminarylistname}{\chooselang{Brief Table of Contents}{Breve Sumário}}
 
 % Informações de dados para CAPA e FOLHA DE ROSTO
-\titulo{Boas Práticas de Programação \& Estilo}
-\subtitulo{Ferramentas Universais de Programação}
-\autor{Evandro Coan}
-\local{Florianópolis, Santa Catarina -- Brasil}
+\titulo
+{
+    \chooselang
+    {Good Programming Practices \& Style}
+    {Boas Práticas de Programação \& Estilo}
+}
+\subtitulo
+{
+    \chooselang
+    {Universal Programming Tools}
+    {Ferramentas Universais de Programação}
+}
+
 \data{\today}
-\orientador{Prof. Dr. Ricardo Azambuja Silveira}
-\coorientador{Thiago Ângelo Gelaim}
-\instituicao{Universidade Federal de Santa Catarina \newline Biblioteca Universitária}
-\tipotrabalho{Tese de Graduação}
-\programa{Trabalho de Conclusão de Curso}
-\centro{Departamento de Informática e Estatística -- INE}
+\autor{\brazil{Evandro Coan}}
+\local{\chooselang{\brazil{Florianópolis, Santa Catarina} -- Brazil}{Florianópolis, Santa Catarina -- Brasil}}
 
-% O preambulo deve conter o tipo do trabalho, o objetivo. O nome da instituição e a área de
-% concentração.
-\preambulo{Tese submetida ao Programa de Graduação em Ciência da Computação da Universidade
-Federal de Santa Catarina para a obtenção do Grau de Bacharel em Ciência da Computação.}
+\biblioteca{\chooselang{University Library}{Biblioteca Universitária}}
+\orientador{\chooselang{Prof. PhD. Ricardo Azambuja Silveira}{Prof. Dr. Ricardo Azambuja Silveira}}
+\coorientador{\chooselang{M.S. Thiago Ângelo Gelaim}{M.S. Thiago Ângelo Gelaim}}
 
-% Back references translation
+\instituicaosigla{UFSC}
+\instituicao{\chooselang{Federal University of \brazil{Santa Catarina}}{Universidade Federal de Santa Catarina}}
+\tipotrabalho{\chooselang{Bachelor's Thesis}{Tese de Graduação}}
+
+\formacao{\chooselang{Bachelor of Science Degree in Computer Science}{Grau de Bacharel em Ciência da Computação}}
+\programa{\chooselang{Undergraduate Program in Computer Science}{Trabalho de Conclusão de Curso}}
+\centro{\chooselang{Department of Informatics and Statistics}{Departamento de Informática e Estatística}}
+
+% O preambulo deve conter tipo do trabalho, objetivo, nome da instituição e a área de concentração.
+\preambulo
+{
+    \chooselang
+    {Thesis submitted to the~\imprimirprograma~of the~\imprimirinstituicao~to obtain the~\imprimirformacao.}
+    {Tese submetida ao \imprimirprograma da \imprimirinstituicao para a obtenção do \imprimirformacao.}
+}
+
+% Keywords
+\newcommand{\palavraschaveingles}
+{
+    \item source. \item code. \item formatter. \item beautifier. \item prettyprint. \item universal.
+    \item reuse. \item blocks. \item object. \item oriented. \item programming. \item structured.
+    \item parsing. \item parse. \item regular. \item expression. \item regex. \item C. \item C++.
+    \item grammar. \item Turing. \item machine. \item automata. \item lexer. \item syntax. \item
+    Sublime. \item Java. \item Rust. \item Shell. \item script. \item obfuscators. \item learning.
+    \item syntec. \item teamicide. \item concensus. \item indentation. \item settings.
+}
+\newcommand{\palavraschaveportugues}
+{
+    \item fonte. \item código. \item formatador. \item embelezante. \item prettyprint. \item
+    universal. \item reuso. \item blocos. \item objeto. \item orientado. \item programação. \item
+    estruturada. \item análise. \item analisador. \item regular. \item expressão. \item regex. \item
+    C. \item C++. \item gramática. \item Turing. \item máquina. \item autômatos. \item lexer. \item
+    sintaxe. \item Sublime. \item Java. \item Rust. \item Shell. \item roteiro. \item ofuscadores.
+    \item aprendizado. \item Syntec. \item teamicide. \item consenso. \item indentation. \item
+    configurações.
+}
+
+% Remove the colon appended to theses variables, allowing us to use other separators
+\addto\captionsbrazil
+{
+    \renewcommand{\orientadorname}{Orientador}
+    \renewcommand{\coorientadorname}{Coorientador}
+}
+
+% Create caption English translations as the sections headers
+% https://tex.stackexchange.com/questions/8564/what-is-the-right-way-to-redefine-macros-defined-by-babel
+\addto\captionsenglish
+{
+    %% adjusts names from abnTeX2
+    \renewcommand{\folhaderostoname}{Title page}
+    \renewcommand{\epigraphname}{Epigraph}
+    \renewcommand{\dedicatorianame}{Dedication}
+    \renewcommand{\errataname}{Errata sheet}
+    \renewcommand{\agradecimentosname}{Acknowledgements}
+    \renewcommand{\anexoname}{ANNEX}
+    \renewcommand{\anexosname}{Annex}
+    \renewcommand{\apendicename}{APPENDIX}
+    \renewcommand{\apendicesname}{Appendix}
+    \renewcommand{\orientadorname}{Supervisor}
+    \renewcommand{\coorientadorname}{Co\hyp{}supervisor}
+    \renewcommand{\folhadeaprovacaoname}{Approval}
+    \renewcommand{\resumoname}{Abstract}
+    \renewcommand{\listadesiglasname}{List of abbreviations and acronyms}
+    \renewcommand{\listadesimbolosname}{List of symbols}
+    \renewcommand{\fontename}{Source}
+    \renewcommand{\notaname}{Note}
+    %% adjusts names used by \autoref
+    \renewcommand{\pageautorefname}{page}
+    \renewcommand{\sectionautorefname}{section}
+    \renewcommand{\subsectionautorefname}{subsection}
+    \renewcommand{\subsubsectionautorefname}{subsubsection}
+    \renewcommand{\paragraphautorefname}{subsubsubsection}
+}
+
+% References translation
 \ifenglish
+    % These default values are already in English
 \else
     % Configurações de códigos fonte no documento
     \makeatletter
@@ -146,4 +227,5 @@ Federal de Santa Catarina para a obtenção do Grau de Bacharel em Ciência da C
     }
 }{}
 \makeatother
+
 

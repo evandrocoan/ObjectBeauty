@@ -31,24 +31,36 @@
 % \end{fichacatalografica}
 \include{pretexto/fichacatalografica}
 
+% Custom list throw LaTeX Error: Command \mycustomfiction already defined?
+% https://tex.stackexchange.com/questions/388489/custom-list-throw-latex-error-command-mycustomfiction-already-defined/
+\textpreliminarycontents
+\cleardoublepage
+
 % Inserir errata
 
-% Inserir folha de aprovação
-
-% Isto é um exemplo de Folha de aprovação, elemento obrigatório da NBR
-% 14724/2011 (seção 4.2.1.3). Você pode utilizar este modelo até a aprovação
-% do trabalho. Após isso, substitua todo o conteúdo deste arquivo por uma
-% imagem da página assinada pela banca com o comando abaixo:
+% Inserir folha de aprovação. Isto é um exemplo de Folha de aprovação, elemento obrigatório da NBR
+% 14724/2011 (seção 4.2.1.3). Você pode utilizar este modelo até a aprovação do trabalho. Após isso,
+% substitua todo o conteúdo deste arquivo por uma imagem da página assinada pela banca com o comando
+% abaixo:
 % \includepdf{folhadeaprovacao_final.pdf}
 \include{pretexto/folhadeaprovacao}
 
 % Dedicatória
+\addtotextpreliminarycontent{\chooselang{Dedication}{Dedicatória}}
 \begin{dedicatoria}
     \vspace*{\fill}
     \centering
     \noindent
-    \textit{ Este trabalho é dedicado às crianças adultas que,\\
-        quando pequenas, sonharam em se tornar cientistas.} \vspace*{\fill}
+    \textit{\chooselang
+    {
+        This work is dedicated to adult children who, \\
+        When small, dreamed of becoming scientists.
+    }
+    {
+        Este trabalho é dedicado às crianças adultas que,\\
+        quando pequenas, sonharam em se tornar cientistas.
+    }}
+    \vspace*{\fill}
 \end{dedicatoria}
 
 % Agradecimentos
@@ -64,17 +76,19 @@
 \include{pretexto/resumos}
 
 % inserir lista de ilustrações
+\addtotextpreliminarycontent{\chooselang{List of Figures}{Lista de Figuras}}
 \pdfbookmark[0]{\listfigurename}{lof}
 \listoffigures*
 \cleardoublepage
 
 % inserir lista de tabelas
+\addtotextpreliminarycontent{\chooselang{List of Tables}{Lista de Tabelas}}
 \pdfbookmark[0]{\listtablename}{lot}
 \listoftables*
 \cleardoublepage
 
 % inserir códigos fonte
-% ---
+\addtotextpreliminarycontent{\chooselang{List of Source Codes}{Lista de Códigos Fonte}}
 \pdfbookmark[0]{\lstlistingname}{lol}
 \lstlistoflistings*
 \cleardoublepage
@@ -88,6 +102,7 @@
 
 % How to remove the self-reference of the ToC from the ToC?
 % https://tex.stackexchange.com/questions/10943/how-to-remove-the-self-reference-of-the-toc-from-the-toc
+\addtotextpreliminarycontent{\chooselang{Table of Contents}{Sumário}}
 \begin{KeepFromToc}
     \pdfbookmark[0]{\contentsname}{toc}
 
@@ -98,7 +113,7 @@
     % https://tex.stackexchange.com/questions/65711/underfull-vbox-badness-10000-with-memoir
     {\raggedbottom
     \hypersetup{linkcolor=black}
-    \tableofcontents*}
+    \tableofcontents}
 
     \cleardoublepage
 \end{KeepFromToc}
