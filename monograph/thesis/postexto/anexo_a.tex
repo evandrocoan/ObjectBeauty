@@ -7,8 +7,15 @@
 %
 
 % ----------------------------------------------------------
-\chapter[Anexo exemplo]{Como exibir o tamanho da fonte em uso na saída final}
+\chooselang
+{\chapter[Sample example]{How to display the font size in use in the final output}}
+{\chapter[Anexo exemplo]{Como exibir o tamanho da fonte em uso na saída final}}
 % ----------------------------------------------------------
+
+
+% Multiple-language document - babel - selectlanguage vs begin/end{otherlanguage}
+% https://tex.stackexchange.com/questions/36526/multiple-language-document-babel-selectlanguage-vs-begin-endotherlanguage
+\begin{otherlanguage*}{english}
 
 \showfont
 
@@ -83,5 +90,7 @@
 
 
 Lipsum me [55-65]
+
+\end{otherlanguage*}
 
 
