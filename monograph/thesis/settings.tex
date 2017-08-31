@@ -229,3 +229,37 @@
 \makeatother
 
 
+% Fontes das entradas do sumario
+\makeatletter
+\renewcommand*{\l@chapter}[2]
+{%
+    \l@chapapp{\uppercase{#1}}{#2}{\cftchaptername}
+}
+\renewcommand*{\l@section}[2]
+{%
+    \l@chapapp{\ABNTEXsectionfont\uppercase{#1}}{#2}{\cftsectionname}
+}
+\makeatother
+
+
+% Changing the font of the numbers in the ToC in the memoir class
+% https://tex.stackexchange.com/questions/14314/changing-the-font-of-the-numbers-in-the-toc-in-the-memoir-class
+\renewcommand{\cftpartfont}{\ABNTEXpartfont\color{darkblue}}
+\renewcommand{\cftpartpagefont}{\ABNTEXpartfont\color{black}}
+
+\renewcommand{\cftchapterfont}{\ABNTEXchapterfont\color{darkblue}}
+\renewcommand{\cftchapterpagefont}{\ABNTEXchapterfont\color{black}}
+
+\renewcommand{\cftsectionfont}{\ABNTEXsectionfont\color{darkblue}}
+\renewcommand{\cftsectionpagefont}{\ABNTEXsectionfont\color{black}}
+
+\renewcommand{\cftsubsectionfont}{\ABNTEXsubsectionfont\color{darkblue}}
+\renewcommand{\cftsubsectionpagefont}{\ABNTEXsubsectionfont\color{black}}
+
+\renewcommand{\cftsubsubsectionfont}{\ABNTEXsubsubsectionfont\color{darkblue}}
+\renewcommand{\cftsubsubsectionpagefont}{\ABNTEXsubsubsectionfont\color{black}}
+
+\renewcommand{\cftparagraphfont}{\ABNTEXsubsubsubsectionfont\color{darkblue}}
+\renewcommand{\cftparagraphpagefont}{\ABNTEXsubsubsubsectionfont\color{black}}
+
+
