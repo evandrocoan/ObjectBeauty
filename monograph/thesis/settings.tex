@@ -3,7 +3,10 @@
 % Thesis settings
 \newcommand{\brazil}[1]{\foreignlanguage{brazil}{#1}}
 \newcommand{\english}[1]{\foreignlanguage{english}{#1}}
-\renewcommand{\mytextpreliminarylistname}{\chooselang{Brief Table of Contents}{Breve Sumário}}
+
+% What is the difference between \def and \newcommand?
+% https://tex.stackexchange.com/questions/655/what-is-the-difference-between-def-and-newcommand
+\def\mytextpreliminarylistname{\chooselang{Brief Table of Contents}{Breve Sumário}}
 
 % How to manually set where a word is split?
 % https://tex.stackexchange.com/questions/182569/how-to-manually-set-where-a-word-is-split
