@@ -173,6 +173,11 @@
     % Controle do espaçamento entre um parágrafo e outro. Tente também
     % \onelineskip
     \setlength{\parskip}{0.2cm}
+
+    % Memoir: Warnings “The material used in the headers is too large” w/ accented titles
+    % https://tex.stackexchange.com/questions/387293/how-to-change-the-page-layout-with-memoir
+    \setheadfoot{30.0pt}{\footskip}
+    \checkandfixthelayout
 }{}
 \makeatother
 

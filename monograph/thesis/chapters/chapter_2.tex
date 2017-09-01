@@ -2,19 +2,16 @@
 
 % The \phantomsection command is needed to create a link to a place in the document that is not a
 % figure, equation, table, section, subsection, chapter, etc.
+%
+% When do I need to invoke \phantomsection?
+% https://tex.stackexchange.com/questions/44088/when-do-i-need-to-invoke-phantomsection
 \cleardoublepage
 \phantomsection
 
-% The \phantomsection command is needed to create a link to a place in the document that is not a
-% figure, equation, table, section, subsection, chapter, etc.
-\addcontentsline{toc}{chapter}{\HyperrefUppercase{Chapter 2}}
 
-\chapter{Capítulo 2}
-
-\newpage
-
-
-\section{Implementação}
+% Is it possible to keep my translation together with original text?
+% https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
+\chapter{\chooselang{Implementação}{Implementation}}
 \label{sec:implementation}
 
     Este trabalho tem como objetivo criar um formatador (software único) de fácil configuração e
