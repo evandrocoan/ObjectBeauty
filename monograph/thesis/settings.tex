@@ -109,49 +109,70 @@
     \renewcommand{\paragraphautorefname}{subsubsubsection}
 }
 
-% References translation
+% Source Code Settings in Document
+\makeatletter
+\@ifpackageloaded{listings}
+{
 \ifenglish
     % These default values are already in English
 \else
-    % Configurações de códigos fonte no documento
-    \makeatletter
-    \@ifpackageloaded{listings}
-    {
-        % Listing -> Codigo fonte
-        \renewcommand{\lstlistingname}{Código--fonte}
+    % Listing -> Codigo fonte
+    \renewcommand{\lstlistingname}{Código--fonte}
 
-        % List of Listings -> Lista de códigos-fonte
-        \renewcommand{\lstlistlistingname}{Lista de códigos--fonte}
+    % List of Listings -> Lista de códigos-fonte
+    \renewcommand{\lstlistlistingname}{Lista de códigos--fonte}
 
-        % Calculate the size of the header
-        \calculatelisteningsheader
-    }
-    \makeatother
-
-    % Configurações do pacote backref, paginas com as citações na bibliografia
-    \makeatletter
-    \@ifpackageloaded{backref}
-    {
-        % Usado sem a opção hyperpageref de backref
-        \renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
-
-        % Texto padrão antes do número das páginas
-        \renewcommand{\backref}{}
-
-        % Define os textos da citação
-        \renewcommand*{\backrefalt}[4]
-        {
-            \ifcase #1
-                Nenhuma citação no texto.
-            \or
-                Citado na página #2.
-            \else
-                Citado #1 vezes nas páginas #2.
-            \fi
-        }
-    }{}
-    \makeatother
+    % Calculate the size of the header
+    \calculatelisteningsheader
 \fi
+}{}
+\makeatother
+
+
+% Backref package settings, pages with citations in bibliography
+\makeatletter
+\@ifpackageloaded{backref}
+{
+\ifenglish
+    % Used without the backref hyperpageref option
+    \renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+
+    % Default text before page number
+    \renewcommand{\backref}{}
+
+    % Sets the text of the citation
+    \renewcommand*{\backrefalt}[4]
+    {
+        \ifcase #1
+            No citation in the text.
+        \or
+            Cited on page #2.
+        \else
+            Cited #1 times on pages #2.
+        \fi
+    }
+\else
+    % Usado sem a opção hyperpageref de backref
+    \renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+
+    % Texto padrão antes do número das páginas
+    \renewcommand{\backref}{}
+
+    % Define os textos da citação
+    \renewcommand*{\backrefalt}[4]
+    {
+        \ifcase #1
+            Nenhuma citação no texto.
+        \or
+            Citado na página #2.
+        \else
+            Citado #1 vezes nas páginas #2.
+        \fi
+    }
+\fi
+}{}
+\makeatother
+
 
 % Espaçamentos entre linhas e parágrafos
 %
@@ -180,6 +201,7 @@
     \checkandfixthelayout
 }{}
 \makeatother
+
 
 % Color settings across the document
 \makeatletter
@@ -253,7 +275,6 @@
     \l@chapapp{\ABNTEXsectionfont\uppercase{#1}}{#2}{\cftsectionname}
 }
 \makeatother
-
 
 % Changing the font of the numbers in the ToC in the memoir class
 % https://tex.stackexchange.com/questions/14314/changing-the-font-of-the-numbers-in-the-toc-in-the-memoir-class
