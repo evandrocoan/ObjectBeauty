@@ -16,129 +16,117 @@
 
 \chooselang
 {
-    Questions like ``What are good programming practices?'' Or ``Why these practices
-    are they good?'', are not easy to answer. But every programmer learns to write their codes
-    in a certain way, with certain features like using 4 or 8 spaces to
-    indentation of lines, always leave a blank line before each control structure as
-    if for example, for \textquotesingle, and the like.
+    Questions like ``What are good programming practices?'' Or ``Why are these practices are good?''
+    Are not easy to answer. But each programmer learns to write their codes in a certain way, with
+    certain features like using 4 or 8 spaces to indent lines, always leave a blank line before each
+    control structure as if or for statements, and alike rules. % TODO, put reference for this
 
-    But entering the universe of good practices, there are many things about discoursing. Thus in this work
-    specifically work out how to perform the best layout / display of
-    computer screen, so that it maximizes and facilitates its understanding.
-    Therefore allowing the programmer to disperse more tempe thinking about the problem, than
-    try to decipher the information that is presented to him on the screen.
+    But entering the universe of good practices, there are many things for discoursing. So in this
+    work implementation tool called ``Object Beautifier'' specifically dedicates on how to perform
+    the best layout/display of programming code on the computer screen, so that maximize and
+    facilitate the understanding of same. Therefore, allowing the programmer to disperse more tempe
+    thinking about its coding algorithms problem, other than trying to decipher the information that
+    is presented to it on the screen through infinit different code layouts. % TODO, put reference for this
 
-    Within this area of work, you also need to think very carefully about how to share the
-    programming codes among programmers. This is why the problem of
-    diversity of good programming practice. It happens because often, what is a
-    good practice for one `programmer A ', it is not for the other` programmer B'. For example, imagine a
-    code where a programmer decided to put before each `if ', a blank line. So it is
-    expected that whenever we see a blank line we can potentially find
-    `if '. However imagine that another programmer did not like this rule and when he went to write
-    his code that involved an `if ', he did not put such a blank line as the other
-    programmer had been putting. So when the first programmer reads the code and looks for
-    `if'es, it will be waiting for blank lines. But you're going to spend some time looking
-    realize that the other programmer has not put them on.
+    Within this work\textquotesingle s area, we need to also think long and hard about how to share
+    the programming code of the programmers among you. Now, the problem of human diversity, like all
+    big scientific questions -- how do you explain something like that -- It can be broken down into
+    sub-questions. It happens many times, which is a good practice for a `Programmer A', is not the
+    same to another `Programmer B'. For example, imagine some code where a programmer decided to put
+    before each `if' statement, a blank line. It is therefore expected that whenever we see a blank
+    line we can potentially find a matching `if', which can be considered a quite useful pattern
+    matching as empty line may call better your attention. % TODO, put reference for this
 
-    These differences are due to the diversity of means of learning programming, as much as
-    to the tastes, aptitudes and goals of each programmer. So today it becomes a great
-    problem as we increasingly need more and more programmers working together between
-    themselves, developing the most diverse computational systems. Where the latter is due to the fact that
-    complexity of computing systems is increasing, so it is
-    more programmers work and share codes.
+    But again this is something heavily dependent of what each one learning through their life time.
+    Imagine another programmer do not liked this rule, and when he was writing your code involving
+    an `if', he did not put such blank line another programmer is expecting. So when the first
+    programmer start reading its the code and look for `if', he will be expecting for blank lines
+    before its if\textquotesingle s. But will lose some time searching until realize another
+    programmer does not put them, or perhaps he forgot to insert them. % TODO, put reference for this
 
-    So besides just worrying about how the code is displayed on the computer screen, we
-    we need to worry about how it will be saved in the file system. Since the
-    code, it is vital to use a versioning system to allow
-    projects and programmers themselves, have control of code changes. What I allowed and
-    can easily track change and enable you to better understand
-    that each programmer is doing each time he formalizes a change in the code through
-    a `commit ', as in` git` systems, for example.
+    These differences are due to the diversity of ways we learn programming, i.e., to the ways we
+    are used to doing coding, as much as the abilities and objectives of every programmer developed.
+    Hence, nowadays it becomes a big problem because we increasingly need more and more programmers
+    working together developing several and diverse computing systems. Where the latter is due to
+    the fact of the complexity of computer systems growing increasingly, therefore over requiring
+    programmers working and sharing their codes and ideas. % TODO, put reference for this
 
-    This is why when working on a versioning system like `git 'we need to keep the
-    code between a single style or good practice defined as standard, due to the fact that
-    letting each programmer write as he wants, we will have a lot of noise during the review of
-    code and we are determining what the programmer did / wrote, if each programmer re-writes the
-    making historical changes like putting new lines before each if. So we will have noise for
-    that the focus of a versioning system is to look only at changes that are significant
-    to the code, such as creating new functions and not adding new blank lines.
+    Moreover besides only worrying about how the code is displayed on their computer screen, we need
+    to worry about on how it will be saved in the file system on its `plain-text' mode. Since for
+    code sharing, it is vital for you to use a versioning control system which enable project
+    manager\textquotesingle s and programmers themselves, take control of their code changes. It does allow to
+    easily perform the tracking of code changes and allow you to better understand what each
+    programmer is doing every time he formalizes a change in the code through a `commit', as in
+    `git' systems for example. % TODO, put reference for this
 
-    On the last point, we can also think about an approach to the creation of a new
-    version that only focuses on the significant changes to the code, during the moment of the
-    review. However, this approach is not ideal because, for example, it gives
-    programmers engage in daunting and unproductive wars of code adjustments. For example,
-    imagine how it would be every day that you wake up and start working, you have to go through
-    code by placing new lines before each of the if \textquotesingle s because the programmer's
-    night shift had just removed them?
+    That is because while working with a versioning system like `git', we need to keep the code
+    among a single style or which we may call a `good practice' set as standard for everybody, due
+    the fact of letting each programmer to write as he pleases, there will be plenty of noise on the
+    code review and we are figuring out what actually each programmer did. Hence, if every
+    programmer re-writes the history making changes like inserting new lines before each if, we end
+    up with too much noise and focus of a versioning system is to look at only those changes that
+    are significant to the code, such as the creation of new functions and not the addition of new
+    blank lines (ref find\_some). % TODO, put reference for this (ref coding\_horror)
 
-\section{Goals}
+    Talking about the last thing pointed out, we could also think about an approach to creating a
+    new version control system which focuses only on significant changes to the code, while
+    reviewing code changes. However, this approach could not be ideal, as for example, it would
+    allow programmers to start tedious wars of unproductive code adjustments. For example, imagine
+    how it would be for your every day and have to go through your code re-adding new lines before
+    each one of your beloved if\textquotesingle s, just because some night shift programmer had just
+    removed them? % TODO, put reference for this
 
-    Establish relationships between good programming practices and efficiency in programming, as well as
-    new tool to support the programmer in order to automate the long and diverse process
-    of programming in teams of developers with different good programming practices.
+    \section{Goals}
 
+    Establish relationships between good programming practices and efficiency in programming, in
+    addition to a new tool to support programmers in order to automate the long and diverse
+    programming process in teams of developers with different programming `best practices'.
 
-\subsection{Specific objectives}
+    \subsection{Specific Goals}
 
     \begin{enumerate}
+        \item A study on universal programming tools, which from a single software, to work well
+        behaved accross all programming languages. Moreover, explain the differences for other
+        softwares and the beneficits of a unique tool, instead of several heavly different ones.
 
-        \item
+        \item Define, determine and classify which one are good programming practices and perform an
+        in-depth study on the good practices on visual layout area, also known as code `Beautifying'.
 
-        A study on universal programming tools, allowing
-        software, be programmed in all programming languages. So explain the
-        differences for other software and why you want a unique tool, instead
-        of several.
+        \item A study on the variety of existing tools for the support of good programming
+        practices, beyond a comparative analysis between them, determining their weaknesses and
+        strengths.
 
-        \item
+        \item The definition of a flow pattern of development allowing teams of developers with
+        different programming best practices, to work without intervene with each other up to start
+        wars of `best good practices'.
 
-        Define, study, determine and classify what are good programming practices and perform
-        an in-depth study on good practice in the area of visual
-        also like `Beautifying '.
-
-        \item
-
-        A study on the most diverse tools available to support good
-        programming, as well as a comparative analysis between them, determining their weaknesses and
-        Strong points.
-
-        \item
-
-        The definition of a development flox pattern that allows teams of programmers
-        with different good programming practices, work on themselves without intervening and start wars
-        good practice.
-
-        \item
-
-        To propose a unique tool that allows several different good programming practices to be
-        implemented in the most diverse programming languages and that they can be configured
-        and defined to the liking of the programmers who use it.
-
+        \item Propose a unique tool that allowing several and distinct programming `best practices'
+        being implemented in several programming languages, which can be configured and set
+        accordindgly to their whishes.
     \end{enumerate}
 
+    \section{Search Method}
 
-\section{Search method}
+    The work will be based on research in articles, books, theses, dissertations, trusted authors
+    websites, and through new demonstrated evidences based on arguments in the monograph evolution
+    road. Also, present results after building a new tool which proposes a solution for the problems
+    presented and detailed.
 
-    The work will be based on research in articles, books, theses, dissertations, authors' websites
-    reliable, and through new evidence demonstrated and based on arguments in the course of
-    of the evolution of the monograph. It will also present the results of the construction of a
-    new tool that proposes the solution of one of the problems presented and explained.
+    In this proposal last chapter which lies in the topic \autoref{sec:implementation}, there is a
+    series of weblinks and references preselected and may be used in the release build of this work.
+    Noticing the texts of the last section probably will end up gradually moved to the first section
+    of the text where there is the theoretical research, while correlated research are incorporated
+    in the main written work.
 
-    The last chapter of this proposal is in the topic \autoref{sec:implementation}
-    a series of links and references that are pre-selected and can be used in the
-    final construction of this work. Notes that in themselves, the parts of the last section will be gradually
-    moved to the first part of the text where theoretical research is found, in the course of which its
-    information is incorporated into the written work.
-
-    So at the end of the first part of this work that will take place at the conclusion of the discipline
-    Course Completion Work 1, there will be only information
-    implementation of the proposed tool, which will be implemented in the second part of the monograph
-    called \nameref{sec:implementation}, which will be developed at the end of the
-    discipline of Course Completion Work 2.
+    Moreover, at the end of the first part of this work, the completion of the subject entitled of
+    Course Conclusion Work 1, leaving only the information for the implementation of the proposed
+    tool to be implemented in the second part of this named thesis on \nameref{sec:implementation}.
 }
+{ % Portuguese
 
 
 
-{
+
     Perguntas como ``O que são boas práticas de programação?'' ou ainda ``O por quê estas práticas
     são boas?'', não são fáceis de responder. Mas cada programador aprende a escrever seus códigos
     em uma determinada maneira, com determinadas características como utilizar 4 ou 8 espaços para
