@@ -6,16 +6,18 @@
 
 
 
-% ELEMENTOS PRÉ-TEXTUAIS
-% \includepdf{pictures/FrenteCapaUFSC.pdf}
+\ifforcedinclude\else
+    % ELEMENTOS PRÉ-TEXTUAIS
+    % \includepdf{pictures/FrenteCapaUFSC.pdf}
 
-\pretextual
+    \pretextual
 
-% Capa
-\imprimircapa
+    % Capa
+    \imprimircapa
 
-% Folha de rosto (o * indica que haverá a ficha bibliográfica)
-\imprimirfolhaderosto*
+    % Folha de rosto (o * indica que haverá a ficha bibliográfica)
+    \imprimirfolhaderosto*
+\fi
 
 % Inserir a ficha bibliografica
 %
@@ -33,8 +35,10 @@
 
 % Custom list throw LaTeX Error: Command \mycustomfiction already defined?
 % https://tex.stackexchange.com/questions/388489/custom-list-throw-latex-error-command-mycustomfiction-already-defined/
-\textpreliminarycontents
-\cleardoublepage
+\ifforcedinclude\else
+    \textpreliminarycontents
+    \cleardoublepage
+\fi
 
 % Inserir errata
 
@@ -46,22 +50,7 @@
 \include{pretexto/folhadeaprovacao}
 
 % Dedicatória
-\addtotextpreliminarycontent{\chooselang{Dedication}{Dedicatória}}
-\begin{dedicatoria}
-    \vspace*{\fill}
-    \centering
-    \noindent
-    \textit{\chooselang
-    {
-        This work is dedicated to adult children who, \\
-        When small, dreamed of becoming scientists.
-    }
-    {
-        Este trabalho é dedicado às crianças adultas que,\\
-        quando pequenas, sonharam em se tornar cientistas.
-    }}
-    \vspace*{\fill}
-\end{dedicatoria}
+\ifforcedinclude\else\input{pretexto/dedicatoria}\fi
 
 % Agradecimentos
 \include{pretexto/agradecimentos}
@@ -70,28 +59,32 @@
 \include{pretexto/epigrafe}
 
 
-% RESUMOS
 % Ajusta o espaçamento dos parágrafos do resumo
 \setlength{\absparsep}{18pt}
+
+% RESUMOS
 \include{pretexto/resumos}
 
-% inserir lista de ilustrações
-\addtotextpreliminarycontent{\chooselang{List of Figures}{Lista de Figuras}}
-\pdfbookmark[0]{\listfigurename}{lof}
-\listoffigures*
-\cleardoublepage
+% Some tables of contents
+\ifforcedinclude\else
+    % inserir lista de ilustrações
+    \addtotextpreliminarycontent{\chooselang{List of Figures}{Lista de Figuras}}
+    \pdfbookmark[0]{\listfigurename}{lof}
+    \listoffigures*
+    \cleardoublepage
 
-% inserir lista de tabelas
-\addtotextpreliminarycontent{\chooselang{List of Tables}{Lista de Tabelas}}
-\pdfbookmark[0]{\listtablename}{lot}
-\listoftables*
-\cleardoublepage
+    % inserir lista de tabelas
+    \addtotextpreliminarycontent{\chooselang{List of Tables}{Lista de Tabelas}}
+    \pdfbookmark[0]{\listtablename}{lot}
+    \listoftables*
+    \cleardoublepage
 
-% inserir códigos fonte
-\addtotextpreliminarycontent{\chooselang{List of Source Codes}{Lista de Códigos Fonte}}
-\pdfbookmark[0]{\lstlistingname}{lol}
-\lstlistoflistings*
-\cleardoublepage
+    % inserir códigos fonte
+    \addtotextpreliminarycontent{\chooselang{List of Source Codes}{Lista de Códigos Fonte}}
+    \pdfbookmark[0]{\lstlistingname}{lol}
+    \lstlistoflistings*
+    \cleardoublepage
+\fi
 
 
 % inserir lista de abreviaturas e siglas
@@ -102,6 +95,7 @@
 
 % How to remove the self-reference of the ToC from the ToC?
 % https://tex.stackexchange.com/questions/10943/how-to-remove-the-self-reference-of-the-toc-from-the-toc
+\ifforcedinclude\else
 \addtotextpreliminarycontent{\chooselang{Table of Contents}{Sumário}}
 \begin{KeepFromToc}
     \pdfbookmark[0]{\contentsname}{toc}
@@ -139,6 +133,7 @@
 
     \cleardoublepage
 \end{KeepFromToc}
+\fi
 
 
 

@@ -105,7 +105,10 @@
 
 % When writing a large document, it is sometimes useful to work on selected sections of the document
 % to speed up compilation time: https://en.wikibooks.org/wiki/TeX/includeonly
-%
+\newif\ifforcedinclude
+\forcedincludefalse
+% \forcedincludetrue
+
 % \includeonly{pretexto/agradecimentos}
 % \includeonly{pretexto/epigrafe}
 % \includeonly{pretexto/fichacatalografica}
@@ -156,29 +159,8 @@
     % Introdução (exemplo de capítulo sem numeração, mas presente no Sumário)
     \include{chapters/chapter_1}
 
-    % PARTE
-    \part{Preparação da pesquisa}
-
     % Capitulo com exemplos de comandos inseridos de arquivo externo
     \include{chapters/chapter_2}
-
-    % PARTE
-    % \part{Referenciais teóricos}
-
-    % Capitulo de revisão de literatura
-    % \include{chapters/chapter_3}
-
-    % PARTE
-    % \part{Resultados}
-
-    % Primeiro capitulo de Resultados
-    % \include{chapters/chapter_4}
-
-    % Segundo capitulo de Resultados
-    % \include{chapters/chapter_5}
-
-    % Terceiro capitulo de Resultados
-    % \include{chapters/chapter_6}
 
     % Finaliza a parte no bookmark do PDF
     % para que se inicie o bookmark na raiz
@@ -198,14 +180,13 @@
     \setlength\afterchapskip{15pt}
 
     % Referências bibliográficas
-    \bibliography{refs}
+    \ifforcedinclude\else\bibliography{refs}\fi
 
     % Glossário, consulte o manual da classe abntex2 para orientações sobre o glossário.
-    % \glossary
+    % \ifforcedinclude\else\glossary\fi
 
     % Apêndices, inicia os apêndices
-    \begin{apendicesenv}
-
+    \ifforcedinclude\else\begin{apendicesenv}
         % Imprime uma página indicando o início dos apêndices
         \partapendices
 
@@ -214,12 +195,11 @@
         \setlength\afterchapskip{20pt}
 
         \include{postexto/apendice_a}
+    \end{apendicesenv}\fi
 
-    \end{apendicesenv}
 
     % Anexos, inicia os anexos
-    \begin{anexosenv}
-
+    \ifforcedinclude\else\begin{anexosenv}
         % Imprime uma página indicando o início dos anexos
         \partanexos
 
@@ -228,11 +208,12 @@
         \setlength\afterchapskip{20pt}
 
         \include{postexto/anexo_a}
-
-    \end{anexosenv}
+    \end{anexosenv}\fi
 
     % INDICE REMISSIVO
-    \phantompart
-    \printindex
+    \ifforcedinclude\else
+        \phantompart
+        \printindex
+    \fi
 
 \end{document}
