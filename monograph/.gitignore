@@ -16,3 +16,7 @@
 *.fdb_latexmk
 *.fls
 
+*.mw
+*.idx
+*.tpc
+
