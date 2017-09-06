@@ -78,13 +78,16 @@ proposal: $(PROPOSAL_FOLDER)/$(PROPOSAL_MAIN_FILE).tex
 	# Creates the shell variable `current_dir` within the current folder path
 	$(eval current_dir := $(shell pwd)) echo $(current_dir) > /dev/null
 
+	# Where to find official (!) and extended documentation for tex/latex's commandline options (especially -interaction modes)?
+	# https://tex.stackexchange.com/questions/91592/where-to-find-official-and-extended-documentation-for-tex-latexs-commandlin
+	#
 	# Call the latex specialized make file
 	latexmk \
 	-pdf \
 	-jobname="$(PROPOSAL_OUTPUT_NAME)" \
 	-output-directory="$(CACHE_FOLDER)" \
 	-aux-directory="$(CACHE_FOLDER)" \
-	-pdflatex="pdflatex -interaction=nonstopmode" \
+	-pdflatex="pdflatex -interaction=nonstopmode -halt-on-error -file-line-error" \
 	-use-make $(PROPOSAL_MAIN_FILE).tex
 
 	# Copy the generated PDF file from the cache folder
@@ -110,6 +113,8 @@ thesis: $(THESIS_FOLDER)/$(THESIS_MAIN_FILE).tex
 	-jobname="$(THESIS_OUTPUT_NAME)" \
 	-output-directory="$(CACHE_FOLDER)" \
 	-aux-directory="$(CACHE_FOLDER)" \
+	-halt-on-error \
+	-file-line-error \
 	--time-statistics \
 	--shell-escape \
 	--synctex=1 \
@@ -144,7 +149,7 @@ thesis_verbose: $(THESIS_FOLDER)/$(THESIS_MAIN_FILE).tex
 	-jobname="$(THESIS_OUTPUT_NAME)" \
 	-output-directory="$(CACHE_FOLDER)" \
 	-aux-directory="$(CACHE_FOLDER)" \
-	-pdflatex="pdflatex --synctex=1 --interaction=nonstopmode" \
+	-pdflatex="pdflatex --synctex=1 --interaction=nonstopmode -halt-on-error -file-line-error" \
 	-use-make $(THESIS_MAIN_FILE).tex
 
 	# Copy the generated PDF file from the cache folder
