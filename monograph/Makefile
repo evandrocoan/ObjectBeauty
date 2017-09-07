@@ -16,6 +16,7 @@ PROPOSAL_OUTPUT_NAME = proposal
 
 # This is the folder where the temporary files are going to be
 CACHE_FOLDER = cache
+PDF_LATEX_COMMAND = pdflatex --time-statistics --synctex=1 -halt-on-error -file-line-error
 
 
 # Font:
@@ -87,7 +88,7 @@ proposal: $(PROPOSAL_FOLDER)/$(PROPOSAL_MAIN_FILE).tex
 	-jobname="$(PROPOSAL_OUTPUT_NAME)" \
 	-output-directory="$(CACHE_FOLDER)" \
 	-aux-directory="$(CACHE_FOLDER)" \
-	-pdflatex="pdflatex -interaction=nonstopmode -halt-on-error -file-line-error" \
+	-pdflatex="$(PDF_LATEX_COMMAND) --interaction=nonstopmode" \
 	-use-make $(PROPOSAL_MAIN_FILE).tex
 
 	# Copy the generated PDF file from the cache folder
@@ -109,16 +110,13 @@ thesis: $(THESIS_FOLDER)/$(THESIS_MAIN_FILE).tex
 	$(eval current_dir := $(shell pwd)) echo $(current_dir) > /dev/null
 
 	# Call the latex specialized make file
-	pdflatex \
+	latexmk \
+	-pdf \
+	-silent \
 	-jobname="$(THESIS_OUTPUT_NAME)" \
 	-output-directory="$(CACHE_FOLDER)" \
 	-aux-directory="$(CACHE_FOLDER)" \
-	-halt-on-error \
-	-file-line-error \
-	--time-statistics \
-	--shell-escape \
-	--synctex=1 \
-	--interaction=batchmode \
+	-pdflatex="$(PDF_LATEX_COMMAND) --interaction=batchmode" \
 	$(THESIS_MAIN_FILE).tex
 
 	# Copy the generated PDF file from the cache folder
@@ -149,7 +147,7 @@ thesis_verbose: $(THESIS_FOLDER)/$(THESIS_MAIN_FILE).tex
 	-jobname="$(THESIS_OUTPUT_NAME)" \
 	-output-directory="$(CACHE_FOLDER)" \
 	-aux-directory="$(CACHE_FOLDER)" \
-	-pdflatex="pdflatex --synctex=1 --interaction=nonstopmode -halt-on-error -file-line-error" \
+	-pdflatex="$(PDF_LATEX_COMMAND) --interaction=nonstopmode" \
 	-use-make $(THESIS_MAIN_FILE).tex
 
 	# Copy the generated PDF file from the cache folder

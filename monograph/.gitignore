@@ -23,3 +23,7 @@
 *.ilg
 *.ind
 
+*.lot
+*.lof
+*.lol
+
