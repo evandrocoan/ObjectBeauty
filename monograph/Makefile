@@ -43,7 +43,7 @@ MAKEFLAGS += --silent
 ## Targets:
 ##   all               generate all assets
 ##   proposal          build the `proposal` to the `proposal.pdf` file
-##   thesis            build the `thesis` to the `thesis.pdf` file
+##   thesis            build the `thesis` to the `thesis.pdf` file with no bibliography pass
 ##   thesis_verbose    build the `thesis` to the `thesis.pdf` file with maximum output logs
 ##
 
@@ -55,7 +55,7 @@ help:
 
 # The first rule in a Makefile is the one executed by default ("make"). It
 # should always be the "all" rule, so that "make" and "make all" are identical.
-all: proposal thesis
+all: proposal thesis_verbose
 
 
 # MAIN LATEXMK RULE
@@ -110,13 +110,11 @@ thesis: $(THESIS_FOLDER)/$(THESIS_MAIN_FILE).tex
 	$(eval current_dir := $(shell pwd)) echo $(current_dir) > /dev/null
 
 	# Call the latex specialized make file
-	latexmk \
-	-pdf \
-	-silent \
+	$(PDF_LATEX_COMMAND) \
+	--interaction=batchmode \
 	-jobname="$(THESIS_OUTPUT_NAME)" \
 	-output-directory="$(CACHE_FOLDER)" \
 	-aux-directory="$(CACHE_FOLDER)" \
-	-pdflatex="$(PDF_LATEX_COMMAND) --interaction=batchmode" \
 	$(THESIS_MAIN_FILE).tex
 
 	# Copy the generated PDF file from the cache folder
