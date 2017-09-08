@@ -41,14 +41,18 @@
 % https://tex.stackexchange.com/questions/131002/how-to-expand-ifthenelse-so-that-it-can-be-used-in-parshape
 \newcommand{\chooselang}[2]{\ifenglish#1\else#2\fi}
 
+% How to make \PassOptionsToPackage add the option as the last option?
+% https://tex.stackexchange.com/questions/385895/how-to-make-passoptionstopackage-add-the-option-as-the-last
 \ifenglish
-    % How to make \PassOptionsToPackage add the option as the last option?
-    % https://tex.stackexchange.com/questions/385895/how-to-make-passoptionstopackage-add-the-option-as-the-last
-    \PassOptionsToPackage{brazil,main=english,spanish,french}{babel}
     \newcommand{\swapcontents}[2]{#1 #2}
+
+    \PassOptionsToPackage{language=english}{biblatex}
+    \PassOptionsToPackage{brazil,main=english,spanish,french}{babel}
 \else
-    \PassOptionsToPackage{main=brazil,english,spanish,french}{babel}
     \newcommand{\swapcontents}[2]{#2 #1}
+
+    \PassOptionsToPackage{language=brazil}{biblatex}
+    \PassOptionsToPackage{main=brazil,english,spanish,french}{babel}
 \fi
 
 % You need to run `pdfTeX` 5 times on the following order: 1. `pdfTeX`, 2. `bibtex`, 3. `pdfTeX` 4.
@@ -101,6 +105,7 @@
 
 % Thesis settings
 \input{settings}
+\addbibresource{references.bib}
 
 % When writing a large document, it is sometimes useful to work on selected sections of the document
 % to speed up compilation time: https://en.wikibooks.org/wiki/TeX/includeonly
@@ -138,13 +143,12 @@
     % https://tex.stackexchange.com/questions/4705/double-space-between-sentences
     \frenchspacing
 
+    % ELEMENTOS PRÉ-TEXTUAIS
     \input{pretexto/pretexto}
 
 
 
     % ELEMENTOS TEXTUAIS
-    %
-    % Configura estilo das páginas.
     \textual
 
     % To automatically put a [Go To Top/Back] ←← | ← on each section
@@ -171,14 +175,22 @@
 
 
     % ELEMENTOS PÓS-TEXTUAIS
-    %
     \postextual
     \setlength\beforechapskip{0pt}
     \setlength\midchapskip{15pt}
     \setlength\afterchapskip{15pt}
 
     % Referências bibliográficas
-    \bibliography{references}
+    \begingroup
+        % Using BibTeX to make a list of references without having citations in the body of the document?
+        % https://tex.stackexchange.com/questions/17128/using-bibtex-to-make-a-list-of-references-without
+        % \nocite{*}
+
+        % How to modify line spacing per entry of bibliography?
+        % https://tex.stackexchange.com/questions/163559/how-to-modify-line-spacing-per-entry-of-bibliography
+        \linespread{1.18}\selectfont
+        \printbibliography
+    \endgroup
 
     % Glossário, consulte o manual da classe abntex2 para orientações sobre o glossário.
     % \ifforcedinclude\else\glossary\fi
