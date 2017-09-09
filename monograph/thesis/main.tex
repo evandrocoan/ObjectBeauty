@@ -24,6 +24,10 @@
 % You can build this using the command:
 % latexmk -pdf -jobname=output -output-directory=cache -aux-directory=cache -pdflatex="pdflatex -interaction=nonstopmode" -use-make main.tex
 
+% You need to run `pdfTeX` 5 times on the following order: 1. `pdfTeX`, 2. `biber`, 3. `pdfTeX` 4.
+% `pdfTeX` 5. `pdfTeX` 6. `biber` 7. `pdfTeX`, when the bibliography includes a cyclic reference to
+% another bibliography, so we need a last pass to fix the bibliography undefined references.
+
 
 
 %----------------------------------------------------------------------------------------
@@ -55,18 +59,8 @@
     \PassOptionsToPackage{main=brazil,english,spanish,french}{babel}
 \fi
 
-% You need to run `pdfTeX` 5 times on the following order: 1. `pdfTeX`, 2. `bibtex`, 3. `pdfTeX` 4.
-% `pdfTeX` 5. `pdfTeX` 6. `pdfTeX`, because the bibliography includes a cyclic reference to another
-% bibliography, so we need a last pass to fix the bibliography undefined references.
-%
-% Fix recurring LaTeX Warning
-% https://github.com/abntex/abntex2/pull/189
-%
-% To fix the warning `LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right`,
-% open the file `D:\User\Documents\latex\texmfs\install\tex\latex\abntex2\abntex2cite.sty` and
-% comment out these two lines:
-% 547: % \renewcommand{\bibcite}[2]{%
-% 548: %   \@newl@bel{b}{#1}{\hyper@@link[cite]{}{cite.#1}{#2}}}%
+
+% Includes and fixes several `abntex2` class problems
 \input{ufscthesisx/setup/setup}
 
 % Load the UFSC thesis settings
@@ -89,7 +83,16 @@
 %   File settings
 %----------------------------------------------------------------------------------------
 
-% Print page margins of a document
+% Comment this, unless you are debugging pages' badness Underfull & Overflow
+% https://tex.stackexchange.com/questions/115908/geometry-showframe-landscape
+%
+% What is the difference between \usepackage{showframe} and \usepackage[showframe]{geometry}?
+% https://tex.stackexchange.com/questions/387077/what-is-the-difference-between-usepackageshowframe-and-usepackageshowframe
+%
+% How to do the memoir headings fix but not have my text going over the page bottom margins?
+% https://tex.stackexchange.com/questions/387257/how-to-do-the-memoir-headings-fix-but-not-have-my-text-going-over-the-page-botto
+%
+% Print page margins of a document, for debugging bad boxes
 % https://tex.stackexchange.com/questions/14508/print-page-margins-of-a-document
 % \usepackage[showframe,pass]{geometry}
 
@@ -106,6 +109,7 @@
 % Thesis settings
 \input{settings}
 \addbibresource{references.bib}
+
 
 % When writing a large document, it is sometimes useful to work on selected sections of the document
 % to speed up compilation time: https://en.wikibooks.org/wiki/TeX/includeonly
