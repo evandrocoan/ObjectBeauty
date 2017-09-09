@@ -135,16 +135,35 @@
 \makeatletter
 \@ifpackageloaded{biblatex}
 {
+    \renewbibmacro*{pageref}
+    {
+        \iflistundef{pageref}
+        {\printtext{\chooselang{\autocap{n}o citation in the text}{\autocap{n}enhuma citação no texto}.}}
+        {
+            \printtext
+            {
+                \ifnumgreater{\value{citecounter}}{1}
+                    {\chooselang{\autocap{c}ited}{\autocap{c}itado} \arabic{citecounter} \chooselang{times}{vezes}}
+                    {\chooselang{\autocap{c}ited}{\autocap{c}itado} \arabic{citecounter} \chooselang{time}{vez}}
+            }%
+            \setunit{\addspace}%
+            \ifnumgreater{\value{pageref}}{1}
+                {\bibstring{backrefpages}\ppspace}
+                {\bibstring{backrefpage}\ppspace}%
+            \printlist[pageref][-\value{listtotal}]{pageref}
+        }
+    }
+
     \DefineBibliographyStrings{brazil}
     {
-        backrefpage  = {Citado na página},
-        backrefpages = {Citado nas páginas},
+        backrefpage  = {na página},
+        backrefpages = {nas páginas},
     }
 
     \DefineBibliographyStrings{english}
     {
-        backrefpage  = {Cited on page},
-        backrefpages = {Cited on pages},
+        backrefpage  = {on page},
+        backrefpages = {on pages},
     }
 }{}
 \makeatother
