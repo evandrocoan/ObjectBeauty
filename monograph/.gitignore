@@ -27,3 +27,6 @@
 *.lof
 *.lol
 
+*.run.xml
+*.bcf
+
