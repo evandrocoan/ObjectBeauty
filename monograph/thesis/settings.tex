@@ -139,9 +139,9 @@
     {
         \iflistundef{pageref}
         {\printtext{\chooselang{\autocap{n}o citation in the text}{\autocap{n}enhuma citação no texto}.}}
-        {
+        {%
             \printtext
-            {
+            {%
                 \ifnumgreater{\value{citecounter}}{1}
                     {\chooselang{\autocap{c}ited}{\autocap{c}itado} \arabic{citecounter} \chooselang{times}{vezes}}
                     {\chooselang{\autocap{c}ited}{\autocap{c}itado} \arabic{citecounter} \chooselang{time}{vez}}
@@ -150,8 +150,8 @@
             \ifnumgreater{\value{pageref}}{1}
                 {\bibstring{backrefpages}\ppspace}
                 {\bibstring{backrefpage}\ppspace}%
-            \printlist[pageref][-\value{listtotal}]{pageref}
-        }
+            \printlist[pageref][-\value{listtotal}]{pageref}%
+        }%
     }
 
     \DefineBibliographyStrings{brazil}
