@@ -16,7 +16,23 @@ PROPOSAL_OUTPUT_NAME = proposal
 
 # This is the folder where the temporary files are going to be
 CACHE_FOLDER = cache
+LATEX_MAIN_FILE := $(THESIS_FOLDER)/$(THESIS_MAIN_FILE).tex
+
+# Find all files ending with `.tex`
+LATEX_SOURCE_FILES := $(shell /bin/find -regex ".*\.\(tex\)" -not -path "./$(THESIS_FOLDER)/ufscthesisx**" -not -path "./$(PROPOSAL_FOLDER)**")
+
+# Create a new variable within file name ending with `.pdf`
+PDF_MAIN_FILE := $(THESIS_FOLDER)/$(CACHE_FOLDER)/$(THESIS_OUTPUT_NAME).pdf
+
+
+# Where to find official (!) and extended documentation for tex/latex's commandline options (especially -interaction modes)?
+# https://tex.stackexchange.com/questions/91592/where-to-find-official-and-extended-documentation-for-tex-latexs-commandlin
 PDF_LATEX_COMMAND = pdflatex --time-statistics --synctex=1 -halt-on-error -file-line-error
+LATEX =	$(PDF_LATEX_COMMAND)\
+--interaction=batchmode\
+-jobname="$(THESIS_OUTPUT_NAME)"\
+-output-directory="$(CACHE_FOLDER)"\
+-aux-directory="$(CACHE_FOLDER)"
 
 
 # Font:
@@ -25,7 +41,7 @@ PDF_LATEX_COMMAND = pdflatex --time-statistics --synctex=1 -halt-on-error -file-
 # You want latexmk to *always* run, because make does not have all the info.
 # Also, include non-file targets in .PHONY so they are run regardless of any
 # file of the given name existing.
-.PHONY: proposal thesis all clean help
+.PHONY: help
 
 # How do I write the 'cd' command in a makefile?
 # http://stackoverflow.com/questions/1789594/how-do-i-write-the-cd-command-in-a-makefile
@@ -43,6 +59,8 @@ MAKEFLAGS += --silent
 ## Targets:
 ##   all               generate all assets
 ##   proposal          build the `proposal` to the `proposal.pdf` file
+##   biber             build the `thesis` main file with bibliography pass
+##   latex             build the `thesis` main file with no bibliography pass
 ##   thesis            build the `thesis` to the `thesis.pdf` file with no bibliography pass
 ##   thesis_verbose    build the `thesis` to the `thesis.pdf` file with maximum output logs
 ##
@@ -58,6 +76,72 @@ help:
 all: proposal thesis_verbose
 
 
+# Run pdflatex, biber, pdflatex
+biber: start_timer biber_hook pdflatex_hook2
+
+	# Creates the shell variable `current_dir` within the current folder path
+	$(eval current_dir := $(shell pwd)) echo $(current_dir) > /dev/null
+
+	# Copies the PDF to the current folder
+	cp $(PDF_MAIN_FILE) $(current_dir)/$(THESIS_OUTPUT_NAME).pdf
+
+	# Calculate the elapsed seconds and print them to the screen
+	. ./scripts/timer_calculator.sh
+	showTheElapsedSeconds "$(current_dir)"
+
+
+start_timer:
+
+	# Start counting the elapsed seconds to print them to the screen later
+	. ./scripts/timer_calculator.sh
+
+
+# Internally called rule which does not attempt to show the elapsed time
+biber_hook:
+
+	# Creates the shell variable `current_dir` within the current folder path
+	$(eval current_dir := $(shell pwd)) echo $(current_dir) > /dev/null
+
+	# Call biber to process the bibliography
+	echo "Running biber quietly..."
+
+	# https://www.mankier.com/1/biber
+	biber --quiet "$(THESIS_FOLDER)/$(CACHE_FOLDER)/$(THESIS_OUTPUT_NAME)"
+
+
+# How to call Makefile recipe/rule multiple times?
+# https://stackoverflow.com/questions/46135614/how-to-call-makefile-recipe-rule-multiple-times
+pdflatex_hook1 pdflatex_hook2:
+
+	# Enters to the thesis folder to build the files
+	cd ./$(THESIS_FOLDER)
+
+	# Call pdflatex to build the PDF
+	@$(LATEX) $(THESIS_MAIN_FILE)
+
+
+# This rule will be called for every latex file and pdf associated
+latex:
+
+	# Start counting the compilation time and import its shell functions
+	. ./scripts/timer_calculator.sh
+
+	# Enters to the thesis folder to build the files
+	cd ./$(THESIS_FOLDER)
+
+	# Creates the shell variable `current_dir` within the current folder path
+	$(eval current_dir := $(shell pwd)) echo $(current_dir) > /dev/null
+
+	# Call pdflatex to build the PDF
+	@$(LATEX) $(THESIS_MAIN_FILE)
+
+	# Copy the generated PDF file from the cache folder
+	cp $(CACHE_FOLDER)/$(THESIS_OUTPUT_NAME).pdf $(current_dir)/$(THESIS_OUTPUT_NAME).pdf
+
+	# Calculate the elapsed seconds and print them to the screen
+	showTheElapsedSeconds "$(current_dir)"
+
+
 # MAIN LATEXMK RULE
 #
 # -pdf tells latexmk to generate PDF directly (instead of DVI).
@@ -68,7 +152,7 @@ all: proposal thesis_verbose
 # missing file reference and interactively asking you for an alternative.
 #
 # http://docs.miktex.org/manual/texfeatures.html#auxdirectory
-proposal: $(PROPOSAL_FOLDER)/$(PROPOSAL_MAIN_FILE).tex
+proposal:
 
 	# Start counting the compilation time and import its shell functions
 	. ./scripts/timer_calculator.sh
@@ -98,12 +182,12 @@ proposal: $(PROPOSAL_FOLDER)/$(PROPOSAL_MAIN_FILE).tex
 	showTheElapsedSeconds "$(current_dir)"
 
 
-thesis: $(THESIS_FOLDER)/$(THESIS_MAIN_FILE).tex
+thesis:
 
 	# Start counting the compilation time and import its shell functions
 	. ./scripts/timer_calculator.sh
 
-	# Enters to the proposal folder to build the files
+	# Enters to the thesis folder to build the files
 	cd ./$(THESIS_FOLDER)
 
 	# Creates the shell variable `current_dir` within the current folder path
@@ -124,7 +208,7 @@ thesis: $(THESIS_FOLDER)/$(THESIS_MAIN_FILE).tex
 	showTheElapsedSeconds "$(current_dir)"
 
 
-thesis_verbose: $(THESIS_FOLDER)/$(THESIS_MAIN_FILE).tex
+thesis_verbose:
 
 	# Start counting the compilation time and import its shell functions
 	. ./scripts/timer_calculator.sh
@@ -155,22 +239,19 @@ thesis_verbose: $(THESIS_FOLDER)/$(THESIS_MAIN_FILE).tex
 	showTheElapsedSeconds "$(current_dir)"
 
 
-clean: veryclean
-
-
-veryclean: clean_proposal
-
-
-clean_proposal:
-	$(RM) -r $(THESIS_FOLDER)/$(CACHE_FOLDER)
-	$(RM) -r $(THESIS_FOLDER)/$(THESIS_OUTPUT_NAME).pdf
-	$(RM) -r $(PROPOSAL_FOLDER)/$(CACHE_FOLDER)
-	$(RM) -r $(PROPOSAL_FOLDER)/$(PROPOSAL_OUTPUT_NAME).pdf
-	$(RM) $(PROPOSAL_OUTPUT_NAME).pdf
-	$(RM) $(THESIS_OUTPUT_NAME).pdf
+clean: clean_proposal clean_thesis
 
 
 clean_thesis:
+	$(RM) -r $(THESIS_FOLDER)/$(CACHE_FOLDER)
+	$(RM) -r $(THESIS_FOLDER)/$(THESIS_OUTPUT_NAME).pdf
+	$(RM) $(THESIS_OUTPUT_NAME).pdf
+
+
+clean_proposal:
+	$(RM) -r $(PROPOSAL_FOLDER)/$(CACHE_FOLDER)
+	$(RM) -r $(PROPOSAL_FOLDER)/$(PROPOSAL_OUTPUT_NAME).pdf
+	$(RM) $(PROPOSAL_OUTPUT_NAME).pdf
 
 
 
