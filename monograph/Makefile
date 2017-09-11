@@ -22,17 +22,16 @@ LATEX_MAIN_FILE := $(THESIS_FOLDER)/$(THESIS_MAIN_FILE).tex
 LATEX_SOURCE_FILES := $(shell /bin/find -regex ".*\.\(tex\)" -not -path "./$(THESIS_FOLDER)/ufscthesisx**" -not -path "./$(PROPOSAL_FOLDER)**")
 
 # Create a new variable within file name ending with `.pdf`
-PDF_MAIN_FILE := $(THESIS_FOLDER)/$(CACHE_FOLDER)/$(THESIS_OUTPUT_NAME).pdf
+PDF_MAIN_FILE := $(THESIS_FOLDER)/$(CACHE_FOLDER)/$(THESIS_MAIN_FILE).pdf
 
 
 # Where to find official (!) and extended documentation for tex/latex's commandline options (especially -interaction modes)?
 # https://tex.stackexchange.com/questions/91592/where-to-find-official-and-extended-documentation-for-tex-latexs-commandlin
-PDF_LATEX_COMMAND = pdflatex --time-statistics --synctex=1 -halt-on-error -file-line-error
+PDF_LATEX_COMMAND = pdflatex --time-statistics --synctex=1 --halt-on-error --file-line-error
 LATEX =	$(PDF_LATEX_COMMAND)\
 --interaction=batchmode\
--jobname="$(THESIS_OUTPUT_NAME)"\
--output-directory="$(CACHE_FOLDER)"\
--aux-directory="$(CACHE_FOLDER)"
+--output-directory="$(CACHE_FOLDER)"\
+--aux-directory="$(CACHE_FOLDER)"
 
 
 # Font:
@@ -102,11 +101,14 @@ biber_hook:
 	# Creates the shell variable `current_dir` within the current folder path
 	$(eval current_dir := $(shell pwd)) echo $(current_dir) > /dev/null
 
+	# Enters to the thesis folder to build the files
+	cd ./$(THESIS_FOLDER)
+
 	# Call biber to process the bibliography
 	echo "Running biber quietly..."
 
-	# https://www.mankier.com/1/biber
-	biber --quiet "$(THESIS_FOLDER)/$(CACHE_FOLDER)/$(THESIS_OUTPUT_NAME)"
+	# https://www.mankier.com/1/biber --debug
+	biber --quiet --input-directory="$(CACHE_FOLDER)" --output-directory="$(CACHE_FOLDER)" $(THESIS_MAIN_FILE).bcf
 
 
 # How to call Makefile recipe/rule multiple times?
@@ -117,7 +119,7 @@ pdflatex_hook1 pdflatex_hook2:
 	cd ./$(THESIS_FOLDER)
 
 	# Call pdflatex to build the PDF
-	@$(LATEX) $(THESIS_MAIN_FILE)
+	@$(LATEX) $(THESIS_MAIN_FILE).tex
 
 
 # This rule will be called for every latex file and pdf associated
@@ -133,10 +135,10 @@ latex:
 	$(eval current_dir := $(shell pwd)) echo $(current_dir) > /dev/null
 
 	# Call pdflatex to build the PDF
-	@$(LATEX) $(THESIS_MAIN_FILE)
+	@$(LATEX) $(THESIS_MAIN_FILE).tex
 
 	# Copy the generated PDF file from the cache folder
-	cp $(CACHE_FOLDER)/$(THESIS_OUTPUT_NAME).pdf $(current_dir)/$(THESIS_OUTPUT_NAME).pdf
+	cp $(CACHE_FOLDER)/$(THESIS_MAIN_FILE).pdf $(current_dir)/$(THESIS_OUTPUT_NAME).pdf
 
 	# Calculate the elapsed seconds and print them to the screen
 	showTheElapsedSeconds "$(current_dir)"
@@ -168,15 +170,14 @@ proposal:
 	#
 	# Call the latex specialized make file
 	latexmk \
-	-pdf \
-	-jobname="$(PROPOSAL_OUTPUT_NAME)" \
-	-output-directory="$(CACHE_FOLDER)" \
-	-aux-directory="$(CACHE_FOLDER)" \
-	-pdflatex="$(PDF_LATEX_COMMAND) --interaction=nonstopmode" \
-	-use-make $(PROPOSAL_MAIN_FILE).tex
+	--pdf \
+	--output-directory="$(CACHE_FOLDER)" \
+	--aux-directory="$(CACHE_FOLDER)" \
+	--pdflatex="$(PDF_LATEX_COMMAND) --interaction=nonstopmode" \
+	--use-make $(PROPOSAL_MAIN_FILE).tex
 
 	# Copy the generated PDF file from the cache folder
-	cp $(CACHE_FOLDER)/$(PROPOSAL_OUTPUT_NAME).pdf $(current_dir)/$(PROPOSAL_OUTPUT_NAME).pdf
+	cp $(CACHE_FOLDER)/$(PROPOSAL_MAIN_FILE).pdf $(current_dir)/$(PROPOSAL_OUTPUT_NAME).pdf
 
 	# Calculate the elapsed seconds and print them to the screen
 	showTheElapsedSeconds "$(current_dir)"
@@ -196,13 +197,12 @@ thesis:
 	# Call the latex specialized make file
 	$(PDF_LATEX_COMMAND) \
 	--interaction=batchmode \
-	-jobname="$(THESIS_OUTPUT_NAME)" \
-	-output-directory="$(CACHE_FOLDER)" \
-	-aux-directory="$(CACHE_FOLDER)" \
+	--output-directory="$(CACHE_FOLDER)" \
+	--aux-directory="$(CACHE_FOLDER)" \
 	$(THESIS_MAIN_FILE).tex
 
 	# Copy the generated PDF file from the cache folder
-	cp $(CACHE_FOLDER)/$(THESIS_OUTPUT_NAME).pdf $(current_dir)/$(THESIS_OUTPUT_NAME).pdf
+	cp $(CACHE_FOLDER)/$(THESIS_MAIN_FILE).pdf $(current_dir)/$(THESIS_OUTPUT_NAME).pdf
 
 	# Calculate the elapsed seconds and print them to the screen
 	showTheElapsedSeconds "$(current_dir)"
@@ -225,15 +225,14 @@ thesis_verbose:
 	# What reasons (if any) are there for compiling in interactive mode?
 	# https://tex.stackexchange.com/questions/25267/what-reasons-if-any-are-there-for-compiling-in-interactive-mode
 	latexmk \
-	-pdf \
-	-jobname="$(THESIS_OUTPUT_NAME)" \
-	-output-directory="$(CACHE_FOLDER)" \
-	-aux-directory="$(CACHE_FOLDER)" \
-	-pdflatex="$(PDF_LATEX_COMMAND) --interaction=nonstopmode" \
-	-use-make $(THESIS_MAIN_FILE).tex
+	--pdf \
+	--output-directory="$(CACHE_FOLDER)" \
+	--aux-directory="$(CACHE_FOLDER)" \
+	--pdflatex="$(PDF_LATEX_COMMAND) --interaction=nonstopmode" \
+	--use-make $(THESIS_MAIN_FILE).tex
 
 	# Copy the generated PDF file from the cache folder
-	cp $(CACHE_FOLDER)/$(THESIS_OUTPUT_NAME).pdf $(current_dir)/$(THESIS_OUTPUT_NAME).pdf
+	cp $(CACHE_FOLDER)/$(THESIS_MAIN_FILE).pdf $(current_dir)/$(THESIS_OUTPUT_NAME).pdf
 
 	# Calculate the elapsed seconds and print them to the screen
 	showTheElapsedSeconds "$(current_dir)"
@@ -244,13 +243,13 @@ clean: clean_proposal clean_thesis
 
 clean_thesis:
 	$(RM) -r $(THESIS_FOLDER)/$(CACHE_FOLDER)
-	$(RM) -r $(THESIS_FOLDER)/$(THESIS_OUTPUT_NAME).pdf
+	$(RM) $(THESIS_FOLDER)/$(THESIS_OUTPUT_NAME).pdf
 	$(RM) $(THESIS_OUTPUT_NAME).pdf
 
 
 clean_proposal:
 	$(RM) -r $(PROPOSAL_FOLDER)/$(CACHE_FOLDER)
-	$(RM) -r $(PROPOSAL_FOLDER)/$(PROPOSAL_OUTPUT_NAME).pdf
+	$(RM) $(PROPOSAL_FOLDER)/$(PROPOSAL_OUTPUT_NAME).pdf
 	$(RM) $(PROPOSAL_OUTPUT_NAME).pdf
 
 
