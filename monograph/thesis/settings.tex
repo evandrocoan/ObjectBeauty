@@ -8,7 +8,7 @@
 
 % What is the difference between \def and \newcommand?
 % https://tex.stackexchange.com/questions/655/what-is-the-difference-between-def-and-newcommand
-\def\mytextpreliminarylistname{\chooselang{Brief Table of Contents}{Breve Sumário}}
+\def\mytextpreliminarylistname{\lang{Brief Table of Contents}{Breve Sumário}}
 
 % How to manually set where a word is split?
 % https://tex.stackexchange.com/questions/182569/how-to-manually-set-where-a-word-is-split
@@ -17,38 +17,38 @@
 % Informações de dados para CAPA e FOLHA DE ROSTO
 \titulo
 {%
-    \chooselang
+    \lang
     {Good Programming Practices \& Style}
     {Boas Práticas de Programação \& Estilo}
 }
 \subtitulo
 {%
-    \chooselang
+    \lang
     {Universal Programming Tools}
     {Ferramentas Universais de Programação}
 }
 
 \data{\today}
 \autor{\brazil{Evandro Coan}}
-\local{\chooselang{\brazil{Florianópolis, Santa Catarina} -- Brazil}{Florianópolis, Santa Catarina -- Brasil}}
+\local{\lang{\brazil{Florianópolis, Santa Catarina} -- Brazil}{Florianópolis, Santa Catarina -- Brasil}}
 
-\biblioteca{\chooselang{University Library}{Biblioteca Universitária}}
-\orientador{\chooselang{Prof. PhD. Ricardo Azambuja Silveira}{Prof. Dr. Ricardo Azambuja Silveira}}
-\coorientador{\chooselang{M.S. Thiago Ângelo Gelaim}{M.S. Thiago Ângelo Gelaim}}
+\biblioteca{\lang{University Library}{Biblioteca Universitária}}
+\orientador{\lang{Prof. PhD. Ricardo Azambuja Silveira}{Prof. Dr. Ricardo Azambuja Silveira}}
+\coorientador{\lang{M.S. Thiago Ângelo Gelaim}{M.S. Thiago Ângelo Gelaim}}
 
 \instituicaosigla{UFSC}
-\instituicao{\chooselang{Federal University of \brazil{Santa Catarina}}{Universidade Federal de Santa Catarina}}
-\tipotrabalho{\chooselang{Bachelor's Thesis}{Tese de Graduação}}
+\instituicao{\lang{Federal University of \brazil{Santa Catarina}}{Universidade Federal de Santa Catarina}}
+\tipotrabalho{\lang{Bachelor's Thesis}{Tese de Graduação}}
 
-\area{\chooselang{Formal Languages}{Linguagens Formais}}
-\formacao{\chooselang{Bachelor of Science Degree in Computer Science}{Grau de Bacharel em Ciência da Computação}}
-\programa{\chooselang{Undergraduate Program in Computer Science}{Trabalho de Conclusão de Curso}}
-\centro{\chooselang{Department of Informatics and Statistics}{Departamento de Informática e Estatística}}
+\area{\lang{Formal Languages}{Linguagens Formais}}
+\formacao{\lang{Bachelor of Science Degree in Computer Science}{Grau de Bacharel em Ciência da Computação}}
+\programa{\lang{Undergraduate Program in Computer Science}{Trabalho de Conclusão de Curso}}
+\centro{\lang{Department of Informatics and Statistics}{Departamento de Informática e Estatística}}
 
 % O preambulo deve conter tipo do trabalho, objetivo, nome da instituição e a área de concentração.
 \preambulo
 {%
-    \chooselang
+    \lang
     {Thesis submitted to the~\imprimirprograma~of the~\imprimirinstituicao~to obtain the~\imprimirformacao.}
     {Tese submetida ao \imprimirprograma da \imprimirinstituicao para a obtenção do Título de \imprimirformacao.}
 }
@@ -138,13 +138,13 @@
     \renewbibmacro*{pageref}
     {
         \iflistundef{pageref}
-        {\printtext{\chooselang{\autocap{n}o citation in the text}{\autocap{n}enhuma citação no texto}.}}
+        {\printtext{\lang{\autocap{n}o citation in the text}{\autocap{n}enhuma citação no texto}.}}
         {%
             \printtext
             {%
                 \ifnumgreater{\value{citecounter}}{1}
-                    {\chooselang{\autocap{c}ited}{\autocap{c}itado} \arabic{citecounter} \chooselang{times}{vezes}}
-                    {\chooselang{\autocap{c}ited}{\autocap{c}itado} \arabic{citecounter} \chooselang{time}{vez}}
+                    {\lang{\autocap{c}ited}{\autocap{c}itado} \arabic{citecounter} \lang{times}{vezes}}
+                    {\lang{\autocap{c}ited}{\autocap{c}itado} \arabic{citecounter} \lang{time}{vez}}
             }%
             \setunit{\addspace}%
             \ifnumgreater{\value{pageref}}{1}
