@@ -147,12 +147,20 @@ latex:
 # MAIN LATEXMK RULE
 #
 # -pdf tells latexmk to generate PDF directly (instead of DVI).
+#
 # -pdflatex="" tells latexmk to call a specific backend with specific options.
-# -use-make tells latexmk to call make for generating missing files.
 #
-# -interaction=nonstopmode keeps the pdflatex backend from stopping at a
-# missing file reference and interactively asking you for an alternative.
+# -use-make tells latexmk to call make for generating missing files. When after a run of latex or
+# pdflatex, there are warnings about missing files (e.g., as requested by the LaTeX \input,
+# \include, and \includgraphics commands), latexmk tries to make them by a custom dependency. If no
+# relevant custom dependency with an appropriate source file is found, and if the -use-make option
+# is set, then as a last resort latexmk will try to use the make program to try to make the missing
+# files.
 #
+# -interaction=nonstopmode keeps the pdflatex backend from stopping at a missing file reference and
+# interactively asking you for an alternative.
+#
+# https://www.ctan.org/pkg/latexmk
 # http://docs.miktex.org/manual/texfeatures.html#auxdirectory
 proposal:
 
@@ -174,7 +182,7 @@ proposal:
 	--output-directory="$(CACHE_FOLDER)" \
 	--aux-directory="$(CACHE_FOLDER)" \
 	--pdflatex="$(PDF_LATEX_COMMAND) --interaction=nonstopmode" \
-	--use-make $(PROPOSAL_MAIN_FILE).tex
+	$(PROPOSAL_MAIN_FILE).tex
 
 	# Copy the generated PDF file from the cache folder
 	cp $(CACHE_FOLDER)/$(PROPOSAL_MAIN_FILE).pdf $(current_dir)/$(PROPOSAL_OUTPUT_NAME).pdf
@@ -195,10 +203,12 @@ thesis:
 	$(eval current_dir := $(shell pwd)) echo $(current_dir) > /dev/null
 
 	# Call the latex specialized make file
-	$(PDF_LATEX_COMMAND) \
-	--interaction=batchmode \
+	latexmk \
+	--pdf \
+	--silent \
 	--output-directory="$(CACHE_FOLDER)" \
 	--aux-directory="$(CACHE_FOLDER)" \
+	--pdflatex="$(PDF_LATEX_COMMAND) --interaction=batchmode" \
 	$(THESIS_MAIN_FILE).tex
 
 	# Copy the generated PDF file from the cache folder
@@ -229,7 +239,7 @@ thesis_verbose:
 	--output-directory="$(CACHE_FOLDER)" \
 	--aux-directory="$(CACHE_FOLDER)" \
 	--pdflatex="$(PDF_LATEX_COMMAND) --interaction=nonstopmode" \
-	--use-make $(THESIS_MAIN_FILE).tex
+	$(THESIS_MAIN_FILE).tex
 
 	# Copy the generated PDF file from the cache folder
 	cp $(CACHE_FOLDER)/$(THESIS_MAIN_FILE).pdf $(current_dir)/$(THESIS_OUTPUT_NAME).pdf
