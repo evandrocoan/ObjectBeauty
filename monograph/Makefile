@@ -40,7 +40,7 @@ LATEX =	$(PDF_LATEX_COMMAND)\
 # You want latexmk to *always* run, because make does not have all the info.
 # Also, include non-file targets in .PHONY so they are run regardless of any
 # file of the given name existing.
-.PHONY: help
+.PHONY: all help biber start_timer biber_hook pdflatex_hook2 pdflatex_hook1 latex proposal thesis thesis_verbose clean clean_thesis clean_proposal
 
 # How do I write the 'cd' command in a makefile?
 # http://stackoverflow.com/questions/1789594/how-do-i-write-the-cd-command-in-a-makefile
