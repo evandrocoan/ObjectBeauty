@@ -252,15 +252,15 @@ clean: clean_proposal clean_thesis
 
 
 clean_thesis:
-	$(RM) -r $(THESIS_FOLDER)/$(CACHE_FOLDER)
-	$(RM) $(THESIS_FOLDER)/$(THESIS_OUTPUT_NAME).pdf
-	$(RM) $(THESIS_OUTPUT_NAME).pdf
+	$(RM) -rv $(THESIS_FOLDER)/$(CACHE_FOLDER)
+	$(RM) -v $(THESIS_FOLDER)/$(THESIS_OUTPUT_NAME).pdf
+	$(RM) -v $(THESIS_OUTPUT_NAME).pdf
 
 
 clean_proposal:
-	$(RM) -r $(PROPOSAL_FOLDER)/$(CACHE_FOLDER)
-	$(RM) $(PROPOSAL_FOLDER)/$(PROPOSAL_OUTPUT_NAME).pdf
-	$(RM) $(PROPOSAL_OUTPUT_NAME).pdf
+	$(RM) -rv $(PROPOSAL_FOLDER)/$(CACHE_FOLDER)
+	$(RM) -v $(PROPOSAL_FOLDER)/$(PROPOSAL_OUTPUT_NAME).pdf
+	$(RM) -v $(PROPOSAL_OUTPUT_NAME).pdf
 
 
 
