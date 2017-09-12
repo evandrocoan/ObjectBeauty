@@ -1,21 +1,5 @@
 
 
-% The \phantomsection command is needed to create a link to a place in the document that is not a
-% figure, equation, table, section, subsection, chapter, etc.
-%
-% When do I need to invoke \phantomsection?
-% https://tex.stackexchange.com/questions/44088/when-do-i-need-to-invoke-phantomsection
-\cleardoublepage
-\phantomsection
-
-
-% Is it possible to keep my translation together with original text?
-% https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
-\chapter{\chooselang{Implementação}{Implementation}}\label{sec:implementation}
-
-
-\chooselang
-{
     Este trabalho tem como objetivo criar um formatador (software único) de fácil configuração e
     expansão capaz de abranger as linguagens de programação que existem, baseado em um uso
     específico de expressões regulares.
@@ -83,51 +67,6 @@
     O problema proposto a se resolver é criar um Beautifier Universal. Os softwares atuais são
     limitados a um conjunto similar, ou mesmo à uma única linguagem, e além de muitos, serem
     limitados ao que eles podem fazer por você ao processar/formatar o código \cite{universalCodeFormatter}.
-
-    Language-agnostic pretty-printing through machine learning (uh, like, is this possible? YES, apparently). By Terence Parr (primary developer), Fangzhou (Morgan) Zhang (help with initial development), Jurgen Vinju (co-author of academic paper, help with empirical results and algorithm discussions).
-    \url{https://github.com/antlr/codebuff}
-
-
-    To every developer in this world, the closest thing to their heart is the text editor of their
-    choice. Over the last few years many new text editors has come into the market in both free and
-    paid model, but unfortunately not all of them were able to make a real dent on the developer
-    community. I remember in my college days we uses to use Notepad++ as our beloved text editor, as
-    at that point of time it was one of the popular and free text editor with a lot of features for
-    coding. But as time goes on, the entire development community started to lean towards sublime
-    text since it’s launch.
-    \url{https://www.isaumya.com/sublime-text-vs-atom-which-one-i-prefer-most-and-why/}
-
-    As a developer, your code editor is one of the most important parts of your setup. It can save
-    your wrists and fingers from repetitive strain injuries. It can save your eyes from going blind
-    after a coding marathon.
-    \url{https://hackernoon.com/virtualstudio-code-the-editor-i-didnt-think-i-needed-16970c8356d5}
-
-    VS Code is an Editor while VS is an IDE.
-    \url{https://stackoverflow.com/questions/30527522/what-are-the-differences-between-visual-studio-code-and-visual-studio}
-
-    Implement tabstops with white space align.
-
-    The solution - move tabstops to fit the text between them and align them with matching tabstops
-    on adjacent lines.
-    \url{http://nickgravgaard.com/elastic-tabstops/}
-    \url{https://forum.sublimetext.com/t/elastic-tabs/128}
-
-    What is the difference between VS Code and VS Community?
-    Visual Studio Code is a streamlined code editor with support for development operations like
-    debugging, task running and version control. It aims to provide just the tools a developer needs
-    for a quick code-build-debug cycle and leaves more complex workflows to fuller featured IDEs.
-    For more details about the goals of VS Code, see Why VS Code.
-    \url{https://code.visualstudio.com/docs/supporting/faq#_licensing}
-
-    Reg Replace is a plugin for Sublime Text 2 that allows the creating of commands consisting of
-    sequences of find and replace instructions.
-    \url{https://forum.sublimetext.com/t/regreplace-plugin/3810}
-
-    The main reason I moved was that I find that it’s much slower, the simple things like opening a
-    new window for a project should be instantaneous and sadly it’s far from it. As I've said before
-    it's all about personal preference, I've gone back to Sublime but Adam for example is sticking
-    with it...
-    \url{http://engageinteractive.co.uk/blog/atom-review}
 
     Logo abaixo há algumas regras de formatação básica encontrados no serviço online
     \url{http://prettyprinter.de/} acessado em março/2017:
@@ -625,12 +564,4 @@
     \end{enumerate}
     \end{myquote}
     \end{sloppypar}
-
-
-}
-{
-    % Portuguese
-    \input{chapters/implementação}
-}
-
 
