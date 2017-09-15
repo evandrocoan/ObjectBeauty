@@ -127,13 +127,12 @@
 \addtoincludeonly{chapters/implementation}
 % \addtoincludeonly{chapters/conclusion}
 
-% \addtoincludeonly{postexto/anexo_a}
 % \addtoincludeonly{postexto/apendice_a}
 \addtoincludeonly{postexto/abstracts}
 
 % Control whether the full document will be generated
-% \doincludeonly
-% \forcedincludetrue
+\doincludeonly
+\forcedincludetrue
 
 
 
@@ -189,10 +188,6 @@
 
     % Referências bibliográficas
     \begingroup
-        % Using BibTeX to make a list of references without having citations in the body of the document?
-        % https://tex.stackexchange.com/questions/17128/using-bibtex-to-make-a-list-of-references-without
-        % \nocite{*}
-
         % How to modify line spacing per entry of bibliography?
         % https://tex.stackexchange.com/questions/163559/how-to-modify-line-spacing-per-entry-of-bibliography
         \linespread{1.18}\selectfont
@@ -223,7 +218,7 @@
         \setlength\midchapskip{20pt}
         \setlength\afterchapskip{20pt}
 
-        \include{postexto/anexo_a}
+        \include{postexto/abstracts}
     \end{anexosenv}
 
     % INDICE REMISSIVO
