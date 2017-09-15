@@ -2,7 +2,7 @@
     "settings":
     {
         "TEXroot": "./monograph/thesis/main.tex",
-        "WrapPlus.wrap_width": 80
+        "rulers": [80]
     },
     "folders":
     [
