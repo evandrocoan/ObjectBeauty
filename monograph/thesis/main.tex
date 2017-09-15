@@ -203,7 +203,7 @@
     % \ifforcedinclude\else\glossary\fi
 
     % Apêndices, inicia os apêndices
-    \ifforcedinclude\else\begin{apendicesenv}
+    \begin{apendicesenv}
         % Imprime uma página indicando o início dos apêndices
         \partapendices
 
@@ -212,11 +212,10 @@
         \setlength\afterchapskip{20pt}
 
         \include{postexto/apendice_a}
-    \end{apendicesenv}\fi
-
+    \end{apendicesenv}
 
     % Anexos, inicia os anexos
-    \ifforcedinclude\else\begin{anexosenv}
+    \begin{anexosenv}
         % Imprime uma página indicando o início dos anexos
         \partanexos
 
@@ -225,7 +224,7 @@
         \setlength\afterchapskip{20pt}
 
         \include{postexto/anexo_a}
-    \end{anexosenv}\fi
+    \end{anexosenv}
 
     % INDICE REMISSIVO
     \ifforcedinclude\else
