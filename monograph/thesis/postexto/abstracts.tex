@@ -17,8 +17,8 @@
 \begin{englishtext}
 \begin{enumerate}
 
-    \item \textbf{The Guide KOMA - Script}: KOMA-Script  is very complex. This is
-    evidenced by the fact that it consists of not only a single class or a
+    \item \textbf{The Guide KOMA - Script}: KOMA-Script  is very complex. This
+    is evidenced by the fact that it consists of not only a single class or a
     single package, but a bundle of many classes and packages. Although the
     classes are designed as a counterpart to the standard classes, that does not
     necessarily mean that they only have the commands, environments, and setting
@@ -33,56 +33,57 @@
     Naturally. And there is no argument more evergreen than the timeless debate
     between tabs and spaces. \cite{Atwood}
 
-    \item \textbf{Is imposing the same code format for all developers a good idea?}: We
-    are considering to impose a single standard code format in our project (auto
-    format with save actions in Eclipse). The reason is that currently there is
-    a big difference in the code formats used by several (>10) developers which
-    makes it harder for one developer to work on the code of another developer.
-    The same Java file sometimes uses 3 different formats. \cite{Geukens}
+    \item \textbf{Is imposing the same code format for all developers a good
+    idea?}: We are considering to impose a single standard code format in our
+    project (auto format with save actions in Eclipse). The reason is that
+    currently there is a big difference in the code formats used by several
+    (>10) developers which makes it harder for one developer to work on the code
+    of another developer. The same Java file sometimes uses 3 different formats.
+    \cite{Geukens}
 
-    \item \textbf{Powerful code indenter front-end, UniversalIndentGUI}: Ever concerned
-    about how your code looks like? Ever heard of different indenting styles,
-    for example K\&R? Ever received code from someone else who didn't care about
-    code formatting? Ever tried to configure a code indenter to convert such
-    code to your coding style? Ever got bored by that tedious "changing a
-    parameter"-"call the indeter"-"try and error" procedure? Help is close to
-    you. UniversalIndentGUI offers a live preview for setting the parameters of
-    nearly any indenter. You change the value of a parameter and directly see
-    how your reformatted code will look like. Save your beauty looking code or
-    create an anywhere usable batch/shell script to reformat whole directories
-    or just one file even out of the editor of your choice that supports
-    external tool calls.
+    \item \textbf{Powerful code indenter front-end, UniversalIndentGUI}: Ever
+    concerned about how your code looks like? Ever heard of different indenting
+    styles, for example K\&R? Ever received code from someone else who didn't
+    care about code formatting? Ever tried to configure a code indenter to
+    convert such code to your coding style? Ever got bored by that tedious
+    "changing a parameter"-"call the indeter"-"try and error" procedure? Help is
+    close to you. UniversalIndentGUI offers a live preview for setting the
+    parameters of nearly any indenter. You change the value of a parameter and
+    directly see how your reformatted code will look like. Save your beauty
+    looking code or create an anywhere usable batch/shell script to reformat
+    whole directories or just one file even out of the editor of your choice
+    that supports external tool calls.
 
-    \item \textbf{SUBLIME TEXT 3 DOCUMENTATION, Syntax Definitions}: Sublime Text can
-    use both .sublime-syntax and .tmLanguage files for syntax highlighting. This
-    document describes .sublime-syntax files. Sublime Syntax files are YAML
-    files with a small header, followed by a list of contexts. Each context has
-    a list of patterns that describe how to highlight text in that context, and
-    how to change the current text. \cite{Skinner}
+    \item \textbf{SUBLIME TEXT 3 DOCUMENTATION, Syntax Definitions}: Sublime
+    Text can use both .sublime-syntax and .tmLanguage files for syntax
+    highlighting. This document describes .sublime-syntax files. Sublime Syntax
+    files are YAML files with a small header, followed by a list of contexts.
+    Each context has a list of patterns that describe how to highlight text in
+    that context, and how to change the current text. \cite{Skinner}
 
-    \item \textbf{Towards a Universal Code Formatter through Machine Learning}: There
-    are many declarative frameworks that allow us to implement code formatters
-    relatively easily for any specific language, but constructing them is
-    cumbersome. The first problem is that “everybody” wants to format their code
-    differently, leading to either many formatter variants or a ridiculous
-    number of configuration options. Second, the size of each implementation
-    scales with a language’s grammar size, leading to hundreds of rules. In this
-    paper, we solve the formatter construction problem using a novel approach,
-    one that automatically derives formatters for any given language without
-    intervention from a language expert. We introduce a code formatter called
-    CODEB UFF that uses machine learning to abstract formatting rules from a
-    representative corpus, using a carefully designed feature set. Our
-    experiments on Java, SQL, and ANTLR grammars show that CODEB UFF is
+    \item \textbf{Towards a Universal Code Formatter through Machine Learning}:
+    There are many declarative frameworks that allow us to implement code
+    formatters relatively easily for any specific language, but constructing
+    them is cumbersome. The first problem is that “everybody” wants to format
+    their code differently, leading to either many formatter variants or a
+    ridiculous number of configuration options. Second, the size of each
+    implementation scales with a language’s grammar size, leading to hundreds of
+    rules. In this paper, we solve the formatter construction problem using a
+    novel approach, one that automatically derives formatters for any given
+    language without intervention from a language expert. We introduce a code
+    formatter called CODEB UFF that uses machine learning to abstract formatting
+    rules from a representative corpus, using a carefully designed feature set.
+    Our experiments on Java, SQL, and ANTLR grammars show that CODEB UFF is
     efficient, has excellent accuracy, and is grammar invariant for a given
     language. It also generalizes to a 4th language tested during manuscript
     preparation. \cite{universalCodeFormatter}
 
-    \item \textbf{An industrial application of context-sensitive formatting}: Automated
-    formatting is an important technique for the software maintainer. It is
-    either applied separately to improve the readability of source code, or as
-    part of a source code transformation tool chain. In this paper we report on
-    the application of generic tools for constructing formatters. In an
-    industrial setting automated formatters need to be tailored to the
+    \item \textbf{An industrial application of context-sensitive formatting}:
+    Automated formatting is an important technique for the software maintainer.
+    It is either applied separately to improve the readability of source code,
+    or as part of a source code transformation tool chain. In this paper we
+    report on the application of generic tools for constructing formatters. In
+    an industrial setting automated formatters need to be tailored to the
     requirements of the customer. The (legacy) programming language or dialect
     and the corporate formatting conventions are specific and non-negotiable.
     Can generic formatting tools deal with such unexpected requirements? Driven
@@ -106,51 +107,52 @@
     of indentation be used to increase program comprehension and user
     satisfaction. \cite{programIndentation}
 
-    \item \textbf{A Language Independent Framework for Context-sensitive Formatting}:
-    Automated formatting is an important technique for the software maintainer.
-    It is either applied separately to improve the readability of source code,
-    or as part of a source code transformation tool chain. In this paper we
-    report on the application of generic tools for constructing formatters. In
-    an industrial setting automated formatters need to be tailored to the
-    requirements of the customer. The (legacy) programming language or dialect
-    and the corporate formatting conventions are specific and non-negotiable.
-    Can generic formatting tools deal with such unexpected requirements? Driven
-    by an industrial case of nearly 80 thousand lines of Cobol code, several
-    limitations in existing formatting technology have been addressed. We
-    improved its flexibility by replacing a generative phase by a generic tool,
-    and we added a little expressiveness to the formatting back end. Most
-    importantly, we employed a multi-stage formatting framework that can cope
-    with any kind of formatting convention using more computational power.
-    \cite{independentFramework}
+    \item \textbf{A Language Independent Framework for Context-sensitive
+    Formatting}: Automated formatting is an important technique for the software
+    maintainer. It is either applied separately to improve the readability of
+    source code, or as part of a source code transformation tool chain. In this
+    paper we report on the application of generic tools for constructing
+    formatters. In an industrial setting automated formatters need to be
+    tailored to the requirements of the customer. The (legacy) programming
+    language or dialect and the corporate formatting conventions are specific
+    and non-negotiable. Can generic formatting tools deal with such unexpected
+    requirements? Driven by an industrial case of nearly 80 thousand lines of
+    Cobol code, several limitations in existing formatting technology have been
+    addressed. We improved its flexibility by replacing a generative phase by a
+    generic tool, and we added a little expressiveness to the formatting back
+    end. Most importantly, we employed a multi-stage formatting framework that
+    can cope with any kind of formatting convention using more computational
+    power. \cite{independentFramework}
 
-    \item \textbf{An architecture for context-sensitive formatting}: We developed an
-    architecture for context-sensitive formatting of source code. The
-    architecture was implemented and applied in an industrial formatting case.
-    \cite{architectureFormatting}
+    \item \textbf{An architecture for context-sensitive formatting}: We
+    developed an architecture for context-sensitive formatting of source code.
+    The architecture was implemented and applied in an industrial formatting
+    case. \cite{architectureFormatting}
 
-    \item \textbf{Pretty-printing for software reengineering}: Automatic software
-    reengineerings change or repair existing software systems. They are usually
-    tailor-made for a specific customer and language dependent. Maintaining
-    similar reengineerings for multiple customers and different language
-    dialects might therefore soon become problematic unless advanced language
-    technology is being used. Generic pretty-printing is part of such technology
-    and is the subject of this paper. We discuss specific pretty-print aspects
-    of software reengineering such as fulfilling customer-specific format
-    conventions, preserving existing layout, and producing multiple output
-    formats. In addition, we describe pretty-print techniques that help to
-    reduce maintenance effort of tailor-made reengineerings supporting multiple
-    language dialects. Applications, such as COBOL reengineering and SDL
-    documentation generation show that our techniques, implemented in the
-    generic pretty-printer GPP, are feasible. \cite{prettyPrinting}
+    \item \textbf{Pretty-printing for software reengineering}: Automatic
+    software reengineerings change or repair existing software systems. They are
+    usually tailor-made for a specific customer and language dependent.
+    Maintaining similar reengineerings for multiple customers and different
+    language dialects might therefore soon become problematic unless advanced
+    language technology is being used. Generic pretty-printing is part of such
+    technology and is the subject of this paper. We discuss specific
+    pretty-print aspects of software reengineering such as fulfilling
+    customer-specific format conventions, preserving existing layout, and
+    producing multiple output formats. In addition, we describe pretty-print
+    techniques that help to reduce maintenance effort of tailor-made
+    reengineerings supporting multiple language dialects. Applications, such as
+    COBOL reengineering and SDL documentation generation show that our
+    techniques, implemented in the generic pretty-printer GPP, are feasible.
+    \cite{prettyPrinting}
 
-    \item \textbf{Automated Mass Maintenance of Software Assets}: This is a research
-    summary of a PhD project in the area of massive software maintenance
-    automation. We explain the context, approach, and contributions.
+    \item \textbf{Automated Mass Maintenance of Software Assets}: This is a
+    research summary of a PhD project in the area of massive software
+    maintenance automation. We explain the context, approach, and contributions.
     \cite{massMaintenance}
 
-    \item \textbf{Towards automated modification of legacy assets}: In this paper we
-    argue that there is a necessity for automating modifications to legacy
-    assets. We propose a five layered process for the introduction and
+    \item \textbf{Towards automated modification of legacy assets}: In this
+    paper we argue that there is a necessity for automating modifications to
+    legacy assets. We propose a five layered process for the introduction and
     employment of tool support that enables automated modification to entire
     legacy systems. Furthermore, we elaborately discuss each layer on a
     conceptual level, and we make appropriate references to sources where
@@ -159,64 +161,64 @@
     engineering area will be contributing to working on existing systems and/or
     tools to support such work. \cite{legacyAssets}
 
-    \item \textbf{Automated maintenance of a software portfolio}: This is an experience
-    report on automated mass maintenance of a large Cobol software portfolio. A
-    company in the financial services and insurance industry upgraded their
-    database system to a new version, affecting their entire software portfolio.
-    The database system was accessed by the portfolio of 45 systems, totalling
-    nearly 3000 programs and covering over 4 million lines of Cobol code. We
-    upgraded the programs to the new database version using several automatic
-    tools, and we performed an automated analysis supporting further manual
-    modifications by the system experts. The automatic tools were built using a
-    combination of lexical and syntactic technology, and they were deployed in a
-    mass update factory to allow large-scale application to the software
-    portfolio. The updated portfolio has been accepted and taken into production
-    by the company, serving over 600 employees with the new database version. In
-    this paper, we discuss the automated upgrade from problem statement to
-    project costs. \cite{softwarePortfolio}
+    \item \textbf{Automated maintenance of a software portfolio}: This is an
+    experience report on automated mass maintenance of a large Cobol software
+    portfolio. A company in the financial services and insurance industry
+    upgraded their database system to a new version, affecting their entire
+    software portfolio. The database system was accessed by the portfolio of 45
+    systems, totalling nearly 3000 programs and covering over 4 million lines of
+    Cobol code. We upgraded the programs to the new database version using
+    several automatic tools, and we performed an automated analysis supporting
+    further manual modifications by the system experts. The automatic tools were
+    built using a combination of lexical and syntactic technology, and they were
+    deployed in a mass update factory to allow large-scale application to the
+    software portfolio. The updated portfolio has been accepted and taken into
+    production by the company, serving over 600 employees with the new database
+    version. In this paper, we discuss the automated upgrade from problem
+    statement to project costs. \cite{softwarePortfolio}
 
-    \item \textbf{2-Head Pushdown Automata}: Finite state automata recognize regular
-    languages which can be used in text processing, compilers, and hardware
-    design. Two head finite automata accept linear context free languages. In
-    addition, pushdown automata are able to recognize context free languages
-    which can be used in programming languages and artificial intelligence. The
-    finite automaton has deterministic and non-deterministic version likewise
-    the two head finite automata and the pushdown automata. The deterministic
-    version of these machines is such that there is no choice of move in any
-    situation while the non-deterministic version has a choice of move. In this
-    research the 2-head pushdown automata are described which is more powerful
-    than the pushdown automata and it is able to recognize some non-context free
-    languages as well. During this work, the main task is to characterize these
-    machines. \cite{pushdownAutomata}
+    \item \textbf{2-Head Pushdown Automata}: Finite state automata recognize
+    regular languages which can be used in text processing, compilers, and
+    hardware design. Two head finite automata accept linear context free
+    languages. In addition, pushdown automata are able to recognize context free
+    languages which can be used in programming languages and artificial
+    intelligence. The finite automaton has deterministic and non-deterministic
+    version likewise the two head finite automata and the pushdown automata. The
+    deterministic version of these machines is such that there is no choice of
+    move in any situation while the non-deterministic version has a choice of
+    move. In this research the 2-head pushdown automata are described which is
+    more powerful than the pushdown automata and it is able to recognize some
+    non-context free languages as well. During this work, the main task is to
+    characterize these machines. \cite{pushdownAutomata}
 
-    \item \textbf{Aspect-oriented model-driven code generation: A systematic mapping
-    study}: Context: Model-driven code generation is being increasingly applied
-    to enhance software development from perspectives of maintainability,
-    extensibility and reusability. However, aspect-oriented code generation from
-    models is an area that is currently underdeveloped. Objective: In this study
-    we provide a survey of existing research on aspect-oriented modeling and
-    code generation to discover current work and identify needs for future
-    research. Method: A systematic mapping study was performed to find relevant
-    studies. Classification schemes have been defined and the 65 selected
-    primary studies have been classified on the basis of research focus,
-    contribution type and research type. Results: The papers of solution
-    proposal research type are in a majority. All together aspect-oriented
-    modeling appears being the most focused area divided into modeling notations
-    and process (36\%) and model composition and interaction management (26\%).
-    The majority of contributions are methods. Conclusion: Aspect-oriented
-    modeling and composition mechanisms have been significantly discussed in
-    existing literature while more research is needed in the area of
-    model-driven code generation. Furthermore, we have observed that previous
+    \item \textbf{Aspect-oriented model-driven code generation: A systematic
+    mapping study}: Context: Model-driven code generation is being increasingly
+    applied to enhance software development from perspectives of
+    maintainability, extensibility and reusability. However, aspect-oriented
+    code generation from models is an area that is currently underdeveloped.
+    Objective: In this study we provide a survey of existing research on
+    aspect-oriented modeling and code generation to discover current work and
+    identify needs for future research. Method: A systematic mapping study was
+    performed to find relevant studies. Classification schemes have been defined
+    and the 65 selected primary studies have been classified on the basis of
+    research focus, contribution type and research type. Results: The papers of
+    solution proposal research type are in a majority. All together
+    aspect-oriented modeling appears being the most focused area divided into
+    modeling notations and process (36\%) and model composition and interaction
+    management (26\%). The majority of contributions are methods. Conclusion:
+    Aspect-oriented modeling and composition mechanisms have been significantly
+    discussed in existing literature while more research is needed in the area
+    of model-driven code generation. Furthermore, we have observed that previous
     research has frequently focused on proposing solutions and thus there is
     need for research that validates and evaluates the existing proposals in
     order to provide firm foundations for aspect-oriented model-driven code
     generation. \cite{aspectOriented}
 
-    \item \textbf{A Review: Analysis of Aspect Orientation and Model Driven Engineering
-    for Code Generation}: In the development of large and complex software
-    application software engineers has to focuses on many requirements other
-    than desired application’s requirement at the coding and design level. Code
-    Generation is a technique which is use to automatically generates lower
+    \item \textbf{A Review: Analysis of Aspect Orientation and Model Driven
+    Engineering for Code Generation}: In the development of large and complex
+    software application software engineers has to focuses on many requirements
+    other than desired application’s requirement at the coding and design level.
+    Code Generation is a technique which is use to automatically generates lower
     level executable code from higher level design artifact. Code generation
     provides design of the code at higher abstract level so that software
     developers can focuses on higher level design problem simultaneously meeting
