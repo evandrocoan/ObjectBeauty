@@ -164,8 +164,14 @@
     \setlength\midchapskip{20pt}
     \setlength\afterchapskip{20pt}
 
+    % PARTE
+    \ifforcedinclude\else\part{Pesquisa}\fi
+
     % Introdução (exemplo de capítulo sem numeração, mas presente no Sumário)
     \include{chapters/introduction}
+
+    % PARTE
+    \ifforcedinclude\else\part{Implementação}\fi
 
     % Capitulo com exemplos de comandos inseridos de arquivo externo
     \include{chapters/implementation}
