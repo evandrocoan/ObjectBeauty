@@ -16,46 +16,48 @@
 
 \begin{englishtext}
 
-    Este trabalho tem como objetivo criar um formatador (software único) de fácil configuração e
-    expansão capaz de abranger as linguagens de programação que existem, baseado em um uso
-    específico de expressões regulares.
+    This work aims to create a formatter (single software) of easy configuration
+    and expansion capable of encompassing the programming languages that exist,
+    based on a specific use of regular expressions. The strategy is not to be
+    relaying on the syntax of the programming languages parsed. With it in mind,
+    we will treat them as a common text, and it will be up to the end user to
+    configure the transformations/formatting to be applied in the text, giving
+    reasonably more freedom to easily configure several programming languages
+    (if not them all), taking advantage of the fact which many of them share
+    similar structures if not identical.
 
-    A metodologia abordada será de não ter a necessidade de ter-se conhecimento da sintaxe das
-    linguagens de programação que se irão fazer o parsing. Isso porque trataremos elas como texto
-    comum, e será o usuário final que fará a configuração das transformações que serão aplicados no
-    texto, dando liberdade de facilmente se configurar várias linguagens de programação (senão
-    todas), aproveitando o fato de que muitas deles compartilham estruturas semelhantes senão
-    idênticas.
+    As a result, it is expected to have a Universal Beautifier capable of
+    covering existing languages, and which is easily extendable to cover new
+    languages. The key points of this approach are the reusability of components
+    between languages. For example, `if/for/while'\s in C++ and Java have of the
+    same structure, therefore accordingly to this approach we have to write only
+    once the specification for that language component.
 
-    Como resultado espera-se ter um Beautifier Universal capaz de abranger as linguagens que
-    existem, senão que seja facilmente extensível para abrange-las. Os pontos positivos dessa
-    abordagem são a reusabilidade de componentes entre as linguagens. Por exemplo, `if/for/while's
-    em C++ e Java são da mesma estrutura. Assim temos que escrever somente uma vez a especificação
-    para um componente da linguagem.
-
-    A ideia de um software, que em certa extensão pode continuar um ramo do Trabalho de Conclusão de
-    Curso do aluno `Lucas Boppre Niehues', orientado do Professor `Olinto José Varela Furtado'
-    defendido em 2013/1, com o título: `Estudo e Criação de um Editor de Código Estruturado'. Donde
-    durante a leitura de seu TCC, encontra-se o seguinte trecho que faz ligação com uma das
-    propostas deste trabalho, no capítulo: `8.1.2 Separação de formato de exibição e de saída':
+    Such software ideia may to a certain extent may continue a branch of the of
+    the student `Lucas Boppre Niehues'\s graduation thesis, oriented by the
+    Professor `Olinto José Varela Furtado', entitled 'Study and Creating a
+    Structured Code Editor' defended in 2013/1 \cite{structuredEditorStudy}.
+    While reading its work, the following section that links to one of the
+    proposals of this work, in the chapter: `8.1.2 \brazilword{Separação de
+    formato de exibição e de saída}':
 
     \medskip
-    \begin{myquote}
-    ``As formas que o código é exibido ao usuário e que ele é salvo em disco são controladas
-    por arquivos de configuração distintos. O arquivo ``theme.ini'' contém, entre outras
-    configurações, informações de como serializar a árvore sintática.''
-    \end{myquote}
+    \begin{citacao}
+    As formas que o código é exibido ao usuário e que ele é salvo em disco são controladas
+    por arquivos de configuração distintos. O arquivo `theme.ini' contém, entre outras
+    configurações, informações de como serializar a árvore sintática.
+    \end{citacao}
 
     \vspace{-5mm}
     ...
-    \begin{myquote}
-    ``A configuração de formato de saída é dada da mesma forma, mas em um arquivo
-    separado, chamado ``output\_format.ini''. A decisão desta separação foi em vista de equipes
+    \begin{citacao}
+    A configuração de formato de saída é dada da mesma forma, mas em um arquivo
+    separado, chamado `output\_format.ini'. A decisão desta separação foi em vista de equipes
     de programadores que queiram utilizar uma convenção única para os arquivos salvos,
     mas manter a exibição a escolha de cada um. Assim os integrantes desta equipe podem
-    compartilhar os seus arquivos ``output\_format.ini'' enquanto personalizam o arquivo
-    ``theme.ini'' a seu gosto.''
-    \end{myquote}
+    compartilhar os seus arquivos `output\_format.ini' enquanto personalizam o arquivo
+    `theme.ini' a seu gosto.
+    \end{citacao}
 
     Com base nisso, pode-se pensar na escrita de plugins para editores de texto/IDEs comuns como
     Sublime Text. Assim ao carregar o arquivo do disco, este plugin chama o formatter e faz a
@@ -82,7 +84,7 @@
 
     O problema proposto a se resolver é criar um Beautifier Universal. Os softwares atuais são
     limitados a um conjunto similar, ou mesmo à uma única linguagem, e além de muitos, serem
-    limitados ao que eles podem fazer por você ao processar/formatar o código \cite{universalCodeFormatter}.
+    limitados ao que eles podem fazer por você ao processar/formatar o código. \cite{universalCodeFormatter}
 
     Language-agnostic pretty-printing through machine learning (uh, like, is this possible? YES, apparently). By Terence Parr (primary developer), Fangzhou (Morgan) Zhang (help with initial development), Jurgen Vinju (co-author of academic paper, help with empirical results and algorithm discussions).
     \url{https://github.com/antlr/codebuff}
@@ -135,12 +137,12 @@
     \medskip
     \begin{myquote}
     \begin{enumerate}[nolistsep]
-        \item Add new lines after ``\{'' and before ``\}''
-        \item Add new lines before ``\{''
+        \item Add new lines after `\{' and before `\}
+        \item Add new lines before `\{'
         \item Remove empty lines
         \item Add comment lines before function
-        \item Add new lines after ``;''
-        \item Add new lines after ``\}''
+        \item Add new lines after `;'
+        \item Add new lines after `\}'
         \item Remove new lines
         \item Reduce whitespace
         \item Put the code again in the input box above after submit
@@ -154,8 +156,8 @@
 
         \item
 
-        Motivação: Existem muitas ferramentas distintas, por vezes pagas, e dificilmente completas
-        \cite{universalCodeFormatter}.
+        Motivação: Existem muitas ferramentas distintas, por vezes pagas, e
+        dificilmente completas. \cite{universalCodeFormatter}
 
         \item
 
@@ -173,8 +175,8 @@
         somente alguns beautifiers são mais completos, e toda vez que precisa-se fazer uma alteração
         no estilo de formatação, precisa-se propagar manualmente a mesma mudança ao longo de vários
         arquivos de configuração de programas distintos, o que é ruim pois toma ao usuário muito
-        tempo de aprender a lidar com várias e muito diferentes tipos de configurações
-        \cite{Schweitzer}.
+        tempo de aprender a lidar com várias e muito diferentes tipos de configurações.
+        \cite{Schweitzer}
 
         \item
 
@@ -188,31 +190,31 @@
 
         A seguir, temos algumas frases sobre o assunto:
 
-        \begin{myquote}
+        \begin{citacao}
         % \setlength{\itemindent}{5pt}
-        ``One of absolute worst, worst methods of teamicide for software developers is to engage
+        One of absolute worst, worst methods of teamicide for software developers is to engage
         in these kinds of passive-aggressive formatting wars. I know because I've been there.
         They destroy peer relationships, and depending on the type of formatting, can also damage
         your ability to effectively compare revisions in source control, which is really scary.
         I can't even imagine how bad it would get if the lead was guilty of this behavior. That's
-        leading by example, all right. Bad example.'', \cite{Atwood}.
-        \end{myquote}
+        leading by example, all right. Bad example. \cite{Atwood}
+        \end{citacao}
         \vspace{-5mm}
         ...
-        \begin{myquote}
-        ``So yes, absurd as it may sound, fighting over whitespace characters and other seemingly
+        \begin{citacao}
+        So yes, absurd as it may sound, fighting over whitespace characters and other seemingly
         trivial issues of code layout is actually justified. Within reason of course -- when done
         openly, in a fair and concensus building way, and without stabbing your teammates in the
-        face along the way.'', \cite{Atwood}.
-        \end{myquote}
+        face along the way. \cite{Atwood}
+        \end{citacao}
 
-        \begin{myquote}``
+        \begin{citacao}
         I'd say there are two main reasons to enforce a single code format in a project. First has
         to do with version control: with everybody formatting the code identically, all changes in
         the files are guaranteed to be meaningful. No more just adding or removing a space here or
         there, let alone reformatting an entire file as a `side effect' of actually changing just a
-        line or two.'', \cite{Geukens}.
-        \end{myquote}
+        line or two. \cite{Geukens}
+        \end{citacao}
 
     \end{enumerate}
 
