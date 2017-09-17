@@ -78,6 +78,19 @@
     configurações.
 }
 
+% Is possible to remove the link color of the comma on the citation link?
+% https://tex.stackexchange.com/questions/391695/is-possible-to-remove-the-link-color-of-the-comma-on-the-citation-link
+\DeclareFieldFormat{citehyperref}{#1}
+
+% Patch the `abntex2` citacao environment
+\xpatchcmd{\citacao}
+{\list{}}
+{\list{}{\topsep=0pt}}
+{}
+{\PackageWarning{ufscthesisx}{Citation \topsep is not patched. The 'citacao' environment must be
+patched with 'topsep=0pt' but it failed. This is probably due an update on the main class 'abnTeX2',
+therefore the \topsep patch must need to be updated accordingly}}
+
 % Remove the colon appended to theses variables, allowing us to use other separators
 \addto\captionsbrazil
 {
