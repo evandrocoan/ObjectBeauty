@@ -10,7 +10,7 @@
             "path": ".",
             "folder_exclude_patterns":
             [
-                "*cache*",
+                "*cache",
                 "monograph/proposal",
                 "monograph/thesis/abntevandro/doc",
                 "source/libraries/doctest/scripts/bench/catch",
