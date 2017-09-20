@@ -24,22 +24,22 @@
     propostas deste trabalho, no capítulo: `8.1.2 Separação de formato de exibição e de saída':
 
     \medskip
-    \begin{myquote}
+    \begin{bluebox}
     ``As formas que o código é exibido ao usuário e que ele é salvo em disco são controladas
     por arquivos de configuração distintos. O arquivo ``theme.ini'' contém, entre outras
     configurações, informações de como serializar a árvore sintática.''
-    \end{myquote}
+    \end{bluebox}
 
     \vspace{-5mm}
     ...
-    \begin{myquote}
+    \begin{bluebox}
     ``A configuração de formato de saída é dada da mesma forma, mas em um arquivo
     separado, chamado ``output\_format.ini''. A decisão desta separação foi em vista de equipes
     de programadores que queiram utilizar uma convenção única para os arquivos salvos,
     mas manter a exibição a escolha de cada um. Assim os integrantes desta equipe podem
     compartilhar os seus arquivos ``output\_format.ini'' enquanto personalizam o arquivo
     ``theme.ini'' a seu gosto.''
-    \end{myquote}
+    \end{bluebox}
 
     Com base nisso, pode-se pensar na escrita de plugins para editores de texto/IDEs comuns como
     Sublime Text. Assim ao carregar o arquivo do disco, este plugin chama o formatter e faz a
@@ -53,12 +53,12 @@
     pensar com os seguinte objetivo/ideia para um TCC:
 
     \medskip
-    \begin{myquote}
+    \begin{bluebox}
     \begin{enumerate}[nolistsep]
         \item Criar um formatador de fácil configuração e expansão para as linguagens de
               programação que existem e que irão existir.
     \end{enumerate}
-    \end{myquote}
+    \end{bluebox}
 
 
 
@@ -72,7 +72,7 @@
     \url{http://prettyprinter.de/} acessado em março/2017:
 
     \medskip
-    \begin{myquote}
+    \begin{bluebox}
     \begin{enumerate}[nolistsep]
         \item Add new lines after ``\{'' and before ``\}''
         \item Add new lines before ``\{''
@@ -84,7 +84,7 @@
         \item Reduce whitespace
         \item Put the code again in the input box above after submit
     \end{enumerate}
-    \end{myquote}
+    \end{bluebox}
 
     A partir deste ponto, apresenta-se um esboço sobre o problema, soluções, informações como
     porquês de se querer fazer um software assim, ou ainda de querer-se o beautifying:
@@ -127,7 +127,7 @@
 
         A seguir, temos algumas frases sobre o assunto:
 
-        \begin{myquote}
+        \begin{bluebox}
         % \setlength{\itemindent}{5pt}
         ``One of absolute worst, worst methods of teamicide for software developers is to engage
         in these kinds of passive-aggressive formatting wars. I know because I've been there.
@@ -135,23 +135,23 @@
         your ability to effectively compare revisions in source control, which is really scary.
         I can't even imagine how bad it would get if the lead was guilty of this behavior. That's
         leading by example, all right. Bad example.'', \cite{Atwood}.
-        \end{myquote}
+        \end{bluebox}
         \vspace{-5mm}
         ...
-        \begin{myquote}
+        \begin{bluebox}
         ``So yes, absurd as it may sound, fighting over whitespace characters and other seemingly
         trivial issues of code layout is actually justified. Within reason of course -- when done
         openly, in a fair and concensus building way, and without stabbing your teammates in the
         face along the way.'', \cite{Atwood}.
-        \end{myquote}
+        \end{bluebox}
 
-        \begin{myquote}``
+        \begin{bluebox}``
         I'd say there are two main reasons to enforce a single code format in a project. First has
         to do with version control: with everybody formatting the code identically, all changes in
         the files are guaranteed to be meaningful. No more just adding or removing a space here or
         there, let alone reformatting an entire file as a `side effect' of actually changing just a
         line or two.'', \cite{Geukens}.
-        \end{myquote}
+        \end{bluebox}
 
     \end{enumerate}
 
@@ -317,7 +317,7 @@
     Softwares existentes e similares:
 
     \medskip
-    \begin{myquote}
+    \begin{bluebox}
     \begin{enumerate}[leftmargin=*]
 
         \item
@@ -350,7 +350,7 @@
         \url{https://github.com/danblakemore/universal-indent-gui}.
 
     \end{enumerate}
-    \end{myquote}
+    \end{bluebox}
 
 
 \subsubsection{Listagens}
@@ -358,7 +358,7 @@
     Algumas bibliotecas existentes, e potencialmente utilizadas como `syntect` para o auxílio na
     construção do produto de software:
 
-    \begin{myquote}
+    \begin{bluebox}
     \begin{enumerate}[leftmargin=*,parsep=0pt]
 
         \item \url{https://github.com/jbeder/yaml-cpp}
@@ -369,14 +369,14 @@
         \item \url{https://forum.sublimetext.com/t/disassembling-sublime-text/24824}
 
     \end{enumerate}
-    \end{myquote}
+    \end{bluebox}
 
     Segue-se uma lista básica de formatters/beautifiers acessado no endereço
     \lword{\url{http://www.softpanorama.org/Utilities/beautifiers.shtml}} em março/2017:
 
     \medskip
     \begin{sloppypar}
-    \begin{myquote}\RaggedRight
+    \begin{bluebox}\RaggedRight
     \begin{enumerate}[leftmargin=*,parsep=0pt]
 
         \item CB210.ZIP - C Beautifier 2.10 - polish C source code (19,406 bytes, 06/22/92)
@@ -435,7 +435,7 @@
         \item JavaScript : \url{http://jsbeautifier.org/}
 
     \end{enumerate}
-    \end{myquote}
+    \end{bluebox}
     \end{sloppypar}
 
 
@@ -451,7 +451,7 @@
     % How to add `parsep` to `itemsep` and set `parsep` to 0pt, when declaring my list?
     % https://tex.stackexchange.com/questions/366904/how-to-add-parsep-to-itemsep-and-set-parsep-to-0pt-when-declaring-my-list
     \begin{sloppypar}
-    \begin{myquote}\RaggedRight
+    \begin{bluebox}\RaggedRight
     \begin{enumerate}[leftmargin=*,parsep=0pt]
 
     \item \url{https://www.researchgate.net/publication/228540036_An_industrial_application_of_context-sensitive_formatting}
@@ -541,7 +541,7 @@
     \end{enumerate}
 
     \end{enumerate}
-    \end{myquote}
+    \end{bluebox}
     \end{sloppypar}
 
 
@@ -554,7 +554,7 @@
     largura de banda para download:
 
     \begin{sloppypar}
-    \begin{myquote}\RaggedRight
+    \begin{bluebox}\RaggedRight
     \begin{enumerate}[leftmargin=*,parsep=0pt]
 
     \item \url{https://en.wikipedia.org/wiki/Obfuscation_(software)}
@@ -562,6 +562,6 @@
     \item \url{http://www.semdesigns.com/Products/Obfuscators/index.html}
 
     \end{enumerate}
-    \end{myquote}
+    \end{bluebox}
     \end{sloppypar}
 
