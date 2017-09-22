@@ -38,105 +38,73 @@
     Professor `Olinto José Varela Furtado', entitled 'Study and Creating a
     Structured Code Editor' defended in 2013/1 \cite{structuredEditorStudy}.
     While reading its work, the following section that links to one of the
-    proposals of this work, in the chapter: `8.1.2 \brazilword{Separação de
-    formato de exibição e de saída}':
+    proposals of this work, in the chapter: `8.1.2 Separation of display and
+    output format\footnote{Translation of: \brazilword{Separação de formato de
+    exibição e de saída}}':
 
-    \medskip
     \begin{citacao}
-    As formas que o código é exibido ao usuário e que ele é salvo em disco são controladas
-    por arquivos de configuração distintos. O arquivo `theme.ini' contém, entre outras
-    configurações, informações de como serializar a árvore sintática.
+    The ways that code is displayed to the user and that it is saved to disk are
+    controlled by different configuration files. The `theme.ini' file contains,
+    among other settings, information on how to serialize the syntax tree.
+    \cite[our translation]{structuredEditorStudy} \footnote{\brazilword{As
+    formas que o código é exibido ao usuário e que ele é salvo em disco são
+    controladas por arquivos de configuração distintos. O arquivo `theme.ini'
+    contém, entre outras configurações, informações de como serializar a árvore
+    sintática.}}
+    \end{citacao}
+    \begin{citacao}
+    The output format setting is given the same way, but in a separate file,
+    called `output \_format.ini'. The decision of this separation was in view of
+    teams of programmers who want to use a single convention for the saved
+    files, but keep the display the choice of each. So members of this team can
+    share their `output\_format.ini 'files while customizing the `theme.ini'
+    file to their liking. \cite[our translation]{structuredEditorStudy}
+    \footnote{\brazilword{A configuração de formato de saída é dada da mesma
+    forma, mas em um arquivo separado, chamado `output\_format.ini'. A decisão
+    desta separação foi em vista de equipes de programadores que queiram
+    utilizar uma convenção única para os arquivos salvos, mas manter a exibição
+    a escolha de cada um. Assim os integrantes desta equipe podem compartilhar
+    os seus arquivos `output\_format.ini' enquanto personalizam o arquivo
+    `theme.ini' a seu gosto.}}
     \end{citacao}
 
-    \vspace{-5mm}
-    ...
-    \begin{citacao}
-    A configuração de formato de saída é dada da mesma forma, mas em um arquivo
-    separado, chamado `output\_format.ini'. A decisão desta separação foi em vista de equipes
-    de programadores que queiram utilizar uma convenção única para os arquivos salvos,
-    mas manter a exibição a escolha de cada um. Assim os integrantes desta equipe podem
-    compartilhar os seus arquivos `output\_format.ini' enquanto personalizam o arquivo
-    `theme.ini' a seu gosto.
-    \end{citacao}
+    Based on this, we may think about writing plugins for common text
+    editors/IDEs as Sublime Text. So while loading files from the disk, such
+    plugin calls the formatter and does the formatting according to the display
+    settings for the user. After that, when the user saves the file, the file
+    with the original formatting is returned.
 
-    Com base nisso, pode-se pensar na escrita de plugins para editores de texto/IDEs comuns como
-    Sublime Text. Assim ao carregar o arquivo do disco, este plugin chama o formatter e faz a
-    formatação de acordo com as configurações de exibição para o usuário. Após isso, quando o
-    usuário for salvar o arquivo, o arquivo com a formatação original é devolvido.
-
-    Para auxilar nesse processo, um módulo de autoconfiguração é de grande ajuda. Ele detecta como o
-    source code está formatado e cria arquivos de configuração para ele. Assim ao salvar o arquivo,
-    automaticamente ele é salvo no formato que ele foi lido. Então temos o mesmo beneficio de
-    editores estruturados, como proposto trabalho de `Lucas Boppre Niehues'. De inicio podemos
-    pensar com os seguinte objetivo/ideia para um TCC:
+    To assist in this process, an autoconfiguration module is a great help. It
+    detects how the source code is formatted and creates configuration files for
+    it. So when saving the file, the file is automatically saved in the
+    formatting it was originally read from the file system. So we have the same
+    benefit of structured editors as the proposed work of
+    \textcite{structuredEditorStudy}. At first we can think with the following
+    goal/idea for a new automated software tool:
 
     \medskip
     \begin{bluebox}
     \begin{enumerate}[nolistsep]
-        \item Criar um formatador de fácil configuração e expansão para as linguagens de
-              programação que existem e que irão existir.
+        \item Create an easy-to-configure and expandable formatter for the
+        existing and coming up programming languages.
     \end{enumerate}
     \end{bluebox}
 
 
 
-\subsection{Problema}
+\subsection{Problem}
 
-    O problema proposto a se resolver é criar um Beautifier Universal. Os softwares atuais são
-    limitados a um conjunto similar, ou mesmo à uma única linguagem, e além de muitos, serem
-    limitados ao que eles podem fazer por você ao processar/formatar o código. \cite{universalCodeFormatter}
+    The problem proposed to solve is the creation of a Universal Beautifier.
+    Current softwares are limited to a similar/restricted set, or even a single
+    language and in addition, many are limited in what they can do for you when
+    processing/formatting/beautifying your source code.
+    \cite{universalCodeFormatter}
 
-    Language-agnostic pretty-printing through machine learning (uh, like, is this possible? YES, apparently). By Terence Parr (primary developer), Fangzhou (Morgan) Zhang (help with initial development), Jurgen Vinju (co-author of academic paper, help with empirical results and algorithm discussions).
-    \url{https://github.com/antlr/codebuff}
-
-
-    To every developer in this world, the closest thing to their heart is the text editor of their
-    choice. Over the last few years many new text editors has come into the market in both free and
-    paid model, but unfortunately not all of them were able to make a real dent on the developer
-    community. I remember in my college days we uses to use Notepad++ as our beloved text editor, as
-    at that point of time it was one of the popular and free text editor with a lot of features for
-    coding. But as time goes on, the entire development community started to lean towards sublime
-    text since it’s launch.
-    \url{https://www.isaumya.com/sublime-text-vs-atom-which-one-i-prefer-most-and-why/}
-
-    As a developer, your code editor is one of the most important parts of your setup. It can save
-    your wrists and fingers from repetitive strain injuries. It can save your eyes from going blind
-    after a coding marathon.
-    \url{https://hackernoon.com/virtualstudio-code-the-editor-i-didnt-think-i-needed-16970c8356d5}
-
-    VS Code is an Editor while VS is an IDE.
-    \url{https://stackoverflow.com/questions/30527522/what-are-the-differences-between-visual-studio-code-and-visual-studio}
-
-    Implement tabstops with white space align.
-
-    The solution - move tabstops to fit the text between them and align them with matching tabstops
-    on adjacent lines.
-    \url{http://nickgravgaard.com/elastic-tabstops/}
-    \url{https://forum.sublimetext.com/t/elastic-tabs/128}
-
-    What is the difference between VS Code and VS Community?
-    Visual Studio Code is a streamlined code editor with support for development operations like
-    debugging, task running and version control. It aims to provide just the tools a developer needs
-    for a quick code-build-debug cycle and leaves more complex workflows to fuller featured IDEs.
-    For more details about the goals of VS Code, see Why VS Code.
-    \url{https://code.visualstudio.com/docs/supporting/faq#_licensing}
-
-    Reg Replace is a plugin for Sublime Text 2 that allows the creating of commands consisting of
-    sequences of find and replace instructions.
-    \url{https://forum.sublimetext.com/t/regreplace-plugin/3810}
-
-    The main reason I moved was that I find that it’s much slower, the simple things like opening a
-    new window for a project should be instantaneous and sadly it’s far from it. As I've said before
-    it's all about personal preference, I've gone back to Sublime but Adam for example is sticking
-    with it...
-    \url{http://engageinteractive.co.uk/blog/atom-review}
-
-    Logo abaixo há algumas regras de formatação básica encontrados no serviço online
-    \url{http://prettyprinter.de/} acessado em março/2017:
+    Below there are some basic formatting rules for illustration:
 
     \medskip
     \begin{bluebox}
-    \begin{enumerate}[nolistsep]
+    \begin{enumerate}[nosep,nolistsep]
         \item Add new lines after `\{' and before `\}
         \item Add new lines before `\{'
         \item Remove empty lines
@@ -148,48 +116,43 @@
         \item Put the code again in the input box above after submit
     \end{enumerate}
     \end{bluebox}
+    \vspace{-4mm}\begin{flushright}\textcite{prettyPrinter}\end{flushright}
 
-    A partir deste ponto, apresenta-se um esboço sobre o problema, soluções, informações como
-    porquês de se querer fazer um software assim, ou ainda de querer-se o beautifying:
+    From this point, a sketch is presented on the problem, solutions,
+    information as for why to want make such software, or even why do we want to
+    beautifying things:
 
     \begin{enumerate}[leftmargin=*]
 
-        \item
+        \item There are many different tools, sometimes paid, and difficult to
+        complete. \cite{universalCodeFormatter}
 
-        Motivação: Existem muitas ferramentas distintas, por vezes pagas, e
-        dificilmente completas. \cite{universalCodeFormatter}
+        \item Many programming languages exist, so always having Beautifier
+        software for each of them is very laborious
+        \cite{universalCodeFormatter}. But the approach to a Universal
+        Beautifier proposed in this work, would allow easily new languages to be
+        added, being completely different from previous ones, or alike. And in
+        case of similarities between them, it is enough to reuse their
+        configuration structures already implemented.
 
-        \item
+        \item Looking for a Beautifier for each one of them because programmers
+        currently work daily with several of these languages, and they are not
+        similar. So you need to configure several beautifiers to do the
+        formatting. This is a problem because only a few beautifiers are more
+        complete, and every time you need to make a change in the formatting
+        style, you must manually propagate the same change over several
+        different program configuration files, which is bad because it takes the
+        user a lot of time to learn how to handle many different types of
+        settings. \cite{Schweitzer}
 
-        Muitas linguagens de programação existem, assim sempre ter fazer um software Beautifier para
-        cada uma delas é muito trabalhoso \cite{universalCodeFormatter}. Mas a abordagem para um Beautifier
-        Universal proposta nesse trabalho, permite que facilmente novas linguagens sejam
-        adicionadas, sendo elas completamente diferentes das anteriores, ou similares. No caso de
-        similaridades, basta reutilizar as estruturas de configuração das linguagens já existentes.
-
-        \item
-
-        Preocupa-se de fazer um Beautifier para cada uma delas por que programadores atualmente
-        trabalham diariamente com varias dessas linguagens, e elas não são similares. Assim precisa-
-        se configurar vários beautifiers para fazer a formatação. Isso é um problema por que,
-        somente alguns beautifiers são mais completos, e toda vez que precisa-se fazer uma alteração
-        no estilo de formatação, precisa-se propagar manualmente a mesma mudança ao longo de vários
-        arquivos de configuração de programas distintos, o que é ruim pois toma ao usuário muito
-        tempo de aprender a lidar com várias e muito diferentes tipos de configurações.
-        \cite{Schweitzer}
-
-        \item
-
-        No caso do Beautifier que propõem-se, uma mudança no estilo é propagada para todas as
-        linguagens. E caso queira-se deixar alguma linguagem fora da regra, basta remover ela da
-        lista ao qual esse bloco da configuração se aplica, e `a)' deixar ela de fora assim nenhuma
-        mudança é aplicada a ela. Ou `b)' criar um novo bloco que inclua somente ela com a
-        configuração desejada.
+        \item In the case of ideal Beautifier, a change in your styling is
+        propagated to all languages. And if you want to leave some language out
+        of it, you just need to remove it from the list on which the
+        configuration block applies to, and `a)' leave it out so no change is
+        applied to. Or `b)' create a new block including only the block within
+        the desired settings.
 
         \item
-
-        A seguir, temos algumas frases sobre o assunto:
-
         \begin{citacao}
         % \setlength{\itemindent}{5pt}
         One of absolute worst, worst methods of teamicide for software developers is to engage
@@ -199,8 +162,8 @@
         I can't even imagine how bad it would get if the lead was guilty of this behavior. That's
         leading by example, all right. Bad example. \cite{Atwood}
         \end{citacao}
-        \vspace{-5mm}
-        ...
+
+        \item
         \begin{citacao}
         So yes, absurd as it may sound, fighting over whitespace characters and other seemingly
         trivial issues of code layout is actually justified. Within reason of course -- when done
@@ -208,6 +171,7 @@
         face along the way. \cite{Atwood}
         \end{citacao}
 
+        \item
         \begin{citacao}
         I'd say there are two main reasons to enforce a single code format in a project. First has
         to do with version control: with everybody formatting the code identically, all changes in
@@ -321,9 +285,6 @@
     linguagens e acredita-se que tenha um bom resultado.
 
 
-
-
-
 \subsection{Método de pesquisa}
 
     A vantagem nesta abordagem é não ter a necessidade de ter-se conhecimento da sintaxe das
@@ -365,7 +326,7 @@
     devem fazer/propor as alterações no código.
 
 
-\subsubsection{Pontos}
+\subsubsection{Ideas}
 
     Os pontos positivos dessa abordagem para um formatador de código são a reusabilidade de
     componentes entre as linguagens pelo usuário final da aplicação ao invés do programador, o que
@@ -377,43 +338,19 @@
     de por der ser configurado pelo usuário final ao invés do programador, assim fica mais simples
     de configurar e expandir o conjunto de linguagens disponíveis ao processamento/beautifying.
 
-    Softwares existentes e similares:
+    Ideas for implementation:
 
-    \medskip
-    \begin{bluebox}
-    \begin{enumerate}[leftmargin=*]
+\medskip
+\begin{bluebox}
+\begin{enumerate}[leftmargin=*]
 
-        \item
+    \item Implement tabstops with white space align. The solution - move
+    tabstops to fit the text between them and align them with matching tabstops
+    on adjacent lines. \url{http://nickgravgaard.com/elastic-tabstops/}
+    \url{https://forum.sublimetext.com/t/elastic-tabs/128}
 
-        CodeBeautify is an online code beautifier which allows you to beautify your source code:
-        \url{http://codebeautify.org/}.
-
-        \item
-
-        A universal code formatter, written in Dart: \url{https://pub.dartlang.org/packages/unifmt}.
-
-        \item
-
-        Google-java-format is a program that reformats Java source code to comply with Google Java
-        Style: \url{https://github.com/google/google-java-format}.
-
-        \item
-
-        CodeFormatter is a Sublime Text 2/3 plugin that supports format (beautify) source code.
-        \url{https://github.com/akalongman/sublimetext-codeformatter} and
-        \url{https://github.com/aukaost/SublimePrettyYAML}
-
-        \item
-
-        UniversalIndentGUI offers a live preview for setting the parameters of nearly any indenter.
-        You change the value of a parameter and directly see how your reformatted code will look
-        like. Save your beauty looking code or create an anywhere usable batch/shell script to
-        reformat whole directories or just one file even out of the editor of your choice that
-        supports external tool calls: \url{http://universalindent.sourceforge.net/} and
-        \url{https://github.com/danblakemore/universal-indent-gui}.
-
-    \end{enumerate}
-    \end{bluebox}
+\end{enumerate}
+\end{bluebox}
 
 
 \subsubsection{Listagens}
@@ -511,11 +448,76 @@
     trabalho, mas sim fazer alterações no texto sobre a forma como ele é estruturado, apresentado ao
     usuário e salvo em disco. Seguem as seguintes publicações:
 
-    % How to add `parsep` to `itemsep` and set `parsep` to 0pt, when declaring my list?
-    % https://tex.stackexchange.com/questions/366904/how-to-add-parsep-to-itemsep-and-set-parsep-to-0pt-when-declaring-my-list
-    \begin{sloppypar}
-    \begin{bluebox}\RaggedRight
-    \begin{enumerate}[leftmargin=*,parsep=0pt]
+% How to add `parsep` to `itemsep` and set `parsep` to 0pt, when declaring my list?
+% https://tex.stackexchange.com/questions/366904/how-to-add-parsep-to-itemsep-and-set-parsep-to-0pt-when-declaring-my-list
+\begin{sloppypar}
+\begin{bluebox}\RaggedRight
+\begin{enumerate}[leftmargin=*,parsep=0pt]
+
+    \item CodeBeautify is an online code beautifier which allows you to beautify
+    your source code: \url{http://codebeautify.org/}.
+
+    \item A universal code formatter, written in Dart:
+    \url{https://pub.dartlang.org/packages/unifmt}.
+
+    \item Google-java-format is a program that reformats Java source code to
+    comply with Google Java Style:
+    \url{https://github.com/google/google-java-format}.
+
+    \item CodeFormatter is a Sublime Text 2/3 plugin that supports format
+    (beautify) source code.
+    \url{https://github.com/akalongman/sublimetext-codeformatter} and
+    \url{https://github.com/aukaost/SublimePrettyYAML}
+
+    \item UniversalIndentGUI offers a live preview for setting the parameters of
+    nearly any indenter. You change the value of a parameter and directly see
+    how your reformatted code will look like. Save your beauty looking code or
+    create an anywhere usable batch/shell script to reformat whole directories
+    or just one file even out of the editor of your choice that supports
+    external tool calls: \url{http://universalindent.sourceforge.net/} and
+    \url{https://github.com/danblakemore/universal-indent-gui}.
+
+    \item Language-agnostic pretty-printing through machine learning (uh, like,
+    is this possible? YES, apparently). By Terence Parr (primary developer),
+    Fangzhou (Morgan) Zhang (help with initial development), Jurgen Vinju
+    (co-author of academic paper, help with empirical results and algorithm
+    discussions). \url{https://github.com/antlr/codebuff}
+
+    \item To every developer in this world, the closest thing to their heart is
+    the text editor of their choice. Over the last few years many new text
+    editors has come into the market in both free and paid model, but
+    unfortunately not all of them were able to make a real dent on the developer
+    community. I remember in my college days we uses to use Notepad++ as our
+    beloved text editor, as at that point of time it was one of the popular and
+    free text editor with a lot of features for coding. But as time goes on, the
+    entire development community started to lean towards sublime text since it’s
+    launch.
+    \url{https://www.isaumya.com/sublime-text-vs-atom-which-one-i-prefer-most-and-why/}
+
+    \item As a developer, your code editor is one of the most important parts of
+    your setup. It can save your wrists and fingers from repetitive strain
+    injuries. It can save your eyes from going blind after a coding marathon.
+    \url{https://hackernoon.com/virtualstudio-code-the-editor-i-didnt-think-i-needed-16970c8356d5}
+
+    \item VS Code is an Editor while VS is an IDE.
+    \url{https://stackoverflow.com/questions/30527522/what-are-the-differences-between-visual-studio-code-and-visual-studio}
+
+    \item What is the difference between VS Code and VS Community?
+    Visual Studio Code is a streamlined code editor with support for development operations like
+    debugging, task running and version control. It aims to provide just the tools a developer needs
+    for a quick code-build-debug cycle and leaves more complex workflows to fuller featured IDEs.
+    For more details about the goals of VS Code, see Why VS Code.
+    \url{https://code.visualstudio.com/docs/supporting/faq#_licensing}
+
+    \item Reg Replace is a plugin for Sublime Text 2 that allows the creating of commands consisting of
+    sequences of find and replace instructions.
+    \url{https://forum.sublimetext.com/t/regreplace-plugin/3810}
+
+    \item The main reason I moved was that I find that it’s much slower, the simple things like opening a
+    new window for a project should be instantaneous and sadly it’s far from it. As I've said before
+    it's all about personal preference, I've gone back to Sublime but Adam for example is sticking
+    with it...
+    \url{http://engageinteractive.co.uk/blog/atom-review}
 
     \item \url{https://www.researchgate.net/publication/228540036_An_industrial_application_of_context-sensitive_formatting}
 
@@ -603,9 +605,9 @@
         \item \url{https://www.researchgate.net/publication/234809222_Program_indentation_and_comprehensibility}
     \end{enumerate}
 
-    \end{enumerate}
-    \end{bluebox}
-    \end{sloppypar}
+\end{enumerate}
+\end{bluebox}
+\end{sloppypar}
 
 
 \subsubsection{Obfuscators}
