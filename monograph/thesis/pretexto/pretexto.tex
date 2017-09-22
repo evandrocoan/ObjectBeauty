@@ -95,7 +95,6 @@
 
 % How to remove the self-reference of the ToC from the ToC?
 % https://tex.stackexchange.com/questions/10943/how-to-remove-the-self-reference-of-the-toc-from-the-toc
-\ifforcedinclude\else
 \addtotextpreliminarycontent{\lang{Table of Contents}{Sumário}}
 \begin{KeepFromToc}
     \pdfbookmark[0]{\contentsname}{toc}
@@ -133,7 +132,6 @@
 
     \cleardoublepage
 \end{KeepFromToc}
-\fi
 
 
 
