@@ -5,7 +5,6 @@
 %
 % When do I need to invoke \phantomsection?
 % https://tex.stackexchange.com/questions/44088/when-do-i-need-to-invoke-phantomsection
-\cleardoublepage
 \phantomsection
 
 
@@ -186,30 +185,31 @@
 
 \subsection{Objetivos}
 
-    O objeto neste trabalho de TCC proposto aqui não é inicialmente suportar todas as regras de
-    formatação de todas as linguagens de programação, mas a criação de uma estrutura básica inicial
-    e robusta que sejam capaz de ser desenvolvida a ponto de ser facilmente expandida, tanto na
-    adição de novos módulos de processamento no programa escrito, tanto pelo usuário final na
-    escrita dos arquivos de programação.
+    The object in the proposed thesis is not initially to support all the
+    formatting rules for all programming languages, but the creation of an
+    initial and robust basic formatter capable of being developed to the point
+    of being easily expanded by programmers with new processing modules and by
+    end users writing the formatting configuration files.
 
-    A teoria da técnica empregada é muito simples, mas diferente das atuais por que é atribuído ao
-    usuário final a responsabilidade de dizer onde será realizado o beautifying do modulo que está
-    se configurando. Esse é o preço a pagar para permitir a criação de um Beautifier Universal.
-    Quando diz-se fácil configuração, refire-se a não necessidade de recorrer a programação ´C++',
-    i.e., alterar o código fonte do programa para permitir/especificar onde devem ser realizadas as
-    alterações de beautifying.
+    The theory of the technique proposed is quite simple, but different from the
+    usual approach because the end user is assigned the responsibility to
+    dictate more precisely how the beautifying being configured will be
+    performed. Such tradeoff is the price to pay to allow the creation of a
+    Universal Beautifier. But notice when it is said, it is supposed to be easy
+    to set up, it is meant to not be required to do `C++' programming, i.e.
+    change the source code of the program to set/specify where the beautifying
+    changes are supposed to be performed.
 
 
-\subsubsection{Objetivos Gerais}
+\subsubsection{General Goals}
 
     \begin{enumerate}[leftmargin=*]
 
-        \item
-
-        Escrever o programa em C++ ou afins, para permitir também que a formação/beautifying seja
-        (em trabalhos futuros/talvez nesse) dinâmico, isto é, na medida que você digita o texto, ele
-        é formatado para você. Assim você pode focar mais em escrever o código, ao invés que se
-        preocupar com o espaçamento, alinhamento, parenteses, linhas novas, e o que mais que seja.
+        \item Write the program in C++ for greater performance, allowing the
+        formating/beautifying to be dynamic, i.e., as you type the text, the
+        text is formatted for you. So you can focus more on writing the code,
+        rather than worrying about spacing, alignment, parentheses, new lines,
+        and whatever else.
 
         \item
 

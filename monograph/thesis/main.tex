@@ -45,6 +45,9 @@
 % https://tex.stackexchange.com/questions/131002/how-to-expand-ifthenelse-so-that-it-can-be-used-in-parshape
 \newcommand{\lang}[2]{\ifenglish#1\else#2\fi}
 
+% Disable the empty pages automatically put by memoir class, except the ones by \cleardoublepage
+\PassOptionsToClass{openany}{memoir}
+
 % How to make \PassOptionsToPackage add the option as the last option?
 % https://tex.stackexchange.com/questions/385895/how-to-make-passoptionstopackage-add-the-option-as-the-last
 \ifenglish
