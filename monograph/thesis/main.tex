@@ -126,7 +126,7 @@
 % \addtoincludeonly{pretexto/siglas}
 % \addtoincludeonly{pretexto/simbolos}
 
-% \addtoincludeonly{chapters/introduction}
+\addtoincludeonly{chapters/introduction}
 \addtoincludeonly{chapters/implementation}
 % \addtoincludeonly{chapters/conclusion}
 
@@ -168,13 +168,13 @@
     \setlength\afterchapskip{20pt}
 
     % PARTE
-    \ifforcedinclude\else\part{Pesquisa}\fi
+    \ifforcedinclude\else\part{\lang{Research}{Pesquisa}\fi
 
     % Introdução (exemplo de capítulo sem numeração, mas presente no Sumário)
     \include{chapters/introduction}
 
     % PARTE
-    \ifforcedinclude\else\part{Implementação}\fi
+    \ifforcedinclude\else\part{\lang{Implementation}{Implementação}\fi
 
     % Capitulo com exemplos de comandos inseridos de arquivo externo
     \include{chapters/implementation}

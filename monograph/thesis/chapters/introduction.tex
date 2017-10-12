@@ -13,8 +13,8 @@
 \chapter{\lang{Introduction}{Introdução}}
 
 
-\lang
-{
+\begin{englishtext}
+
     % TODO, put reference for this
     Questions like ``What are good programming practices?'' Or ``Why are these
     practices are good?''Are not easy to answer. But each programmer learns to
@@ -98,6 +98,8 @@
     re-adding new lines before each one of your beloved if\s, just because some
     night shift programmer had just removed them? \cite{softwarePortfolio}
 
+
+
     \section{Goals}
 
     Establish relationships between good programming practices and efficiency in
@@ -105,13 +107,14 @@
     automate the long and diverse programming process in teams of developers
     with different programming `best practices'. \cite{pushdownAutomata}
 
+
     \subsection{Specific Goals}
 
     \begin{enumerate}
         \item A study on universal programming tools, which from a single
-        software, to work well behaved accross all programming languages.
-        Moreover, explain the differences for other softwares and the beneficits
-        of a unique tool, instead of several heavly different ones.
+        software, to work well behaved across all programming languages.
+        Moreover, explain the differences for other softwares and the benefits
+        of a unique tool, instead of several heavily different ones.
 
         \item Define, determine and classify which one are good programming
         practices and perform an in-depth study on the good practices on visual
@@ -126,9 +129,11 @@
         intervene with each other up to start wars of `best good practices'.
 
         \item Propose a unique tool that allowing several and distinct
-        programming `best practices'being implemented in several programming
+        programming `best practices' being implemented in several programming
         languages, which can be configured and set accordingly to their wishes.
     \end{enumerate}
+
+
 
     \section{Search Method}
 
@@ -152,10 +157,165 @@
     part of this named thesis on \nameref{sec:implementation}.
 
 
-}
-{
-    % Portuguese
-    \input{chapters/introdução}
-}
+
+    \section{What does coding is?}
+
+    Coding is like writing and reading a book for the large people, you like it
+    to look beautifully. Or at least do you expect such when you buy a book, for
+    example, to learn programming for you first time. You expect: % Reference to
+    % book writing style/formatting articles
+
+    \begin{enumerate}
+        \item Things to be well organized, so you do not get lost.
+
+        \item The colors to be properly placed, so you do not get distracted
+           from the main content.
+
+        \item The spacing between paragraphs, words, chapters, sections
+           subsections, etc, to be well adjusted. Not everything cluttered in
+           only one file, line, function, class, or whatsoever so.
+    \end{enumerate}
+
+
+
+    \section{Spaces and Tabs}
+
+    The problem is that I will certainly not notice when I paste something
+    indented with spaces instead of tabs. This is problem because for some file
+    types as `.sublime-settings' files (or a Makefile), which has the setting
+    `translate\_tabs\_to\_spaces' set to false, so I would expect to all
+    `.sublime-settings' files to be indented with tabs, not spaces.
+    \cite{tabsAndSpacesConversion}
+
+    The setting `translate\_tabs\_to\_spaces' set to false works fine until I paste
+    something on a setting's files which is indented with spaces, instead of
+    tabs. This is a problem because as I am over git versioning, I can easily
+    create files with mixed tabs and spaces on the history, and some day later
+    Sublime Text will fix the indentation to tabs, which will cause noise on the
+    git history due the tab/space conversion war. % Cite reference to the war
+
+    I think this can have a performance problem as when I am pasting something
+    big on Sublime Text. Then to perform the conversion on the would not be
+    easily possible and it should be performed afterwards by the user. Now
+    Sublime Text should warn the user when he is pasting something indented with
+    spaces instead of tabs in a file which is expected to be indented with tabs?
+
+    The detection of whether the contents of the clipboard should not be
+    expensive as we should just check some lines (which would not cover the
+    cases where there is already mixed indentation on the clipboard contents).
+    But there would be a performance problem when pasting something with very
+    big first lines. On this case a threshold should stop Sublime Text from
+    looking forward and ceases the detection as inconclusive for this paste and
+    just paste like it is.
+
+
+
+    \subsection{Computer Assisted Programming}
+
+    Your computer should help you with with these unforeseen tasks. Why should I
+    spend my precious time checking whether I am actually copying something
+    space indented, when I am actually coping something tab indented?
+
+    Therefore, how to do such a thing on this 21\q{}st century? Perhaps we
+    should sit and cry while waiting for some greater force to come and rescue
+    us. Or may be you should stop crying and actually do something about other
+    than keep waiting for you mommy to come and save you from the darkness
+    growing behind you back leading you to endless unsleepy nights fixing your
+    code just because everything just went wrong.
+
+
+
+    \section{The Upper Stream}
+
+    TODO.
+
+
+
+    \subsection{How to keep up with the upstream}
+
+    TODO.
+
+
+
+    \section{How to Deal with}
+
+    So you are developing a software which is under version control, however to
+    deploy your tests, you need to copy some big folders into the deployment or
+    testing system. Then how do you do it?
+
+    Copying and pasting them probably the most straight forward idea, which is
+    nice if you are going to it only a few times in a life time like two or
+    three. However if you are going to do it move often than these limits,
+    please don\q t do that. It is bad for the planet and is worsening your
+    health for nothing other than more headaches.
+
+    As a promptly good computer user, at this point you already have some tool,
+    either graphical or by command line which can help you easily and fastly
+    setup the folder\q s. Easily like:
+
+    \begin{enumerate}
+        \item You open the tool
+        \item Click on the new button
+        \item Name your sync task as `My cuttie'
+        \item Copy and paste there source and destine addresses
+        \item Hit the `sync now' button
+    \end{enumerate}
+
+
+
+    \section{The rsync side}
+
+    Doing everything out of the box by a graphical interface seems not
+    practical. Command Line Interfaces (CLI) are simpler to be built and allows
+    their programmers to saver their efforts in actually writing the tool
+    instead of designing a reasonable Graphical User Interface (GUI)
+    \cite{quantificationOfInterface}.
+
+    GUI interfaces are awesome but for their proper usage, which is mostly
+    defined by their aim public. Non-computer programmers, perhaps even novice
+    programmers, cannot easily deal with command lines, but experienced
+    programmers should be able to get great advantage from it usage.
+    \cite{commandLineInterface}.
+
+    Following we may see an example about the simpleness of a shell script,
+    which runs several commands to accomplish a clean build of the testing
+    environment:
+
+    \begin{lstlisting}[caption={rebuild\_workspace.sh}]
+    #!/bin/sh
+    printf "$(date)\nRemoving folders...\n"
+
+    rm -rf "Installed Packages"
+    rm -rf "Lib"
+    rm -rf "Local"
+    rm -rf "Packages"
+
+    printf "Unzipping files...\n"
+    unzip -q "Packages.zip"
+
+    mkdir -p "./Deployment/Code A"
+    mkdir -p "./Deployment/Code B"
+
+    printf "Syncing folders...\n"
+    rsync -r \
+         "/cygdrive/d/Development/Environment/Code A/" \
+         "/cygdrive/c/Test/Deployment/Code A/"
+
+    rsync -r \
+         "/cygdrive/d/Development/Environment/Code B/" \
+         "/cygdrive/c/Test/Deployment/Code B/"
+    \end{lstlisting}
+    \vspace*{-4mm}
+
+    On preceding example, the `rebuild\_workspace.sh' script is located on the
+    testing folder `/cygdrive/c/Test', then when calling it we get some folders
+    removed, a file unpacked on the current folder, and our code synced from the
+    versioning system directly to testing environment.
+
+\end{englishtext}
+
+
+% Portuguese
+\lang{}{\input{chapters/introdução}}
 
 
