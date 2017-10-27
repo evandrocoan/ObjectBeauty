@@ -230,7 +230,6 @@
     TODO.
 
 
-
     \subsection{How to keep up with the upstream}
 
     TODO.
@@ -311,6 +310,70 @@
     testing folder `/cygdrive/c/Test', then when calling it we get some folders
     removed, a file unpacked on the current folder, and our code synced from the
     versioning system directly to testing environment.
+
+
+
+    \section{How to Write Good Code}
+
+    If you ask around, you will probably listen you need to write code to learn
+    how to write good code. This seems to make sense like training for the next
+    Olympics. As long as you train very hard, you get results.
+
+    However, the same way as for gymnasium training there is the right or
+    perhaps nice way to do it and the wrong way, for computer programming is the
+    same.
+
+
+    \section{Good Coding Practices}
+
+
+    \subsection{Variable Naming}
+
+    Variables naming are extremely important. That is it, a dot.
+
+    \begin{itemize}
+
+    \item Global identifiers must start with `g_' prefix.
+
+    \item Global identifiers which are constant must be written in ALLCAPS.
+
+    \item Boolean variables must be prefix with `is_' even when they are in
+    global scope, meaning double prefixed as `g_is_'.
+
+    \end{itemize}
+
+    All other cases not cited must not be prefixed. Now we can continue the most
+    infamous wars about Hungarian notation versus ?.
+
+    Nonetheless, looking over this list we can quickly pop up about different
+    programming languages whereas such rules are applied and not. The most
+    notorious cases are about Java and C.
+
+    Java programming language has no such idealism as exhaustively prefixing as
+    `g_' as explicitly there is not such concept. Although a more hawk-eyed
+    reader may spot about the Java classes atributes being the global variables.
+    And in fact they are so. But within their scope limited to the classes body,
+    and perhaps the instance objects which may or may not provide access to
+    them.
+
+    Regardless, Java also suffers from the same evil as remaining programming
+    languages with the common global variable concept. Here we enter on the
+    war about the evil global variable usage. However, keeping such bias against
+    global variable usage is not correct. Each one of the cases, either passing
+    the variables by reference, copy, or sharing globally is a correct approach.
+
+    TODO, reference the reader to proper reading and stop this discussion.
+
+
+    \subsection{Hungarian Notation}
+
+    TODO.
+
+
+    \subsection{?. Notation}
+
+    TODO.
+
 
 \end{englishtext}
 
