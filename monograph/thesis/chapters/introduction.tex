@@ -21,7 +21,6 @@
     write their codes in a certain way, with certain features like using 4 or 8
     spaces to indent lines, always leave a blank line before each control
     structure as if or for statements, and alike rules.
-    \cite{industrialApplication}
 
     % TODO, put reference for this
     But entering the universe of good practices, there are many things for
@@ -31,7 +30,7 @@
     understanding of same. Therefore, allowing the programmer to disperse more
     tempe thinking about its coding algorithms problem, other than trying to
     decipher the information that is presented to it on the screen through
-    infinit different code layouts. \cite{programIndentation}
+    infinit different code layouts.
 
     % TODO, put reference for this
     Within this work\s area, we need to also think long and hard about how to
@@ -43,7 +42,7 @@
     decided to put before each `if' statement, a blank line. It is therefore
     expected that whenever we see a blank line we can potentially find a
     matching `if', which can be considered a quite useful pattern matching as
-    empty line may call better your attention. \cite{independentFramework}
+    empty line may call better your attention.
 
     % TODO, put reference for this
     But again this is something heavily dependent of what each one learning
@@ -53,7 +52,6 @@
     start reading its the code and look for `if', he will be expecting for blank
     lines before its if\s. But will lose some time searching until realize
     another programmer does not put them, or perhaps he forgot to insert them.
-    \cite{architectureFormatting}
 
     % TODO, put reference for this
     These differences are due to the diversity of ways we learn programming,
@@ -63,7 +61,7 @@
     together developing several and diverse computing systems. Where the latter
     is due to the fact of the complexity of computer systems growing
     increasingly, therefore over requiring programmers working and sharing their
-    codes and ideas. \cite{prettyPrinting}
+    codes and ideas.
 
     % TODO, put reference for this
     Moreover besides only worrying about how the code is displayed on their
@@ -74,7 +72,6 @@
     easily perform the tracking of code changes and allow you to better
     understand what each programmer is doing every time he formalizes a change
     in the code through a `commit', as in `git' systems for example.
-    \cite{massMaintenance}
 
     % TODO, put reference for this (ref coding\_horror)
     That is because while working with a versioning system like `git', we need
@@ -86,7 +83,7 @@
     before each if, we end up with too much noise and focus of a versioning
     system is to look at only those changes that are significant to the code,
     such as the creation of new functions and not the addition of new blank
-    lines (ref find\_some). \cite{legacyAssets}
+    lines (ref find\_some).
 
     % TODO, put reference for this
     Talking about the last thing pointed out, we could also think about an
@@ -96,9 +93,17 @@
     start tedious wars of unproductive code adjustments. For example, imagine
     how it would be for your every day and have to go through your code
     re-adding new lines before each one of your beloved if\s, just because some
-    night shift programmer had just removed them? \cite{softwarePortfolio}
+    night shift programmer had just removed them?
 
 
+    \cite{softwarePortfolio}
+    \cite{legacyAssets}
+    \cite{massMaintenance}
+    \cite{prettyPrinting}
+    \cite{architectureFormatting}
+    \cite{independentFramework}
+    \cite{programIndentation}
+    \cite{industrialApplication}
 
     \section{Goals}
 
@@ -236,7 +241,7 @@
 
 
 
-    \section{How to Deal with}
+    \section{Common Tasks}
 
     So you are developing a software which is under version control, however to
     deploy your tests, you need to copy some big folders into the deployment or
@@ -244,7 +249,7 @@
 
     Copying and pasting them probably the most straight forward idea, which is
     nice if you are going to it only a few times in a life time like two or
-    three. However if you are going to do it move often than these limits,
+    three. However if you are going to do it move than these limits,
     please don\q t do that. It is bad for the planet and is worsening your
     health for nothing other than more headaches.
 
@@ -309,7 +314,8 @@
     On preceding example, the `rebuild\_workspace.sh' script is located on the
     testing folder `/cygdrive/c/Test', then when calling it we get some folders
     removed, a file unpacked on the current folder, and our code synced from the
-    versioning system directly to testing environment.
+    versioning system directly to testing environment. You can read more about
+    `rsync' utility on \citeonline{synchronizingFolders}.
 
 
 \end{englishtext}
