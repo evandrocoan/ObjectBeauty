@@ -354,6 +354,26 @@
     analysis can help identify plagiarism is presented.
     \cite{codePlagiarismDetection}
 
+    \item \textbf{An annotation assistant for interactive debugging of programs
+    with common synchronization idioms}: This paper explores an approach to
+    improving the practical usability of static verification tools for debugging
+    synchronization idioms. Synchronization idioms such as mutual exclusion and
+    readers/writer locks are widely-used to ensure atomicity of critical
+    regions. We present an annotation assistant that automatically generates
+    program annotations. These annotations express noninterference between
+    program statements, ensured by the synchronization idioms, and are used to
+    identify atomic code regions. This allows the programmer to debug the use of
+    the idioms in the program. We start by formalizing several well-known idioms
+    by providing an abstract semantics for each idiom. For programs that use
+    these idioms, we require the programmer to provide a few predicates linking
+    the idiom with its realization in terms of program variables. From these, we
+    automatically generate a proof script that is mechanically checked. These
+    scripts include steps such as automatically generating assertions and
+    annotating program actions with them, introducing auxiliary variables and
+    invariants. We have successfully shown the applicability of this approach to
+    several concurrent programs from the literature.
+    \cite{annotationAssistant}
+
 
 \end{enumerate}
 \end{englishtext}
