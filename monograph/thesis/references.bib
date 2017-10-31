@@ -658,37 +658,38 @@
 
 
 @inproceedings{annotationAssistant,
-    title     = {An Annotation Assistant for Interactive Debugging of Programs with Common Synchronization Idioms},
-    author    = {Elmas, Tayfun and Sezgin, Ali and Tasiran, Serdar and Qadeer, Shaz},
-    booktitle = {Proceedings of the 7th Workshop on Parallel and Distributed Systems: Testing, Analysis, and Debugging},
-    series    = {PADTAD '09},
-    year      = {2009},
-    pages     = {10:1--10:11},
-    publisher = {ACM},
-    address   = {New York, NY, USA},
-    abstract  = {This paper explores an approach to improving the practical usability of static
-                verification tools for debugging synchronization idioms. Synchronization idioms such
-                as mutual exclusion and readers/writer locks are widely-used to ensure atomicity of
-                critical regions. We present an annotation assistant that automatically generates
-                program annotations. These annotations express noninterference between program
-                statements, ensured by the synchronization idioms, and are used to identify atomic
-                code regions. This allows the programmer to debug the use of the idioms in the
-                program. We start by formalizing several well-known idioms by providing an abstract
-                semantics for each idiom. For programs that use these idioms, we require the
-                programmer to provide a few predicates linking the idiom with its realization in
-                terms of program variables. From these, we automatically generate a proof script
-                that is mechanically checked. These scripts include steps such as automatically
-                generating assertions and annotating program actions with them, introducing
-                auxiliary variables and invariants. We have successfully shown the applicability of
-                this approach to several concurrent programs from the literature.},
-    articleno = {10},
-    numpages  = {11},
-    doi       = {10.1145/1639622.1639632},
-    isbn      = {978-1-60558-655-7},
-    acmid     = {1639632},
-    location  = {Chicago, Illinois},
-    url       = {http://doi.acm.org/10.1145/1639622.1639632},
-    keywords  = {atomicity, concurrent programs, synchronization idioms},
+    title         = {An Annotation Assistant for Interactive Debugging of Programs with Common Synchronization Idioms},
+    author        = {Elmas, Tayfun and Sezgin, Ali and Tasiran, Serdar and Qadeer, Shaz},
+    booktitle     = {Proceedings of the 7th Workshop on Parallel and Distributed Systems: Testing, Analysis, and Debugging},
+    series        = {PADTAD '09},
+    year          = {2009},
+    pages         = {10:1--10:11},
+    publisher     = {ACM},
+    address       = {New York, NY, USA},
+    abstract      = {This paper explores an approach to improving the practical usability of static
+                    verification tools for debugging synchronization idioms. Synchronization idioms such
+                    as mutual exclusion and readers/writer locks are widely-used to ensure atomicity of
+                    critical regions. We present an annotation assistant that automatically generates
+                    program annotations. These annotations express noninterference between program
+                    statements, ensured by the synchronization idioms, and are used to identify atomic
+                    code regions. This allows the programmer to debug the use of the idioms in the
+                    program. We start by formalizing several well-known idioms by providing an abstract
+                    semantics for each idiom. For programs that use these idioms, we require the
+                    programmer to provide a few predicates linking the idiom with its realization in
+                    terms of program variables. From these, we automatically generate a proof script
+                    that is mechanically checked. These scripts include steps such as automatically
+                    generating assertions and annotating program actions with them, introducing
+                    auxiliary variables and invariants. We have successfully shown the applicability of
+                    this approach to several concurrent programs from the literature.},
+    articleno     = {10},
+    numpages      = {11},
+    doi           = {10.1145/1639622.1639632},
+    isbn          = {978-1-60558-655-7},
+    acmid         = {1639632},
+    location      = {Chicago, Illinois},
+    url           = {http://doi.acm.org/10.1145/1639622.1639632},
+    keywords      = {atomicity, concurrent programs, synchronization idioms},
+    urlaccessdate = {2017-10-30},
 }
 
 
@@ -713,6 +714,39 @@
     doi           = {10.1007/978-3-642-31759-0\_3},
     isbn          = {978-3-642-31759-0},
     url           = {https://link.springer.com/chapter/10.1007/978-3-642-31759-0_3},
+    urlaccessdate = {2017-10-30},
+}
+
+@article{redesignOfGit,
+    author        = {De Rosso, Santiago Perez and Jackson, Daniel},
+    title         = {Purposes, Concepts, Misfits, and a Redesign of Git},
+    journal       = {SIGPLAN Not.},
+    issue_date    = {October 2016},
+    volume        = {51},
+    number        = {10},
+    month         = {10},
+    year          = {2016},
+    issn          = {0362-1340},
+    pages         = {292--310},
+    abstract      = {Git is a widely used version control system that is powerful but complicated.
+                    Its complexity may not be an inevitable consequence of its power but rather
+                    evidence of flaws in its design. To explore this hypothesis, we analyzed the
+                    design of Git using a theory that identifies concepts, purposes, and misfits.
+                    Some well-known difficulties with Git are described, and explained as misfits in
+                    which underlying concepts fail to meet their intended purpose. Based on this
+                    analysis, we designed a reworking of Git (called Gitless) that attempts to
+                    remedy these flaws. To correlate misfits with issues reported by users, we
+                    conducted a study of Stack Overflow questions. And to determine whether users
+                    experienced fewer complications using Gitless in place of Git, we conducted a
+                    small user study. Results suggest our approach can be profitable in identifying,
+                    analyzing, and fixing design problems.},
+    numpages      = {19},
+    url           = {https://www.researchgate.net/publication/311477527_Purposes_concepts_misfits_and_a_redesign_of_git},
+    doi           = {10.1145/3022671.2984018},
+    acmid         = {2984018},
+    publisher     = {ACM},
+    address       = {New York, NY, USA},
+    keywords      = {Git, concept design, concepts, design, software design, usability, version control},
     urlaccessdate = {2017-10-30},
 }
 
