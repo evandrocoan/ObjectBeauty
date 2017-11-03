@@ -126,9 +126,14 @@
 % \addtoincludeonly{pretexto/siglas}
 % \addtoincludeonly{pretexto/simbolos}
 
+% Part 1
 \addtoincludeonly{chapters/introduction}
 \addtoincludeonly{chapters/motivation}
-\addtoincludeonly{chapters/implementation}
+\addtoincludeonly{chapters/beautifiers}
+\addtoincludeonly{chapters/good_practices}
+
+% Part 2
+\addtoincludeonly{chapters/object_beautifier}
 % \addtoincludeonly{chapters/conclusion}
 
 % \addtoincludeonly{postexto/apendice_a}
@@ -174,12 +179,14 @@
     % Introdução (exemplo de capítulo sem numeração, mas presente no Sumário)
     \include{chapters/introduction}
     \include{chapters/motivation}
+    \include{chapters/good_practices}
+    \include{chapters/beautifiers}
 
     % PARTE
     \ifforcedinclude\else\part{\lang{Implementation}{Implementação}\fi
 
     % Capitulo com exemplos de comandos inseridos de arquivo externo
-    \include{chapters/implementation}
+    \include{chapters/object_beautifier}
 
     % Finaliza a parte no bookmark do PDF
     % para que se inicie o bookmark na raiz

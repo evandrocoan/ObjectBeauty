@@ -1,0 +1,183 @@
+
+
+% The \phantomsection command is needed to create a link to a place in the document that is not a
+% figure, equation, table, section, subsection, chapter, etc.
+%
+% When do I need to invoke \phantomsection?
+% https://tex.stackexchange.com/questions/44088/when-do-i-need-to-invoke-phantomsection
+\phantomsection
+
+
+% Is it possible to keep my translation together with original text?
+% https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
+\chapter{\lang{Good Practices}{Boas Práticas}}
+
+
+\begin{englishtext}
+
+
+
+    \section{The Upper Stream}
+
+    TODO.
+
+    Do related and small commits, i.e., one change per commit.
+
+    What is upstream?
+
+    \url{https://help.github.com/articles/configuring-a-remote-for-a-fork/}
+
+    \url{https://stackoverflow.com/questions/2739376/definition-of-downstream-and-upstream}
+
+    What is origin?
+
+    Is there a downstream?
+
+    \citeonline{redesignOfGit}
+
+
+    \subsection{How to keep up with the upstream}
+
+    TODO.
+
+
+
+    \section{Common Tasks}
+
+    So you are developing a software which is under version control, however to
+    deploy your tests, you need to copy some big folders into the deployment or
+    testing system. Then how do you do it?
+
+    Copying and pasting them probably the most straight forward idea, which is
+    nice if you are going to it only a few times in a life time like two or
+    three. However if you are going to do it move than these limits,
+    please don\q t do that. It is bad for the planet and is worsening your
+    health for nothing other than more headaches.
+
+    As a promptly good computer user, at this point you already have some tool,
+    either graphical or by command line which can help you easily and fastly
+    setup the folder\q s. Easily like:
+
+    \begin{enumerate}
+        \item You open the tool
+        \item Click on the new button
+        \item Name your sync task as `My cuttie'
+        \item Copy and paste there source and destine addresses
+        \item Hit the `sync now' button
+    \end{enumerate}
+
+
+
+    \section{The rsync side}
+
+    Doing everything out of the box by a graphical interface seems not
+    practical. Command Line Interfaces (CLI) are simpler to be built and allows
+    their programmers to saver their efforts in actually writing the tool
+    instead of designing a reasonable Graphical User Interface (GUI)
+    \cite{quantificationOfInterface}.
+
+    GUI interfaces are awesome but for their proper usage, which is mostly
+    defined by their aim public. Non-computer programmers, perhaps even novice
+    programmers, cannot easily deal with command lines, but experienced
+    programmers should be able to get great advantage from it usage.
+    \cite{commandLineInterface}.
+
+    Following we may see an example about the simpleness of a shell script,
+    which runs several commands to accomplish a clean build of the testing
+    environment:
+
+    \begin{lstlisting}[caption={rebuild\_workspace.sh}]
+    #!/bin/sh
+    printf "$(date)\nRemoving folders...\n"
+
+    rm -rf "Installed Packages"
+    rm -rf "Lib"
+    rm -rf "Local"
+    rm -rf "Packages"
+
+    printf "Unzipping files...\n"
+    unzip -q "Packages.zip"
+
+    mkdir -p "./Deployment/Code A"
+    mkdir -p "./Deployment/Code B"
+
+    printf "Syncing folders...\n"
+    rsync -r \
+         "/cygdrive/d/Development/Environment/Code A/" \
+         "/cygdrive/c/Test/Deployment/Code A/"
+
+    rsync -r \
+         "/cygdrive/d/Development/Environment/Code B/" \
+         "/cygdrive/c/Test/Deployment/Code B/"
+    \end{lstlisting}
+    \vspace*{-4mm}
+
+    On preceding example, the `rebuild\_workspace.sh' script is located on the
+    testing folder `/cygdrive/c/Test', then when calling it we get some folders
+    removed, a file unpacked on the current folder, and our code synced from the
+    versioning system directly to testing environment. You can read more about
+    `rsync' utility on \citeonline{synchronizingFolders}.
+
+
+
+    \section{Good Coding Practices}
+
+
+    \subsection{Variable Naming}
+
+    \cite{theImpactOfIdentifierStyle},
+    \cite{womenAndMen},
+
+    Variables naming are extremely important. That is it, a dot. By the article
+    \citeonline{analysisOfCodeReading} there is the understanding about tracking
+    techniques to improve code comprehension by closing the program code with
+    natural language, i.e., as long as your code looks like natural language
+    text, better would be your understanding of the code.
+
+    \begin{itemize}
+
+    \item Global identifiers must start with `g\_' prefix.
+
+    \item Global identifiers which are constant must be written in ALLCAPS.
+
+    \item Boolean variables must be prefix with `is\_' even when they are in
+    global scope, meaning double prefixed as `g\_is\_'.
+
+    \end{itemize}
+
+    All other cases not cited must not be prefixed. Now we can continue the most
+    infamous wars about Hungarian notation versus ?.
+
+    Nonetheless, looking over this list we can quickly pop up about different
+    programming languages whereas such rules are applied and not. The most
+    notorious cases are about Java and C.
+
+    Java programming language has no such idealism as exhaustively prefixing as
+    `g\_' as explicitly there is not such concept. Although a more hawk-eyed
+    reader may spot about the Java classes atributes being the global variables.
+    And in fact they are so. But within their scope limited to the classes body,
+    and perhaps the instance objects which may or may not provide access to
+    them.
+
+    Regardless, Java also suffers from the same evil as remaining programming
+    languages with the common global variable concept. Here we enter on the
+    war about the evil global variable usage. However, keeping such bias against
+    global variable usage is not correct. Each one of the cases, either passing
+    the variables by reference, copy, or sharing globally is a correct approach.
+
+    TODO, reference the reader to proper reading and stop this discussion.
+
+
+    \subsection{Hungarian Notation}
+
+    TODO.
+
+
+    \subsection{?. Notation}
+
+    TODO.
+
+
+\end{englishtext}
+
+
