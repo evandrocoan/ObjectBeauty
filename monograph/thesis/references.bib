@@ -1471,7 +1471,7 @@
                     quantify the effort savings attributable to tool usage. We apply this method to
                     assess the impact of a software tool called VE, a version-sensitive editor used
                     in Bell Labs. VE aids software developers in coping with the rampant use of
-                    certain preprocessor directives (similar to #if/#endif in C source files). Our
+                    certain preprocessor directives (similar to \#if/\#endif in C source files). Our
                     analysis found that developers were approximately 40 percent more productive
                     when using VE than when using standard text editors.},
     keywords      = {configuration management;software metrics;software quality;software tools;text
@@ -1486,6 +1486,46 @@
     ISSN          = {0098-5589},
     location      = {Oregon Univ., Eugene, OR, USA},
     url           = {http://ieeexplore.ieee.org/document/1019478/},
-    urlaccessdate = {2017-11-02},
+    urlaccessdate = {2017-11-03},
+}
+
+
+@article{findingRegressionsInProjects,
+    title         = {Finding Regressions in Projects under Version Control Systems},
+    author        = {Jaroslav Bendik and Nikola Benes and Ivana Cerna},
+    journal       = {Computing Research Repository},
+    volume        = {abs/1708.06623},
+    publisher     = {Cornell University Library},
+    address       = {Ithaca, NY, USA},
+    year          = {2017},
+    month         = {10},
+    archivePrefix = {arXiv},
+    abstract      = {Version Control Systems (VCS) are frequently used to support development of
+                    large-scale software projects. A typical VCS repository of a large project can
+                    contain various intertwined branches consisting of a large number of commits. If
+                    some kind of unwanted behaviour (e.g. a bug in the code) is found in the
+                    project, it is desirable to find the commit that introduced it. Such commit is
+                    called a regression point. There are two main issues regarding the regression
+                    points. First, detecting whether the project after a certain commit is correct
+                    can be very expensive as it may include large-scale testing and/or some other
+                    forms of verification. It is thus desirable to minimise the number of such
+                    queries. Second, there can be several regression points preceding the actual
+                    commit; perhaps a bug was introduced in a certain commit, inadvertently fixed
+                    several commits later, and then reintroduced in a yet later commit. In order to
+                    fix the actual commit it is usually desirable to find the latest regression
+                    point. The currently used distributed VCS contain methods for regression
+                    identification, see e.g. the git bisect tool. In this paper, we present a new
+                    regression identification algorithm that outperforms the current tools by
+                    decreasing the number of validity queries. At the same time, our algorithm tends
+                    to find the latest regression points which is a feature that is missing in the
+                    state-of-the-art algorithms. The paper provides an experimental evaluation of
+                    the proposed algorithm and compares it to the state-of-the-art tool git bisect
+                    on a real data set.},
+    location      = {Masaryk University, Brno, Czech Republic},
+    eprint        = {1708.06623},
+    biburl        = {http://dblp.org/rec/bib/journals/corr/abs-1708-06623},
+    bibsource     = {dblp computer science bibliography, http://dblp.org},
+    url           = {http://arxiv.org/abs/1708.06623},
+    urlaccessdate = {2017-11-03},
 }
 
