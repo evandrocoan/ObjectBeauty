@@ -46,7 +46,9 @@
     deploy your tests, you need to copy some big folders into the deployment or
     testing system. Then how do you do it?
 
-    Copying and pasting them probably the most straight forward idea, which is
+    Copying and pasting them probably the most straight forward
+    idea\footnote{\url{https://blog.codinghorror.com/the-two-types-of-programmers/}},
+    which is
     nice if you are going to it only a few times in a life time like two or
     three. However if you are going to do it move than these limits,
     please don\q t do that. It is bad for the planet and is worsening your
@@ -162,8 +164,7 @@
     war about the evil global variable usage. However, keeping such bias against
     global variable usage is not correct. Each one of the cases, either passing
     the variables by reference, copy, or sharing globally is a correct approach.
-
-    TODO, reference the reader to proper reading and stop this discussion.
+    \footnote{\url{https://blog.codinghorror.com/code-smells/}}
 
 
     \subsection{Hungarian Notation}
@@ -174,6 +175,44 @@
     \subsection{?. Notation}
 
     TODO.
+
+
+    \subsection{Spaces and Tabs}
+
+    The problem is that I will certainly not notice when I paste something
+    indented with spaces instead of tabs. This is problem because for some file
+    types as `.sublime-settings' files (or a Makefile), which has the setting
+    `translate\_tabs\_to\_spaces' set to false, so I would expect to all
+    `.sublime-settings' files to be indented with tabs, not spaces.
+    \cite{tabsAndSpacesConversion}
+
+    The setting `translate\_tabs\_to\_spaces' set to false works fine until I paste
+    something on a setting's files which is indented with spaces, instead of
+    tabs. This is a problem because as I am over git versioning, I can easily
+    create files with mixed tabs and spaces on the history, and some day later
+    Sublime Text will fix the indentation to tabs, which will cause noise on the
+    git history due the tab/space conversion war
+    \footnote{\url{https://blog.codinghorror.com/whitespace-the-silent-killer/}}.
+
+    I think this can have a performance problem as when I am pasting something
+    big on Sublime Text. Then to perform the conversion on the would not be
+    easily possible and it should be performed afterwards by the user. Now
+    Sublime Text should warn the user when he is pasting something indented with
+    spaces instead of tabs in a file which is expected to be indented with tabs?
+
+    The detection of whether the contents of the clipboard should not be
+    expensive as we should just check some lines (which would not cover the
+    cases where there is already mixed indentation on the clipboard contents).
+    But there would be a performance problem when pasting something with very
+    big first lines. On this case a threshold should stop Sublime Text from
+    looking forward and ceases the detection as inconclusive for this paste and
+    just paste like it is.
+
+
+
+    \section{Continuous Integration}
+
+    \cite{continuousIntegration}
 
 
 \end{englishtext}
