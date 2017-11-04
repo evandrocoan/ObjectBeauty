@@ -12,6 +12,18 @@
 % https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
 \chapter{\lang{Introduction}{Introdução}}
 
+    The work first part will be based on research in
+    articles, books, theses, dissertations, trusted authors websites,
+    and through new demonstrated evidences based on arguments
+    in the monograph evolution road.
+    Also, present results after building a new tool
+    which proposes a solution for the problems presented and detailed.
+
+    In this proposal last chapter which lies on the part
+    called `\nameref{sec:implementation}', which holds the implementation of a
+    tool for code `Beautifying'.
+
+
 
     \section{Context}
 
@@ -75,6 +87,14 @@
     every time he formalizes a change in the code through a `commit', as in
     `git' systems for example. \cite{usingSourceControl}
 
+    \begin{citacao}
+    I'd say there are two main reasons to enforce a single code format in a project. First has
+    to do with version control: with everybody formatting the code identically, all changes in
+    the files are guaranteed to be meaningful. No more just adding or removing a space here or
+    there, let alone reformatting an entire file as a `side effect' of actually changing just a
+    line or two. \cite{Geukens}
+    \end{citacao}
+
     That is because while working with a versioning system like `git', we need
     to keep the code among a single style or which we may call a `good practice'
     set as standard for everybody, due the fact of letting each programmer to
@@ -99,41 +119,22 @@
 
 
 
-    \section{Goals}
-
-    The work first part will be based on research in
-    articles, books, theses, dissertations, trusted authors websites,
-    and through new demonstrated evidences based on arguments
-    in the monograph evolution road.
-    Also, present results after building a new tool
-    which proposes a solution for the problems presented and detailed.
-
-    In this proposal last chapter which lies on the part
-    called `\nameref{sec:implementation}', which holds the implementation of a
-    tool for code `Beautifying'.
-
-
-    \subsection{Specific Goals}
+    \section{Research Goals}
 
     \begin{enumerate}
-
         \item Establish relationships between good programming practices and efficiency in
-        programming, in addition to a new tool to support programmers in order to
-        automate the long and diverse programming process in teams of developers
-        with different programming `best practices'.
-
+              programming, in addition to a new tool to support programmers in order to
+              automate the long and diverse programming process in teams of developers
+              with different programming `best practices'.
         \item Define, determine and classify which one are good programming
-        practices and perform an in-depth study on the good practices on visual
-        layout area, also known as code `Beautifying'.
-
+              practices and perform an in-depth study on the good practices on visual
+              layout area, also known as code `Beautifying'.
         \item The definition of a flow pattern of development allowing teams of
-        developers with different programming best practices, to work without
-        intervene with each other up to start wars of `best good practices'.
-
+              developers with different programming best practices, to work without
+              intervene with each other up to start wars of `best good practices'.
         \item Discourse on the variety of existing tools for the support of good
-        programming practices, with a comparative analysis between them,
-        determining their weaknesses and strengths.
-
+              programming practices, with a comparative analysis between them,
+              determining their weaknesses and strengths.
     \end{enumerate}
 
 
@@ -147,6 +148,41 @@
 
     Moreover, explain the differences for other softwares and the benefits
     of a unique tool, instead of several heavily different ones.
+
+    From this point, a sketch is presented on the problem, solutions,
+    information as for why to want make such software, or even why do we want to
+    beautifying things:
+
+    \begin{enumerate}[leftmargin=*]
+        \item There are many different tools, sometimes paid, and difficult to
+              complete. \cite{universalCodeFormatter}
+
+        \item Many programming languages exist, so always having Beautifier
+              software for each of them is very laborious
+              \cite{universalCodeFormatter}. But the approach to a Universal
+              Beautifier proposed in this work, would allow easily new languages to be
+              added, being completely different from previous ones, or alike. And in
+              case of similarities between them, it is enough to reuse their
+              configuration structures already implemented.
+
+        \item Looking for a Beautifier for each one of them because programmers
+              currently work daily with several of these languages, and they are not
+              similar. So you need to configure several beautifiers to do the
+              formatting. This is a problem because only a few beautifiers are more
+              complete, and every time you need to make a change in the formatting
+              style, you must manually propagate the same change over several
+              different program configuration files, which is bad because it takes the
+              user a lot of time to learn how to handle many different types of
+              settings. \cite{Schweitzer}
+
+        \item In the case of ideal Beautifier, a change in your styling is
+              propagated to all languages. And if you want to leave some language out
+              of it, you just need to remove it from the list on which the
+              configuration block applies to, and `a)' leave it out so no change is
+              applied to. Or `b)' create a new block including only the block within
+              the desired settings.
+
+    \end{enumerate}
 
 
 
