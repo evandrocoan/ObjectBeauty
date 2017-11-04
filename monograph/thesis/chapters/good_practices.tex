@@ -135,14 +135,10 @@
     text, better would be your understanding of the code.
 
     \begin{itemize}
-
-    \item Global identifiers must start with `g\_' prefix.
-
-    \item Global identifiers which are constant must be written in ALLCAPS.
-
-    \item Boolean variables must be prefix with `is\_' even when they are in
-    global scope, meaning double prefixed as `g\_is\_'.
-
+        \item Global identifiers must start with `g\_' prefix.
+        \item Global identifiers which are constant must be written in ALLCAPS.
+        \item Boolean variables must be prefix with `is\_' even when they are in
+        global scope, meaning double prefixed as `g\_is\_'.
     \end{itemize}
 
     All other cases not cited must not be prefixed. Now we can continue the most
@@ -172,49 +168,34 @@
     TODO.
 
 
-    \subsection{?. Notation}
+    \subsection{Other Notations}
 
     TODO.
 
 
     \subsection{Spaces and Tabs}
 
-    The problem is that I will certainly not notice when I paste something
-    indented with spaces instead of tabs. This is problem because for some file
-    types as `.sublime-settings' files (or a Makefile), which has the setting
-    `translate\_tabs\_to\_spaces' set to false, so I would expect to all
-    `.sublime-settings' files to be indented with tabs, not spaces.
-    \cite{tabsAndSpacesConversion}
-
-    The setting `translate\_tabs\_to\_spaces' set to false works fine until I paste
-    something on a setting's files which is indented with spaces, instead of
-    tabs. This is a problem because as I am over git versioning, I can easily
-    create files with mixed tabs and spaces on the history, and some day later
-    Sublime Text will fix the indentation to tabs, which will cause noise on the
-    git history due the tab/space conversion war
+    Either use spaces, or tabs
     \footnote{\url{https://blog.codinghorror.com/whitespace-the-silent-killer/}}.
-
-    I think this can have a performance problem as when I am pasting something
-    big on Sublime Text. Then to perform the conversion on the would not be
-    easily possible and it should be performed afterwards by the user. Now
-    Sublime Text should warn the user when he is pasting something indented with
-    spaces instead of tabs in a file which is expected to be indented with tabs?
-
-    The detection of whether the contents of the clipboard should not be
-    expensive as we should just check some lines (which would not cover the
-    cases where there is already mixed indentation on the clipboard contents).
-    But there would be a performance problem when pasting something with very
-    big first lines. On this case a threshold should stop Sublime Text from
-    looking forward and ceases the detection as inconclusive for this paste and
-    just paste like it is.
+    However while using tabs,
+    you may end up with mixed file with tabs and spaces \cite{tabsAndSpacesConversion}.
 
 
 
     \section{Continuous Integration}
 
-    \cite{continuousIntegration}
+    On a distributed version control system,
+    continuous integration would be continuously running the system tests
+    as long new code is integrated into main system
+    from the distributed clients \cite{continuousIntegration}.
+
+
+    \subsection{Test Driven Development}
+
+
+    \footnote{\url{https://blog.codinghorror.com/check-in-early-check-in-often/}}
+
     \cite{aspectOriented}
-    \cite{pushdownAutomata}
 
 
 \end{englishtext}
