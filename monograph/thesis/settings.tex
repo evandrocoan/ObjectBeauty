@@ -145,44 +145,6 @@ therefore the \topsep patch must need to be updated accordingly}}
 \makeatother
 
 
-% Backref package settings, pages with citations in bibliography
-\makeatletter
-\@ifpackageloaded{biblatex}
-{
-    \renewbibmacro*{pageref}
-    {
-        \iflistundef{pageref}
-        {\printtext{\lang{\autocap{n}o citation in the text}{\autocap{n}enhuma citação no texto}.}}
-        {%
-            \printtext
-            {%
-                \ifnumgreater{\value{citecounter}}{1}
-                    {\lang{\autocap{c}ited}{\autocap{c}itado} \arabic{citecounter} \lang{times}{vezes}}
-                    {\lang{\autocap{c}ited}{\autocap{c}itado} \arabic{citecounter} \lang{time}{vez}}
-            }%
-            \setunit{\addspace}%
-            \ifnumgreater{\value{pageref}}{1}
-                {\bibstring{backrefpages}\ppspace}
-                {\bibstring{backrefpage}\ppspace}%
-            \printlist[pageref][-\value{listtotal}]{pageref}%
-        }%
-    }
-
-    \DefineBibliographyStrings{brazil}
-    {
-        backrefpage  = {na página},
-        backrefpages = {nas páginas},
-    }
-
-    \DefineBibliographyStrings{english}
-    {
-        backrefpage  = {on page},
-        backrefpages = {on pages},
-    }
-}{}
-\makeatother
-
-
 % Espaçamentos entre linhas e parágrafos
 %
 % ifpackageloaded question
@@ -292,5 +254,44 @@ therefore the \topsep patch must need to be updated accordingly}}
 
 \renewcommand{\cftparagraphfont}{\ABNTEXsubsubsubsectionfont\color{ultramarine}}
 \renewcommand{\cftparagraphpagefont}{\ABNTEXsubsubsubsectionfont\color{black}}
+
+
+
+% Backref package settings, pages with citations in bibliography
+\makeatletter
+\@ifpackageloaded{biblatex}
+{
+    \renewbibmacro*{pageref}
+    {
+        \iflistundef{pageref}
+        {\printtext{\lang{\autocap{n}o citation in the text}{\autocap{n}enhuma citação no texto}.}}
+        {%
+            \printtext
+            {%
+                \ifnumgreater{\value{citecounter}}{1}
+                    {\lang{\autocap{c}ited}{\autocap{c}itado} \arabic{citecounter} \lang{times}{vezes}}
+                    {\lang{\autocap{c}ited}{\autocap{c}itado} \arabic{citecounter} \lang{time}{vez}}
+            }%
+            \setunit{\addspace}%
+            \ifnumgreater{\value{pageref}}{1}
+                {\bibstring{backrefpages}\ppspace}
+                {\bibstring{backrefpage}\ppspace}%
+            \printlist[pageref][-\value{listtotal}]{pageref}%
+        }%
+    }
+
+    \DefineBibliographyStrings{brazil}
+    {
+        backrefpage  = {na página},
+        backrefpages = {nas páginas},
+    }
+
+    \DefineBibliographyStrings{english}
+    {
+        backrefpage  = {on page},
+        backrefpages = {on pages},
+    }
+}{}
+\makeatother
 
 
