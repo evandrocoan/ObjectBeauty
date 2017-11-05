@@ -28,12 +28,14 @@
 % com o documento, salve-o como PDF no diretório do seu projeto e substitua todo
 % o conteúdo de implementação deste arquivo pelo comando abaixo:
 \include{pretexto/fichacatalografica}
+\ifforcedinclude\else\cleardoublepage\fi
 
 % Custom list throw LaTeX Error: Command \mycustomfiction already defined?
 % https://tex.stackexchange.com/questions/388489/custom-list-throw-latex-error-command-mycustomfiction-already-defined/
-\ifforcedinclude\else\cleardoublepage\fi
 \ifforcedinclude\else
+    \pdfbookmark[0]{\mytextpreliminarylistname}{tpc}
     \textpreliminarycontents
+    \addtotextpreliminarycontent{\lang{Table of Contents}{Sumário}}
 \fi
 
 % Inserir errata
@@ -99,7 +101,6 @@
 
 % How to remove the self-reference of the ToC from the ToC?
 % https://tex.stackexchange.com/questions/10943/how-to-remove-the-self-reference-of-the-toc-from-the-toc
-\addtotextpreliminarycontent{\lang{Table of Contents}{Sumário}}
 \begin{KeepFromToc}
     \pdfbookmark[0]{\contentsname}{toc}
 
