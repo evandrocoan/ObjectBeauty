@@ -256,7 +256,6 @@ therefore the \topsep patch must need to be updated accordingly}}
 \renewcommand{\cftparagraphpagefont}{\ABNTEXsubsubsubsectionfont\color{black}}
 
 
-
 % Backref package settings, pages with citations in bibliography
 \makeatletter
 \@ifpackageloaded{biblatex}
@@ -293,5 +292,35 @@ therefore the \topsep patch must need to be updated accordingly}}
     }
 }{}
 \makeatother
+
+
+% Memoir has another mechanism for the job: \cftsetindents{‹kind›}{indent}{numwidth}. Here kind is
+% chapter, section, or whatever; the indent specifies the ‘margin’ before the entry starts; and the
+% width is of the box into which the number is typeset (so needs to be wide enough for the largest
+% number, with the necessary spacing to separate it from what comes after it in the line.
+% http://www.tex.ac.uk/FAQ-tocloftwrong.html
+%
+% memoir: indentation of unnumbered sections in table of contents
+% https://tex.stackexchange.com/questions/264668/memoir-indentation-of-unnumbered-sections-in-table-of-contents
+%
+% Memoir ToC: indent the second line by number+space width in the previous line OR set standard
+% https://tex.stackexchange.com/questions/394227/memoir-toc-indent-the-second-line-by-numberspace
+
+% `\cftlastnumwidth` and these `\cftsetindents` are defined by the abntex2 class saying they obey
+% the `ABNTEXsumario-abnt-6027-2012`.
+% \newlength{\cftlastnumwidth}
+
+\setlength{\cftlastnumwidth}{\cftsubsubsectionnumwidth}
+\addtolength{\cftlastnumwidth}{-2em}
+
+% http://www.tex.ac.uk/FAQ-tocloftwrong.html
+% Use \setlength\cftsectionnumwidth{4em} to override all these values
+\cftsetindents{part}         {0em}{\cftlastnumwidth}
+\cftsetindents{chapter}      {0em}{\cftlastnumwidth}
+\cftsetindents{section}      {0em}{\cftlastnumwidth}
+\cftsetindents{subsection}   {0em}{\cftlastnumwidth}
+\cftsetindents{subsubsection}{0em}{\cftlastnumwidth}
+\cftsetindents{paragraph}    {0em}{\cftlastnumwidth}
+\cftsetindents{subparagraph} {0em}{\cftlastnumwidth}
 
 
