@@ -273,18 +273,6 @@ therefore the \topsep patch must need to be updated accordingly}}
 \makeatother
 
 
-% Fontes das entradas do sumario
-\makeatletter
-\renewcommand*{\l@chapter}[2]
-{%
-    \l@chapapp{\uppercase{#1}}{#2}{\cftchaptername}
-}
-\renewcommand*{\l@section}[2]
-{%
-    \l@chapapp{\ABNTEXsectionfont\uppercase{#1}}{#2}{\cftsectionname}
-}
-\makeatother
-
 % Changing the font of the numbers in the ToC in the memoir class
 % https://tex.stackexchange.com/questions/14314/changing-the-font-of-the-numbers-in-the-toc-in-the-memoir-class
 \renewcommand{\cftpartfont}{\ABNTEXpartfont\color{ultramarine}}
