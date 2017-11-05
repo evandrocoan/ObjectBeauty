@@ -33,9 +33,14 @@
 % Custom list throw LaTeX Error: Command \mycustomfiction already defined?
 % https://tex.stackexchange.com/questions/388489/custom-list-throw-latex-error-command-mycustomfiction-already-defined/
 \ifforcedinclude\else
+    % Manually add the `\textpreliminarycontents` to the Table of Contents here
+    % to keep the hyper link pointing to the beginning of the page, instead of
+    % the beginning of `\textpreliminarycontents`
     \pdfbookmark[0]{\mytextpreliminarylistname}{tpc}
-    \textpreliminarycontents
-    \addtotextpreliminarycontent{\lang{Table of Contents}{Sumário}}
+
+    \begin{KeepFromToc}
+        \textpreliminarycontents
+    \end{KeepFromToc}
 \fi
 
 % Inserir errata
@@ -98,6 +103,9 @@
 % Inserir lista de símbolos
 \ifforcedinclude\else\cleardoublepage\fi
 \include{pretexto/simbolos}
+
+% Add the table of contents to the brief table of contents
+\addtotextpreliminarycontent{\lang{Table of Contents}{Sumário}}
 
 % How to remove the self-reference of the ToC from the ToC?
 % https://tex.stackexchange.com/questions/10943/how-to-remove-the-self-reference-of-the-toc-from-the-toc
