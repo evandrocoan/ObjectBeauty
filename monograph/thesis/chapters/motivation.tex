@@ -57,3 +57,25 @@
     same.
 
 
+
+    \section{Code Beautifying}
+
+    A robust Code Beautifier can get a lot more complicated just with the basic
+    definitions of formatting (\nameref{source_code_beautifiers})
+    applied over each language own characteristics
+    as for example:
+
+    \begin{enumerate}[nosep,nolistsep]
+        \item Add spaces before if\s name as in `if(var)' versus `if (var)'
+        \item Add spaces inside if\s as in `if(var)' versus `if( var )'
+        \item Add spaces before for\s name as in `for(var)' versus `for (var)'
+        \item Add spaces inside for\s as in `for(var)' versus `for( var )'
+        \item ...
+    \end{enumerate}
+
+    As may be noticed, the list may became quite big, and if fact such big list
+    of rules has been implemented.
+    Looking over the Beautifier called `Uncrustify'\footnote{\url{https://github.com/uncrustify/uncrustify}},
+    we can find about 500 settings with specifications like these above.
+
+
