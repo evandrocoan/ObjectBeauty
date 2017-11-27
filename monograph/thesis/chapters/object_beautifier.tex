@@ -123,92 +123,53 @@
     \begin{enumerate}[leftmargin=*]
 
         \item Write the program in C++ for greater performance, allowing the
-        formating/beautifying to be dynamic, i.e., as you type the text, the
-        text is formatted for you. So you can focus more on writing the code,
-        rather than worrying about spacing, alignment, parentheses, new lines,
-        and whatever else.
+        formating/beautifying to be dynamic, i.e.,
+        as you type the text,
+        the text is formatted for you dynamically.
+        So on,
+        you can focus more on writing code,
+        rather than worrying about spacing,
+        alignment, parenthesis control, new lines, and whatsoever else.
 
-        \item
+        \item Use the `doctest' Framework for writing Unit Tests. Because,
+        after searching and testing some frameworks for unit testing in C ++,
+        this one was entered as serving very well the project requirements.
+        As it causes a very low increment in compile time and allows the tests to be written to the same file where the
+        program code is found,
+        without including them into the final software.
 
-        Utilizar o Framework `doctest` para escrita dos Testes de Unidade. Pois após procurar e
-        testar alguns frameworks para testes de unidade em C++, entrou-se este como servindo muito
-        bem as requisitos do projecto. Ele causa baixíssimo incremento no tempo de compilação e
-        permite que os testes possam ser escritos no mesmo arquivo onde encontram-se o código do
-        programa, sem que eles sejam compilados.
-
-        \item
-
-        Utilizar uma versão/algoritmo multi-core, então cada uma das regras pode ser processada em
-        paralelo e sobre o mesmo source code original. Essa parte é bastante complexa de ser escrita
-        por que as regras entre si podem gerar conflitos sobre o que elas estão fazendo. Para
-        resolver esse problema, fazer com que cada regra processada gere um objeto de mudanças que
-        essa regra está propondo. No final do processamento de todas as regras, será realizado um
-        fusão das mudanças que cada uma decidiu realizer, e caso duas regras queriam mudar o mesmo
-        pedaço/trecho de código, será lançada um exceção e uma nova classe de mudanças/regra deve
-        estar disponível para resolver esse conflito. Caso não exista, ambas as mudanças são
-        descartadas e somente as mudanças sem conflitos são refletidas no código.
-
-    \end{enumerate}
-
-
-\subsubsection{Focused Goals}
-
-
-    \begin{enumerate}[leftmargin=*]
-
-        \item
-
-        Um Produto de Software com uma ótima orientação a objetos e possibilidades de extensão das
-        funcionalidades.
-
-        \item
-
-        Classificar todas classes e tipos de formatações (beautifying) de código aplicáveis com
-        facilidade. Uma das partes a serem escritas e entregues na monografia. Um estudo sobre o que
-        é beautifying, como fazer e por que fazer.
-
-        \item
-
-        Implementação de um núcleo funcional e de uma pesquisa decente sobre o estado da arte. Um
-        dos pontos difíceis seria a marcação dos escopos, mas isso já é implementado pelo núcleo do
-        editor Sublime Text, assim provado como possível de ser feito.
-
-        \item
-
-        Inicialmente devido a limitação de tempo em 1 ano e meio para um TCC, podemos pensar somente
-        um núcleo básico, simples, reutilizável e que talvez possa ajudar no contexto da linguagem
-        que vocês desenvolvem.
+        \item Using a multi-core version of the algorithm,
+        then each one of the rules can be processed in parallel over the same original source code.
+        This is a quite complex to write because the rules can easily generate conflicts between them, i.e.,
+        over work they are producing.
+        To resolve this problem,
+        we put each rule to generate a change object which such rule is proposing, i.e.,
+        the changes it is working on.
+        At the end of the processing of all rules,
+        a merging of the generated changes which each rule produced will be created,
+        and if two rules wanted to change the same piece a.k.a.
+        section of code,
+        an exception will be thrown and a Changes\q Handler must be available to resolve this conflict.
+        If the Changes\q Handler does not exist at the moment for the existing conflict,
+        both changes are discarded and only changes without conflict are reflected, i.e.,
+        incorporated into the code.
 
     \end{enumerate}
 
 
-\subsubsection{Future Works}
-
-    O número de recursos/funcionalidades e estratégias de otimizações para serem implementadas, e
-    etc, são imensas. Mas esses trabalhos podem ser muito mais para frente depois da entrega do TCC.
-    Hoje o controle de espaços em chamadas de funções, declarações de classes, comentários e etc,
-    são mais tranquilos de se entender e pensar. Entretanto no requisito e ajuste de indentação,
-    inserção/remoção de parenteses redundantes, etc ainda falta estudo sobre como deve ser
-    implementado isso.
-
-    Contudo essa especificação por parte do usuário é limitado a linguagens Livres de Contexto
-    (máquinas de pilha). Assim caso as especificações de escope precisarem ser feitas em termos de
-    linguagens Sensíveis ao Contexto ou ainda Recursivamente Enumeráveis, vai ser preciso tratar
-    esses elementos diretamente em C++ (máquina de turing).
-
-    Entretanto não consegue-se pensar facilmente em casos em que precise mais do que tratadores
-    Livres de Contexto para realizar a especificação de quais partes do código deve ser necessário
-    formatar. Sublime Text faz uso dessa técnica para o Highlight dos códigos das mais diversas
-    linguagens e acredita-se que tenha um bom resultado.
-
-
-\subsection{Research Methods}
-
-    A vantagem nesta abordagem é não ter a necessidade de ter-se conhecimento da sintaxe das
-    linguagens de programação que se irão fazer o parsing. Isso porque trataremos elas como texto
-    comum, e será o usuário final que fará a configuração das transformações que serão aplicados no
-    texto, dando liberdade de facilmente se configurar várias linguagens de programação,
+    A vantagem nesta abordagem é não ter a necessidade de ter-se conhecimento da sintaxe das linguagens de programação
+    que se irão fazer o parsing.
+    Isso porque trataremos elas como texto comum,
+    e será o usuário final que fará a configuração das transformações que serão aplicados no texto,
+    dando liberdade de facilmente se configurar várias linguagens de programação,
     aproveitando o fato de que muitas deles compartilham estruturas semelhantes senão idênticas.
+
+    The advantage of this approach is that we do not need to be aware of the syntax of programming languages that will
+    parse.
+    This is because we will treat them as common text,
+    and it will be the end user that will configure the transformations that will be applied in the text,
+    giving freedom to easily configure several programming languages,
+    taking advantage of the fact that many of them share similar but not identical structures.
 
     A literatura/programas atuais são dependentes de linguagem de programação. Minha proposta é
     fazer este processo independente de linguagem, mas de dialetos como este exemplo tirado do PDF
@@ -548,5 +509,34 @@
     \end{enumerate}
     \end{bluebox}
     \end{sloppypar}
+
+
+\subsubsection{Future Works}
+
+    There is a great number of features and optimizations strategies to be implemented.
+    But these improvements can be integrated further after the basic toolset implemented on this work.
+    Nowadays,
+    the control of spaces in function calls,
+    class declarations, comments and etc,
+    are more easily to understand and think.
+    However,
+    there is currently a lack of study on how should be implemented,
+    features like text and source code indentation adjustment,
+    insertion and removal of redundant parenthesis, and such others.
+
+    However,
+    the user scope definitions (of languages) are restricted to Context Free languages (powered by stack machines).
+    Therefore,
+    if the scope specifications need to be made in terms of Context Sensitive or Recursively Enumerable languages,
+    it will be necessary to treat these elements directly in the program coding (Turing Machine),
+    instead of by user configuration files.
+
+    Moreover,
+    you can not easily think of cases where you need more than Free Context handlers to set which parts of the code you
+    would like to work on.
+    For reference,
+    the Sublime Text Editor uniquely uses this approach to perform source code highlight in most diverse languages,
+    and has showed to fulfill it purpose.
+    TODO put reference to this.
 
 
