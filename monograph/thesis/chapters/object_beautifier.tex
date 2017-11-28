@@ -13,7 +13,7 @@
 \chapter{Object Beautifier}\label{sec:software_implementation}
 
 
-    \section{Introduction}
+\section{Introduction}
 
     This work aims to create a formatter (single software) of easy configuration
     and expansion capable of encompassing the programming languages that exist,
@@ -91,7 +91,7 @@
 
 
 
-\subsection{The Problem}
+\section{The Problem}
 
     The problem proposed to solve is the creation of a Universal Beautifier.
     Current softwares are limited to a similar/restricted set, or even a single
@@ -118,7 +118,7 @@
     changes are supposed to be performed.
 
 
-\subsubsection{General Goals}
+\subsection{General Goals}
 
     \begin{enumerate}[leftmargin=*]
 
@@ -156,24 +156,20 @@
 
     \end{enumerate}
 
-
-    A vantagem nesta abordagem é não ter a necessidade de ter-se conhecimento da sintaxe das linguagens de programação
-    que se irão fazer o parsing.
-    Isso porque trataremos elas como texto comum,
-    e será o usuário final que fará a configuração das transformações que serão aplicados no texto,
-    dando liberdade de facilmente se configurar várias linguagens de programação,
-    aproveitando o fato de que muitas deles compartilham estruturas semelhantes senão idênticas.
-
-    The advantage of this approach is that we do not need to be aware of the syntax of programming languages that will
-    parse.
-    This is because we will treat them as common text,
-    and it will be the end user that will configure the transformations that will be applied in the text,
+    This proposed work approach has the advantage of do not previously require we, this tools developers,
+    to be aware of the of programming languages syntaxes which will be parsed by its users.
+    This come from the fact that we will treat everything just as common plain text,
+    and end user will be hold responsible to correctly configure the formatting transformations to be applied into the
+    text or source code.
+    As so,
     giving freedom to easily configure several programming languages,
     taking advantage of the fact that many of them share similar but not identical structures.
+    TODO,
+    put reference to this.
 
-    A literatura/programas atuais são dependentes de linguagem de programação. Minha proposta é
-    fazer este processo independente de linguagem, mas de dialetos como este exemplo tirado do PDF
-    em anexo a este e-mail `Initial check list tasks to do.pdf':
+    Existing `Beautifiers' program\s are programming language dependent.
+    This proposal is to make this process independent of language,
+    but of dialects like this example:
 
     \begin{lstlisting}
     // This is the name used to reference this scope around the settings files.
@@ -195,28 +191,86 @@
     \end{lstlisting}
     \vspace*{-4mm}
 
-    A abordagem acima é uma abordagem ingênua, portanto somente brevemente ilustrativa. O real motor
-    para o software é baseado em expressões regulares e um pilha de contextos. Esta ideia foi
-    inicialmente desenvolvida pelo editor de texto `Sublime Text' \cite{Skinner}. Este editor
-    utiliza essa estrutura de blocos para fazer a sintaxe highlighting do códigos das linguagens
-    através de expressões regulares alocação de contextos/escopos. Essa mesma abordagem pode ser
-    utilizada pelo usuário para definir em quais regiões uma Máquina de Turing (linguagens C++/Rust)
-    devem fazer/propor as alterações no código.
+    In short,
+    the above approach is only briefly illustrative,
+    as the software engine is based on regular expressions and a stack of contexts.
+    This idea to be empowered was initially developed by the text editor `Sublime Text' \cite{Skinner}.
+    The `Sublime Text' editor uses such block structures to do the syntax highlighting of its source code languages.
+    The idea here is to use the same approach,
+    so the end user can define in which regions the `Object Beautifier' should propose, i.e.,
+    perform changes to the code.
+    Currently this would be equivalent to the same way `Sublime Text' users\q create their own syntaxes highlighting.
+    TODO,
+    put a reference to this.
+
+    The strengths of this approach to a code formatter are the reusability of components between languages by the end
+    user of the application rather than the beautifier programmer,
+    which makes this software much more generic and opens the possibilities of greater success for the definitive
+    creation of a Universal Code formatter for programming languages and even plain text files.
+    For example,
+    `if/for/while'\q in programming languages like `C++' and `Java' have the same syntax structuring,
+    so we have to write only once the specification for a language component like `if/for/while'\q.
+    This has the advantage of being configured by the end user rather than the programmer,
+    hence it is simpler to configure and expand the set of languages available for beautifying.
 
 
-\subsubsection{Ideas}
+\subsection{Obfuscators}
 
-    Os pontos positivos dessa abordagem para um formatador de código são a reusabilidade de
-    componentes entre as linguagens pelo usuário final da aplicação ao invés do programador, o que
-    torna este software muito mais genérico e abre a possibilidades de maior sucesso para a criação
-    definitiva de um formatador Universal de códigos das linguagens de programação, quaisquer sejam
-    elas. Por exemplo, `if/for/while'\textquotesingle s em linguagens de programação como C++ e Java
-    são da mesma estrutura. Assim temos que escrever somente uma vez a especificação para um
-    componente da linguagem sem recorrer a programação de do código do programa. Isso tem a vantagem
-    de por der ser configurado pelo usuário final ao invés do programador, assim fica mais simples
-    de configurar e expandir o conjunto de linguagens disponíveis ao processamento/beautifying.
+    Here you will find the opposite side of Source Code Beautifiers.
+    Source Code Obfuscators,
+    is useful to destroy the formatting of the code.
+    Often used to make it difficult for other people to read or to reduce the size of scripting languages that should be
+    uploaded/downloaded by internet browsers,
+    thus reducing internet traffic and saving download bandwidth:
 
-    Ideas for implementation:
+    \begin{sloppypar}
+    \begin{bluebox}\RaggedRight
+    \begin{enumerate}[leftmargin=*,parsep=0pt]
+
+    \item \url{https://en.wikipedia.org/wiki/Obfuscation_(software)}
+
+    \item \url{http://www.semdesigns.com/Products/Obfuscators/index.html}
+
+    \end{enumerate}
+    \end{bluebox}
+    \end{sloppypar}
+
+
+\section{Future Works}
+
+    There is a great number of features and optimizations strategies to be implemented.
+    But these improvements can be integrated further after the basic toolset implemented on this work.
+    Nowadays,
+    the control of spaces in function calls,
+    class declarations, comments and etc,
+    are more easily to understand and think.
+    However,
+    there is currently a lack of study on how should be implemented,
+    features like text and source code indentation adjustment,
+    insertion and removal of redundant parenthesis, and such others.
+
+    However,
+    the user scope definitions (of languages) are restricted to Context Free languages (powered by stack machines).
+    Therefore,
+    if the scope specifications need to be made in terms of Context Sensitive or Recursively Enumerable languages,
+    it will be necessary to treat these elements directly in the program coding (Turing Machine),
+    instead of by user configuration files.
+
+    Moreover,
+    you can not easily think of cases where you need more than Free Context handlers to set which parts of the code you
+    would like to work on.
+    For reference,
+    the Sublime Text Editor uniquely uses this approach to perform source code highlight in most diverse languages,
+    and has showed to fulfill it purpose.
+    TODO put reference to this.
+
+
+
+\chapter{Draft for implementation}
+
+    This chapter will not be presented on the monograph definitive version.
+    It only is a collection of articles,
+    tools and websites which should be considered useful for this work, i.e., ideas and references.
 
 \medskip
 \begin{bluebox}
@@ -230,11 +284,8 @@
 \end{enumerate}
 \end{bluebox}
 
-
-\subsubsection{Listings}
-
-    Algumas bibliotecas existentes, e potencialmente utilizadas como `syntect` para o auxílio na
-    construção do produto de software:
+    Some existing libraries,
+    and to be potentially used as `syntect` for assistance in building the software product:
 
     \begin{bluebox}
     \begin{enumerate}[leftmargin=*,parsep=0pt]
@@ -249,8 +300,8 @@
     \end{enumerate}
     \end{bluebox}
 
-    Segue-se uma lista básica de formatters/beautifiers acessado no endereço
-    \lword{\url{http://www.softpanorama.org/Utilities/beautifiers.shtml}} em março/2017:
+    The following is a basic list of formatters/beautifiers accessed at
+    \lword{\url{http://www.softpanorama.org/Utilities/beautifiers.shtml}} on march/2017:
 
     \medskip
     \begin{sloppypar}
@@ -317,14 +368,19 @@
     \end{sloppypar}
 
 
-\subsubsection{Related Works}
+\section{Related Programs for Beautifying}
 
-    Após a busca do que há de publicações científicas sobre o assunto e entra-se alguns trabalhos na
-    área específica e similar aos trabalhos feitos pelor formatadores de códigos (Beautifiers).
-    Nessa modalidade de trabalho, pode-se confundir-se com artigos que tratam sobre o `Prettyprint`,
-    que trata-se de colorir o texto e exibir-lo ao usuário. O que não é o que se busca nesse
-    trabalho, mas sim fazer alterações no texto sobre a forma como ele é estruturado, apresentado ao
-    usuário e salvo em disco. Seguem as seguintes publicações:
+    After the search of the scientific publications on the subject,
+    it was found some works in the specific area similar to the works done by code formatters (Beautifiers).
+    However,
+    source code beautifying is ambiguous definition which can be easily confused with `Prettyprinting',
+    which is about coloring the text and displaying it to the user.
+    `Prettyprint' is not is sought in this work implementation,
+    but rather make changes in the text on how it is structured,
+    presented to the user and saved on the file system.
+
+    Following we may find some references and publications for source code beautifying,
+    which should be used futurely by this monograph study:
 
 % How to add `parsep` to `itemsep` and set `parsep` to 0pt, when declaring my list?
 % https://tex.stackexchange.com/questions/366904/how-to-add-parsep-to-itemsep-and-set-parsep-to-0pt-when-declaring-my-list
@@ -489,54 +545,5 @@
 \end{bluebox}
 \end{sloppypar}
 
-
-\subsubsection{Obfuscators}
-
-    Aqui encontra-se o lado oposto dessas ferramentas, Source Code Obfuscators, que servem para
-    destruir o visual do código. Usualmente utilizado para dificultar a leitura por outras pessoas
-    ou ainda reduzir o tamanho de códigos de linguagens scripting que devem ser carregadas/baixadas
-    por navegadores de internet, assim diminuindo o tráfego de internet e salvando/economizando
-    largura de banda para download:
-
-    \begin{sloppypar}
-    \begin{bluebox}\RaggedRight
-    \begin{enumerate}[leftmargin=*,parsep=0pt]
-
-    \item \url{https://en.wikipedia.org/wiki/Obfuscation_(software)}
-
-    \item \url{http://www.semdesigns.com/Products/Obfuscators/index.html}
-
-    \end{enumerate}
-    \end{bluebox}
-    \end{sloppypar}
-
-
-\subsubsection{Future Works}
-
-    There is a great number of features and optimizations strategies to be implemented.
-    But these improvements can be integrated further after the basic toolset implemented on this work.
-    Nowadays,
-    the control of spaces in function calls,
-    class declarations, comments and etc,
-    are more easily to understand and think.
-    However,
-    there is currently a lack of study on how should be implemented,
-    features like text and source code indentation adjustment,
-    insertion and removal of redundant parenthesis, and such others.
-
-    However,
-    the user scope definitions (of languages) are restricted to Context Free languages (powered by stack machines).
-    Therefore,
-    if the scope specifications need to be made in terms of Context Sensitive or Recursively Enumerable languages,
-    it will be necessary to treat these elements directly in the program coding (Turing Machine),
-    instead of by user configuration files.
-
-    Moreover,
-    you can not easily think of cases where you need more than Free Context handlers to set which parts of the code you
-    would like to work on.
-    For reference,
-    the Sublime Text Editor uniquely uses this approach to perform source code highlight in most diverse languages,
-    and has showed to fulfill it purpose.
-    TODO put reference to this.
 
 
