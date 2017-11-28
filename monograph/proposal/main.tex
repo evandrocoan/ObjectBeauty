@@ -29,14 +29,11 @@
 % Sets this document language usage to Portuguese
 \usepackage[brazil]{babel}
 
-% Required to change the page size to A4
-% \usepackage{geometry}
-%
-% Sets this document output papel to A4 within 2 centimeters margin
-% \geometry{a4paper}
-%
 % Set the page size to be A4 as opposed to the default US Letter
-\usepackage[a4paper, margin=2cm]{geometry}
+\usepackage[a4paper,margin=2cm]{geometry}
+
+% Sets this document output papel to A4 within 2 centimeters margin
+\geometry{a4paper}
 
 
 
@@ -45,9 +42,7 @@
 %----------------------------------------------------------------------------------------
 
 % Utilities files
-\input{utilities/basic}
-\input{utilities/commands}
-\input{utilities/programming}
+\input{utilities/utilities}
 
 % To use the font Times New Roman, instead of the default LaTeX font
 % \usepackage{mathptmx}
@@ -77,47 +72,8 @@
 
 
 %----------------------------------------------------------------------------------------
-%   Bad Boxes settings
-%----------------------------------------------------------------------------------------
-
-% Bad formatting using URLs in bibtex
-% https://tex.stackexchange.com/questions/22888/bad-formatting-using-urls-in-bibtex
-\usepackage{etoolbox}
-
-% Underfull \hbox in bibliography
-% https://tex.stackexchange.com/questions/10924/underfull-hbox-in-bibliography
-\apptocmd{\thebibliography}{\raggedright}{}{}
-
-% How to avoid overfull error with url package?
-% See also the `\usepackage{url}` declarationon the file `basic.tex`.
-% Set this to 2mu or 3mu if URL start troubling again.
-% https://tex.stackexchange.com/questions/261776/how-to-avoid-overfull-error-with-url-package
-\Urlmuskip=0mu plus 1mu
-
-% Automatically put a `\medskip` spacing between paragraphs
-% https://tex.stackexchange.com/questions/365976/how-to-stop-the-package-usepackageparskip-disabling-the-paragraph-indentation
-% \edef\restoreparindent{\parindent=\the\parindent\relax}
-% \usepackage{parskip}
-% \restoreparindent
-%
-% Uncomment to remove all indentation from paragraphs
-%\setlength\parindent{0pt}
-%
-% How to restore the parskip skips between list items?
-% https://tex.stackexchange.com/questions/366848/how-to-restore-the-parskip-skips-between-list-items
-\parskip=0.5\baselineskip \advance\parskip by 0pt plus 2pt
-
-
-
-%----------------------------------------------------------------------------------------
 %   DOCUMENT CONTENTS
 %----------------------------------------------------------------------------------------
-
-\begin{document}
-
-% pdfTeX warning (ext4): destination with the same identifier (nam e{page.1}) has been already used, duplicate ignored
-% https://tex.stackexchange.com/questions/18924/pdftex-warning-ext4-destination-with-the-same-identifier-nam-epage-1-has
-\hypersetup{pageanchor=false}
 
 % Author name
 %
@@ -135,6 +91,8 @@
 \makeatother
 
 
+\begin{document}
+
 \include{cover}
 \include{abstract}
 \include{summary}
@@ -146,9 +104,7 @@
 \include{schedule}
 \include{implementation}
 
-
 \bibliographystyle{abbrv}
 \bibliography{refs}
-
 
 \end{document}
