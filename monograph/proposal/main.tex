@@ -20,20 +20,11 @@
 % Sets this document font size to 12pt and set is type to article
 \documentclass[12pt]{article}
 
-% Will allow all displayable utf8 characters to be available as input
-% https://tex.stackexchange.com/questions/13067/utf8x-vs-utf8-inputenc
-% https://tex.stackexchange.com/questions/664/why-should-i-use-usepackaget1fontenc
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-
 % Sets this document language usage to Portuguese
 \usepackage[brazil]{babel}
 
-% Set the page size to be A4 as opposed to the default US Letter
-\usepackage[a4paper,margin=2cm]{geometry}
-
 % Sets this document output papel to A4 within 2 centimeters margin
-\geometry{a4paper}
+\usepackage[a4paper,margin=2cm]{geometry}
 
 
 
@@ -84,7 +75,6 @@
 % https://tex.stackexchange.com/questions/27710/how-can-i-use-author-date-and-title-after-maketitle
 \makeatletter
 \author{Evandro Coan}\let\Author\@author
-% \author{Someone}          \let\Author\@author
 % \date{Somewhen}           \let\Date\@date
 \def\Advisor{Thiago Ângelo Gelaim}
 \def\Supervisor{Ricardo Azambuja Silveira}
@@ -93,9 +83,15 @@
 
 \begin{document}
 
+% pdfTeX warning (ext4): destination with the same identifier (nam e{page.1}) has been already used, duplicate ignored
+% https://tex.stackexchange.com/questions/18924/pdftex-warning-ext4-destination-with-the-same-identifier-nam-epage-1-has
+\hypersetup{pageanchor=false}
+
 \include{cover}
 \include{abstract}
 \include{summary}
+
+\hypersetup{pageanchor=true}
 
 % To automatically put a [Go To Top] on each section
 \addGoToSummary
