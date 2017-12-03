@@ -24,6 +24,7 @@
 \usepackage[brazil]{babel}
 
 % Sets this document output papel to A4 within 2 centimeters margin
+% \PassOptionsToPackage{showframe}{geometry}
 \usepackage[a4paper,margin=2cm]{geometry}
 
 
@@ -82,6 +83,10 @@
 
 
 \begin{document}
+
+% underfull vbox (badness 10000) has occurred while \output is active with memoir
+% https://tex.stackexchange.com/questions/65711/underfull-vbox-badness-10000-with-memoir
+\raggedbottom
 
 % pdfTeX warning (ext4): destination with the same identifier (nam e{page.1}) has been already used, duplicate ignored
 % https://tex.stackexchange.com/questions/18924/pdftex-warning-ext4-destination-with-the-same-identifier-nam-epage-1-has
