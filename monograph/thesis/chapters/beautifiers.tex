@@ -14,133 +14,135 @@
 \label{source_code_beautifiers}
 
 
-    Below there are some basic formatting rules for
-    illustration:\footnote{\url{https://www.python.org/dev/peps/pep-0008/#should-a-line-break-before-or-after-a-binary-operator}}
+Below there are some basic formatting rules for
+illustration:\footnote{\url{https://www.python.org/dev/peps/pep-0008/#should-a-line-break-before-or-after-a-binary-operator}}
 
-    \medskip
-    % \begin{bluebox}
-    \begin{enumerate}[nosep,nolistsep]
-        \item Add new lines after `\{' and before `\}
-        \item Add new lines before `\{'
-        \item Remove empty lines
-        \item Add comment lines before function
-        \item Add new lines after `;'
-        \item Add new lines after `\}'
-        \item Remove new lines
-        \item Reduce whitespace
-        \item Fix bad indentation
-    \end{enumerate}
-    % \end{bluebox}
-    \vspace{-4mm}\begin{flushright}\textcite{prettyPrinter}\end{flushright}
+\medskip
+% \begin{bluebox}
+\begin{enumerate}[nosep,nolistsep]
+    \item Add new lines after `\{' and before `\}
+    \item Add new lines before `\{'
+    \item Remove empty lines
+    \item Add comment lines before function
+    \item Add new lines after `;'
+    \item Add new lines after `\}'
+    \item Remove new lines
+    \item Reduce whitespace
+    \item Fix bad indentation
+\end{enumerate}
+% \end{bluebox}
+\vspace{-4mm}\begin{flushright}\textcite{prettyPrinter}\end{flushright}
 
-    Mostly,
-    code formatting is recuded into this set of changes.
-
-
-
-    \section{For what is their use?}
-
-    For now could not find any strong evidence or correlation about code
-    comprehension and source code beautifying \cite{improvingCodeReadability},
-    except perhaps for team annoyance:
-
-    \begin{citacao}
-    % \setlength{\itemindent}{5pt}
-    One of absolute worst, worst methods of teamicide for software developers is to engage
-    in these kinds of passive-aggressive formatting wars. I know because I've been there.
-    They destroy peer relationships, and depending on the type of formatting, can also damage
-    your ability to effectively compare revisions in source control, which is really scary.
-    I can't even imagine how bad it would get if the lead was guilty of this behavior. That's
-    leading by example, all right. Bad example. \cite{Atwood}
-    \end{citacao}
-
-    On \citeonline{improvingCodeReadability} was analyzed the level of program
-    comprehension which can be gained by the indentation and was constated that
-    the indentation levels of 2 and 4 spaces proved to have the best
-    comprehension levels again other levels.
-
-    \begin{citacao}
-    So yes, absurd as it may sound, fighting over whitespace characters and other seemingly
-    trivial issues of code layout is actually justified. Within reason of course -- when done
-    openly, in a fair and concensus building way, and without stabbing your teammates in the
-    face along the way. \cite{Atwood}
-    \end{citacao}
+Mostly,
+code formatting is recuded into this set of changes.
 
 
 
-    \section{Application Fields}
+\section{For what is their use?}
 
-    TODO.
+For now could not find any strong evidence or correlation about code
+comprehension and source code beautifying \cite{improvingCodeReadability},
+except perhaps for team annoyance:
 
-    \url{https://github.com/r-lib/styler}
-    \url{https://github.com/github/linguist}
-    \url{https://forum.sublimetext.com/t/auto-align-symbolic/34375}
-    \url{https://github.com/Thom1729/SmartIndent}
-    \url{https://github.com/wbond/package_control_channel/issues/4310} Write a formatter utility
+\begin{citacao}
+% \setlength{\itemindent}{5pt}
+One of absolute worst, worst methods of teamicide for software developers is to engage
+in these kinds of passive-aggressive formatting wars. I know because I've been there.
+They destroy peer relationships, and depending on the type of formatting, can also damage
+your ability to effectively compare revisions in source control, which is really scary.
+I can't even imagine how bad it would get if the lead was guilty of this behavior. That's
+leading by example, all right. Bad example. \cite{Atwood}
+\end{citacao}
 
-    With this ObjectBeautifier, we can edit XML files like YAML files, because
-    the when we load the XML, we create a copy (the YAML version of the XML) on
-    the `.object-beauty` folder which is edited by Sublime Text, and let the
-    XML on its original place. Then when we save our YAML copy, we translate it
-    to the XML original copy.
-    \url{https://github.com/Microsoft/XmlNotepad}
+On \citeonline{improvingCodeReadability} was analyzed the level of program
+comprehension which can be gained by the indentation and was constated that
+the indentation levels of 2 and 4 spaces proved to have the best
+comprehension levels again other levels.
 
-
-    \citeonline{annotationAssistant},
-    \citeonline{codePlagiarismDetection},
-    \citeonline{softwarePortfolio},
-    \citeonline{legacyAssets},
-    \citeonline{massMaintenance},
-    \citeonline{prettyPrinting},
-    \citeonline{architectureFormatting},
-    \citeonline{independentFramework},
-    \citeonline{programIndentation},
-    \citeonline{industrialApplication},
-    \citeonline{toolsForProjectManagement},
-    \citeonline{codeClassification},
-    \citeonline{codeScanningPatterns},
-    \citeonline{debuggingIntoExamples},
-    \citeonline{programUnderstanding},
-    \citeonline{documentingAndSharingKnowledge},
-    \citeonline{autofoldingForSourceCode},
-    \citeonline{learningSupportSystem},
-    \citeonline{syntaxHighlightingInfluencing},
-    \citeonline{improvingCodeReadability},
-    \citeonline{howNovicesRead},
-    \citeonline{theRoleOfMethodChains},
-    \citeonline{codeComprehensionComparedToOO},
-    \citeonline{enhancingLegacySoftwareSystemAnalysis},
-    \citeonline{moldableCodeEditor},
-    \citeonline{blindAndSightedProgrammers},
-    \citeonline{pushdownAutomata},
+\begin{citacao}
+So yes, absurd as it may sound, fighting over whitespace characters and other seemingly
+trivial issues of code layout is actually justified. Within reason of course -- when done
+openly, in a fair and concensus building way, and without stabbing your teammates in the
+face along the way. \cite{Atwood}
+\end{citacao}
 
 
 
-    \section{Continuous Integration}
+\section{Application Fields}
 
-    TODO
+TODO.
 
-    On a distributed version control system,
-    continuous integration would be continuously running the system tests
-    as long new code is integrated into main system
-    from the distributed clients \cite{continuousIntegration}.
+\url{https://github.com/r-lib/styler}
+\url{https://github.com/github/linguist}
+\url{https://forum.sublimetext.com/t/auto-align-symbolic/34375}
+\url{https://github.com/Thom1729/SmartIndent}
+\url{https://github.com/wbond/package_control_channel/issues/4310} Write a formatter utility
 
-    \begin{enumerate}[leftmargin=*]
-        \item \citeonline{trackingChanges},
-        \item \footnote{\url{https://blog.codinghorror.com/check-in-early-check-in-often/}}
-        \item \cite{aspectOriented}
-    \end{enumerate}
+With this ObjectBeautifier, we can edit XML files like YAML files, because
+the when we load the XML, we create a copy (the YAML version of the XML) on
+the `.object-beauty` folder which is edited by Sublime Text, and let the
+XML on its original place. Then when we save our YAML copy, we translate it
+to the XML original copy.
+\url{https://github.com/Microsoft/XmlNotepad}
+
+
+\citeonline{annotationAssistant},
+\citeonline{codePlagiarismDetection},
+\citeonline{softwarePortfolio},
+\citeonline{legacyAssets},
+\citeonline{massMaintenance},
+\citeonline{prettyPrinting},
+\citeonline{architectureFormatting},
+\citeonline{independentFramework},
+\citeonline{programIndentation},
+\citeonline{industrialApplication},
+\citeonline{toolsForProjectManagement},
+\citeonline{codeClassification},
+\citeonline{codeScanningPatterns},
+\citeonline{debuggingIntoExamples},
+\citeonline{programUnderstanding},
+\citeonline{documentingAndSharingKnowledge},
+\citeonline{autofoldingForSourceCode},
+\citeonline{learningSupportSystem},
+\citeonline{syntaxHighlightingInfluencing},
+\citeonline{improvingCodeReadability},
+\citeonline{howNovicesRead},
+\citeonline{theRoleOfMethodChains},
+\citeonline{codeComprehensionComparedToOO},
+\citeonline{enhancingLegacySoftwareSystemAnalysis},
+\citeonline{moldableCodeEditor},
+\citeonline{blindAndSightedProgrammers},
+\citeonline{pushdownAutomata},
 
 
 
-    \section{Language Server Protocol}
+\section{Continuous Integration}
 
-    TODO.
+TODO
 
-    \url{https://www.youtube.com/watch?v=2GqpdfIAhz8}
-    \url{http://langserver.org/}
-    \url{https://github.com/Microsoft/language-server-protocol}
-    \url{https://github.com/SublimeCodeIntel/SublimeCodeIntel}
-    \url{https://code.visualstudio.com/blogs/2016/06/27/common-language-protocol}
-    \url{https://www.eclipse.org/community/eclipse_newsletter/2017/may/article1.php}
-    \url{https://github.com/Microsoft/language-server-protocol/wiki/Protocol-Implementations}
+On a distributed version control system,
+continuous integration would be continuously running the system tests
+as long new code is integrated into main system
+from the distributed clients \cite{continuousIntegration}.
+
+\begin{enumerate}[leftmargin=*]
+    \item \citeonline{trackingChanges},
+    \item \footnote{\url{https://blog.codinghorror.com/check-in-early-check-in-often/}}
+    \item \cite{aspectOriented}
+\end{enumerate}
+
+
+
+\section{Language Server Protocol}
+
+TODO.
+
+\url{https://www.youtube.com/watch?v=2GqpdfIAhz8}
+\url{http://langserver.org/}
+\url{https://github.com/Microsoft/language-server-protocol}
+\url{https://github.com/SublimeCodeIntel/SublimeCodeIntel}
+\url{https://code.visualstudio.com/blogs/2016/06/27/common-language-protocol}
+\url{https://www.eclipse.org/community/eclipse_newsletter/2017/may/article1.php}
+\url{https://github.com/Microsoft/language-server-protocol/wiki/Protocol-Implementations}
+
+

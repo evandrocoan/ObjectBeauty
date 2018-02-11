@@ -15,262 +15,262 @@
 
 \section{Introduction}
 
-    This work aims to create a formatter (single software) of easy configuration
-    and expansion capable of encompassing the programming languages that exist,
-    based on a specific use of regular expressions. The strategy is not to be
-    relaying on the syntax of the programming languages parsed. With it in mind,
-    we will treat them as a common text, and it will be up to the end user to
-    configure the transformations/formatting to be applied in the text, giving
-    reasonably more freedom to easily configure several programming languages
-    (if not them all), taking advantage of the fact which many of them share
-    similar structures if not identical.
+This work aims to create a formatter (single software) of easy configuration
+and expansion capable of encompassing the programming languages that exist,
+based on a specific use of regular expressions. The strategy is not to be
+relaying on the syntax of the programming languages parsed. With it in mind,
+we will treat them as a common text, and it will be up to the end user to
+configure the transformations/formatting to be applied in the text, giving
+reasonably more freedom to easily configure several programming languages
+(if not them all), taking advantage of the fact which many of them share
+similar structures if not identical.
 
-    As a result, it is expected to have a Universal Beautifier capable of
-    covering existing languages, and which is easily extendable to cover new
-    languages. The key points of this approach are the reusability of components
-    between languages. For example, `if/for/while'\s in C++ and Java have of the
-    same structure, therefore accordingly to this approach we have to write only
-    once the specification for that language component.
+As a result, it is expected to have a Universal Beautifier capable of
+covering existing languages, and which is easily extendable to cover new
+languages. The key points of this approach are the reusability of components
+between languages. For example, `if/for/while'\s in C++ and Java have of the
+same structure, therefore accordingly to this approach we have to write only
+once the specification for that language component.
 
-    Such software ideia may to a certain extent may continue a branch of the of
-    the student `Lucas Boppre Niehues'\s graduation thesis, oriented by the
-    Professor `Olinto José Varela Furtado', entitled 'Study and Creating a
-    Structured Code Editor' defended in 2013/1 \cite{structuredEditorStudy}.
-    While reading its work, the following section that links to one of the
-    proposals of this work, in the chapter: `8.1.2 Separation of display and
-    output format\footnote{Translation of: \brazilword{Separação de formato de
-    exibição e de saída}}':
+Such software ideia may to a certain extent may continue a branch of the of
+the student `Lucas Boppre Niehues'\s graduation thesis, oriented by the
+Professor `Olinto José Varela Furtado', entitled 'Study and Creating a
+Structured Code Editor' defended in 2013/1 \cite{structuredEditorStudy}.
+While reading its work, the following section that links to one of the
+proposals of this work, in the chapter: `8.1.2 Separation of display and
+output format\footnote{Translation of: \brazilword{Separação de formato de
+exibição e de saída}}':
 
-    \begin{citacao}
-    The ways that code is displayed to the user and that it is saved to disk are
-    controlled by different configuration files. The `theme.ini' file contains,
-    among other settings, information on how to serialize the syntax tree.
-    \cite[our translation]{structuredEditorStudy} \footnote{\brazilword{As
-    formas que o código é exibido ao usuário e que ele é salvo em disco são
-    controladas por arquivos de configuração distintos. O arquivo `theme.ini'
-    contém, entre outras configurações, informações de como serializar a árvore
-    sintática.}}
-    \end{citacao}
-    \begin{citacao}
-    The output format setting is given the same way, but in a separate file,
-    called `output \_format.ini'. The decision of this separation was in view of
-    teams of programmers who want to use a single convention for the saved
-    files, but keep the display the choice of each. So members of this team can
-    share their `output\_format.ini 'files while customizing the `theme.ini'
-    file to their liking. \cite[our translation]{structuredEditorStudy}
-    \footnote{\brazilword{A configuração de formato de saída é dada da mesma
-    forma, mas em um arquivo separado, chamado `output\_format.ini'. A decisão
-    desta separação foi em vista de equipes de programadores que queiram
-    utilizar uma convenção única para os arquivos salvos, mas manter a exibição
-    a escolha de cada um. Assim os integrantes desta equipe podem compartilhar
-    os seus arquivos `output\_format.ini' enquanto personalizam o arquivo
-    `theme.ini' a seu gosto.}}
-    \end{citacao}
+\begin{citacao}
+The ways that code is displayed to the user and that it is saved to disk are
+controlled by different configuration files. The `theme.ini' file contains,
+among other settings, information on how to serialize the syntax tree.
+\cite[our translation]{structuredEditorStudy} \footnote{\brazilword{As
+formas que o código é exibido ao usuário e que ele é salvo em disco são
+controladas por arquivos de configuração distintos. O arquivo `theme.ini'
+contém, entre outras configurações, informações de como serializar a árvore
+sintática.}}
+\end{citacao}
+\begin{citacao}
+The output format setting is given the same way, but in a separate file,
+called `output \_format.ini'. The decision of this separation was in view of
+teams of programmers who want to use a single convention for the saved
+files, but keep the display the choice of each. So members of this team can
+share their `output\_format.ini 'files while customizing the `theme.ini'
+file to their liking. \cite[our translation]{structuredEditorStudy}
+\footnote{\brazilword{A configuração de formato de saída é dada da mesma
+forma, mas em um arquivo separado, chamado `output\_format.ini'. A decisão
+desta separação foi em vista de equipes de programadores que queiram
+utilizar uma convenção única para os arquivos salvos, mas manter a exibição
+a escolha de cada um. Assim os integrantes desta equipe podem compartilhar
+os seus arquivos `output\_format.ini' enquanto personalizam o arquivo
+`theme.ini' a seu gosto.}}
+\end{citacao}
 
-    Based on this, we may think about writing plugins for common text
-    editors/IDEs as Sublime Text. So while loading files from the disk, such
-    plugin calls the formatter and does the formatting according to the display
-    settings for the user. After that, when the user saves the file, the file
-    with the original formatting is returned.
+Based on this, we may think about writing plugins for common text
+editors/IDEs as Sublime Text. So while loading files from the disk, such
+plugin calls the formatter and does the formatting according to the display
+settings for the user. After that, when the user saves the file, the file
+with the original formatting is returned.
 
-    To assist in this process, an autoconfiguration module is a great help. It
-    detects how the source code is formatted and creates configuration files for
-    it. So when saving the file, the file is automatically saved in the
-    formatting it was originally read from the file system. So we have the same
-    benefit of structured editors as the proposed work of
-    \textcite{structuredEditorStudy}. At first we can think with the following
-    goal/idea for a new automated software tool:
+To assist in this process, an autoconfiguration module is a great help. It
+detects how the source code is formatted and creates configuration files for
+it. So when saving the file, the file is automatically saved in the
+formatting it was originally read from the file system. So we have the same
+benefit of structured editors as the proposed work of
+\textcite{structuredEditorStudy}. At first we can think with the following
+goal/idea for a new automated software tool:
 
-    \medskip
-    \begin{bluebox}
-    \begin{enumerate}[nolistsep]
-        \item Create an easy-to-configure and expandable formatter for the
-        existing and coming up programming languages.
-    \end{enumerate}
-    \end{bluebox}
+\medskip
+\begin{bluebox}
+\begin{enumerate}[nolistsep]
+    \item Create an easy-to-configure and expandable formatter for the
+    existing and coming up programming languages.
+\end{enumerate}
+\end{bluebox}
 
 
 
 \section{The Problem}
 
-    The problem proposed to solve is the creation of a Universal Beautifier.
-    Current softwares are limited to a similar/restricted set, or even a single
-    language and in addition, many are limited in what they can do for you when
-    processing/formatting/beautifying your source code.
-    \cite{universalCodeFormatter}
+The problem proposed to solve is the creation of a Universal Beautifier.
+Current softwares are limited to a similar/restricted set, or even a single
+language and in addition, many are limited in what they can do for you when
+processing/formatting/beautifying your source code.
+\cite{universalCodeFormatter}
 
 
 \subsection{Goals}
 
-    The object in the proposed thesis is not initially to support all the
-    formatting rules for all programming languages, but the creation of an
-    initial and robust basic formatter capable of being developed to the point
-    of being easily expanded by programmers with new processing modules and by
-    end users writing the formatting configuration files.
+The object in the proposed thesis is not initially to support all the
+formatting rules for all programming languages, but the creation of an
+initial and robust basic formatter capable of being developed to the point
+of being easily expanded by programmers with new processing modules and by
+end users writing the formatting configuration files.
 
-    The theory of the technique proposed is quite simple, but different from the
-    usual approach because the end user is assigned the responsibility to
-    dictate more precisely how the beautifying being configured will be
-    performed. Such tradeoff is the price to pay to allow the creation of a
-    Universal Beautifier. But notice when it is said, it is supposed to be easy
-    to set up, it is meant to not be required to do `C++' programming, i.e.
-    change the source code of the program to set/specify where the beautifying
-    changes are supposed to be performed.
+The theory of the technique proposed is quite simple, but different from the
+usual approach because the end user is assigned the responsibility to
+dictate more precisely how the beautifying being configured will be
+performed. Such tradeoff is the price to pay to allow the creation of a
+Universal Beautifier. But notice when it is said, it is supposed to be easy
+to set up, it is meant to not be required to do `C++' programming, i.e.
+change the source code of the program to set/specify where the beautifying
+changes are supposed to be performed.
 
 
 \subsection{General Goals}
 
-    \begin{enumerate}[leftmargin=*]
+\begin{enumerate}[leftmargin=*]
 
-        \item Write the program in C++ for greater performance, allowing the
-        formating/beautifying to be dynamic, i.e.,
-        as you type the text,
-        the text is formatted for you dynamically.
-        So on,
-        you can focus more on writing code,
-        rather than worrying about spacing,
-        alignment, parenthesis control, new lines, and whatsoever else.
+    \item Write the program in C++ for greater performance, allowing the
+    formating/beautifying to be dynamic, i.e.,
+    as you type the text,
+    the text is formatted for you dynamically.
+    So on,
+    you can focus more on writing code,
+    rather than worrying about spacing,
+    alignment, parenthesis control, new lines, and whatsoever else.
 
-        \item Use the `doctest' Framework for writing Unit Tests. Because,
-        after searching and testing some frameworks for unit testing in C ++,
-        this one was entered as serving very well the project requirements.
-        As it causes a very low increment in compile time and allows the tests to be written to the same file where the
-        program code is found,
-        without including them into the final software.
+    \item Use the `doctest' Framework for writing Unit Tests. Because,
+    after searching and testing some frameworks for unit testing in C ++,
+    this one was entered as serving very well the project requirements.
+    As it causes a very low increment in compile time and allows the tests to be written to the same file where the
+    program code is found,
+    without including them into the final software.
 
-        \item Using a multi-core version of the algorithm,
-        then each one of the rules can be processed in parallel over the same original source code.
-        This is a quite complex to write because the rules can easily generate conflicts between them, i.e.,
-        over work they are producing.
-        To resolve this problem,
-        we put each rule to generate a change object which such rule is proposing, i.e.,
-        the changes it is working on.
-        At the end of the processing of all rules,
-        a merging of the generated changes which each rule produced will be created,
-        and if two rules wanted to change the same piece a.k.a.
-        section of code,
-        an exception will be thrown and a Changes\q Handler must be available to resolve this conflict.
-        If the Changes\q Handler does not exist at the moment for the existing conflict,
-        both changes are discarded and only changes without conflict are reflected, i.e.,
-        incorporated into the code.
+    \item Using a multi-core version of the algorithm,
+    then each one of the rules can be processed in parallel over the same original source code.
+    This is a quite complex to write because the rules can easily generate conflicts between them, i.e.,
+    over work they are producing.
+    To resolve this problem,
+    we put each rule to generate a change object which such rule is proposing, i.e.,
+    the changes it is working on.
+    At the end of the processing of all rules,
+    a merging of the generated changes which each rule produced will be created,
+    and if two rules wanted to change the same piece a.k.a.
+    section of code,
+    an exception will be thrown and a Changes\q Handler must be available to resolve this conflict.
+    If the Changes\q Handler does not exist at the moment for the existing conflict,
+    both changes are discarded and only changes without conflict are reflected, i.e.,
+    incorporated into the code.
 
-    \end{enumerate}
+\end{enumerate}
 
-    This proposed work approach has the advantage of do not previously require we, this tools developers,
-    to be aware of the of programming languages syntaxes which will be parsed by its users.
-    This come from the fact that we will treat everything just as common plain text,
-    and end user will be hold responsible to correctly configure the formatting transformations to be applied into the
-    text or source code.
-    As so,
-    giving freedom to easily configure several programming languages,
-    taking advantage of the fact that many of them share similar but not identical structures.
-    TODO,
-    put reference to this.
+This proposed work approach has the advantage of do not previously require we, this tools developers,
+to be aware of the of programming languages syntaxes which will be parsed by its users.
+This come from the fact that we will treat everything just as common plain text,
+and end user will be hold responsible to correctly configure the formatting transformations to be applied into the
+text or source code.
+As so,
+giving freedom to easily configure several programming languages,
+taking advantage of the fact that many of them share similar but not identical structures.
+TODO,
+put reference to this.
 
-    Existing `Beautifiers' program\s are programming language dependent.
-    This proposal is to make this process independent of language,
-    but of dialects like this example:
+Existing `Beautifiers' program\s are programming language dependent.
+This proposal is to make this process independent of language,
+but of dialects like this example:
 
-    \begin{lstlisting}
-    // This is the name used to reference this scope around the settings files.
-    Scope Name:
-    %c++_like_block_comment
+\begin{lstlisting}
+// This is the name used to reference this scope around the settings files.
+Scope Name:
+%c++_like_block_comment
 
-    // This set on which languages this block should be included. Setting it
-    // to empty will allow it to be parsed for any languages.
-    Language Inclusion:
-    Java, C++, Pawn
+// This set on which languages this block should be included. Setting it
+// to empty will allow it to be parsed for any languages.
+Language Inclusion:
+Java, C++, Pawn
 
-    // Defines a expression which will map the beginning of a exclusion block.
-    Scope Start:
-    /\*\*
+// Defines a expression which will map the beginning of a exclusion block.
+Scope Start:
+/\*\*
 
-    // Defines a expression which will map the ending of a exclusion block.
-    Scope End:
-    \\\*
-    \end{lstlisting}
-    \vspace*{-4mm}
+// Defines a expression which will map the ending of a exclusion block.
+Scope End:
+\\\*
+\end{lstlisting}
+\vspace*{-4mm}
 
-    In short,
-    the above approach is only briefly illustrative,
-    as the software engine is based on regular expressions and a stack of contexts.
-    This idea to be empowered was initially developed by the text editor `Sublime Text' \cite{Skinner}.
-    The `Sublime Text' editor uses such block structures to do the syntax highlighting of its source code languages.
-    The idea here is to use the same approach,
-    so the end user can define in which regions the `Object Beautifier' should propose, i.e.,
-    perform changes to the code.
-    Currently this would be equivalent to the same way `Sublime Text' users\q create their own syntaxes highlighting.
-    TODO,
-    put a reference to this.
+In short,
+the above approach is only briefly illustrative,
+as the software engine is based on regular expressions and a stack of contexts.
+This idea to be empowered was initially developed by the text editor `Sublime Text' \cite{Skinner}.
+The `Sublime Text' editor uses such block structures to do the syntax highlighting of its source code languages.
+The idea here is to use the same approach,
+so the end user can define in which regions the `Object Beautifier' should propose, i.e.,
+perform changes to the code.
+Currently this would be equivalent to the same way `Sublime Text' users\q create their own syntaxes highlighting.
+TODO,
+put a reference to this.
 
-    The strengths of this approach to a code formatter are the reusability of components between languages by the end
-    user of the application rather than the beautifier programmer,
-    which makes this software much more generic and opens the possibilities of greater success for the definitive
-    creation of a Universal Code formatter for programming languages and even plain text files.
-    For example,
-    `if/for/while'\q in programming languages like `C++' and `Java' have the same syntax structuring,
-    so we have to write only once the specification for a language component like `if/for/while'\q.
-    This has the advantage of being configured by the end user rather than the programmer,
-    hence it is simpler to configure and expand the set of languages available for beautifying.
+The strengths of this approach to a code formatter are the reusability of components between languages by the end
+user of the application rather than the beautifier programmer,
+which makes this software much more generic and opens the possibilities of greater success for the definitive
+creation of a Universal Code formatter for programming languages and even plain text files.
+For example,
+`if/for/while'\q in programming languages like `C++' and `Java' have the same syntax structuring,
+so we have to write only once the specification for a language component like `if/for/while'\q.
+This has the advantage of being configured by the end user rather than the programmer,
+hence it is simpler to configure and expand the set of languages available for beautifying.
 
 
 \subsection{Obfuscators}
 
-    Here you will find the opposite side of Source Code Beautifiers.
-    Source Code Obfuscators,
-    is useful to destroy the formatting of the code.
-    Often used to make it difficult for other people to read or to reduce the size of scripting languages that should be
-    uploaded/downloaded by internet browsers,
-    thus reducing internet traffic and saving download bandwidth:
+Here you will find the opposite side of Source Code Beautifiers.
+Source Code Obfuscators,
+is useful to destroy the formatting of the code.
+Often used to make it difficult for other people to read or to reduce the size of scripting languages that should be
+uploaded/downloaded by internet browsers,
+thus reducing internet traffic and saving download bandwidth:
 
-    \begin{sloppypar}
-    \begin{bluebox}\RaggedRight
-    \begin{enumerate}[leftmargin=*,parsep=0pt]
+\begin{sloppypar}
+\begin{bluebox}\RaggedRight
+\begin{enumerate}[leftmargin=*,parsep=0pt]
 
-    \item \url{https://en.wikipedia.org/wiki/Obfuscation_(software)}
+\item \url{https://en.wikipedia.org/wiki/Obfuscation_(software)}
 
-    \item \url{http://www.semdesigns.com/Products/Obfuscators/index.html}
+\item \url{http://www.semdesigns.com/Products/Obfuscators/index.html}
 
-    \end{enumerate}
-    \end{bluebox}
-    \end{sloppypar}
+\end{enumerate}
+\end{bluebox}
+\end{sloppypar}
 
 
 \section{Future Works}
 
-    There is a great number of features and optimizations strategies to be implemented.
-    But these improvements can be integrated further after the basic toolset implemented on this work.
-    Nowadays,
-    the control of spaces in function calls,
-    class declarations, comments and etc,
-    are more easily to understand and think.
-    However,
-    there is currently a lack of study on how should be implemented,
-    features like text and source code indentation adjustment,
-    insertion and removal of redundant parenthesis, and such others.
+There is a great number of features and optimizations strategies to be implemented.
+But these improvements can be integrated further after the basic toolset implemented on this work.
+Nowadays,
+the control of spaces in function calls,
+class declarations, comments and etc,
+are more easily to understand and think.
+However,
+there is currently a lack of study on how should be implemented,
+features like text and source code indentation adjustment,
+insertion and removal of redundant parenthesis, and such others.
 
-    However,
-    the user scope definitions (of languages) are restricted to Context Free languages (powered by stack machines).
-    Therefore,
-    if the scope specifications need to be made in terms of Context Sensitive or Recursively Enumerable languages,
-    it will be necessary to treat these elements directly in the program coding (Turing Machine),
-    instead of by user configuration files.
+However,
+the user scope definitions (of languages) are restricted to Context Free languages (powered by stack machines).
+Therefore,
+if the scope specifications need to be made in terms of Context Sensitive or Recursively Enumerable languages,
+it will be necessary to treat these elements directly in the program coding (Turing Machine),
+instead of by user configuration files.
 
-    Moreover,
-    you can not easily think of cases where you need more than Free Context handlers to set which parts of the code you
-    would like to work on.
-    For reference,
-    the Sublime Text Editor uniquely uses this approach to perform source code highlight in most diverse languages,
-    and has showed to fulfill it purpose.
-    TODO put reference to this.
+Moreover,
+you can not easily think of cases where you need more than Free Context handlers to set which parts of the code you
+would like to work on.
+For reference,
+the Sublime Text Editor uniquely uses this approach to perform source code highlight in most diverse languages,
+and has showed to fulfill it purpose.
+TODO put reference to this.
 
 
 
 \chapter{Draft for implementation}
 
-    This chapter will not be presented on the monograph definitive version.
-    It only is a collection of articles,
-    tools and websites which should be considered useful for this work, i.e., ideas and references.
+This chapter will not be presented on the monograph definitive version.
+It only is a collection of articles,
+tools and websites which should be considered useful for this work, i.e., ideas and references.
 
 \medskip
 \begin{bluebox}
@@ -284,103 +284,103 @@
 \end{enumerate}
 \end{bluebox}
 
-    Some existing libraries,
-    and to be potentially used as `syntect` for assistance in building the software product:
+Some existing libraries,
+and to be potentially used as `syntect` for assistance in building the software product:
 
-    \begin{bluebox}
-    \begin{enumerate}[leftmargin=*,parsep=0pt]
+\begin{bluebox}
+\begin{enumerate}[leftmargin=*,parsep=0pt]
 
-        \item \url{https://github.com/jbeder/yaml-cpp}
-        \item \url{https://github.com/trishume/syntect}
-        \item \url{https://github.com/onqtam/doctest}
-        \item \url{https://github.com/c42f/tinyformat}
-        \item \url{https://github.com/limetext/lime}
-        \item \url{https://forum.sublimetext.com/t/disassembling-sublime-text/24824}
+    \item \url{https://github.com/jbeder/yaml-cpp}
+    \item \url{https://github.com/trishume/syntect}
+    \item \url{https://github.com/onqtam/doctest}
+    \item \url{https://github.com/c42f/tinyformat}
+    \item \url{https://github.com/limetext/lime}
+    \item \url{https://forum.sublimetext.com/t/disassembling-sublime-text/24824}
 
-    \end{enumerate}
-    \end{bluebox}
+\end{enumerate}
+\end{bluebox}
 
-    The following is a basic list of formatters/beautifiers accessed at
-    \lword{\url{http://www.softpanorama.org/Utilities/beautifiers.shtml}} on march/2017:
+The following is a basic list of formatters/beautifiers accessed at
+\lword{\url{http://www.softpanorama.org/Utilities/beautifiers.shtml}} on march/2017:
 
-    \medskip
-    \begin{sloppypar}
-    \begin{bluebox}\RaggedRight
-    \begin{enumerate}[leftmargin=*,parsep=0pt]
+\medskip
+\begin{sloppypar}
+\begin{bluebox}\RaggedRight
+\begin{enumerate}[leftmargin=*,parsep=0pt]
 
-        \item CB210.ZIP - C Beautifier 2.10 - polish C source code (19,406 bytes, 06/22/92)
-        \item CL121.ZIP - Codelister 1.21 - print C code with stats (51,110 bytes, 01/10/94)
+    \item CB210.ZIP - C Beautifier 2.10 - polish C source code (19,406 bytes, 06/22/92)
+    \item CL121.ZIP - Codelister 1.21 - print C code with stats (51,110 bytes, 01/10/94)
 
-        \item CPC200.ZIP - CodePrint for C/C++ 2.00 is a full-featured command line driven source
-        code reformatter and pretty printer for C++ and C; over 20 customization features including
-        auto-indent, adjustable tab spacing, indent styles, flow lines, comment alignment, and line
-        editing for consistent white space (140,605 bytes, 01/26/96)
+    \item CPC200.ZIP - CodePrint for C/C++ 2.00 is a full-featured command line driven source
+    code reformatter and pretty printer for C++ and C; over 20 customization features including
+    auto-indent, adjustable tab spacing, indent styles, flow lines, comment alignment, and line
+    editing for consistent white space (140,605 bytes, 01/26/96)
 
-        \item CSCOP120.ZIP - c-scope 1.20 analyzes C source code and produces various reports
-        (48,505 bytes, 06/30/95)
+    \item CSCOP120.ZIP - c-scope 1.20 analyzes C source code and produces various reports
+    (48,505 bytes, 06/30/95)
 
-        \item HTML : \url{http://www.digital-mines.com/htb/}
-        \item HTML : \url{http://www.datacomm.ch/mwoog/software/perl/beautifier.html}
-        \item HTML : \url{http://www.watson-net.com/free/perl/s_fhtml.asp}
-        \item SQL : \url{http://www.netbula.com/products/sqlb}
-        \item Oracle PLSQL : \url{http://www.revealnet.com}
-        \item GPL \url{http://www.geocities.com/~starkville/vancbj.html}
-        \item GPL \url{http://kevinkelley.mystarband.net/java/dent.html}
-        \item Free \url{http://www.tiobe.com/jacobe.htm}
-        \item Free \url{http://www.mmsindia.com/JPretty.html}
-        \item Free \url{http://members.magnet.at/johann.langhofer/products/jxbeauty/overview.html} (has JBuilder support)
-        \item Free \url{http://www.semdesigns.com/Products/Formatters/JavaFormatter.html}
-        \item Commercial \$24.99 \url{http://smartbeautify.com}
-        \item Commercial \$129 \url{http://www.jindent.com}
-        \item Google \url{http://directory.google.com/Top/Computers/Programming/Languages/Java/Development_Tools/Code_Beautifiers/?tc=1}
-        \item Java, SQL, HTML, C++ : \url{http://www.semdesigns.com/Products/DMS/DMSToolkit.html}
-        \item Java JIndent \url{http://home.wtal.de/software-solutions/jindent}
-        \item Java Pat \url{http://javaregex.com/cgi-bin/pat/jbeaut.asp}
-        \item Java JStyle \url{http://www.redrival.com/greenrd/java/jstyle}
-        \item Java JPrettyPrinter \url{http://www.epoch.com.tw/download/ms/java/java.htm}
-        \item Java JxBeauty \url{http://members.nextra.at/johann.langhofer/download/jxbeauty} and the JxBeauty Home
-        \item Java beautify percolator
-        \item Java list \url{http://www.java.about.com/compute/java/library/weekly/aa102499.htm}
-        \item Java html present VasJava2HTML
-        \item Java code colorifier and beautifier \url{http://www.mycgiserver.com/~lisali/jccb}
-        \item Perl : \url{http://www.consultix-inc.com/www.consultix-inc.com/talk.htm}
-        \item Perl : \url{http://www.consultix-inc.com/www.consultix-inc.com/perl_beautifier.html}
-        \item Fortran beautifier : \url{http://www.aeem.iastate.edu/Fortran/tools.html}
+    \item HTML : \url{http://www.digital-mines.com/htb/}
+    \item HTML : \url{http://www.datacomm.ch/mwoog/software/perl/beautifier.html}
+    \item HTML : \url{http://www.watson-net.com/free/perl/s_fhtml.asp}
+    \item SQL : \url{http://www.netbula.com/products/sqlb}
+    \item Oracle PLSQL : \url{http://www.revealnet.com}
+    \item GPL \url{http://www.geocities.com/~starkville/vancbj.html}
+    \item GPL \url{http://kevinkelley.mystarband.net/java/dent.html}
+    \item Free \url{http://www.tiobe.com/jacobe.htm}
+    \item Free \url{http://www.mmsindia.com/JPretty.html}
+    \item Free \url{http://members.magnet.at/johann.langhofer/products/jxbeauty/overview.html} (has JBuilder support)
+    \item Free \url{http://www.semdesigns.com/Products/Formatters/JavaFormatter.html}
+    \item Commercial \$24.99 \url{http://smartbeautify.com}
+    \item Commercial \$129 \url{http://www.jindent.com}
+    \item Google \url{http://directory.google.com/Top/Computers/Programming/Languages/Java/Development_Tools/Code_Beautifiers/?tc=1}
+    \item Java, SQL, HTML, C++ : \url{http://www.semdesigns.com/Products/DMS/DMSToolkit.html}
+    \item Java JIndent \url{http://home.wtal.de/software-solutions/jindent}
+    \item Java Pat \url{http://javaregex.com/cgi-bin/pat/jbeaut.asp}
+    \item Java JStyle \url{http://www.redrival.com/greenrd/java/jstyle}
+    \item Java JPrettyPrinter \url{http://www.epoch.com.tw/download/ms/java/java.htm}
+    \item Java JxBeauty \url{http://members.nextra.at/johann.langhofer/download/jxbeauty} and the JxBeauty Home
+    \item Java beautify percolator
+    \item Java list \url{http://www.java.about.com/compute/java/library/weekly/aa102499.htm}
+    \item Java html present VasJava2HTML
+    \item Java code colorifier and beautifier \url{http://www.mycgiserver.com/~lisali/jccb}
+    \item Perl : \url{http://www.consultix-inc.com/www.consultix-inc.com/talk.htm}
+    \item Perl : \url{http://www.consultix-inc.com/www.consultix-inc.com/perl_beautifier.html}
+    \item Fortran beautifier : \url{http://www.aeem.iastate.edu/Fortran/tools.html}
 
-        \item C++ : BCPP site is at \url{http://dickey.his.com/bcpp/bcpp.html} or at \url{http://www.clark.net/pub/dickey}.
-        BCPP ftp site is at \url{ftp://dickey.his.com/bcpp/bcpp.tar.gz}
+    \item C++ : BCPP site is at \url{http://dickey.his.com/bcpp/bcpp.html} or at \url{http://www.clark.net/pub/dickey}.
+    BCPP ftp site is at \url{ftp://dickey.his.com/bcpp/bcpp.tar.gz}
 
-        \item C++ : \url{http://www.consultix-inc.com/c++b.html}
-        \item C : \url{http://www.chips.navy.mil/oasys/c/} and mirror at Oasys
-        \item C++, C, Java, Oracle Pro-C Beautifier \url{http://www.geocities.com/~starkville/main.html}
+    \item C++ : \url{http://www.consultix-inc.com/c++b.html}
+    \item C : \url{http://www.chips.navy.mil/oasys/c/} and mirror at Oasys
+    \item C++, C, Java, Oracle Pro-C Beautifier \url{http://www.geocities.com/~starkville/main.html}
 
-        \item C++, C beautifier \url{http://users.erols.com/astronaut/vim/ccb-1.07.tar.gz} and site at
-        \url{http://users.erols.com/astronaut/vim/#vimlinks_src}
+    \item C++, C beautifier \url{http://users.erols.com/astronaut/vim/ccb-1.07.tar.gz} and site at
+    \url{http://users.erols.com/astronaut/vim/#vimlinks_src}
 
-        \item GC! GreatCode! is a powerful C/C++ source code beautifier Windows 95/98/NT/2000
-        \url{http://perso.club-internet.fr/cbeaudet}
+    \item GC! GreatCode! is a powerful C/C++ source code beautifier Windows 95/98/NT/2000
+    \url{http://perso.club-internet.fr/cbeaudet}
 
-        \item C++ beautifier `SourceStyler' \url{https://web.archive.org/web/20061205061102/http://ochresoftware.com/}
-        \item JavaScript : \url{http://jsbeautifier.org/}
+    \item C++ beautifier `SourceStyler' \url{https://web.archive.org/web/20061205061102/http://ochresoftware.com/}
+    \item JavaScript : \url{http://jsbeautifier.org/}
 
-    \end{enumerate}
-    \end{bluebox}
-    \end{sloppypar}
+\end{enumerate}
+\end{bluebox}
+\end{sloppypar}
 
 
 \section{Related Programs for Beautifying}
 
-    After the search of the scientific publications on the subject,
-    it was found some works in the specific area similar to the works done by code formatters (Beautifiers).
-    However,
-    source code beautifying is ambiguous definition which can be easily confused with `Prettyprinting',
-    which is about coloring the text and displaying it to the user.
-    `Prettyprint' is not is sought in this work implementation,
-    but rather make changes in the text on how it is structured,
-    presented to the user and saved on the file system.
+After the search of the scientific publications on the subject,
+it was found some works in the specific area similar to the works done by code formatters (Beautifiers).
+However,
+source code beautifying is ambiguous definition which can be easily confused with `Prettyprinting',
+which is about coloring the text and displaying it to the user.
+`Prettyprint' is not is sought in this work implementation,
+but rather make changes in the text on how it is structured,
+presented to the user and saved on the file system.
 
-    Following we may find some references and publications for source code beautifying,
-    which should be used futurely by this monograph study:
+Following we may find some references and publications for source code beautifying,
+which should be used futurely by this monograph study:
 
 % How to add `parsep` to `itemsep` and set `parsep` to 0pt, when declaring my list?
 % https://tex.stackexchange.com/questions/366904/how-to-add-parsep-to-itemsep-and-set-parsep-to-0pt-when-declaring-my-list
