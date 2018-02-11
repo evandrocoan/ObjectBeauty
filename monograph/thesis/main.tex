@@ -110,19 +110,19 @@
 %----------------------------------------------------------------------------------------
 
 \input{settings}
-\addbibresource{references.bib}
+\addbibresource{aftertext/references.bib}
 
 % When writing a large document, it is sometimes useful to work on selected sections of the document
 % to speed up compilation time: https://en.wikibooks.org/wiki/TeX/includeonly
 \newif\ifforcedinclude\forcedincludefalse
 
-% \addtoincludeonly{pretexto/agradecimentos}
-% \addtoincludeonly{pretexto/epigrafe}
-% \addtoincludeonly{pretexto/fichacatalografica}
-% \addtoincludeonly{pretexto/folhadeaprovacao}
-% \addtoincludeonly{pretexto/resumos}
-% \addtoincludeonly{pretexto/siglas}
-% \addtoincludeonly{pretexto/simbolos}
+% \addtoincludeonly{beforetext/agradecimentos}
+% \addtoincludeonly{beforetext/epigrafe}
+% \addtoincludeonly{beforetext/fichacatalografica}
+% \addtoincludeonly{beforetext/folhadeaprovacao}
+% \addtoincludeonly{beforetext/resumos}
+% \addtoincludeonly{beforetext/siglas}
+% \addtoincludeonly{beforetext/simbolos}
 
 % Part 1
 \addtoincludeonly{chapters/introduction}
@@ -133,8 +133,8 @@
 \addtoincludeonly{chapters/object_beautifier}
 % \addtoincludeonly{chapters/conclusion}
 
-% \addtoincludeonly{postexto/apendice_a}
-% \addtoincludeonly{postexto/abstracts}
+% \addtoincludeonly{aftertext/apendice_a}
+% \addtoincludeonly{aftertext/abstracts}
 
 % Control whether the full document will be generated
 \doincludeonly
@@ -156,7 +156,7 @@
     \frenchspacing
 
     % ELEMENTOS PRÉ-TEXTUAIS
-    \input{ufscthesisx/setup/pretexto}
+    \input{ufscthesisx/setup/beforetext}
 
 
 
@@ -220,7 +220,7 @@
         \setlength\midchapskip{20pt}
         \setlength\afterchapskip{20pt}
 
-        % \include{postexto/apendice_a}
+        % \include{aftertext/apendice_a}
     \end{apendicesenv}
 
     % Anexos, inicia os anexos
@@ -232,7 +232,7 @@
         \setlength\midchapskip{20pt}
         \setlength\afterchapskip{20pt}
 
-        % \include{postexto/apendice_a}
+        % \include{aftertext/apendice_a}
     \end{anexosenv}
 
     % INDICE REMISSIVO
