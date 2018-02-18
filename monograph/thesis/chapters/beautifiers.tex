@@ -77,6 +77,29 @@ TODO.
 \url{https://forum.sublimetext.com/t/auto-align-symbolic/34375}
 \url{https://github.com/Thom1729/SmartIndent}
 \url{https://github.com/wbond/package_control_channel/issues/4310} Write a formatter utility
+\url{https://github.com/PyCQA/pydocstyle}
+\url{https://github.com/PyCQA/pycodestyle}
+
+
+
+\subsection{Configuration Detection}
+
+If found on the project root folder,
+a folder named `.object-beauty',
+it will be used to store the automatically generated configurations based on the current configuration\s rules.
+Such thing,
+cannot be easily implemented because of the various complexities which can be introduced into the formatting rules.
+For example,
+the if configurations rules are simple and limited to just changing simple aspects of the formatting,
+then the configuration generation will also be simple,
+because there are only a few aspects to analyze.
+However,
+as the formatting rules grow up,
+their complexity equally proportionally grows,
+due the increased count of possibilities to analyze when combined together.
+
+
+\subsection{Multidirectional Translation}
 
 With this ObjectBeautifier,
 we can edit XML files like YAML files,
@@ -89,6 +112,12 @@ Similarly,
 for a C language code,
 it would be like to change some bit on the compiled binary code and have the change reflected on the original C source code.
 \url{https://github.com/Microsoft/XmlNotepad}
+
+Open Source Neural Machine Translation in Torch,
+translates between languages by machine learning.
+\url{https://github.com/OpenNMT/OpenNMT}
+
+
 
 \citeonline{annotationAssistant},
 \citeonline{codePlagiarismDetection},
