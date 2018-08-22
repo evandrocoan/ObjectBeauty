@@ -5,16 +5,56 @@
 
 name: Abstract Machine Language
 scope: source.sma
-contexts:
-    include: numbers
-    include: keywords
-    include: function
-    include: check_brackets
+contexts: {
+  include: numbers
+  include: keywords
+  include: function
+  include: check_brackets
 
-    match: (true|false)
-        scope: constant.language
+  match: (true|false) {
+    scope: constant.language
+  }
+  include: Packages/Editor/Consts.syntax
+}
 
-    include: Packages/AmxxEditor/AmxxEditorConsts.sublime-syntax
+function: {
+  include: function_definition
+  include: function_call
+}
+
+function_definition: {
+  match: ^[\s;]*(public|stock|native|forward)\s+([A-Za-z_]\w*:\s*)?([A-Za-z_][\w_]*)[\s]*(\() {
+    captures: {
+      1: storage.type.function.pawn
+      2: storage.modifier.tag.pawn
+      3: support.function.definition.pawn
+      4: function.parens.pawn
+    }
+    push: {
+      match: \) {
+        scope: function.parens.pawn
+        pop: true
+      }
+      include: main
+      include: function_block
+    }
+  }
+  match: '^[ ;]*([A-Za-z_]\w*:)?([A-Za-z_][\w_]*)[\s]*(\()' {
+    captures: {
+      1: storage.modifier.tag.pawn
+      2: support.function.definition.pawn
+      3: function.parens.pawn
+    }
+    push: {
+      match: \) {
+        scope: function.parens.pawn
+        pop: true
+      }
+      include: main
+      include: function_block
+    }
+  }
+}
 
 /*
 
