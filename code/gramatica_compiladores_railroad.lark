@@ -1,0 +1,50 @@
+
+
+language_syntax::= _NEWLINE? preamble_statements _NEWLINE? language_construct_rules _NEWLINE? ( miscellaneous_language_rules _NEWLINE? )* _NEWLINE?
+
+preamble_statements::= ( ( target_language_name_statement | master_scope_name_statement ) _NEWLINE )+
+language_construct_rules::= "contexts" ":" indentation_block
+miscellaneous_language_rules::= /[^:\n]+/ ":" indentation_block
+
+target_language_name_statement::= "name" ":" free_input_string
+master_scope_name_statement::= "scope" ":" free_input_string
+
+// indentation_block::=  statements_list _NEWLINE | _NEWLINE _INDENT statements_list+ _DEDENT
+indentation_block::= "{" _NEWLINE ( statements_list _NEWLINE )+ "}"
+statements_list::= match_statement | include_statement | push_statement | pop_statement | meta_scope_statement
+
+push_statement::=  "push" ":" indentation_block
+include_statement::= "include" ":" free_input_string
+
+match_statements::= scope_name | capturing_block | statements_list
+match_statement::= "match" ":" free_input_string "{" ( _NEWLINE match_statements )* _NEWLINE "}"
+scope_name::= "scope" ":" free_input_string
+
+capturing_block::= "captures" ":" "{" ( _NEWLINE capturing_lines )+ _NEWLINE "}"
+capturing_lines::= INTEGER+ ":" free_input_string
+
+pop_statement::= "pop" ":" free_input_string
+meta_scope_statement::= "meta_scope" ":" free_input_string
+
+// General terminal constructs
+CR::= "/r"
+LF::= "/n"
+SPACES::= /[\t \f]+/
+
+// General non terminal constructs
+free_input_string::= "(\\{|\\}|[^\n{}])+"
+
+SINGLE_LINE_COMMENT::= "(\#|\/\/)[^\n]*"
+MULTI_LINE_COMMENT::= "\/\*([\s\S]*?)\*\/"
+
+NEWLINE::= (CR? LF)+
+_NEWLINE::= ( "\r?\n[\t ]*" | SINGLE_LINE_COMMENT )+
+INTEGER::= "0".."9"
+
+// %ignore SPACES
+// %ignore MULTI_LINE_COMMENT
+// %ignore SINGLE_LINE_COMMENT
+
+// %declare _INDENT _DEDENT
+// _INDENT::= "  "
+// _DEDENT::= "  "
