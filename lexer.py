@@ -37,7 +37,7 @@ class TreeIndenter(Indenter):
     CLOSE_PAREN_types = []
     INDENT_type = '_INDENT'
     DEDENT_type = '_DEDENT'
-    tab_len = 8
+    tab_len = 2
 
 # parser = Lark(tree_grammar, parser='lalr', postlex=TreeIndenter())
 
@@ -73,8 +73,16 @@ contexts:
 # python3 -m lark.tools.standalone /cygdrive/l/Arquivos/gramatica_compiladores.lark > lexer.py
 def test():
     # print(parser.parse(test_tree).pretty())
-    tree = meu_parser.parse(simples_exemplo)
+    # tree = meu_parser.parse(simples_exemplo)
     # print(tree.pretty())
+    grammar_file_path = get_relative_path( "programa_exemplo_simples.beauty-grammar", __file__ )
+
+    with open( grammar_file_path, "r", encoding='utf-8' ) as file:
+        ## The parser used to build the Abstract Syntax Tree and parse the input text
+        # meu_parser = Lark( file.read(), start='language_syntax', lexer='standard', parser='lalr', postlex=TreeIndenter() )
+        tree = meu_parser.parse(file.read())
+        print(tree.pretty())
+
 
 if __name__ == '__main__':
     test()

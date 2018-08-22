@@ -22,16 +22,15 @@ https://github.com/lark-parser/lark/blob/master/lark/grammars/common.lark
 name: Abstract Machine Language
 scope: source.sma
 contexts:
-  main:
-    include: numbers
-    include: keywords
-    include: function
-    include: check_brackets
+  include: numbers
+  include: keywords
+  include: function
+  include: check_brackets
 
-    match: (true|false)
-      scope: constant.language
+  match: (true|false)
+    scope: constant.language
 
-    include: Packages/AmxxEditor/AmxxEditorConsts.sublime-syntax
+  include: Packages/AmxxEditor/AmxxEditorConsts.sublime-syntax
 
 function:
   include: function_definition
