@@ -56,6 +56,99 @@ function_definition: {
   }
 }
 
+function_block: {
+  match: '\{' {
+    scope: punctuation.definition.group.start
+    push: {
+      meta_scope: meta.block.pawn
+      match: '\}' {
+        scope: punctuation.definition.group.end
+        pop: true
+      }
+      include: main
+      include: function_call
+    }
+    include: main_2
+  }
+  include: main
+}
+
+function_call: {
+  match: \s*([A-Za-z_][\w_]*)[\s|\\n]*(\() {
+    captures: {
+      1: support.function.call.pawn
+      2: function.parens.pawn
+    }
+    push: {
+      match: \) {
+        scope: function.parens.pawn
+        pop: true
+      }
+      include: main
+    }
+  }
+}
+
+numbers: {
+  match: '(\d+)(\.\{2\})(\d+)' {
+    captures: {
+      1: constant.numeric.int.pawn
+      2: keyword.operator.switch-range.pawn
+      3: constant.numeric.int.pawn
+    }
+  }
+
+  match: ([-]?0x[\da-f]+) {
+    scope: constant.numeric.hex.pawn
+  }
+  match: \b(\d+\.\d+)\b {
+    scope: constant.numeric.float.pawn
+  }
+  match: \b(\d+)\b {
+    scope: constant.numeric.int.pawn
+  }
+}
+
+keywords: {
+  match: \s*(case\b([^:\n]*):)\s+ {
+    captures: {
+      1: keyword.control.pawn
+      2: storage.type.vars.pawn
+    }
+  }
+  match: (~|&|\||\^|<<|>>) {
+    scope: keyword.operator.bitwise.pawn
+  }
+  match: (\,|;) {
+    scope: keyword.coma.pawn
+  }
+
+  match: (\{|\}) {
+    scope: keyword.brace.pawn
+  }
+}
+
+parens: {
+  match: \( {
+    scope: parens.pawn
+    push: {
+      meta_scope: meta.group.c
+      match: \) {
+        scope: parens.pawn
+        pop: true
+      }
+      include: main
+    }
+  }
+}
+
+check_brackets: {
+  match: \) {
+    scope: invalid.illegal.stray-bracket-end
+  }
+}
+
+
 /*
 
 Entrega 1 é:
