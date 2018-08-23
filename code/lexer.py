@@ -251,6 +251,97 @@
 #
 #
 
+class LarkError(Exception):
+    pass
+
+class GrammarError(LarkError):
+    pass
+
+class ParseError(LarkError):
+    pass
+
+class LexError(LarkError):
+    pass
+
+class UnexpectedInput(LarkError):
+    pos_in_stream = None
+
+    def get_context(self, text, span=40):
+        pos = self.pos_in_stream
+        start = max(pos - span, 0)
+        end = pos + span
+        before = text[start:pos].rsplit('\n', 1)[-1]
+        after = text[pos:end].split('\n', 1)[0]
+        return before + after + '\n' + ' ' * len(before) + '^\n'
+
+    def match_examples(self, parse_fn, examples):
+        """ Given a parser instance and a dictionary mapping some label with
+            some malformed syntax examples, it'll return the label for the
+            example that bests matches the current error.
+        """
+        assert self.state is not None, "Not supported for this exception"
+
+        candidate = None
+        for label, example in examples.items():
+            assert not isinstance(example, STRING_TYPE)
+
+            for malformed in example:
+                try:
+                    parse_fn(malformed)
+                except UnexpectedInput as ut:
+                    if ut.state == self.state:
+                        try:
+                            if ut.token == self.token:  # Try exact match first
+                                return label
+                        except AttributeError:
+                            pass
+                        if not candidate:
+                            candidate = label
+
+        return candidate
+
+
+class UnexpectedCharacters(LexError, UnexpectedInput):
+    def __init__(self, seq, lex_pos, line, column, allowed=None, considered_tokens=None, state=None):
+        message = "No terminal defined for '%s' at line %d col %d" % (seq[lex_pos], line, column)
+
+        self.line = line
+        self.column = column
+        self.allowed = allowed
+        self.considered_tokens = considered_tokens
+        self.pos_in_stream = lex_pos
+        self.state = state
+
+        message += '\n\n' + self.get_context(seq)
+        if allowed:
+            message += '\nExpecting: %s\n' % allowed
+
+        super(UnexpectedCharacters, self).__init__(message)
+
+
+
+class UnexpectedToken(ParseError, UnexpectedInput):
+    def __init__(self, token, expected, considered_rules=None, state=None):
+        self.token = token
+        self.expected = expected     # XXX str shouldn't necessary
+        self.line = getattr(token, 'line', '?')
+        self.column = getattr(token, 'column', '?')
+        self.considered_rules = considered_rules
+        self.state = state
+        self.pos_in_stream = getattr(token, 'pos_in_stream', None)
+
+        message = ("Unexpected token %r at line %s, column %s.\n"
+                   "Expected: %s\n"
+                   % (token, self.line, self.column, ', '.join(self.expected)))
+
+        super(UnexpectedToken, self).__init__(message)
+
+
+try:
+    STRING_TYPE = basestring
+except NameError:   # Python 3
+    STRING_TYPE = str
+
 
 import types
 from functools import wraps, partial
@@ -298,6 +389,9 @@ except ImportError:
 
 
 
+class Meta:
+    pass
+
 class Tree(object):
     def __init__(self, data, children, meta=None):
         self.data = data
@@ -331,6 +425,17 @@ class Tree(object):
 
     def pretty(self, indent_str='  '):
         return ''.join(self._pretty(0, indent_str))
+    def __eq__(self, other):
+        try:
+            return self.data == other.data and self.children == other.children
+        except AttributeError:
+            return False
+
+    def __ne__(self, other):
+        return not (self == other)
+
+    def __hash__(self):
+        return hash((self.data, tuple(self.children)))
 
 class Indenter:
     def __init__(self):
@@ -845,50 +950,51 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
 lexer = _Lex(lexer_regexps)
 def lex(stream):
     return lexer.lex(stream, NEWLINE_TYPES, IGNORE_TYPES)
+class InlineTransformer: pass
 RULES = {
-  0: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
-  1: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
-  2: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
-  3: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
-  4: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
-  5: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
-  6: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules')], None, RuleOptions(False, False, None)),
-  7: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
-  8: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
-  9: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
+  0: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
+  1: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
+  2: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
+  3: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
+  4: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
+  5: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
+  6: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules')], None, RuleOptions(False, False, None)),
+  7: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
+  8: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
+  9: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
   10: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
-  11: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules')], None, RuleOptions(False, False, None)),
-  12: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
-  13: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
-  14: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
-  15: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
-  16: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
-  17: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
-  18: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
-  19: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
-  20: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
-  21: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
-  22: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules')], None, RuleOptions(False, False, None)),
-  23: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
-  24: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
-  25: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
-  26: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
-  27: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules')], None, RuleOptions(False, False, None)),
+  11: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
+  12: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
+  13: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
+  14: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
+  15: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
+  16: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
+  17: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules')], None, RuleOptions(False, False, None)),
+  18: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
+  19: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
+  20: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules')], None, RuleOptions(False, False, None)),
+  21: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
+  22: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
+  23: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE')], None, RuleOptions(False, False, None)),
+  24: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
+  25: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
+  26: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE'), NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
+  27: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE'), NonTerminal('language_construct_rules')], None, RuleOptions(False, False, None)),
   28: Rule(NonTerminal('preamble_statements'), [NonTerminal('__anon_plus_1')], None, RuleOptions(False, False, None)),
   29: Rule(NonTerminal('language_construct_rules'), [Terminal('CONTEXTS'), Terminal('COLON'), NonTerminal('indentation_block')], None, RuleOptions(False, False, None)),
   30: Rule(NonTerminal('miscellaneous_language_rules'), [Terminal('__ANON_0'), Terminal('COLON'), NonTerminal('indentation_block')], None, RuleOptions(False, False, None)),
   31: Rule(NonTerminal('target_language_name_statement'), [Terminal('NAME'), Terminal('COLON'), NonTerminal('free_input_string')], None, RuleOptions(False, False, None)),
   32: Rule(NonTerminal('master_scope_name_statement'), [Terminal('SCOPE'), Terminal('COLON'), NonTerminal('free_input_string')], None, RuleOptions(False, False, None)),
   33: Rule(NonTerminal('indentation_block'), [Terminal('LBRACE'), Terminal('_NEWLINE'), NonTerminal('__anon_plus_2'), Terminal('RBRACE')], None, RuleOptions(False, False, None)),
-  34: Rule(NonTerminal('statements_list'), [NonTerminal('meta_scope_statement')], None, RuleOptions(False, False, None)),
-  35: Rule(NonTerminal('statements_list'), [NonTerminal('push_statement')], None, RuleOptions(False, False, None)),
-  36: Rule(NonTerminal('statements_list'), [NonTerminal('pop_statement')], None, RuleOptions(False, False, None)),
-  37: Rule(NonTerminal('statements_list'), [NonTerminal('include_statement')], None, RuleOptions(False, False, None)),
-  38: Rule(NonTerminal('statements_list'), [NonTerminal('match_statement')], None, RuleOptions(False, False, None)),
+  34: Rule(NonTerminal('statements_list'), [NonTerminal('pop_statement')], None, RuleOptions(False, False, None)),
+  35: Rule(NonTerminal('statements_list'), [NonTerminal('meta_scope_statement')], None, RuleOptions(False, False, None)),
+  36: Rule(NonTerminal('statements_list'), [NonTerminal('include_statement')], None, RuleOptions(False, False, None)),
+  37: Rule(NonTerminal('statements_list'), [NonTerminal('match_statement')], None, RuleOptions(False, False, None)),
+  38: Rule(NonTerminal('statements_list'), [NonTerminal('push_statement')], None, RuleOptions(False, False, None)),
   39: Rule(NonTerminal('push_statement'), [Terminal('PUSH'), Terminal('COLON'), NonTerminal('indentation_block')], None, RuleOptions(False, False, None)),
   40: Rule(NonTerminal('include_statement'), [Terminal('INCLUDE'), Terminal('COLON'), NonTerminal('free_input_string')], None, RuleOptions(False, False, None)),
-  41: Rule(NonTerminal('match_statements'), [NonTerminal('statements_list')], None, RuleOptions(False, False, None)),
-  42: Rule(NonTerminal('match_statements'), [NonTerminal('scope_name')], None, RuleOptions(False, False, None)),
+  41: Rule(NonTerminal('match_statements'), [NonTerminal('scope_name')], None, RuleOptions(False, False, None)),
+  42: Rule(NonTerminal('match_statements'), [NonTerminal('statements_list')], None, RuleOptions(False, False, None)),
   43: Rule(NonTerminal('match_statements'), [NonTerminal('capturing_block')], None, RuleOptions(False, False, None)),
   44: Rule(NonTerminal('match_statement'), [Terminal('MATCH'), Terminal('COLON'), NonTerminal('free_input_string'), Terminal('LBRACE'), Terminal('_NEWLINE'), Terminal('RBRACE')], None, RuleOptions(False, False, None)),
   45: Rule(NonTerminal('match_statement'), [Terminal('MATCH'), Terminal('COLON'), NonTerminal('free_input_string'), Terminal('LBRACE'), NonTerminal('__anon_star_3'), Terminal('_NEWLINE'), Terminal('RBRACE')], None, RuleOptions(False, False, None)),
@@ -900,18 +1006,18 @@ RULES = {
   51: Rule(NonTerminal('free_input_string'), [Terminal('__ANON_2')], None, RuleOptions(False, False, None)),
   52: Rule(NonTerminal('__anon_star_0'), [NonTerminal('__anon_star_0'), NonTerminal('miscellaneous_language_rules'), Terminal('_NEWLINE')], None, None),
   53: Rule(NonTerminal('__anon_star_0'), [NonTerminal('__anon_star_0'), NonTerminal('miscellaneous_language_rules')], None, None),
-  54: Rule(NonTerminal('__anon_star_0'), [NonTerminal('miscellaneous_language_rules'), Terminal('_NEWLINE')], None, None),
-  55: Rule(NonTerminal('__anon_star_0'), [NonTerminal('miscellaneous_language_rules')], None, None),
+  54: Rule(NonTerminal('__anon_star_0'), [NonTerminal('miscellaneous_language_rules')], None, None),
+  55: Rule(NonTerminal('__anon_star_0'), [NonTerminal('miscellaneous_language_rules'), Terminal('_NEWLINE')], None, None),
   56: Rule(NonTerminal('__anon_plus_1'), [NonTerminal('master_scope_name_statement'), Terminal('_NEWLINE')], None, None),
-  57: Rule(NonTerminal('__anon_plus_1'), [NonTerminal('target_language_name_statement'), Terminal('_NEWLINE')], None, None),
-  58: Rule(NonTerminal('__anon_plus_1'), [NonTerminal('__anon_plus_1'), NonTerminal('target_language_name_statement'), Terminal('_NEWLINE')], None, None),
-  59: Rule(NonTerminal('__anon_plus_1'), [NonTerminal('__anon_plus_1'), NonTerminal('master_scope_name_statement'), Terminal('_NEWLINE')], None, None),
+  57: Rule(NonTerminal('__anon_plus_1'), [NonTerminal('__anon_plus_1'), NonTerminal('target_language_name_statement'), Terminal('_NEWLINE')], None, None),
+  58: Rule(NonTerminal('__anon_plus_1'), [NonTerminal('__anon_plus_1'), NonTerminal('master_scope_name_statement'), Terminal('_NEWLINE')], None, None),
+  59: Rule(NonTerminal('__anon_plus_1'), [NonTerminal('target_language_name_statement'), Terminal('_NEWLINE')], None, None),
   60: Rule(NonTerminal('__anon_plus_2'), [NonTerminal('statements_list'), Terminal('_NEWLINE')], None, None),
   61: Rule(NonTerminal('__anon_plus_2'), [NonTerminal('__anon_plus_2'), NonTerminal('statements_list'), Terminal('_NEWLINE')], None, None),
-  62: Rule(NonTerminal('__anon_star_3'), [Terminal('_NEWLINE'), NonTerminal('match_statements')], None, None),
-  63: Rule(NonTerminal('__anon_star_3'), [NonTerminal('__anon_star_3'), Terminal('_NEWLINE'), NonTerminal('match_statements')], None, None),
-  64: Rule(NonTerminal('__anon_plus_4'), [Terminal('_NEWLINE'), NonTerminal('capturing_lines')], None, None),
-  65: Rule(NonTerminal('__anon_plus_4'), [NonTerminal('__anon_plus_4'), Terminal('_NEWLINE'), NonTerminal('capturing_lines')], None, None),
+  62: Rule(NonTerminal('__anon_star_3'), [NonTerminal('__anon_star_3'), Terminal('_NEWLINE'), NonTerminal('match_statements')], None, None),
+  63: Rule(NonTerminal('__anon_star_3'), [Terminal('_NEWLINE'), NonTerminal('match_statements')], None, None),
+  64: Rule(NonTerminal('__anon_plus_4'), [NonTerminal('__anon_plus_4'), Terminal('_NEWLINE'), NonTerminal('capturing_lines')], None, None),
+  65: Rule(NonTerminal('__anon_plus_4'), [Terminal('_NEWLINE'), NonTerminal('capturing_lines')], None, None),
   66: Rule(NonTerminal('__anon_plus_5'), [NonTerminal('__anon_plus_5'), Terminal('INTEGER')], None, None),
   67: Rule(NonTerminal('__anon_plus_5'), [Terminal('INTEGER')], None, None),
 }
@@ -920,133 +1026,133 @@ class ParseTable: pass
 parse_table = ParseTable()
 STATES = {
   0: {0: (0, 1), 1: (0, 2), 2: (0, 3), 3: (0, 4), 4: (0, 5), 5: (0, 6), 6: (0, 7), 7: (0, 8)},
-  1: {1: (0, 9), 8: (0, 10), 9: (0, 11)},
-  2: {4: (0, 5), 5: (0, 6), 0: (0, 12), 2: (0, 3), 6: (0, 7), 7: (0, 8)},
-  3: {10: (0, 13)},
-  4: {11: (0, 14)},
-  5: {1: (0, 15)},
-  6: {1: (1, 28), 9: (1, 28), 4: (0, 16), 6: (0, 17), 2: (0, 3), 7: (0, 8)},
-  7: {1: (0, 18)},
-  8: {10: (0, 19)},
+  1: {3: (0, 9), 8: (0, 10), 9: (0, 11)},
+  2: {10: (0, 12)},
+  3: {9: (1, 28), 3: (1, 28), 7: (0, 13), 1: (0, 2), 5: (0, 6), 4: (0, 14)},
+  4: {0: (0, 15), 1: (0, 2), 2: (0, 3), 4: (0, 5), 5: (0, 6), 7: (0, 8)},
+  5: {3: (0, 16)},
+  6: {10: (0, 17)},
+  7: {11: (0, 18)},
+  8: {3: (0, 19)},
   9: {8: (0, 20), 9: (0, 11)},
-  10: {11: (1, 11), 1: (0, 21), 12: (0, 22), 13: (0, 23), 14: (0, 24)},
+  10: {11: (1, 6), 12: (0, 21), 13: (0, 22), 3: (0, 23), 14: (0, 24)},
   11: {10: (0, 25)},
-  12: {1: (0, 26), 8: (0, 27), 9: (0, 11)},
-  13: {15: (0, 28), 16: (0, 29)},
-  14: {},
-  15: {1: (1, 56), 2: (1, 56), 7: (1, 56), 9: (1, 56)},
-  16: {1: (0, 30)},
-  17: {1: (0, 31)},
-  18: {1: (1, 57), 2: (1, 57), 7: (1, 57), 9: (1, 57)},
-  19: {15: (0, 32), 16: (0, 29)},
-  20: {11: (1, 22), 1: (0, 33), 12: (0, 34), 14: (0, 24), 13: (0, 23)},
-  21: {11: (1, 21), 12: (0, 35), 1: (0, 36), 13: (0, 23), 14: (0, 24)},
-  22: {11: (1, 7), 13: (0, 37), 1: (0, 38), 14: (0, 24)},
-  23: {1: (0, 39), 11: (1, 55), 14: (1, 55)},
+  12: {15: (0, 26), 16: (0, 27)},
+  13: {3: (0, 28)},
+  14: {3: (0, 29)},
+  15: {3: (0, 30), 8: (0, 31), 9: (0, 11)},
+  16: {5: (1, 56), 3: (1, 56), 1: (1, 56), 9: (1, 56)},
+  17: {15: (0, 26), 16: (0, 32)},
+  18: {},
+  19: {5: (1, 59), 3: (1, 59), 1: (1, 59), 9: (1, 59)},
+  20: {11: (1, 27), 12: (0, 33), 13: (0, 22), 3: (0, 34), 14: (0, 24)},
+  21: {11: (1, 12), 13: (0, 35), 14: (0, 24), 3: (0, 36)},
+  22: {11: (1, 54), 3: (0, 37), 14: (1, 54)},
+  23: {11: (1, 19), 3: (0, 38), 12: (0, 39), 13: (0, 22), 14: (0, 24)},
   24: {10: (0, 40)},
   25: {17: (0, 41), 18: (0, 42)},
-  26: {8: (0, 43), 9: (0, 11)},
-  27: {11: (1, 6), 12: (0, 44), 1: (0, 45), 13: (0, 23), 14: (0, 24)},
-  28: {1: (1, 32)},
-  29: {1: (1, 51), 17: (1, 51)},
-  30: {1: (1, 59), 2: (1, 59), 7: (1, 59), 9: (1, 59)},
-  31: {1: (1, 58), 2: (1, 58), 7: (1, 58), 9: (1, 58)},
-  32: {1: (1, 31)},
-  33: {11: (1, 17), 12: (0, 46), 13: (0, 23), 1: (0, 47), 14: (0, 24)},
-  34: {11: (1, 10), 13: (0, 37), 14: (0, 24), 1: (0, 48)},
-  35: {11: (1, 9), 1: (0, 49), 13: (0, 37), 14: (0, 24)},
-  36: {11: (1, 16)},
-  37: {1: (0, 50), 11: (1, 53), 14: (1, 53)},
-  38: {11: (1, 3)},
-  39: {1: (1, 54), 11: (1, 54), 14: (1, 54)},
+  26: {17: (1, 51), 3: (1, 51)},
+  27: {3: (1, 31)},
+  28: {5: (1, 57), 3: (1, 57), 1: (1, 57), 9: (1, 57)},
+  29: {5: (1, 58), 3: (1, 58), 1: (1, 58), 9: (1, 58)},
+  30: {8: (0, 43), 9: (0, 11)},
+  31: {11: (1, 17), 12: (0, 44), 3: (0, 45), 13: (0, 22), 14: (0, 24)},
+  32: {3: (1, 32)},
+  33: {11: (1, 10), 13: (0, 35), 14: (0, 24), 3: (0, 46)},
+  34: {11: (1, 3), 3: (0, 47), 12: (0, 48), 13: (0, 22), 14: (0, 24)},
+  35: {11: (1, 53), 3: (0, 49), 14: (1, 53)},
+  36: {11: (1, 22)},
+  37: {11: (1, 55), 3: (1, 55), 14: (1, 55)},
+  38: {11: (1, 4)},
+  39: {11: (1, 11), 13: (0, 35), 3: (0, 50), 14: (0, 24)},
   40: {17: (0, 41), 18: (0, 51)},
-  41: {1: (0, 52)},
-  42: {1: (1, 29), 11: (1, 29), 14: (1, 29)},
-  43: {11: (1, 27), 12: (0, 53), 1: (0, 54), 13: (0, 23), 14: (0, 24)},
-  44: {11: (1, 0), 13: (0, 37), 14: (0, 24), 1: (0, 55)},
-  45: {11: (1, 12), 1: (0, 56), 12: (0, 57), 13: (0, 23), 14: (0, 24)},
-  46: {11: (1, 5), 13: (0, 37), 1: (0, 58), 14: (0, 24)},
-  47: {11: (1, 4)},
-  48: {11: (1, 18)},
-  49: {11: (1, 8)},
-  50: {1: (1, 52), 11: (1, 52), 14: (1, 52)},
-  51: {1: (1, 30), 11: (1, 30), 14: (1, 30)},
+  41: {3: (0, 52)},
+  42: {11: (1, 29), 3: (1, 29), 14: (1, 29)},
+  43: {11: (1, 20), 12: (0, 53), 13: (0, 22), 3: (0, 54), 14: (0, 24)},
+  44: {11: (1, 21), 13: (0, 35), 3: (0, 55), 14: (0, 24)},
+  45: {11: (1, 5), 12: (0, 56), 13: (0, 22), 3: (0, 57), 14: (0, 24)},
+  46: {11: (1, 8)},
+  47: {11: (1, 13)},
+  48: {11: (1, 25), 13: (0, 35), 3: (0, 58), 14: (0, 24)},
+  49: {11: (1, 52), 3: (1, 52), 14: (1, 52)},
+  50: {11: (1, 16)},
+  51: {3: (1, 30), 14: (1, 30), 11: (1, 30)},
   52: {19: (0, 59), 20: (0, 60), 21: (0, 61), 22: (0, 62), 23: (0, 63), 24: (0, 64), 25: (0, 65), 26: (0, 66), 27: (0, 67), 28: (0, 68), 29: (0, 69), 30: (0, 70)},
-  53: {11: (1, 20), 13: (0, 37), 14: (0, 24), 1: (0, 71)},
-  54: {11: (1, 24), 12: (0, 72), 1: (0, 73), 13: (0, 23), 14: (0, 24)},
-  55: {11: (1, 2)},
-  56: {11: (1, 23)},
-  57: {11: (1, 26), 13: (0, 37), 1: (0, 74), 14: (0, 24)},
-  58: {11: (1, 19)},
-  59: {10: (0, 75)},
-  60: {1: (0, 76)},
-  61: {19: (0, 59), 31: (0, 77), 22: (0, 62), 23: (0, 63), 24: (0, 64), 25: (0, 65), 26: (0, 66), 27: (0, 67), 20: (0, 78), 28: (0, 68), 29: (0, 69), 30: (0, 70)},
-  62: {10: (0, 79)},
-  63: {1: (1, 34)},
-  64: {10: (0, 80)},
-  65: {1: (1, 37)},
-  66: {1: (1, 35)},
-  67: {10: (0, 81)},
-  68: {1: (1, 36)},
+  53: {11: (1, 26), 3: (0, 71), 13: (0, 35), 14: (0, 24)},
+  54: {11: (1, 2), 12: (0, 72), 13: (0, 22), 3: (0, 73), 14: (0, 24)},
+  55: {11: (1, 0)},
+  56: {11: (1, 15), 3: (0, 74), 13: (0, 35), 14: (0, 24)},
+  57: {11: (1, 1)},
+  58: {11: (1, 9)},
+  59: {3: (1, 35)},
+  60: {10: (0, 75)},
+  61: {19: (0, 59), 20: (0, 60), 27: (0, 76), 22: (0, 62), 23: (0, 63), 24: (0, 64), 25: (0, 65), 26: (0, 66), 28: (0, 68), 31: (0, 77), 29: (0, 69), 30: (0, 70)},
+  62: {10: (0, 78)},
+  63: {3: (1, 36)},
+  64: {10: (0, 79)},
+  65: {3: (1, 38)},
+  66: {10: (0, 80)},
+  67: {3: (0, 81)},
+  68: {3: (1, 34)},
   69: {10: (0, 82)},
-  70: {1: (1, 38)},
-  71: {11: (1, 14)},
-  72: {11: (1, 15), 13: (0, 37), 1: (0, 83), 14: (0, 24)},
-  73: {11: (1, 1)},
-  74: {11: (1, 13)},
-  75: {16: (0, 29), 15: (0, 84)},
-  76: {29: (1, 60), 27: (1, 60), 24: (1, 60), 19: (1, 60), 22: (1, 60), 31: (1, 60)},
-  77: {1: (1, 33), 11: (1, 33), 14: (1, 33)},
-  78: {1: (0, 85)},
-  79: {15: (0, 86), 16: (0, 29)},
-  80: {15: (0, 87), 16: (0, 29)},
-  81: {17: (0, 41), 18: (0, 88)},
-  82: {15: (0, 89), 16: (0, 29)},
-  83: {11: (1, 25)},
-  84: {1: (1, 40)},
-  85: {29: (1, 61), 27: (1, 61), 24: (1, 61), 19: (1, 61), 22: (1, 61), 31: (1, 61)},
+  70: {3: (1, 37)},
+  71: {11: (1, 23)},
+  72: {11: (1, 24), 13: (0, 35), 3: (0, 83), 14: (0, 24)},
+  73: {11: (1, 14)},
+  74: {11: (1, 7)},
+  75: {17: (0, 41), 18: (0, 84)},
+  76: {3: (0, 85)},
+  77: {3: (1, 33), 14: (1, 33), 11: (1, 33)},
+  78: {16: (0, 86), 15: (0, 26)},
+  79: {15: (0, 26), 16: (0, 87)},
+  80: {16: (0, 88), 15: (0, 26)},
+  81: {26: (1, 60), 29: (1, 60), 31: (1, 60), 22: (1, 60), 24: (1, 60), 20: (1, 60)},
+  82: {15: (0, 26), 16: (0, 89)},
+  83: {11: (1, 18)},
+  84: {3: (1, 39)},
+  85: {26: (1, 61), 29: (1, 61), 31: (1, 61), 22: (1, 61), 24: (1, 61), 20: (1, 61)},
   86: {17: (0, 90)},
-  87: {1: (1, 49)},
-  88: {1: (1, 39)},
-  89: {1: (1, 50)},
-  90: {32: (0, 91), 1: (0, 92)},
-  91: {1: (0, 93)},
-  92: {33: (0, 94), 22: (0, 62), 25: (0, 65), 26: (0, 66), 34: (0, 95), 35: (0, 96), 28: (0, 68), 29: (0, 69), 31: (0, 97), 19: (0, 59), 36: (0, 98), 20: (0, 99), 2: (0, 100), 23: (0, 63), 24: (0, 64), 27: (0, 67), 30: (0, 70)},
-  93: {33: (0, 94), 22: (0, 62), 31: (0, 101), 25: (0, 65), 26: (0, 66), 34: (0, 95), 35: (0, 96), 28: (0, 68), 29: (0, 69), 19: (0, 59), 20: (0, 99), 2: (0, 100), 23: (0, 63), 24: (0, 64), 27: (0, 67), 36: (0, 102), 30: (0, 70)},
-  94: {1: (1, 43)},
-  95: {1: (1, 42)},
-  96: {10: (0, 103)},
-  97: {1: (1, 44)},
-  98: {1: (1, 62)},
-  99: {1: (1, 41)},
+  87: {3: (1, 50)},
+  88: {3: (1, 40)},
+  89: {3: (1, 49)},
+  90: {32: (0, 91), 3: (0, 92)},
+  91: {3: (0, 93)},
+  92: {19: (0, 59), 27: (0, 94), 33: (0, 95), 34: (0, 96), 23: (0, 63), 24: (0, 64), 26: (0, 66), 28: (0, 68), 5: (0, 97), 29: (0, 69), 20: (0, 60), 31: (0, 98), 35: (0, 99), 22: (0, 62), 25: (0, 65), 36: (0, 100), 30: (0, 70)},
+  93: {19: (0, 59), 27: (0, 94), 34: (0, 96), 23: (0, 63), 24: (0, 64), 26: (0, 66), 28: (0, 68), 5: (0, 97), 29: (0, 69), 20: (0, 60), 31: (0, 101), 35: (0, 99), 22: (0, 62), 25: (0, 65), 33: (0, 102), 36: (0, 100), 30: (0, 70)},
+  94: {3: (1, 42)},
+  95: {3: (1, 63)},
+  96: {3: (1, 41)},
+  97: {10: (0, 103)},
+  98: {3: (1, 44)},
+  99: {3: (1, 43)},
   100: {10: (0, 104)},
-  101: {1: (1, 45)},
-  102: {1: (1, 63)},
-  103: {17: (0, 105)},
-  104: {15: (0, 106), 16: (0, 29)},
-  105: {1: (0, 107), 37: (0, 108)},
-  106: {1: (1, 46)},
-  107: {38: (0, 109), 39: (0, 110), 40: (0, 111)},
-  108: {1: (0, 112)},
-  109: {39: (0, 113), 10: (0, 114)},
-  110: {10: (1, 67), 39: (1, 67)},
-  111: {1: (1, 64)},
-  112: {40: (0, 115), 39: (0, 110), 38: (0, 109), 31: (0, 116)},
-  113: {10: (1, 66), 39: (1, 66)},
-  114: {15: (0, 117), 16: (0, 29)},
-  115: {1: (1, 65)},
-  116: {1: (1, 47)},
-  117: {1: (1, 48)},
+  101: {3: (1, 45)},
+  102: {3: (1, 62)},
+  103: {15: (0, 26), 16: (0, 105)},
+  104: {17: (0, 106)},
+  105: {3: (1, 46)},
+  106: {37: (0, 107), 3: (0, 108)},
+  107: {3: (0, 109)},
+  108: {38: (0, 110), 39: (0, 111), 40: (0, 112)},
+  109: {38: (0, 113), 31: (0, 114), 39: (0, 111), 40: (0, 112)},
+  110: {3: (1, 65)},
+  111: {10: (0, 115), 40: (0, 116)},
+  112: {10: (1, 67), 40: (1, 67)},
+  113: {3: (1, 64)},
+  114: {3: (1, 47)},
+  115: {15: (0, 26), 16: (0, 117)},
+  116: {10: (1, 66), 40: (1, 66)},
+  117: {3: (1, 48)},
 }
 TOKEN_TYPES = (
 {0: 'preamble_statements',
- 1: '_NEWLINE',
- 2: 'SCOPE',
- 3: 'language_syntax',
+ 1: 'NAME',
+ 2: '__anon_plus_1',
+ 3: '_NEWLINE',
  4: 'master_scope_name_statement',
- 5: '__anon_plus_1',
- 6: 'target_language_name_statement',
- 7: 'NAME',
+ 5: 'SCOPE',
+ 6: 'language_syntax',
+ 7: 'target_language_name_statement',
  8: 'language_construct_rules',
  9: 'CONTEXTS',
  10: 'COLON',
@@ -1054,37 +1160,37 @@ TOKEN_TYPES = (
  12: '__anon_star_0',
  13: 'miscellaneous_language_rules',
  14: '__ANON_0',
- 15: 'free_input_string',
- 16: '__ANON_2',
+ 15: '__ANON_2',
+ 16: 'free_input_string',
  17: 'LBRACE',
  18: 'indentation_block',
- 19: 'INCLUDE',
- 20: 'statements_list',
+ 19: 'meta_scope_statement',
+ 20: 'PUSH',
  21: '__anon_plus_2',
  22: 'MATCH',
- 23: 'meta_scope_statement',
- 24: 'POP',
- 25: 'include_statement',
- 26: 'push_statement',
- 27: 'PUSH',
+ 23: 'include_statement',
+ 24: '__ANON_1',
+ 25: 'push_statement',
+ 26: 'INCLUDE',
+ 27: 'statements_list',
  28: 'pop_statement',
- 29: '__ANON_1',
+ 29: 'POP',
  30: 'match_statement',
  31: 'RBRACE',
  32: '__anon_star_3',
- 33: 'capturing_block',
+ 33: 'match_statements',
  34: 'scope_name',
- 35: 'CAPTURES',
- 36: 'match_statements',
+ 35: 'capturing_block',
+ 36: 'CAPTURES',
  37: '__anon_plus_4',
- 38: '__anon_plus_5',
- 39: 'INTEGER',
- 40: 'capturing_lines'}
+ 38: 'capturing_lines',
+ 39: '__anon_plus_5',
+ 40: 'INTEGER'}
 )
 parse_table.states = {s: {TOKEN_TYPES[t]: (a, RULES[x] if a is Reduce else x) for t, (a, x) in acts.items()}
                       for s, acts in STATES.items()}
 parse_table.start_state = 0
-parse_table.end_state = 14
+parse_table.end_state = 18
 class Lark_StandAlone:
   def __init__(self, transformer=None, postlex=None):
      callback = parse_tree_builder.create_callback(transformer=transformer)
