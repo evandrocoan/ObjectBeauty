@@ -13,17 +13,91 @@
 \chapter{Object Beautifier}\label{sec:software_implementation}
 
 
+Criar uma nova linguagem para entrar com a syntaxe como sublime text, mas sem utilizar YAML.
+Assim, faz isso como trabalho final de compiladores, onde o seu backend será o formatador.
+
+~Use lark to enter the language grammars, instead writing a syntax parser like Sublime Text YAML .sublime-syntax files.~
+\begin{lstlisting}
+_parser = lark.Lark(r"""
+    productions   : empty_line* ( non_terminal_start "->" non_terminals end_symbol )* non_terminal_start "->" non_terminals end_symbol?
+    non_terminals : production ( "|" production )*
+    production    : epsilon | terminal non_terminal?
+
+    // Forces them to appear in the tree as branches
+    epsilon      : [] | "&"
+    end_symbol   : ";" NEWLINE+ | NEWLINE+
+    terminal     : SIGNED_NUMBER | LCASE_LETTER
+    non_terminal : UCASE_LETTER+ ( DIGIT | "'" )*
+    empty_line   : NEWLINE
+
+    // Rename the start symbol, so when parsing the tree it is simple to find it
+    non_terminal_start : non_terminal
+
+    // Tells the tree-builder to inline this branch if it has only one member
+    ?non_terminal_epsilon : non_terminal | epsilon
+
+    // Stops Lark from automatically filtering out these literals from the tree
+    null   : "null"
+    true   : "true"
+    false  : "false"
+
+    // Import common definitions
+    %import common.INT
+    %import common.DIGIT
+    %import common.UCASE_LETTER
+    %import common.LCASE_LETTER
+    %import common.SIGNED_NUMBER
+    %import common.NEWLINE
+    %import common.WS_INLINE
+
+    // Set to ignore white spaces
+    %ignore WS_INLINE
+""", start='productions' )
+\end{lstlisting}
+
+
 \section{Introduction}
 
-This work aims to create a formatter (single software) of easy configuration
-and expansion capable of encompassing the programming languages that exist,
-based on a specific use of regular expressions. The strategy is not to be
-relaying on the syntax of the programming languages parsed. With it in mind,
-we will treat them as a common text, and it will be up to the end user to
-configure the transformations/formatting to be applied in the text, giving
-reasonably more freedom to easily configure several programming languages
-(if not them all), taking advantage of the fact which many of them share
-similar structures if not identical.
+TODO:
+Explains what does `translation` means and what is a translator,
+compiler,
+etc.
+(the first slide contents' from Introdução a Compiladores)
+
+This work aims to propose a translator,
+where the input and output languages are the same language.
+Such translation objective is to change the language representational structure,
+but without affecting the language lex,
+syntactic or semantics, i.e.,
+the language meaning.
+
+This program class is commonly know as text formatters.
+The differential from this work from others is the goal of a single expandable tool,
+capable of manipulating all existent and future programming languages,
+based on the use of deterministic \cite{TODO:
+deterministic free grammars explanation} and controlled nondeterministic \cite{TODO:
+section explaning what does controlled means} context free grammars.
+
+This audacious goal,
+can only be accomplished because the proposed tool does not rely on the lex,
+syntax and semantic aspects \cite{TODO:
+what does these languages aspects are} of any used languages.
+Therefore,
+it is up to this tool users\s to write the lex and syntactic,
+but they are not required to write the semantic aspects of the desired language,
+as the objective of text formatters is to change the structural aspects \cite{TODO:
+what are the source code formatters objectives}.
+
+
+
+.sublime-syntax or my .object-beauty is a meta-language, as EBNF \cite{Extended Backus–Naur form}.
+
+With this approach, it is not required for the user to input language\s grammar is
+
+ After tool\s user aspects specification, we will treat them as a common text,
+and it will be up to the end user to configure the transformations/formatting to be applied in the text,
+giving reasonably more freedom to easily configure several programming languages (if not them all),
+taking advantage of the fact which many of them share similar structures if not identical.
 
 As a result, it is expected to have a Universal Beautifier capable of
 covering existing languages, and which is easily extendable to cover new
