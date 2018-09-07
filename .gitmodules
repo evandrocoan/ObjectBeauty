@@ -7,3 +7,6 @@
 [submodule "monograph/thesis/ufscthesisx"]
 	path = monograph/thesis/ufscthesisx
 	url = https://github.com/evandrocoan/ufscthesisx
+[submodule "code/lark-parser"]
+	path = code/lark-parser
+	url = https://github.com/evandroforks/lark
