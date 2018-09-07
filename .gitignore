@@ -1,5 +1,6 @@
 
 *.driveupload
+/_gsdata_
 
 # Compiled Object files
 *.slo
