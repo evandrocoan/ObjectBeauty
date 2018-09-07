@@ -13,6 +13,7 @@
             "folder_exclude_patterns":
             [
                 "*cache",
+                "_gsdata_",
                 "monograph/proposal",
                 "monograph/thesis/abntevandro/doc",
                 "source/libraries/doctest/scripts/bench/catch",
