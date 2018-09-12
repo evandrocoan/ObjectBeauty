@@ -32,6 +32,97 @@
 #
 #
 
+class LarkError(Exception):
+    pass
+
+class GrammarError(LarkError):
+    pass
+
+class ParseError(LarkError):
+    pass
+
+class LexError(LarkError):
+    pass
+
+class UnexpectedInput(LarkError):
+    pos_in_stream = None
+
+    def get_context(self, text, span=40):
+        pos = self.pos_in_stream
+        start = max(pos - span, 0)
+        end = pos + span
+        before = text[start:pos].rsplit('\n', 1)[-1]
+        after = text[pos:end].split('\n', 1)[0]
+        return before + after + '\n' + ' ' * len(before) + '^\n'
+
+    def match_examples(self, parse_fn, examples):
+        """ Given a parser instance and a dictionary mapping some label with
+            some malformed syntax examples, it'll return the label for the
+            example that bests matches the current error.
+        """
+        assert self.state is not None, "Not supported for this exception"
+
+        candidate = None
+        for label, example in examples.items():
+            assert not isinstance(example, STRING_TYPE)
+
+            for malformed in example:
+                try:
+                    parse_fn(malformed)
+                except UnexpectedInput as ut:
+                    if ut.state == self.state:
+                        try:
+                            if ut.token == self.token:  # Try exact match first
+                                return label
+                        except AttributeError:
+                            pass
+                        if not candidate:
+                            candidate = label
+
+        return candidate
+
+
+class UnexpectedCharacters(LexError, UnexpectedInput):
+    def __init__(self, seq, lex_pos, line, column, allowed=None, considered_tokens=None, state=None):
+        message = "No terminal defined for '%s' at line %d col %d" % (seq[lex_pos], line, column)
+
+        self.line = line
+        self.column = column
+        self.allowed = allowed
+        self.considered_tokens = considered_tokens
+        self.pos_in_stream = lex_pos
+        self.state = state
+
+        message += '\n\n' + self.get_context(seq)
+        if allowed:
+            message += '\nExpecting: %s\n' % allowed
+
+        super(UnexpectedCharacters, self).__init__(message)
+
+
+
+class UnexpectedToken(ParseError, UnexpectedInput):
+    def __init__(self, token, expected, considered_rules=None, state=None):
+        self.token = token
+        self.expected = expected     # XXX str shouldn't necessary
+        self.line = getattr(token, 'line', '?')
+        self.column = getattr(token, 'column', '?')
+        self.considered_rules = considered_rules
+        self.state = state
+        self.pos_in_stream = getattr(token, 'pos_in_stream', None)
+
+        message = ("Unexpected token %r at line %s, column %s.\n"
+                   "Expected one of: \n\t* %s\n"
+                   % (token, self.line, self.column, '\n\t* '.join(self.expected)))
+
+        super(UnexpectedToken, self).__init__(message)
+
+
+try:
+    STRING_TYPE = basestring
+except NameError:   # Python 3
+    STRING_TYPE = str
+
 
 import types
 from functools import wraps, partial
@@ -59,25 +150,8 @@ def smart_decorator(f, create_decorator):
 
 
 
-try:
-    from contextlib import suppress     # Python 3
-except ImportError:
-    @contextmanager
-    def suppress(*excs):
-        '''Catch and dismiss the provided exception
-
-        >>> x = 'hello'
-        >>> with suppress(IndexError):
-        ...     x = x[10]
-        >>> x
-        'hello'
-        '''
-        try:
-            yield
-        except excs:
-            pass
-
-
+class Meta:
+    pass
 
 class Tree(object):
     def __init__(self, data, children, meta=None):
@@ -112,6 +186,265 @@ class Tree(object):
 
     def pretty(self, indent_str='  '):
         return ''.join(self._pretty(0, indent_str))
+    def __eq__(self, other):
+        try:
+            return self.data == other.data and self.children == other.children
+        except AttributeError:
+            return False
+
+    def __ne__(self, other):
+        return not (self == other)
+
+    def __hash__(self):
+        return hash((self.data, tuple(self.children)))
+
+from inspect import getmembers, getmro
+
+class Discard(Exception):
+    pass
+
+# Transformers
+
+class Transformer:
+    """Visits the tree recursively, starting with the leaves and finally the root (bottom-up)
+
+    Calls its methods (provided by user via inheritance) according to tree.data
+    The returned value replaces the old one in the structure.
+
+    Can be used to implement map or reduce.
+    """
+
+    def _call_userfunc(self, tree, new_children=None):
+        # Assumes tree is already transformed
+        children = new_children if new_children is not None else tree.children
+        try:
+            f = getattr(self, tree.data)
+        except AttributeError:
+            return self.__default__(tree.data, children, tree.meta)
+        else:
+            if getattr(f, 'meta', False):
+                return f(children, tree.meta)
+            elif getattr(f, 'inline', False):
+                return f(*children)
+            elif getattr(f, 'whole_tree', False):
+                if new_children is not None:
+                    raise NotImplementedError("Doesn't work with the base Transformer class")
+                return f(tree)
+            else:
+                return f(children)
+
+    def _transform_children(self, children):
+        for c in children:
+            try:
+                yield self._transform_tree(c) if isinstance(c, Tree) else c
+            except Discard:
+                pass
+
+    def _transform_tree(self, tree):
+        children = list(self._transform_children(tree.children))
+        return self._call_userfunc(tree, children)
+
+    def transform(self, tree):
+        return self._transform_tree(tree)
+
+    def __mul__(self, other):
+        return TransformerChain(self, other)
+
+    def __default__(self, data, children, meta):
+        "Default operation on tree (for override)"
+        return Tree(data, children, meta)
+
+    @classmethod
+    def _apply_decorator(cls, decorator, **kwargs):
+        mro = getmro(cls)
+        assert mro[0] is cls
+        libmembers = {name for _cls in mro[1:] for name, _ in getmembers(_cls)}
+        for name, value in getmembers(cls):
+            if name.startswith('_') or name in libmembers:
+                continue
+
+            setattr(cls, name, decorator(value, **kwargs))
+        return cls
+
+
+class InlineTransformer(Transformer):   # XXX Deprecated
+    def _call_userfunc(self, tree, new_children=None):
+        # Assumes tree is already transformed
+        children = new_children if new_children is not None else tree.children
+        try:
+            f = getattr(self, tree.data)
+        except AttributeError:
+            return self.__default__(tree.data, children, tree.meta)
+        else:
+            return f(*children)
+
+
+class TransformerChain(object):
+    def __init__(self, *transformers):
+        self.transformers = transformers
+
+    def transform(self, tree):
+        for t in self.transformers:
+            tree = t.transform(tree)
+        return tree
+
+    def __mul__(self, other):
+        return TransformerChain(*self.transformers + (other,))
+
+
+class Transformer_InPlace(Transformer):
+    "Non-recursive. Changes the tree in-place instead of returning new instances"
+    def _transform_tree(self, tree):           # Cancel recursion
+        return self._call_userfunc(tree)
+
+    def transform(self, tree):
+        for subtree in tree.iter_subtrees():
+            subtree.children = list(self._transform_children(subtree.children))
+
+        return self._transform_tree(tree)
+
+
+class Transformer_InPlaceRecursive(Transformer):
+    "Recursive. Changes the tree in-place instead of returning new instances"
+    def _transform_tree(self, tree):
+        tree.children = list(self._transform_children(tree.children))
+        return self._call_userfunc(tree)
+
+
+
+# Visitors
+
+class VisitorBase:
+    def _call_userfunc(self, tree):
+        return getattr(self, tree.data, self.__default__)(tree)
+
+    def __default__(self, tree):
+        "Default operation on tree (for override)"
+        return tree
+
+
+class Visitor(VisitorBase):
+    """Bottom-up visitor, non-recursive
+
+    Visits the tree, starting with the leaves and finally the root (bottom-up)
+    Calls its methods (provided by user via inheritance) according to tree.data
+    """
+
+
+    def visit(self, tree):
+        for subtree in tree.iter_subtrees():
+            self._call_userfunc(subtree)
+        return tree
+
+class Visitor_Recursive(VisitorBase):
+    """Bottom-up visitor, recursive
+
+    Visits the tree, starting with the leaves and finally the root (bottom-up)
+    Calls its methods (provided by user via inheritance) according to tree.data
+    """
+
+    def visit(self, tree):
+        for child in tree.children:
+            if isinstance(child, Tree):
+                self.visit(child)
+
+        f = getattr(self, tree.data, self.__default__)
+        f(tree)
+        return tree
+
+
+
+def visit_children_decor(func):
+    "See Interpreter"
+    @wraps(func)
+    def inner(cls, tree):
+        values = cls.visit_children(tree)
+        return func(cls, values)
+    return inner
+
+
+class Interpreter:
+    """Top-down visitor, recursive
+
+    Visits the tree, starting with the root and finally the leaves (top-down)
+    Calls its methods (provided by user via inheritance) according to tree.data
+
+    Unlike Transformer and Visitor, the Interpreter doesn't automatically visit its sub-branches.
+    The user has to explicitly call visit_children, or use the @visit_children_decor
+    """
+    def visit(self, tree):
+        return getattr(self, tree.data)(tree)
+
+    def visit_children(self, tree):
+        return [self.visit(child) if isinstance(child, Tree) else child
+                for child in tree.children]
+
+    def __getattr__(self, name):
+        return self.__default__
+
+    def __default__(self, tree):
+        return self.visit_children(tree)
+
+
+
+
+# Decorators
+
+def _apply_decorator(obj, decorator, **kwargs):
+    try:
+        _apply = obj._apply_decorator
+    except AttributeError:
+        return decorator(obj, **kwargs)
+    else:
+        return _apply(decorator, **kwargs)
+
+
+
+def _inline_args__func(func):
+    @wraps(func)
+    def create_decorator(_f, with_self):
+        if with_self:
+            def f(self, children):
+                return _f(self, *children)
+        else:
+            def f(self, children):
+                return _f(*children)
+        return f
+
+    return smart_decorator(func, create_decorator)
+
+
+def inline_args(obj):   # XXX Deprecated
+    return _apply_decorator(obj, _inline_args__func)
+
+
+
+def _visitor_args_func_dec(func, inline=False, meta=False, whole_tree=False):
+    assert [whole_tree, meta, inline].count(True) <= 1
+    def create_decorator(_f, with_self):
+        if with_self:
+            def f(self, *args, **kwargs):
+                return _f(self, *args, **kwargs)
+        else:
+            def f(self, *args, **kwargs):
+                return _f(*args, **kwargs)
+        return f
+
+    f = smart_decorator(func, create_decorator)
+    f.inline = inline
+    f.meta = meta
+    f.whole_tree = whole_tree
+    return f
+
+def v_args(inline=False, meta=False, tree=False):
+    "A convenience decorator factory, for modifying the behavior of user-supplied visitor methods"
+    if [tree, meta, inline].count(True) > 1:
+        raise ValueError("Visitor functions can either accept tree, or meta, or be inlined. These cannot be combined.")
+    def _visitor_args_dec(obj):
+        return _apply_decorator(obj, _visitor_args_func_dec, inline=inline, meta=meta, whole_tree=tree)
+    return _visitor_args_dec
+
+
 
 class Indenter:
     def __init__(self):
@@ -298,27 +631,36 @@ class PropagatePositions:
 
     def __call__(self, children):
         res = self.node_builder(children)
+        res.meta.empty = True
 
         if children and isinstance(res, Tree):
-            for a in children:
-                if isinstance(a, Tree):
-                    res.meta.line = a.meta.line
-                    res.meta.column = a.meta.column
-                elif isinstance(a, Token):
-                    res.meta.line = a.line
-                    res.meta.column = a.column
-                break
+            for c in children:
+                if isinstance(c, Tree) and c.children and not c.meta.empty:
+                    res.meta.line = c.meta.line
+                    res.meta.column = c.meta.column
+                    res.meta.start_pos = c.meta.start_pos
+                    res.meta.empty = False
+                    break
+                elif isinstance(c, Token):
+                    res.meta.line = c.line
+                    res.meta.column = c.column
+                    res.meta.start_pos = c.pos_in_stream
+                    res.meta.empty = False
+                    break
 
-            for a in reversed(children):
-                # with suppress(AttributeError):
-                if isinstance(a, Tree):
-                    res.meta.end_line = a.meta.end_line
-                    res.meta.end_column = a.meta.end_column
-                elif isinstance(a, Token):
-                    res.meta.end_line = a.end_line
-                    res.meta.end_column = a.end_column
-
-                break
+            for c in reversed(children):
+                if isinstance(c, Tree) and c.children and not c.meta.empty:
+                    res.meta.end_line = c.meta.end_line
+                    res.meta.end_column = c.meta.end_column
+                    res.meta.end_pos = c.meta.end_pos
+                    res.meta.empty = False
+                    break
+                elif isinstance(c, Token):
+                    res.meta.end_line = c.end_line
+                    res.meta.end_column = c.end_column
+                    res.meta.end_pos = c.pos_in_stream + len(c.value)
+                    res.meta.empty = False
+                    break
 
         return res
 
@@ -369,7 +711,7 @@ class Callback(object):
     pass
 
 
-def inline_args(func):
+def ptb_inline_args(func):
     @wraps(func)
     def f(children):
         return func(*children)
@@ -417,7 +759,7 @@ class ParseTreeBuilder:
                 assert not getattr(f, 'meta', False), "Meta args not supported for internal transformer"
                 # XXX InlineTransformer is deprecated!
                 if getattr(f, 'inline', False) or isinstance(transformer, InlineTransformer):
-                    f = inline_args(f)
+                    f = ptb_inline_args(f)
             except AttributeError:
                 f = partial(self.tree_class, user_callback_name)
 
@@ -443,7 +785,6 @@ class _Parser:
         self.callbacks = callbacks
 
     def parse(self, seq, set_state=None):
-        i = 0
         token = None
         stream = iter(seq)
         states = self.states
@@ -458,7 +799,7 @@ class _Parser:
             try:
                 return states[state][key]
             except KeyError:
-                expected = states[state].keys()
+                expected = [s for s in states[state].keys() if s.isupper()]
                 raise UnexpectedToken(token, expected, state=state)  # TODO filter out rules from expected
 
         def reduce(rule):
@@ -478,7 +819,9 @@ class _Parser:
             value_stack.append(value)
 
         # Main LALR-parser loop
-        for i, token in enumerate(stream):
+        # print(''); index = -1
+        for token in stream:
+            # index += 1; x = token; print(repr(f"[@{index},{x.pos_in_stream}:{x.pos_in_stream+len(x.value)-1}='{x.value}'<{x.type}>,{x.line}:{x.column}]"))
             while True:
                 action, arg = get_action(token.type)
                 assert arg != self.end_state
@@ -491,6 +834,7 @@ class _Parser:
                 else:
                     reduce(arg)
 
+        token = Token.new_borrow_pos('<EOF>', token, token) if token else Token('<EOF>', '', 0, 1, 1)
         while True:
             _action, arg = get_action('$END')
             if _action is Shift:
@@ -520,12 +864,18 @@ class Symbol(object):
     def __repr__(self):
         return '%s(%r)' % (type(self).__name__, self.name)
 
+    fullrepr = property(__repr__)
+
 class Terminal(Symbol):
     is_term = True
 
     def __init__(self, name, filter_out=False):
         self.name = name
         self.filter_out = filter_out
+
+    @property
+    def fullrepr(self):
+        return '%s(%r, %r)' % (type(self).__name__, self.name, self.filter_out)
 
 
 class NonTerminal(Symbol):
@@ -565,47 +915,141 @@ class RuleOptions:
 Shift = 0
 Reduce = 1
 import re
+class LexerRegexps: pass
+NEWLINE_TYPES = []
+IGNORE_TYPES = []
+LEXERS = {}
 MRES = (
-[('(?P<AB>AB)|(?P<A>A)|(?P<B>B)', {1: 'AB', 2: 'A', 3: 'B'})]
+[('(?P<A>A)', {1: 'A'})]
 )
 LEXER_CALLBACK = (
 {}
 )
-NEWLINE_TYPES = []
-IGNORE_TYPES = []
-class LexerRegexps: pass
 lexer_regexps = LexerRegexps()
 lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
 lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
                           for n, mres in LEXER_CALLBACK.items()}
-lexer = _Lex(lexer_regexps)
+LEXERS[0] = (lexer_regexps)
+MRES = (
+[('(?P<B>B)', {1: 'B'})]
+)
+LEXER_CALLBACK = (
+{}
+)
+lexer_regexps = LexerRegexps()
+lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
+lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
+                          for n, mres in LEXER_CALLBACK.items()}
+LEXERS[1] = (lexer_regexps)
+MRES = (
+[]
+)
+LEXER_CALLBACK = (
+{}
+)
+lexer_regexps = LexerRegexps()
+lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
+lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
+                          for n, mres in LEXER_CALLBACK.items()}
+LEXERS[2] = (lexer_regexps)
+MRES = (
+[('(?P<AB>AB)', {1: 'AB'})]
+)
+LEXER_CALLBACK = (
+{}
+)
+lexer_regexps = LexerRegexps()
+lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
+lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
+                          for n, mres in LEXER_CALLBACK.items()}
+LEXERS[3] = (lexer_regexps)
+MRES = (
+[('(?P<AB>AB)', {1: 'AB'})]
+)
+LEXER_CALLBACK = (
+{}
+)
+lexer_regexps = LexerRegexps()
+lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
+lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
+                          for n, mres in LEXER_CALLBACK.items()}
+LEXERS[4] = (lexer_regexps)
+MRES = (
+[]
+)
+LEXER_CALLBACK = (
+{}
+)
+lexer_regexps = LexerRegexps()
+lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
+lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
+                          for n, mres in LEXER_CALLBACK.items()}
+LEXERS[5] = (lexer_regexps)
+MRES = (
+[]
+)
+LEXER_CALLBACK = (
+{}
+)
+lexer_regexps = LexerRegexps()
+lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
+lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
+                          for n, mres in LEXER_CALLBACK.items()}
+LEXERS[6] = (lexer_regexps)
+MRES = (
+[]
+)
+LEXER_CALLBACK = (
+{}
+)
+lexer_regexps = LexerRegexps()
+lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
+lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
+                          for n, mres in LEXER_CALLBACK.items()}
+LEXERS[7] = (lexer_regexps)
+class ContextualLexer:
+    def __init__(self):
+        self.lexers = LEXERS
+        self.set_parser_state(None)
+    def set_parser_state(self, state):
+        self.parser_state = state
+    def lex(self, stream):
+        newline_types = NEWLINE_TYPES
+        ignore_types = IGNORE_TYPES
+        lexers = LEXERS
+        l = _Lex(lexers[self.parser_state], self.parser_state)
+        for x in l.lex(stream, newline_types, ignore_types):
+            yield x
+            l.lexer = lexers[self.parser_state]
+            l.state = self.parser_state
+CON_LEXER = ContextualLexer()
 def lex(stream):
-    return lexer.lex(stream, NEWLINE_TYPES, IGNORE_TYPES)
+    return CON_LEXER.lex(stream)
 RULES = {
   0: Rule(NonTerminal('start'), [NonTerminal('a'), NonTerminal('b')], None, RuleOptions(False, False, None)),
-  1: Rule(NonTerminal('a'), [Terminal('A'), Terminal('B')], None, RuleOptions(False, False, None)),
-  2: Rule(NonTerminal('b'), [Terminal('AB')], None, RuleOptions(False, False, None)),
+  1: Rule(NonTerminal('a'), [Terminal('A', True), Terminal('B', True)], None, RuleOptions(False, False, None)),
+  2: Rule(NonTerminal('b'), [Terminal('AB', True)], None, RuleOptions(False, False, None)),
 }
 parse_tree_builder = ParseTreeBuilder(RULES.values(), Tree)
 class ParseTable: pass
 parse_table = ParseTable()
 STATES = {
   0: {0: (0, 1), 1: (0, 2), 2: (0, 3)},
-  1: {3: (0, 4), 4: (0, 5)},
-  2: {5: (0, 6)},
-  3: {6: (0, 7)},
-  4: {6: (1, 2)},
-  5: {6: (1, 0)},
-  6: {3: (1, 1)},
-  7: {},
+  1: {3: (0, 4)},
+  2: {4: (0, 5)},
+  3: {5: (0, 6), 6: (0, 7)},
+  4: {6: (1, 1)},
+  5: {},
+  6: {4: (1, 0)},
+  7: {4: (1, 2)},
 }
 TOKEN_TYPES = (
-{0: 'a', 1: 'A', 2: 'start', 3: 'AB', 4: 'b', 5: 'B', 6: '$END'}
+{0: 'A', 1: 'start', 2: 'a', 3: 'B', 4: '$END', 5: 'b', 6: 'AB'}
 )
 parse_table.states = {s: {TOKEN_TYPES[t]: (a, RULES[x] if a is Reduce else x) for t, (a, x) in acts.items()}
                       for s, acts in STATES.items()}
 parse_table.start_state = 0
-parse_table.end_state = 7
+parse_table.end_state = 5
 class Lark_StandAlone:
   def __init__(self, transformer=None, postlex=None):
      callback = parse_tree_builder.create_callback(transformer=transformer)
@@ -614,5 +1058,6 @@ class Lark_StandAlone:
      self.postlex = postlex
   def parse(self, stream):
      tokens = lex(stream)
+     sps = CON_LEXER.set_parser_state
      if self.postlex: tokens = self.postlex.process(tokens)
-     return self.parser.parse(tokens)
+     return self.parser.parse(tokens, sps)
