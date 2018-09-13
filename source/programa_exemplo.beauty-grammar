@@ -1,3 +1,154 @@
+
+
+
+// Example program:
+
+name: Abstract Machine Language
+scope: source.sma
+contexts: {
+  include: numbers
+  include: keywords
+  include: function
+  include: check_brackets
+
+  match: (true|false) {
+    scope: constant.language
+  }
+  include: Packages/Editor/Consts.syntax
+}
+
+function: {
+  include: function_definition
+  include: function_call
+}
+
+function_definition: {
+  match: ^[\s;]*(public|stock|native|forward)\s+([A-Za-z_]\w*:\s*)?([A-Za-z_][\w_]*)[\s]*(\() {
+    captures: {
+      1: storage.type.function.pawn
+      2: storage.modifier.tag.pawn
+      3: support.function.definition.pawn
+      4: function.parens.pawn
+    }
+    push: {
+      match: \) {
+        scope: function.parens.pawn
+        pop: true
+      }
+      include: main
+      include: function_block
+    }
+  }
+  match: '^[ ;]*([A-Za-z_]\w*:)?([A-Za-z_][\w_]*)[\s]*(\()' {
+    captures: {
+      1: storage.modifier.tag.pawn
+      2: support.function.definition.pawn
+      3: function.parens.pawn
+    }
+    push: {
+      match: \) {
+        scope: function.parens.pawn
+        pop: true
+      }
+      include: main
+      include: function_block
+    }
+  }
+}
+
+function_block: {
+  match: '\{' {
+    scope: punctuation.definition.group.start
+    push: {
+      meta_scope: meta.block.pawn
+      match: '\}' {
+        scope: punctuation.definition.group.end
+        pop: true
+      }
+      include: main
+      include: function_call
+    }
+    include: main_2
+  }
+  include: main
+}
+
+function_call: {
+  match: \s*([A-Za-z_][\w_]*)[\s|\\n]*(\() {
+    captures: {
+      1: support.function.call.pawn
+      2: function.parens.pawn
+    }
+    push: {
+      match: \) {
+        scope: function.parens.pawn
+        pop: true
+      }
+      include: main
+    }
+  }
+}
+
+numbers: {
+  match: '(\d+)(\.\{2\})(\d+)' {
+    captures: {
+      1: constant.numeric.int.pawn
+      2: keyword.operator.switch-range.pawn
+      3: constant.numeric.int.pawn
+    }
+  }
+
+  match: ([-]?0x[\da-f]+) {
+    scope: constant.numeric.hex.pawn
+  }
+  match: \b(\d+\.\d+)\b {
+    scope: constant.numeric.float.pawn
+  }
+  match: \b(\d+)\b {
+    scope: constant.numeric.int.pawn
+  }
+}
+
+keywords: {
+  match: \s*(case\b([^:\n]*):)\s+ {
+    captures: {
+      1: keyword.control.pawn
+      2: storage.type.vars.pawn
+    }
+  }
+  match: (~|&|\||\^|<<|>>) {
+    scope: keyword.operator.bitwise.pawn
+  }
+  match: (\,|;) {
+    scope: keyword.coma.pawn
+  }
+
+  match: (\{|\}) {
+    scope: keyword.brace.pawn
+  }
+}
+
+parens: {
+  match: \( {
+    scope: parens.pawn
+    push: {
+      meta_scope: meta.group.c
+      match: \) {
+        scope: parens.pawn
+        pop: true
+      }
+      include: main
+    }
+  }
+}
+
+check_brackets: {
+  match: \) {
+    scope: invalid.illegal.stray-bracket-end
+  }
+}
+
+
 /*
 
 Entrega 1 é:
@@ -16,120 +167,3 @@ https://stackoverflow.com/questions/27786191/how-to-represent-vertical-alignment
 https://github.com/lark-parser/lark/blob/master/lark/grammars/common.lark
 
 */
-
-// Example program:
-
-name: Abstract Machine Language
-scope: source.sma
-contexts:
-  include: numbers
-  include: keywords
-  include: function
-  include: check_brackets
-
-  match: (true|false)
-    scope: constant.language
-
-  include: Packages/AmxxEditor/AmxxEditorConsts.sublime-syntax
-
-function:
-  include: function_definition
-  include: function_call
-
-function_definition:
-  match: ^[\s;]*(public|stock|native|forward)\s+([A-Za-z_]\w*:\s*)?([A-Za-z_][\w_]*)[\s]*(\()
-    captures:
-      1: storage.type.function.pawn
-      2: storage.modifier.tag.pawn
-      3: support.function.definition.pawn
-      4: function.parens.pawn
-    push:
-      match: \)
-        scope: function.parens.pawn
-        pop: true
-      include: main
-      include: function_block
-  match: '^[ ;]*([A-Za-z_]\w*:)?([A-Za-z_][\w_]*)[\s]*(\()'
-    captures:
-      1: storage.modifier.tag.pawn
-      2: support.function.definition.pawn
-      3: function.parens.pawn
-    push:
-      match: \)
-        scope: function.parens.pawn
-        pop: true
-      include: main
-      include: function_block
-
-function_block:
-  match: '\{'
-    scope: punctuation.definition.group.start
-    push:
-      meta_scope: meta.block.pawn
-      match: '\}'
-        scope: punctuation.definition.group.end
-        pop: true
-      include: main
-      include: function_call
-  include: main
-
-
-function_call:
-  match: \s*([A-Za-z_][\w_]*)[\s|\\n]*(\()
-    captures:
-      1: support.function.call.pawn
-      2: function.parens.pawn
-    push:
-      match: \)
-        scope: function.parens.pawn
-        pop: true
-      include: main
-
-numbers:
-  match: '(\d+)(\.{2})(\d+)'
-    captures:
-      1: constant.numeric.int.pawn
-      2: keyword.operator.switch-range.pawn
-      3: constant.numeric.int.pawn
-
-  match: ([-]?0x[\da-f]+)
-    scope: constant.numeric.hex.pawn
-
-  match: \b(\d+\.\d+)\b
-    scope: constant.numeric.float.pawn
-
-  match: \b(\d+)\b
-    scope: constant.numeric.int.pawn
-
-keywords:
-  match: \s*(case\b([^:\n]*):)\s+
-    captures:
-      1: keyword.control.pawn
-      2: storage.type.vars.pawn
-
-  match: (~|&|\||\^|<<|>>)
-    scope: keyword.operator.bitwise.pawn
-
-  match: (\,|;)
-    scope: keyword.coma.pawn
-
-  match: ({|})
-    scope: keyword.brace.pawn
-
-parens:
-  match: \(
-    scope: parens.pawn
-    push:
-      meta_scope: meta.group.c
-      match: \)
-        scope: parens.pawn
-        pop: true
-      include: main
-
-check_brackets:
-  match: \)
-    scope: invalid.illegal.stray-bracket-end
-
-
-*/
-

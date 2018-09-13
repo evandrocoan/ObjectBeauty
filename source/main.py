@@ -75,7 +75,7 @@ def test():
     # print(parser.parse(test_tree).pretty())
     # tree = meu_parser.parse(simples_exemplo)
     # print(tree.pretty())
-    grammar_file_path = get_relative_path( "programa_exemplo_simples.beauty-grammar", __file__ )
+    grammar_file_path = get_relative_path( "programa_exemplo.beauty-grammar", __file__ )
 
     with open( grammar_file_path, "r", encoding='utf-8' ) as file:
         ## The parser used to build the Abstract Syntax Tree and parse the input text
