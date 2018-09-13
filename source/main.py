@@ -47,7 +47,7 @@ grammar_file_path = get_relative_path( "gramatica_compiladores.lark", __file__ )
 with open( grammar_file_path, "r", encoding='utf-8' ) as file:
     ## The parser used to build the Abstract Syntax Tree and parse the input text
     # meu_parser = Lark( file.read(), start='language_syntax', lexer='standard', parser='lalr', postlex=TreeIndenter() )
-    meu_parser = Lark( file.read(), start='language_syntax', parser='lalr', postlex=TreeIndenter() )
+    meu_parser = Lark( file.read(), start='language_syntax', parser='lalr', lexer='contextual', postlex=TreeIndenter() )
 
 test_tree = """
 a
