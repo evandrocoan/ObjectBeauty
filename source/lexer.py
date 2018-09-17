@@ -32,6 +32,42 @@
 #
 #
 
+try:
+    from debug_tools import getLogger
+
+except ( ImportError, ValueError ):   # Python 3
+    # getLogger is a function, but it returns a class object
+    class getLogger(object):
+        name = ""
+        level = 0
+        parent = None
+        propagate = False
+        handlers = None
+        disabled = False
+        def __call__(*args, **kwargs): pass
+        def __init__(self, name, level=0): pass
+        def setLevel(self, level): pass
+        def debug(self, msg, *args, **kwargs): pass
+        def info(self, msg, *args, **kwargs): pass
+        def warning(self, msg, *args, **kwargs): pass
+        def warn(self, msg, *args, **kwargs): pass
+        def error(self, msg, *args, **kwargs): pass
+        def exception(self, msg, *args, **kwargs): pass
+        def critical(self, msg, *args, **kwargs): pass
+        def log(self, level, msg, *args, **kwargs): pass
+        def findCaller(self, stack_info=False): pass
+        def makeRecord(self, name, level, fn, lno, msg, args, exc_info, func=None, extra=None, sinfo=None): pass
+        def handle(self, record): pass
+        def addHandler(self, hdlr): pass
+        def removeHandler(self, hdlr): pass
+        def hasHandlers(self): pass
+        def callHandlers(self, record): pass
+        def getEffectiveLevel(self): pass
+        def isEnabledFor(self, level): pass
+        def getChild(self, suffix): pass
+
+log = getLogger(__name__, 1)
+
 class LarkError(Exception):
     pass
 
@@ -581,7 +617,7 @@ class _Lex:
         while True:
             lexer = self.lexer
             for mre, type_from_index in lexer.mres:
-                # print(f'stream {stream[0:50]}, mre {mre}', file=sys.stderr)
+                log(2, 'stream %s, mre %s', stream[0:50], mre)
                 m = mre.match(stream, line_ctr.char_pos)
                 if m:
                     value = m.group(0)
@@ -613,7 +649,7 @@ class _Lex:
                             )
                         )
 
-                    # print(f'parser_errors: {parser_errors}', file=sys.stderr)
+                    log(2, 'parser_errors: %s', parser_errors)
                     char_error_offset += 1
                     column_error_offset += 1
 
@@ -843,12 +879,12 @@ class _Parser:
 
                 # TODO filter out rules from expected
                 parser_errors[-1].append(UnexpectedToken(token, expected, state=state))
-                # print(f'parser_errors {parser_errors}', file=sys.stderr)
+                log(2, 'parser_errors %s', parser_errors)
 
                 # Just take the first expected key
                 for s in states[state].keys():
                     if s.isupper():
-                        # print(f"For {state} and {key}, returning key {s} - {states[state][s]}", file=sys.stderr)
+                        log( 2, 'For %s and %s, returning key %s - %s', state, key, s, states[state][s] )
                         return states[state][s]
 
         def reduce(rule):
@@ -871,14 +907,14 @@ class _Parser:
             delimiter = '\n--------------\n'
             for item in value_stack:
                 if isinstance(item, Tree):
-                    print(f'\npartial tree:{delimiter}{item.pretty()}', file=sys.stderr)
+                    sys.stderr.write('\npartial tree:%s%s\n' % (delimiter, item.pretty()))
                 else:
-                    print(f'\nloose token:{delimiter}{repr(item)}', file=sys.stderr)
+                    sys.stderr.write('\nloose token:%s%s\n' % (delimiter, repr(item)))
 
-            print(f'\n--------------', file=sys.stderr)
+            sys.stderr.write(delimiter)
 
         def raise_parsing_errors():
-            # print(f'parser_errors: {parser_errors}', file=sys.stderr)
+            log(2, 'parser_errors: %s', parser_errors)
             if parser_errors[-1]:
                 error_messages = []
                 for index, exception in enumerate(parser_errors[-1]):
@@ -893,11 +929,11 @@ class _Parser:
 
         try:
             # Main LALR-parser loop
-            # print('', file=sys.stderr); index = -1
+            log( 2, '' ); index = -1
             for token in stream:
-                # index += 1; x = token; print(repr(f"[@{index},{x.pos_in_stream}:{x.pos_in_stream+len(x.value)-1}='{x.value}'<{x.type}>,{x.line}:{x.column}]"), file=sys.stderr)
+                index += 1; x = token; log( 2, repr("[@%s,%s:%s='%s'<%s>,%s:%s]"), index, x.pos_in_stream, x.pos_in_stream+len(x.value)-1, x.value, x.type, x.line, x.column )
                 while True:
-                    # print(f'token {type(token)} {token}', file=sys.stderr)
+                    log( 2, 'token %s %s', type(token), token)
                     action, arg = get_action(token.type)
                     if arg == self.end_state:
                         break
@@ -1027,24 +1063,6 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[0] = (lexer_regexps)
 MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
-  ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<SCOPE>scope)|(?P<NAME>name)',
-  {1: 'MULTI_LINE_COMMENT',
-   3: 'SINGLE_LINE_COMMENT',
-   5: 'SPACES',
-   6: 'SCOPE',
-   7: 'NAME'})]
-)
-LEXER_CALLBACK = (
-{}
-)
-lexer_regexps = LexerRegexps()
-lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
-lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
-                          for n, mres in LEXER_CALLBACK.items()}
-LEXERS[1] = (lexer_regexps)
-MRES = (
 [('(?P<_NEWLINE>(?:(?:\r'
   '?\n'
   '[\t ]*|(\\#|\\/\\/)[^\n'
@@ -1056,6 +1074,24 @@ MRES = (
    5: 'SINGLE_LINE_COMMENT',
    7: 'SPACES',
    8: 'CONTEXTS'})]
+)
+LEXER_CALLBACK = (
+{}
+)
+lexer_regexps = LexerRegexps()
+lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
+lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
+                          for n, mres in LEXER_CALLBACK.items()}
+LEXERS[1] = (lexer_regexps)
+MRES = (
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+  ']*)|(?P<SPACES>[\t \x0c'
+  ']+)|(?P<SCOPE>scope)|(?P<NAME>name)',
+  {1: 'MULTI_LINE_COMMENT',
+   3: 'SINGLE_LINE_COMMENT',
+   5: 'SPACES',
+   6: 'SCOPE',
+   7: 'NAME'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -1103,16 +1139,10 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[4] = (lexer_regexps)
 MRES = (
-[('(?P<_NEWLINE>(?:(?:\r'
-  '?\n'
-  '[\t ]*|(\\#|\\/\\/)[^\n'
-  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
   ']+)',
-  {1: '_NEWLINE',
-   3: 'MULTI_LINE_COMMENT',
-   5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES'})]
+  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -1137,10 +1167,16 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[6] = (lexer_regexps)
 MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<_NEWLINE>(?:(?:\r'
+  '?\n'
+  '[\t ]*|(\\#|\\/\\/)[^\n'
+  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
   ']+)',
-  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
+  {1: '_NEWLINE',
+   3: 'MULTI_LINE_COMMENT',
+   5: 'SINGLE_LINE_COMMENT',
+   7: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -1171,17 +1207,13 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[8] = (lexer_regexps)
 MRES = (
-[('(?P<_NEWLINE>(?:(?:\r'
-  '?\n'
-  '[\t ]*|(\\#|\\/\\/)[^\n'
-  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
   ']+)|(?P<CONTEXTS>contexts)',
-  {1: '_NEWLINE',
-   3: 'MULTI_LINE_COMMENT',
-   5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES',
-   8: 'CONTEXTS'})]
+  {1: 'MULTI_LINE_COMMENT',
+   3: 'SINGLE_LINE_COMMENT',
+   5: 'SPACES',
+   6: 'CONTEXTS'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -1216,11 +1248,8 @@ LEXERS[10] = (lexer_regexps)
 MRES = (
 [('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<CONTEXTS>contexts)',
-  {1: 'MULTI_LINE_COMMENT',
-   3: 'SINGLE_LINE_COMMENT',
-   5: 'SPACES',
-   6: 'CONTEXTS'})]
+  ']+)|(?P<COLON>\\:)',
+  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES', 6: 'COLON'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -1231,10 +1260,17 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[11] = (lexer_regexps)
 MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<_NEWLINE>(?:(?:\r'
+  '?\n'
+  '[\t ]*|(\\#|\\/\\/)[^\n'
+  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<COLON>\\:)',
-  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES', 6: 'COLON'})]
+  ']+)|(?P<CONTEXTS>contexts)',
+  {1: '_NEWLINE',
+   3: 'MULTI_LINE_COMMENT',
+   5: 'SINGLE_LINE_COMMENT',
+   7: 'SPACES',
+   8: 'CONTEXTS'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -1303,19 +1339,10 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[15] = (lexer_regexps)
 MRES = (
-[('(?P<_NEWLINE>(?:(?:\r'
-  '?\n'
-  '[\t ]*|(\\#|\\/\\/)[^\n'
-  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<CONTEXTS>contexts)|(?P<SCOPE>scope)|(?P<NAME>name)',
-  {1: '_NEWLINE',
-   3: 'MULTI_LINE_COMMENT',
-   5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES',
-   8: 'CONTEXTS',
-   9: 'SCOPE',
-   10: 'NAME'})]
+  ']+)',
+  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -1344,10 +1371,19 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[17] = (lexer_regexps)
 MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<_NEWLINE>(?:(?:\r'
+  '?\n'
+  '[\t ]*|(\\#|\\/\\/)[^\n'
+  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)',
-  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
+  ']+)|(?P<CONTEXTS>contexts)|(?P<SCOPE>scope)|(?P<NAME>name)',
+  {1: '_NEWLINE',
+   3: 'MULTI_LINE_COMMENT',
+   5: 'SINGLE_LINE_COMMENT',
+   7: 'SPACES',
+   8: 'CONTEXTS',
+   9: 'SCOPE',
+   10: 'NAME'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -1381,13 +1417,18 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[19] = (lexer_regexps)
 MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<_NEWLINE>(?:(?:\r'
+  '?\n'
+  '[\t ]*|(\\#|\\/\\/)[^\n'
+  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<CONTEXTS>contexts)',
-  {1: 'MULTI_LINE_COMMENT',
-   3: 'SINGLE_LINE_COMMENT',
-   5: 'SPACES',
-   6: 'CONTEXTS'})]
+  ']+)|(?P<__ANON_0>[^:\n'
+  ']+)',
+  {1: '_NEWLINE',
+   3: 'MULTI_LINE_COMMENT',
+   5: 'SINGLE_LINE_COMMENT',
+   7: 'SPACES',
+   8: '__ANON_0'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -1442,18 +1483,10 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[22] = (lexer_regexps)
 MRES = (
-[('(?P<_NEWLINE>(?:(?:\r'
-  '?\n'
-  '[\t ]*|(\\#|\\/\\/)[^\n'
-  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<__ANON_0>[^:\n'
-  ']+)',
-  {1: '_NEWLINE',
-   3: 'MULTI_LINE_COMMENT',
-   5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES',
-   8: '__ANON_0'})]
+  ']+)|(?P<COLON>\\:)',
+  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES', 6: 'COLON'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -1488,8 +1521,11 @@ LEXERS[24] = (lexer_regexps)
 MRES = (
 [('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<COLON>\\:)',
-  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES', 6: 'COLON'})]
+  ']+)|(?P<LBRACE>\\{)',
+  {1: 'MULTI_LINE_COMMENT',
+   3: 'SINGLE_LINE_COMMENT',
+   5: 'SPACES',
+   6: 'LBRACE'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -1524,11 +1560,11 @@ LEXERS[26] = (lexer_regexps)
 MRES = (
 [('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<LBRACE>\\{)',
+  ']+)|(?P<CONTEXTS>contexts)',
   {1: 'MULTI_LINE_COMMENT',
    3: 'SINGLE_LINE_COMMENT',
    5: 'SPACES',
-   6: 'LBRACE'})]
+   6: 'CONTEXTS'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -1748,6 +1784,23 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[37] = (lexer_regexps)
 MRES = (
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+  ']*)|(?P<SPACES>[\t \x0c'
+  ']+)|(?P<LBRACE>\\{)',
+  {1: 'MULTI_LINE_COMMENT',
+   3: 'SINGLE_LINE_COMMENT',
+   5: 'SPACES',
+   6: 'LBRACE'})]
+)
+LEXER_CALLBACK = (
+{}
+)
+lexer_regexps = LexerRegexps()
+lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
+lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
+                          for n, mres in LEXER_CALLBACK.items()}
+LEXERS[38] = (lexer_regexps)
+MRES = (
 [('(?P<_NEWLINE>(?:(?:\r'
   '?\n'
   '[\t ]*|(\\#|\\/\\/)[^\n'
@@ -1768,7 +1821,7 @@ lexer_regexps = LexerRegexps()
 lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
 lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
                           for n, mres in LEXER_CALLBACK.items()}
-LEXERS[38] = (lexer_regexps)
+LEXERS[39] = (lexer_regexps)
 MRES = (
 [('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
@@ -1782,37 +1835,18 @@ lexer_regexps = LexerRegexps()
 lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
 lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
                           for n, mres in LEXER_CALLBACK.items()}
-LEXERS[39] = (lexer_regexps)
+LEXERS[40] = (lexer_regexps)
 MRES = (
 [('(?P<_NEWLINE>(?:(?:\r'
   '?\n'
   '[\t ]*|(\\#|\\/\\/)[^\n'
   ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<__ANON_0>[^:\n'
   ']+)',
   {1: '_NEWLINE',
    3: 'MULTI_LINE_COMMENT',
    5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES',
-   8: '__ANON_0'})]
-)
-LEXER_CALLBACK = (
-{}
-)
-lexer_regexps = LexerRegexps()
-lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
-lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
-                          for n, mres in LEXER_CALLBACK.items()}
-LEXERS[40] = (lexer_regexps)
-MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
-  ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<LBRACE>\\{)',
-  {1: 'MULTI_LINE_COMMENT',
-   3: 'SINGLE_LINE_COMMENT',
-   5: 'SPACES',
-   6: 'LBRACE'})]
+   7: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -1872,11 +1906,13 @@ MRES = (
   '[\t ]*|(\\#|\\/\\/)[^\n'
   ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
+  ']+)|(?P<__ANON_0>[^:\n'
   ']+)',
   {1: '_NEWLINE',
    3: 'MULTI_LINE_COMMENT',
    5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES'})]
+   7: 'SPACES',
+   8: '__ANON_0'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -1909,18 +1945,10 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[45] = (lexer_regexps)
 MRES = (
-[('(?P<_NEWLINE>(?:(?:\r'
-  '?\n'
-  '[\t ]*|(\\#|\\/\\/)[^\n'
-  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<__ANON_0>[^:\n'
   ']+)',
-  {1: '_NEWLINE',
-   3: 'MULTI_LINE_COMMENT',
-   5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES',
-   8: '__ANON_0'})]
+  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -1953,18 +1981,10 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[47] = (lexer_regexps)
 MRES = (
-[('(?P<_NEWLINE>(?:(?:\r'
-  '?\n'
-  '[\t ]*|(\\#|\\/\\/)[^\n'
-  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<__ANON_0>[^:\n'
   ']+)',
-  {1: '_NEWLINE',
-   3: 'MULTI_LINE_COMMENT',
-   5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES',
-   8: '__ANON_0'})]
+  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -1975,10 +1995,18 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[48] = (lexer_regexps)
 MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<_NEWLINE>(?:(?:\r'
+  '?\n'
+  '[\t ]*|(\\#|\\/\\/)[^\n'
+  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
+  ']+)|(?P<__ANON_0>[^:\n'
   ']+)',
-  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
+  {1: '_NEWLINE',
+   3: 'MULTI_LINE_COMMENT',
+   5: 'SINGLE_LINE_COMMENT',
+   7: 'SPACES',
+   8: '__ANON_0'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -1988,20 +2016,6 @@ lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
 lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[49] = (lexer_regexps)
-MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
-  ']*)|(?P<SPACES>[\t \x0c'
-  ']+)',
-  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
-)
-LEXER_CALLBACK = (
-{}
-)
-lexer_regexps = LexerRegexps()
-lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
-lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
-                          for n, mres in LEXER_CALLBACK.items()}
-LEXERS[50] = (lexer_regexps)
 MRES = (
 [('(?P<_NEWLINE>(?:(?:\r'
   '?\n'
@@ -2015,6 +2029,20 @@ MRES = (
    5: 'SINGLE_LINE_COMMENT',
    7: 'SPACES',
    8: '__ANON_0'})]
+)
+LEXER_CALLBACK = (
+{}
+)
+lexer_regexps = LexerRegexps()
+lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
+lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
+                          for n, mres in LEXER_CALLBACK.items()}
+LEXERS[50] = (lexer_regexps)
+MRES = (
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+  ']*)|(?P<SPACES>[\t \x0c'
+  ']+)',
+  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2027,8 +2055,15 @@ LEXERS[51] = (lexer_regexps)
 MRES = (
 [('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)',
-  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
+  ']+)|(?P<__ANON_1>meta_scope)|(?P<INCLUDE>include)|(?P<MATCH>match)|(?P<PUSH>push)|(?P<POP>pop)',
+  {1: 'MULTI_LINE_COMMENT',
+   3: 'SINGLE_LINE_COMMENT',
+   5: 'SPACES',
+   6: '__ANON_1',
+   7: 'INCLUDE',
+   8: 'MATCH',
+   9: 'PUSH',
+   10: 'POP'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2075,6 +2110,20 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[54] = (lexer_regexps)
 MRES = (
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+  ']*)|(?P<SPACES>[\t \x0c'
+  ']+)',
+  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
+)
+LEXER_CALLBACK = (
+{}
+)
+lexer_regexps = LexerRegexps()
+lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
+lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
+                          for n, mres in LEXER_CALLBACK.items()}
+LEXERS[55] = (lexer_regexps)
+MRES = (
 [('(?P<_NEWLINE>(?:(?:\r'
   '?\n'
   '[\t ]*|(\\#|\\/\\/)[^\n'
@@ -2095,33 +2144,20 @@ lexer_regexps = LexerRegexps()
 lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
 lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
                           for n, mres in LEXER_CALLBACK.items()}
-LEXERS[55] = (lexer_regexps)
-MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
-  ']*)|(?P<SPACES>[\t \x0c'
-  ']+)',
-  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
-)
-LEXER_CALLBACK = (
-{}
-)
-lexer_regexps = LexerRegexps()
-lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
-lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
-                          for n, mres in LEXER_CALLBACK.items()}
 LEXERS[56] = (lexer_regexps)
 MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<_NEWLINE>(?:(?:\r'
+  '?\n'
+  '[\t ]*|(\\#|\\/\\/)[^\n'
+  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<__ANON_1>meta_scope)|(?P<INCLUDE>include)|(?P<MATCH>match)|(?P<PUSH>push)|(?P<POP>pop)',
-  {1: 'MULTI_LINE_COMMENT',
-   3: 'SINGLE_LINE_COMMENT',
-   5: 'SPACES',
-   6: '__ANON_1',
-   7: 'INCLUDE',
-   8: 'MATCH',
-   9: 'PUSH',
-   10: 'POP'})]
+  ']+)|(?P<__ANON_0>[^:\n'
+  ']+)',
+  {1: '_NEWLINE',
+   3: 'MULTI_LINE_COMMENT',
+   5: 'SINGLE_LINE_COMMENT',
+   7: 'SPACES',
+   8: '__ANON_0'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2146,18 +2182,10 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[58] = (lexer_regexps)
 MRES = (
-[('(?P<_NEWLINE>(?:(?:\r'
-  '?\n'
-  '[\t ]*|(\\#|\\/\\/)[^\n'
-  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<__ANON_0>[^:\n'
-  ']+)',
-  {1: '_NEWLINE',
-   3: 'MULTI_LINE_COMMENT',
-   5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES',
-   8: '__ANON_0'})]
+  ']+)|(?P<COLON>\\:)',
+  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES', 6: 'COLON'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2168,10 +2196,16 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[59] = (lexer_regexps)
 MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<_NEWLINE>(?:(?:\r'
+  '?\n'
+  '[\t ]*|(\\#|\\/\\/)[^\n'
+  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
   ']+)',
-  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
+  {1: '_NEWLINE',
+   3: 'MULTI_LINE_COMMENT',
+   5: 'SINGLE_LINE_COMMENT',
+   7: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2182,10 +2216,16 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[60] = (lexer_regexps)
 MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<_NEWLINE>(?:(?:\r'
+  '?\n'
+  '[\t ]*|(\\#|\\/\\/)[^\n'
+  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
   ']+)',
-  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
+  {1: '_NEWLINE',
+   3: 'MULTI_LINE_COMMENT',
+   5: 'SINGLE_LINE_COMMENT',
+   7: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2198,8 +2238,8 @@ LEXERS[61] = (lexer_regexps)
 MRES = (
 [('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)',
-  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
+  ']+)|(?P<COLON>\\:)',
+  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES', 6: 'COLON'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2224,26 +2264,6 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[63] = (lexer_regexps)
 MRES = (
-[('(?P<_NEWLINE>(?:(?:\r'
-  '?\n'
-  '[\t ]*|(\\#|\\/\\/)[^\n'
-  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
-  ']*)|(?P<SPACES>[\t \x0c'
-  ']+)',
-  {1: '_NEWLINE',
-   3: 'MULTI_LINE_COMMENT',
-   5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES'})]
-)
-LEXER_CALLBACK = (
-{}
-)
-lexer_regexps = LexerRegexps()
-lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
-lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
-                          for n, mres in LEXER_CALLBACK.items()}
-LEXERS[64] = (lexer_regexps)
-MRES = (
 [('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
   ']+)|(?P<__ANON_1>meta_scope)|(?P<INCLUDE>include)|(?P<MATCH>match)|(?P<PUSH>push)|(?P<POP>pop)|(?P<RBRACE>\\})',
@@ -2256,6 +2276,26 @@ MRES = (
    9: 'PUSH',
    10: 'POP',
    11: 'RBRACE'})]
+)
+LEXER_CALLBACK = (
+{}
+)
+lexer_regexps = LexerRegexps()
+lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
+lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
+                          for n, mres in LEXER_CALLBACK.items()}
+LEXERS[64] = (lexer_regexps)
+MRES = (
+[('(?P<_NEWLINE>(?:(?:\r'
+  '?\n'
+  '[\t ]*|(\\#|\\/\\/)[^\n'
+  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+  ']*)|(?P<SPACES>[\t \x0c'
+  ']+)',
+  {1: '_NEWLINE',
+   3: 'MULTI_LINE_COMMENT',
+   5: 'SINGLE_LINE_COMMENT',
+   7: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2300,10 +2340,16 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[67] = (lexer_regexps)
 MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<_NEWLINE>(?:(?:\r'
+  '?\n'
+  '[\t ]*|(\\#|\\/\\/)[^\n'
+  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<COLON>\\:)',
-  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES', 6: 'COLON'})]
+  ']+)',
+  {1: '_NEWLINE',
+   3: 'MULTI_LINE_COMMENT',
+   5: 'SINGLE_LINE_COMMENT',
+   7: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2348,16 +2394,10 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[70] = (lexer_regexps)
 MRES = (
-[('(?P<_NEWLINE>(?:(?:\r'
-  '?\n'
-  '[\t ]*|(\\#|\\/\\/)[^\n'
-  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
   ']+)',
-  {1: '_NEWLINE',
-   3: 'MULTI_LINE_COMMENT',
-   5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES'})]
+  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2373,11 +2413,13 @@ MRES = (
   '[\t ]*|(\\#|\\/\\/)[^\n'
   ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
+  ']+)|(?P<__ANON_0>[^:\n'
   ']+)',
   {1: '_NEWLINE',
    3: 'MULTI_LINE_COMMENT',
    5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES'})]
+   7: 'SPACES',
+   8: '__ANON_0'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2390,8 +2432,8 @@ LEXERS[72] = (lexer_regexps)
 MRES = (
 [('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<COLON>\\:)',
-  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES', 6: 'COLON'})]
+  ']+)',
+  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2402,16 +2444,10 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[73] = (lexer_regexps)
 MRES = (
-[('(?P<_NEWLINE>(?:(?:\r'
-  '?\n'
-  '[\t ]*|(\\#|\\/\\/)[^\n'
-  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
   ']+)',
-  {1: '_NEWLINE',
-   3: 'MULTI_LINE_COMMENT',
-   5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES'})]
+  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2422,10 +2458,14 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[74] = (lexer_regexps)
 MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<__ANON_2>(\\\\{|\\\\}|[^\n'
+  '{}])+)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
   ']+)',
-  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
+  {1: 'MULTI_LINE_COMMENT',
+   3: '__ANON_2',
+   5: 'SINGLE_LINE_COMMENT',
+   7: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2453,14 +2493,12 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[76] = (lexer_regexps)
 MRES = (
-[('(?P<_NEWLINE>(?:(?:\r'
-  '?\n'
-  '[\t ]*|(\\#|\\/\\/)[^\n'
-  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<__ANON_2>(\\\\{|\\\\}|[^\n'
+  '{}])+)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
   ']+)',
-  {1: '_NEWLINE',
-   3: 'MULTI_LINE_COMMENT',
+  {1: 'MULTI_LINE_COMMENT',
+   3: '__ANON_2',
    5: 'SINGLE_LINE_COMMENT',
    7: 'SPACES'})]
 )
@@ -2495,12 +2533,14 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[78] = (lexer_regexps)
 MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<__ANON_2>(\\\\{|\\\\}|[^\n'
-  '{}])+)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<_NEWLINE>(?:(?:\r'
+  '?\n'
+  '[\t ]*|(\\#|\\/\\/)[^\n'
+  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
   ']+)',
-  {1: 'MULTI_LINE_COMMENT',
-   3: '__ANON_2',
+  {1: '_NEWLINE',
+   3: 'MULTI_LINE_COMMENT',
    5: 'SINGLE_LINE_COMMENT',
    7: 'SPACES'})]
 )
@@ -2531,24 +2571,6 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[80] = (lexer_regexps)
 MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<__ANON_2>(\\\\{|\\\\}|[^\n'
-  '{}])+)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
-  ']*)|(?P<SPACES>[\t \x0c'
-  ']+)',
-  {1: 'MULTI_LINE_COMMENT',
-   3: '__ANON_2',
-   5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES'})]
-)
-LEXER_CALLBACK = (
-{}
-)
-lexer_regexps = LexerRegexps()
-lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
-lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
-                          for n, mres in LEXER_CALLBACK.items()}
-LEXERS[81] = (lexer_regexps)
-MRES = (
 [('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
   ']+)|(?P<__ANON_1>meta_scope)|(?P<INCLUDE>include)|(?P<MATCH>match)|(?P<PUSH>push)|(?P<POP>pop)|(?P<RBRACE>\\})',
@@ -2569,7 +2591,7 @@ lexer_regexps = LexerRegexps()
 lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
 lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
                           for n, mres in LEXER_CALLBACK.items()}
-LEXERS[82] = (lexer_regexps)
+LEXERS[81] = (lexer_regexps)
 MRES = (
 [('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<__ANON_2>(\\\\{|\\\\}|[^\n'
   '{}])+)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
@@ -2579,6 +2601,20 @@ MRES = (
    3: '__ANON_2',
    5: 'SINGLE_LINE_COMMENT',
    7: 'SPACES'})]
+)
+LEXER_CALLBACK = (
+{}
+)
+lexer_regexps = LexerRegexps()
+lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
+lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
+                          for n, mres in LEXER_CALLBACK.items()}
+LEXERS[82] = (lexer_regexps)
+MRES = (
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+  ']*)|(?P<SPACES>[\t \x0c'
+  ']+)',
+  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2609,6 +2645,46 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[84] = (lexer_regexps)
 MRES = (
+[('(?P<_NEWLINE>(?:(?:\r'
+  '?\n'
+  '[\t ]*|(\\#|\\/\\/)[^\n'
+  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+  ']*)|(?P<SPACES>[\t \x0c'
+  ']+)',
+  {1: '_NEWLINE',
+   3: 'MULTI_LINE_COMMENT',
+   5: 'SINGLE_LINE_COMMENT',
+   7: 'SPACES'})]
+)
+LEXER_CALLBACK = (
+{}
+)
+lexer_regexps = LexerRegexps()
+lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
+lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
+                          for n, mres in LEXER_CALLBACK.items()}
+LEXERS[85] = (lexer_regexps)
+MRES = (
+[('(?P<_NEWLINE>(?:(?:\r'
+  '?\n'
+  '[\t ]*|(\\#|\\/\\/)[^\n'
+  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+  ']*)|(?P<SPACES>[\t \x0c'
+  ']+)',
+  {1: '_NEWLINE',
+   3: 'MULTI_LINE_COMMENT',
+   5: 'SINGLE_LINE_COMMENT',
+   7: 'SPACES'})]
+)
+LEXER_CALLBACK = (
+{}
+)
+lexer_regexps = LexerRegexps()
+lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
+lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
+                          for n, mres in LEXER_CALLBACK.items()}
+LEXERS[86] = (lexer_regexps)
+MRES = (
 [('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
   ']+)|(?P<__ANON_1>meta_scope)|(?P<INCLUDE>include)|(?P<MATCH>match)|(?P<PUSH>push)|(?P<POP>pop)|(?P<RBRACE>\\})',
@@ -2621,43 +2697,6 @@ MRES = (
    9: 'PUSH',
    10: 'POP',
    11: 'RBRACE'})]
-)
-LEXER_CALLBACK = (
-{}
-)
-lexer_regexps = LexerRegexps()
-lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
-lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
-                          for n, mres in LEXER_CALLBACK.items()}
-LEXERS[85] = (lexer_regexps)
-MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
-  ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<LBRACE>\\{)',
-  {1: 'MULTI_LINE_COMMENT',
-   3: 'SINGLE_LINE_COMMENT',
-   5: 'SPACES',
-   6: 'LBRACE'})]
-)
-LEXER_CALLBACK = (
-{}
-)
-lexer_regexps = LexerRegexps()
-lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
-lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
-                          for n, mres in LEXER_CALLBACK.items()}
-LEXERS[86] = (lexer_regexps)
-MRES = (
-[('(?P<_NEWLINE>(?:(?:\r'
-  '?\n'
-  '[\t ]*|(\\#|\\/\\/)[^\n'
-  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
-  ']*)|(?P<SPACES>[\t \x0c'
-  ']+)',
-  {1: '_NEWLINE',
-   3: 'MULTI_LINE_COMMENT',
-   5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2688,16 +2727,13 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[88] = (lexer_regexps)
 MRES = (
-[('(?P<_NEWLINE>(?:(?:\r'
-  '?\n'
-  '[\t ]*|(\\#|\\/\\/)[^\n'
-  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)',
-  {1: '_NEWLINE',
-   3: 'MULTI_LINE_COMMENT',
-   5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES'})]
+  ']+)|(?P<LBRACE>\\{)',
+  {1: 'MULTI_LINE_COMMENT',
+   3: 'SINGLE_LINE_COMMENT',
+   5: 'SPACES',
+   6: 'LBRACE'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2832,16 +2868,10 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[95] = (lexer_regexps)
 MRES = (
-[('(?P<_NEWLINE>(?:(?:\r'
-  '?\n'
-  '[\t ]*|(\\#|\\/\\/)[^\n'
-  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)',
-  {1: '_NEWLINE',
-   3: 'MULTI_LINE_COMMENT',
-   5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES'})]
+  ']+)|(?P<COLON>\\:)',
+  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES', 6: 'COLON'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2852,20 +2882,6 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[96] = (lexer_regexps)
 MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
-  ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<COLON>\\:)',
-  {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES', 6: 'COLON'})]
-)
-LEXER_CALLBACK = (
-{}
-)
-lexer_regexps = LexerRegexps()
-lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
-lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
-                          for n, mres in LEXER_CALLBACK.items()}
-LEXERS[97] = (lexer_regexps)
-MRES = (
 [('(?P<_NEWLINE>(?:(?:\r'
   '?\n'
   '[\t ]*|(\\#|\\/\\/)[^\n'
@@ -2884,12 +2900,32 @@ lexer_regexps = LexerRegexps()
 lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
 lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
                           for n, mres in LEXER_CALLBACK.items()}
-LEXERS[98] = (lexer_regexps)
+LEXERS[97] = (lexer_regexps)
 MRES = (
 [('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
   ']+)|(?P<COLON>\\:)',
   {1: 'MULTI_LINE_COMMENT', 3: 'SINGLE_LINE_COMMENT', 5: 'SPACES', 6: 'COLON'})]
+)
+LEXER_CALLBACK = (
+{}
+)
+lexer_regexps = LexerRegexps()
+lexer_regexps.mres = [(re.compile(p), d) for p, d in MRES]
+lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres])
+                          for n, mres in LEXER_CALLBACK.items()}
+LEXERS[98] = (lexer_regexps)
+MRES = (
+[('(?P<_NEWLINE>(?:(?:\r'
+  '?\n'
+  '[\t ]*|(\\#|\\/\\/)[^\n'
+  ']*))+)|(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+  ']*)|(?P<SPACES>[\t \x0c'
+  ']+)',
+  {1: '_NEWLINE',
+   3: 'MULTI_LINE_COMMENT',
+   5: 'SINGLE_LINE_COMMENT',
+   7: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2924,14 +2960,13 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[100] = (lexer_regexps)
 MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<__ANON_2>(\\\\{|\\\\}|[^\n'
-  '{}])+)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)',
+  ']+)|(?P<LBRACE>\\{)',
   {1: 'MULTI_LINE_COMMENT',
-   3: '__ANON_2',
-   5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES'})]
+   3: 'SINGLE_LINE_COMMENT',
+   5: 'SPACES',
+   6: 'LBRACE'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -2942,13 +2977,14 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[101] = (lexer_regexps)
 MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<__ANON_2>(\\\\{|\\\\}|[^\n'
+  '{}])+)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<LBRACE>\\{)',
+  ']+)',
   {1: 'MULTI_LINE_COMMENT',
-   3: 'SINGLE_LINE_COMMENT',
-   5: 'SPACES',
-   6: 'LBRACE'})]
+   3: '__ANON_2',
+   5: 'SINGLE_LINE_COMMENT',
+   7: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -3190,14 +3226,14 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[114] = (lexer_regexps)
 MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<__ANON_2>(\\\\{|\\\\}|[^\n'
-  '{}])+)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)',
+  ']+)|(?P<INTEGER>[0-9])|(?P<COLON>\\:)',
   {1: 'MULTI_LINE_COMMENT',
-   3: '__ANON_2',
-   5: 'SINGLE_LINE_COMMENT',
-   7: 'SPACES'})]
+   3: 'SINGLE_LINE_COMMENT',
+   5: 'SPACES',
+   6: 'INTEGER',
+   7: 'COLON'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -3208,14 +3244,14 @@ lexer_regexps.callback = {n: UnlessCallback([(re.compile(p), d) for p, d in mres
                           for n, mres in LEXER_CALLBACK.items()}
 LEXERS[115] = (lexer_regexps)
 MRES = (
-[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
+[('(?P<MULTI_LINE_COMMENT>\\/\\*([\\s\\S]*?)\\*\\/)|(?P<__ANON_2>(\\\\{|\\\\}|[^\n'
+  '{}])+)|(?P<SINGLE_LINE_COMMENT>(\\#|\\/\\/)[^\n'
   ']*)|(?P<SPACES>[\t \x0c'
-  ']+)|(?P<INTEGER>[0-9])|(?P<COLON>\\:)',
+  ']+)',
   {1: 'MULTI_LINE_COMMENT',
-   3: 'SINGLE_LINE_COMMENT',
-   5: 'SPACES',
-   6: 'INTEGER',
-   7: 'COLON'})]
+   3: '__ANON_2',
+   5: 'SINGLE_LINE_COMMENT',
+   7: 'SPACES'})]
 )
 LEXER_CALLBACK = (
 {}
@@ -3264,49 +3300,49 @@ CON_LEXER = ContextualLexer()
 def lex(stream):
     return CON_LEXER.lex(stream)
 RULES = {
-  0: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
-  1: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules')], None, RuleOptions(False, False, None)),
-  2: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
-  3: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
-  4: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
-  5: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
-  6: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
-  7: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
-  8: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
-  9: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
-  10: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules')], None, RuleOptions(False, False, None)),
-  11: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
-  12: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
-  13: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
-  14: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
-  15: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), NonTerminal('__anon_star_0'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
-  16: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules')], None, RuleOptions(False, False, None)),
-  17: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
-  18: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
-  19: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
+  0: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
+  1: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
+  2: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
+  3: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
+  4: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
+  5: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), NonTerminal('__anon_star_0'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
+  6: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules')], None, RuleOptions(False, False, None)),
+  7: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
+  8: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
+  9: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
+  10: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
+  11: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
+  12: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), NonTerminal('__anon_star_0'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
+  13: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
+  14: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules')], None, RuleOptions(False, False, None)),
+  15: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
+  16: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules')], None, RuleOptions(False, False, None)),
+  17: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
+  18: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), NonTerminal('__anon_star_0'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
+  19: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
   20: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
-  21: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
-  22: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), NonTerminal('__anon_star_0'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
-  23: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
-  24: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules')], None, RuleOptions(False, False, None)),
-  25: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), NonTerminal('__anon_star_0'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
+  21: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
+  22: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
+  23: Rule(NonTerminal('language_syntax'), [NonTerminal('preamble_statements'), NonTerminal('language_construct_rules')], None, RuleOptions(False, False, None)),
+  24: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
+  25: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0')], None, RuleOptions(False, False, None)),
   26: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), NonTerminal('__anon_star_0'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
-  27: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), Terminal('_NEWLINE', True), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), NonTerminal('__anon_star_0'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
+  27: Rule(NonTerminal('language_syntax'), [Terminal('_NEWLINE', True), NonTerminal('preamble_statements'), NonTerminal('language_construct_rules'), Terminal('_NEWLINE', True), NonTerminal('__anon_star_0'), Terminal('_NEWLINE', True)], None, RuleOptions(False, False, None)),
   28: Rule(NonTerminal('preamble_statements'), [NonTerminal('__anon_plus_1')], None, RuleOptions(False, False, None)),
   29: Rule(NonTerminal('language_construct_rules'), [Terminal('CONTEXTS', True), Terminal('COLON', True), NonTerminal('indentation_block')], None, RuleOptions(False, False, None)),
   30: Rule(NonTerminal('miscellaneous_language_rules'), [Terminal('__ANON_0', False), Terminal('COLON', True), NonTerminal('indentation_block')], None, RuleOptions(False, False, None)),
   31: Rule(NonTerminal('target_language_name_statement'), [Terminal('NAME', True), Terminal('COLON', True), NonTerminal('free_input_string')], None, RuleOptions(False, False, None)),
   32: Rule(NonTerminal('master_scope_name_statement'), [Terminal('SCOPE', True), Terminal('COLON', True), NonTerminal('free_input_string')], None, RuleOptions(False, False, None)),
   33: Rule(NonTerminal('indentation_block'), [Terminal('LBRACE', True), Terminal('_NEWLINE', True), NonTerminal('__anon_plus_2'), Terminal('RBRACE', True)], None, RuleOptions(False, False, None)),
-  34: Rule(NonTerminal('statements_list'), [NonTerminal('match_statement')], None, RuleOptions(False, False, None)),
-  35: Rule(NonTerminal('statements_list'), [NonTerminal('include_statement')], None, RuleOptions(False, False, None)),
-  36: Rule(NonTerminal('statements_list'), [NonTerminal('pop_statement')], None, RuleOptions(False, False, None)),
-  37: Rule(NonTerminal('statements_list'), [NonTerminal('meta_scope_statement')], None, RuleOptions(False, False, None)),
-  38: Rule(NonTerminal('statements_list'), [NonTerminal('push_statement')], None, RuleOptions(False, False, None)),
+  34: Rule(NonTerminal('statements_list'), [NonTerminal('include_statement')], None, RuleOptions(False, False, None)),
+  35: Rule(NonTerminal('statements_list'), [NonTerminal('push_statement')], None, RuleOptions(False, False, None)),
+  36: Rule(NonTerminal('statements_list'), [NonTerminal('match_statement')], None, RuleOptions(False, False, None)),
+  37: Rule(NonTerminal('statements_list'), [NonTerminal('pop_statement')], None, RuleOptions(False, False, None)),
+  38: Rule(NonTerminal('statements_list'), [NonTerminal('meta_scope_statement')], None, RuleOptions(False, False, None)),
   39: Rule(NonTerminal('push_statement'), [Terminal('PUSH', True), Terminal('COLON', True), NonTerminal('indentation_block')], None, RuleOptions(False, False, None)),
   40: Rule(NonTerminal('include_statement'), [Terminal('INCLUDE', True), Terminal('COLON', True), NonTerminal('free_input_string')], None, RuleOptions(False, False, None)),
-  41: Rule(NonTerminal('match_statements'), [NonTerminal('statements_list')], None, RuleOptions(False, False, None)),
-  42: Rule(NonTerminal('match_statements'), [NonTerminal('scope_name')], None, RuleOptions(False, False, None)),
+  41: Rule(NonTerminal('match_statements'), [NonTerminal('scope_name')], None, RuleOptions(False, False, None)),
+  42: Rule(NonTerminal('match_statements'), [NonTerminal('statements_list')], None, RuleOptions(False, False, None)),
   43: Rule(NonTerminal('match_statements'), [NonTerminal('capturing_block')], None, RuleOptions(False, False, None)),
   44: Rule(NonTerminal('match_statement'), [Terminal('MATCH', True), Terminal('COLON', True), NonTerminal('free_input_string'), Terminal('LBRACE', True), NonTerminal('__anon_star_3'), Terminal('_NEWLINE', True), Terminal('RBRACE', True)], None, RuleOptions(False, False, None)),
   45: Rule(NonTerminal('match_statement'), [Terminal('MATCH', True), Terminal('COLON', True), NonTerminal('free_input_string'), Terminal('LBRACE', True), Terminal('_NEWLINE', True), Terminal('RBRACE', True)], None, RuleOptions(False, False, None)),
@@ -3317,9 +3353,9 @@ RULES = {
   50: Rule(NonTerminal('meta_scope_statement'), [Terminal('__ANON_1', True), Terminal('COLON', True), NonTerminal('free_input_string')], None, RuleOptions(False, False, None)),
   51: Rule(NonTerminal('free_input_string'), [Terminal('__ANON_2', False)], None, RuleOptions(False, False, None)),
   52: Rule(NonTerminal('__anon_star_0'), [NonTerminal('__anon_star_0'), NonTerminal('miscellaneous_language_rules'), Terminal('_NEWLINE', True)], None, None),
-  53: Rule(NonTerminal('__anon_star_0'), [NonTerminal('__anon_star_0'), NonTerminal('miscellaneous_language_rules')], None, None),
-  54: Rule(NonTerminal('__anon_star_0'), [NonTerminal('miscellaneous_language_rules')], None, None),
-  55: Rule(NonTerminal('__anon_star_0'), [NonTerminal('miscellaneous_language_rules'), Terminal('_NEWLINE', True)], None, None),
+  53: Rule(NonTerminal('__anon_star_0'), [NonTerminal('miscellaneous_language_rules')], None, None),
+  54: Rule(NonTerminal('__anon_star_0'), [NonTerminal('miscellaneous_language_rules'), Terminal('_NEWLINE', True)], None, None),
+  55: Rule(NonTerminal('__anon_star_0'), [NonTerminal('__anon_star_0'), NonTerminal('miscellaneous_language_rules')], None, None),
   56: Rule(NonTerminal('__anon_plus_1'), [NonTerminal('target_language_name_statement'), Terminal('_NEWLINE', True)], None, None),
   57: Rule(NonTerminal('__anon_plus_1'), [NonTerminal('master_scope_name_statement'), Terminal('_NEWLINE', True)], None, None),
   58: Rule(NonTerminal('__anon_plus_1'), [NonTerminal('__anon_plus_1'), NonTerminal('target_language_name_statement'), Terminal('_NEWLINE', True)], None, None),
@@ -3338,171 +3374,171 @@ class ParseTable: pass
 parse_table = ParseTable()
 STATES = {
   0: {0: (0, 1), 1: (0, 2), 2: (0, 3), 3: (0, 4), 4: (0, 5), 5: (0, 6), 6: (0, 7), 7: (0, 8)},
-  1: {1: (0, 9), 2: (0, 3), 3: (0, 4), 7: (0, 8), 4: (0, 5), 5: (0, 6)},
-  2: {8: (0, 10), 0: (0, 11), 9: (0, 12)},
+  1: {1: (0, 9), 8: (0, 10), 9: (0, 11)},
+  2: {0: (0, 12), 2: (0, 3), 3: (0, 4), 6: (0, 7), 5: (0, 6), 7: (0, 8)},
   3: {10: (0, 13)},
-  4: {9: (1, 28), 0: (1, 28), 7: (0, 14), 2: (0, 3), 5: (0, 6), 4: (0, 15)},
-  5: {0: (0, 16)},
+  4: {9: (1, 28), 1: (1, 28), 6: (0, 14), 5: (0, 6), 7: (0, 15), 2: (0, 3)},
+  5: {11: (0, 16)},
   6: {10: (0, 17)},
-  7: {11: (0, 18)},
-  8: {0: (0, 19)},
-  9: {0: (0, 20), 8: (0, 21), 9: (0, 12)},
-  10: {11: (1, 16), 12: (0, 22), 0: (0, 23), 13: (0, 24), 14: (0, 25)},
-  11: {8: (0, 26), 9: (0, 12)},
-  12: {10: (0, 27)},
+  7: {1: (0, 18)},
+  8: {1: (0, 19)},
+  9: {8: (0, 20), 9: (0, 11)},
+  10: {11: (1, 23), 12: (0, 21), 13: (0, 22), 14: (0, 23), 1: (0, 24)},
+  11: {10: (0, 25)},
+  12: {8: (0, 26), 1: (0, 27), 9: (0, 11)},
   13: {15: (0, 28), 16: (0, 29)},
-  14: {0: (0, 30)},
-  15: {0: (0, 31)},
-  16: {9: (1, 57), 2: (1, 57), 0: (1, 57), 5: (1, 57)},
+  14: {1: (0, 30)},
+  15: {1: (0, 31)},
+  16: {},
   17: {15: (0, 28), 16: (0, 32)},
-  18: {},
-  19: {9: (1, 56), 2: (1, 56), 0: (1, 56), 5: (1, 56)},
-  20: {8: (0, 33), 9: (0, 12)},
-  21: {11: (1, 1), 0: (0, 34), 12: (0, 35), 13: (0, 24), 14: (0, 25)},
-  22: {11: (1, 21), 13: (0, 36), 0: (0, 37), 14: (0, 25)},
-  23: {11: (1, 20), 12: (0, 38), 13: (0, 24), 0: (0, 39), 14: (0, 25)},
-  24: {11: (1, 54), 0: (0, 40), 14: (1, 54)},
-  25: {10: (0, 41)},
-  26: {11: (1, 24), 12: (0, 42), 13: (0, 24), 0: (0, 43), 14: (0, 25)},
-  27: {17: (0, 44), 18: (0, 45)},
-  28: {17: (1, 51), 0: (1, 51)},
-  29: {0: (1, 31)},
-  30: {9: (1, 58), 2: (1, 58), 0: (1, 58), 5: (1, 58)},
-  31: {9: (1, 59), 2: (1, 59), 0: (1, 59), 5: (1, 59)},
-  32: {0: (1, 32)},
-  33: {11: (1, 10), 12: (0, 46), 0: (0, 47), 13: (0, 24), 14: (0, 25)},
-  34: {11: (1, 6), 12: (0, 48), 13: (0, 24), 14: (0, 25), 0: (0, 49)},
-  35: {11: (1, 3), 13: (0, 36), 0: (0, 50), 14: (0, 25)},
-  36: {11: (1, 53), 0: (0, 51), 14: (1, 53)},
-  37: {11: (1, 2)},
-  38: {11: (1, 14), 13: (0, 36), 0: (0, 52), 14: (0, 25)},
-  39: {11: (1, 19)},
-  40: {11: (1, 55), 0: (1, 55), 14: (1, 55)},
-  41: {17: (0, 44), 18: (0, 53)},
-  42: {11: (1, 8), 13: (0, 36), 0: (0, 54), 14: (0, 25)},
-  43: {11: (1, 13), 12: (0, 55), 13: (0, 24), 14: (0, 25), 0: (0, 56)},
-  44: {0: (0, 57)},
-  45: {11: (1, 29), 0: (1, 29), 14: (1, 29)},
-  46: {11: (1, 12), 13: (0, 36), 0: (0, 58), 14: (0, 25)},
-  47: {11: (1, 5), 12: (0, 59), 13: (0, 24), 0: (0, 60), 14: (0, 25)},
-  48: {11: (1, 11), 13: (0, 36), 0: (0, 61), 14: (0, 25)},
-  49: {11: (1, 4)},
-  50: {11: (1, 17)},
-  51: {11: (1, 52), 0: (1, 52), 14: (1, 52)},
-  52: {11: (1, 15)},
-  53: {11: (1, 30), 0: (1, 30), 14: (1, 30)},
-  54: {11: (1, 7)},
-  55: {11: (1, 9), 13: (0, 36), 0: (0, 62), 14: (0, 25)},
-  56: {11: (1, 23)},
-  57: {19: (0, 63), 20: (0, 64), 21: (0, 65), 22: (0, 66), 23: (0, 67), 24: (0, 68), 25: (0, 69), 26: (0, 70), 27: (0, 71), 28: (0, 72), 29: (0, 73), 30: (0, 74)},
-  58: {11: (1, 26)},
-  59: {11: (1, 18), 13: (0, 36), 0: (0, 75), 14: (0, 25)},
-  60: {11: (1, 0)},
-  61: {11: (1, 22)},
-  62: {11: (1, 25)},
-  63: {10: (0, 76)},
-  64: {0: (1, 34)},
-  65: {19: (0, 63), 27: (0, 77), 20: (0, 64), 22: (0, 66), 23: (0, 67), 24: (0, 68), 25: (0, 69), 26: (0, 70), 31: (0, 78), 28: (0, 72), 29: (0, 73), 30: (0, 74)},
-  66: {10: (0, 79)},
-  67: {0: (1, 36)},
-  68: {10: (0, 80)},
-  69: {0: (1, 38)},
-  70: {10: (0, 81)},
-  71: {0: (0, 82)},
-  72: {0: (1, 35)},
-  73: {10: (0, 83)},
-  74: {0: (1, 37)},
-  75: {11: (1, 27)},
-  76: {17: (0, 44), 18: (0, 84)},
-  77: {0: (0, 85)},
-  78: {11: (1, 33), 0: (1, 33), 14: (1, 33)},
-  79: {16: (0, 86), 15: (0, 28)},
-  80: {15: (0, 28), 16: (0, 87)},
-  81: {16: (0, 88), 15: (0, 28)},
-  82: {24: (1, 60), 31: (1, 60), 29: (1, 60), 22: (1, 60), 19: (1, 60), 26: (1, 60)},
-  83: {15: (0, 28), 16: (0, 89)},
-  84: {0: (1, 39)},
-  85: {24: (1, 61), 31: (1, 61), 29: (1, 61), 22: (1, 61), 19: (1, 61), 26: (1, 61)},
-  86: {17: (0, 90)},
-  87: {0: (1, 50)},
-  88: {0: (1, 40)},
-  89: {0: (1, 49)},
-  90: {0: (0, 91), 32: (0, 92)},
-  91: {31: (0, 93), 33: (0, 94), 20: (0, 64), 23: (0, 67), 24: (0, 68), 26: (0, 70), 27: (0, 95), 34: (0, 96), 5: (0, 97), 28: (0, 72), 29: (0, 73), 19: (0, 63), 35: (0, 98), 22: (0, 66), 25: (0, 69), 36: (0, 99), 30: (0, 74)},
-  92: {0: (0, 100)},
-  93: {0: (1, 45)},
-  94: {0: (1, 42)},
-  95: {0: (1, 41)},
-  96: {0: (1, 62)},
-  97: {10: (0, 101)},
-  98: {0: (1, 43)},
-  99: {10: (0, 102)},
-  100: {33: (0, 94), 20: (0, 64), 31: (0, 103), 23: (0, 67), 24: (0, 68), 26: (0, 70), 27: (0, 95), 5: (0, 97), 28: (0, 72), 29: (0, 73), 19: (0, 63), 35: (0, 98), 22: (0, 66), 34: (0, 104), 25: (0, 69), 36: (0, 99), 30: (0, 74)},
-  101: {15: (0, 28), 16: (0, 105)},
-  102: {17: (0, 106)},
-  103: {0: (1, 44)},
-  104: {0: (1, 63)},
-  105: {0: (1, 46)},
-  106: {37: (0, 107), 0: (0, 108)},
-  107: {0: (0, 109)},
+  18: {5: (1, 57), 1: (1, 57), 2: (1, 57), 9: (1, 57)},
+  19: {5: (1, 56), 1: (1, 56), 2: (1, 56), 9: (1, 56)},
+  20: {11: (1, 6), 13: (0, 33), 12: (0, 21), 1: (0, 34), 14: (0, 23)},
+  21: {11: (1, 53), 14: (1, 53), 1: (0, 35)},
+  22: {11: (1, 15), 12: (0, 36), 1: (0, 37), 14: (0, 23)},
+  23: {10: (0, 38)},
+  24: {11: (1, 20), 12: (0, 21), 13: (0, 39), 14: (0, 23), 1: (0, 40)},
+  25: {17: (0, 41), 18: (0, 42)},
+  26: {11: (1, 14), 1: (0, 43), 12: (0, 21), 13: (0, 44), 14: (0, 23)},
+  27: {8: (0, 45), 9: (0, 11)},
+  28: {17: (1, 51), 1: (1, 51)},
+  29: {1: (1, 32)},
+  30: {5: (1, 59), 1: (1, 59), 2: (1, 59), 9: (1, 59)},
+  31: {5: (1, 58), 1: (1, 58), 2: (1, 58), 9: (1, 58)},
+  32: {1: (1, 31)},
+  33: {11: (1, 2), 1: (0, 46), 12: (0, 36), 14: (0, 23)},
+  34: {11: (1, 1), 13: (0, 47), 12: (0, 21), 14: (0, 23), 1: (0, 48)},
+  35: {11: (1, 54), 14: (1, 54), 1: (1, 54)},
+  36: {11: (1, 55), 14: (1, 55), 1: (0, 49)},
+  37: {11: (1, 22)},
+  38: {17: (0, 41), 18: (0, 50)},
+  39: {11: (1, 10), 1: (0, 51), 12: (0, 36), 14: (0, 23)},
+  40: {11: (1, 9)},
+  41: {1: (0, 52)},
+  42: {11: (1, 29), 14: (1, 29), 1: (1, 29)},
+  43: {11: (1, 8), 12: (0, 21), 13: (0, 53), 1: (0, 54), 14: (0, 23)},
+  44: {11: (1, 13), 12: (0, 36), 1: (0, 55), 14: (0, 23)},
+  45: {11: (1, 16), 12: (0, 21), 1: (0, 56), 13: (0, 57), 14: (0, 23)},
+  46: {11: (1, 11)},
+  47: {11: (1, 17), 1: (0, 58), 12: (0, 36), 14: (0, 23)},
+  48: {11: (1, 21)},
+  49: {11: (1, 52), 14: (1, 52), 1: (1, 52)},
+  50: {11: (1, 30), 1: (1, 30), 14: (1, 30)},
+  51: {11: (1, 18)},
+  52: {19: (0, 59), 20: (0, 60), 21: (0, 61), 22: (0, 62), 23: (0, 63), 24: (0, 64), 25: (0, 65), 26: (0, 66), 27: (0, 67), 28: (0, 68), 29: (0, 69), 30: (0, 70)},
+  53: {11: (1, 24), 12: (0, 36), 14: (0, 23), 1: (0, 71)},
+  54: {11: (1, 3)},
+  55: {11: (1, 7)},
+  56: {11: (1, 4), 12: (0, 21), 13: (0, 72), 14: (0, 23), 1: (0, 73)},
+  57: {11: (1, 25), 14: (0, 23), 12: (0, 36), 1: (0, 74)},
+  58: {11: (1, 5)},
+  59: {10: (0, 75)},
+  60: {1: (1, 35)},
+  61: {1: (1, 37)},
+  62: {10: (0, 76)},
+  63: {10: (0, 77)},
+  64: {19: (0, 59), 31: (0, 78), 20: (0, 60), 21: (0, 61), 22: (0, 62), 23: (0, 63), 28: (0, 79), 25: (0, 65), 26: (0, 66), 27: (0, 67), 29: (0, 69), 30: (0, 70)},
+  65: {1: (1, 36)},
+  66: {10: (0, 80)},
+  67: {1: (1, 38)},
+  68: {1: (0, 81)},
+  69: {1: (1, 34)},
+  70: {10: (0, 82)},
+  71: {11: (1, 27)},
+  72: {11: (1, 0), 1: (0, 83), 14: (0, 23), 12: (0, 36)},
+  73: {11: (1, 19)},
+  74: {11: (1, 26)},
+  75: {15: (0, 28), 16: (0, 84)},
+  76: {17: (0, 41), 18: (0, 85)},
+  77: {15: (0, 28), 16: (0, 86)},
+  78: {11: (1, 33), 1: (1, 33), 14: (1, 33)},
+  79: {1: (0, 87)},
+  80: {15: (0, 28), 16: (0, 88)},
+  81: {26: (1, 60), 30: (1, 60), 31: (1, 60), 23: (1, 60), 19: (1, 60), 22: (1, 60)},
+  82: {15: (0, 28), 16: (0, 89)},
+  83: {11: (1, 12)},
+  84: {1: (1, 49)},
+  85: {1: (1, 39)},
+  86: {1: (1, 40)},
+  87: {26: (1, 61), 30: (1, 61), 31: (1, 61), 23: (1, 61), 19: (1, 61), 22: (1, 61)},
+  88: {1: (1, 50)},
+  89: {17: (0, 90)},
+  90: {1: (0, 91), 32: (0, 92)},
+  91: {19: (0, 59), 22: (0, 62), 33: (0, 93), 27: (0, 67), 28: (0, 94), 34: (0, 95), 30: (0, 70), 35: (0, 96), 20: (0, 60), 21: (0, 61), 23: (0, 63), 31: (0, 97), 2: (0, 98), 25: (0, 65), 26: (0, 66), 29: (0, 69), 36: (0, 99)},
+  92: {1: (0, 100)},
+  93: {1: (1, 43)},
+  94: {1: (1, 42)},
+  95: {1: (1, 41)},
+  96: {10: (0, 101)},
+  97: {1: (1, 45)},
+  98: {10: (0, 102)},
+  99: {1: (1, 62)},
+  100: {19: (0, 59), 22: (0, 62), 36: (0, 103), 33: (0, 93), 31: (0, 104), 27: (0, 67), 28: (0, 94), 34: (0, 95), 30: (0, 70), 35: (0, 96), 20: (0, 60), 21: (0, 61), 23: (0, 63), 2: (0, 98), 25: (0, 65), 26: (0, 66), 29: (0, 69)},
+  101: {17: (0, 105)},
+  102: {15: (0, 28), 16: (0, 106)},
+  103: {1: (1, 63)},
+  104: {1: (1, 44)},
+  105: {37: (0, 107), 1: (0, 108)},
+  106: {1: (1, 46)},
+  107: {1: (0, 109)},
   108: {38: (0, 110), 39: (0, 111), 40: (0, 112)},
-  109: {38: (0, 113), 40: (0, 112), 31: (0, 114), 39: (0, 111)},
-  110: {0: (1, 65)},
-  111: {39: (1, 66), 10: (1, 66)},
-  112: {10: (0, 115), 39: (0, 116)},
-  113: {0: (1, 64)},
-  114: {0: (1, 47)},
-  115: {15: (0, 28), 16: (0, 117)},
-  116: {39: (1, 67), 10: (1, 67)},
-  117: {0: (1, 48)},
+  109: {38: (0, 113), 39: (0, 111), 31: (0, 114), 40: (0, 112)},
+  110: {1: (1, 65)},
+  111: {40: (0, 115), 10: (0, 116)},
+  112: {10: (1, 66), 40: (1, 66)},
+  113: {1: (1, 64)},
+  114: {1: (1, 47)},
+  115: {10: (1, 67), 40: (1, 67)},
+  116: {16: (0, 117), 15: (0, 28)},
+  117: {1: (1, 48)},
 }
 TOKEN_TYPES = (
-{0: '_NEWLINE',
- 1: 'preamble_statements',
- 2: 'NAME',
+{0: 'preamble_statements',
+ 1: '_NEWLINE',
+ 2: 'SCOPE',
  3: '__anon_plus_1',
- 4: 'master_scope_name_statement',
- 5: 'SCOPE',
- 6: 'language_syntax',
+ 4: 'language_syntax',
+ 5: 'NAME',
+ 6: 'master_scope_name_statement',
  7: 'target_language_name_statement',
  8: 'language_construct_rules',
  9: 'CONTEXTS',
  10: 'COLON',
  11: '$END',
- 12: '__anon_star_0',
- 13: 'miscellaneous_language_rules',
+ 12: 'miscellaneous_language_rules',
+ 13: '__anon_star_0',
  14: '__ANON_0',
  15: '__ANON_2',
  16: 'free_input_string',
  17: 'LBRACE',
  18: 'indentation_block',
- 19: 'PUSH',
- 20: 'match_statement',
- 21: '__anon_plus_2',
- 22: 'MATCH',
- 23: 'pop_statement',
- 24: '__ANON_1',
- 25: 'push_statement',
- 26: 'INCLUDE',
- 27: 'statements_list',
- 28: 'include_statement',
- 29: 'POP',
- 30: 'meta_scope_statement',
+ 19: 'POP',
+ 20: 'push_statement',
+ 21: 'pop_statement',
+ 22: 'PUSH',
+ 23: 'INCLUDE',
+ 24: '__anon_plus_2',
+ 25: 'match_statement',
+ 26: '__ANON_1',
+ 27: 'meta_scope_statement',
+ 28: 'statements_list',
+ 29: 'include_statement',
+ 30: 'MATCH',
  31: 'RBRACE',
  32: '__anon_star_3',
- 33: 'scope_name',
- 34: 'match_statements',
- 35: 'capturing_block',
- 36: 'CAPTURES',
+ 33: 'capturing_block',
+ 34: 'scope_name',
+ 35: 'CAPTURES',
+ 36: 'match_statements',
  37: '__anon_plus_4',
  38: 'capturing_lines',
- 39: 'INTEGER',
- 40: '__anon_plus_5'}
+ 39: '__anon_plus_5',
+ 40: 'INTEGER'}
 )
 parse_table.states = {s: {TOKEN_TYPES[t]: (a, RULES[x] if a is Reduce else x) for t, (a, x) in acts.items()}
                       for s, acts in STATES.items()}
 parse_table.start_state = 0
-parse_table.end_state = 18
+parse_table.end_state = 16
 class Lark_StandAlone:
   def __init__(self, transformer=None, postlex=None):
      callback = parse_tree_builder.create_callback(transformer=transformer)
