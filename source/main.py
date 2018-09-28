@@ -21,43 +21,12 @@ def get_relative_path(relative_path, script_file):
     filepath = os.path.abspath( os.path.join( basepath, relative_path ) )
     return filepath
 
-tree_grammar = r"""
-    ?start: _NL* tree
-    tree: NAME _NL [_INDENT tree+ _DEDENT]
-    %import common.CNAME -> NAME
-    %import common.WS_INLINE
-    %declare _INDENT _DEDENT
-    %ignore WS_INLINE
-    _NL: /(\r?\n[\t ]*)+/
-"""
-
-class TreeIndenter(Indenter):
-    NL_type = '_NL'
-    OPEN_PAREN_types = []
-    CLOSE_PAREN_types = []
-    INDENT_type = '_INDENT'
-    DEDENT_type = '_DEDENT'
-    tab_len = 2
-
-# parser = Lark(tree_grammar, parser='lalr', postlex=TreeIndenter())
-
 ## The relative path the the lark grammar parser file from the current file
 grammar_file_path = get_relative_path( "gramatica_compiladores.lark", __file__ )
 
+## The parser used to build the Abstract Syntax Tree and parse the input text
 with open( grammar_file_path, "r", encoding='utf-8' ) as file:
-    ## The parser used to build the Abstract Syntax Tree and parse the input text
-    # meu_parser = Lark( file.read(), start='language_syntax', lexer='standard', parser='lalr', postlex=TreeIndenter() )
-    meu_parser = Lark( file.read(), start='language_syntax', parser='lalr', lexer='contextual', postlex=TreeIndenter() )
-
-test_tree = """
-a
-    b
-    c
-        d
-        e
-    f
-        g
-"""
+    meu_parser = Lark( file.read(), start='language_syntax', parser='lalr', lexer='contextual')
 
 simples_exemplo = """
 name: Abstract Machine Language
@@ -66,20 +35,15 @@ contexts:
     match: (true|false)
         scope: constant.language
 """
-"""
-  main:
-"""
+
 # To generate the lexer/parser
 # python3 -m lark.tools.standalone /cygdrive/l/Arquivos/gramatica_compiladores.lark > lexer.py
 def test():
-    # print(parser.parse(test_tree).pretty())
     # tree = meu_parser.parse(simples_exemplo)
     # print(tree.pretty())
     grammar_file_path = get_relative_path( "programa_exemplo.beauty-grammar", __file__ )
 
     with open( grammar_file_path, "r", encoding='utf-8' ) as file:
-        ## The parser used to build the Abstract Syntax Tree and parse the input text
-        # meu_parser = Lark( file.read(), start='language_syntax', lexer='standard', parser='lalr', postlex=TreeIndenter() )
         tree = meu_parser.parse(file.read())
         print(tree.pretty())
 
