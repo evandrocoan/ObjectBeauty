@@ -1,0 +1,13 @@
+
+name: Abstract Machine Language
+scope: source.sma
+contexts: {
+  match: (true|false) {
+    scope: constant.language
+  }
+}
+
+contexts: {
+  include: function_definition
+  include: function_call
+}

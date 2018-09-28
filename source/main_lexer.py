@@ -25,7 +25,7 @@ class TreeIndenter(Indenter):
 # To generate the lexer/parser
 # python3 -m lark.tools.standalone /cygdrive/l/Arquivos/gramatica_compiladores.lark > lexer.py
 def test():
-    grammar_file_path = get_relative_path( "programa_exemplo.beauty-grammar", __file__ )
+    grammar_file_path = get_relative_path( "exemplo/programa_exemplo.beauty-grammar", __file__ )
     parser = lexer.Lark_StandAlone( postlex=TreeIndenter() )
 
     with open( grammar_file_path, "r", encoding='utf-8' ) as file:
