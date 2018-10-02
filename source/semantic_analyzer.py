@@ -26,11 +26,15 @@ class TreeTransformer(lark.Transformer):
         allowing simple recursive parsing parsing and conversion to Abstract Syntax Tree.
     """
 
-    ## Saves all the semantic errors errors detected so far
-    errors = []
+    def __init__(self):
+        ## Saves all the semantic errors errors detected so far
+        self.errors = []
 
-    ## Can only be one scope called `contexts`
-    has_called_language_construct_rules = False
+        ## Can only be one scope called `contexts`
+        self.has_called_language_construct_rules = False
+
+        ## A list of miscellaneous_language_rules include contexts defined for duplication checking
+        self.defined_includes = []
 
     def language_syntax(self, tree):
         """
@@ -55,12 +59,17 @@ class TreeTransformer(lark.Transformer):
 
     def miscellaneous_language_rules(self, tree):
         first_token = tree.children[0]
+        include_name = str(first_token)
         assert tree.data == 'miscellaneous_language_rules', "Just documenting what the data attribute has."
         assert isinstance( first_token, Token ), "The first children must be a Token, while the second is a subtree."
 
-        if str(first_token) == 'contexts':
+        if include_name == 'contexts':
             self.errors.append("Extra `contexts` rule defined in your grammar on: %s" % first_token.pretty())
 
+        if include_name in self.defined_includes:
+            self.errors.append("Duplicated include `%s` defined in your grammar on: %s" % ( include_name, first_token.pretty()))
+
+        self.defined_includes.append(include_name)
         return self.__default__(tree.data, tree.children, tree.meta)
 
     def _call_userfunc(self, tree, new_children=None):
