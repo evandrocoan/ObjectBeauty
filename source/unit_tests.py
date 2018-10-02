@@ -23,7 +23,8 @@ from testing_utilities import make_png
 from testing_utilities import get_relative_path
 
 def main():
-    unittest.main()
+    # https://stackoverflow.com/questions/6813837/stop-testsuite-if-a-testcase-find-an-error
+    unittest.main(failfast=True)
 
 class TestSemanticRules(TestingUtilities):
 
@@ -49,8 +50,9 @@ class TestSemanticRules(TestingUtilities):
             }
 
             contexts: {
-              include: function_definition
-              include: function_call
+              match: (true|false) {
+                scope: constant.language
+              }
             }
         """
         my_parser = self._getParser()
@@ -82,13 +84,15 @@ class TestSemanticRules(TestingUtilities):
             }
 
             duplicate: {
-              include: function_definition
-              include: function_call
+              match: (true|false) {
+                scope: constant.language
+              }
             }
 
             duplicate: {
-              include: function_definition
-              include: function_call
+              match: (true|false) {
+                scope: constant.language
+              }
             }
         """
         my_parser = self._getParser()
@@ -104,9 +108,36 @@ class TestSemanticRules(TestingUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Duplicated include `duplicate` defined in your grammar on: [@-1,339:347='duplicate'<__ANON_0>,15:13]
+            + 1. Duplicated include `duplicate` defined in your grammar on: [@-1,352:360='duplicate'<__ANON_0>,16:13]
         """, error.exception )
 
+    def test_missingIncludeDetection(self):
+        example_program = \
+        r"""
+            name: Abstract Machine Language
+            scope: source.sma
+            contexts: {
+              match: (true|false) {
+                scope: constant.language
+              }
+              include: missing_include
+            }
+        """
+        my_parser = self._getParser()
+        tree = my_parser.parse(example_program)
+
+        function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
+        make_png( tree, get_relative_path( function_name, __file__ ) )
+        # log( 1, function_name )
+        # log( 1, tree.pretty() )
+
+        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
+            new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+
+        self.assertTextEqual(
+        r"""
+            + 1. Missing include ` missing_include` defined in your grammar on: [@-1,214:229=' missing_include'<__ANON_2>,8:23]
+        """, error.exception )
 
 if __name__ == "__main__":
     main()

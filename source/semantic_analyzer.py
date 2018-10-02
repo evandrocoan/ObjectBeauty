@@ -8,13 +8,9 @@ log = getLogger(__name__)
 
 class SemanticErrors(LarkError):
     def __init__(self, exceptions):
-        counter = [0]
-
-        def increment(exception):
-            counter[0] += 1
-            return str(exception)
-
-        self.messages = "\n1. " + ( "\n%s. " % counter[0] ).join( increment(exception) for exception in exceptions )
+        # https://stackoverflow.com/questions/16625068/combine-lists-by-joining-strings-with-matching-index-values
+        messages = map( lambda a, b: "%s. %s" % (a, b), range( 1, len(exceptions) + 1 ), exceptions )
+        self.messages = "\n".join( message for message in messages )
 
     def __str__(self):
         return self.messages
@@ -36,6 +32,9 @@ class TreeTransformer(lark.Transformer):
         ## A list of miscellaneous_language_rules include contexts defined for duplication checking
         self.defined_includes = []
 
+        ## A list of required includes to check for missing includes
+        self.required_includes = []
+
     def language_syntax(self, tree):
         """
             This is the grammar start symbol and will be called by last with all
@@ -47,6 +46,8 @@ class TreeTransformer(lark.Transformer):
 
         if not self.has_called_language_construct_rules:
             self.errors.append("You must to define the `contexts` block in your grammar!")
+
+        self._check_for_missing_includes()
 
         if self.errors:
             raise SemanticErrors(self.errors)
@@ -71,6 +72,21 @@ class TreeTransformer(lark.Transformer):
 
         self.defined_includes.append(include_name)
         return self.__default__(tree.data, tree.children, tree.meta)
+
+    def include_statement(self, tree):
+        first_token = tree.children[0]
+        include_name = str(first_token)
+
+        self.required_includes.append( (include_name, first_token) )
+        return self.__default__(tree.data, tree.children, tree.meta)
+
+    def _check_for_missing_includes(self):
+        """
+            Look for missing required includes by the `include` statement.
+        """
+        for include_name, include_token in self.required_includes:
+            if include_name not in self.defined_includes:
+                self.errors.append("Missing include `%s` defined in your grammar on: %s" % ( include_name, include_token.pretty() ) )
 
     def _call_userfunc(self, tree, new_children=None):
         """
