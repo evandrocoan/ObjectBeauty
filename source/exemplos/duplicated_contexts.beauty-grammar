@@ -7,7 +7,8 @@ contexts: {
   }
 }
 
-contexts: {
-  include: function_definition
-  include: function_call
+nothing: {
+  match: (true|false) {
+    scope: constant.language
+  }
 }
