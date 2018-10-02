@@ -79,8 +79,8 @@ class TestingUtilities(unittest.TestCase):
             self.fail( '\n' + ''.join( diff ) )
 
 
-def make_png(lark_tree, output_file):
-    lark.tree.pydot__tree_to_png( lark_tree, output_file, "TB")
+def make_png(lark_tree, output_file, debug=False):
+    lark.tree.pydot__tree_to_png( lark_tree, output_file, "TB", debug=debug )
 
 
 def get_relative_path(relative_path, script_file):

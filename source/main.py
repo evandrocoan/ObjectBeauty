@@ -35,12 +35,12 @@ def test():
 
     with open( grammar_file_path, "r", encoding='utf-8' ) as file:
         tree = meu_parser.parse(file.read())
-        make_png( tree, get_relative_path( "exemplos/duplicated_contexts.png", __file__ ) )
+        make_png( tree, get_relative_path( "exemplos/duplicated_contexts.png", __file__ ), debug=True )
         # log( 1, tree.pretty() )
 
         new_tree = semantic_analyzer.TreeTransformer().transform( tree )
         # make_png( tree, get_relative_path( "exemplos/duplicated_contexts.png", __file__ ) )
-        log( 1, "\n%s", new_tree.pretty() )
+        log( 1, "\n%s", new_tree.pretty(debug=True) )
 
 
 if __name__ == '__main__':
