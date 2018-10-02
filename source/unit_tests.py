@@ -37,9 +37,9 @@ class TestSemanticRules(TestingUtilities):
             my_parser = lark.Lark( file.read(), start='language_syntax', parser='lalr', lexer='contextual')
             return my_parser
 
-    def test_duplicatedContexts(self):
+    def test_duplicatedContext(self):
         example_program = \
-        """
+        r"""
             name: Abstract Machine Language
             scope: source.sma
             contexts: {
@@ -62,12 +62,49 @@ class TestSemanticRules(TestingUtilities):
         # log( 1, function_name )
         # log( 1, tree.pretty() )
 
-        with self.assertRaises( semantic_analyzer.SemanticErrors) as error:
+        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
             new_tree = semantic_analyzer.TreeTransformer().transform( tree )
 
         self.assertTextEqual(
         r"""
             + 1. Extra `contexts` rule defined in your grammar on: [@-1,219:226='contexts'<__ANON_0>,10:13]
+        """, error.exception )
+
+    def test_duplicatedIncludes(self):
+        example_program = \
+        r"""
+            name: Abstract Machine Language
+            scope: source.sma
+            contexts: {
+              match: (true|false) {
+                scope: constant.language
+              }
+            }
+
+            duplicate: {
+              include: function_definition
+              include: function_call
+            }
+
+            duplicate: {
+              include: function_definition
+              include: function_call
+            }
+        """
+        my_parser = self._getParser()
+        tree = my_parser.parse(example_program)
+
+        function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
+        make_png( tree, get_relative_path( function_name, __file__ ) )
+        # log( 1, function_name )
+        # log( 1, tree.pretty() )
+
+        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
+            new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+
+        self.assertTextEqual(
+        r"""
+            + 1. Duplicated include `duplicate` defined in your grammar on: [@-1,339:347='duplicate'<__ANON_0>,15:13]
         """, error.exception )
 
 
