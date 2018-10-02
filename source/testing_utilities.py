@@ -55,6 +55,14 @@ class TestingUtilities(unittest.TestCase):
         # self.unidiff_output( goal, results )
         self.assertEqual( goal, results )
 
+    def assertRaisesRegex(self, exception, results):
+        """
+            Remove both input texts indentation and trailing white spaces, then assertEquals() both
+            of the inputs.
+        """
+        results = wrap_text( results, trim_tabs=True, trim_spaces=True )
+        super().assertRaisesRegex( exception, results )
+
     def unidiff_output(self, expected, actual):
         """
             Helper function. Returns a string containing the unified diff of two multiline strings.
