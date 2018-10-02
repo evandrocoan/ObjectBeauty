@@ -1,5 +1,7 @@
 
+import re
 import lark
+
 from lark import Tree, LarkError, Token
 
 from debug_tools import getLogger
@@ -45,7 +47,7 @@ class TreeTransformer(lark.Transformer):
         """
 
         if not self.has_called_language_construct_rules:
-            self.errors.append("You must to define the `contexts` block in your grammar!")
+            self.errors.append( "You must to define the `contexts` block in your grammar!" )
 
         self._check_for_missing_includes()
 
@@ -65,10 +67,10 @@ class TreeTransformer(lark.Transformer):
         assert isinstance( first_token, Token ), "The first children must be a Token, while the second is a subtree."
 
         if include_name == 'contexts':
-            self.errors.append("Extra `contexts` rule defined in your grammar on: %s" % first_token.pretty())
+            self.errors.append( "Extra `contexts` rule defined in your grammar on: %s" % first_token.pretty() )
 
         if include_name in self.defined_includes:
-            self.errors.append("Duplicated include `%s` defined in your grammar on: %s" % ( include_name, first_token.pretty()))
+            self.errors.append( "Duplicated include `%s` defined in your grammar on: %s" % ( include_name, first_token.pretty() ) )
 
         self.defined_includes.append(include_name)
         return self.__default__(tree.data, tree.children, tree.meta)
@@ -80,13 +82,25 @@ class TreeTransformer(lark.Transformer):
         self.required_includes.append( (include_name, first_token) )
         return self.__default__(tree.data, tree.children, tree.meta)
 
+    def match_statement(self, tree):
+        first_token = tree.children[0]
+        include_name = str(first_token)
+
+        try:
+            re.compile(include_name)
+
+        except re.error as error:
+            self.errors.append( "Invalid regular expression `%s` on match statement:\n   %s" % ( include_name, error) )
+
+        return self.__default__(tree.data, tree.children, tree.meta)
+
     def _check_for_missing_includes(self):
         """
             Look for missing required includes by the `include` statement.
         """
         for include_name, include_token in self.required_includes:
             if include_name not in self.defined_includes:
-                self.errors.append("Missing include `%s` defined in your grammar on: %s" % ( include_name, include_token.pretty() ) )
+                self.errors.append( "Missing include `%s` defined in your grammar on: %s" % ( include_name, include_token.pretty() ) )
 
     def _call_userfunc(self, tree, new_children=None):
         """

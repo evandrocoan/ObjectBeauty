@@ -139,5 +139,34 @@ class TestSemanticRules(TestingUtilities):
             + 1. Missing include ` missing_include` defined in your grammar on: [@-1,214:229=' missing_include'<__ANON_2>,8:23]
         """, error.exception )
 
+    def test_validRegexInput(self):
+        example_program = \
+        r"""
+            name: Abstract Machine Language
+            scope: source.sma
+            contexts: {
+              match: (true|false {
+                scope: constant.language
+              }
+            }
+        """
+        my_parser = self._getParser()
+        tree = my_parser.parse(example_program)
+
+        function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
+        make_png( tree, get_relative_path( function_name, __file__ ) )
+        # log( 1, function_name )
+        # log( 1, tree.pretty() )
+
+        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
+            new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+
+        self.assertTextEqual(
+        r"""
+            + 1. Invalid regular expression ` (true|false ` on match statement:
+            +    missing ), unterminated subpattern at position 1
+        """, error.exception )
+
+
 if __name__ == "__main__":
     main()
