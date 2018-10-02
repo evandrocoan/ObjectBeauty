@@ -53,6 +53,7 @@ class TreeTransformer(lark.Transformer):
             self.errors.append( "You must to define the `contexts` block in your grammar!" )
 
         self._check_for_missing_includes()
+        self._check_for_main_rules()
 
         if self.errors:
             raise SemanticErrors(self.errors)
@@ -112,6 +113,16 @@ class TreeTransformer(lark.Transformer):
             self.errors.append( "Invalid regular expression `%s` on match statement:\n   %s" % ( include_name, error) )
 
         return self.__default__(tree.data, tree.children, tree.meta)
+
+    def _check_for_main_rules(self):
+        """
+            Look for missing required main rules on the grammar preamble statement.
+        """
+        if not self.is_master_scope_name_set:
+            self.errors.append( "Missing master scope name in your grammar preamble." )
+
+        if not self.is_target_language_name_set:
+            self.errors.append( "Missing target language name in your grammar preamble." )
 
     def _check_for_missing_includes(self):
         """

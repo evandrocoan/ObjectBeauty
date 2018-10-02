@@ -197,6 +197,88 @@ class TestSemanticRules(TestingUtilities):
             + 2. Duplicated master scope name defined in your grammar on: [@-1,137:147=' source.sma'<__ANON_2>,5:19]
         """, error.exception )
 
+    def test_duplicatedGlobalNames(self):
+        example_program = \
+        r"""
+            name: Abstract Machine Language
+            name: Abstract Machine Language
+            scope: source.sma
+            scope: source.sma
+            contexts: {
+              meta_scope: meta.block.pawn
+              match: (true|false) {
+              }
+            }
+        """
+        my_parser = self._getParser()
+        tree = my_parser.parse(example_program)
+
+        function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
+        make_png( tree, get_relative_path( function_name, __file__ ) )
+        # log( 1, function_name )
+        # log( 1, tree.pretty() )
+
+        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
+            new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+
+        self.assertTextEqual(
+        r"""
+            + 1. Duplicated target language name defined in your grammar on: [@-1,62:87=' Abstract Machine Language'<__ANON_2>,3:18]
+            + 2. Duplicated master scope name defined in your grammar on: [@-1,137:147=' source.sma'<__ANON_2>,5:19]
+        """, error.exception )
+
+    def test_missingScopeGlobalName(self):
+        example_program = \
+        r"""
+            name: Abstract Machine Language
+            contexts: {
+              meta_scope: meta.block.pawn
+              match: (true|false) {
+              }
+            }
+        """
+        my_parser = self._getParser()
+        tree = my_parser.parse(example_program)
+
+        function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
+        make_png( tree, get_relative_path( function_name, __file__ ) )
+        # log( 1, function_name )
+        # log( 1, tree.pretty() )
+
+        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
+            new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+
+        self.assertTextEqual(
+        r"""
+            + 1. Missing master scope name in your grammar preamble.
+        """, error.exception )
+
+    def test_missingNameGlobal(self):
+        example_program = \
+        r"""
+            scope: source.sma
+            contexts: {
+              meta_scope: meta.block.pawn
+              match: (true|false) {
+              }
+            }
+        """
+        my_parser = self._getParser()
+        tree = my_parser.parse(example_program)
+
+        function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
+        make_png( tree, get_relative_path( function_name, __file__ ) )
+        # log( 1, function_name )
+        # log( 1, tree.pretty() )
+
+        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
+            new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+
+        self.assertTextEqual(
+        r"""
+            + 1. Missing target language name in your grammar preamble.
+        """, error.exception )
+
 
 if __name__ == "__main__":
     main()
