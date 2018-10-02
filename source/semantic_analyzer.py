@@ -28,6 +28,9 @@ class TreeTransformer(lark.Transformer):
         ## Saves all the semantic errors errors detected so far
         self.errors = []
 
+        self.is_master_scope_name_set = False
+        self.is_target_language_name_set = False
+
         ## Can only be one scope called `contexts`
         self.has_called_language_construct_rules = False
 
@@ -73,6 +76,22 @@ class TreeTransformer(lark.Transformer):
             self.errors.append( "Duplicated include `%s` defined in your grammar on: %s" % ( include_name, first_token.pretty() ) )
 
         self.defined_includes.append(include_name)
+        return self.__default__(tree.data, tree.children, tree.meta)
+
+    def target_language_name_statement(self, tree):
+        first_token = tree.children[0]
+        if self.is_target_language_name_set:
+            self.errors.append( "Duplicated target language name defined in your grammar on: %s" % ( first_token.pretty() ) )
+
+        self.is_target_language_name_set = True
+        return self.__default__(tree.data, tree.children, tree.meta)
+
+    def master_scope_name_statement(self, tree):
+        first_token = tree.children[0]
+        if self.is_master_scope_name_set:
+            self.errors.append( "Duplicated master scope name defined in your grammar on: %s" % ( first_token.pretty() ) )
+
+        self.is_master_scope_name_set = True
         return self.__default__(tree.data, tree.children, tree.meta)
 
     def include_statement(self, tree):
