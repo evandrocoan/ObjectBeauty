@@ -54,6 +54,51 @@
             "target": "exec",
             "syntax": "Packages/Text/Plain text.tmLanguage",
         },
+
+        {
+            "name": "Unit Tests",
+            "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+
+            "cmd": ["python", "unit_tests.py"],
+            "working_dir": "$project_path/source",
+
+            "variants":
+            [
+                {
+                    "name": "Python",
+                    "cmd": ["python", "unit_tests.py"],
+                },
+                {
+                    "name": "Python 3",
+                    "cmd": ["python3", "unit_tests.py"],
+                },
+            ],
+
+            "target": "exec",
+            "syntax": "Packages/Text/Plain text.tmLanguage",
+        },
+        {
+            "name": "Main Program",
+            "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+
+            "cmd": ["python", "unit_tests.py"],
+            "working_dir": "$project_path/source",
+
+            "variants":
+            [
+                {
+                    "name": "Python",
+                    "cmd": ["python", "main.py"],
+                },
+                {
+                    "name": "Python 3",
+                    "cmd": ["python3", "main.py"],
+                },
+            ],
+
+            "target": "exec",
+            "syntax": "Packages/Text/Plain text.tmLanguage",
+        },
         {
             "name": "Build Monograph - Proposal",
             "cmd": ["make", "proposal"],
