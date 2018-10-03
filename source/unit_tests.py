@@ -81,6 +81,7 @@ class TestSemanticRules(TestingUtilities):
               match: (true|false) {
                 scope: constant.language
               }
+              include: duplicate
             }
 
             duplicate: {
@@ -108,7 +109,7 @@ class TestSemanticRules(TestingUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Duplicated include `duplicate` defined in your grammar on: [@-1,352:360='duplicate'<__ANON_0>,16:13]
+            + 1. Duplicated include `duplicate` defined in your grammar on: [@-1,385:393='duplicate'<__ANON_0>,17:13]
         """, error.exception )
 
     def test_missingIncludeDetection(self):
@@ -136,7 +137,7 @@ class TestSemanticRules(TestingUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Missing include ` missing_include` defined in your grammar on: [@-1,214:229=' missing_include'<__ANON_2>,8:23]
+            + 1. Missing include `missing_include` defined in your grammar on: [@-1,215:229='missing_include'<__ANON_2>,8:24]
         """, error.exception )
 
     def test_validRegexInput(self):
@@ -223,8 +224,8 @@ class TestSemanticRules(TestingUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Duplicated target language name defined in your grammar on: [@-1,62:87=' Abstract Machine Language'<__ANON_2>,3:18]
-            + 2. Duplicated master scope name defined in your grammar on: [@-1,137:147=' source.sma'<__ANON_2>,5:19]
+            + 1. Duplicated target language name defined in your grammar on: [@-1,63:87='Abstract Machine Language'<__ANON_2>,3:19]
+            + 2. Duplicated master scope name defined in your grammar on: [@-1,138:147='source.sma'<__ANON_2>,5:20]
         """, error.exception )
 
     def test_missingScopeGlobalName(self):
