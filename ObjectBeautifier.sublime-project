@@ -89,7 +89,7 @@
             "name": "Main Program",
             "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
 
-            "cmd": ["python", "unit_tests.py"],
+            "cmd": ["python", "main.py"],
             "working_dir": "$project_path/source",
 
             "variants":
