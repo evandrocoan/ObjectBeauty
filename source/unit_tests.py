@@ -61,8 +61,6 @@ class TestSemanticRules(TestingUtilities):
         # https://stackoverflow.com/questions/5067604/determine-function-name-from-within-that-function-without-using-traceback
         function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
         make_png( tree, get_relative_path( function_name, __file__ ) )
-        # log( 1, function_name )
-        # log( 1, tree.pretty() )
 
         with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
             new_tree = semantic_analyzer.TreeTransformer().transform( tree )
@@ -101,8 +99,6 @@ class TestSemanticRules(TestingUtilities):
 
         function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
         make_png( tree, get_relative_path( function_name, __file__ ) )
-        # log( 1, function_name )
-        # log( 1, tree.pretty() )
 
         with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
             new_tree = semantic_analyzer.TreeTransformer().transform( tree )
@@ -129,8 +125,6 @@ class TestSemanticRules(TestingUtilities):
 
         function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
         make_png( tree, get_relative_path( function_name, __file__ ) )
-        # log( 1, function_name )
-        # log( 1, tree.pretty() )
 
         with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
             new_tree = semantic_analyzer.TreeTransformer().transform( tree )
@@ -156,8 +150,6 @@ class TestSemanticRules(TestingUtilities):
 
         function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
         make_png( tree, get_relative_path( function_name, __file__ ) )
-        # log( 1, function_name )
-        # log( 1, tree.pretty() )
 
         with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
             new_tree = semantic_analyzer.TreeTransformer().transform( tree )
@@ -186,8 +178,6 @@ class TestSemanticRules(TestingUtilities):
 
         function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
         make_png( tree, get_relative_path( function_name, __file__ ) )
-        # log( 1, function_name )
-        # log( 1, tree.pretty() )
 
         with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
             new_tree = semantic_analyzer.TreeTransformer().transform( tree )
@@ -216,8 +206,6 @@ class TestSemanticRules(TestingUtilities):
 
         function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
         make_png( tree, get_relative_path( function_name, __file__ ) )
-        # log( 1, function_name )
-        # log( 1, tree.pretty() )
 
         with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
             new_tree = semantic_analyzer.TreeTransformer().transform( tree )
@@ -243,8 +231,6 @@ class TestSemanticRules(TestingUtilities):
 
         function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
         make_png( tree, get_relative_path( function_name, __file__ ) )
-        # log( 1, function_name )
-        # log( 1, tree.pretty() )
 
         with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
             new_tree = semantic_analyzer.TreeTransformer().transform( tree )
@@ -269,8 +255,6 @@ class TestSemanticRules(TestingUtilities):
 
         function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
         make_png( tree, get_relative_path( function_name, __file__ ) )
-        # log( 1, function_name )
-        # log( 1, tree.pretty() )
 
         with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
             new_tree = semantic_analyzer.TreeTransformer().transform( tree )
