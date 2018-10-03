@@ -72,6 +72,14 @@
                     "name": "Python 3",
                     "cmd": ["python3", "unit_tests.py"],
                 },
+                {
+                    "name": "Single Test",
+                    "target": "run_python_tests",
+                    "cmd":
+                    [
+                        "python", "unit_tests.py", "-v", "{test_class}.{test_func}",
+                    ],
+                },
             ],
 
             "target": "exec",
