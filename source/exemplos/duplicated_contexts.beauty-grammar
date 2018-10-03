@@ -5,6 +5,7 @@ contexts: {
   match: (true|false) {
     scope: constant.language
   }
+  include: nothing
 }
 
 nothing: {
