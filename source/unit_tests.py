@@ -3,6 +3,7 @@ import sys
 import lark
 import semantic_analyzer
 
+import inspect
 import unittest
 import profile
 import cProfile
@@ -38,6 +39,28 @@ class TestSemanticRules(TestingUtilities):
             my_parser = lark.Lark( file.read(), start='language_syntax', parser='lalr', lexer='contextual')
             return my_parser
 
+    def _getError(self, example_program):
+        my_parser = self._getParser()
+        tree = my_parser.parse(example_program)
+
+        def findCaller():
+            return log.findCaller()
+
+        def getCallerName():
+            return findCaller()[2]
+
+        # function_name = "exemplos/%s.png" % getCallerName()
+        # make_png( tree, get_relative_path( function_name, __file__ ) )
+
+        # https://stackoverflow.com/questions/5067604/determine-function-name-from-within-that-function-without-using-traceback
+        # log( 1, "%s", getCallerName() )
+        # log( 1, "%s", inspect.stack()[1][3] )
+
+        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
+            new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+
+        return error
+
     def test_duplicatedContext(self):
         example_program = \
         r"""
@@ -55,15 +78,7 @@ class TestSemanticRules(TestingUtilities):
               }
             }
         """
-        my_parser = self._getParser()
-        tree = my_parser.parse(example_program)
-
-        # https://stackoverflow.com/questions/5067604/determine-function-name-from-within-that-function-without-using-traceback
-        function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
-        make_png( tree, get_relative_path( function_name, __file__ ) )
-
-        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
-            new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+        error = self._getError(example_program)
 
         self.assertTextEqual(
         r"""
@@ -94,14 +109,7 @@ class TestSemanticRules(TestingUtilities):
               }
             }
         """
-        my_parser = self._getParser()
-        tree = my_parser.parse(example_program)
-
-        function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
-        make_png( tree, get_relative_path( function_name, __file__ ) )
-
-        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
-            new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+        error = self._getError(example_program)
 
         self.assertTextEqual(
         r"""
@@ -120,14 +128,7 @@ class TestSemanticRules(TestingUtilities):
               include: missing_include
             }
         """
-        my_parser = self._getParser()
-        tree = my_parser.parse(example_program)
-
-        function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
-        make_png( tree, get_relative_path( function_name, __file__ ) )
-
-        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
-            new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+        error = self._getError(example_program)
 
         self.assertTextEqual(
         r"""
@@ -145,14 +146,7 @@ class TestSemanticRules(TestingUtilities):
               }
             }
         """
-        my_parser = self._getParser()
-        tree = my_parser.parse(example_program)
-
-        function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
-        make_png( tree, get_relative_path( function_name, __file__ ) )
-
-        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
-            new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+        error = self._getError(example_program)
 
         self.assertTextEqual(
         r"""
@@ -173,14 +167,7 @@ class TestSemanticRules(TestingUtilities):
               }
             }
         """
-        my_parser = self._getParser()
-        tree = my_parser.parse(example_program)
-
-        function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
-        make_png( tree, get_relative_path( function_name, __file__ ) )
-
-        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
-            new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+        error = self._getError(example_program)
 
         self.assertTextEqual(
         r"""
@@ -201,14 +188,7 @@ class TestSemanticRules(TestingUtilities):
               }
             }
         """
-        my_parser = self._getParser()
-        tree = my_parser.parse(example_program)
-
-        function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
-        make_png( tree, get_relative_path( function_name, __file__ ) )
-
-        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
-            new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+        error = self._getError(example_program)
 
         self.assertTextEqual(
         r"""
@@ -226,14 +206,7 @@ class TestSemanticRules(TestingUtilities):
               }
             }
         """
-        my_parser = self._getParser()
-        tree = my_parser.parse(example_program)
-
-        function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
-        make_png( tree, get_relative_path( function_name, __file__ ) )
-
-        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
-            new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+        error = self._getError(example_program)
 
         self.assertTextEqual(
         r"""
@@ -250,14 +223,7 @@ class TestSemanticRules(TestingUtilities):
               }
             }
         """
-        my_parser = self._getParser()
-        tree = my_parser.parse(example_program)
-
-        function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
-        make_png( tree, get_relative_path( function_name, __file__ ) )
-
-        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
-            new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+        error = self._getError(example_program)
 
         self.assertTextEqual(
         r"""
