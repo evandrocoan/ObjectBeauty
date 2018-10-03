@@ -150,8 +150,8 @@ class TestSemanticRules(TestingUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Invalid regular expression ` (true|false ` on match statement:
-            +    missing ), unterminated subpattern at position 1
+            + 1. Invalid regular expression `(true|false ` on match statement:
+            +    missing ), unterminated subpattern at position 0
         """, error.exception )
 
     def test_duplicatedGlobalNames(self):
@@ -234,25 +234,24 @@ class TestSemanticRules(TestingUtilities):
         example_program = \
         r"""
             scope: source.sma
+            name: Abstract Machine Language
             contexts: {
               meta_scope: meta.block.pawn
               match: (true|false) {
               }
             }
+
+            unused: {
+              match: (true|false) {
+              }
+            }
         """
-        my_parser = self._getParser()
-        tree = my_parser.parse(example_program)
-
-        function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
-        make_png( tree, get_relative_path( function_name, __file__ ) )
-        # log( 1, function_name )
-        # log( 1, tree.pretty() )
-
-        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
-            new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+        error = self._getError(example_program)
 
         self.assertTextEqual(
         r"""
+            +   Warnings:
+            + 1. Unused include `unused` defined in your grammar on: [@-1,220:225='unused'<__ANON_0>,10:13]
         """, error.exception )
 
 

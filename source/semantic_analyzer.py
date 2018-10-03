@@ -9,13 +9,25 @@ log = getLogger(__name__)
 
 
 class SemanticErrors(LarkError):
-    def __init__(self, exceptions):
+    def __init__(self, warnings, errors):
+        if warnings:
+            self.warnings = self._build_messages(warnings)
+        else:
+            self.warnings = None
+
+        if errors:
+            self.errors = self._build_messages(errors)
+        else:
+            self.errors = None
+
+    def _build_messages(self, exceptions):
         # https://stackoverflow.com/questions/16625068/combine-lists-by-joining-strings-with-matching-index-values
         messages = map( lambda a, b: "%s. %s" % (a, b), range( 1, len(exceptions) + 1 ), exceptions )
-        self.messages = "\n".join( message for message in messages )
+        return "\n".join( message for message in messages )
 
     def __str__(self):
-        return self.messages
+        return ( self.errors if self.errors else "" ) + \
+                ( "\n\n  Warnings:\n%s" % self.warnings if self.warnings else "" )
 
 
 class TreeTransformer(lark.Transformer):
@@ -28,6 +40,9 @@ class TreeTransformer(lark.Transformer):
         ## Saves all the semantic errors errors detected so far
         self.errors = []
 
+        ## Saves all warnings noted so far
+        self.warnings = []
+
         self.is_master_scope_name_set = False
         self.is_target_language_name_set = False
 
@@ -35,10 +50,10 @@ class TreeTransformer(lark.Transformer):
         self.has_called_language_construct_rules = False
 
         ## A list of miscellaneous_language_rules include contexts defined for duplication checking
-        self.defined_includes = []
+        self.defined_includes = {}
 
         ## A list of required includes to check for missing includes
-        self.required_includes = []
+        self.required_includes = {}
 
     def language_syntax(self, tree):
         """
@@ -54,9 +69,10 @@ class TreeTransformer(lark.Transformer):
 
         self._check_for_missing_includes()
         self._check_for_main_rules()
+        self._check_for_unused_includes()
 
-        if self.errors:
-            raise SemanticErrors(self.errors)
+        if self.errors or self.warnings:
+            raise SemanticErrors(self.warnings, self.errors)
 
         return self.__default__(tree.data, tree.children, tree.meta)
 
@@ -70,13 +86,15 @@ class TreeTransformer(lark.Transformer):
         assert tree.data == 'miscellaneous_language_rules', "Just documenting what the data attribute has."
         assert isinstance( first_token, Token ), "The first children must be a Token, while the second is a subtree."
 
-        if include_name == 'contexts':
-            self.errors.append( "Extra `contexts` rule defined in your grammar on: %s" % first_token.pretty() )
-
         if include_name in self.defined_includes:
             self.errors.append( "Duplicated include `%s` defined in your grammar on: %s" % ( include_name, first_token.pretty() ) )
 
-        self.defined_includes.append(include_name)
+        if include_name == 'contexts':
+            self.errors.append( "Extra `contexts` rule defined in your grammar on: %s" % first_token.pretty() )
+
+        else:
+            self.defined_includes[include_name] = first_token
+
         return self.__default__(tree.data, tree.children, tree.meta)
 
     def target_language_name_statement(self, tree):
@@ -99,7 +117,7 @@ class TreeTransformer(lark.Transformer):
         first_token = tree.children[0]
         include_name = str(first_token)
 
-        self.required_includes.append( (include_name, first_token) )
+        self.required_includes[include_name] = first_token
         return self.__default__(tree.data, tree.children, tree.meta)
 
     def match_statement(self, tree):
@@ -124,11 +142,19 @@ class TreeTransformer(lark.Transformer):
         if not self.is_target_language_name_set:
             self.errors.append( "Missing target language name in your grammar preamble." )
 
+    def _check_for_unused_includes(self):
+        """
+            Look for missing required main rules on the grammar preamble statement.
+        """
+        for include_name, include_token in self.defined_includes.items():
+            if include_name not in self.required_includes:
+                self.warnings.append( "Unused include `%s` defined in your grammar on: %s" % ( include_name, include_token.pretty() ) )
+
     def _check_for_missing_includes(self):
         """
             Look for missing required includes by the `include` statement.
         """
-        for include_name, include_token in self.required_includes:
+        for include_name, include_token in self.required_includes.items():
             if include_name not in self.defined_includes:
                 self.errors.append( "Missing include `%s` defined in your grammar on: %s" % ( include_name, include_token.pretty() ) )
 
