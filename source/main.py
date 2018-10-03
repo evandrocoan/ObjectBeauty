@@ -17,8 +17,8 @@ def assert_path(module):
         sys.path.append( module )
 
 assert_path( os.path.realpath( __file__ ) )
-from testing_utilities import make_png
-from testing_utilities import get_relative_path
+from utilities import make_png
+from debug_tools.utilities import get_relative_path
 
 ## The relative path the the lark grammar parser file from the current file
 grammar_file_path = get_relative_path( "gramatica_compiladores.lark", __file__ )

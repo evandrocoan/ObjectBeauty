@@ -18,9 +18,9 @@ def assert_path(module):
 
 assert_path( os.path.realpath( __file__ ) )
 
-from testing_utilities import TestingUtilities
-from testing_utilities import make_png
-from testing_utilities import get_relative_path
+from utilities import make_png
+from debug_tools.utilities import get_relative_path
+from debug_tools.testing_utilities import TestingUtilities
 
 def main():
     # https://stackoverflow.com/questions/6813837/stop-testsuite-if-a-testcase-find-an-error
