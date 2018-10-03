@@ -32,7 +32,7 @@ class TestSemanticRules(TestingUtilities):
     def _getParser(self):
 
         ## The relative path the the lark grammar parser file from the current file
-        grammar_file_path = get_relative_path( "gramatica_compiladores.lark", __file__ )
+        grammar_file_path = get_relative_path( "grammars_grammar.lark", __file__ )
 
         ## The parser used to build the Abstract Syntax Tree and parse the input text
         with open( grammar_file_path, "r", encoding='utf-8' ) as file:
@@ -228,6 +228,31 @@ class TestSemanticRules(TestingUtilities):
         self.assertTextEqual(
         r"""
             + 1. Missing target language name in your grammar preamble.
+        """, error.exception )
+
+    def test_unsusedInclude(self):
+        example_program = \
+        r"""
+            scope: source.sma
+            contexts: {
+              meta_scope: meta.block.pawn
+              match: (true|false) {
+              }
+            }
+        """
+        my_parser = self._getParser()
+        tree = my_parser.parse(example_program)
+
+        function_name = "exemplos/%s.png" % sys._getframe().f_code.co_name
+        make_png( tree, get_relative_path( function_name, __file__ ) )
+        # log( 1, function_name )
+        # log( 1, tree.pretty() )
+
+        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
+            new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+
+        self.assertTextEqual(
+        r"""
         """, error.exception )
 
 
