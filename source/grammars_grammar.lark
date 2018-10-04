@@ -31,7 +31,7 @@ LF: "/n"
 SPACES: /[\t \f]+/
 
 // General non terminal constructs
-?free_input_string: /(\\{|\\}|(?<!:)[^\n{}])+/
+?free_input_string: /(?<!:)(\\{|\\}|[^\n{}])+(?!{)/
 
 SINGLE_LINE_COMMENT: /(\#|\/\/)[^\n]*/
 MULTI_LINE_COMMENT: /\/\*([\s\S]*?)\*\//

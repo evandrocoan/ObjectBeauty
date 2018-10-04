@@ -150,7 +150,7 @@ class TestSemanticRules(TestingUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Invalid regular expression `(true|false ` on match statement:
+            + 1. Invalid regular expression `(true|false` on match statement:
             +    missing ), unterminated subpattern at position 0
         """, error.exception )
 
