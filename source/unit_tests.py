@@ -183,7 +183,6 @@ class TestSemanticRules(TestingUtilities):
             scope: source.sma
             scope: source.sma
             contexts: {
-              meta_scope: meta.block.pawn
               match: (true|false) {
               }
             }
@@ -201,7 +200,6 @@ class TestSemanticRules(TestingUtilities):
         r"""
             name: Abstract Machine Language
             contexts: {
-              meta_scope: meta.block.pawn
               match: (true|false) {
               }
             }
@@ -218,7 +216,6 @@ class TestSemanticRules(TestingUtilities):
         r"""
             scope: source.sma
             contexts: {
-              meta_scope: meta.block.pawn
               match: (true|false) {
               }
             }
@@ -236,7 +233,6 @@ class TestSemanticRules(TestingUtilities):
             scope: source.sma
             name: Abstract Machine Language
             contexts: {
-              meta_scope: meta.block.pawn
               match: (true|false) {
               }
             }
@@ -251,7 +247,7 @@ class TestSemanticRules(TestingUtilities):
         self.assertTextEqual(
         r"""
             +   Warnings:
-            + 1. Unused include `unused` defined in your grammar on: [@-1,220:225='unused'<__ANON_0>,10:13]
+            + 1. Unused include `unused` defined in your grammar on: [@-1,178:183='unused'<__ANON_0>,9:13]
         """, error.exception )
 
 
