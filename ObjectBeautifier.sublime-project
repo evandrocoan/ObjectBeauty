@@ -83,7 +83,7 @@
             ],
 
             "target": "exec",
-            "syntax": "Packages/Text/Plain text.tmLanguage",
+            "syntax": "Packages/UnitTesting/res/unit-testing-test-result.sublime-syntax",
         },
         {
             "name": "Main Program",
