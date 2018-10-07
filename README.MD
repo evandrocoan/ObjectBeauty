@@ -1,7 +1,7 @@
 
 # Object Beautifier
 
-Is an Universal Advanced Object Oriented Programming Text and Source Code Beautifier which come in 
+Is an Universal Advanced Object Oriented Programming Text and Source Code Beautifier which come in
 place to easy and improve the Source Code Beautifiers, using a well understood architecture, development
 and configuration process.
 
