@@ -29,18 +29,18 @@ def main():
 
 class TestSemanticRules(TestingUtilities):
 
-    def _getParser(self):
+    def _getParser(self, log_level):
 
         ## The relative path the the lark grammar parser file from the current file
         grammar_file_path = get_relative_path( "grammars_grammar.lark", __file__ )
 
         ## The parser used to build the Abstract Syntax Tree and parse the input text
         with open( grammar_file_path, "r", encoding='utf-8' ) as file:
-            my_parser = lark.Lark( file.read(), start='language_syntax', parser='lalr', lexer='contextual')
+            my_parser = lark.Lark( file.read(), start='language_syntax', parser='lalr', lexer='contextual', debug=log_level)
             return my_parser
 
-    def _getError(self, example_program):
-        my_parser = self._getParser()
+    def _getError(self, example_program, return_tree=False, log_level=0):
+        my_parser = self._getParser(log_level)
         tree = my_parser.parse(example_program)
 
         def findCaller():
@@ -56,8 +56,13 @@ class TestSemanticRules(TestingUtilities):
         # log( 1, "%s", getCallerName() )
         # log( 1, "%s", inspect.stack()[1][3] )
 
-        with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
+        if return_tree:
             new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+            return new_tree
+
+        else:
+            with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
+                new_tree = semantic_analyzer.TreeTransformer().transform( tree )
 
         return error
 
@@ -82,7 +87,7 @@ class TestSemanticRules(TestingUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Extra `contexts` rule defined in your grammar on: [@-1,219:226='contexts'<__ANON_0>,10:13]
+            + 1. Extra `contexts` rule defined in your grammar on: [@-1,219:226='contexts'<__ANON_1>,10:13]
         """, error.exception )
 
     def test_duplicatedIncludes(self):
@@ -113,7 +118,7 @@ class TestSemanticRules(TestingUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Duplicated include `duplicate` defined in your grammar on: [@-1,385:393='duplicate'<__ANON_0>,17:13]
+            + 1. Duplicated include `duplicate` defined in your grammar on: [@-1,385:393='duplicate'<__ANON_1>,17:13]
         """, error.exception )
 
     def test_missingIncludeDetection(self):
@@ -132,7 +137,7 @@ class TestSemanticRules(TestingUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Missing include `missing_include` defined in your grammar on: [@-1,215:229='missing_include'<__ANON_2>,8:24]
+            + 1. Missing include `missing_include` defined in your grammar on: [@-1,215:229='missing_include'<__ANON_3>,8:24]
         """, error.exception )
 
     def test_validRegexInput(self):
@@ -171,8 +176,8 @@ class TestSemanticRules(TestingUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Duplicated target language name defined in your grammar on: [@-1,62:87=' Abstract Machine Language'<__ANON_2>,3:18]
-            + 2. Duplicated master scope name defined in your grammar on: [@-1,137:147=' source.sma'<__ANON_2>,5:19]
+            + 1. Duplicated target language name defined in your grammar on: [@-1,62:87=' Abstract Machine Language'<__ANON_3>,3:18]
+            + 2. Duplicated master scope name defined in your grammar on: [@-1,137:147=' source.sma'<__ANON_3>,5:19]
         """, error.exception )
 
     def test_duplicatedGlobalNames(self):
@@ -191,8 +196,8 @@ class TestSemanticRules(TestingUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Duplicated target language name defined in your grammar on: [@-1,63:87='Abstract Machine Language'<__ANON_2>,3:19]
-            + 2. Duplicated master scope name defined in your grammar on: [@-1,138:147='source.sma'<__ANON_2>,5:20]
+            + 1. Duplicated target language name defined in your grammar on: [@-1,63:87='Abstract Machine Language'<__ANON_3>,3:19]
+            + 2. Duplicated master scope name defined in your grammar on: [@-1,138:147='source.sma'<__ANON_3>,5:20]
         """, error.exception )
 
     def test_missingScopeGlobalName(self):
@@ -247,8 +252,95 @@ class TestSemanticRules(TestingUtilities):
         self.assertTextEqual(
         r"""
             +   Warnings:
-            + 1. Unused include `unused` defined in your grammar on: [@-1,178:183='unused'<__ANON_0>,9:13]
+            + 1. Unused include `unused` defined in your grammar on: [@-1,178:183='unused'<__ANON_1>,9:13]
         """, error.exception )
+
+    def test_variableDeclaration(self):
+        example_program = \
+        r"""
+            scope: source.sma
+            name: Abstract Machine Language
+            $variable: test
+            contexts: {
+              match: (true|false) {
+              }
+            }
+        """
+        tree = self._getError(example_program, True)
+
+        self.assertTextEqual(
+        r"""
+            + language_syntax
+            +   preamble_statements
+            +     master_scope_name_statement  [@1,20:29='source.sma'<__ANON_3>,2:20]
+            +     target_language_name_statement  [@2,49:73='Abstract Machine Language'<__ANON_3>,3:19]
+            +     variable_declaration
+            +       [@3,87:96='$variable:'<__ANON_1>,4:13]
+            +       [@4,98:101='test'<__ANON_3>,4:24]
+            +   language_construct_rules
+            +     indentation_block
+            +       statements_list
+            +         match_statement  [@5,148:159='(true|false)'<__ANON_3>,6:22]
+        """, tree.pretty(debug=True) )
+
+    def test_variableUsage(self):
+        example_program = \
+        r"""
+            scope: source.sma
+            name: Abstract Machine Language
+            $variable: test
+            contexts: {
+              match: (true$variable:|false) $variable: {
+              }
+            }
+        """
+        tree = self._getError(example_program, True)
+
+        self.assertTextEqual(
+        r"""
+            + language_syntax
+            +   preamble_statements
+            +     master_scope_name_statement
+            +       free_input_string
+            +         text_chunk_end  [@1,20:29='source.sma'<__ANON_5>,2:20]
+            +     target_language_name_statement
+            +       free_input_string
+            +         text_chunk_end  [@2,49:73='Abstract Machine Language'<__ANON_5>,3:19]
+            +     variable_declaration
+            +       variable_name  [@3,87:96='$variable:'<__ANON_2>,4:13]
+            +       free_input_string
+            +         text_chunk_end  [@4,97:101=' test'<__ANON_5>,4:23]
+            +   language_construct_rules
+            +     indentation_block
+            +       statements_list
+            +         match_statement
+            +           free_input_string
+            +             text_chunk  [@5,148:152='(true'<__ANON_4>,6:22]
+            +             variable_usage  [@6,153:162='$variable:'<__ANON_6>,6:27]
+            +             text_chunk  [@7,163:170='|false) '<__ANON_4>,6:37]
+            +             variable_usage  [@8,171:180='$variable:'<__ANON_6>,6:45]
+        """, tree.pretty(debug=True) )
+
+    def test_isolatedVariableUsage(self):
+        example_program = "true$variable:|false"
+
+        my_parser = lark.Lark(
+        r"""
+            free_input_string: ( variable_usage | text_chunk )* ( text_chunk_end | )
+            ?text_chunk: /(\\{|\\}|\\\$|[^\n{}\$])+(?=\$)/
+            ?text_chunk_end: /(\\{|\\}|\\\$|[^\n{}\$])+(?!{)/
+            variable_usage: /\$[^\n\$\:]+\:(?!{)/
+        """,
+        start='free_input_string', parser='lalr', lexer='contextual')
+        tree = my_parser.parse(example_program)
+
+        self.assertTextEqual(
+        r"""
+            + free_input_string
+            +   [@1,0:3='true'<__ANON_1>,1:1]
+            +   variable_usage  [@2,4:13='$variable:'<__ANON_2>,1:5]
+            +   [@3,14:19='|false'<__ANON_1>,1:15]
+        """, tree.pretty(debug=True) )
 
 
 if __name__ == "__main__":

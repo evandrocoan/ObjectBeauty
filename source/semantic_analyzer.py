@@ -128,8 +128,13 @@ class TreeTransformer(lark.Transformer):
             re.compile(include_name)
 
         except re.error as error:
-            self.errors.append( "Invalid regular expression `%s` on match statement:\n   %s" % ( include_name, error) )
+            pass
+            # self.errors.append( "Invalid regular expression `%s` on match statement:\n   %s" % ( include_name, error) )
 
+        return self.__default__(tree.data, tree.children, tree.meta)
+
+    def free_input_string(self, tree):
+        log(1, 'tree: \n%s', tree.pretty(debug=1))
         return self.__default__(tree.data, tree.children, tree.meta)
 
     def _check_for_main_rules(self):
