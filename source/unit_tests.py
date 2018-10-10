@@ -49,7 +49,7 @@ class TestSemanticRules(TestingUtilities):
         def getCallerName():
             return findCaller()[2]
 
-        # function_name = "exemplos/%s.png" % getCallerName()
+        # function_name = "examples/%s.png" % getCallerName()
         # make_png( tree, get_relative_path( function_name, __file__ ) )
 
         # https://stackoverflow.com/questions/5067604/determine-function-name-from-within-that-function-without-using-traceback

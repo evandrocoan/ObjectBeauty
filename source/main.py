@@ -30,16 +30,16 @@ with open( grammar_file_path, "r", encoding='utf-8' ) as file:
 # To generate the lexer/parser
 # python3 -m lark.tools.standalone ./grammars_grammar.lark > lexer.py
 def test():
-    # grammar_file_path = get_relative_path( "exemplos/programa_exemplo.beauty-grammar", __file__ )
-    grammar_file_path = get_relative_path( "exemplos/duplicated_contexts.beauty-grammar", __file__ )
+    # grammar_file_path = get_relative_path( "examples/programa_exemplo.beauty-grammar", __file__ )
+    grammar_file_path = get_relative_path( "examples/duplicated_contexts.beauty-grammar", __file__ )
 
     with open( grammar_file_path, "r", encoding='utf-8' ) as file:
         tree = meu_parser.parse(file.read())
-        make_png( tree, get_relative_path( "exemplos/duplicated_contexts.png", __file__ ), debug=True )
+        make_png( tree, get_relative_path( "examples/duplicated_contexts.png", __file__ ), debug=True )
         # log( 1, tree.pretty() )
 
         new_tree = semantic_analyzer.TreeTransformer().transform( tree )
-        # make_png( tree, get_relative_path( "exemplos/duplicated_contexts.png", __file__ ) )
+        # make_png( tree, get_relative_path( "examples/duplicated_contexts.png", __file__ ) )
         log( 1, "\n%s", new_tree.pretty(debug=True) )
 
 
