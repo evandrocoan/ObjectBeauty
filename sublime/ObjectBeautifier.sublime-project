@@ -7,7 +7,9 @@
         "WrapPlus.semantic_maximum_items_in_comma_separated_list": 1,
         "buildview.enabled": true,
         "buildview.scroll": "last",
+        "buildview.focus_build": true,
         "show_panel_on_build": false,
+        "restore_output_view_scroll": true,
     },
     "folders":
     [
@@ -86,6 +88,7 @@
                 },
             ],
 
+            "quiet": true,
             "target": "exec",
             "syntax": "Packages/UnitTesting/res/unit-testing-test-result.sublime-syntax",
         },
@@ -108,6 +111,7 @@
                 },
             ],
 
+            "quiet": true,
             "target": "exec",
             "syntax": "Packages/Text/Plain text.tmLanguage",
         },
