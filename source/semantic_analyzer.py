@@ -42,6 +42,10 @@ class UndefinedInput(object):
         raise NotImplementedError( "%s is an abstract class" % self.__name__ )
 
     def __repr__(self):
+
+        if self.str:
+            return self.str
+
         return get_representation(self)
 
     def __str__(self):
@@ -53,7 +57,7 @@ class UndefinedInput(object):
             return self.__repr__()
 
 
-class UndefinedVariable(UndefinedInput):
+class VariableUsage(UndefinedInput):
     """
         Represents a variable which is used somewhere, but its definition is yet unknown.
 
@@ -61,7 +65,7 @@ class UndefinedVariable(UndefinedInput):
         variable complete representation.
     """
     def __init__(self, name, token):
-        super(UndefinedVariable, self).__init__()
+        super(VariableUsage, self).__init__()
         self.name = name
         self.token = token
 
@@ -74,10 +78,10 @@ class UndefinedVariable(UndefinedInput):
         return True
 
 
-class InputString(UndefinedInput):
+class VariableDeclaration(UndefinedInput):
 
     def __init__(self, tokens, token):
-        super(InputString, self).__init__()
+        super(VariableDeclaration, self).__init__()
         self.tokens = tokens
         self.token = token
 
@@ -109,6 +113,36 @@ class InputString(UndefinedInput):
 
         self.str = "".join(resolutions)
         return True
+
+
+class InputString(UndefinedInput):
+
+    def __init__(self, tokens, definitions):
+        # super(InputString, self).__init__()
+        self.tokens = tokens
+        self.definitions = definitions
+
+    def __str__(self):
+        """
+            @param `definitions` a dictionary with all completely know
+                variables. For example { "$varrrr:" : " varrrr " }
+        """
+
+        resolutions = []
+        # log( 1, 'self.definitions %s', self.definitions )
+
+        for token in self.tokens:
+            # log( 1, 'token %s', token )
+
+            if isinstance( token, Tree ):
+                variable_name = token.children[0]
+                # log(1, 'variable_name %s', variable_name )
+                resolutions.append( str( self.definitions[variable_name] ) )
+
+            else:
+                resolutions.append( str( token ) )
+
+        return "".join( resolutions )
 
 
 class TreeTransformer(lark.Transformer):
@@ -145,7 +179,7 @@ class TreeTransformer(lark.Transformer):
         ## A list of required includes to check for missing includes
         self.required_includes = {}
 
-    def language_syntax(self, tree):
+    def language_syntax(self, tree, children):
         """
             This is the grammar start symbol and will be called by last with all
             partial subtrees the start symbol derivates.
@@ -164,13 +198,13 @@ class TreeTransformer(lark.Transformer):
         if self.errors or self.warnings:
             raise SemanticErrors(self.warnings, self.errors)
 
-        return self.__default__(tree.data, tree.children, tree.meta)
+        return self.__default__(tree.data, children, tree.meta)
 
-    def language_construct_rules(self, tree):
+    def language_construct_rules(self, tree, children):
         self.has_called_language_construct_rules = True
-        return self.__default__(tree.data, tree.children, tree.meta)
+        return self.__default__(tree.data, children, tree.meta)
 
-    def miscellaneous_language_rules(self, tree):
+    def miscellaneous_language_rules(self, tree, children):
         first_token = tree.children[0]
         include_name = str(first_token)
         assert tree.data == 'miscellaneous_language_rules', "Just documenting what the data attribute has."
@@ -185,34 +219,34 @@ class TreeTransformer(lark.Transformer):
         else:
             self.defined_includes[include_name] = first_token
 
-        return self.__default__(tree.data, tree.children, tree.meta)
+        return self.__default__(tree.data, children, tree.meta)
 
-    def target_language_name_statement(self, tree):
+    def target_language_name_statement(self, tree, children):
         first_token = tree.children[0]
         if self.is_target_language_name_set:
             self.errors.append( "Duplicated target language name defined in your grammar on %s" % ( first_token.pretty() ) )
 
         self.is_target_language_name_set = True
-        return self.__default__(tree.data, tree.children, tree.meta)
+        return self.__default__(tree.data, children, tree.meta)
 
-    def master_scope_name_statement(self, tree):
+    def master_scope_name_statement(self, tree, children):
         first_token = tree.children[0]
         if self.is_master_scope_name_set:
             self.errors.append( "Duplicated master scope name defined in your grammar on %s" % ( first_token.pretty() ) )
 
         self.is_master_scope_name_set = True
-        return self.__default__(tree.data, tree.children, tree.meta)
+        return self.__default__(tree.data, children, tree.meta)
 
-    def include_statement(self, tree):
+    def include_statement(self, tree, children):
         first_token = tree.children[0]
         include_name = str(first_token)
 
         self.required_includes[include_name] = first_token
-        return self.__default__(tree.data, tree.children, tree.meta)
+        return self.__default__(tree.data, children, tree.meta)
 
-    def variable_declaration(self, tree):
-        log(1, 'tree: \n%s', tree.pretty(debug=1))
-        log(1, 'children: \n%s', tree.children)
+    def variable_declaration(self, tree, children):
+        # log(1, 'tree: \n%s', tree.pretty(debug=1))
+        # log(1, 'children: \n%s', tree.children)
         children = tree.children
 
         # [
@@ -225,29 +259,32 @@ class TreeTransformer(lark.Transformer):
         # ]
         variable_name = str( children[0] )
         variable_body = children[1].children
-        input_string = InputString( variable_body, children[0] )
+        input_string = VariableDeclaration( variable_body, children[0] )
 
-        log( 'variable_name:', variable_name )
-        log( 'variable_body:', variable_body )
-        log( input_string )
+        # Trim trailing obligatory white space by the grammar
+        variable_name = variable_name[:-1]
+
+        # log( 'variable_name:', variable_name )
+        # log( 'variable_body:', variable_body )
+        # log( input_string )
 
         self.defined_variables[variable_name] = input_string
         return input_string
 
-    def variable_usage(self, tree):
+    def variable_usage(self, tree, children):
         children = tree.children
         variable_name = str( children[0] )
 
-        undefined_variable = UndefinedVariable( variable_name, children[0] )
+        undefined_variable = VariableUsage( variable_name, children[0] )
         self.used_variables[variable_name] = undefined_variable
 
-        log( 'variable_name:', variable_name )
-        log( undefined_variable )
+        # log( 'variable_name:', variable_name )
+        # log( undefined_variable )
 
-        log(1, 'tree: \n%s', tree.pretty(debug=1))
+        # log(1, 'tree: \n%s', tree.pretty(debug=1))
         return undefined_variable
 
-    def match_statement(self, tree):
+    def match_statement(self, tree, children):
         first_token = tree.children[0]
         include_name = str(first_token)
 
@@ -258,11 +295,11 @@ class TreeTransformer(lark.Transformer):
             pass
             # self.errors.append( "Invalid regular expression `%s` on match statement:\n   %s" % ( include_name, error) )
 
-        return self.__default__(tree.data, tree.children, tree.meta)
+        return self.__default__(tree.data, children, tree.meta)
 
-    def free_input_string(self, tree):
-        log(1, 'tree: \n%s', tree.pretty(debug=1))
-        log(1, 'children: \n%s', tree.children)
+    def free_input_string(self, tree, children):
+        # log(1, 'tree: \n%s', tree.pretty(debug=1))
+        # log(1, 'children: \n%s', tree.children)
 
         # Tree
         # (
@@ -272,10 +309,10 @@ class TreeTransformer(lark.Transformer):
         #   ]
         # )
         variable_body = tree.children
-        input_string = InputString( variable_body, variable_body[0] )
+        input_string = InputString( variable_body, self.defined_variables )
 
-        log( 'variable_body:', variable_body )
-        log( input_string )
+        # log( 'variable_body:', variable_body )
+        # log( input_string )
         return input_string
 
     def _check_for_main_rules(self):
@@ -314,7 +351,7 @@ class TreeTransformer(lark.Transformer):
 
         # Checks for unused variables
         for name, variable in self.defined_variables.items():
-            log(1, 'name %s', name)
+            # log(1, 'name %s', name)
             if name not in self.used_variables:
                 self.warnings.append( "Unused variable `%s` defined in your grammar on %s" % ( name, variable.token.pretty() ) )
 
@@ -325,42 +362,42 @@ class TreeTransformer(lark.Transformer):
 
         # work resolve variables usages on `self.used_variables` until it there is no new progress
         while revolved_count != last_resolution:
-            log('revolved_count', revolved_count, ', last_resolution', last_resolution)
+            # log('revolved_count', revolved_count, ', last_resolution', last_resolution)
             revolved_count = last_resolution
             just_resolved = []
 
             # Updates all variables definitions with the variables contents values
             for name, variable in self.defined_variables.items():
-                log( 1, 'Trying to resolve name %s, variable %s', name, variable )
+                # log( 1, 'Trying to resolve name %s, variable %s', name, variable )
                 if variable.resolve( self.used_variables ):
-                    log( 1, 'Resolved variable to %s', variable )
+                    # log( 1, 'Resolved variable to %s', variable )
                     just_resolved.append(name)
                     resolved_variables[name] = variable
 
             # When a defined_variables has inner unresolved variables, it can only be resolved later
             for variable in just_resolved:
-                log( 1, 'Deleting just resolved %s, value %s', variable, self.defined_variables[variable] )
+                # log( 1, 'Deleting just resolved %s, value %s', variable, self.defined_variables[variable] )
                 del self.defined_variables[variable]
 
             # Resolve all pending variables
             for name, variable in self.used_variables.items():
-                log( 1, 'Trying to resolve pending name %s, variable %s', name, variable )
+                # log( 1, 'Trying to resolve pending name %s, variable %s', name, variable )
                 if name in resolved_variables:
                     resolution = resolved_variables[name]
 
                     if variable.resolve( resolution.str ):
-                        log( 1, 'Resolved variable to %s', variable )
+                        # log( 1, 'Resolved variable to %s', variable )
                         last_resolution += 1
 
+        log.newline()
         log(1, 'used_variables %s', self.used_variables)
-        log(1, 'defined_variables %s', self.defined_variables)
         log(1, 'resolved_variables %s', resolved_variables)
 
         # if the resolution count does not reach 0, something went wrong
         if len( self.defined_variables ) > 0:
-            self.errors.append( "Not all variables could be resolved:\n   `%s`" % ( pending ) )
+            self.errors.append( "The following variables could be resolved:\n   `%s`" % ( self.defined_variables ) )
 
-        self.defined_variables = resolved_variables
+        self.defined_variables.update( resolved_variables )
 
     def _call_userfunc(self, tree, new_children=None):
         """
@@ -372,6 +409,6 @@ class TreeTransformer(lark.Transformer):
         try:
             f = getattr(self, tree.data)
         except AttributeError:
-            return self.__default__(tree.data, tree.children, tree.meta)
+            return self.__default__(tree.data, children, tree.meta)
         else:
-            return f(tree)
+            return f(tree, children)

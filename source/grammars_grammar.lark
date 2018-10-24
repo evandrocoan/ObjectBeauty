@@ -14,7 +14,7 @@ statements_list: match_statement | include_statement | push_statement | pop_stat
 
 push_statement:  "push" ": " indentation_block
 include_statement: "include" ": " free_input_string
-?variable_name: /\$.+?\:/
+?variable_name: /\$.+?\: /
 variable_declaration: variable_name free_input_string
 
 free_input_string: ( variable_usage | TEXT_CHUNK )* ( TEXT_CHUNK_END | )

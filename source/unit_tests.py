@@ -58,8 +58,8 @@ class TestSemanticRules(TestingUtilities):
 
         if return_tree:
             new_tree = semantic_analyzer.TreeTransformer().transform( tree )
-            log( 1, 'tree: %s', tree.pretty() )
-            log( 1, 'tree: %s', new_tree.pretty() )
+            log( 1, 'tree: \n%s', tree.pretty() )
+            log( 1, 'tree: \n%s', new_tree.pretty() )
 
             return new_tree
 
@@ -290,9 +290,9 @@ class TestSemanticRules(TestingUtilities):
         r"""
             scope: source.sma
             name: Abstract Machine Language
-            $variable: test
+            $variable:  test
             contexts: {
-              match: (true$variable:|false) $variable: {
+              match: (true$variable:|false)$variable: {
               }
             }
         """
@@ -302,25 +302,13 @@ class TestSemanticRules(TestingUtilities):
         r"""
             + language_syntax
             +   preamble_statements
-            +     master_scope_name_statement
-            +       free_input_string
-            +         text_chunk_end  [@1,20:29='source.sma'<__ANON_5>,2:20]
-            +     target_language_name_statement
-            +       free_input_string
-            +         text_chunk_end  [@2,49:73='Abstract Machine Language'<__ANON_5>,3:19]
-            +     variable_declaration
-            +       variable_name  [@3,87:96='$variable:'<__ANON_2>,4:13]
-            +       free_input_string
-            +         text_chunk_end  [@4,97:101=' test'<__ANON_5>,4:23]
+            +     master_scope_name_statement  source.sma
+            +     target_language_name_statement  Abstract Machine Language
+            +      test
             +   language_construct_rules
             +     indentation_block
             +       statements_list
-            +         match_statement
-            +           free_input_string
-            +             text_chunk  [@5,148:152='(true'<__ANON_4>,6:22]
-            +             variable_usage  [@6,153:162='$variable:'<__ANON_6>,6:27]
-            +             text_chunk  [@7,163:170='|false) '<__ANON_4>,6:37]
-            +             variable_usage  [@8,171:180='$variable:'<__ANON_6>,6:45]
+            +         match_statement  (true test|false) test
         """, tree.pretty(debug=True) )
 
     def test_isolatedVariableUsage(self):
