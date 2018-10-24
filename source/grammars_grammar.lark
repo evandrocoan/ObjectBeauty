@@ -14,8 +14,13 @@ statements_list: match_statement | include_statement | push_statement | pop_stat
 
 push_statement:  "push" ": " indentation_block
 include_statement: "include" ": " free_input_string
-variable_name: /\$.+\:/
+?variable_name: /\$.+?\:/
 variable_declaration: variable_name free_input_string
+
+free_input_string: ( variable_usage | TEXT_CHUNK )* ( TEXT_CHUNK_END | )
+TEXT_CHUNK: /(\\{|\\}|\\\$|[^\n{}\$])+(?=\$)/
+TEXT_CHUNK_END: /(\\{|\\}|\\\$|[^\n{}\$])+(?!{)/
+variable_usage: /\$[^\n\$\:]+\:(?!{)/
 
 match_statements: scope_name | capturing_block | meta_scope_statement | statements_list
 match_statement: "match" ": " free_input_string "{" ( _NEWLINE match_statements )* _NEWLINE "}"
@@ -27,16 +32,10 @@ capturing_lines: INTEGER+ ": " free_input_string
 pop_statement: "pop" ": " free_input_string
 meta_scope_statement: "meta_scope" ": " free_input_string
 
-// General terminal constructs
+// General terminal tokens
 CR: "/r"
 LF: "/n"
 SPACES: /[\t \f]+/
-
-// General non terminal constructs
-free_input_string: ( variable_usage | text_chunk )* ( text_chunk_end | )
-text_chunk: /(\\{|\\}|\\\$|[^\n{}\$])+(?=\$)/
-text_chunk_end: /(\\{|\\}|\\\$|[^\n{}\$])+(?!{)/
-variable_usage: /\$[^\n\$\:]+\:(?!{)/
 
 SINGLE_LINE_COMMENT: /(\#|\/\/)[^\n]*/
 MULTI_LINE_COMMENT: /\/\*([\s\S]*?)\*\//

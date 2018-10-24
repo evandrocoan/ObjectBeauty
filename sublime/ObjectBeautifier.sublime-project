@@ -7,8 +7,8 @@
         "WrapPlus.semantic_maximum_items_in_comma_separated_list": 1,
         "buildview.enabled": true,
         "buildview.scroll": "last",
-        "buildview.focus_build": true,
-        "show_panel_on_build": false,
+        "buildview.focus_build": false,
+        "show_panel_on_build": true,
         "restore_output_view_scroll": true,
     },
     "folders":

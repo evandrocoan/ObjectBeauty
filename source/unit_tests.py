@@ -58,13 +58,15 @@ class TestSemanticRules(TestingUtilities):
 
         if return_tree:
             new_tree = semantic_analyzer.TreeTransformer().transform( tree )
+            log( 1, 'tree: %s', tree.pretty() )
+            log( 1, 'tree: %s', new_tree.pretty() )
+
             return new_tree
 
         else:
             with self.assertRaises( semantic_analyzer.SemanticErrors ) as error:
                 new_tree = semantic_analyzer.TreeTransformer().transform( tree )
-
-        return error
+                return error
 
     def test_duplicatedContext(self):
         example_program = \
@@ -255,7 +257,7 @@ class TestSemanticRules(TestingUtilities):
             + 1. Unused include `unused` defined in your grammar on: [@-1,178:183='unused'<__ANON_1>,9:13]
         """, error.exception )
 
-    def test_variableDeclaration(self):
+    def test_unsusedVariableDeclaration(self):
         example_program = \
         r"""
             scope: source.sma
