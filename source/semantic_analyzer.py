@@ -95,13 +95,13 @@ class ConstantUsage(UndefinedInput):
 
 class ConstantDefinition(UndefinedInput):
 
-    def __init__(self, constant_name, input_string ):
+    def __init__(self, name, input_string ):
         super(ConstantDefinition, self).__init__()
 
-        self.token = constant_name.token
+        self.token = name.token
         self.tokens = input_string.tokens
 
-        self.constant_name = constant_name
+        self.name = name
         self.input_string = input_string
 
     def resolve(self):
@@ -151,7 +151,7 @@ class InputString(UndefinedInput):
                     if constant_definition.token.pos_in_stream > token.token.pos_in_stream:
                         definition, usage = (constant_definition.token, token.token)
                         self.errors.append( "Using variable `%s` out of scope on\n   %s from\n   %s" % (
-                                constant_definition.constant_name, usage.pretty(), definition.pretty() ) )
+                                constant_definition.name, usage.pretty(), definition.pretty() ) )
 
                     resolutions.append( str( constant_definition ) )
 
