@@ -251,7 +251,7 @@ class TreeTransformer(lark.Transformer):
         self.required_includes[include_name] = first_token
         return self.__default__(tree.data, children, tree.meta)
 
-    def variable_declaration(self, tree, children):
+    def constant_definition(self, tree, children):
         # log(1, 'tree: \n%s', tree.pretty(debug=1))
         # log(1, 'children: \n%s', tree.children)
         children = tree.children
