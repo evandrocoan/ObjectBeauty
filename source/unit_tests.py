@@ -318,11 +318,11 @@ class TestSemanticRules(TestingUtilities):
     def test_isolatedVariableUsage(self):
         my_parser = lark.Lark(
         r"""
-            free_input_string: ( variable_usage | TEXT_CHUNK )* ( TEXT_CHUNK_END | )
+            free_input_string: ( constant_usage | TEXT_CHUNK )* ( TEXT_CHUNK_END | )
             TEXT_CHUNK: /(\\{|\\}|\\\$|[^\n{}\$])+(?=\$)/
             TEXT_CHUNK_END: /(\\{|\\}|\\\$|[^\n{}\$])+(?!{)/
-            variable_usage: VARIABLE_USAGE
-            VARIABLE_USAGE: /\$[^\n\$\:]+\:(?!{)/
+            constant_usage: CONSTANT_USAGE_
+            CONSTANT_USAGE_: /\$[^\n\$\:]+\:(?!{)/
         """,
         start='free_input_string', parser='lalr', lexer='contextual')
         tree = my_parser.parse( "true$variable:|false" )
@@ -331,7 +331,7 @@ class TestSemanticRules(TestingUtilities):
         r"""
             + free_input_string
             +   [@1,0:3='true'<TEXT_CHUNK>,1:1]
-            +   variable_usage  [@2,4:13='$variable:'<VARIABLE_USAGE>,1:5]
+            +   constant_usage  [@2,4:13='$variable:'<CONSTANT_USAGE_>,1:5]
             +   [@3,14:19='|false'<TEXT_CHUNK_END>,1:15]
         """, tree.pretty(debug=True) )
 

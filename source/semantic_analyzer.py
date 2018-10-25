@@ -98,7 +98,7 @@ class VariableDeclaration(UndefinedInput):
 
         for token in self.tokens:
 
-            if token.type == 'variable_usage':
+            if token.type == 'constant_usage':
                 variable_body = definitions[str( token )]
 
                 if variable_body.str:
@@ -260,7 +260,7 @@ class TreeTransformer(lark.Transformer):
         #   Tree(variable_name, [Token(__ANON_2, '$variable:')]),
         #   [
         #       Token(__ANON_3, ' test'),
-        #       Token(VARIABLE_USAGE, '$varrrr:'),
+        #       Token(CONSTANT_USAGE_, '$varrrr:'),
         #       Token(__ANON_4, 'test')
         #   ]
         # ]
@@ -278,7 +278,7 @@ class TreeTransformer(lark.Transformer):
         self.defined_variables[variable_name] = input_string
         return input_string
 
-    def variable_usage(self, tree, children):
+    def constant_usage(self, tree, children):
         children = tree.children
         variable_name = str( children[0] )
 
