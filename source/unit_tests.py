@@ -257,12 +257,12 @@ class TestSemanticRules(TestingUtilities):
             + 1. Unused include `unused` defined in your grammar on [@-1,178:183='unused'<__ANON_1>,9:13]
         """, error.exception )
 
-    def test_unsusedVariableDeclaration(self):
+    def test_unsusedConstantDeclaration(self):
         example_program = \
         r"""
             scope: source.sma
             name: Abstract Machine Language
-            $variable: test
+            $constant: test
             contexts: {
               match: (true|false) {
               }
@@ -273,17 +273,17 @@ class TestSemanticRules(TestingUtilities):
         self.assertTextEqual(
         r"""
             +   Warnings:
-            + 1. Unused variable `$variable:` defined in your grammar on [@-1,87:97='$variable: '<VARIABLE_NAME>,4:13]
+            + 1. Unused constant `$constant:` defined in your grammar on [@-1,87:97='$constant: '<CONSTANT_NAME_>,4:13]
         """, error.exception )
 
-    def test_variableUsage(self):
+    def test_constantUsage(self):
         example_program = \
         r"""
             scope: source.sma
             name: Abstract Machine Language
-            $variable:  test
+            $constant:  test
             contexts: {
-              match: (true$variable:|false)$variable: {
+              match: (true$constant:|false)$constant: {
               }
             }
         """
@@ -306,16 +306,16 @@ class TestSemanticRules(TestingUtilities):
         r"""
             + language_syntax
             +   preamble_statements
-            +     master_scope_name_statement  InputString str: , tokens: [Token(TEXT_CHUNK_END, 'source.sma')], definitions: {'$variable:':  test};
-            +     target_language_name_statement  InputString str: , tokens: [Token(TEXT_CHUNK_END, 'Abstract Machine Language')], definitions: {'$variable:':  test};
+            +     master_scope_name_statement  InputString str: , tokens: [Token(TEXT_CHUNK_END, 'source.sma')], definitions: {'$constant:':  test};
+            +     target_language_name_statement  InputString str: , tokens: [Token(TEXT_CHUNK_END, 'Abstract Machine Language')], definitions: {'$constant:':  test};
             +      test
             +   language_construct_rules
             +     indentation_block
             +       statements_list
-            +         match_statement  InputString str: , tokens: [Token(TEXT_CHUNK, '(true'), VariableUsage str: , name: $variable:, token: $variable:;, Token(TEXT_CHUNK, '|false)'),  test], definitions: {'$variable:':  test};
+            +         match_statement  InputString str: , tokens: [Token(TEXT_CHUNK, '(true'), ConstantUsage str: , name: $constant:, token: $constant:;, Token(TEXT_CHUNK, '|false)'),  test], definitions: {'$constant:':  test};
         """, tree.pretty(debug=1) )
 
-    def test_isolatedVariableUsage(self):
+    def test_isolatedConstantUsage(self):
         my_parser = lark.Lark(
         r"""
             free_input_string: ( constant_usage | TEXT_CHUNK )* ( TEXT_CHUNK_END | )
@@ -325,13 +325,13 @@ class TestSemanticRules(TestingUtilities):
             CONSTANT_USAGE_: /\$[^\n\$\:]+\:(?!{)/
         """,
         start='free_input_string', parser='lalr', lexer='contextual')
-        tree = my_parser.parse( "true$variable:|false" )
+        tree = my_parser.parse( "true$constant:|false" )
 
         self.assertTextEqual(
         r"""
             + free_input_string
             +   [@1,0:3='true'<TEXT_CHUNK>,1:1]
-            +   constant_usage  [@2,4:13='$variable:'<CONSTANT_USAGE_>,1:5]
+            +   constant_usage  [@2,4:13='$constant:'<CONSTANT_USAGE_>,1:5]
             +   [@3,14:19='|false'<TEXT_CHUNK_END>,1:15]
         """, tree.pretty(debug=True) )
 

@@ -14,9 +14,9 @@ statements_list: match_statement | include_statement | push_statement | pop_stat
 
 push_statement:  "push" ": " indentation_block
 include_statement: "include" ": " free_input_string
-constant_definition: variable_name free_input_string
-?variable_name: VARIABLE_NAME
-VARIABLE_NAME: /\$.+?\: /
+constant_definition: constant_name free_input_string
+?constant_name: CONSTANT_NAME_
+CONSTANT_NAME_: /\$.+?\: /
 
 free_input_string: ( constant_usage | TEXT_CHUNK )* ( TEXT_CHUNK_END | )
 TEXT_CHUNK: /(\\{|\\}|\\\$|[^\n{}\$])+(?=\$)/

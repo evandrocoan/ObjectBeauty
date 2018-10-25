@@ -57,15 +57,15 @@ class UndefinedInput(object):
             return self.__repr__()
 
 
-class VariableUsage(UndefinedInput):
+class ConstantUsage(UndefinedInput):
     """
-        Represents a variable which is used somewhere, but its definition is yet unknown.
+        Represents a constant which is used somewhere, but its definition is yet unknown.
 
-        As soon as this variable definition is know, this object will return the
-        variable complete representation.
+        As soon as this constant definition is know, this object will return the
+        constant complete representation.
     """
     def __init__(self, name, token):
-        super(VariableUsage, self).__init__()
+        super(ConstantUsage, self).__init__()
         self.name = name
         self.token = token
 
@@ -78,10 +78,10 @@ class VariableUsage(UndefinedInput):
         return True
 
 
-class VariableDeclaration(UndefinedInput):
+class ConstantDeclaration(UndefinedInput):
 
     def __init__(self, tokens, token):
-        super(VariableDeclaration, self).__init__()
+        super(ConstantDeclaration, self).__init__()
         self.tokens = tokens
         self.token = token
         # log(1, 'token: %s', type(token))
@@ -90,7 +90,7 @@ class VariableDeclaration(UndefinedInput):
     def resolve(self, definitions):
         """
             @param `definitions` a dictionary with all completely know
-                variables. For example { "$varrrr:" : " varrrr " }
+                constants. For example { "$varrrr:" : " varrrr " }
         """
 
         if self.str:
@@ -101,13 +101,13 @@ class VariableDeclaration(UndefinedInput):
         for token in self.tokens:
 
             if token.type == 'constant_usage':
-                variable_body = definitions[str( token )]
+                constant_body = definitions[str( token )]
 
-                if variable_body.str:
-                    resolutions.append( str( variable_body ) )
+                if constant_body.str:
+                    resolutions.append( str( constant_body ) )
 
                 else:
-                    log('The variable definition is not yet complete')
+                    log('The constant definition is not yet complete')
                     return False
 
             else:
@@ -130,7 +130,7 @@ class InputString(UndefinedInput):
     def __str__(self):
         """
             @param `definitions` a dictionary with all completely know
-                variables. For example { "$varrrr:" : " varrrr " }
+                constants. For example { "$varrrr:" : " varrrr " }
         """
 
         resolutions = []
@@ -139,15 +139,15 @@ class InputString(UndefinedInput):
         for token in self.tokens:
             # log( 1, 'token %s', token )
 
-            if isinstance( token, VariableUsage ):
-                variable_name = token.name
-                # log(1, 'variable_name %s', variable_name )
-                resolutions.append( str( self.definitions[variable_name] ) )
+            if isinstance( token, ConstantUsage ):
+                constant_name = token.name
+                # log(1, 'constant_name %s', constant_name )
+                resolutions.append( str( self.definitions[constant_name] ) )
 
             elif isinstance( token, Tree ):
-                variable_name = token.children[0]
-                # log(1, 'variable_name %s', variable_name )
-                resolutions.append( str( self.definitions[variable_name] ) )
+                constant_name = token.children[0]
+                # log(1, 'constant_name %s', constant_name )
+                resolutions.append( str( self.definitions[constant_name] ) )
 
             else:
                 resolutions.append( str( token ) )
@@ -177,10 +177,10 @@ class TreeTransformer(lark.Transformer):
         ## Can only be one scope called `contexts`
         self.has_called_language_construct_rules = False
 
-        ## Pending variables declarations
+        ## Pending constants declarations
         self.constant_usages = {}
 
-        ## Pending variables usages
+        ## Pending constants usages
         self.constant_definitions = {}
 
         ## A list of miscellaneous_language_rules include contexts defined for duplication checking
@@ -190,7 +190,7 @@ class TreeTransformer(lark.Transformer):
         self.required_includes = {}
 
         ## A list of regular expressions used on match statements,
-        ## for validation when the variables definitions are completely know
+        ## for validation when the constants definitions are completely know
         self.pending_match_statements = []
 
     def language_syntax(self, tree, children):
@@ -205,7 +205,7 @@ class TreeTransformer(lark.Transformer):
         if not self.has_called_language_construct_rules:
             self.errors.append( "You must to define the `contexts` block in your grammar!" )
 
-        self._resolve_variables_definitions()
+        self._resolve_constants_definitions()
         self._check_includes_definitions()
         self._check_for_main_rules()
 
@@ -269,42 +269,42 @@ class TreeTransformer(lark.Transformer):
         token = children[0]
 
         # [
-        #   Tree(variable_name, [Token(__ANON_2, '$variable:')]),
+        #   Tree(constant_name, [Token(CONSTANT_NAME_, '$constant:')]),
         #   [
-        #       Token(__ANON_3, ' test'),
+        #       Token(TEXT_CHUNK, ' test'),
         #       Token(CONSTANT_USAGE_, '$varrrr:'),
-        #       Token(__ANON_4, 'test')
+        #       Token(TEXT_CHUNK_END, 'test')
         #   ]
         # ]
-        variable_name = str( children[0] )
-        variable_body = children[1]
-        input_string = VariableDeclaration( variable_body, token )
+        constant_name = str( children[0] )
+        constant_body = children[1]
+        input_string = ConstantDeclaration( constant_body, token )
 
         # Trim trailing obligatory white space by the grammar
-        variable_name = variable_name[:-1]
+        constant_name = constant_name[:-1]
 
-        # log( 'variable_name:', variable_name )
-        # log( 'variable_body:', variable_body )
+        # log( 'constant_name:', constant_name )
+        # log( 'constant_body:', constant_body )
         # log( input_string )
 
-        if variable_name in self.constant_definitions:
+        if constant_name in self.constant_definitions:
             self.errors.append( "Constant redefinition on %s" % ( repr(token) ) )
 
-        self.constant_definitions[variable_name] = input_string
+        self.constant_definitions[constant_name] = input_string
         return input_string
 
     def constant_usage(self, tree, children):
         token = children[0]
-        variable_name = str( children[0] )
+        constant_name = str( children[0] )
 
-        undefined_variable = VariableUsage( variable_name, children[0] )
-        self.constant_usages[variable_name] = undefined_variable
+        undefined_constant = ConstantUsage( constant_name, children[0] )
+        self.constant_usages[constant_name] = undefined_constant
 
-        # log( 'variable_name:', variable_name )
-        # log( undefined_variable )
+        # log( 'constant_name:', constant_name )
+        # log( undefined_constant )
 
         # log(1, 'tree: \n%s', tree.pretty(debug=1))
-        return undefined_variable
+        return undefined_constant
 
     def match_statement(self, tree, children):
         include_name = children[0]
@@ -324,10 +324,10 @@ class TreeTransformer(lark.Transformer):
         #       Token(TEXT_CHUNK_END, 'source.sma')
         #   ]
         # )
-        variable_body = children
-        input_string = InputString( variable_body, self.constant_definitions )
+        constant_body = children
+        input_string = InputString( constant_body, self.constant_definitions )
 
-        # log( 'variable_body:', variable_body )
+        # log( 'constant_body:', constant_body )
         # log( input_string )
         return input_string
 
@@ -366,65 +366,65 @@ class TreeTransformer(lark.Transformer):
             if include_name not in self.defined_includes:
                 self.errors.append( "Missing include `%s` defined in your grammar on %s" % ( include_name, include_token[0].pretty() ) )
 
-    def _resolve_variables_definitions(self):
+    def _resolve_constants_definitions(self):
         """
-            Resolve all pending variable usages across the tree.
+            Resolve all pending constant usages across the tree.
         """
 
-        # Checks for undefined variables usage
-        for name, variable in self.constant_usages.items():
+        # Checks for undefined constants usage
+        for name, constant in self.constant_usages.items():
             if name not in self.constant_definitions:
-                self.errors.append( "Missing variable `%s` defined in your grammar on %s" % ( name, variable.token.pretty(1) ) )
+                self.errors.append( "Missing constant `%s` defined in your grammar on %s" % ( name, constant.token.pretty(1) ) )
 
-        # Checks for unused variables
-        for name, variable in self.constant_definitions.items():
+        # Checks for unused constants
+        for name, constant in self.constant_definitions.items():
             # log(1, 'name %s', name)
             if name not in self.constant_usages:
-                self.warnings.append( "Unused variable `%s` defined in your grammar on %s" % ( name, variable.token.pretty() ) )
+                self.warnings.append( "Unused constant `%s` defined in your grammar on %s" % ( name, constant.token.pretty() ) )
 
         revolved_count = 1
         last_resolution = 0
         pending = {}
-        resolved_variables = {}
+        resolved_constants = {}
 
-        # work resolve variables usages on `self.constant_usages` until it there is no new progress
+        # work resolve constants usages on `self.constant_usages` until it there is no new progress
         while revolved_count != last_resolution:
             # log('revolved_count', revolved_count, ', last_resolution', last_resolution)
             revolved_count = last_resolution
             just_resolved = []
 
-            # Updates all variables definitions with the variables contents values
-            for name, variable in self.constant_definitions.items():
-                # log( 1, 'Trying to resolve name %s, variable %s', name, variable )
-                if variable.resolve( self.constant_usages ):
-                    # log( 1, 'Resolved variable to %s', variable )
+            # Updates all constants definitions with the constants contents values
+            for name, constant in self.constant_definitions.items():
+                # log( 1, 'Trying to resolve name %s, constant %s', name, constant )
+                if constant.resolve( self.constant_usages ):
+                    # log( 1, 'Resolved constant to %s', constant )
                     just_resolved.append(name)
-                    resolved_variables[name] = variable
+                    resolved_constants[name] = constant
 
-            # When a constant_definitions has inner unresolved variables, it can only be resolved later
-            for variable in just_resolved:
-                # log( 1, 'Deleting just resolved %s, value %s', variable, self.constant_definitions[variable] )
-                del self.constant_definitions[variable]
+            # When a constant_definitions has inner unresolved constants, it can only be resolved later
+            for constant in just_resolved:
+                # log( 1, 'Deleting just resolved %s, value %s', constant, self.constant_definitions[constant] )
+                del self.constant_definitions[constant]
 
-            # Resolve all pending variables
-            for name, variable in self.constant_usages.items():
-                # log( 1, 'Trying to resolve pending name %s, variable %s', name, variable )
-                if name in resolved_variables:
-                    resolution = resolved_variables[name]
+            # Resolve all pending constants
+            for name, constant in self.constant_usages.items():
+                # log( 1, 'Trying to resolve pending name %s, constant %s', name, constant )
+                if name in resolved_constants:
+                    resolution = resolved_constants[name]
 
-                    if variable.resolve( resolution.str ):
-                        # log( 1, 'Resolved variable to %s', variable )
+                    if constant.resolve( resolution.str ):
+                        # log( 1, 'Resolved constant to %s', constant )
                         last_resolution += 1
 
         # log.newline()
         # log(1, 'constant_usages %s', self.constant_usages)
-        # log(1, 'resolved_variables %s', resolved_variables)
+        # log(1, 'resolved_constants %s', resolved_constants)
 
         # if the resolution count does not reach 0, something went wrong
         if len( self.constant_definitions ) > 0:
-            self.errors.append( "The following variables could be resolved:\n   `%s`" % ( self.constant_definitions ) )
+            self.errors.append( "The following constants could be resolved:\n   `%s`" % ( self.constant_definitions ) )
 
-        self.constant_definitions.update( resolved_variables )
+        self.constant_definitions.update( resolved_constants )
 
     def _call_userfunc(self, tree, new_children=None):
         """
