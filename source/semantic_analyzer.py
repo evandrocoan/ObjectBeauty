@@ -176,7 +176,7 @@ class TreeTransformer(lark.Transformer):
         self.used_variables = {}
 
         ## Pending variables usages
-        self.defined_variables = {}
+        self.constant_definitions = {}
 
         ## A list of miscellaneous_language_rules include contexts defined for duplication checking
         self.defined_includes = {}
@@ -275,7 +275,7 @@ class TreeTransformer(lark.Transformer):
         # log( 'variable_body:', variable_body )
         # log( input_string )
 
-        self.defined_variables[variable_name] = input_string
+        self.constant_definitions[variable_name] = input_string
         return input_string
 
     def constant_usage(self, tree, children):
@@ -310,7 +310,7 @@ class TreeTransformer(lark.Transformer):
         #   ]
         # )
         variable_body = children
-        input_string = InputString( variable_body, self.defined_variables )
+        input_string = InputString( variable_body, self.constant_definitions )
 
         # log( 'variable_body:', variable_body )
         # log( input_string )
@@ -358,11 +358,11 @@ class TreeTransformer(lark.Transformer):
 
         # Checks for undefined variables usage
         for name, variable in self.used_variables.items():
-            if name not in self.defined_variables:
+            if name not in self.constant_definitions:
                 self.errors.append( "Missing variable `%s` defined in your grammar on %s" % ( name, variable.token.pretty(1) ) )
 
         # Checks for unused variables
-        for name, variable in self.defined_variables.items():
+        for name, variable in self.constant_definitions.items():
             # log(1, 'name %s', name)
             if name not in self.used_variables:
                 self.warnings.append( "Unused variable `%s` defined in your grammar on %s" % ( name, variable.token.pretty() ) )
@@ -379,17 +379,17 @@ class TreeTransformer(lark.Transformer):
             just_resolved = []
 
             # Updates all variables definitions with the variables contents values
-            for name, variable in self.defined_variables.items():
+            for name, variable in self.constant_definitions.items():
                 # log( 1, 'Trying to resolve name %s, variable %s', name, variable )
                 if variable.resolve( self.used_variables ):
                     # log( 1, 'Resolved variable to %s', variable )
                     just_resolved.append(name)
                     resolved_variables[name] = variable
 
-            # When a defined_variables has inner unresolved variables, it can only be resolved later
+            # When a constant_definitions has inner unresolved variables, it can only be resolved later
             for variable in just_resolved:
-                # log( 1, 'Deleting just resolved %s, value %s', variable, self.defined_variables[variable] )
-                del self.defined_variables[variable]
+                # log( 1, 'Deleting just resolved %s, value %s', variable, self.constant_definitions[variable] )
+                del self.constant_definitions[variable]
 
             # Resolve all pending variables
             for name, variable in self.used_variables.items():
@@ -406,10 +406,10 @@ class TreeTransformer(lark.Transformer):
         # log(1, 'resolved_variables %s', resolved_variables)
 
         # if the resolution count does not reach 0, something went wrong
-        if len( self.defined_variables ) > 0:
-            self.errors.append( "The following variables could be resolved:\n   `%s`" % ( self.defined_variables ) )
+        if len( self.constant_definitions ) > 0:
+            self.errors.append( "The following variables could be resolved:\n   `%s`" % ( self.constant_definitions ) )
 
-        self.defined_variables.update( resolved_variables )
+        self.constant_definitions.update( resolved_variables )
 
     def _call_userfunc(self, tree, new_children=None):
         """
