@@ -300,7 +300,20 @@ class TestSemanticRules(TestingUtilities):
             +     indentation_block
             +       statements_list
             +         match_statement  (true test|false) test
-        """, tree.pretty(debug=True) )
+        """, tree.pretty(debug=0) )
+
+        self.assertTextEqual(
+        r"""
+            + language_syntax
+            +   preamble_statements
+            +     master_scope_name_statement  InputString str: , tokens: [Token(TEXT_CHUNK_END, 'source.sma')], definitions: {'$variable:':  test};
+            +     target_language_name_statement  InputString str: , tokens: [Token(TEXT_CHUNK_END, 'Abstract Machine Language')], definitions: {'$variable:':  test};
+            +      test
+            +   language_construct_rules
+            +     indentation_block
+            +       statements_list
+            +         match_statement  InputString str: , tokens: [Token(TEXT_CHUNK, '(true'), VariableUsage str: , name: $variable:, token: $variable:;, Token(TEXT_CHUNK, '|false)'),  test], definitions: {'$variable:':  test};
+        """, tree.pretty(debug=1) )
 
     def test_isolatedVariableUsage(self):
         my_parser = lark.Lark(
