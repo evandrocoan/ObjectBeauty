@@ -84,6 +84,8 @@ class VariableDeclaration(UndefinedInput):
         super(VariableDeclaration, self).__init__()
         self.tokens = tokens
         self.token = token
+        # log(1, 'token: %s', type(token))
+        # log(1, 'token: %s', token)
 
     def resolve(self, definitions):
         """
@@ -121,6 +123,9 @@ class InputString(UndefinedInput):
         super(InputString, self).__init__()
         self.tokens = tokens
         self.definitions = definitions
+
+    def __getitem__(self, index):
+        return self.tokens[index]
 
     def __str__(self):
         """
@@ -183,6 +188,9 @@ class TreeTransformer(lark.Transformer):
 
         ## A list of required includes to check for missing includes
         self.required_includes = {}
+
+        ## A list of regular expressions used on match statements,
+        ## for validation when the variables definitions are completely know
         self.pending_match_statements = []
 
     def language_syntax(self, tree, children):
@@ -205,14 +213,14 @@ class TreeTransformer(lark.Transformer):
             # log('tree\n', children[1].pretty())
             raise SemanticErrors(self.warnings, self.errors)
 
-        return self.__default__(tree.data, children, tree.meta)
+        return self.__default__(tree, children)
 
     def language_construct_rules(self, tree, children):
         self.has_called_language_construct_rules = True
-        return self.__default__(tree.data, children, tree.meta)
+        return self.__default__(tree, children)
 
     def miscellaneous_language_rules(self, tree, children):
-        first_token = tree.children[0]
+        first_token = children[0]
         include_name = str(first_token)
         assert tree.data == 'miscellaneous_language_rules', "Just documenting what the data attribute has."
         assert isinstance( first_token, Token ), "The first children must be a Token, while the second is a subtree."
@@ -226,35 +234,39 @@ class TreeTransformer(lark.Transformer):
         else:
             self.defined_includes[include_name] = first_token
 
-        return self.__default__(tree.data, children, tree.meta)
+        return self.__default__(tree, children)
 
     def target_language_name_statement(self, tree, children):
-        first_token = tree.children[0].children[0]
+        input_string = children[0]
+        # log(1, 'tree: \n%s', tree)
+        # log(1, 'children: %s', children)
+        # log(1, 'input_string: %s', type(input_string))
+        # log(1, 'input_string: %s', input_string)
         if self.is_target_language_name_set:
-            self.errors.append( "Duplicated target language name defined in your grammar on %s" % ( first_token.pretty() ) )
+            self.errors.append( "Duplicated target language name defined in your grammar on %s" % ( input_string[0].pretty() ) )
 
         self.is_target_language_name_set = True
-        return self.__default__(tree.data, children, tree.meta)
+        return self.__default__(tree, children)
 
     def master_scope_name_statement(self, tree, children):
-        first_token = tree.children[0].children[0]
+        input_string = children[0]
         if self.is_master_scope_name_set:
-            self.errors.append( "Duplicated master scope name defined in your grammar on %s" % ( first_token.pretty() ) )
+            self.errors.append( "Duplicated master scope name defined in your grammar on %s" % ( input_string[0].pretty() ) )
 
         self.is_master_scope_name_set = True
-        return self.__default__(tree.data, children, tree.meta)
+        return self.__default__(tree, children)
 
     def include_statement(self, tree, children):
-        first_token = tree.children[0].children[0]
-        include_name = str(first_token)
+        input_string = children[0]
+        include_name = str(input_string)
 
-        self.required_includes[include_name] = first_token
-        return self.__default__(tree.data, children, tree.meta)
+        self.required_includes[include_name] = input_string
+        return self.__default__(tree, children)
 
     def constant_definition(self, tree, children):
         # log(1, 'tree: \n%s', tree.pretty(debug=1))
         # log(1, 'children: \n%s', tree.children)
-        children = tree.children
+        token = children[0]
 
         # [
         #   Tree(variable_name, [Token(__ANON_2, '$variable:')]),
@@ -265,8 +277,8 @@ class TreeTransformer(lark.Transformer):
         #   ]
         # ]
         variable_name = str( children[0] )
-        variable_body = children[1].children
-        input_string = VariableDeclaration( variable_body, children[0] )
+        variable_body = children[1]
+        input_string = VariableDeclaration( variable_body, token )
 
         # Trim trailing obligatory white space by the grammar
         variable_name = variable_name[:-1]
@@ -275,11 +287,14 @@ class TreeTransformer(lark.Transformer):
         # log( 'variable_body:', variable_body )
         # log( input_string )
 
+        if variable_name in self.constant_definitions:
+            self.errors.append( "Constant redefinition on %s" % ( repr(token) ) )
+
         self.constant_definitions[variable_name] = input_string
         return input_string
 
     def constant_usage(self, tree, children):
-        children = tree.children
+        token = children[0]
         variable_name = str( children[0] )
 
         undefined_variable = VariableUsage( variable_name, children[0] )
@@ -296,7 +311,7 @@ class TreeTransformer(lark.Transformer):
         # log('include_name', type(include_name))
 
         self.pending_match_statements.append( include_name )
-        return self.__default__(tree.data, children, tree.meta)
+        return self.__default__(tree, children)
 
     def free_input_string(self, tree, children):
         # log(1, 'tree: \n%s', tree.pretty(debug=1))
@@ -349,7 +364,7 @@ class TreeTransformer(lark.Transformer):
         # Look for missing required includes by the `include` statement.
         for include_name, include_token in self.required_includes.items():
             if include_name not in self.defined_includes:
-                self.errors.append( "Missing include `%s` defined in your grammar on %s" % ( include_name, include_token.pretty() ) )
+                self.errors.append( "Missing include `%s` defined in your grammar on %s" % ( include_name, include_token[0].pretty() ) )
 
     def _resolve_variables_definitions(self):
         """
@@ -421,6 +436,7 @@ class TreeTransformer(lark.Transformer):
         try:
             f = getattr(self, tree.data)
         except AttributeError:
-            return self.__default__(tree.data, children, tree.meta)
+            return self.__default__(tree, children)
         else:
             return f(tree, children)
+
