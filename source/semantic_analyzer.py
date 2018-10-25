@@ -78,10 +78,10 @@ class ConstantUsage(UndefinedInput):
         return True
 
 
-class ConstantDeclaration(UndefinedInput):
+class ConstantDefinition(UndefinedInput):
 
     def __init__(self, tokens, token):
-        super(ConstantDeclaration, self).__init__()
+        super(ConstantDefinition, self).__init__()
         self.tokens = tokens
         self.token = token
         # log(1, 'token: %s', type(token))
@@ -278,7 +278,7 @@ class TreeTransformer(lark.Transformer):
         # ]
         constant_name = str( children[0] )
         constant_body = children[1]
-        input_string = ConstantDeclaration( constant_body, token )
+        input_string = ConstantDefinition( constant_body, token )
 
         # Trim trailing obligatory white space by the grammar
         constant_name = constant_name[:-1]
@@ -288,7 +288,7 @@ class TreeTransformer(lark.Transformer):
         # log( input_string )
 
         if constant_name in self.constant_definitions:
-            self.errors.append( "Constant redefinition on %s" % ( repr(token) ) )
+            self.errors.append( "Constant redefinition on %s" % ( token.pretty() ) )
 
         self.constant_definitions[constant_name] = input_string
         return input_string

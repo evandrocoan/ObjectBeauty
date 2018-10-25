@@ -335,6 +335,25 @@ class TestSemanticRules(TestingUtilities):
             +   [@3,14:19='|false'<TEXT_CHUNK_END>,1:15]
         """, tree.pretty(debug=True) )
 
+    def test_redifinedConst(self):
+        example_program = \
+        r"""
+            scope: source.sma
+            name: Abstract Machine Language
+            $constant: test
+            contexts: {
+              $constant: test
+              match: (true$constant:|false) {
+              }
+            }
+        """
+        error = self._getError(example_program)
+
+        self.assertTextEqual(
+        r"""
+            + 1. Constant redefinition on [@-1,141:151='$constant: '<CONSTANT_NAME_>,6:15]
+        """, error.exception )
+
 
 if __name__ == "__main__":
     main()
