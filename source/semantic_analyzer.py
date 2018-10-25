@@ -63,7 +63,9 @@ class ConstantName(UndefinedInput):
         super(ConstantName, self).__init__()
 
         # Trim trailing obligatory white space by the grammar
-        self.name = token.value[:-1]
+        token.value = token.value[:-1]
+
+        self.name = token.value
         self.token = token
 
     def __str__(self):
@@ -93,46 +95,23 @@ class ConstantUsage(UndefinedInput):
 
 class ConstantDefinition(UndefinedInput):
 
-    def __init__(self, name, value ):
+    def __init__(self, constant_name, input_string ):
         super(ConstantDefinition, self).__init__()
-        self.name = name
-        self.input_string = value
-        # log(1, 'token: %s', type(token))
-        # log(1, 'token: %s', token)
+
+        self.token = constant_name.token
+        self.tokens = input_string.tokens
+
+        self.constant_name = constant_name
+        self.input_string = input_string
 
     def resolve(self):
+        input_string = str( self.input_string )
 
-        if self.str:
-            return False
+        if self.input_string.is_resolved:
+            self.str = input_string
+            return True
 
-        # resolutions = []
-
-        # for string in self.input_string:
-        #     log(1, 'string', string)
-        #     log(1, 'string', type(string))
-
-        #     if value.type == 'constant_usage':
-        #         constant_body = definitions[str( value )]
-
-        #         if constant_body.str:
-        #             log('self.value.pos_in_stream', self.value.pos_in_stream)
-        #             log('constant_body.value.pos_in_stream', constant_body.value.pos_in_stream)
-        #             if constant_body.value.pos_in_stream > self.value.pos_in_stream:
-        #                 raise RuntimeError("")
-
-        #             resolutions.append( str( constant_body ) )
-
-        #         else:
-        #             log('The constant definition is not yet complete')
-        #             return False
-
-        #     else:
-        #         resolutions.append( str( value ) )
-
-        # self.str = "".join(resolutions)
-
-        self.str = str( self.input_string )
-        return True
+        return False
 
 
 class InputString(UndefinedInput):
@@ -140,16 +119,20 @@ class InputString(UndefinedInput):
         Always recalculate itself when asked for its string form because it is not always beforehand know.
     """
 
-    def __init__(self, tokens, definitions):
+    def __init__(self, tokens, definitions, errors):
         super(InputString, self).__init__()
+        self.is_resolved = False
+        self.is_out_of_scope = []
         self.tokens = tokens
         self.definitions = definitions
+        self.errors = errors
 
     def __str__(self):
         """
             @param `definitions` a dictionary with all completely know
                 constants. For example { "$varrrr:" : " varrrr " }
         """
+        is_resolved = True
         resolutions = []
         # log( 1, 'self.tokens %s', self.tokens )
         # log( 1, 'self.definitions %s', self.definitions )
@@ -158,13 +141,29 @@ class InputString(UndefinedInput):
             # log( 1, 'token %s', token )
 
             if isinstance( token, ConstantUsage ):
-                constant_name = token.name
-                # log(1, 'constant_name %s', constant_name )
-                resolutions.append( str( self.definitions[constant_name] ) )
+                # log(1, 'token.name %s', token.name )
+
+                if token.name in self.definitions:
+                    constant_definition = self.definitions[token.name]
+
+                    # log(1, 'token.pos_in_stream', token.token.pos_in_stream, token.token.pretty())
+                    # log(1, 'constant_definition.pos_in_stream', constant_definition.token.pos_in_stream, constant_definition.token.pretty())
+                    if constant_definition.token.pos_in_stream > token.token.pos_in_stream:
+                        definition, usage = (constant_definition.token, token.token)
+                        self.errors.append( "Using variable `%s` out of scope on\n   %s from\n   %s" % (
+                                constant_definition.constant_name, usage.pretty(), definition.pretty() ) )
+
+                    resolutions.append( str( constant_definition ) )
+
+                else:
+                    # resolutions.append( str( token.token.pretty() ) )
+                    is_resolved = False
+                    resolutions.append( str( token.name ) )
 
             else:
                 resolutions.append( str( token ) )
 
+        self.is_resolved = is_resolved
         return "".join( resolutions )
 
 
@@ -291,7 +290,7 @@ class TreeTransformer(lark.Transformer):
         constant_name = children[0]
         constant_value = children[1]
 
-        input_string = ConstantDefinition( constant_name, constant_value  )
+        input_string = ConstantDefinition( constant_name, constant_value )
         constant_name_str = str( constant_name )
 
         # log( 'constant_name:', constant_name )
@@ -333,7 +332,7 @@ class TreeTransformer(lark.Transformer):
     def free_input_string(self, tree, children):
         # log(1, 'tree: \n%s', tree.pretty(debug=1))
         # log(1, 'children: \n%s', tree.children)
-
+        #
         # Tree
         # (
         #   free_input_string,
@@ -342,10 +341,10 @@ class TreeTransformer(lark.Transformer):
         #   ]
         # )
         constant_body = children
-        input_string = InputString( constant_body, self.constant_definitions )
+        input_string = InputString( constant_body, self.constant_definitions, self.errors )
 
         # log( 'constant_body:', constant_body )
-        # log( input_string )
+        # log( 'input_string: %s', input_string )
         return input_string
 
     def _check_for_main_rules(self):
@@ -367,7 +366,7 @@ class TreeTransformer(lark.Transformer):
                 re.compile(str(include_name))
 
             except re.error as error:
-                self.errors.append( "Invalid regular expression `%s` on match statement: %s" % ( include_name, error) )
+                self.errors.append( "Invalid regular expression `%s` on match statement: %s" % ( include_name, error ) )
 
     def _check_includes_definitions(self):
         """
@@ -391,7 +390,7 @@ class TreeTransformer(lark.Transformer):
         # Checks for undefined constants usage
         for name, constant in self.constant_usages.items():
             if name not in self.constant_definitions:
-                self.errors.append( "Missing constant `%s` defined in your grammar on %s" % ( name, constant.token.pretty(1) ) )
+                self.errors.append( "Missing constant `%s` defined in your grammar on %s" % ( name, constant.token.pretty() ) )
 
         # Checks for unused constants
         for name, constant in self.constant_definitions.items():
@@ -399,7 +398,7 @@ class TreeTransformer(lark.Transformer):
             # log(1, 'constant %s', repr(constant))
             # log(1, 'constant %s', type(constant))
             if name not in self.constant_usages:
-                self.warnings.append( "Unused constant `%s` defined in your grammar on %s" % ( name, constant.name.token.pretty() ) )
+                self.warnings.append( "Unused constant `%s` defined in your grammar on %s" % ( name, constant.token.pretty() ) )
 
         revolved_count = 1
         last_resolution = 0

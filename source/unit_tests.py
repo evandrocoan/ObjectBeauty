@@ -273,7 +273,7 @@ class TestSemanticRules(TestingUtilities):
         self.assertTextEqual(
         r"""
             +   Warnings:
-            + 1. Unused constant `$constant:` defined in your grammar on [@-1,87:97='$constant: '<CONSTANT_NAME_>,4:13]
+            + 1. Unused constant `$constant:` defined in your grammar on [@-1,87:96='$constant:'<CONSTANT_NAME_>,4:13]
         """, error.exception )
 
     def test_constantUsage(self):
@@ -306,13 +306,13 @@ class TestSemanticRules(TestingUtilities):
         r"""
             + language_syntax
             +   preamble_statements
-            +     master_scope_name_statement  InputString str: , tokens: [Token(TEXT_CHUNK_END, 'source.sma')], definitions: {'$constant:':  test};
-            +     target_language_name_statement  InputString str: , tokens: [Token(TEXT_CHUNK_END, 'Abstract Machine Language')], definitions: {'$constant:':  test};
+            +     master_scope_name_statement  InputString str: , is_resolved: True, is_out_of_scope: [], tokens: [Token(TEXT_CHUNK_END, 'source.sma')], definitions: {'$constant:':  test}, errors: [];
+            +     target_language_name_statement  InputString str: , is_resolved: True, is_out_of_scope: [], tokens: [Token(TEXT_CHUNK_END, 'Abstract Machine Language')], definitions: {'$constant:':  test}, errors: [];
             +      test
             +   language_construct_rules
             +     indentation_block
             +       statements_list
-            +         match_statement  InputString str: , tokens: [Token(TEXT_CHUNK, '(true'), ConstantUsage str: , name: $constant:, token: $constant:;, Token(TEXT_CHUNK, '|false)'),  test], definitions: {'$constant:':  test};
+            +         match_statement  InputString str: , is_resolved: True, is_out_of_scope: [], tokens: [Token(TEXT_CHUNK, '(true'), ConstantUsage str: , name: $constant:, token: $constant:;, Token(TEXT_CHUNK, '|false)'),  test], definitions: {'$constant:':  test}, errors: [];
         """, tree.pretty(debug=1) )
 
     def test_isolatedConstantUsage(self):
@@ -351,7 +351,27 @@ class TestSemanticRules(TestingUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Constant redefinition on [@-1,141:151='$constant: '<CONSTANT_NAME_>,6:15]
+            + 1. Constant redefinition on [@-1,141:150='$constant:'<CONSTANT_NAME_>,6:15]
+        """, error.exception )
+
+    def test_usingConstOutOfScope(self):
+        example_program = \
+        r"""
+            scope: source.sma
+            name: Abstract Machine Language
+            contexts: {
+              match: (true$constant:|false) {
+              }
+              $constant: test
+            }
+        """
+        error = self._getError(example_program)
+
+        self.assertTextEqual(
+        r"""
+            + 1. Using variable `$constant:` out of scope on
+            +    [@-1,125:134='$constant:'<CONSTANT_USAGE_>,5:27] from
+            +    [@-1,175:184='$constant:'<CONSTANT_NAME_>,7:15]
         """, error.exception )
 
 
