@@ -57,6 +57,19 @@ class UndefinedInput(object):
             return self.__repr__()
 
 
+class ConstantName(UndefinedInput):
+
+    def __init__(self, token):
+        super(ConstantName, self).__init__()
+
+        # Trim trailing obligatory white space by the grammar
+        self.name = token.value[:-1]
+        self.token = token
+
+    def __str__(self):
+        return self.name
+
+
 class ConstantUsage(UndefinedInput):
     """
         Represents a constant which is used somewhere, but its definition is yet unknown.
@@ -80,60 +93,65 @@ class ConstantUsage(UndefinedInput):
 
 class ConstantDefinition(UndefinedInput):
 
-    def __init__(self, tokens, token):
+    def __init__(self, name, value ):
         super(ConstantDefinition, self).__init__()
-        self.tokens = tokens
-        self.token = token
+        self.name = name
+        self.input_string = value
         # log(1, 'token: %s', type(token))
         # log(1, 'token: %s', token)
 
-    def resolve(self, definitions):
-        """
-            @param `definitions` a dictionary with all completely know
-                constants. For example { "$varrrr:" : " varrrr " }
-        """
+    def resolve(self):
 
         if self.str:
             return False
 
-        resolutions = []
+        # resolutions = []
 
-        for token in self.tokens:
+        # for string in self.input_string:
+        #     log(1, 'string', string)
+        #     log(1, 'string', type(string))
 
-            if token.type == 'constant_usage':
-                constant_body = definitions[str( token )]
+        #     if value.type == 'constant_usage':
+        #         constant_body = definitions[str( value )]
 
-                if constant_body.str:
-                    resolutions.append( str( constant_body ) )
+        #         if constant_body.str:
+        #             log('self.value.pos_in_stream', self.value.pos_in_stream)
+        #             log('constant_body.value.pos_in_stream', constant_body.value.pos_in_stream)
+        #             if constant_body.value.pos_in_stream > self.value.pos_in_stream:
+        #                 raise RuntimeError("")
 
-                else:
-                    log('The constant definition is not yet complete')
-                    return False
+        #             resolutions.append( str( constant_body ) )
 
-            else:
-                resolutions.append( str( token ) )
+        #         else:
+        #             log('The constant definition is not yet complete')
+        #             return False
 
-        self.str = "".join(resolutions)
+        #     else:
+        #         resolutions.append( str( value ) )
+
+        # self.str = "".join(resolutions)
+
+        self.str = str( self.input_string )
         return True
 
 
 class InputString(UndefinedInput):
+    """
+        Always recalculate itself when asked for its string form because it is not always beforehand know.
+    """
 
     def __init__(self, tokens, definitions):
         super(InputString, self).__init__()
         self.tokens = tokens
         self.definitions = definitions
 
-    def __getitem__(self, index):
-        return self.tokens[index]
-
     def __str__(self):
         """
             @param `definitions` a dictionary with all completely know
                 constants. For example { "$varrrr:" : " varrrr " }
         """
-
         resolutions = []
+        # log( 1, 'self.tokens %s', self.tokens )
         # log( 1, 'self.definitions %s', self.definitions )
 
         for token in self.tokens:
@@ -141,11 +159,6 @@ class InputString(UndefinedInput):
 
             if isinstance( token, ConstantUsage ):
                 constant_name = token.name
-                # log(1, 'constant_name %s', constant_name )
-                resolutions.append( str( self.definitions[constant_name] ) )
-
-            elif isinstance( token, Tree ):
-                constant_name = token.children[0]
                 # log(1, 'constant_name %s', constant_name )
                 resolutions.append( str( self.definitions[constant_name] ) )
 
@@ -243,7 +256,7 @@ class TreeTransformer(lark.Transformer):
         # log(1, 'input_string: %s', type(input_string))
         # log(1, 'input_string: %s', input_string)
         if self.is_target_language_name_set:
-            self.errors.append( "Duplicated target language name defined in your grammar on %s" % ( input_string[0].pretty() ) )
+            self.errors.append( "Duplicated target language name defined in your grammar on %s" % ( input_string.tokens[0].pretty() ) )
 
         self.is_target_language_name_set = True
         return self.__default__(tree, children)
@@ -251,7 +264,7 @@ class TreeTransformer(lark.Transformer):
     def master_scope_name_statement(self, tree, children):
         input_string = children[0]
         if self.is_master_scope_name_set:
-            self.errors.append( "Duplicated master scope name defined in your grammar on %s" % ( input_string[0].pretty() ) )
+            self.errors.append( "Duplicated master scope name defined in your grammar on %s" % ( input_string.tokens[0].pretty() ) )
 
         self.is_master_scope_name_set = True
         return self.__default__(tree, children)
@@ -265,9 +278,8 @@ class TreeTransformer(lark.Transformer):
 
     def constant_definition(self, tree, children):
         # log(1, 'tree: \n%s', tree.pretty(debug=1))
-        # log(1, 'children: \n%s', tree.children)
-        token = children[0]
-
+        # log(1, 'children: \n%s', children)
+        #
         # [
         #   Tree(constant_name, [Token(CONSTANT_NAME_, '$constant:')]),
         #   [
@@ -276,22 +288,27 @@ class TreeTransformer(lark.Transformer):
         #       Token(TEXT_CHUNK_END, 'test')
         #   ]
         # ]
-        constant_name = str( children[0] )
-        constant_body = children[1]
-        input_string = ConstantDefinition( constant_body, token )
+        constant_name = children[0]
+        constant_value = children[1]
 
-        # Trim trailing obligatory white space by the grammar
-        constant_name = constant_name[:-1]
+        input_string = ConstantDefinition( constant_name, constant_value  )
+        constant_name_str = str( constant_name )
 
         # log( 'constant_name:', constant_name )
-        # log( 'constant_body:', constant_body )
-        # log( input_string )
+        # log( 'constant_value:', constant_value )
+        # log( 'input_string: ', input_string )
+        if constant_name_str in self.constant_definitions:
+            self.errors.append( "Constant redefinition on %s" % ( constant_name.token.pretty() ) )
 
-        if constant_name in self.constant_definitions:
-            self.errors.append( "Constant redefinition on %s" % ( token.pretty() ) )
-
-        self.constant_definitions[constant_name] = input_string
+        self.constant_definitions[constant_name_str] = input_string
         return input_string
+
+    def constant_name(self, tree, children):
+        # log(1, 'tree: \n%s', tree.pretty(debug=1))
+        # log(1, 'children: \n%s', children)
+        token = children[0]
+        constant_name = ConstantName( token )
+        return constant_name
 
     def constant_usage(self, tree, children):
         token = children[0]
@@ -364,7 +381,7 @@ class TreeTransformer(lark.Transformer):
         # Look for missing required includes by the `include` statement.
         for include_name, include_token in self.required_includes.items():
             if include_name not in self.defined_includes:
-                self.errors.append( "Missing include `%s` defined in your grammar on %s" % ( include_name, include_token[0].pretty() ) )
+                self.errors.append( "Missing include `%s` defined in your grammar on %s" % ( include_name, include_token.tokens[0].pretty() ) )
 
     def _resolve_constants_definitions(self):
         """
@@ -379,8 +396,10 @@ class TreeTransformer(lark.Transformer):
         # Checks for unused constants
         for name, constant in self.constant_definitions.items():
             # log(1, 'name %s', name)
+            # log(1, 'constant %s', repr(constant))
+            # log(1, 'constant %s', type(constant))
             if name not in self.constant_usages:
-                self.warnings.append( "Unused constant `%s` defined in your grammar on %s" % ( name, constant.token.pretty() ) )
+                self.warnings.append( "Unused constant `%s` defined in your grammar on %s" % ( name, constant.name.token.pretty() ) )
 
         revolved_count = 1
         last_resolution = 0
@@ -396,7 +415,7 @@ class TreeTransformer(lark.Transformer):
             # Updates all constants definitions with the constants contents values
             for name, constant in self.constant_definitions.items():
                 # log( 1, 'Trying to resolve name %s, constant %s', name, constant )
-                if constant.resolve( self.constant_usages ):
+                if constant.resolve():
                     # log( 1, 'Resolved constant to %s', constant )
                     just_resolved.append(name)
                     resolved_constants[name] = constant
