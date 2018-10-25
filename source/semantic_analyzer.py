@@ -173,7 +173,7 @@ class TreeTransformer(lark.Transformer):
         self.has_called_language_construct_rules = False
 
         ## Pending variables declarations
-        self.used_variables = {}
+        self.constant_usages = {}
 
         ## Pending variables usages
         self.constant_definitions = {}
@@ -283,7 +283,7 @@ class TreeTransformer(lark.Transformer):
         variable_name = str( children[0] )
 
         undefined_variable = VariableUsage( variable_name, children[0] )
-        self.used_variables[variable_name] = undefined_variable
+        self.constant_usages[variable_name] = undefined_variable
 
         # log( 'variable_name:', variable_name )
         # log( undefined_variable )
@@ -357,14 +357,14 @@ class TreeTransformer(lark.Transformer):
         """
 
         # Checks for undefined variables usage
-        for name, variable in self.used_variables.items():
+        for name, variable in self.constant_usages.items():
             if name not in self.constant_definitions:
                 self.errors.append( "Missing variable `%s` defined in your grammar on %s" % ( name, variable.token.pretty(1) ) )
 
         # Checks for unused variables
         for name, variable in self.constant_definitions.items():
             # log(1, 'name %s', name)
-            if name not in self.used_variables:
+            if name not in self.constant_usages:
                 self.warnings.append( "Unused variable `%s` defined in your grammar on %s" % ( name, variable.token.pretty() ) )
 
         revolved_count = 1
@@ -372,7 +372,7 @@ class TreeTransformer(lark.Transformer):
         pending = {}
         resolved_variables = {}
 
-        # work resolve variables usages on `self.used_variables` until it there is no new progress
+        # work resolve variables usages on `self.constant_usages` until it there is no new progress
         while revolved_count != last_resolution:
             # log('revolved_count', revolved_count, ', last_resolution', last_resolution)
             revolved_count = last_resolution
@@ -381,7 +381,7 @@ class TreeTransformer(lark.Transformer):
             # Updates all variables definitions with the variables contents values
             for name, variable in self.constant_definitions.items():
                 # log( 1, 'Trying to resolve name %s, variable %s', name, variable )
-                if variable.resolve( self.used_variables ):
+                if variable.resolve( self.constant_usages ):
                     # log( 1, 'Resolved variable to %s', variable )
                     just_resolved.append(name)
                     resolved_variables[name] = variable
@@ -392,7 +392,7 @@ class TreeTransformer(lark.Transformer):
                 del self.constant_definitions[variable]
 
             # Resolve all pending variables
-            for name, variable in self.used_variables.items():
+            for name, variable in self.constant_usages.items():
                 # log( 1, 'Trying to resolve pending name %s, variable %s', name, variable )
                 if name in resolved_variables:
                     resolution = resolved_variables[name]
@@ -402,7 +402,7 @@ class TreeTransformer(lark.Transformer):
                         last_resolution += 1
 
         # log.newline()
-        # log(1, 'used_variables %s', self.used_variables)
+        # log(1, 'constant_usages %s', self.constant_usages)
         # log(1, 'resolved_variables %s', resolved_variables)
 
         # if the resolution count does not reach 0, something went wrong
