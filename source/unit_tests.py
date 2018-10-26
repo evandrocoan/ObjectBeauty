@@ -302,20 +302,6 @@ class TestSemanticRules(TestingUtilities):
             +         match_statement  (true test|false) test
         """, tree.pretty(debug=0) )
 
-        self.assertTextEqual(
-        r"""
-            + language_syntax
-            +   preamble_statements
-            +     master_scope_name_statement  InputString str: '', is_resolved: True, is_out_of_scope: [], chunks: [source.sma], definitions: {'$constant:':  test}, errors: [];
-            +     target_language_name_statement  InputString str: '', is_resolved: True, is_out_of_scope: [], chunks: [Abstract Machine Language], definitions: {'$constant:':  test}, errors: [];
-            +      test
-            +   language_construct_rules
-            +     indentation_block
-            +       statements_list
-            +         match_statement  InputString str: '', is_resolved: True, is_out_of_scope: [], chunks: [(true, $constant:, |false), $constant:], definitions: {'$constant:':  test}, errors: [];
-
-        """, tree.pretty(debug=1) )
-
     def test_isolatedConstantUsage(self):
         my_parser = lark.Lark(
         r"""
