@@ -170,7 +170,7 @@ class TestSemanticRules(TestingUtilities):
             scope: source.sma
             contexts: {
               meta_scope: meta.block.pawn
-              match: (true|false) {
+                match: (true|false) {
               }
             }
         """
@@ -190,7 +190,7 @@ class TestSemanticRules(TestingUtilities):
             scope: source.sma
             scope: source.sma
             contexts: {
-              match: (true|false) {
+                match: (true|false) {
               }
             }
         """
@@ -207,7 +207,7 @@ class TestSemanticRules(TestingUtilities):
         r"""
             name: Abstract Machine Language
             contexts: {
-              match: (true|false) {
+                match: (true|false) {
               }
             }
         """
@@ -223,7 +223,7 @@ class TestSemanticRules(TestingUtilities):
         r"""
             scope: source.sma
             contexts: {
-              match: (true|false) {
+                match: (true|false) {
               }
             }
         """
@@ -240,12 +240,12 @@ class TestSemanticRules(TestingUtilities):
             scope: source.sma
             name: Abstract Machine Language
             contexts: {
-              match: (true|false) {
+                match: (true|false) {
               }
             }
 
             unused: {
-              match: (true|false) {
+                match: (true|false) {
               }
             }
         """
@@ -264,7 +264,7 @@ class TestSemanticRules(TestingUtilities):
             name: Abstract Machine Language
             $constant: test
             contexts: {
-              match: (true|false) {
+                match: (true|false) {
               }
             }
         """
@@ -283,7 +283,7 @@ class TestSemanticRules(TestingUtilities):
             name: Abstract Machine Language
             $constant:  test
             contexts: {
-              match: (true$constant:|false)$constant: {
+                match: (true$constant:|false)$constant: {
               }
             }
         """
@@ -330,7 +330,7 @@ class TestSemanticRules(TestingUtilities):
             $constant: test
             contexts: {
               $constant: test
-              match: (true$constant:|false) {
+                match: (true$constant:|false) {
               }
             }
         """
@@ -347,7 +347,7 @@ class TestSemanticRules(TestingUtilities):
             scope: source.sma
             name: Abstract Machine Language
             contexts: {
-              match: (true$constant:|false) {
+                match: (true$constant:|false) {
               }
               $constant: test
             }
@@ -368,7 +368,7 @@ class TestSemanticRules(TestingUtilities):
             name: Abstract Machine Language
             $constant:  test$constant:
             contexts: {
-              match: (true$constant:|false) {
+                match: (true$constant:|false) {
               }
             }
         """
