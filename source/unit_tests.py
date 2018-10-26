@@ -140,7 +140,7 @@ class TestSemanticRules(TestingUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Missing include `missing_include` defined in your grammar on [@-1,215:229='missing_include'<TEXT_CHUNK_END>,8:24]
+            + 1. Missing include `missing_include` defined in your grammar on [@-1,215:229='missing_include'<TEXT_CHUNK_END_>,8:24]
         """, error.exception )
 
     def test_invalidRegexInput(self):
@@ -198,8 +198,8 @@ class TestSemanticRules(TestingUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Duplicated target language name defined in your grammar on [@-1,63:87='Abstract Machine Language'<TEXT_CHUNK_END>,3:19]
-            + 2. Duplicated master scope name defined in your grammar on [@-1,138:147='source.sma'<TEXT_CHUNK_END>,5:20]
+            + 1. Duplicated target language name defined in your grammar on [@-1,63:87='Abstract Machine Language'<TEXT_CHUNK_END_>,3:19]
+            + 2. Duplicated master scope name defined in your grammar on [@-1,138:147='source.sma'<TEXT_CHUNK_END_>,5:20]
         """, error.exception )
 
     def test_missingScopeGlobalName(self):
@@ -306,21 +306,22 @@ class TestSemanticRules(TestingUtilities):
         r"""
             + language_syntax
             +   preamble_statements
-            +     master_scope_name_statement  InputString str: , is_resolved: True, is_out_of_scope: [], tokens: [Token(TEXT_CHUNK_END, 'source.sma')], definitions: {'$constant:':  test}, errors: [];
-            +     target_language_name_statement  InputString str: , is_resolved: True, is_out_of_scope: [], tokens: [Token(TEXT_CHUNK_END, 'Abstract Machine Language')], definitions: {'$constant:':  test}, errors: [];
+            +     master_scope_name_statement  InputString str: '', is_resolved: True, is_out_of_scope: [], chunks: [source.sma], definitions: {'$constant:':  test}, errors: [];
+            +     target_language_name_statement  InputString str: '', is_resolved: True, is_out_of_scope: [], chunks: [Abstract Machine Language], definitions: {'$constant:':  test}, errors: [];
             +      test
             +   language_construct_rules
             +     indentation_block
             +       statements_list
-            +         match_statement  InputString str: , is_resolved: True, is_out_of_scope: [], tokens: [Token(TEXT_CHUNK, '(true'), ConstantUsage str: , name: $constant:, token: $constant:;, Token(TEXT_CHUNK, '|false)'),  test], definitions: {'$constant:':  test}, errors: [];
+            +         match_statement  InputString str: '', is_resolved: True, is_out_of_scope: [], chunks: [(true, $constant:, |false), $constant:], definitions: {'$constant:':  test}, errors: [];
+
         """, tree.pretty(debug=1) )
 
     def test_isolatedConstantUsage(self):
         my_parser = lark.Lark(
         r"""
-            free_input_string: ( constant_usage | TEXT_CHUNK )* ( TEXT_CHUNK_END | )
+            free_input_string: ( constant_usage | TEXT_CHUNK )* ( TEXT_CHUNK_END_ | )
             TEXT_CHUNK: /(\\{|\\}|\\\$|[^\n{}\$])+(?=\$)/
-            TEXT_CHUNK_END: /(\\{|\\}|\\\$|[^\n{}\$])+(?!{)/
+            TEXT_CHUNK_END_: /(\\{|\\}|\\\$|[^\n{}\$])+(?!{)/
             constant_usage: CONSTANT_USAGE_
             CONSTANT_USAGE_: /\$[^\n\$\:]+\:(?!{)/
         """,
@@ -332,7 +333,7 @@ class TestSemanticRules(TestingUtilities):
             + free_input_string
             +   [@1,0:3='true'<TEXT_CHUNK>,1:1]
             +   constant_usage  [@2,4:13='$constant:'<CONSTANT_USAGE_>,1:5]
-            +   [@3,14:19='|false'<TEXT_CHUNK_END>,1:15]
+            +   [@3,14:19='|false'<TEXT_CHUNK_END_>,1:15]
         """, tree.pretty(debug=True) )
 
     def test_redifinedConst(self):
@@ -372,6 +373,25 @@ class TestSemanticRules(TestingUtilities):
             + 1. Using variable `$constant:` out of scope on
             +    [@-1,125:134='$constant:'<CONSTANT_USAGE_>,5:27] from
             +    [@-1,175:184='$constant:'<CONSTANT_NAME_>,7:15]
+        """, error.exception )
+
+    def test_recursiveVariableDefinition(self):
+        example_program = \
+        r"""
+            scope: source.sma
+            name: Abstract Machine Language
+            $constant:  test$constant:
+            contexts: {
+              match: (true$constant:|false) {
+              }
+            }
+        """
+        error = self._getError(example_program)
+
+        self.assertTextEqual(
+        r"""
+            +   Warnings:
+            + 1. Recursive constant definition on [@-1,87:96='$constant:'<CONSTANT_NAME_>,4:13]
         """, error.exception )
 
 

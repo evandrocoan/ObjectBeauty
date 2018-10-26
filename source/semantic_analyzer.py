@@ -43,8 +43,8 @@ class UndefinedInput(object):
 
     def __repr__(self):
 
-        if self.str:
-            return self.str
+        # if self.str:
+        #     return self.str
 
         return get_representation(self)
 
@@ -53,23 +53,7 @@ class UndefinedInput(object):
         if self.str:
             return self.str
 
-        else:
-            return self.__repr__()
-
-
-class ConstantName(UndefinedInput):
-
-    def __init__(self, token):
-        super(ConstantName, self).__init__()
-
-        # Trim trailing obligatory white space by the grammar
-        token.value = token.value[:-1]
-
-        self.name = token.value
-        self.token = token
-
-    def __str__(self):
-        return self.name
+        return self.__repr__()
 
 
 class ConstantUsage(UndefinedInput):
@@ -84,6 +68,9 @@ class ConstantUsage(UndefinedInput):
         self.name = name
         self.token = token
 
+    def __repr__(self):
+        return self.name
+
     def resolve(self, value):
 
         if self.str:
@@ -95,14 +82,13 @@ class ConstantUsage(UndefinedInput):
 
 class ConstantDefinition(UndefinedInput):
 
-    def __init__(self, name, input_string ):
+    def __init__(self, token, input_string ):
         super(ConstantDefinition, self).__init__()
-
-        self.token = name.token
-        self.tokens = input_string.tokens
-
-        self.name = name
+        self.token = token
         self.input_string = input_string
+
+    def __repr__(self):
+        return str(self.input_string)
 
     def resolve(self):
         input_string = str( self.input_string )
@@ -119,11 +105,11 @@ class InputString(UndefinedInput):
         Always recalculate itself when asked for its string form because it is not always beforehand know.
     """
 
-    def __init__(self, tokens, definitions, errors):
+    def __init__(self, chunks, definitions, errors):
         super(InputString, self).__init__()
         self.is_resolved = False
         self.is_out_of_scope = []
-        self.tokens = tokens
+        self.chunks = chunks
         self.definitions = definitions
         self.errors = errors
 
@@ -132,38 +118,44 @@ class InputString(UndefinedInput):
             @param `definitions` a dictionary with all completely know
                 constants. For example { "$varrrr:" : " varrrr " }
         """
+        error = ""
         is_resolved = True
         resolutions = []
-        # log( 1, 'self.tokens %s', self.tokens )
+
+        # log( 1, 'self.chunks %s', self.chunks )
         # log( 1, 'self.definitions %s', self.definitions )
 
-        for token in self.tokens:
-            # log( 1, 'token %s', token )
+        for chunk in self.chunks:
+            # log( 1, 'chunk %s', chunk )
+            # log( 1, 'chunk %s', type(chunk) )
+            # log( 1, 'chunk.name %s', chunk.name )
+            # log( 1, 'chunk.name %s', type(chunk.name) )
+            chunk_name_in_self_definitions = chunk.name in self.definitions
 
-            if isinstance( token, ConstantUsage ):
-                # log(1, 'token.name %s', token.name )
+            if chunk.str or chunk_name_in_self_definitions:
+                constant = chunk
 
-                if token.name in self.definitions:
-                    constant_definition = self.definitions[token.name]
+                if chunk_name_in_self_definitions:
+                    constant = self.definitions[chunk.name]
 
-                    # log(1, 'token.pos_in_stream', token.token.pos_in_stream, token.token.pretty())
-                    # log(1, 'constant_definition.pos_in_stream', constant_definition.token.pos_in_stream, constant_definition.token.pretty())
-                    if constant_definition.token.pos_in_stream > token.token.pos_in_stream:
-                        definition, usage = (constant_definition.token, token.token)
-                        self.errors.append( "Using variable `%s` out of scope on\n   %s from\n   %s" % (
-                                constant_definition.name, usage.pretty(), definition.pretty() ) )
+                # log(1, 'chunk.token.pos_in_stream', chunk.token.pos_in_stream, chunk.token.pretty())
+                # log(1, 'constant.token.pos_in_stream', constant.token.pos_in_stream, constant.token.pretty())
+                if constant.token.pos_in_stream > chunk.token.pos_in_stream:
+                    definition, usage = (constant.token, chunk.token)
+                    error = "Using variable `%s` out of scope on\n   %s from\n   %s" % (
+                    constant.token, usage.pretty(), definition.pretty() )
 
-                    resolutions.append( str( constant_definition ) )
-
-                else:
-                    # resolutions.append( str( token.token.pretty() ) )
-                    is_resolved = False
-                    resolutions.append( str( token.name ) )
+                resolutions.append( str( constant ) )
 
             else:
-                resolutions.append( str( token ) )
+                # log( 1, 'is_resolved False' )
+                is_resolved = False
+                resolutions.append( str( chunk.name ) )
 
-        self.is_resolved = is_resolved
+        if is_resolved:
+            self.is_resolved = is_resolved
+            if error and error not in self.errors: self.errors.append( error )
+
         return "".join( resolutions )
 
 
@@ -255,7 +247,7 @@ class TreeTransformer(lark.Transformer):
         # log(1, 'input_string: %s', type(input_string))
         # log(1, 'input_string: %s', input_string)
         if self.is_target_language_name_set:
-            self.errors.append( "Duplicated target language name defined in your grammar on %s" % ( input_string.tokens[0].pretty() ) )
+            self.errors.append( "Duplicated target language name defined in your grammar on %s" % ( input_string.chunks[0].token.pretty() ) )
 
         self.is_target_language_name_set = True
         return self.__default__(tree, children)
@@ -263,7 +255,7 @@ class TreeTransformer(lark.Transformer):
     def master_scope_name_statement(self, tree, children):
         input_string = children[0]
         if self.is_master_scope_name_set:
-            self.errors.append( "Duplicated master scope name defined in your grammar on %s" % ( input_string.tokens[0].pretty() ) )
+            self.errors.append( "Duplicated master scope name defined in your grammar on %s" % ( input_string.chunks[0].token.pretty() ) )
 
         self.is_master_scope_name_set = True
         return self.__default__(tree, children)
@@ -290,30 +282,42 @@ class TreeTransformer(lark.Transformer):
         constant_name = children[0]
         constant_value = children[1]
 
-        input_string = ConstantDefinition( constant_name, constant_value )
+        constant_definition = ConstantDefinition( constant_name, constant_value )
         constant_name_str = str( constant_name )
 
         # log( 'constant_name:', constant_name )
+        # log( 'constant_name_str:', constant_name_str )
         # log( 'constant_value:', constant_value )
-        # log( 'input_string: ', input_string )
-        if constant_name_str in self.constant_definitions:
-            self.errors.append( "Constant redefinition on %s" % ( constant_name.token.pretty() ) )
+        # log( 'constant_definition: ', constant_definition )
+        # log( 'constant_value.chunks: ', constant_value.chunks )
+        if constant_name_str in str(constant_value):
+            constant_value.chunks = [ chunk for chunk in constant_value.chunks
+                    if chunk.name != constant_name_str ]
 
-        self.constant_definitions[constant_name_str] = input_string
-        return input_string
+            # log( 'constant_value.chunks: ', constant_value.chunks )
+            self.warnings.append( "Recursive constant definition on %s" % ( constant_name.pretty() ) )
+
+        if constant_name_str in self.constant_definitions:
+            self.errors.append( "Constant redefinition on %s" % ( constant_name.pretty() ) )
+
+        self.constant_definitions[constant_name_str] = constant_definition
+        return constant_definition
 
     def constant_name(self, tree, children):
         # log(1, 'tree: \n%s', tree.pretty(debug=1))
         # log(1, 'children: \n%s', children)
         token = children[0]
-        constant_name = ConstantName( token )
-        return constant_name
+
+        # Trim trailing obligatory white space by the grammar
+        token.value = token.value[:-1]
+
+        return token
 
     def constant_usage(self, tree, children):
         token = children[0]
-        constant_name = str( children[0] )
+        constant_name = str( token )
 
-        undefined_constant = ConstantUsage( constant_name, children[0] )
+        undefined_constant = ConstantUsage( constant_name, token )
         self.constant_usages[constant_name] = undefined_constant
 
         # log( 'constant_name:', constant_name )
@@ -346,6 +350,20 @@ class TreeTransformer(lark.Transformer):
         # log( 'constant_body:', constant_body )
         # log( 'input_string: %s', input_string )
         return input_string
+
+    def text_chunk(self, tree, children):
+        # log(1, 'tree: \n%s', tree.pretty(debug=1))
+        token = children[0]
+        constant_name = str( token )
+        defined_chunk = ConstantUsage( constant_name, token )
+        defined_chunk.resolve( constant_name )
+
+        # log( defined_chunk )
+        # log( 'constant_name:', constant_name )
+        return defined_chunk
+
+    def text_chunk_end(self, tree, children):
+        return self.text_chunk(tree, children)
 
     def _check_for_main_rules(self):
         """
@@ -380,7 +398,7 @@ class TreeTransformer(lark.Transformer):
         # Look for missing required includes by the `include` statement.
         for include_name, include_token in self.required_includes.items():
             if include_name not in self.defined_includes:
-                self.errors.append( "Missing include `%s` defined in your grammar on %s" % ( include_name, include_token.tokens[0].pretty() ) )
+                self.errors.append( "Missing include `%s` defined in your grammar on %s" % ( include_name, include_token.chunks[0].token.pretty() ) )
 
     def _resolve_constants_definitions(self):
         """
