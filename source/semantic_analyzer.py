@@ -239,11 +239,11 @@ class InputString(UndefinedInput):
 class TreeTransformer(lark.Transformer):
     """
         Transforms the Derivation Tree nodes into meaningful string representations,
-        allowing simple recursive parsing parsing and conversion to Abstract Syntax Tree.
+        allowing simple recursive parsing and conversion to Abstract Syntax Tree.
     """
 
     def __init__(self):
-        ## Saves all the semantic errors errors detected so far
+        ## Saves all the semantic errors detected so far
         self.errors = []
 
         ## Saves all warnings noted so far
@@ -274,7 +274,7 @@ class TreeTransformer(lark.Transformer):
         ## for validation when the constants definitions are completely know
         self.pending_match_statements = []
 
-        ## Responsible for calculation all open and close commands scoping
+        ## Responsible for calculating all open and close commands scoping
         self.open_blocks = {}
         self.indentation_level = 0
         self.indentation_blocks = []
@@ -530,7 +530,7 @@ class TreeTransformer(lark.Transformer):
         pending = {}
         resolved_constants = {}
 
-        # work resolve constants usages on `self.constant_usages` until it there is no new progress
+        # work resolving the constants usages on `self.constant_usages` until it there is no new progress
         while revolved_count != last_resolution:
             # log('revolved_count', revolved_count, ', last_resolution', last_resolution)
             revolved_count = last_resolution
@@ -565,7 +565,7 @@ class TreeTransformer(lark.Transformer):
 
         # if the resolution count does not reach 0, something went wrong
         if len( self.constant_definitions ) > 0:
-            self.errors.append( "The following constants could be resolved:\n   `%s`" % ( self.constant_definitions ) )
+            self.errors.append( "The following constants could not be resolved:\n   `%s`" % ( self.constant_definitions ) )
 
         self.constant_definitions.update( resolved_constants )
 
