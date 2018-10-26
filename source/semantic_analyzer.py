@@ -42,10 +42,6 @@ class UndefinedInput(object):
         raise NotImplementedError( "%s is an abstract class" % self.__name__ )
 
     def __repr__(self):
-
-        # if self.str:
-        #     return self.str
-
         return get_representation(self)
 
     def __str__(self):
@@ -91,9 +87,13 @@ class ConstantDefinition(UndefinedInput):
         return str(self.input_string)
 
     def resolve(self):
+
+        if self.str:
+            raise RuntimeError("You cannot resolve a constant declaration twice!")
+
         input_string = str( self.input_string )
 
-        if self.input_string.is_resolved:
+        if self.input_string.str:
             self.str = input_string
             return True
 
@@ -107,8 +107,8 @@ class InputString(UndefinedInput):
 
     def __init__(self, chunks, definitions, errors):
         super(InputString, self).__init__()
-        self.is_resolved = False
         self.is_out_of_scope = []
+
         self.chunks = chunks
         self.definitions = definitions
         self.errors = errors
@@ -118,7 +118,7 @@ class InputString(UndefinedInput):
             @param `definitions` a dictionary with all completely know
                 constants. For example { "$varrrr:" : " varrrr " }
         """
-        error = ""
+        scope_usage_error = ""
         is_resolved = True
         resolutions = []
 
@@ -142,8 +142,8 @@ class InputString(UndefinedInput):
                 # log(1, 'constant.token.pos_in_stream', constant.token.pos_in_stream, constant.token.pretty())
                 if constant.token.pos_in_stream > chunk.token.pos_in_stream:
                     definition, usage = (constant.token, chunk.token)
-                    error = "Using variable `%s` out of scope on\n   %s from\n   %s" % (
-                    constant.token, usage.pretty(), definition.pretty() )
+                    scope_usage_error = "Using variable `%s` out of scope on\n   %s from\n   %s" % (
+                            constant.token, usage.pretty(), definition.pretty() )
 
                 resolutions.append( str( constant ) )
 
@@ -153,8 +153,9 @@ class InputString(UndefinedInput):
                 resolutions.append( str( chunk.name ) )
 
         if is_resolved:
-            self.is_resolved = is_resolved
-            if error and error not in self.errors: self.errors.append( error )
+            self.str = "".join( resolutions )
+            if scope_usage_error: self.errors.append( scope_usage_error )
+            return self.str
 
         return "".join( resolutions )
 
