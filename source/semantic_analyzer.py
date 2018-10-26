@@ -63,9 +63,9 @@ class ConstantUsage(UndefinedInput):
         As soon as this constant definition is know, this object will return the
         constant complete representation.
     """
-    def __init__(self, name, token):
+    def __init__(self, token):
         super(ConstantUsage, self).__init__()
-        self.name = name
+        self.name = str( token )
         self.token = token
 
     def __repr__(self):
@@ -317,7 +317,7 @@ class TreeTransformer(lark.Transformer):
         token = children[0]
         constant_name = str( token )
 
-        undefined_constant = ConstantUsage( constant_name, token )
+        undefined_constant = ConstantUsage( token )
         self.constant_usages[constant_name] = undefined_constant
 
         # log( 'constant_name:', constant_name )
@@ -355,7 +355,7 @@ class TreeTransformer(lark.Transformer):
         # log(1, 'tree: \n%s', tree.pretty(debug=1))
         token = children[0]
         constant_name = str( token )
-        defined_chunk = ConstantUsage( constant_name, token )
+        defined_chunk = ConstantUsage( token )
         defined_chunk.resolve( constant_name )
 
         # log( defined_chunk )
