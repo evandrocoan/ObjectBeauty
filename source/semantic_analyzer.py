@@ -1,6 +1,7 @@
 
 import re
 import lark
+import copy
 
 from lark import Tree, LarkError, Token, Discard
 
@@ -94,24 +95,36 @@ class ConstantDefinition(UndefinedInput):
 
     def __init__(self, token, input_string ):
         super(ConstantDefinition, self).__init__()
-        self.token = token
-        self.input_string = input_string
+        input_string.token = token
+        self.input_strings = [input_string]
 
     def __repr__(self):
-        return str(self.input_string)
+        return str(self.input_strings[0])
+
+    def append(self, input_string):
+        self.input_strings.extend( input_string.input_strings )
+
+    def pretty(self):
+        return ", ".join( input_string.token.pretty() for input_string in self.input_strings )
 
     def resolve(self):
 
         if self.str:
             raise RuntimeError("You cannot resolve a constant declaration twice!")
 
-        input_string = str( self.input_string )
+        resolved = []
 
-        if self.input_string.str:
-            self.str = input_string
-            return True
+        for input_string in self.input_strings:
+            string = str( input_string )
 
-        return False
+            if input_string.str:
+                resolved.append( string )
+
+            else:
+                return False
+
+        self.str = ", ".join( resolved )
+        return True
 
 
 class InputString(UndefinedInput):
@@ -133,12 +146,14 @@ class InputString(UndefinedInput):
             @param `definitions` a dictionary with all completely know
                 constants. For example { "$varrrr:" : " varrrr " }
         """
-        scope_usage_error = ""
+        scope_usage_error = {}
         is_resolved = True
         resolutions = []
 
         # log( 1, 'self.chunks %s', self.chunks )
         # log( 1, 'self.definitions %s', self.definitions )
+
+        # self.errors.append( "Constant redefinition on %s" % ( constant_name.pretty() ) )
 
         for usage in self.chunks:
             # log( 1, 'usage %s', usage )
@@ -148,21 +163,20 @@ class InputString(UndefinedInput):
             usage_name_in_self_definitions = usage.name in self.definitions
 
             if usage.str or usage_name_in_self_definitions:
-                definition = usage
+                definitions = usage
+                usage_position = usage.token.pos_in_stream
 
                 if usage_name_in_self_definitions:
-                    definition = self.definitions[usage.name]
-
-                usage_position = usage.token.pos_in_stream
-                definition_position = definition.token.pos_in_stream
-
-                # log(1, 'usage_position', usage_position, usage.token.pretty())
-                # log(1, 'definition_position', definition_position, definition.token.pretty())
-                if definition_position > usage_position:
-                    scope_usage_error = "Using constant `%s` out of scope on\n   %s from\n   %s" % (
-                            definition.token, usage.token.pretty(), definition.token.pretty() )
+                    definitions = self.definitions[usage.name]
 
                 else:
+                    definitions.input_strings = [definitions]
+
+                for definition in definitions.input_strings:
+                    definition_position = definition.token.pos_in_stream
+                    # log(1, 'usage_position', usage_position, usage.token.pretty())
+                    # log(1, 'definition_position', definition_position, definition.token.pretty())
+
                     definition_block = CommandBlock(-1, 0)
                     # log('definition_position', definition_position)
 
@@ -183,6 +197,9 @@ class InputString(UndefinedInput):
                                 # possible global token
                                 if definition_block.indentation < 0:
                                     continue
+                                    # if definition_position > usage_position:
+                                    #     scope_usage_error = "Using constant `%s` out of scope on\n   %s from\n   %s" % (
+                                    #             definition.token, usage.token.pretty(), definition.token.pretty() )
 
                                 else:
                                     break
@@ -190,20 +207,30 @@ class InputString(UndefinedInput):
                     # log('resolution for definition_block', definition_block)
                     if definition_block.indentation > -1:
 
-                        if not ( usage_position > definition_block.open_position and usage_position < definition_block.close_position ):
-                            scope_usage_error = "Using constant `%s` out of block on\n   %s from\n   %s" % (
-                                    definition.token, usage.token.pretty(), definition.token.pretty() )
+                        if usage_position > definition_block.open_position and usage_position < definition_block.close_position:
+                            usage.is_owned = True
+
+                        else:
+                            scope_usage_error[usage.name] = (usage, "Using constant `%s` out of block on\n   %s from\n   %s" % (
+                                    definition.token, usage.token.pretty(), definition.token.pretty() ) )
 
                 resolutions.append( str( definition ) )
 
             else:
-                # log( 1, 'is_resolved False' )
+                log( 1, 'is_resolved False' )
                 is_resolved = False
                 resolutions.append( str( usage.name ) )
 
         if is_resolved:
             self.str = "".join( resolutions )
-            if scope_usage_error: self.errors.append( scope_usage_error )
+
+            if scope_usage_error:
+                for name, data in scope_usage_error.items():
+                    usage, error_message = data
+
+                    if not hasattr(usage, 'is_owned'):
+                        self.errors.append( error_message )
+
             return self.str
 
         return "".join( resolutions )
@@ -372,11 +399,8 @@ class TreeTransformer(lark.Transformer):
             # log( 'constant_value.chunks: ', constant_value.chunks )
             self.warnings.append( "Recursive constant definition on %s" % ( constant_name.pretty() ) )
 
-        if constant_name_str in self.constant_definitions:
-            self.errors.append( "Constant redefinition on %s" % ( constant_name.pretty() ) )
-
-        self.constant_definitions[constant_name_str] = constant_definition
-        return constant_definition
+        self._save_constant_definition(constant_name_str, constant_name, constant_definition)
+        return copy.deepcopy(constant_definition)
 
     def constant_name(self, tree, children):
         # log(1, 'tree: \n%s', tree.pretty(debug=1))
@@ -475,6 +499,14 @@ class TreeTransformer(lark.Transformer):
             if include_name not in self.defined_includes:
                 self.errors.append( "Missing include `%s` defined in your grammar on %s" % ( include_name, include_token.chunks[0].token.pretty() ) )
 
+    def _save_constant_definition(self, constant_name_str, constant_name, constant_definition):
+
+        if constant_name_str in self.constant_definitions:
+            self.constant_definitions[constant_name_str].append(constant_definition)
+
+        else:
+            self.constant_definitions[constant_name_str] = constant_definition
+
     def _resolve_constants_definitions(self):
         """
             Resolve all pending constant usages across the tree.
@@ -486,12 +518,12 @@ class TreeTransformer(lark.Transformer):
                 self.errors.append( "Missing constant `%s` defined in your grammar on %s" % ( name, constant.token.pretty() ) )
 
         # Checks for unused constants
-        for name, constant in self.constant_definitions.items():
+        for name, constants in self.constant_definitions.items():
             # log(1, 'name %s', name)
-            # log(1, 'constant %s', repr(constant))
-            # log(1, 'constant %s', type(constant))
+            # log(1, 'constants %s', repr(constants))
+            # log(1, 'constants %s', type(constants))
             if name not in self.constant_usages:
-                self.warnings.append( "Unused constant `%s` defined in your grammar on %s" % ( name, constant.token.pretty() ) )
+                self.warnings.append( "Unused constant `%s` defined in your grammar on %s" % ( name, constants.pretty() ) )
 
         revolved_count = 1
         last_resolution = 0
@@ -505,12 +537,12 @@ class TreeTransformer(lark.Transformer):
             just_resolved = []
 
             # Updates all constants definitions with the constants contents values
-            for name, constant in self.constant_definitions.items():
-                # log( 1, 'Trying to resolve name %s, constant %s', name, constant )
-                if constant.resolve():
-                    # log( 1, 'Resolved constant to %s', constant )
+            for name, constants in self.constant_definitions.items():
+                # log( 1, 'Trying to resolve name %s, constants %s', name, constants )
+                if constants.resolve():
+                    # log( 1, 'Resolved constants to %s', constants )
                     just_resolved.append(name)
-                    resolved_constants[name] = constant
+                    resolved_constants[name] = constants
 
             # When a constant_definitions has inner unresolved constants, it can only be resolved later
             for constant in just_resolved:

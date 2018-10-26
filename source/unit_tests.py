@@ -322,6 +322,7 @@ class TestSemanticRules(TestingUtilities):
             +   [@3,14:19='|false'<TEXT_CHUNK_END_>,1:15]
         """, tree.pretty(debug=True) )
 
+    @unittest.skip("Not yet ")
     def test_redifinedConst(self):
         example_program = \
         r"""
@@ -406,6 +407,49 @@ class TestSemanticRules(TestingUtilities):
             +    [@-1,115:124='$constant:'<CONSTANT_NAME_>,5:17]
         """, error.exception )
 
+    # @unittest.skip("Working on it")
+    def test_usingMultiBlockDefinition(self):
+        example_program = \
+        r"""
+            scope: source.sma
+            name: Abstract Machine Language
+            contexts: {
+                $constant: test1
+                match: (true $constant:|false) {
+                  include: block
+              }
+            }
+
+            block: {
+                $constant: test2
+                match: ($constant:) {
+              }
+            }
+        """
+        tree = self._getError(example_program, 1)
+
+        self.assertTextEqual(
+        r"""
+            + language_syntax
+            +   preamble_statements
+            +     master_scope_name_statement  source.sma
+            +     target_language_name_statement  Abstract Machine Language
+            +   language_construct_rules
+            +     indentation_block
+            +       statements_list  test1
+            +       statements_list
+            +         match_statement
+            +           (true test1|false)
+            +           match_statements
+            +             statements_list
+            +               include_statement  block
+            +   miscellaneous_language_rules
+            +     block
+            +     indentation_block
+            +       statements_list  test2
+            +       statements_list
+            +         match_statement  (test2)
+        """, tree.pretty() )
 
 if __name__ == "__main__":
     main()
