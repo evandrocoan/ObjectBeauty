@@ -2,7 +2,7 @@
 import re
 import lark
 
-from lark import Tree, LarkError, Token
+from lark import Tree, LarkError, Token, Discard
 
 from debug_tools import getLogger
 from debug_tools.utilities import get_representation
@@ -30,6 +30,20 @@ class SemanticErrors(LarkError):
     def __str__(self):
         return ( "\n%s\n" % self.errors if self.errors else "" ) + \
                 ( "\n  Warnings:\n%s" % self.warnings if self.warnings else "" )
+
+
+class CommandBlock(object):
+
+    def __init__(self, indentation, open_position):
+        super(CommandBlock, self).__init__()
+        self.indentation = indentation
+        self.open_position = open_position
+        self.close_position = 0
+
+    def __repr__(self):
+        return "<indent %s, open %s, close %s>" % ( self.indentation, self.open_position, self.close_position )
+
+    __str__ = __repr__
 
 
 class UndefinedInput(object):
@@ -105,13 +119,14 @@ class InputString(UndefinedInput):
         Always recalculate itself when asked for its string form because it is not always beforehand know.
     """
 
-    def __init__(self, chunks, definitions, errors):
+    def __init__(self, chunks, definitions, errors, indentations):
         super(InputString, self).__init__()
         self.is_out_of_scope = []
 
         self.chunks = chunks
         self.definitions = definitions
         self.errors = errors
+        self.indentations = indentations
 
     def __str__(self):
         """
@@ -125,32 +140,66 @@ class InputString(UndefinedInput):
         # log( 1, 'self.chunks %s', self.chunks )
         # log( 1, 'self.definitions %s', self.definitions )
 
-        for chunk in self.chunks:
-            # log( 1, 'chunk %s', chunk )
-            # log( 1, 'chunk %s', type(chunk) )
-            # log( 1, 'chunk.name %s', chunk.name )
-            # log( 1, 'chunk.name %s', type(chunk.name) )
-            chunk_name_in_self_definitions = chunk.name in self.definitions
+        for usage in self.chunks:
+            # log( 1, 'usage %s', usage )
+            # log( 1, 'usage %s', type(usage) )
+            # log( 1, 'usage.name %s', usage.name )
+            # log( 1, 'usage.name %s', type(usage.name) )
+            usage_name_in_self_definitions = usage.name in self.definitions
 
-            if chunk.str or chunk_name_in_self_definitions:
-                constant = chunk
+            if usage.str or usage_name_in_self_definitions:
+                definition = usage
 
-                if chunk_name_in_self_definitions:
-                    constant = self.definitions[chunk.name]
+                if usage_name_in_self_definitions:
+                    definition = self.definitions[usage.name]
 
-                # log(1, 'chunk.token.pos_in_stream', chunk.token.pos_in_stream, chunk.token.pretty())
-                # log(1, 'constant.token.pos_in_stream', constant.token.pos_in_stream, constant.token.pretty())
-                if constant.token.pos_in_stream > chunk.token.pos_in_stream:
-                    definition, usage = (constant.token, chunk.token)
-                    scope_usage_error = "Using variable `%s` out of scope on\n   %s from\n   %s" % (
-                            constant.token, usage.pretty(), definition.pretty() )
+                usage_position = usage.token.pos_in_stream
+                definition_position = definition.token.pos_in_stream
 
-                resolutions.append( str( constant ) )
+                # log(1, 'usage_position', usage_position, usage.token.pretty())
+                # log(1, 'definition_position', definition_position, definition.token.pretty())
+                if definition_position > usage_position:
+                    scope_usage_error = "Using constant `%s` out of scope on\n   %s from\n   %s" % (
+                            definition.token, usage.token.pretty(), definition.token.pretty() )
+
+                else:
+                    definition_block = CommandBlock(-1, 0)
+                    # log('definition_position', definition_position)
+
+                    for command in self.indentations:
+                        indent, open_position, close_position = command.indentation, command.open_position, command.close_position
+                        # log('indent', indent, 'open_position', open_position, 'close_position', close_position)
+
+                        if definition_position > open_position:
+
+                            if definition_position < close_position:
+
+                                if indent > definition_block.indentation:
+                                    definition_block = command
+                                    # log('setting definition_block', definition_block)
+
+                            else:
+
+                                # possible global token
+                                if definition_block.indentation < 0:
+                                    continue
+
+                                else:
+                                    break
+
+                    # log('resolution for definition_block', definition_block)
+                    if definition_block.indentation > -1:
+
+                        if not ( usage_position > definition_block.open_position and usage_position < definition_block.close_position ):
+                            scope_usage_error = "Using constant `%s` out of block on\n   %s from\n   %s" % (
+                                    definition.token, usage.token.pretty(), definition.token.pretty() )
+
+                resolutions.append( str( definition ) )
 
             else:
                 # log( 1, 'is_resolved False' )
                 is_resolved = False
-                resolutions.append( str( chunk.name ) )
+                resolutions.append( str( usage.name ) )
 
         if is_resolved:
             self.str = "".join( resolutions )
@@ -197,6 +246,11 @@ class TreeTransformer(lark.Transformer):
         ## A list of regular expressions used on match statements,
         ## for validation when the constants definitions are completely know
         self.pending_match_statements = []
+
+        ## Responsible for calculation all open and close commands scoping
+        self.open_blocks = {}
+        self.indentation_level = 0
+        self.indentation_blocks = []
 
     def language_syntax(self, tree, children):
         """
@@ -260,6 +314,26 @@ class TreeTransformer(lark.Transformer):
 
         self.is_master_scope_name_set = True
         return self.__default__(tree, children)
+
+    def enter_block(self, tree, children):
+        self.indentation_level += 1
+        token = children[0]
+        self.open_blocks[self.indentation_level] = CommandBlock( self.indentation_level, token.pos_in_stream )
+
+        # log('indentation_level', self.indentation_level, ', children', children)
+        # log( 'indentation_blocks', self.indentation_blocks )
+        raise Discard()
+
+    def leave_block(self, tree, children):
+        token = children[0]
+        command_block = self.open_blocks[self.indentation_level]
+        command_block.close_position = token.pos_in_stream
+        self.indentation_blocks.append( command_block )
+
+        self.indentation_level -= 1
+        # log('indentation_level', self.indentation_level, ', children', children)
+        # log( 'indentation_blocks', self.indentation_blocks )
+        raise Discard()
 
     def include_statement(self, tree, children):
         input_string = children[0]
@@ -346,7 +420,7 @@ class TreeTransformer(lark.Transformer):
         #   ]
         # )
         constant_body = children
-        input_string = InputString( constant_body, self.constant_definitions, self.errors )
+        input_string = InputString( constant_body, self.constant_definitions, self.errors, self.indentation_blocks )
 
         # log( 'constant_body:', constant_body )
         # log( 'input_string: %s', input_string )

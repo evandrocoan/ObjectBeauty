@@ -254,7 +254,7 @@ class TestSemanticRules(TestingUtilities):
         self.assertTextEqual(
         r"""
             +   Warnings:
-            + 1. Unused include `unused` defined in your grammar on [@-1,178:183='unused'<__ANON_1>,9:13]
+            + 1. Unused include `unused` defined in your grammar on [@-1,180:185='unused'<__ANON_1>,9:13]
         """, error.exception )
 
     def test_unsusedConstantDeclaration(self):
@@ -341,27 +341,7 @@ class TestSemanticRules(TestingUtilities):
             + 1. Constant redefinition on [@-1,141:150='$constant:'<CONSTANT_NAME_>,6:15]
         """, error.exception )
 
-    def test_usingConstOutOfScope(self):
-        example_program = \
-        r"""
-            scope: source.sma
-            name: Abstract Machine Language
-            contexts: {
-                match: (true$constant:|false) {
-              }
-              $constant: test
-            }
-        """
-        error = self._getError(example_program)
-
-        self.assertTextEqual(
-        r"""
-            + 1. Using variable `$constant:` out of scope on
-            +    [@-1,125:134='$constant:'<CONSTANT_USAGE_>,5:27] from
-            +    [@-1,175:184='$constant:'<CONSTANT_NAME_>,7:15]
-        """, error.exception )
-
-    def test_recursiveVariableDefinition(self):
+    def test_recursiveConstantDefinition(self):
         example_program = \
         r"""
             scope: source.sma
@@ -378,6 +358,52 @@ class TestSemanticRules(TestingUtilities):
         r"""
             +   Warnings:
             + 1. Recursive constant definition on [@-1,87:96='$constant:'<CONSTANT_NAME_>,4:13]
+        """, error.exception )
+
+    def test_usingConstOutOfScope(self):
+        example_program = \
+        r"""
+            scope: source.sma
+            name: Abstract Machine Language
+            contexts: {
+                match: (true$constant:|false) {
+              }
+              $constant: test
+            }
+        """
+        error = self._getError(example_program)
+
+        self.assertTextEqual(
+        r"""
+            + 1. Using constant `$constant:` out of scope on
+            +    [@-1,127:136='$constant:'<CONSTANT_USAGE_>,5:29] from
+            +    [@-1,177:186='$constant:'<CONSTANT_NAME_>,7:15]
+        """, error.exception )
+
+    def test_usingConstOutOfBlockDefinition(self):
+        example_program = \
+        r"""
+            scope: source.sma
+            name: Abstract Machine Language
+            contexts: {
+                $constant: test:
+                match: (true $constant:|false) {
+                  include: block
+              }
+            }
+
+            block: {
+                match: ($constant:) {
+              }
+            }
+        """
+        error = self._getError(example_program)
+
+        self.assertTextEqual(
+        r"""
+            + 1. Using constant `$constant:` out of block on
+            +    [@-1,290:299='$constant:'<CONSTANT_USAGE_>,12:25] from
+            +    [@-1,115:124='$constant:'<CONSTANT_NAME_>,5:17]
         """, error.exception )
 
 
