@@ -169,27 +169,6 @@ class TestSemanticRules(TestingUtilities):
             scope: source.sma
             scope: source.sma
             contexts: {
-              meta_scope: meta.block.pawn
-                match: (true|false) {
-              }
-            }
-        """
-        error = self._getError(example_program)
-
-        self.assertTextEqual(
-        r"""
-            + 1. Duplicated target language name defined in your grammar on [@-1,62:87=' Abstract Machine Language'<__ANON_3>,3:18]
-            + 2. Duplicated master scope name defined in your grammar on [@-1,137:147=' source.sma'<__ANON_3>,5:19]
-        """, error.exception )
-
-    def test_duplicatedGlobalNames(self):
-        example_program = \
-        r"""
-            name: Abstract Machine Language
-            name: Abstract Machine Language
-            scope: source.sma
-            scope: source.sma
-            contexts: {
                 match: (true|false) {
               }
             }
