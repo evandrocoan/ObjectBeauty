@@ -1,8 +1,8 @@
 
 import re
-import lark
+import pushdown
 
-from lark import Tree, LarkError, Token, Discard
+from pushdown import Tree, LarkError, Token, Discard
 
 from debug_tools import getLogger
 from debug_tools.utilities import get_representation
@@ -209,7 +209,7 @@ class InputString(UndefinedInput):
         return "".join( resolutions )
 
 
-class TreeTransformer(lark.Transformer):
+class TreeTransformer(pushdown.Transformer):
     """
         Transforms the Derivation Tree nodes into meaningful string representations,
         allowing simple recursive parsing and conversion to Abstract Syntax Tree.

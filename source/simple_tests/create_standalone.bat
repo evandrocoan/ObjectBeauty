@@ -1,7 +1,7 @@
 
 @echo off
-cd ../lark-parser
+cd ../pushdown/source/
 python --version
 
-python -m lark.tools.standalone ../tests/test_grammar.lark "start" > ../tests/lexer.py
+python -m pushdown.tools.standalone ../tests/test_grammar.lark "start" > ../tests/lexer.py
 pause

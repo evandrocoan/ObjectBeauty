@@ -1,6 +1,6 @@
 import os
 import sys
-import lark
+import pushdown
 import semantic_analyzer
 
 import inspect
@@ -36,7 +36,7 @@ class TestSemanticRules(TestingUtilities):
 
         ## The parser used to build the Abstract Syntax Tree and parse the input text
         with open( grammar_file_path, "r", encoding='utf-8' ) as file:
-            my_parser = lark.Lark( file.read(), start='language_syntax', parser='lalr', lexer='contextual', debug=log_level)
+            my_parser = pushdown.Lark( file.read(), start='language_syntax', parser='lalr', lexer='contextual', debug=log_level)
             return my_parser
 
     def _getError(self, example_program, return_tree=False, log_level=0):
@@ -282,7 +282,7 @@ class TestSemanticRules(TestingUtilities):
         """, tree.pretty(debug=0) )
 
     def test_isolatedConstantUsage(self):
-        my_parser = lark.Lark(
+        my_parser = pushdown.Lark(
         r"""
             free_input_string: ( constant_usage | TEXT_CHUNK )* ( TEXT_CHUNK_END_ | )
             TEXT_CHUNK: /(\\{|\\}|\\\$|[^\n{}\$])+(?=\$)/

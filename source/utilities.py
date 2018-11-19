@@ -36,12 +36,12 @@
 #########################################################################################
 #
 
-import lark
+import pushdown
 
 from debug_tools import getLogger
 log = getLogger( 127, __name__ )
 
 
 def make_png(lark_tree, output_file, debug=False):
-    lark.tree.pydot__tree_to_png( lark_tree, output_file, "TB", debug=debug )
+    pushdown.tree.pydot__tree_to_png( lark_tree, output_file, "TB", debug=debug )
 

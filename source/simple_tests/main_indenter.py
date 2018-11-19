@@ -9,8 +9,8 @@
 #
 
 import os
-from lark import Lark
-from lark.indenter import Indenter
+from pushdown import Lark
+from pushdown.indenter import Indenter
 
 tree_grammar = r"""
     ?start: _NL* tree
@@ -43,7 +43,7 @@ a
 """
 
 # To generate the lexer/parser
-# python3 -m lark.tools.standalone ./grammars_grammar.lark > lexer.py
+# python3 -m pushdown.tools.standalone ./grammars_grammar.lark > lexer.py
 def test():
     tree = parser.parse(test_tree)
     print(tree.pretty())

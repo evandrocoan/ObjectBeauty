@@ -1,9 +1,9 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import lark
+import pushdown
 
-_parser = lark.Lark( r"""
+_parser = pushdown.Lark( r"""
 start: terminal_name
 
 terminal_name: TOKEN_NAME

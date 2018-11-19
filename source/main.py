@@ -1,11 +1,11 @@
 
 import os
 import sys
-import lark
+import pushdown
 import semantic_analyzer
 
-from lark import Lark
-from lark.indenter import Indenter
+from pushdown import Lark
+from pushdown.indenter import Indenter
 
 from pprint import pformat
 from debug_tools import getLogger
