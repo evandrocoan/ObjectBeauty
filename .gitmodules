@@ -8,5 +8,5 @@
 	path = monograph/thesis/ufscthesisx
 	url = https://github.com/evandrocoan/ufscthesisx
 [submodule "code/lark-parser"]
-	path = source/lark-parser
-	url = https://github.com/evandroforks/lark
+	path = source/pushdown
+	url = https://github.com/evandroforks/pushdown
