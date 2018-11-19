@@ -31,8 +31,8 @@ class TestSemanticRules(TestingUtilities):
 
     def _getParser(self, log_level):
 
-        ## The relative path the the lark grammar parser file from the current file
-        grammar_file_path = get_relative_path( "grammars_grammar.lark", __file__ )
+        ## The relative path the the pushdown grammar parser file from the current file
+        grammar_file_path = get_relative_path( "grammars_grammar.pushdown", __file__ )
 
         ## The parser used to build the Abstract Syntax Tree and parse the input text
         with open( grammar_file_path, "r", encoding='utf-8' ) as file:

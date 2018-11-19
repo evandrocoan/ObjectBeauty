@@ -20,15 +20,15 @@ assert_path( os.path.realpath( __file__ ) )
 from utilities import make_png
 from debug_tools.utilities import get_relative_path
 
-## The relative path the the lark grammar parser file from the current file
-grammar_file_path = get_relative_path( "grammars_grammar.lark", __file__ )
+## The relative path the the pushdown grammar parser file from the current file
+grammar_file_path = get_relative_path( "grammars_grammar.pushdown", __file__ )
 
 ## The parser used to build the Abstract Syntax Tree and parse the input text
 with open( grammar_file_path, "r", encoding='utf-8' ) as file:
     meu_parser = Lark( file.read(), start='language_syntax', parser='lalr', lexer='contextual')
 
 # To generate the lexer/parser
-# python3 -m lark.tools.standalone ./grammars_grammar.lark > lexer.py
+# python3 -m pushdown.tools.standalone ./grammars_grammar.pushdown > lexer.py
 def test():
     # grammar_file_path = get_relative_path( "examples/programa_exemplo.beauty-grammar", __file__ )
     grammar_file_path = get_relative_path( "examples/duplicated_contexts.beauty-grammar", __file__ )
