@@ -27,7 +27,8 @@ def main():
     # https://stackoverflow.com/questions/6813837/stop-testsuite-if-a-testcase-find-an-error
     unittest.main(failfast=True)
 
-class TestSemanticRules(TestingUtilities):
+
+class TestingGrammarUtilities(TestingUtilities):
 
     def _getParser(self, log_level):
 
@@ -49,7 +50,7 @@ class TestSemanticRules(TestingUtilities):
         def getCallerName():
             return findCaller()[2]
 
-        # function_name = "examples/%s.png" % getCallerName()
+        function_name = "examples/%s.png" % getCallerName()
         # make_png( tree, get_relative_path( function_name, __file__ ) )
 
         # https://stackoverflow.com/questions/5067604/determine-function-name-from-within-that-function-without-using-traceback
@@ -68,6 +69,9 @@ class TestSemanticRules(TestingUtilities):
                 new_tree = semantic_analyzer.TreeTransformer().transform( tree )
 
             return error
+
+
+class TestSemanticRules(TestingGrammarUtilities):
 
     def test_duplicatedContext(self):
         example_program = \
@@ -384,6 +388,26 @@ class TestSemanticRules(TestingUtilities):
             +    [@-1,290:299='$constant:'<CONSTANT_USAGE_>,12:25] from
             +    [@-1,115:124='$constant:'<CONSTANT_NAME_>,5:17]
         """, error.exception )
+
+
+class TestBackEnd(TestingGrammarUtilities):
+
+    def test_usingConstOutOfBlockDefinition(self):
+        example_program = \
+        r"""
+            scope: source.sma
+            name: Abstract Machine Language
+            contexts: {
+              match: (true|false) {
+                  scope: constant.sma
+              }
+            }
+        """
+        tree = self._getError(example_program, True)
+
+        # self.assertTextEqual(
+        # r"""
+        # """, tree.pretty(debug=0) )
 
 
 if __name__ == "__main__":
