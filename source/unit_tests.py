@@ -2,6 +2,7 @@ import os
 import sys
 import pushdown
 import semantic_analyzer
+import code_highlighter
 
 import inspect
 import unittest
@@ -392,6 +393,11 @@ class TestSemanticRules(TestingGrammarUtilities):
 
 class TestBackEnd(TestingGrammarUtilities):
 
+    def _getBackend(self, example_program):
+        tree = self._getError(example_program, True)
+        backend = code_highlighter.Backend(tree)
+        return backend
+
     def test_usingConstOutOfBlockDefinition(self):
         example_program = \
         r"""
@@ -403,11 +409,11 @@ class TestBackEnd(TestingGrammarUtilities):
               }
             }
         """
-        tree = self._getError(example_program, True)
+        backend = self._getBackend(example_program)
 
-        # self.assertTextEqual(
-        # r"""
-        # """, tree.pretty(debug=0) )
+        self.assertTextEqual(
+        r"""
+        """, backend.generate_html() )
 
 
 if __name__ == "__main__":
