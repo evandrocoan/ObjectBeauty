@@ -26,8 +26,8 @@ free_input_string: ( constant_usage | text_chunk )* ( text_chunk_end | )
 text_chunk: TEXT_CHUNK_
 text_chunk_end: TEXT_CHUNK_END_
 constant_usage: CONSTANT_USAGE_
-TEXT_CHUNK_: /(\\{|\\}|\\\$|[^\n{}\$])+(?=\$)/
-TEXT_CHUNK_END_: /(\\{|\\}|\\\$|[^\n{}\$])+(?!{)/
+TEXT_CHUNK_: /(\\{|\/|\\}|\\\$|[^\n{}\$])+(?=\$)/
+TEXT_CHUNK_END_: /(\\{|\/|\\}|\\\$|[^\n{}\$])+(?!{)/
 CONSTANT_USAGE_: /\$[^\n\$\:]+\:(?!{)/
 
 match_statements: scope_name | capturing_block | meta_scope_statement | statements_list
