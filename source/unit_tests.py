@@ -513,8 +513,9 @@ class TestBackEnd(TestingGrammarUtilities):
             name: Abstract Machine Language
             contexts: {
               match: // {
-                scope: comment.line.documentation.sma
+                scope: comment.start.documentation.sma
                 push: {
+                  meta_scope: comment.line.documentation.sma
                   match: \n {
                     pop: true
                   }
@@ -524,7 +525,9 @@ class TestBackEnd(TestingGrammarUtilities):
         """
 
         example_program = \
-        r"""// Example single line commentary\n"""
+        r"""
+            // Example single line commentary
+        """
 
         example_theme = \
         {
