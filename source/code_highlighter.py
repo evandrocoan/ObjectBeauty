@@ -8,7 +8,7 @@ from pushdown import Tree
 from debug_tools import getLogger
 from debug_tools.utilities import get_representation
 
-log = getLogger(1, __name__)
+log = getLogger(127, __name__)
 
 
 class ParsedProgram(object):
@@ -19,6 +19,7 @@ class ParsedProgram(object):
 
     def __init__(self, program, theme):
         super().__init__()
+        self.initial_size = len( program )
         self.program = program
         self.theme = theme
 
@@ -40,7 +41,30 @@ class ParsedProgram(object):
             `text_chunk_start_position` and return the new program as full string.
         """
         fixed_program = sorted( self.new_program, key=lambda item: item[0] )
-        return "".join( [ item[1] for item in fixed_program ] )
+        fixed_program_len = len(fixed_program)
+
+        # Copy the unmatched chunks of text into the final program on self.new_program
+        for index in range( 0, fixed_program_len ):
+
+            if index < fixed_program_len - 1:
+                current_chunk = fixed_program[index]
+                next_chunk = fixed_program[index+1]
+
+                if current_chunk[1] < next_chunk[0]:
+                    self.new_program.append( ( current_chunk[1], next_chunk[0], self.program[current_chunk[1]:next_chunk[0]] ) )
+
+            else:
+                current_chunk = fixed_program[index]
+
+                if current_chunk[1] < len( self.program ):
+                    self.new_program.append( ( current_chunk[1], len( self.program ), self.program[current_chunk[1]:] ) )
+
+        # At the end of the process, we must to preserve the program size on self.program
+        # for the correct merge with the text chunks processed
+        assert len( self.program ) == self.initial_size
+
+        fixed_program = sorted( self.new_program, key=lambda item: item[0] )
+        return "".join( [ item[2] for item in fixed_program ] )
 
     def get_theme(self, scope_name):
         program_scopes = scope_name.split( '.' )
@@ -71,7 +95,7 @@ class ParsedProgram(object):
             text(match[0])
 
         formatted_text = doc.getvalue()
-        self.new_program.append( ( match.start(0), formatted_text ) )
+        self.new_program.append( ( match.start(0), match.end(0), formatted_text ) )
 
         log( 4, "program %s: `%s`", len( str( self.program ) ), self.program )
         log( 4, "formatted_text: %s", formatted_text )
@@ -105,11 +129,11 @@ class Backend(pushdown.Interpreter):
         self.match = re.compile( str(match) )
 
         log( 4, "match: %s", self.match.pattern )
+        log( 4, "tree: %s", tree )
         self.visit_children( tree )
 
     def scope_name(self, tree):
         scope_name = tree.children[0]
-        self.scope_name = scope_name
 
         log( 4, "pattern: %s", self.match.pattern )
         log( 4, "scope_name: %s", scope_name )

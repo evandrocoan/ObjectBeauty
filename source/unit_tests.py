@@ -407,14 +407,14 @@ class TestBackEnd(TestingGrammarUtilities):
 
         return generated_html
 
-    def test_simpleTrueGrammarFile(self):
+    def test_simpleMatchStamement(self):
         example_grammar = \
         r"""
             scope: source.sma
             name: Abstract Machine Language
             contexts: {
               match: (true|false) {
-                  scope: boolean.sma
+                scope: boolean.sma
               }
             }
         """
@@ -436,6 +436,139 @@ class TestBackEnd(TestingGrammarUtilities):
             +     <font color="#FF0000">true</font>
             +   </body>
             + </html>
+        """, generated_html )
+
+    def test_unmatchedProgramCompletionAtEnd(self):
+        example_grammar = \
+        r"""
+            scope: source.sma
+            name: Abstract Machine Language
+            contexts: {
+              match: // {
+                scope: comment.line.start.sma
+              }
+            }
+        """
+
+        example_program = \
+        r"""
+            // Example single line commentary
+        """
+
+        example_theme = \
+        {
+            "comment" : "#FF0000",
+        }
+
+        generated_html = self._getBackend(example_grammar, example_program, example_theme)
+
+        self.assertTextEqual(
+        r"""
+            + <html>
+            +   <body><font color="#FF0000">//</font> Example single line commentary
+            +         </body>
+            + </html>
+        """, generated_html )
+
+    def test_unmatchedProgramCompletionAtMiddle(self):
+        example_grammar = \
+        r"""
+            scope: source.sma
+            name: Abstract Machine Language
+            contexts: {
+              match: // {
+                scope: comment.line.start.sma
+              }
+              match: single {
+                scope: comment.middle.start.sma
+              }
+            }
+        """
+
+        example_program = \
+        r"""
+            // Example single line commentary
+        """
+
+        example_theme = \
+        {
+            "comment" : "#FF0000",
+        }
+
+        generated_html = self._getBackend(example_grammar, example_program, example_theme)
+
+        self.assertTextEqual(
+        r"""
+            + <html>
+            +   <body><font color="#FF0000">//</font> Example <font color="#FF0000">single</font> line commentary
+            +         </body>
+            + </html>
+        """, generated_html )
+
+    @unittest.skip("Finish latter")
+    def test_simplePushPopStatement(self):
+        example_grammar = \
+        r"""
+            scope: source.sma
+            name: Abstract Machine Language
+            contexts: {
+              match: // {
+                scope: comment.line.documentation.sma
+                push: {
+                  match: \n {
+                    pop: true
+                  }
+                }
+              }
+            }
+        """
+
+        example_program = \
+        r"""// Example single line commentary\n"""
+
+        example_theme = \
+        {
+            "comment" : "#FF0000",
+        }
+
+        generated_html = self._getBackend(example_grammar, example_program, example_theme)
+
+        self.assertTextEqual(
+        r"""
+        """, generated_html )
+
+    @unittest.skip("Finish latter")
+    def test_complexGrammarFile(self):
+        example_grammar = \
+        r"""
+            scope: source.sma
+            name: Abstract Machine Language
+            contexts: {
+              include: pawn_comment
+            }
+
+            pawn_comment: {
+              match: /\*.*\*/ {
+                scope: comment.block.documentation.sma
+              }
+            }
+        """
+
+        example_program = \
+        r"""
+            /* Commentary example */
+        """
+
+        example_theme = \
+        {
+            "boolean" : "#FF0000",
+            "comment" : "#00FF00",
+        }
+
+        generated_html = self._getBackend(example_grammar, example_program, example_theme)
+
+        self.assertTextEqual(
+        r"""
         """, generated_html )
 
 
