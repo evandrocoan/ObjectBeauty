@@ -16,9 +16,9 @@ statements_list::= match_statement | include_statement | push_statement | pop_st
 push_statement::=  "push" ":" indentation_block
 include_statement::= "include" ":" free_input_string
 
-match_statements::= scope_name | capturing_block | statements_list
+match_statements::= scope_name_statement | capturing_block | statements_list
 match_statement::= "match" ":" free_input_string "{" ( _NEWLINE match_statements )* _NEWLINE "}"
-scope_name::= "scope" ":" free_input_string
+scope_name_statement::= "scope" ":" free_input_string
 
 capturing_block::= "captures" ":" "{" ( _NEWLINE capturing_lines )+ _NEWLINE "}"
 capturing_lines::= INTEGER+ ":" free_input_string

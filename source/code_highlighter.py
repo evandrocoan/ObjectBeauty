@@ -132,7 +132,7 @@ class Backend(pushdown.Interpreter):
         log( 4, "tree: %s", tree )
         self.visit_children( tree )
 
-    def scope_name(self, tree):
+    def scope_name_statement(self, tree):
         scope_name = tree.children[0]
 
         log( 4, "pattern: %s", self.match.pattern )

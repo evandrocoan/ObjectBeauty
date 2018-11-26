@@ -11,7 +11,7 @@ master_scope_name_statement: "scope" ": " free_input_string
 
 indentation_block: enter_block _NEWLINE ( statements_list _NEWLINE )+ leave_block
 statements_list: match_statement | include_statement | push_statement | pop_statement
-                | constant_definition | scope_name | capturing_block | meta_scope_statement
+                | constant_definition | scope_name_statement | capturing_block | meta_scope_statement
 
 enter_block: OPEN_BRACE
 leave_block: CLOSE_BRACE
@@ -33,7 +33,7 @@ TEXT_CHUNK_END_: /(\\{|\/|\\}|\\\$|[^\n{}\$])+(?!{)/
 CONSTANT_USAGE_: /\$[^\n\$\:]+\:(?!{)/
 
 match_statement: "match" ": " free_input_string "{" ( _NEWLINE statements_list )* _NEWLINE "}"
-scope_name: "scope" ": " free_input_string
+scope_name_statement: "scope" ": " free_input_string
 
 capturing_block: "captures" ": " "{" ( _NEWLINE capturing_lines )+ _NEWLINE "}"
 capturing_lines: INTEGER+ ": " free_input_string
