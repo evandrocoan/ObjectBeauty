@@ -405,7 +405,7 @@ class TestBackEnd(TestingGrammarUtilities):
             name: Abstract Machine Language
             contexts: {
               match: (true|false) {
-                  scope: constant.sma
+                  scope: boolean.sma
               }
             }
         """
@@ -413,13 +413,20 @@ class TestBackEnd(TestingGrammarUtilities):
         example_program = \
         r"""true"""
 
-        example_theme = { "constant" : "#FF0000"
+        example_theme = \
+        {
+            "boolean" : "#FF0000",
         }
 
         backend = self._getBackend(example_grammar, example_program, example_theme)
 
         self.assertTextEqual(
         r"""
+            + <html>
+            +   <body>
+            +     <font color="#FF0000">true</font>
+            +   </body>
+            + </html>
         """, backend.generated_html() )
 
 
