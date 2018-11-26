@@ -12,9 +12,11 @@ log = getLogger(__name__)
 
 class Backend(pushdown.Interpreter):
 
-    def __init__(self, tree):
+    def __init__(self, tree, program, theme):
         super().__init__()
         self.tree = tree
+        self.program = program
+        self.theme = theme
 
         self.visit(tree)
         log( 1, "Tree: \n%s", tree.pretty(debug=0) )
@@ -44,7 +46,7 @@ class Backend(pushdown.Interpreter):
         self.scope_name = scope_name
         log( 1, "scope_name: %s", self.scope_name )
 
-    def generate_html(self):
+    def generated_html(self):
         log( 1, "..." )
 
 
