@@ -28,6 +28,12 @@ def main():
     # https://stackoverflow.com/questions/6813837/stop-testsuite-if-a-testcase-find-an-error
     unittest.main(failfast=True)
 
+def findCaller():
+    return log.findCaller()
+
+def getCallerName():
+    return findCaller()[2]
+
 
 class TestingGrammarUtilities(TestingUtilities):
 
@@ -45,14 +51,8 @@ class TestingGrammarUtilities(TestingUtilities):
         my_parser = self._getParser(log_level)
         tree = my_parser.parse(example_grammar)
 
-        def findCaller():
-            return log.findCaller()
-
-        def getCallerName():
-            return findCaller()[2]
-
-        function_name = "examples/%s.png" % getCallerName()
-        # make_png( tree, get_relative_path( function_name, __file__ ) )
+        function_file = get_relative_path( "examples/%s.png" % getCallerName(), __file__ )
+        # make_png( tree, get_relative_path( function_file, __file__ ) )
 
         # https://stackoverflow.com/questions/5067604/determine-function-name-from-within-that-function-without-using-traceback
         # log( 1, "%s", getCallerName() )
@@ -394,11 +394,20 @@ class TestSemanticRules(TestingGrammarUtilities):
 class TestBackEnd(TestingGrammarUtilities):
 
     def _getBackend(self, example_grammar, example_program, example_theme):
+        function_file = get_relative_path( "examples/%s.html" % getCallerName(), __file__ )
+        # log( 1, "function_file: %s", function_file )
+
         tree = self._getError(example_grammar, True)
         backend = code_highlighter.Backend(tree, example_program, example_theme)
-        return backend
+        generated_html = backend.generated_html()
 
-    def test_usingConstOutOfBlockDefinition(self):
+        with open( function_file, 'w', newline='\n', encoding='utf-8' ) as output_file:
+            output_file.write( generated_html )
+            output_file.write("\n")
+
+        return generated_html
+
+    def test_simpleTrueGrammarFile(self):
         example_grammar = \
         r"""
             scope: source.sma
@@ -418,7 +427,7 @@ class TestBackEnd(TestingGrammarUtilities):
             "boolean" : "#FF0000",
         }
 
-        backend = self._getBackend(example_grammar, example_program, example_theme)
+        generated_html = self._getBackend(example_grammar, example_program, example_theme)
 
         self.assertTextEqual(
         r"""
@@ -427,7 +436,7 @@ class TestBackEnd(TestingGrammarUtilities):
             +     <font color="#FF0000">true</font>
             +   </body>
             + </html>
-        """, backend.generated_html() )
+        """, generated_html )
 
 
 if __name__ == "__main__":
