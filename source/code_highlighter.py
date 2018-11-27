@@ -240,10 +240,11 @@ class Backend(pushdown.Interpreter):
 
     def generated_html(self):
         log( 4, "..." )
-        doc = dominate.document( title='Dominate your HTML' )
+        doc = dominate.document( title="%s - %s" % ( self.target_language_name, self.master_scope_name ) )
 
         with doc:
-            dominate.util.raw( self.program.get_new_program() )
+            with dominate.tags.div( style="font-family: monospace;" ):
+                dominate.util.raw( self.program.get_new_program() )
 
         return str( doc )
 

@@ -434,9 +434,11 @@ class TestBackEnd(TestingGrammarUtilities):
             + <!DOCTYPE html>
             + <html>
             +   <head>
-            +     <title>Dominate your HTML</title>
+            +     <title>Abstract Machine Language - source.sma</title>
             +   </head>
-            +   <body><font color="#FF0000" grammar:scope="boolean.sma" theme:scope="boolean">true</font></body>
+            +   <body>
+            +     <div style="font-family: monospace;"><font color="#FF0000" grammar:scope="boolean.sma" theme:scope="boolean">true</font></div>
+            +   </body>
             + </html>
         """, generated_html )
 
@@ -469,10 +471,12 @@ class TestBackEnd(TestingGrammarUtilities):
             + <!DOCTYPE html>
             + <html>
             +   <head>
-            +     <title>Dominate your HTML</title>
+            +     <title>Abstract Machine Language - source.sma</title>
             +   </head>
-            +   <body><font color="#FF0000" grammar:scope="comment.line.start.sma" theme:scope="comment">//</font> Example single line commentary
-            +         </body>
+            +   <body>
+            +     <div style="font-family: monospace;"><font color="#FF0000" grammar:scope="comment.line.start.sma" theme:scope="comment">//</font> Example single line commentary
+            +         </div>
+            +   </body>
             + </html>
         """, generated_html )
 
@@ -508,10 +512,12 @@ class TestBackEnd(TestingGrammarUtilities):
             + <!DOCTYPE html>
             + <html>
             +   <head>
-            +     <title>Dominate your HTML</title>
+            +     <title>Abstract Machine Language - source.sma</title>
             +   </head>
-            +   <body><font color="#FF0000" grammar:scope="comment.line.start.sma" theme:scope="comment">//</font> Example <font color="#FF0000" grammar:scope="comment.middle.start.sma" theme:scope="comment">single</font> line commentary
-            +         </body>
+            +   <body>
+            +     <div style="font-family: monospace;"><font color="#FF0000" grammar:scope="comment.line.start.sma" theme:scope="comment">//</font> Example <font color="#FF0000" grammar:scope="comment.middle.start.sma" theme:scope="comment">single</font> line commentary
+            +         </div>
+            +   </body>
             + </html>
         """, generated_html )
 
@@ -551,10 +557,12 @@ class TestBackEnd(TestingGrammarUtilities):
             + <!DOCTYPE html>
             + <html>
             +   <head>
-            +     <title>Dominate your HTML</title>
+            +     <title>Abstract Machine Language - source.sma</title>
             +   </head>
-            +   <body><font color="#FF0000" grammar:scope="comment.start.sma" theme:scope="comment">//</font><font color="#00FF00" grammar:scope="comment.line.sma" theme:scope="comment.line"> Example single line commentary
-            + </font>        </body>
+            +   <body>
+            +     <div style="font-family: monospace;"><font color="#FF0000" grammar:scope="comment.start.sma" theme:scope="comment">//</font><font color="#00FF00" grammar:scope="comment.line.sma" theme:scope="comment.line"> Example single line commentary
+            + </font>        </div>
+            +   </body>
             + </html>
         """, generated_html )
 
@@ -594,10 +602,12 @@ class TestBackEnd(TestingGrammarUtilities):
             + <!DOCTYPE html>
             + <html>
             +   <head>
-            +     <title>Dominate your HTML</title>
+            +     <title>Abstract Machine Language - source.sma</title>
             +   </head>
-            +   <body><font color="#00FF00" grammar:scope="comment.block.documentation.sma" theme:scope="comment">/* Commentary example */</font> <font color="#FF0000" grammar:scope="boolean.sma" theme:scope="boolean">true</font> or <font color="#FF0000" grammar:scope="boolean.sma" theme:scope="boolean">false</font>
-            +         </body>
+            +   <body>
+            +     <div style="font-family: monospace;"><font color="#00FF00" grammar:scope="comment.block.documentation.sma" theme:scope="comment">/* Commentary example */</font> <font color="#FF0000" grammar:scope="boolean.sma" theme:scope="boolean">true</font> or <font color="#FF0000" grammar:scope="boolean.sma" theme:scope="boolean">false</font>
+            +         </div>
+            +   </body>
             + </html>
         """, generated_html )
 
