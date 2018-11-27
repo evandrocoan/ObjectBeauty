@@ -3,17 +3,39 @@ import re
 import pprint
 import pushdown
 import dominate
+import debug_tools
 
 from pushdown import Tree
 from collections import OrderedDict
 
 from debug_tools import getLogger
-from debug_tools.utilities import get_representation
-
 log = getLogger(1, __name__)
 
-def _add_doc_text(input_text):
-    dominate.util.raw( dominate.util.escape( input_text, quote=False ).replace("\n", "<br />" ) )
+def escape_html(input_text):
+    return dominate.util.escape( input_text, quote=False ).replace("\n", "<br />" )
+
+def get_div_doc(input_text):
+    return '<span grammar_scope="none" theme_scope="none">%s</span>' % escape_html( input_text )
+
+def get_font_doc(input_text, color, grammar_scope, theme_scope):
+    return '<font color="%s" grammar_scope="%s" theme_scope="%s">%s</font>' % (
+            color, grammar_scope, theme_scope, escape_html( input_text )
+        )
+
+def get_html_header():
+    return debug_tools.utilities.wrap_text(
+        r"""
+            <!DOCTYPE html><html><head><title>Abstract Machine Language - source.sma</title></head>
+            <body style="white-space: pre; font-family: monospace;">
+        """
+    )
+
+def get_html_footer():
+    return debug_tools.utilities.wrap_text(
+        r"""
+            </body></html>
+        """
+    )
 
 
 class ParsedProgram(object):
@@ -60,14 +82,14 @@ class ParsedProgram(object):
                 next_chunk = fixed_program[index+1]
 
                 if current_chunk[1] < next_chunk[0]:
-                    doc = self._get_div_doc( self.program[current_chunk[1]:next_chunk[0]] )
+                    doc = get_div_doc( self.program[current_chunk[1]:next_chunk[0]] )
                     self.new_program.append( ( current_chunk[1], next_chunk[0], doc ) )
 
             else:
                 current_chunk = fixed_program[index]
 
                 if current_chunk[1] < len( self.program ):
-                    doc = self._get_div_doc( self.program[current_chunk[1]:] )
+                    doc = get_div_doc( self.program[current_chunk[1]:] )
                     self.new_program.append( ( current_chunk[1], len( self.program ), doc ) )
 
         # At the end of the process, we must to preserve the program size on self.program
@@ -88,12 +110,6 @@ class ParsedProgram(object):
 
         self.cached_new_program = [ item[2] for item in fixed_program ]
         return self.cached_new_program
-
-    def _get_div_doc(self, input_text):
-        doc = dominate.tags.span( grammar_scope="none", theme_scope="none" )
-        with doc:
-            _add_doc_text( input_text )
-        return doc
 
     def get_theme(self, scope_name):
         program_scopes = scope_name.split( '.' )
@@ -165,13 +181,10 @@ class ParsedProgram(object):
 
     def _generate_chunk_html(self, grammar_scope, matched_text, match_start, match_end):
         first_matched_color, theme_scope = self.get_theme(grammar_scope)
-        doc = dominate.tags.font( color=first_matched_color, grammar_scope=grammar_scope, theme_scope=theme_scope )
-
-        with doc:
-            _add_doc_text( matched_text )
+        doc = get_font_doc( matched_text, first_matched_color, grammar_scope, theme_scope )
 
         self.new_program.append( ( match_start, match_end, doc ) )
-        log( 4, "formatted_text: %s", str( doc ) )
+        log( 4, "formatted_text: %s", doc )
         log( 4, "program %s: `%s`", len( str( self.program ) ), self.program )
 
 
@@ -285,11 +298,11 @@ class Backend(pushdown.Interpreter):
     def generated_html(self):
         log( 4, "..." )
         doc = dominate.document( title="%s - %s" % ( self.target_language_name, self.master_scope_name ) )
+        document = [ get_html_header() ]
 
-        with doc:
-            with dominate.tags.span( style="font-family: monospace;" ):
-                for item in self.program.get_new_program():
-                    dominate.util.raw( str(item) )
+        for item in self.program.get_new_program():
+            document.append( str(item) )
 
-        return str( doc )
+        document.append( get_html_footer() )
+        return "".join( document )
 
