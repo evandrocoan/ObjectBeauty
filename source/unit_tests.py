@@ -548,6 +548,7 @@ class TestBackEnd(TestingGrammarUtilities):
               include: pawn_preprocessor
               include: pawn_string
               include: pawn_function
+              include: pawn_numbers
             }
             pawn_boolean: {
               match: (true|false) {
@@ -587,6 +588,11 @@ class TestBackEnd(TestingGrammarUtilities):
                 scope: function.call.sma
               }
             }
+            pawn_numbers: {
+              match: \d+\.?\d* {
+                scope: constant.numeric.sma
+              }
+            }
         """
 
         example_program = debug_tools.utilities.wrap_text(
@@ -595,6 +601,7 @@ class TestBackEnd(TestingGrammarUtilities):
             #define GLOBAL_CONSTANT
             var string = "My string definition"
             void function() {
+                var number = 100.0
             }
         """ )
 
@@ -607,6 +614,7 @@ class TestBackEnd(TestingGrammarUtilities):
             "storage" : "#8000FF",
             "string" : "#808080",
             "punctuation" : "#FF0000",
+            "constant" : "#99CC99",
         }
 
         generated_html = self._getBackend(example_grammar, example_program, example_theme)
@@ -614,7 +622,7 @@ class TestBackEnd(TestingGrammarUtilities):
         self.assertTextEqual(
         r"""
             + <!DOCTYPE html><html><head><title>Abstract Machine Language - source.sma</title></head>
-            + <body style="white-space: pre; font-family: monospace;"><font color="#00FF00" grammar_scope="comment.block.documentation.sma" theme_scope="comment">/* Commentary example */</font><span grammar_scope="none" theme_scope="none"> </span><font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">true</font><span grammar_scope="none" theme_scope="none"> or </span><font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">false</font><font color="#DDB700" grammar_scope="function.definition.sma" theme_scope="function"><br />#define</font><font color="#0000FF" grammar_scope="meta.preprocessor.sma" theme_scope="meta"> GLOBAL_CONSTANT<br /></font><span grammar_scope="none" theme_scope="none">var string = </span><font color="#FF0000" grammar_scope="punctuation.definition.string.begin.sma" theme_scope="punctuation">"</font><font color="#808080" grammar_scope="string.quoted.double.sma" theme_scope="string">My string definition</font><font color="#FF0000" grammar_scope="punctuation.definition.string.end.sma" theme_scope="punctuation">"</font><span grammar_scope="none" theme_scope="none"><br />void </span><font color="#DDB700" grammar_scope="function.call.sma" theme_scope="function">function()</font><span grammar_scope="none" theme_scope="none"> {<br />}</span></body></html>
+            + <body style="white-space: pre; font-family: monospace;"><font color="#00FF00" grammar_scope="comment.block.documentation.sma" theme_scope="comment">/* Commentary example */</font><span grammar_scope="none" theme_scope="none"> </span><font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">true</font><span grammar_scope="none" theme_scope="none"> or </span><font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">false</font><font color="#DDB700" grammar_scope="function.definition.sma" theme_scope="function"><br />#define</font><font color="#0000FF" grammar_scope="meta.preprocessor.sma" theme_scope="meta"> GLOBAL_CONSTANT<br /></font><span grammar_scope="none" theme_scope="none">var string = </span><font color="#FF0000" grammar_scope="punctuation.definition.string.begin.sma" theme_scope="punctuation">"</font><font color="#808080" grammar_scope="string.quoted.double.sma" theme_scope="string">My string definition</font><font color="#FF0000" grammar_scope="punctuation.definition.string.end.sma" theme_scope="punctuation">"</font><span grammar_scope="none" theme_scope="none"><br />void </span><font color="#DDB700" grammar_scope="function.call.sma" theme_scope="function">function()</font><span grammar_scope="none" theme_scope="none"> {<br />    var number = </span><font color="#99CC99" grammar_scope="constant.numeric.sma" theme_scope="constant">100.0</font><span grammar_scope="none" theme_scope="none"><br />}</span></body></html>
         """, generated_html )
 
 
