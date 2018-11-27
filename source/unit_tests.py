@@ -543,6 +543,7 @@ class TestBackEnd(TestingGrammarUtilities):
             scope: source.sma
             name: Abstract Machine Language
             contexts: {
+              include: pawn_keywords
               include: pawn_comment
               include: pawn_boolean
               include: pawn_preprocessor
@@ -556,8 +557,22 @@ class TestBackEnd(TestingGrammarUtilities):
               }
             }
             pawn_comment: {
-              match: /\*.*\*/ {
-                scope: comment.block.documentation.sma
+              match: /\* {
+                scope: comment.begin.sma
+                push: {
+                  meta_scope: comment.sma
+                  match: \*/ {
+                    pop: true
+                  }
+                }
+              }
+              match: // {
+                push: {
+                  meta_scope: comment.documentation.sma
+                  match: \n {
+                    pop: true
+                  }
+                }
               }
             }
             pawn_preprocessor: {
@@ -593,6 +608,14 @@ class TestBackEnd(TestingGrammarUtilities):
                 scope: constant.numeric.sma
               }
             }
+            pawn_keywords: {
+              match: \b(sizeof|charsmax|assert|break|case|continue|default|do|in|else|exit|for|goto|if|return|state|switch|while|false|true)\b {
+                scope: keyword.control.sma
+              }
+              match: \b(var|new)\b {
+                scope: keyword.new.sma
+              }
+            }
         """
 
         example_program = debug_tools.utilities.wrap_text(
@@ -601,7 +624,28 @@ class TestBackEnd(TestingGrammarUtilities):
             #define GLOBAL_CONSTANT
             var string = "My string definition"
             void function() {
+
+                // Single line commmentary
                 var number = 100.0
+                for var index = 5999; index < sizeof number; ++index:
+
+                    /* More multiline
+                       comments
+                       with a bunch of
+                       lines */
+                    for variable in list:
+                        print( variable )
+                }
+
+                #define MORE_CRAZYNESS 100000
+                if index == 0:
+                    // More singleline comments
+                    // with incredicle single linearity
+                    var string = "Cool beatiful String"
+
+                    while string in list:
+                        exit( string )
+                }
             }
         """ )
 
@@ -610,11 +654,14 @@ class TestBackEnd(TestingGrammarUtilities):
             "boolean" : "#FF0000",
             "comment" : "#00FF00",
             "function" : "#DDB700",
+            "keyword.new" : "#FF00FF",
             "meta" : "#0000FF",
             "storage" : "#8000FF",
             "string" : "#808080",
             "punctuation" : "#FF0000",
             "constant" : "#99CC99",
+            "keyword" : "#804000",
+            "comment.documentation" : "#248591",
         }
 
         generated_html = self._getBackend(example_grammar, example_program, example_theme)
@@ -622,7 +669,7 @@ class TestBackEnd(TestingGrammarUtilities):
         self.assertTextEqual(
         r"""
             + <!DOCTYPE html><html><head><title>Abstract Machine Language - source.sma</title></head>
-            + <body style="white-space: pre; font-family: monospace;"><font color="#00FF00" grammar_scope="comment.block.documentation.sma" theme_scope="comment">/* Commentary example */</font><span grammar_scope="none" theme_scope="none"> </span><font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">true</font><span grammar_scope="none" theme_scope="none"> or </span><font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">false</font><font color="#DDB700" grammar_scope="function.definition.sma" theme_scope="function"><br />#define</font><font color="#0000FF" grammar_scope="meta.preprocessor.sma" theme_scope="meta"> GLOBAL_CONSTANT<br /></font><span grammar_scope="none" theme_scope="none">var string = </span><font color="#FF0000" grammar_scope="punctuation.definition.string.begin.sma" theme_scope="punctuation">"</font><font color="#808080" grammar_scope="string.quoted.double.sma" theme_scope="string">My string definition</font><font color="#FF0000" grammar_scope="punctuation.definition.string.end.sma" theme_scope="punctuation">"</font><span grammar_scope="none" theme_scope="none"><br />void </span><font color="#DDB700" grammar_scope="function.call.sma" theme_scope="function">function()</font><span grammar_scope="none" theme_scope="none"> {<br />    var number = </span><font color="#99CC99" grammar_scope="constant.numeric.sma" theme_scope="constant">100.0</font><span grammar_scope="none" theme_scope="none"><br />}</span></body></html>
+            + <body style="white-space: pre; font-family: monospace;"><font color="#00FF00" grammar_scope="comment.begin.sma" theme_scope="comment">/*</font><font color="#00FF00" grammar_scope="comment.sma" theme_scope="comment"> Commentary example */</font><span grammar_scope="none" theme_scope="none"> </span><font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">true</font><span grammar_scope="none" theme_scope="none"> or </span><font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">false</font><font color="#DDB700" grammar_scope="function.definition.sma" theme_scope="function"><br />#define</font><font color="#0000FF" grammar_scope="meta.preprocessor.sma" theme_scope="meta"> GLOBAL_CONSTANT<br /></font><font color="#FF00FF" grammar_scope="keyword.new.sma" theme_scope="keyword.new">var</font><span grammar_scope="none" theme_scope="none"> string = </span><font color="#FF0000" grammar_scope="punctuation.definition.string.begin.sma" theme_scope="punctuation">"</font><font color="#808080" grammar_scope="string.quoted.double.sma" theme_scope="string">My string definition</font><font color="#FF0000" grammar_scope="punctuation.definition.string.end.sma" theme_scope="punctuation">"</font><span grammar_scope="none" theme_scope="none"><br />void </span><font color="#DDB700" grammar_scope="function.call.sma" theme_scope="function">function()</font><span grammar_scope="none" theme_scope="none"> {<br /><br />    //</span><font color="#248591" grammar_scope="comment.documentation.sma" theme_scope="comment.documentation"> Single line commmentary<br /></font><span grammar_scope="none" theme_scope="none">    </span><font color="#FF00FF" grammar_scope="keyword.new.sma" theme_scope="keyword.new">var</font><span grammar_scope="none" theme_scope="none"> number = </span><font color="#99CC99" grammar_scope="constant.numeric.sma" theme_scope="constant">100.0</font><span grammar_scope="none" theme_scope="none"><br />    </span><font color="#804000" grammar_scope="keyword.control.sma" theme_scope="keyword">for</font><span grammar_scope="none" theme_scope="none"> </span><font color="#FF00FF" grammar_scope="keyword.new.sma" theme_scope="keyword.new">var</font><span grammar_scope="none" theme_scope="none"> index = </span><font color="#99CC99" grammar_scope="constant.numeric.sma" theme_scope="constant">5999</font><span grammar_scope="none" theme_scope="none">; index &lt; </span><font color="#804000" grammar_scope="keyword.control.sma" theme_scope="keyword">sizeof</font><span grammar_scope="none" theme_scope="none"> number; ++index:<br /><br />        </span><font color="#00FF00" grammar_scope="comment.begin.sma" theme_scope="comment">/*</font><font color="#00FF00" grammar_scope="comment.sma" theme_scope="comment"> More multiline<br />           comments<br />           with a bunch of<br />           lines */</font><span grammar_scope="none" theme_scope="none"><br />        </span><font color="#804000" grammar_scope="keyword.control.sma" theme_scope="keyword">for</font><span grammar_scope="none" theme_scope="none"> variable </span><font color="#804000" grammar_scope="keyword.control.sma" theme_scope="keyword">in</font><span grammar_scope="none" theme_scope="none"> list:<br />            </span><font color="#DDB700" grammar_scope="function.call.sma" theme_scope="function">print( variable )</font><span grammar_scope="none" theme_scope="none"><br />    }</span><font color="#DDB700" grammar_scope="function.definition.sma" theme_scope="function"><br /><br />    #define</font><font color="#0000FF" grammar_scope="meta.preprocessor.sma" theme_scope="meta"> MORE_CRAZYNESS 100000<br /></font><span grammar_scope="none" theme_scope="none">    </span><font color="#804000" grammar_scope="keyword.control.sma" theme_scope="keyword">if</font><span grammar_scope="none" theme_scope="none"> index == </span><font color="#99CC99" grammar_scope="constant.numeric.sma" theme_scope="constant">0</font><span grammar_scope="none" theme_scope="none">:<br />        //</span><font color="#248591" grammar_scope="comment.documentation.sma" theme_scope="comment.documentation"> More singleline comments<br /></font><span grammar_scope="none" theme_scope="none">        //</span><font color="#248591" grammar_scope="comment.documentation.sma" theme_scope="comment.documentation"> with incredicle single linearity<br /></font><span grammar_scope="none" theme_scope="none">        </span><font color="#FF00FF" grammar_scope="keyword.new.sma" theme_scope="keyword.new">var</font><span grammar_scope="none" theme_scope="none"> string = </span><font color="#FF0000" grammar_scope="punctuation.definition.string.begin.sma" theme_scope="punctuation">"</font><font color="#808080" grammar_scope="string.quoted.double.sma" theme_scope="string">Cool beatiful String</font><font color="#FF0000" grammar_scope="punctuation.definition.string.end.sma" theme_scope="punctuation">"</font><span grammar_scope="none" theme_scope="none"><br /><br />        </span><font color="#804000" grammar_scope="keyword.control.sma" theme_scope="keyword">while</font><span grammar_scope="none" theme_scope="none"> string </span><font color="#804000" grammar_scope="keyword.control.sma" theme_scope="keyword">in</font><span grammar_scope="none" theme_scope="none"> list:<br />            </span><font color="#DDB700" grammar_scope="function.call.sma" theme_scope="function">exit( string )</font><span grammar_scope="none" theme_scope="none"><br />    }<br />}</span></body></html>
         """, generated_html )
 
 
