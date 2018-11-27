@@ -433,7 +433,7 @@ class TestBackEnd(TestingGrammarUtilities):
         r"""
             + <html>
             +   <body>
-            +     <font color="#FF0000">true</font>
+            +     <font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">true</font>
             +   </body>
             + </html>
         """, generated_html )
@@ -465,7 +465,7 @@ class TestBackEnd(TestingGrammarUtilities):
         self.assertTextEqual(
         r"""
             + <html>
-            +   <body><font color="#FF0000">//</font> Example single line commentary
+            +   <body><font color="#FF0000" grammar_scope="comment.line.start.sma" theme_scope="comment">//</font> Example single line commentary
             +         </body>
             + </html>
         """, generated_html )
@@ -500,12 +500,11 @@ class TestBackEnd(TestingGrammarUtilities):
         self.assertTextEqual(
         r"""
             + <html>
-            +   <body><font color="#FF0000">//</font> Example <font color="#FF0000">single</font> line commentary
+            +   <body><font color="#FF0000" grammar_scope="comment.line.start.sma" theme_scope="comment">//</font> Example <font color="#FF0000" grammar_scope="comment.middle.start.sma" theme_scope="comment">single</font> line commentary
             +         </body>
             + </html>
         """, generated_html )
 
-    @unittest.skip("Finish latter")
     def test_simplePushPopStatement(self):
         example_grammar = \
         r"""
@@ -513,9 +512,9 @@ class TestBackEnd(TestingGrammarUtilities):
             name: Abstract Machine Language
             contexts: {
               match: // {
-                scope: comment.start.documentation.sma
+                scope: comment.start.sma
                 push: {
-                  meta_scope: comment.line.documentation.sma
+                  meta_scope: comment.line.sma
                   match: \n {
                     pop: true
                   }
@@ -532,12 +531,20 @@ class TestBackEnd(TestingGrammarUtilities):
         example_theme = \
         {
             "comment" : "#FF0000",
+            "comment.line" : "#00FF00",
         }
 
         generated_html = self._getBackend(example_grammar, example_program, example_theme)
 
         self.assertTextEqual(
         r"""
+            + <html>
+            +   <body>
+            +     <font color="#FF0000" grammar_scope="comment.start.sma" theme_scope="comment">//</font>
+            +     <font color="#00FF00" grammar_scope="comment.line.sma" theme_scope="comment.line"> Example single line commentary
+            + </font>
+            +   </body>
+            + </html>
         """, generated_html )
 
     @unittest.skip("Finish latter")

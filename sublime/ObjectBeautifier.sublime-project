@@ -3,7 +3,7 @@
     {
         "TEXroot": "./monograph/thesis/main.tex",
         "rulers": [80],
-        "WrapPlus.semantic_line_wrap": true,
+        // "WrapPlus.semantic_line_wrap": true,
         "WrapPlus.semantic_maximum_items_in_comma_separated_list": 1,
         "buildview.enabled": true,
         "buildview.scroll": "last",
