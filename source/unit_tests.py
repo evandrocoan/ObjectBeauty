@@ -431,10 +431,12 @@ class TestBackEnd(TestingGrammarUtilities):
 
         self.assertTextEqual(
         r"""
+            + <!DOCTYPE html>
             + <html>
-            +   <body>
-            +     <font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">true</font>
-            +   </body>
+            +   <head>
+            +     <title>Dominate your HTML</title>
+            +   </head>
+            +   <body><font color="#FF0000" grammar:scope="boolean.sma" theme:scope="boolean">true</font></body>
             + </html>
         """, generated_html )
 
@@ -464,8 +466,12 @@ class TestBackEnd(TestingGrammarUtilities):
 
         self.assertTextEqual(
         r"""
+            + <!DOCTYPE html>
             + <html>
-            +   <body><font color="#FF0000" grammar_scope="comment.line.start.sma" theme_scope="comment">//</font> Example single line commentary
+            +   <head>
+            +     <title>Dominate your HTML</title>
+            +   </head>
+            +   <body><font color="#FF0000" grammar:scope="comment.line.start.sma" theme:scope="comment">//</font> Example single line commentary
             +         </body>
             + </html>
         """, generated_html )
@@ -499,8 +505,12 @@ class TestBackEnd(TestingGrammarUtilities):
 
         self.assertTextEqual(
         r"""
+            + <!DOCTYPE html>
             + <html>
-            +   <body><font color="#FF0000" grammar_scope="comment.line.start.sma" theme_scope="comment">//</font> Example <font color="#FF0000" grammar_scope="comment.middle.start.sma" theme_scope="comment">single</font> line commentary
+            +   <head>
+            +     <title>Dominate your HTML</title>
+            +   </head>
+            +   <body><font color="#FF0000" grammar:scope="comment.line.start.sma" theme:scope="comment">//</font> Example <font color="#FF0000" grammar:scope="comment.middle.start.sma" theme:scope="comment">single</font> line commentary
             +         </body>
             + </html>
         """, generated_html )
@@ -538,16 +548,16 @@ class TestBackEnd(TestingGrammarUtilities):
 
         self.assertTextEqual(
         r"""
+            + <!DOCTYPE html>
             + <html>
-            +   <body>
-            +     <font color="#FF0000" grammar_scope="comment.start.sma" theme_scope="comment">//</font>
-            +     <font color="#00FF00" grammar_scope="comment.line.sma" theme_scope="comment.line"> Example single line commentary
-            + </font>
-            +   </body>
+            +   <head>
+            +     <title>Dominate your HTML</title>
+            +   </head>
+            +   <body><font color="#FF0000" grammar:scope="comment.start.sma" theme:scope="comment">//</font><font color="#00FF00" grammar:scope="comment.line.sma" theme:scope="comment.line"> Example single line commentary
+            + </font>        </body>
             + </html>
         """, generated_html )
 
-    @unittest.skip("Finish latter")
     def test_complexGrammarFile(self):
         example_grammar = \
         r"""
@@ -555,8 +565,10 @@ class TestBackEnd(TestingGrammarUtilities):
             name: Abstract Machine Language
             contexts: {
               include: pawn_comment
+              match: (true|false) {
+                scope: boolean.sma
+              }
             }
-
             pawn_comment: {
               match: /\*.*\*/ {
                 scope: comment.block.documentation.sma
@@ -566,7 +578,7 @@ class TestBackEnd(TestingGrammarUtilities):
 
         example_program = \
         r"""
-            /* Commentary example */
+            /* Commentary example */ true or false
         """
 
         example_theme = \
@@ -579,6 +591,14 @@ class TestBackEnd(TestingGrammarUtilities):
 
         self.assertTextEqual(
         r"""
+            + <!DOCTYPE html>
+            + <html>
+            +   <head>
+            +     <title>Dominate your HTML</title>
+            +   </head>
+            +   <body><font color="#00FF00" grammar:scope="comment.block.documentation.sma" theme:scope="comment">/* Commentary example */</font> <font color="#FF0000" grammar:scope="boolean.sma" theme:scope="boolean">true</font> or <font color="#FF0000" grammar:scope="boolean.sma" theme:scope="boolean">false</font>
+            +         </body>
+            + </html>
         """, generated_html )
 
 

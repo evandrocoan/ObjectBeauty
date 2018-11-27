@@ -1,7 +1,7 @@
 
 import re
 import pushdown
-import yattag
+import dominate
 
 from pushdown import Tree
 from collections import OrderedDict
@@ -25,6 +25,7 @@ class ParsedProgram(object):
         self.theme = OrderedDict( sorted( theme.items(), key=lambda item: len( str( item ) ) ) )
 
         self.new_program = []
+        self.cached_new_program = ""
         log( 4, "program %s: `%s`", len( str( self.program ) ), self.program )
 
     def __str__(self):
@@ -41,6 +42,8 @@ class ParsedProgram(object):
             Sorts the list of (text_chunk_start_position, text_chunk) accordingly to
             `text_chunk_start_position` and return the new program as full string.
         """
+        if self.cached_new_program: return self.cached_new_program
+
         fixed_program = sorted( self.new_program, key=lambda item: item[0] )
         fixed_program_len = len(fixed_program)
         assert len( self.program ) == self.initial_size, "Expected %s got %s" % ( self.initial_size, len(self.program) )
@@ -53,7 +56,8 @@ class ParsedProgram(object):
                 next_chunk = fixed_program[index+1]
 
                 if current_chunk[1] < next_chunk[0]:
-                    self.new_program.append( ( current_chunk[1], next_chunk[0], self.program[current_chunk[1]:next_chunk[0]] ) )
+                    text_to_copy = self.program[current_chunk[1]:next_chunk[0]]
+                    self.new_program.append( ( current_chunk[1], next_chunk[0], text_to_copy ) )
 
             else:
                 current_chunk = fixed_program[index]
@@ -66,7 +70,11 @@ class ParsedProgram(object):
         assert len( self.program ) == self.initial_size, "Expected %s got %s" % ( self.initial_size, len(self.program) )
 
         fixed_program = sorted( self.new_program, key=lambda item: item[0] )
-        return "".join( [ item[2] for item in fixed_program ] )
+        self.cached_new_program = "".join( [ item[2] for item in fixed_program ] )
+
+        log( 4, "fixed_program: %s", fixed_program )
+        log( 4, "cached_new_program: %s", self.cached_new_program )
+        return self.cached_new_program
 
     def get_theme(self, scope_name):
         program_scopes = scope_name.split( '.' )
@@ -80,15 +88,15 @@ class ParsedProgram(object):
 
                     for index in range( 1, len(theme_scopes) + 1 ):
                         theme_scope = ".".join( [theme_scopes[inner_index] for inner_index in range( 0, index ) ] )
-                        log( 4, "theme_color: %s, comparing `%s` with `%s`", theme_color, program_scope, theme_scope )
+                        # log( 4, "theme_color: %s, comparing `%s` with `%s`", theme_color, program_scope, theme_scope )
 
                         if theme_scope == program_scope:
-                            log( 4, "Selecting %s with %s", theme_scope, theme_color )
+                            # log( 4, "Selecting %s with %s", theme_scope, theme_color )
                             return theme_color, theme_scope
 
         first_matched_color, theme_scope = select()
 
-        log( 4, "first_matched_color: %s", first_matched_color )
+        # log( 4, "first_matched_color: %s", first_matched_color )
         return first_matched_color, theme_scope
 
     def add_match(self, scope_name, last_match_stack, match):
@@ -120,17 +128,17 @@ class ParsedProgram(object):
         assert len( self.program ) == self.initial_size, "Expected %s got %s" % ( self.initial_size, len(self.program) )
 
     def _generate_chunk_html(self, grammar_scope, matched_text, match_start, match_end):
-        doc, tag, text, line = yattag.Doc().ttl()
         first_matched_color, theme_scope = self.get_theme(grammar_scope)
+        doc = dominate.tags.font( color=first_matched_color, grammar_scope=grammar_scope, theme_scope=theme_scope )
 
-        with tag( 'font', color=first_matched_color, grammar_scope=grammar_scope, theme_scope=theme_scope ):
-            text(matched_text)
+        with doc:
+            dominate.util.text( matched_text )
 
-        formatted_text = doc.getvalue()
+        formatted_text = str( doc )
         self.new_program.append( ( match_start, match_end, formatted_text ) )
 
-        log( 4, "program %s: `%s`", len( str( self.program ) ), self.program )
         log( 4, "formatted_text: %s", formatted_text )
+        log( 4, "program %s: `%s`", len( str( self.program ) ), self.program )
 
 
 class Backend(pushdown.Interpreter):
@@ -232,14 +240,10 @@ class Backend(pushdown.Interpreter):
 
     def generated_html(self):
         log( 4, "..." )
-        log( 4, "program_parsed %s: `%s`", len( str( self.program ) ), self.program )
-        log( 4, "new_program: %s", self.program.new_program )
-        log( 4, "new_program_parsed: %s", self.program.get_new_program() )
-        doc, tag, text, line = yattag.Doc().ttl()
+        doc = dominate.document( title='Dominate your HTML' )
 
-        with tag('html'):
-            with tag('body'):
-                doc.asis( self.program.get_new_program() )
+        with doc:
+            dominate.util.raw( self.program.get_new_program() )
 
-        return yattag.indent( doc.getvalue() )
+        return str( doc )
 
