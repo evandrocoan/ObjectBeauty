@@ -560,8 +560,7 @@ class TestBackEnd(TestingGrammarUtilities):
             +     <title>Abstract Machine Language - source.sma</title>
             +   </head>
             +   <body>
-            +     <div style="font-family: monospace;"><font color="#FF0000" grammar_scope="comment.start.sma" theme_scope="comment">//</font><font color="#00FF00" grammar_scope="comment.line.sma" theme_scope="comment.line"> Example single line commentary
-            + </font>        </div>
+            +     <div style="font-family: monospace;"><font color="#FF0000" grammar_scope="comment.start.sma" theme_scope="comment">//</font><font color="#00FF00" grammar_scope="comment.line.sma" theme_scope="comment.line"> Example single line commentary<br /></font>        </div>
             +   </body>
             + </html>
         """, generated_html )
@@ -573,6 +572,10 @@ class TestBackEnd(TestingGrammarUtilities):
             name: Abstract Machine Language
             contexts: {
               include: pawn_comment
+              include: pawn_boolean
+              include: pawn_preprocessor
+            }
+            pawn_boolean: {
               match: (true|false) {
                 scope: boolean.sma
               }
@@ -582,17 +585,31 @@ class TestBackEnd(TestingGrammarUtilities):
                 scope: comment.block.documentation.sma
               }
             }
+            pawn_preprocessor: {
+              match: \s*#define {
+                scope: function.definition.sma
+                push: {
+                  meta_scope: meta.preprocessor.sma
+                  match: \n {
+                    pop: true
+                  }
+                }
+              }
+            }
         """
 
         example_program = \
         r"""
             /* Commentary example */ true or false
+            #define GLOBAL_CONSTANT
         """
 
         example_theme = \
         {
             "boolean" : "#FF0000",
             "comment" : "#00FF00",
+            "function" : "#DDB700",
+            "meta" : "#0000FF",
         }
 
         generated_html = self._getBackend(example_grammar, example_program, example_theme)
@@ -605,8 +622,7 @@ class TestBackEnd(TestingGrammarUtilities):
             +     <title>Abstract Machine Language - source.sma</title>
             +   </head>
             +   <body>
-            +     <div style="font-family: monospace;"><font color="#00FF00" grammar_scope="comment.block.documentation.sma" theme_scope="comment">/* Commentary example */</font> <font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">true</font> or <font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">false</font>
-            +         </div>
+            +     <div style="font-family: monospace;"><font color="#00FF00" grammar_scope="comment.block.documentation.sma" theme_scope="comment">/* Commentary example */</font> <font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">true</font> or <font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">false</font><font color="#DDB700" grammar_scope="function.definition.sma" theme_scope="function"><br />            #define</font><font color="#0000FF" grammar_scope="meta.preprocessor.sma" theme_scope="meta"> GLOBAL_CONSTANT<br /></font>        </div>
             +   </body>
             + </html>
         """, generated_html )

@@ -1,5 +1,6 @@
 
 import re
+import pprint
 import pushdown
 import dominate
 
@@ -9,7 +10,7 @@ from collections import OrderedDict
 from debug_tools import getLogger
 from debug_tools.utilities import get_representation
 
-log = getLogger(1, __name__)
+log = getLogger(127, __name__)
 
 
 class ParsedProgram(object):
@@ -68,12 +69,20 @@ class ParsedProgram(object):
         # At the end of the process, we must to preserve the program size on self.program
         # for the correct merge with the text chunks processed
         assert len( self.program ) == self.initial_size, "Expected %s got %s" % ( self.initial_size, len(self.program) )
-
         fixed_program = sorted( self.new_program, key=lambda item: item[0] )
-        self.cached_new_program = "".join( [ item[2] for item in fixed_program ] )
+        fixed_program_len = len(fixed_program)
 
-        log( 4, "fixed_program: %s", fixed_program )
+        # for index in range( 0, fixed_program_len - 1 ):
+        #     current_chunk = fixed_program[index]
+        #     next_chunk = fixed_program[index+1]
+
+        #     if current_chunk[1] > next_chunk[0]:
+        #         fixed_program[index], fixed_program[index+1] = fixed_program[index+1], fixed_program[index]
+
+        log( 4, "fixed_program:\n%s", pprint.pformat( fixed_program, indent=2, width=200 ) )
         log( 4, "cached_new_program: %s", self.cached_new_program )
+
+        self.cached_new_program = "".join( [ item[2] for item in fixed_program ] )
         return self.cached_new_program
 
     def get_theme(self, scope_name):
@@ -94,6 +103,8 @@ class ParsedProgram(object):
                             # log( 4, "Selecting %s with %s", theme_scope, theme_color )
                             return theme_color, theme_scope
 
+            return "", ""
+
         first_matched_color, theme_scope = select()
 
         # log( 4, "first_matched_color: %s", first_matched_color )
@@ -104,8 +115,9 @@ class ParsedProgram(object):
         last_match_stack[-1].append(match)
         match_start = match.start(0)
         match_end = match.end(0)
+        match_start, match_end = match_start, match_end
 
-        self.program = self.program[:match_start] + " " * ( match_end - match_start ) + self.program[match_end:]
+        self.program = self.program[:match_start] + "§" * ( match_end - match_start ) + self.program[match_end:]
         assert len( self.program ) == self.initial_size, "Expected %s got %s" % ( self.initial_size, len(self.program) )
 
         self._generate_chunk_html( scope_name, match[0], match_start, match_end )
@@ -117,12 +129,16 @@ class ParsedProgram(object):
 
         if last_match:
             match_start = last_match.end(0)
+            match_start, match_end = match_start, match_end
+
             self._generate_chunk_html( scope_name, self.program[match_start:match_end], match_start, match_end )
-            self.program = self.program[:last_match.end(0)] + " " * ( match.end(0) - last_match.end(0) ) + self.program[match.end(0):]
+            self.program = self.program[:last_match.end(0)] + "§" * ( match.end(0) - last_match.end(0) ) + self.program[match.end(0):]
 
         else:
             match_start = match.start(0)
-            self.program = self.program[:match_start] + " " * ( match_end - match_start ) + self.program[match_end:]
+            match_start, match_end = match_start, match_end
+
+            self.program = self.program[:match_start] + "§" * ( match_end - match_start ) + self.program[match_end:]
             self._generate_chunk_html( scope_name, matched_text, match_start, match_end )
 
         assert len( self.program ) == self.initial_size, "Expected %s got %s" % ( self.initial_size, len(self.program) )
@@ -132,7 +148,7 @@ class ParsedProgram(object):
         doc = dominate.tags.font( color=first_matched_color, grammar_scope=grammar_scope, theme_scope=theme_scope )
 
         with doc:
-            dominate.util.text( matched_text )
+            dominate.util.raw( dominate.util.escape( matched_text ).replace("\n", "<br />" ) )
 
         formatted_text = str( doc )
         self.new_program.append( ( match_start, match_end, formatted_text ) )
