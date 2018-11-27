@@ -437,7 +437,8 @@ class TestBackEnd(TestingGrammarUtilities):
             +     <title>Abstract Machine Language - source.sma</title>
             +   </head>
             +   <body>
-            +     <div style="font-family: monospace;"><font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">true</font></div>
+            +     <font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">true</font>
+            +     <span style="font-family: monospace;"></span>
             +   </body>
             + </html>
         """, generated_html )
@@ -474,8 +475,9 @@ class TestBackEnd(TestingGrammarUtilities):
             +     <title>Abstract Machine Language - source.sma</title>
             +   </head>
             +   <body>
-            +     <div style="font-family: monospace;"><font color="#FF0000" grammar_scope="comment.line.start.sma" theme_scope="comment">//</font> Example single line commentary
-            +         </div>
+            +     <font color="#FF0000" grammar_scope="comment.line.start.sma" theme_scope="comment">//</font>
+            +     <span grammar_scope="none" theme_scope="none"> Example single line commentary<br />        </span>
+            +     <span style="font-family: monospace;"></span>
             +   </body>
             + </html>
         """, generated_html )
@@ -515,8 +517,11 @@ class TestBackEnd(TestingGrammarUtilities):
             +     <title>Abstract Machine Language - source.sma</title>
             +   </head>
             +   <body>
-            +     <div style="font-family: monospace;"><font color="#FF0000" grammar_scope="comment.line.start.sma" theme_scope="comment">//</font> Example <font color="#FF0000" grammar_scope="comment.middle.start.sma" theme_scope="comment">single</font> line commentary
-            +         </div>
+            +     <font color="#FF0000" grammar_scope="comment.line.start.sma" theme_scope="comment">//</font>
+            +     <span grammar_scope="none" theme_scope="none"> Example </span>
+            +     <font color="#FF0000" grammar_scope="comment.middle.start.sma" theme_scope="comment">single</font>
+            +     <span grammar_scope="none" theme_scope="none"> line commentary<br />        </span>
+            +     <span style="font-family: monospace;"></span>
             +   </body>
             + </html>
         """, generated_html )
@@ -560,7 +565,10 @@ class TestBackEnd(TestingGrammarUtilities):
             +     <title>Abstract Machine Language - source.sma</title>
             +   </head>
             +   <body>
-            +     <div style="font-family: monospace;"><font color="#FF0000" grammar_scope="comment.start.sma" theme_scope="comment">//</font><font color="#00FF00" grammar_scope="comment.line.sma" theme_scope="comment.line"> Example single line commentary<br /></font>        </div>
+            +     <font color="#FF0000" grammar_scope="comment.start.sma" theme_scope="comment">//</font>
+            +     <font color="#00FF00" grammar_scope="comment.line.sma" theme_scope="comment.line"> Example single line commentary<br /></font>
+            +     <span grammar_scope="none" theme_scope="none">        </span>
+            +     <span style="font-family: monospace;"></span>
             +   </body>
             + </html>
         """, generated_html )
@@ -610,6 +618,7 @@ class TestBackEnd(TestingGrammarUtilities):
             "comment" : "#00FF00",
             "function" : "#DDB700",
             "meta" : "#0000FF",
+            "storage" : "#8000FF",
         }
 
         generated_html = self._getBackend(example_grammar, example_program, example_theme)
@@ -622,7 +631,15 @@ class TestBackEnd(TestingGrammarUtilities):
             +     <title>Abstract Machine Language - source.sma</title>
             +   </head>
             +   <body>
-            +     <div style="font-family: monospace;"><font color="#00FF00" grammar_scope="comment.block.documentation.sma" theme_scope="comment">/* Commentary example */</font> <font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">true</font> or <font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">false</font><font color="#DDB700" grammar_scope="function.definition.sma" theme_scope="function"><br />            #define</font><font color="#0000FF" grammar_scope="meta.preprocessor.sma" theme_scope="meta"> GLOBAL_CONSTANT<br /></font>        </div>
+            +     <font color="#00FF00" grammar_scope="comment.block.documentation.sma" theme_scope="comment">/* Commentary example */</font>
+            +     <span grammar_scope="none" theme_scope="none"> </span>
+            +     <font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">true</font>
+            +     <span grammar_scope="none" theme_scope="none"> or </span>
+            +     <font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">false</font>
+            +     <font color="#DDB700" grammar_scope="function.definition.sma" theme_scope="function"><br />            #define</font>
+            +     <font color="#0000FF" grammar_scope="meta.preprocessor.sma" theme_scope="meta"> GLOBAL_CONSTANT<br /></font>
+            +     <span grammar_scope="none" theme_scope="none">        </span>
+            +     <span style="font-family: monospace;"></span>
             +   </body>
             + </html>
         """, generated_html )

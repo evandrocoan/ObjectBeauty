@@ -10,7 +10,7 @@ from collections import OrderedDict
 from debug_tools import getLogger
 from debug_tools.utilities import get_representation
 
-log = getLogger(127, __name__)
+log = getLogger(1, __name__)
 
 
 class ParsedProgram(object):
@@ -26,7 +26,7 @@ class ParsedProgram(object):
         self.theme = OrderedDict( sorted( theme.items(), key=lambda item: len( str( item ) ) ) )
 
         self.new_program = []
-        self.cached_new_program = ""
+        self.cached_new_program = []
         log( 4, "program %s: `%s`", len( str( self.program ) ), self.program )
 
     def __str__(self):
@@ -57,14 +57,15 @@ class ParsedProgram(object):
                 next_chunk = fixed_program[index+1]
 
                 if current_chunk[1] < next_chunk[0]:
-                    text_to_copy = self.program[current_chunk[1]:next_chunk[0]]
-                    self.new_program.append( ( current_chunk[1], next_chunk[0], text_to_copy ) )
+                    doc = self._get_div_doc( self.program[current_chunk[1]:next_chunk[0]] )
+                    self.new_program.append( ( current_chunk[1], next_chunk[0], doc ) )
 
             else:
                 current_chunk = fixed_program[index]
 
                 if current_chunk[1] < len( self.program ):
-                    self.new_program.append( ( current_chunk[1], len( self.program ), self.program[current_chunk[1]:] ) )
+                    doc = self._get_div_doc( self.program[current_chunk[1]:] )
+                    self.new_program.append( ( current_chunk[1], len( self.program ), doc ) )
 
         # At the end of the process, we must to preserve the program size on self.program
         # for the correct merge with the text chunks processed
@@ -79,11 +80,20 @@ class ParsedProgram(object):
         #     if current_chunk[1] > next_chunk[0]:
         #         fixed_program[index], fixed_program[index+1] = fixed_program[index+1], fixed_program[index]
 
-        log( 4, "fixed_program:\n%s", pprint.pformat( fixed_program, indent=2, width=200 ) )
+        log( 4, "fixed_program:\n%s", pprint.pformat( [( item[0], item[1], str(item[2]) )for item in fixed_program], indent=2, width=200 ) )
         log( 4, "cached_new_program: %s", self.cached_new_program )
 
-        self.cached_new_program = "".join( [ item[2] for item in fixed_program ] )
+        self.cached_new_program = [ item[2] for item in fixed_program ]
         return self.cached_new_program
+
+    def _get_div_doc(self, input_text):
+        doc = dominate.tags.span( grammar_scope="none", theme_scope="none" )
+        with doc:
+            self._add_doc_text( input_text )
+        return doc
+
+    def _add_doc_text(self, input_text):
+        dominate.util.raw( dominate.util.escape( input_text ).replace("\n", "<br />" ) )
 
     def get_theme(self, scope_name):
         program_scopes = scope_name.split( '.' )
@@ -148,12 +158,10 @@ class ParsedProgram(object):
         doc = dominate.tags.font( color=first_matched_color, grammar_scope=grammar_scope, theme_scope=theme_scope )
 
         with doc:
-            dominate.util.raw( dominate.util.escape( matched_text ).replace("\n", "<br />" ) )
+            self._add_doc_text( matched_text )
 
-        formatted_text = str( doc )
-        self.new_program.append( ( match_start, match_end, formatted_text ) )
-
-        log( 4, "formatted_text: %s", formatted_text )
+        self.new_program.append( ( match_start, match_end, doc ) )
+        log( 4, "formatted_text: %s", str( doc ) )
         log( 4, "program %s: `%s`", len( str( self.program ) ), self.program )
 
 
@@ -259,8 +267,9 @@ class Backend(pushdown.Interpreter):
         doc = dominate.document( title="%s - %s" % ( self.target_language_name, self.master_scope_name ) )
 
         with doc:
-            with dominate.tags.div( style="font-family: monospace;" ):
-                dominate.util.raw( self.program.get_new_program() )
+            with dominate.tags.span( style="font-family: monospace;" ):
+                for item in self.program.get_new_program():
+                    doc.add( item )
 
         return str( doc )
 
