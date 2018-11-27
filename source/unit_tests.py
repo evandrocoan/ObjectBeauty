@@ -37,6 +37,13 @@ def getCallerName():
     return findCaller()[2]
 
 
+# Things to improve:
+# 1. Remove the open and close braces for block opening and closing, and make blocks indentation based
+# 2. Implement the captures, set statements and other more statements required for perfornace or easy of use
+# 3. Reimplement the whole matching logic, fixing the ordering/sequence issues of interpreting
+# 4. Implement the new missing semantic rules on the semantic_analyzer.py
+# 5. Reduce/decrease memory consuption and optime runtime execution perfornance
+# 6. Theme operator scope matching arithmetics, i.e., function.block.c++ - block
 class TestingGrammarUtilities(TestingUtilities):
 
     def _getParser(self, log_level):
