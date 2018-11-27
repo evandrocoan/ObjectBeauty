@@ -10,7 +10,10 @@ from collections import OrderedDict
 from debug_tools import getLogger
 from debug_tools.utilities import get_representation
 
-log = getLogger(127, __name__)
+log = getLogger(1, __name__)
+
+def _add_doc_text(input_text):
+    dominate.util.raw( dominate.util.escape( input_text, quote=False ).replace("\n", "<br />" ) )
 
 
 class ParsedProgram(object):
@@ -89,11 +92,8 @@ class ParsedProgram(object):
     def _get_div_doc(self, input_text):
         doc = dominate.tags.span( grammar_scope="none", theme_scope="none" )
         with doc:
-            self._add_doc_text( input_text )
+            _add_doc_text( input_text )
         return doc
-
-    def _add_doc_text(self, input_text):
-        dominate.util.raw( dominate.util.escape( input_text, quote=False ).replace("\n", "<br />" ) )
 
     def get_theme(self, scope_name):
         program_scopes = scope_name.split( '.' )
@@ -168,7 +168,7 @@ class ParsedProgram(object):
         doc = dominate.tags.font( color=first_matched_color, grammar_scope=grammar_scope, theme_scope=theme_scope )
 
         with doc:
-            self._add_doc_text( matched_text )
+            _add_doc_text( matched_text )
 
         self.new_program.append( ( match_start, match_end, doc ) )
         log( 4, "formatted_text: %s", str( doc ) )
@@ -289,7 +289,7 @@ class Backend(pushdown.Interpreter):
         with doc:
             with dominate.tags.span( style="font-family: monospace;" ):
                 for item in self.program.get_new_program():
-                    doc.add( item )
+                    dominate.util.raw( str(item) )
 
         return str( doc )
 

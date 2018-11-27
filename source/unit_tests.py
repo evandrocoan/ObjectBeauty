@@ -437,10 +437,10 @@ class TestBackEnd(TestingGrammarUtilities):
             +     <title>Abstract Machine Language - source.sma</title>
             +   </head>
             +   <body>
-            +     <font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">true</font>
-            +     <span style="font-family: monospace;"></span>
+            +     <span style="font-family: monospace;"><font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">true</font></span>
             +   </body>
             + </html>
+
         """, generated_html )
 
     def test_unmatchedProgramCompletionAtEnd(self):
@@ -475,9 +475,9 @@ class TestBackEnd(TestingGrammarUtilities):
             +     <title>Abstract Machine Language - source.sma</title>
             +   </head>
             +   <body>
-            +     <font color="#FF0000" grammar_scope="comment.line.start.sma" theme_scope="comment">//</font>
-            +     <span grammar_scope="none" theme_scope="none"> Example single line commentary<br />        </span>
-            +     <span style="font-family: monospace;"></span>
+            +     <span style="font-family: monospace;">
+            +       <span grammar_scope="none" theme_scope="none"> Example single line commentary<br />        </span><font color="#FF0000" grammar_scope="comment.line.start.sma" theme_scope="comment">//</font><span grammar_scope="none" theme_scope="none"> Example single line commentary<br />        </span>
+            +     </span>
             +   </body>
             + </html>
         """, generated_html )
@@ -517,11 +517,10 @@ class TestBackEnd(TestingGrammarUtilities):
             +     <title>Abstract Machine Language - source.sma</title>
             +   </head>
             +   <body>
-            +     <font color="#FF0000" grammar_scope="comment.line.start.sma" theme_scope="comment">//</font>
-            +     <span grammar_scope="none" theme_scope="none"> Example </span>
-            +     <font color="#FF0000" grammar_scope="comment.middle.start.sma" theme_scope="comment">single</font>
-            +     <span grammar_scope="none" theme_scope="none"> line commentary<br />        </span>
-            +     <span style="font-family: monospace;"></span>
+            +     <span style="font-family: monospace;">
+            +       <span grammar_scope="none" theme_scope="none"> Example </span>
+            +       <span grammar_scope="none" theme_scope="none"> line commentary<br />        </span><font color="#FF0000" grammar_scope="comment.line.start.sma" theme_scope="comment">//</font><span grammar_scope="none" theme_scope="none"> Example </span><font color="#FF0000" grammar_scope="comment.middle.start.sma" theme_scope="comment">single</font><span grammar_scope="none" theme_scope="none"> line commentary<br />        </span>
+            +     </span>
             +   </body>
             + </html>
         """, generated_html )
@@ -565,10 +564,9 @@ class TestBackEnd(TestingGrammarUtilities):
             +     <title>Abstract Machine Language - source.sma</title>
             +   </head>
             +   <body>
-            +     <font color="#FF0000" grammar_scope="comment.start.sma" theme_scope="comment">//</font>
-            +     <font color="#00FF00" grammar_scope="comment.line.sma" theme_scope="comment.line"> Example single line commentary<br /></font>
-            +     <span grammar_scope="none" theme_scope="none">        </span>
-            +     <span style="font-family: monospace;"></span>
+            +     <span style="font-family: monospace;">
+            +       <span grammar_scope="none" theme_scope="none">        </span><font color="#FF0000" grammar_scope="comment.start.sma" theme_scope="comment">//</font><font color="#00FF00" grammar_scope="comment.line.sma" theme_scope="comment.line"> Example single line commentary<br /></font><span grammar_scope="none" theme_scope="none">        </span>
+            +     </span>
             +   </body>
             + </html>
         """, generated_html )
@@ -634,6 +632,7 @@ class TestBackEnd(TestingGrammarUtilities):
             "meta" : "#0000FF",
             "storage" : "#8000FF",
             "string" : "#808080",
+            "punctuation" : "#FF0000",
         }
 
         generated_html = self._getBackend(example_grammar, example_program, example_theme)
@@ -646,19 +645,12 @@ class TestBackEnd(TestingGrammarUtilities):
             +     <title>Abstract Machine Language - source.sma</title>
             +   </head>
             +   <body>
-            +     <font color="#00FF00" grammar_scope="comment.block.documentation.sma" theme_scope="comment">/* Commentary example */</font>
-            +     <span grammar_scope="none" theme_scope="none"> </span>
-            +     <font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">true</font>
-            +     <span grammar_scope="none" theme_scope="none"> or </span>
-            +     <font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">false</font>
-            +     <font color="#DDB700" grammar_scope="function.definition.sma" theme_scope="function"><br />            #define</font>
-            +     <font color="#0000FF" grammar_scope="meta.preprocessor.sma" theme_scope="meta"> GLOBAL_CONSTANT<br /></font>
-            +     <span grammar_scope="none" theme_scope="none">            var string = </span>
-            +     <font color="" grammar_scope="punctuation.definition.string.begin.sma" theme_scope="">"</font>
-            +     <font color="#808080" grammar_scope="string.quoted.double.sma" theme_scope="string">My string definition</font>
-            +     <font color="" grammar_scope="punctuation.definition.string.end.sma" theme_scope="">"</font>
-            +     <span grammar_scope="none" theme_scope="none"><br />        </span>
-            +     <span style="font-family: monospace;"></span>
+            +     <span style="font-family: monospace;">
+            +       <span grammar_scope="none" theme_scope="none"> </span>
+            +       <span grammar_scope="none" theme_scope="none"> or </span>
+            +       <span grammar_scope="none" theme_scope="none">            var string = </span>
+            +       <span grammar_scope="none" theme_scope="none"><br />        </span><font color="#00FF00" grammar_scope="comment.block.documentation.sma" theme_scope="comment">/* Commentary example */</font><span grammar_scope="none" theme_scope="none"> </span><font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">true</font><span grammar_scope="none" theme_scope="none"> or </span><font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">false</font><font color="#DDB700" grammar_scope="function.definition.sma" theme_scope="function"><br />            #define</font><font color="#0000FF" grammar_scope="meta.preprocessor.sma" theme_scope="meta"> GLOBAL_CONSTANT<br /></font><span grammar_scope="none" theme_scope="none">            var string = </span><font color="#FF0000" grammar_scope="punctuation.definition.string.begin.sma" theme_scope="punctuation">"</font><font color="#808080" grammar_scope="string.quoted.double.sma" theme_scope="string">My string definition</font><font color="#FF0000" grammar_scope="punctuation.definition.string.end.sma" theme_scope="punctuation">"</font><span grammar_scope="none" theme_scope="none"><br />        </span>
+            +     </span>
             +   </body>
             + </html>
         """, generated_html )
