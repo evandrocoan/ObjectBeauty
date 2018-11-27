@@ -12,6 +12,23 @@
 % https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
 \chapter{Object Beautifier}\label{sec:software_implementation}
 
+Para processar a árvore de sintática, é necessário iterar várias vezes pela árvore, que novos escopos não sejam mais aplicados.
+Por exemplo,
+pawn_string: {
+  match: " {
+    scope: punctuation.definition.string.begin.sma
+    push: {
+      meta_scope: string.quoted.double.sma
+      match: " {
+        scope: punctuation.definition.string.end.sma
+        pop: true
+      }
+    }
+  }
+}
+Essa gramática é válida para reconhecer strings, mas se pegar a primeira expressão
+regular e fizer um findall(), eu também vou retornar o fechamento da string.
+Assim, quando eu chegar no fecha aspas, ele já vai está consumido.
 
 Criar uma nova linguagem para entrar com a syntaxe como sublime text, mas sem utilizar YAML.
 Assim, faz isso como trabalho final de compiladores, onde o seu backend será o formatador.
