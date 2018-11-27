@@ -582,6 +582,7 @@ class TestBackEnd(TestingGrammarUtilities):
               include: pawn_comment
               include: pawn_boolean
               include: pawn_preprocessor
+              include: pawn_string
             }
             pawn_boolean: {
               match: (true|false) {
@@ -604,12 +605,25 @@ class TestBackEnd(TestingGrammarUtilities):
                 }
               }
             }
+            pawn_string: {
+              match: "(?=.*") {
+                scope: punctuation.definition.string.begin.sma
+                push: {
+                  meta_scope: string.quoted.double.sma
+                  match: "(?!.*") {
+                    scope: punctuation.definition.string.end.sma
+                    pop: true
+                  }
+                }
+              }
+            }
         """
 
         example_program = \
         r"""
             /* Commentary example */ true or false
             #define GLOBAL_CONSTANT
+            var string = "My string definition"
         """
 
         example_theme = \
@@ -619,6 +633,7 @@ class TestBackEnd(TestingGrammarUtilities):
             "function" : "#DDB700",
             "meta" : "#0000FF",
             "storage" : "#8000FF",
+            "string" : "#808080",
         }
 
         generated_html = self._getBackend(example_grammar, example_program, example_theme)
@@ -638,7 +653,11 @@ class TestBackEnd(TestingGrammarUtilities):
             +     <font color="#FF0000" grammar_scope="boolean.sma" theme_scope="boolean">false</font>
             +     <font color="#DDB700" grammar_scope="function.definition.sma" theme_scope="function"><br />            #define</font>
             +     <font color="#0000FF" grammar_scope="meta.preprocessor.sma" theme_scope="meta"> GLOBAL_CONSTANT<br /></font>
-            +     <span grammar_scope="none" theme_scope="none">        </span>
+            +     <span grammar_scope="none" theme_scope="none">            var string = </span>
+            +     <font color="" grammar_scope="punctuation.definition.string.begin.sma" theme_scope="">"</font>
+            +     <font color="#808080" grammar_scope="string.quoted.double.sma" theme_scope="string">My string definition</font>
+            +     <font color="" grammar_scope="punctuation.definition.string.end.sma" theme_scope="">"</font>
+            +     <span grammar_scope="none" theme_scope="none"><br />        </span>
             +     <span style="font-family: monospace;"></span>
             +   </body>
             + </html>

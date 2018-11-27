@@ -10,7 +10,7 @@ from collections import OrderedDict
 from debug_tools import getLogger
 from debug_tools.utilities import get_representation
 
-log = getLogger(1, __name__)
+log = getLogger(127, __name__)
 
 
 class ParsedProgram(object):
@@ -93,7 +93,7 @@ class ParsedProgram(object):
         return doc
 
     def _add_doc_text(self, input_text):
-        dominate.util.raw( dominate.util.escape( input_text ).replace("\n", "<br />" ) )
+        dominate.util.raw( dominate.util.escape( input_text, quote=False ).replace("\n", "<br />" ) )
 
     def get_theme(self, scope_name):
         program_scopes = scope_name.split( '.' )
@@ -132,17 +132,27 @@ class ParsedProgram(object):
 
         self._generate_chunk_html( scope_name, match[0], match_start, match_end )
 
-    def add_meta_scope(self, scope_name, last_matches, match):
+    def add_meta_scope(self, scope_name, last_matches, match, ignore_last_match=False):
+        """ ignore_last_match is set when the last_match value was already scoped,
+            and as we only support scoping text one time, we have to ignore the last_match """
         log( 4, "add_meta_scope: %s", match )
         last_match = last_matches.pop() if last_matches else None
         match_end = match.end(0)
 
         if last_match:
+            log( 4, "match.start: %s, match.end: %s", match.start(0), match.end(0) )
+            log( 4, "last_match.start: %s, last_match.end: %s", last_match.start(0), last_match.end(0) )
+
+            # match.start: 134, match.end: 135
+            # last_match.start: 113, last_match.end: 114
+            if ignore_last_match and match.start(0) > last_match.start(0):
+                match_end = match.start(0)
+
             match_start = last_match.end(0)
             match_start, match_end = match_start, match_end
 
             self._generate_chunk_html( scope_name, self.program[match_start:match_end], match_start, match_end )
-            self.program = self.program[:last_match.end(0)] + "§" * ( match.end(0) - last_match.end(0) ) + self.program[match.end(0):]
+            self.program = self.program[:match_start] + "§" * ( match_end - match_start ) + self.program[match_end:]
 
         else:
             match_start = match.start(0)
@@ -240,15 +250,25 @@ class Backend(pushdown.Interpreter):
         log( 4, "is_there_push_after_match: %s", self.is_there_push_after_match )
         log( 4, "is_there_scope_after_match: %s", self.is_there_scope_after_match )
 
+        # When there is a scope_name_statement after a push_statement, it means that
+        # the self.match regular expression was already evaluated, therefore, we
+        # must to reuse the cached result on the top of the stack and ignore the
+        # penultimate matches positions
         if not self.is_there_push_after_match and self.is_there_scope_after_match:
-            self.last_match_stack.pop()
+            last_matches = self.last_match_stack.pop()
+            matches = self.last_match_stack.pop()
+            reversed_matches = list( reversed( matches ) )
 
-        last_matches = self.last_match_stack.pop()
-        reversed_last_matches = list( reversed( last_matches ) )
+            for last_match in last_matches:
+                self.program.add_meta_scope( str(self.meta_scope), reversed_matches, last_match, True )
 
-        for last_match in last_matches:
-            match = self.match.search( str( self.program ), last_match.end(0) )
-            self.program.add_meta_scope( str(self.meta_scope), reversed_last_matches, match )
+        else:
+            last_matches = self.last_match_stack.pop()
+            reversed_last_matches = list( reversed( last_matches ) )
+
+            for last_match in last_matches:
+                match = self.match.search( str( self.program ), last_match.end(0) )
+                self.program.add_meta_scope( str(self.meta_scope), reversed_last_matches, match )
 
     def scope_name_statement(self, tree):
         """ Used the saved self.match to process the input program. """
