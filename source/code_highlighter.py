@@ -22,12 +22,12 @@ def get_font_doc(input_text, color, grammar_scope, theme_scope):
             color, grammar_scope, theme_scope, escape_html( input_text )
         )
 
-def get_html_header():
+def get_html_header(title):
     return debug_tools.utilities.wrap_text(
         r"""
-            <!DOCTYPE html><html><head><title>Abstract Machine Language - source.sma</title></head>
+            <!DOCTYPE html><html><head><title>%s</title></head>
             <body style="white-space: pre; font-family: monospace;">
-        """
+        """ % ( title )
     )
 
 def get_html_footer():
@@ -297,8 +297,7 @@ class Backend(pushdown.Interpreter):
 
     def generated_html(self):
         log( 4, "..." )
-        doc = dominate.document( title="%s - %s" % ( self.target_language_name, self.master_scope_name ) )
-        document = [ get_html_header() ]
+        document = [ get_html_header( "%s - %s" % ( self.target_language_name, self.master_scope_name ) ) ]
 
         for item in self.program.get_new_program():
             document.append( str(item) )
