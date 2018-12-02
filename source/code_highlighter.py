@@ -57,7 +57,7 @@ class ParsedProgram(object):
     def __str__(self):
         """
             Returns the current version of the program,
-            after being cuted by add_match().
+            after being cut by add_match().
         """
         return self.program
 
@@ -205,8 +205,23 @@ class Backend(pushdown.Interpreter):
         self.is_there_push_after_match = False
         self.is_there_scope_after_match = False
 
+        self.cached_includes = {}
+        self.cache_includes( tree )
+
         self.visit( tree )
         log( 4, "Tree: \n%s", tree.pretty( debug=0 ) )
+
+    def cache_includes(self, tree):
+        log( 4, "tree.data: ", tree.data )
+
+        for child in tree.children:
+
+            if isinstance(child, Tree) and child.data == "miscellaneous_language_rules":
+                include_name = child.children[0]
+                include_tree = child.children[1]
+
+                log( 4, "include_name: ", include_name )
+                self.cached_includes[include_name] = include_tree
 
     def target_language_name_statement(self, tree):
         target_language_name = tree.children[0]
@@ -219,6 +234,16 @@ class Backend(pushdown.Interpreter):
 
         self.master_scope_name = master_scope_name
         log( 4, "master_scope_name: %s", master_scope_name )
+
+    def include_statement(self, tree):
+        include_statement = str( tree.children[0] )
+
+        log( 4, "include_statement: %s", include_statement )
+        self.visit_children( self.cached_includes[include_statement] )
+
+    def miscellaneous_language_rules(self, tree):
+        miscellaneous_language_rules = tree.children[0]
+        log( 4, "miscellaneous_language_rules: %s", miscellaneous_language_rules )
 
     ## match_statement -> scope_name_statement -> push_statement ->
     ##                                                              match_statement -> pop_statement
