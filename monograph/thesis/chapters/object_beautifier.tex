@@ -14,6 +14,7 @@
 
 Para processar a árvore de sintática, é necessário iterar várias vezes pela árvore, que novos escopos não sejam mais aplicados.
 Por exemplo,
+\begin{lstlisting}
 pawn_string: {
   match: " {
     scope: punctuation.definition.string.begin.sma
@@ -26,6 +27,7 @@ pawn_string: {
     }
   }
 }
+\end{lstlisting}
 Essa gramática é válida para reconhecer strings, mas se pegar a primeira expressão
 regular e fizer um findall(), eu também vou retornar o fechamento da string.
 Assim, quando eu chegar no fecha aspas, ele já vai está consumido.
@@ -91,23 +93,28 @@ the language meaning.
 This program class is commonly know as text formatters.
 The differential from this work from others is the goal of a single expandable tool,
 capable of manipulating all existent and future programming languages,
-based on the use of deterministic \cite{TODO:
-deterministic free grammars explanation} and controlled nondeterministic \cite{TODO:
-section explaning what does controlled means} context free grammars.
+based on the use of deterministic
+% TODO:\cite{deterministic free grammars explanation}
+and controlled nondeterministic
+% \cite{TODO:section explaning what does controlled means}
+context free grammars.
 
 This audacious goal,
 can only be accomplished because the proposed tool does not rely on the lex,
-syntax and semantic aspects \cite{TODO:
-what does these languages aspects are} of any used languages.
+syntax and semantic aspects
+% \cite{TODO:what does these languages aspects are}
+of any used languages.
 Therefore,
 it is up to this tool users\s to write the lex and syntactic,
 but they are not required to write the semantic aspects of the desired language,
-as the objective of text formatters is to change the structural aspects \cite{TODO:
-what are the source code formatters objectives}.
+as the objective of text formatters is to change the structural aspects
+% \cite{TODO:what are the source code formatters objectives}
+.
 
 
 
-.sublime-syntax or my .object-beauty is a meta-language, as EBNF \cite{Extended Backus–Naur form}.
+.sublime-syntax or my .object-beauty is a meta-language, as EBNF
+% TODO: \cite{Extended Backus–Naur form}.
 
 With this approach, it is not required for the user to input language\s grammar is
 
