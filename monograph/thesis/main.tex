@@ -137,8 +137,15 @@
 % \addtoincludeonly{aftertext/abstracts}
 
 % Control whether the full document will be generated
-\doincludeonly
-\forcedincludetrue
+% Note: It will also generate severals errors like the following, which can be ignored
+%       Latexmk: Missing input file: 'chapters/test.aux'
+%
+% You can make latex stop generate these errors, if you generate a full version
+% of the document, before uncommenting these lines.
+%
+% Uncomment these two lines, to only partially generate the document
+% \doincludeonly
+% \forcedincludetrue
 
 
 
