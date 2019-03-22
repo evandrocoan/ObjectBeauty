@@ -3,9 +3,9 @@
     {
         "TEXroot": "./monograph/thesis/main.tex",
         "rulers": [80],
-        // "WrapPlus.semantic_line_wrap": true,
+        "WrapPlus.semantic_line_wrap": true,
         "WrapPlus.semantic_maximum_items_in_comma_separated_list": 1,
-        "buildview.enabled": true,
+        // "buildview.enabled": true,
         "buildview.scroll": "last",
         "buildview.focus_build": false,
         "show_panel_on_build": true,
@@ -116,64 +116,50 @@
             "syntax": "Packages/Text/Plain text.tmLanguage",
         },
         {
-            "name": "Monograph - Proposal",
-            "cmd": ["make", "proposal"],
-
-            "shell": true,
-            "working_dir": "$project_path/../monograph",
-
-            "target": "exec",
-            "syntax": "Packages/Text/Plain text.tmLanguage",
-        },
-        {
-            "name": "Monograph - Thesis",
+            "name": "Monograph",
             "cmd": ["make", "thesis"],
 
             "shell": true,
-            "working_dir": "$project_path/../monograph",
+            "working_dir": "$project_path/../monograph/thesis",
 
             "target": "exec",
             "syntax": "Packages/Text/Plain text.tmLanguage",
-        },
-        {
-            "name": "Monograph - Thesis Biber",
-            "cmd": ["make", "biber"],
 
-            "shell": true,
-            "working_dir": "$project_path/../monograph",
+            "osx": { "file_regex": "^(...*?):([0-9]+): ([0-9]*)([^\\.]+)"},
+            "windows": { "file_regex": "^((?:.:)?[^:\n\r]*):([0-9]+):?([0-9]+)?:? (.*)$" },
+            "linux": {  "file_regex": "^(...*?):([0-9]+): ([0-9]*)([^\\.]+)" },
 
-            "target": "exec",
-            "syntax": "Packages/Text/Plain text.tmLanguage",
-        },
-        {
-            "name": "Monograph - Thesis Latex",
-            "cmd": ["make", "latex"],
-
-            "shell": true,
-            "working_dir": "$project_path/../monograph",
-
-            "target": "exec",
-            "syntax": "Packages/Text/Plain text.tmLanguage",
-        },
-        {
-            "name": "Monograph - Thesis Verbose",
-            "cmd": ["make", "thesis_verbose"],
-
-            "shell": true,
-            "working_dir": "$project_path/../monograph",
-
-            "target": "exec",
-            "syntax": "Packages/Text/Plain text.tmLanguage",
-        },
-        {
-            "name": "Monograph - Thesis Clean",
-            "cmd": ["make", "clean"],
-
-            "shell": true,
-            "working_dir": "$project_path/../monograph",
-
-            "target": "exec",
-            "syntax": "Packages/Text/Plain text.tmLanguage",
+            "variants":
+            [
+                {
+                    "name": "Proposal",
+                    "cmd": ["make", "proposal"],
+                },
+                {
+                    "name": "Thesis (Default)",
+                    "cmd": ["make", "thesis"],
+                },
+                {
+                    "name": "Thesis Biber",
+                    "cmd": ["make", "biber"],
+                },
+                {
+                    "name": "Thesis LaTeX",
+                    "cmd": ["make", "latex"],
+                },
+                {
+                    "name": "Thesis Verbose",
+                    "cmd": ["make", "thesis_verbose"],
+                },
+                {
+                    "name": "Thesis Clean",
+                    "cmd": ["make", "clean"],
+                },
+                {
+                    "name": "Thesis Veryclean",
+                    "cmd": ["make", "veryclean"],
+                },
+            ],
         },
     ]
 }
