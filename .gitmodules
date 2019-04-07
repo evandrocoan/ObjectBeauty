@@ -4,9 +4,9 @@
 [submodule "monograph/scripts"]
 	path = monograph/scripts
 	url = https://github.com/evandrocoan/script_utilities
-[submodule "monograph/thesis/ufscthesisx"]
-	path = monograph/thesis/ufscthesisx
-	url = https://github.com/evandrocoan/ufscthesisx
 [submodule "code/lark-parser"]
 	path = source/pushdown
 	url = https://github.com/evandroforks/pushdown
+[submodule "monograph/thesis/setup"]
+	path = monograph/thesis/setup
+	url = https://github.com/evandrocoan/ufscthesisx-setup
