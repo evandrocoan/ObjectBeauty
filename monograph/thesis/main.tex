@@ -1,5 +1,3 @@
-
-%
 % Simple Sectioned Essay Template - LaTeX Template
 %
 % This template has been downloaded from:
@@ -24,93 +22,140 @@
 % You can build this using the command:
 % latexmk -pdf -jobname=output -output-directory=cache -aux-directory=cache -pdflatex="pdflatex -interaction=nonstopmode" -use-make main.tex
 
-% You need to run `pdfTeX` 5 times on the following order: 1. `pdfTeX`, 2. `biber`, 3. `pdfTeX` 4.
-% `pdfTeX` 5. `pdfTeX` 6. `biber` 7. `pdfTeX`, when the bibliography includes a cyclic reference to
-% another bibliography, so we need a last pass to fix the bibliography undefined references.
+% When the bibliography includes a cyclic reference to another bibliography,
+% you need to run `pdfTeX` 5 times on the following order:
+% 1. `pdfTeX`,
+% 2. `biber`,
+% 3. `pdfTeX`
+% 4. `pdfTeX`
+% 5. `pdfTeX`
+% 6. `biber`
+% 7. `pdfTeX`
 
-
-
-%----------------------------------------------------------------------------------------
-%   PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
-
-% Uncomment the line `\englishtrue` to set the document default language to english.
-%
-% Is it possible to keep my translation together with original text?
+% Allows you to write your thesis both in English and Portuguese
 % https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
 \newif\ifenglish\englishfalse
+
+% Uncomment the line `\englishtrue` to set the document default language to English
 \englishtrue
 
-% How to expand \ifthenelse so that it can be used in \parshape?
 % https://tex.stackexchange.com/questions/131002/how-to-expand-ifthenelse-so-that-it-can-be-used-in-parshape
 \newcommand{\lang}[2]{\ifenglish#1\else#2\fi}
 
-% Disable the empty pages automatically put by memoir class, except the ones by \cleardoublepage
-\PassOptionsToClass{openany}{memoir}
-
-% How to make \PassOptionsToPackage add the option as the last option?
 % https://tex.stackexchange.com/questions/385895/how-to-make-passoptionstopackage-add-the-option-as-the-last
 \ifenglish
     \newcommand{\swapcontents}[2]{#1 #2}
-
-    \PassOptionsToPackage{language=english}{biblatex}
     \PassOptionsToPackage{brazil,main=english,spanish,french}{babel}
 \else
     \newcommand{\swapcontents}[2]{#2 #1}
-
-    \PassOptionsToPackage{language=brazil}{biblatex}
     \PassOptionsToPackage{main=brazil,english,spanish,french}{babel}
 \fi
 
+% Simple alias for English and Portuguese words
+\newcommand{\brazilword}[1]{\foreignlanguage{brazil}{#1}}
+\newcommand{\englishword}[1]{\foreignlanguage{english}{#1}}
 
-% Includes and fixes several `abntex2` class problems
-\input{ufscthesisx/setup/setup}
+% Backward compatibility with `abntex2cite` package `\citeonline` command with the new `biblatex` package
+% https://tex.stackexchange.com/questions/655/what-is-the-difference-between-def-and-newcommand
+\let\citeonline\textcite
 
-% Load the UFSC thesis settings
-\usepackage{ufscthesisx/setup/ufscthesisx}
+% Uncomment the following line if you want to use other biblatex settings
+% \PassOptionsToPackage{style=numeric,repeatfields=true,backend=biber,backref=true,citecounter=true}{biblatex}
 
-% Load all required basic packages
-\input{ufscthesisx/setup/utilities/basic}
-\input{ufscthesisx/setup/utilities/commands}
+% Disable the empty pages automatically put by memoir class, except the ones by \cleardoublepage
+% \PassOptionsToClass{openany}{memoir}
 
-% Bad boxes settings and programming environments
-\input{ufscthesisx/setup/utilities/badboxes}
-\input{ufscthesisx/setup/utilities/programming}
+% Fixes several `abntex2` class problems
+\input{setup/setup.tex}
 
-% Input a empty list of commands when on debug mode
-\input{ufscthesisx/setup/utilities/commands_list}
+% The UFSC font size is 10.5, but memoir embedded by `abntex2` only accepts 10 and 11pt.
+% However, problem will be fixed the `ufscthesisx` package.
+\documentclass[
+10pt,          % Padrão UFSC para versão final
+a5paper,       % Padrão UFSC para versão final
+% 12pt,        % Pode usar tamanho 12pt para defesa
+% a4paper,     % Pode usar a4 para defesa
+twoside,       % Impressão nos dois lados da folha
+chapter=TITLE, % Título de capítulos em caixa alta
+section=TITLE, % Título de seções em caixa alta
+]{abntex2}
 
-% Comment this, unless you are debugging pages' badness Underfull & Overflow
-% https://tex.stackexchange.com/questions/115908/geometry-showframe-landscape
-%
-% What is the difference between \usepackage{showframe} and \usepackage[showframe]{geometry}?
-% https://tex.stackexchange.com/questions/387077/what-is-the-difference-between-usepackageshowframe-and-usepackageshowframe
-%
-% How to do the memoir headings fix but not have my text going over the page bottom margins?
-% https://tex.stackexchange.com/questions/387257/how-to-do-the-memoir-headings-fix-but-not-have-my-text-going-over-the-page-botto
-%
-% Print page margins of a document, for debugging bad boxes
-% https://tex.stackexchange.com/questions/14508/print-page-margins-of-a-document
-% \usepackage[showframe,pass]{geometry}
+% Load the UFSC thesis package
+\usepackage{setup/ufscthesisx}
 
-% To use the font Times New Roman, instead of the default LaTeX font
-% more up-to-date than '\usepackage{mathptmx}'
-\usepackage{newtxtext}
-\usepackage{newtxmath}
+% Load extra commands for tables, lists, summaries, etc.
+\input{setup/utilities.tex}
 
-% Always use it as should improve full justification
-% https://tex.stackexchange.com/questions/10377/texttt-overfull-hbox-problem
-% https://tex.stackexchange.com/questions/66052/should-i-load-microtype-with-pdflatex
-\usepackage{microtype}
-
-
-
-%----------------------------------------------------------------------------------------
-%   File settings
-%----------------------------------------------------------------------------------------
-
-\input{settings}
+% % Utilize o arquivo aftertext/references.bib para incluir sua bibliografia.
 \addbibresource{aftertext/references.bib}
+
+% FIXME: Descomente a linha abaixo se seu trabalho for um TCC
+\def\tcc{}
+
+% FIXME: Preencha com seus dados
+\autor{Evandro Coan}
+\titulo{Source Code Formatting Tools}
+
+% FIXME: Se houver subtítulo, descomente a linha abaixo
+% \subtitulo{Subtítulo }
+
+% FIXME: Siglas para grau de formação Dr./Dra., Me./Ma, Bel. Bela. (inglês: PhD., MSc., Bs.)
+\orientador{Rafael de Santiago, \lang{Phd.}{Dr.}}
+
+% FIXME: Se houver coorientador, descomente a linha abaixo
+% \coorientador[Coorientador(a)]{Nome do coorientador(a), \lang{Phd.}{Dr.}}
+
+% FIXME: Preencher com o nome do Coordenador de TCCs/Teses do seu curso
+\coordenador{Renato Cislaghi, \lang{Phd.}{Dr.}}
+
+% FIXME: Local da sua defesa
+\local{\brazilword{Florianópolis, Santa Catarina} -- Brazil}
+
+% FIXME: Ano da sua defesa
+\ano{2019}
+\biblioteca{University Library}
+\instituicaosigla{UFSC}
+\instituicao{Federal University of Santa Catarina}
+
+% FIXME: Preencha com Tese, Dissertação, Monografia ou Trabalho de Conclusão de Curso, Bachelor's Thesis, etc
+\tipotrabalho{Bachelor's Thesis}
+
+% FIXME: Se houver Área de Concentração, descomente a linha abaixo
+\area{Formal Languages}
+
+% FIXME: Preencha com Doutor, Bacharel ou Mestrando
+\formacao{Bachelor of Science Degree in Computer Science}
+\programa{Undergraduate Program in Computer Science}
+
+% FIXME: Preencha com Departamento de XXXXXX, Centro de XXXXXX
+\centro{INE - Department of Informatics and Statistics, CTC - Technological Center}
+
+% FIXME: Data da sua defesa
+\data{30 de março de 2001}
+
+\newcommand{\palavraschaveportugues}
+{%
+    \item fonte. \item código. \item formatador. \item embelezante. \item prettyprint. \item
+    universal. \item reuso. \item blocos. \item objeto. \item orientado. \item programação. \item
+    estruturada. \item análise. \item analisador. \item regular. \item expressão. \item regex. \item
+    C. \item C++. \item gramática. \item Turing. \item máquina. \item autômatos. \item lexer. \item
+    sintaxe. \item Sublime. \item Java. \item Rust. \item Shell. \item roteiro. \item ofuscadores.
+    \item aprendizado. \item Syntec. \item teamicide. \item consenso. \item indentation. \item
+    configurações.
+}
+
+\newcommand{\palavraschaveingles}
+{%
+    \item source. \item code. \item formatter. \item beautifier. \item prettyprint. \item universal.
+    \item reuse. \item blocks. \item object. \item oriented. \item programming. \item structured.
+    \item parsing. \item parse. \item regular. \item expression. \item regex. \item C. \item C++.
+    \item grammar. \item Turing. \item machine. \item automata. \item lexer. \item syntax. \item
+    Sublime. \item Java. \item Rust. \item Shell. \item script. \item obfuscators. \item learning.
+    \item syntec. \item teamicide. \item concensus. \item indentação. \item settings.
+}
+
+% Altere o arquivo 'settings.tex' para incluir customizações de aparência da sua tese
+\input{settings.tex}
 
 % When writing a large document, it is sometimes useful to work on selected sections of the document
 % to speed up compilation time: https://en.wikibooks.org/wiki/TeX/includeonly
@@ -147,32 +192,41 @@
 % \doincludeonly
 % \forcedincludetrue
 
+\ifenglish
+    \hypersetup
+    {
+        pdfauthor={Author},
+        pdfsubject={Thesis' Abstract},
+        pdfcreator={LaTeX with abnTeX2 for UFSC},
+        pdfkeywords={abnt}{latex}{UFSC}{abntex2}{thesis},
+    }
+\else
+    \hypersetup
+    {
+        pdfauthor={Autores},
+        pdfsubject={Resumo da tese},
+        pdfcreator={LaTeX com abnTeX2 para UFSC},
+        pdfkeywords={abnt}{latex}{UFSC}{abntex2}{tese},
+    }
+\fi
 
-
-%----------------------------------------------------------------------------------------
-%   DOCUMENT CONTENTS
-%----------------------------------------------------------------------------------------
 \begin{document}
 
-    % Comment this after finishing the thesis, so you can start fixing the \flushbottom vs \raggedbottom
+    % FIXME: Comment this after finishing the thesis, so you can start fixing the \flushbottom vs \raggedbottom
     % https://tex.stackexchange.com/questions/65355/flushbottom-vs-raggedbottom
     \raggedbottom
 
-    % Retira espaço extra obsoleto entre as frases `Double space between sentences`
     % https://tex.stackexchange.com/questions/4705/double-space-between-sentences
     \frenchspacing
 
     % ELEMENTOS PRÉ-TEXTUAIS
-    \input{ufscthesisx/setup/beforetext}
-
-
+    \input{beforetext/beforetext.tex}
 
     % ELEMENTOS TEXTUAIS
     \textual
 
-    % To automatically put a [Go To Top/Back] ←← | ← on each section
-    \addGoToSummary
-
+    % Uncomment this to put a ←← | ← (Go To Top/Go Back) on each section header
+    % \addGoToSummary
     \setlength\beforechapskip{50pt}
     \setlength\midchapskip{20pt}
     \setlength\afterchapskip{20pt}
@@ -199,8 +253,6 @@
     % Conclusão (outro exemplo de capítulo sem numeração e presente no sumário)
     \include{chapters/conclusion}
 
-
-
     % ELEMENTOS PÓS-TEXTUAIS
     \postextual
     \setlength\beforechapskip{0pt}
@@ -209,32 +261,32 @@
 
     % Referências bibliográficas
     \begingroup
-        % How to modify line spacing per entry of bibliography?
         % https://tex.stackexchange.com/questions/163559/how-to-modify-line-spacing-per-entry-of-bibliography
-        \linespread{1.18}\selectfont
-        \printbibliography
+        % \linespread{1.18}\selectfont
+
+        % https://tex.stackexchange.com/questions/17128/using-bibtex-to-make-a-list-of-references-without
+        % \nocite{*}
+        \printbibliography[title=REFERÊNCIAS]
     \endgroup
 
     % Glossário, consulte o manual da classe abntex2 para orientações sobre o glossário.
     % \ifforcedinclude\else\glossary\fi
 
-    % Apêndices, inicia os apêndices
+    % Inicia os apêndices
     \begin{apendicesenv}
         % Imprime uma página indicando o início dos apêndices
         \ifforcedinclude\else\partapendices\fi
-
         \setlength\beforechapskip{50pt}
         \setlength\midchapskip{20pt}
         \setlength\afterchapskip{20pt}
 
-        % \include{aftertext/apendice_a}
+        \include{aftertext/apendice_a}
     \end{apendicesenv}
 
-    % Anexos, inicia os anexos
+    % Inicia os anexos
     \begin{anexosenv}
         % Imprime uma página indicando o início dos anexos
         \ifforcedinclude\else\partanexos\fi
-
         \setlength\beforechapskip{50pt}
         \setlength\midchapskip{20pt}
         \setlength\afterchapskip{20pt}
@@ -249,3 +301,4 @@
     \fi
 
 \end{document}
+

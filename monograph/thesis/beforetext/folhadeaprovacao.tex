@@ -5,50 +5,63 @@
 \begin{folhadeaprovacao}
 
     \begin{center}
-        {\ABNTEXchapterfont\large\imprimirautor}
+        {\imprimirautor}
 
         \begin{center}
-            \ABNTEXchapterfont\bfseries\Large\imprimirtitulo
+            \ABNTEXchapterfont\bfseries\MakeUppercase{\imprimirtitulo}\ifnotempty{\imprimirsubtitulo}{: \imprimirsubtitulo}
         \end{center}
 
         \begin{minipage}{\textwidth}
             \lang
             {
-                This thesis was considered appropriate to obtain the \imprimirformacao, in the area
-                of \imprimirarea, and approved in its final form by the \imprimirprograma of the
-                \imprimirinstituicao.
+                This \imprimirtipotrabalho~ was considered appropriate to get the \imprimirformacao,
+                \ifnotempty{\imprimirarea}{in the area of \imprimirarea,}
+                and it was approved by the \imprimirprograma~ of \imprimircentro~ of \imprimirinstituicao.
             }
             {
-                Esta Tese foi julgada adequada para obtenção do Título de \imprimirformacao, na área
-                de \imprimirarea, e aprovada em sua forma final pelo \imprimirprograma da
-                \imprimirinstituicao.
+                Este(a) \imprimirtipotrabalho~ foi julgado adequado(a) para obtenção do Título de \imprimirformacao,
+                \ifnotempty{\imprimirarea}{na área de concentração \imprimirarea,}
+                e foi aprovado em sua forma final pelo \imprimirprograma~
+                do \imprimircentro~ da \imprimirinstituicao.
             }
-        \end{minipage}%
-
+         \end{minipage}%
     \end{center}
+
     \begin{center}
-        Florianópolis, \imprimirdata.
+        \imprimirlocal, \imprimirdata.
     \end{center}
 
-    \assinatura{\textbf{Prof. Renato Cislaghi, \lang{PhD.}{Dr.}} \\
-    \lang{Coordinator of the}{Coordenador do} \imprimirprograma}
+    \assinatura{%
+        \textbf{\imprimircoordenador} \\
+        \imprimircoordenadorRotulo~\lang{of}{do} \imprimirprograma
+    }
 
-    \assinatura{\textbf{\imprimirorientador} \\ \imprimirorientadorRotulo \\
-    \imprimirinstituicao~--~\imprimirinstituicaosigla}
-
-    \assinatura{\textbf{\imprimircoorientador} \\ \imprimircoorientadorRotulo \\
-    \imprimirinstituicao~--~\imprimirinstituicaosigla}
-
-    \newpage
+    % \newpage
     \begin{flushleft}
-        \textbf{\lang{Examination Board:}{Banca Examinadora:}}
+        \textbf{\lang{Examination Board}{Banca Examinadora}:}
     \end{flushleft}
 
-    \assinatura{\textbf{Prof. Jerusa Marchi, \lang{PhD.}{Dr.}} \\
-    \imprimirinstituicao~--~\imprimirinstituicaosigla}
+    \assinatura{%
+        \textbf{\imprimirorientador} \\ \imprimirorientadorRotulo\\
+        \imprimirinstituicao~--~\imprimirinstituicaosigla
+    }
 
-    \assinatura{\textbf{Prof. Elder Rizzon Santos, \lang{PhD.}{Dr.}} \\
-    \imprimirinstituicao~--~\imprimirinstituicaosigla}
+    \ifnotempty{\imprimircoorientador}{%
+        \assinatura{%
+            \textbf{\imprimircoorientador} \\ \imprimircoorientadorRotulo \\
+            \imprimirinstituicao~--~\imprimirinstituicaosigla
+        }
+    }
+
+    \assinatura{%
+        \textbf{Prof. Convidado 1, \lang{PhD.}{Dr.}} \\
+        Instituição 1 -- Sigla 1
+    }
+
+    \assinatura{%
+        \textbf{Prof. Convidado 2, \lang{PhD.}{Dr.}} \\
+        Instituição 2 -- Sigla 2
+    }
 
 \end{folhadeaprovacao}
 

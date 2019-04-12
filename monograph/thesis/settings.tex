@@ -1,170 +1,85 @@
+%----------------------------------------------------------------------------------------
+%   Thesis Tweaks and Utilities
+%----------------------------------------------------------------------------------------
 
+% Uncomment this if you are debugging pages' badness Underfull & Overflow
+% https://tex.stackexchange.com/questions/115908/geometry-showframe-landscape
+% https://tex.stackexchange.com/questions/387077/what-is-the-difference-between-usepackageshowframe-and-usepackageshowframe
+% https://tex.stackexchange.com/questions/387257/how-to-do-the-memoir-headings-fix-but-not-have-my-text-going-over-the-page-botto
+% https://tex.stackexchange.com/questions/14508/print-page-margins-of-a-document
+% \usepackage[showframe,pass]{geometry}
 
-% Thesis settings
-\newcommand{\brazilword}[1]{\foreignlanguage{brazil}{#1}}
-\newcommand{\englishword}[1]{\foreignlanguage{english}{#1}}
+% To use the font Times New Roman, instead of the default LaTeX font
+% more up-to-date than '\usepackage{mathptmx}'
+% \usepackage{newtxtext}
+% \usepackage{newtxmath}
 
-\lang % Switch between english and brazil for big text blocks
-{\includecomment{englishtext}\excludecomment{braziltext}}
-{\includecomment{braziltext}\excludecomment{englishtext}}
+% https://tex.stackexchange.com/questions/182569/how-to-manually-set-where-a-word-is-split
+\hyphenation{Ge-la-im}
 
 \newcommand{\s}[0]{\textquotesingle{}s{ }}
 \newcommand{\q}[0]{\textquotesingle{}{}}
 
-% What is the difference between \def and \newcommand?
-% https://tex.stackexchange.com/questions/655/what-is-the-difference-between-def-and-newcommand
-\def\mytextpreliminarylistname{\lang{Brief Table of Contents}{Breve Sumário}}
-
-% How to manually set where a word is split?
-% https://tex.stackexchange.com/questions/182569/how-to-manually-set-where-a-word-is-split
-\hyphenation{Ge-la-im}
-
-% Informações de dados para CAPA e FOLHA DE ROSTO
-\titulo
-{%
-    \lang
-    {The object beautifier}
-    {O embelezador de objetos}
-}
-\subtitulo
-{%
-    \lang
-    {A new source code formatting algorithm}
-    {Um novo algoritmo de formatação de código}
-}
-
-\data{\today}
-\autor{\brazilword{Evandro Coan}}
-\local{\lang{\brazilword{Florianópolis, Santa Catarina} -- Brazil}{Florianópolis, Santa Catarina -- Brasil}}
-
-\biblioteca{\lang{University Library}{Biblioteca Universitária}}
-\orientador{\lang{Prof. PhD. Ricardo Azambuja Silveira}{Prof. Dr. Ricardo Azambuja Silveira}}
-\coorientador{\lang{M.S. Thiago Ângelo Gelaim}{M.S. Thiago Ângelo Gelaim}}
-
-\instituicaosigla{UFSC}
-\instituicao{\lang{Federal University of \brazilword{Santa Catarina}}{Universidade Federal de Santa Catarina}}
-\tipotrabalho{\lang{Bachelor's Thesis}{Tese de Graduação}}
-
-\area{\lang{Formal Languages}{Linguagens Formais}}
-\formacao{\lang{Bachelor of Science Degree in Computer Science}{Grau de Bacharel em Ciência da Computação}}
-\programa{\lang{Undergraduate Program in Computer Science}{Trabalho de Conclusão de Curso}}
-\centro{\lang{Department of Informatics and Statistics}{Departamento de Informática e Estatística}}
-
-% O preambulo deve conter tipo do trabalho, objetivo, nome da instituição e a área de concentração.
-\preambulo
-{%
-    \lang
-    {Thesis submitted to the~\imprimirprograma~of the~\imprimirinstituicao~to obtain the~\imprimirformacao.}
-    {Tese submetida ao \imprimirprograma da \imprimirinstituicao para a obtenção do Título de \imprimirformacao.}
-}
-
-% Keywords
-\newcommand{\palavraschaveingles}
-{%
-    \item source. \item code. \item formatter. \item beautifier. \item prettyprint. \item universal.
-    \item reuse. \item blocks. \item object. \item oriented. \item programming. \item structured.
-    \item parsing. \item parse. \item regular. \item expression. \item regex. \item C. \item C++.
-    \item grammar. \item Turing. \item machine. \item automata. \item lexer. \item syntax. \item
-    Sublime. \item Java. \item Rust. \item Shell. \item script. \item obfuscators. \item learning.
-    \item syntec. \item teamicide. \item concensus. \item indentação. \item settings.
-}
-\newcommand{\palavraschaveportugues}
-{%
-    \item fonte. \item código. \item formatador. \item embelezante. \item prettyprint. \item
-    universal. \item reuso. \item blocos. \item objeto. \item orientado. \item programação. \item
-    estruturada. \item análise. \item analisador. \item regular. \item expressão. \item regex. \item
-    C. \item C++. \item gramática. \item Turing. \item máquina. \item autômatos. \item lexer. \item
-    sintaxe. \item Sublime. \item Java. \item Rust. \item Shell. \item roteiro. \item ofuscadores.
-    \item aprendizado. \item Syntec. \item teamicide. \item consenso. \item indentation. \item
-    configurações.
-}
-
-% Patch the `abntex2` citacao environment
-\xpatchcmd{\citacao}
-{\list{}}
-{\list{}{\topsep=0pt}}
-{}
-{\PackageWarning{ufscthesisx}{Citation \topsep is not patched. The 'citacao' environment must be
-patched with 'topsep=0pt' but it failed. This is probably due an update on the main class 'abnTeX2',
-therefore the \topsep patch must need to be updated accordingly}}
-
-% Remove the colon appended to theses variables, allowing us to use other separators
-\addto\captionsbrazil
-{
-    \renewcommand{\orientadorname}{Orientador}
-    \renewcommand{\coorientadorname}{Coorientador}
-}
-
-% Create caption English translations as the sections headers
+% Add missing translations for Portuguese
 % https://tex.stackexchange.com/questions/8564/what-is-the-right-way-to-redefine-macros-defined-by-babel
-\addto\captionsenglish
-{
-    %% adjusts names from abnTeX2
-    \renewcommand{\folhaderostoname}{Title page}
-    \renewcommand{\epigraphname}{Epigraph}
-    \renewcommand{\dedicatorianame}{Dedication}
-    \renewcommand{\errataname}{Errata sheet}
-    \renewcommand{\agradecimentosname}{Acknowledgements}
-    \renewcommand{\anexoname}{ANNEX}
-    \renewcommand{\anexosname}{Annex}
-    \renewcommand{\apendicename}{APPENDIX}
-    \renewcommand{\apendicesname}{Appendix}
-    \renewcommand{\orientadorname}{Supervisor}
-    \renewcommand{\coorientadorname}{Co\hyp{}supervisor}
-    \renewcommand{\folhadeaprovacaoname}{Approval}
-    \renewcommand{\resumoname}{Abstract}
-    \renewcommand{\listadesiglasname}{List of abbreviations and acronyms}
-    \renewcommand{\listadesimbolosname}{List of symbols}
-    \renewcommand{\fontename}{Source}
-    \renewcommand{\notaname}{Note}
-    %% adjusts names used by \autoref
-    \renewcommand{\pageautorefname}{page}
-    \renewcommand{\sectionautorefname}{section}
-    \renewcommand{\subsectionautorefname}{subsection}
-    \renewcommand{\subsubsectionautorefname}{subsubsection}
-    \renewcommand{\paragraphautorefname}{subsubsubsection}
+\addto\captionsbrazil { %
+    \renewcommand{\mytextpreliminarylistname}{Breve Sumário}
 }
 
-% Source Code Settings in Document
-\makeatletter
-\@ifpackageloaded{listings}
-{
-\ifenglish
-    % These default values are already in English
-\else
-    % Listing -> Codigo fonte
-    \renewcommand{\lstlistingname}{Código--fonte}
+% Selects a sans serif font family
+% \renewcommand{\sfdefault}{cmss}
 
-    % List of Listings -> Lista de códigos-fonte
-    \renewcommand{\lstlistlistingname}{Lista de códigos--fonte}
+% Selects a monospaced (“typewriter”) font family
+% \renewcommand{\ttdefault}{cmtt}
 
-    % Calculate the size of the header
-    \calculatelisteningsheader
-\fi
-}{}
-\makeatother
-
-
-% Espaçamentos entre linhas e parágrafos
-%
-% ifpackageloaded question
+% Spacing between lines and paragraphs
 % https://tex.stackexchange.com/questions/70212/ifpackageloaded-question
 \makeatletter
 \@ifclassloaded{memoir}
 {
-    % Estilo de capítulos, ver classe para maiores detalhes.Veja outros estilos em:
+    % New custom chapter style VZ14, see other chapters styles in:
+    % http://repositorios.cpai.unb.br/ctan/info/latex-samples/MemoirChapStyles/MemoirChapStyles.pdf
+    \newcommand\thickhrulefill{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@}
+    \makechapterstyle{VZ14} { %
+        % \thispagestyle{empty}
+        \setlength\beforechapskip{50pt}
+        \setlength\midchapskip{20pt}
+        \setlength\afterchapskip{20pt}
+        \renewcommand\chapternamenum{}
+        \renewcommand\printchaptername{}
+        \renewcommand\chapnamefont{\Huge\scshape}
+        \renewcommand\printchapternum {%
+            \chapnamefont\null\thickhrulefill\quad
+            \@chapapp\space\thechapter\quad\thickhrulefill
+        }
+        \renewcommand\printchapternonum {%
+            \par\thickhrulefill\par\vskip\midchapskip
+            \hrule\vskip\midchapskip
+        }
+        \renewcommand\chaptitlefont{\huge\scshape\centering}
+        \renewcommand\afterchapternum {%
+            \par\nobreak\vskip\midchapskip\hrule\vskip\midchapskip
+        }
+        \renewcommand\afterchaptertitle {%
+            \par\vskip\midchapskip\hrule\nobreak\vskip\afterchapskip
+        }
+    }
+
+    % Apply the style `VZ14` just created
+    % \chapterstyle{VZ14}
+
+    % Controlling the spacing between one paragraph and another, try also \onelineskip
+    % Default value for UFSC 0.0cm
+    \setlength{\parskip}{0.2cm}
+
+    % Paragraph size is given by
+    % Default value for UFSC 1.0cm
+    \setlength{\parindent}{1.3cm}
+
     % http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/memoir/memman.pdf
-    \chapterstyle{VZ14}
     \setlength\beforechapskip{0pt}
     \setlength\midchapskip{15pt}
     \setlength\afterchapskip{15pt}
-
-    % O tamanho do parágrafo é dado por:
-    \setlength{\parindent}{1.3cm}
-
-    % Controle do espaçamento entre um parágrafo e outro. Tente também
-    % \onelineskip
-    \setlength{\parskip}{0.2cm}
 
     % Memoir: Warnings “The material used in the headers is too large” w/ accented titles
     % https://tex.stackexchange.com/questions/387293/how-to-change-the-page-layout-with-memoir
@@ -173,7 +88,6 @@ therefore the \topsep patch must need to be updated accordingly}}
 }{}
 \makeatother
 
-
 % Color settings across the document
 \makeatletter
 \@ifpackageloaded{xcolor}
@@ -181,61 +95,38 @@ therefore the \topsep patch must need to be updated accordingly}}
     % RGB colors in absolute values from 0 to 255 by using `RGB` tag
     \definecolor{darkblue}{RGB}{26,13,178}
 
-    % Definição de cores, RGB colors in percentage notation by using `rgb` tag
+    % Colors names definitions as RGB colors in percentage notation by using `rgb` tag
     \definecolor{mygreen}{rgb}{0,0.6,0}
     \definecolor{mygray}{rgb}{0.5,0.5,0.5}
     \definecolor{mymauve}{rgb}{0.58,0,0.82}
-
-    % Configurações de aparência do PDF final
-    \definecolor{figcolor}{rgb}{1,0.4,0}  % orange
-    \definecolor{tabcolor}{rgb}{1,0.4,0}  % orange
-    \definecolor{eqncolor}{rgb}{1,0.4,0}  % orange
-    \definecolor{linkcolor}{rgb}{1,0.4,0} % orange
-    \definecolor{citecolor}{rgb}{1,0.4,0} % orange
-    \definecolor{seccolor}{rgb}{0,0,1}    % blue
-    \definecolor{abscolor}{rgb}{0,0,1}    % blue
-    \definecolor{titlecolor}{rgb}{0,0,1}  % blue
-    \definecolor{biocolor}{rgb}{0,0,1}    % blue
-
-    % Alterando o aspecto da cor azul
+    \definecolor{figcolor}{rgb}{1,0.4,0}
+    \definecolor{tabcolor}{rgb}{1,0.4,0}
+    \definecolor{eqncolor}{rgb}{1,0.4,0}
+    \definecolor{linkcolor}{rgb}{1,0.4,0}
+    \definecolor{citecolor}{rgb}{1,0.4,0}
+    \definecolor{seccolor}{rgb}{0,0,1}
+    \definecolor{abscolor}{rgb}{0,0,1}
+    \definecolor{titlecolor}{rgb}{0,0,1}
+    \definecolor{biocolor}{rgb}{0,0,1}
     \definecolor{blue}{RGB}{41,5,195}
 
-    % Informações do PDF
+    % PDF Hyperlinks settings
     \@ifpackageloaded{hyperref}
     {
         \hypersetup
         {
             pdftitle={\@title},
-            colorlinks=true, % false: boxed links; true: colored links
-            linkcolor=darkblue, % color of internal links
+            colorlinks=true,     % false: boxed links; true: colored links
+            linkcolor=darkblue,  % color of internal links
             citecolor=darkgreen, % color of links to bibliography
-            filecolor=black, % color of file links
+            filecolor=black,     % color of file links
             urlcolor=linkcolor,
             bookmarksdepth=4
         }
-        \ifenglish
-            \hypersetup
-            {
-                pdfauthor={Author},
-                pdfsubject={Thesis' Abstract},
-                pdfcreator={LaTeX with abnTeX2 for UFSC},
-                pdfkeywords={abnt}{latex}{UFSC}{abntex2}{thesis},
-            }
-        \else
-            \hypersetup
-            {
-                pdfauthor={Autores},
-                pdfsubject={Resumo da tese},
-                pdfcreator={LaTeX com abnTeX2 para UFSC},
-                pdfkeywords={abnt}{latex}{UFSC}{abntex2}{tese},
-            }
-        \fi
     }
 }{}
 \makeatother
 
-
-% Changing the font of the numbers in the ToC in the memoir class
 % https://tex.stackexchange.com/questions/14314/changing-the-font-of-the-numbers-in-the-toc-in-the-memoir-class
 \renewcommand{\cftpartfont}{\ABNTEXpartfont\color{ultramarine}}
 \renewcommand{\cftpartpagefont}{\ABNTEXpartfont\color{black}}
@@ -255,66 +146,21 @@ therefore the \topsep patch must need to be updated accordingly}}
 \renewcommand{\cftparagraphfont}{\ABNTEXsubsubsubsectionfont\color{ultramarine}}
 \renewcommand{\cftparagraphpagefont}{\ABNTEXsubsubsubsectionfont\color{black}}
 
-
-% Backref package settings, pages with citations in bibliography
-\makeatletter
-\@ifpackageloaded{biblatex}
-{
-    \renewbibmacro*{pageref}
-    {
-        \iflistundef{pageref}
-        {\printtext{\lang{\autocap{n}o citation in the text}{\autocap{n}enhuma citação no texto}.}}
-        {%
-            \printtext
-            {%
-                \ifnumgreater{\value{citecounter}}{1}
-                    {\lang{\autocap{c}ited}{\autocap{c}itado} \arabic{citecounter} \lang{times}{vezes}}
-                    {\lang{\autocap{c}ited}{\autocap{c}itado} \arabic{citecounter} \lang{time}{vez}}
-            }%
-            \setunit{\addspace}%
-            \ifnumgreater{\value{pageref}}{1}
-                {\bibstring{backrefpages}\ppspace}
-                {\bibstring{backrefpage}\ppspace}%
-            \printlist[pageref][-\value{listtotal}]{pageref}%
-        }%
-    }
-
-    \DefineBibliographyStrings{brazil}
-    {
-        backrefpage  = {na página},
-        backrefpages = {nas páginas},
-    }
-
-    \DefineBibliographyStrings{english}
-    {
-        backrefpage  = {on page},
-        backrefpages = {on pages},
-    }
-}{}
-\makeatother
-
-
 % Memoir has another mechanism for the job: \cftsetindents{‹kind›}{indent}{numwidth}. Here kind is
 % chapter, section, or whatever; the indent specifies the ‘margin’ before the entry starts; and the
 % width is of the box into which the number is typeset (so needs to be wide enough for the largest
 % number, with the necessary spacing to separate it from what comes after it in the line.
 % http://www.tex.ac.uk/FAQ-tocloftwrong.html
-%
-% memoir: indentation of unnumbered sections in table of contents
 % https://tex.stackexchange.com/questions/264668/memoir-indentation-of-unnumbered-sections-in-table-of-contents
-%
-% Memoir ToC: indent the second line by number+space width in the previous line OR set standard
 % https://tex.stackexchange.com/questions/394227/memoir-toc-indent-the-second-line-by-numberspace
-
-% `\cftlastnumwidth` and these `\cftsetindents` are defined by the abntex2 class saying they obey
-% the `ABNTEXsumario-abnt-6027-2012`.
-% \newlength{\cftlastnumwidth}
-
+%
+% `\cftlastnumwidth` and these `\cftsetindents` are defined by the abntex2 class,
+% obeying the `ABNTEXsumario-abnt-6027-2012`. \newlength{\cftlastnumwidth}
 \setlength{\cftlastnumwidth}{\cftsubsubsectionnumwidth}
-\addtolength{\cftlastnumwidth}{-2em}
+\addtolength{\cftlastnumwidth}{-1em}
 
 % http://www.tex.ac.uk/FAQ-tocloftwrong.html
-% Use \setlength\cftsectionnumwidth{4em} to override all these values
+% Use \setlength\cftsectionnumwidth{4em} to override all these values at once
 \cftsetindents{part}         {0em}{\cftlastnumwidth}
 \cftsetindents{chapter}      {0em}{\cftlastnumwidth}
 \cftsetindents{section}      {0em}{\cftlastnumwidth}
@@ -323,4 +169,90 @@ therefore the \topsep patch must need to be updated accordingly}}
 \cftsetindents{paragraph}    {0em}{\cftlastnumwidth}
 \cftsetindents{subparagraph} {0em}{\cftlastnumwidth}
 
+% Backref package settings, pages with citations in bibliography
+\newcommand{\biblatexcitedntimes}{\autocap{c}ited \arabic{citecounter} times}
+\newcommand{\biblatexcitedonetime}{\autocap{c}ited one time}
+\newcommand{\biblatexcitednotimes}{\autocap{n}o citation in the text}
+
+\addto\captionsbrazil { %
+    \renewcommand{\biblatexcitedntimes}{\autocap{c}itado \arabic{citecounter} vezes}
+    \renewcommand{\biblatexcitedonetime}{\autocap{c}itado uma vez}
+    \renewcommand{\biblatexcitednotimes}{\autocap{n}enhuma citação no texto}
+}
+\makeatletter
+\@ifpackageloaded{biblatex}
+{%
+    % https://tex.stackexchange.com/questions/483707/how-to-detect-whether-the-option-citecounter-was-enabled-on-biblatex
+    \ifx\blx@citecounter\relax
+        \message{Is citecounter defined? NO!^^J}
+    \else
+        \message{Is citecounter defined? YES!^^J}
+        \ifbacktracker
+            \message{Is backtracker defined? YES!^^J}
+            \renewbibmacro*{pageref}
+            {
+                \iflistundef{pageref}
+                {\printtext{\biblatexcitednotimes}}
+                {%
+                    \printtext
+                    {%
+                        \ifnumgreater{\value{citecounter}}{1}
+                            {\biblatexcitedntimes}
+                            {\biblatexcitedonetime}
+                    }%
+                    \setunit{\addspace}%
+                    \ifnumgreater{\value{pageref}}{1}
+                        {\bibstring{backrefpages}\ppspace}
+                        {\bibstring{backrefpage}\ppspace}%
+                    \printlist[pageref][-\value{listtotal}]{pageref}%
+                }%
+            }
+
+            \DefineBibliographyStrings{brazil}
+            {
+                backrefpage  = {na página},
+                backrefpages = {nas páginas},
+            }
+
+            \DefineBibliographyStrings{english}
+            {
+                backrefpage  = {on page},
+                backrefpages = {on pages},
+            }
+        \else
+            \message{Is backtracker defined? NO!^^J}
+        \fi
+    \fi
+}{}
+\makeatother
+
+% https://tex.stackexchange.com/questions/391695/is-possible-to-remove-the-link-color-of-the-comma-on-the-citation-link
+% \DeclareFieldFormat{citehyperref}{#1}
+
+% https://tex.stackexchange.com/questions/19105/how-can-i-put-more-space-between-bibliography-entries-biblatex
+% \setlength\bibitemsep{2.1\itemsep}
+
+% % https://tex.stackexchange.com/questions/203764/reduce-font-size-of-bibliography-overfull-bibliography
+% \newcommand{\bibliographyfontsize}{\fontsize{10.0pt}{10.5pt}\selectfont}
+% \renewcommand*{\bibfont}{\bibliographyfontsize}
+
+% % Uncomment this to insert the abstract into your bibliography entries when the abstract is available
+% % https://tex.stackexchange.com/questions/398666/how-to-correctly-insert-and-justify-abstract
+% \DeclareFieldFormat{abstract}%
+% {%
+%     \vspace*{-0.5mm}\par\justifying
+%     \begin{adjustwidth}{1cm}{}
+%         \textbf{\bibsentence\bibstring{abstract}:} #1
+%     \end{adjustwidth}
+% }
+% \renewbibmacro*{finentry}%
+% {%
+%     \iffieldundef{abstract}
+%     {\finentry}
+%     {\finentrypunct
+%         \printfield{abstract}%
+%         \renewcommand*{\finentrypunct}{}%
+%         \finentry
+%     }
+% }
 

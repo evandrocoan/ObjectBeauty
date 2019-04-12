@@ -1,72 +1,27 @@
 
 
-% Is it possible to keep my translation together with original text?
-% https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
-\begin{comment}
-
-    Segundo a \citeonline[3.1-3.2]{NBR6028:2003}, o resumo deve ressaltar o
-    objetivo, o método, os resultados e as conclusões do documento. A ordem e a extensão
-    destes itens dependem do tipo de resumo (informativo ou indicativo) e do
-    tratamento que cada item recebe no documento original. O resumo deve ser
-    precedido da referência do documento, com exceção do resumo inserido no
-    próprio documento. (\ldots) As palavras-chave devem figurar logo abaixo do
-    resumo, antecedidas da expressão Palavras-chave:, separadas entre si por
-    ponto e finalizadas também por ponto.
-
-    ufscthesis: O texto do resumo deve ser digitado, em um único bloco, sem espaço de parágrafo. O resumo deve
-    ser significativo, composto de uma sequência de frases concisas, afirmativas e não de uma
-    enumeração de tópicos. Não deve conter citações. Deve usar o verbo na voz passiva. Abaixo do
-    resumo, deve-se informar as palavras-chave (palavras ou expressões significativas retiradas do
-    texto) ou, termos retirados de thesaurus da área. \showfont
-
-\end{comment}
-
-
-
-\swapcontents
-{
-    % Changing babel package inside a single chapter
-    % https://tex.stackexchange.com/questions/20987/changing-babel-package-inside-a-single-chapter
-    %
-    % Multiple-language document - babel - selectlanguage vs begin/end{otherlanguage}
-    % https://tex.stackexchange.com/questions/36526/multiple-language-document-babel-selectlanguage-vs-begin-endotherlanguage
-    \addtotextpreliminarycontent{English's Abstract}
-    \begin{otherlanguage*}{english}
-    \begin{resumo}[Abstract]
-
-        A study is made of what Beautifiers are for, as well as approaches to what are good
-        programming practices and why we should follow them for good efficiency when writing code in
-        the most diverse programming languages. Current source code formatting software, also known
-        as Beautifiers, is limited to a similar set, or even a single language, and, in addition to
-        many, be limited to what they can do for you when processing / formatting the code.
-
-        Therefore, it is expected at the end of the work, to know what tools exist and which of them
-        are the best that can be used to help the programmer while writing codes of the most diverse
-        programming languages. Besides the proposal of a new tool with the intuition of centralizing
-        in a single program the approach of the most diverse programming languages.
-
-        \imprimirpalavraschave{Keywords}{\begin{inparaitem}[]\palavraschaveingles\end{inparaitem}}
-
-    \end{resumo}
-    \end{otherlanguage*}
-}
-{
+\newcommand{\imprimirbrazilabstract}{%
+    \cleardoublepage\phantomsection
     \addtotextpreliminarycontent{Resumo em Português}
     \begin{otherlanguage*}{brazil}
     \begin{resumo}[Resumo]
 
-        Faz-se um estudo sobre o que é, para que servem os Beautifiers, assim como abordagens sobre
-        o que são boas práticas de programação e por que devemos segui-las para um boa eficiência ao
-        escrever códigos nas mais diversas linguagens de programação. Os softwares formatadores de
-        código fonte atuais, também conhecidos como Beautifiers, são limitados a um conjunto
-        similar, ou mesmo à uma única linguagem, e além de muitos, serem limitados ao que eles podem
-        fazer por você ao processar/formatar o código.
+        Faz-se um estudo sobre o que é,
+        para que servem os formatadores de código,
+        assim como abordagens utilizadas nas mais variadas ferramentas formatação de código e por que devemos utiliza-las
+        para ter-se uma boa eficiência ao escrever códigos nas mais diversas linguagens de programação.
+        Os softwares formatadores de código fonte atuais,
+        também conhecidos como Beautifiers,
+        são limitados a um conjunto similar,
+        ou mesmo à uma única linguagem de programação,
+        e além de muitos serem limitados no que eles podem fazer por você ao formatar seus programas.
 
-        Portanto espera-se o final do trabalho, conhecer-se quais são as ferramentas que existem e
-        quais delas são as melhores que podem ser utilizadas para o auxilio do programador durante a
-        escrita de códigos das mais diversas linguagens de programação. Além de proposta de uma nova
-        ferramenta com o intuído de centralizar em uma único programa o abordagem das mais diversas
-        linguagens de programação.
+        Portanto,
+        espera-se ao final deste trabalho,
+        conhecer-se quais são as ferramentas de formatação que existem e quais delas são as melhores que podem ser utilizadas
+        para o auxilio do programador durante a escrita de códigos nas mais diversas linguagens de programação.
+        Além da proposta de uma nova ferramenta com o intuído de centralizar em um único
+        programa a formatação de código das mais diversas linguagens de programação.
 
         \imprimirpalavraschave{Palavras-chaves}{\begin{inparaitem}[]\palavraschaveportugues\end{inparaitem}}
 
@@ -75,25 +30,162 @@
 }
 
 
+\newcommand{\imprimirenglishabstract}{%
+    % https://tex.stackexchange.com/questions/20987/changing-babel-package-inside-a-single-chapter
+    % https://tex.stackexchange.com/questions/36526/multiple-language-document-babel-selectlanguage-vs-begin-endotherlanguage
+    \cleardoublepage\phantomsection
+    \addtotextpreliminarycontent{English's Abstract}
+    \begin{otherlanguage*}{english}
+    \begin{resumo}[Abstract]
 
-% % resumo em francês
-% \begin{resumo}[Résumé]
-%   \begin{otherlanguage*}{french}
-%       Il s'agit d'un résumé en français.
+        A study about nowadays used source code formatters,
+        and as well,
+        the programming algorithms used in most source code formatting tools,
+        and why we should use source code formatters,
+        for efficient coding in the most diverse programming languages.
+        Cutting edge source code formatting softwares,
+        also known as Source Code Beautifiers,
+        are limited to a common set,
+        or even to a single programming language,
+        and many formatters are limited in what they can do.
 
-%       \imprimirpalavraschave{Mots-clés}{latex. abntex. publication de textes.}
-%   \end{otherlanguage*}
-% \end{resumo}
+        Therefore,
+        it is expected at the end of this work,
+        to know which source code formatting tools there are and which ones
+        are the best to assist programmers in their daily work,
+        at the most diverse programming languages.
+        Besides,
+        this work proposes a new tool with focus on centering in a single program,
+        all source code formatting for all programming languages.
+
+        \imprimirpalavraschave{Keywords}{\begin{inparaitem}[]\palavraschaveingles\end{inparaitem}}
+
+    \end{resumo}
+    \end{otherlanguage*}
+}
 
 
-% % resumo em espanhol
-% \begin{resumo}[Resumen]
-%   \begin{otherlanguage*}{spanish}
-%       Este es el resumen en español.
+% \newcommand{\imprimirfrenchabstract}{%
+%     \addtotextpreliminarycontent{Français Résumé}
+%     \begin{resumo}[Résumé]
+%       \begin{otherlanguage*}{french}
+%           Il s'agit d'un résumé en français.
 
-%       \imprimirpalavraschave{Palabras clave}{latex. abntex. publicación de textos.}
-%   \end{otherlanguage*}
-% \end{resumo}
+%           \imprimirpalavraschave{Mots-clés}{latex. abntex. publication de textes.}
+%       \end{otherlanguage*}
+%     \end{resumo}
+% }
 
 
+% \newcommand{\imprimirspanishabstract}{%
+%     \addtotextpreliminarycontent{Español Resumen}
+%     \begin{resumo}[Resumen]
+%       \begin{otherlanguage*}{spanish}
+%           Este es el resumen en español.
+
+%           \imprimirpalavraschave{Palabras clave}{latex. abntex. publicación de textos.}
+%       \end{otherlanguage*}
+%     \end{resumo}
+% }
+
+
+\makeatletter
+
+
+\ifenglish
+    \@ifundefined{imprimirbrazilabstract}{}{\imprimirbrazilabstract}
+
+    % https://tex.stackexchange.com/questions/11707/how-to-force-output-to-a-left-or-right-page
+    % https://tex.stackexchange.com/questions/132966/do-not-display-chapter-title-in-memoir-class
+    \cleardoublepage\phantomsection
+    \pretextualchapter{Resumo Expandido}
+    \addtotextpreliminarycontent{Resumo Expandido}
+
+    \begin{otherlanguage*}{brazil}
+        \setlength{\parskip}{0.2cm}
+        \setlength{\parindent}{0.0cm}
+
+        \section*{Introdução}
+        O resumo expandido é previsto na Resolução Normativa nº 95/CUn/2017, Art. 55, § 2, de 4 de
+        abril de 2017, e exigido para teses e dissertações escritas em idiomas estrangeiros (com
+        exceção dos cursos pertinentes ao estudo de idiomas estrangeiros – Programa de Pós-Graduação
+        em Estudos da Tradução e Programa de Pós-Graduação em Inglês: Estudos Linguísticos e
+        Literários).
+
+        O resumo expandido é considerado um elemento pré-textual e deverá ser incluído no trabalho
+        após o resumo e antes do abstract. Deverá iniciar em página impar (no anverso de uma folha)
+        continuando no verso da folha. O texto deverá seguir o formato A5, com margens espelhadas:
+        superior 2,0 cm, inferior 1,5 cm, interna 2,5 cm e externa 1,5. Deve ser empregada a fonte
+        Time New Roman.  Todo o texto deve ser digitado em tamanho 10,5. O espaçamento entre as
+        linhas deverá ser simples. A expressão “resumo expandido” deve seguir a mesma tipografia das
+        demais sessões primárias do trabalho.
+
+        O texto do resumo expandido deve ser redigido em português e conter as seguintes seções (ver
+        modelo): Introdução, Objetivos, Metodologia, Resultados e Discussão e Considerações Finais.
+        Deve apresentar no mínimo duas (02) e, no máximo, cinco (05) páginas contendo a mesma
+        formatação em A5 do resumo e do abstract, bem como palavras-chave.
+
+        \section*{Objetivos}
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae dolor lacus. Ut
+        accumsan vitae felis nec porttitor. Integer interdum fringilla feugiat. Nullam pulvinar sit
+        amet tellus eget maximus. Donec sit amet magna eget justo semper fermentum vel eget velit.
+        In iaculis imperdiet mauris, ac ornare libero placerat non. Nulla libero lectus, ullamcorper
+        ac ornare eget, pulvinar ac nulla.
+
+        Curabitur vestibulum non nisl eget sagittis. Proin
+        gravida lacus id eros bibendum interdum. Mauris ullamcorper elementum tortor sed consequat.
+        Integer tempus, est a lobortis vehicula, nisi mi fringilla augue, non semper leo metus in
+        quam. Etiam in leo maximus, pulvinar mi eget, vehicula risus. Donec sed dui semper, dictum
+        eros at, suscipit felis.
+
+        \section*{Metodologia}
+        Quisque efficitur dolor in lectus dapibus elementum. Nam ultrices blandit consectetur.
+        Nullam ultricies sit amet odio quis placerat. Aenean eget est elit. Maecenas et nulla dolor.
+        Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In
+        pulvinar velit sed mi sagittis ornare. Aenean rutrum suscipit egestas. Phasellus pharetra
+        eget ex in volutpat. Quisque eu arcu nunc. Vivamus arcu ligula, pharetra at rhoncus sit
+        amet, pulvinar sed eros.
+
+        Sed porta ipsum ipsum, et fermentum magna volutpat sed. Vivamus
+        pharetra facilisis orci, sit amet luctus nisl pretium id. Sed consequat, arcu et congue
+        pulvinar, risus enim aliquet purus, eget venenatis libero leo sit amet metus. Maecenas vitae
+        elit sapien. Fusce mollis libero et gravida placerat. Proin ut quam quis justo aliquam
+        dictum. Donec volutpat convallis suscipit. Vivamus metus nisl, placerat ac enim vitae,
+        tempus ultricies odio.
+
+        \section*{Resultados e Discussão}
+        Nulla porta auctor vestibulum. Sed
+        consectetur lacus molestie iaculis ullamcorper. Proin porta posuere massa a lacinia. Nunc a
+        lacinia orci, non vehicula ante. Vestibulum ipsum velit, congue et neque aliquam, imperdiet
+        ornare augue. Donec et congue sapien. Pellentesque consequat consectetur neque ut varius. In
+        aliquam ex quis ante venenatis dapibus. Vivamus et imperdiet urna. Vestibulum quis nibh
+        magna. In a congue lectus, eu sodales nunc. Suspendisse id.
+
+        \section*{Considerações Finais}
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae dolor lacus. Ut
+        accumsan vitae felis nec porttitor. Integer interdum fringilla feugiat. Nullam pulvinar sit
+        amet tellus eget maximus. Donec sit amet magna eget justo semper fermentum vel eget velit.
+        In iaculis imperdiet mauris, ac ornare libero placerat non. Nulla libero lectus, ullamcorper
+        ac ornare eget, pulvinar ac nulla. Curabitur vestibulum non nisl eget sagittis. Proin
+        gravida lacus id eros bibendum interdum. Mauris ullamcorper elementum tortor sed consequat.
+        Integer tempus, est a lobortis vehicula, nisi mi fringilla augue, non semper leo metus in
+        quam. Etiam in leo maximus, pulvinar mi eget, vehicula risus. Donec sed dui semper, dictum
+        eros at, suscipit felis.
+
+        \imprimirpalavraschave{Palavras-chaves}{\begin{inparaitem}[]\palavraschaveportugues\end{inparaitem}}
+
+    \end{otherlanguage*}
+
+    \@ifundefined{imprimirenglishabstract}{}{\imprimirenglishabstract}
+
+\else
+    \@ifundefined{imprimirbrazilabstract}{}{\imprimirbrazilabstract}
+    \@ifundefined{imprimirenglishabstract}{}{\imprimirenglishabstract}
+\fi
+
+\@ifundefined{imprimirfrenchabstract}{}{\imprimirfrenchabstract}
+\@ifundefined{imprimirspanishabstract}{}{\imprimirspanishabstract}
+
+
+\makeatother
 
