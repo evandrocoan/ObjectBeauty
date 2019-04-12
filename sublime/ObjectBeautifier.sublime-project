@@ -148,10 +148,6 @@
                     "cmd": ["make", "latex"],
                 },
                 {
-                    "name": "Thesis Verbose",
-                    "cmd": ["make", "thesis_verbose"],
-                },
-                {
                     "name": "Thesis Clean",
                     "cmd": ["make", "clean"],
                 },
