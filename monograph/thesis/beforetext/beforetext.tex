@@ -5,12 +5,6 @@
 \hypersetup{pageanchor=false}
 
 
-% O preambulo deve conter tipo do trabalho, objetivo, nome da instituição e a área de concentração.
-\preambulo
-{%
-   \imprimirtipotrabalho~\ifnotdefined\tcc{submetida}{submetido} ao \imprimirprograma~da \imprimirinstituicao~para a obtenção do Grau de \imprimirformacao.
-}
-
 % ELEMENTOS PRÉ-TEXTUAIS
 \ifforcedinclude\else
     % pretextual settings
@@ -120,7 +114,7 @@
 \include{beforetext/simbolos}
 
 % Add the table of contents to the brief table of contents
-\addtotextpreliminarycontent{\lang{Table of Contents}{Sumário}}
+\addtotextpreliminarycontent{\contentsname}
 
 % How to remove the self-reference of the ToC from the ToC?
 % https://tex.stackexchange.com/questions/10943/how-to-remove-the-self-reference-of-the-toc-from-the-toc

@@ -89,69 +89,150 @@ section=TITLE, % Título de seções em caixa alta
 % % Utilize o arquivo aftertext/references.bib para incluir sua bibliografia.
 \addbibresource{aftertext/references.bib}
 
-% FIXME: Descomente a linha abaixo se seu trabalho for um TCC
-\def\tcc{}
-
 % FIXME: Preencha com seus dados
-\autor{Evandro Coan}
-\titulo{Source Code Formatting Tools}
+\autor{\brazilword{Evandro Coan}}
+\titulo{\lang{Source Code Formatting Tools}{Ferramentas de Formatação de Código}}
 
 % FIXME: Se houver subtítulo, descomente a linha abaixo
-% \subtitulo{Subtítulo }
+% \subtitulo{\lang{Subtitle}{Subtítulo}}
 
 % FIXME: Siglas para grau de formação Dr./Dra., Me./Ma, Bel. Bela. (inglês: PhD., MSc., Bs.)
-\orientador{Rafael de Santiago, \lang{Phd.}{Dr.}}
+\orientador[\lang{Supervisor}{Orientador}]{\brazilword{Rafael de Santiago}}
 
 % FIXME: Se houver coorientador, descomente a linha abaixo
-% \coorientador[Coorientador(a)]{Nome do coorientador(a), \lang{Phd.}{Dr.}}
+% \coorientador[\lang{Co-supervisor}{Coorientador(a)}]{\brazilword{Nome do coorientador(a)}}
 
 % FIXME: Preencher com o nome do Coordenador de TCCs/Teses do seu curso
-\coordenador{Renato Cislaghi, \lang{Phd.}{Dr.}}
+\coordenador[Coordenador]{\brazilword{Renato Cislaghi}}
 
 % FIXME: Local da sua defesa
-\local{\brazilword{Florianópolis, Santa Catarina} -- Brazil}
+\local{\brazilword{Florianópolis, Santa Catarina} -- \lang{Brazil}{Brasil}}
 
 % FIXME: Ano da sua defesa
 \ano{2019}
-\biblioteca{University Library}
+\biblioteca{\lang{University Library}{Biblioteca Universitária}}
+
+% FIXME: Sigla da sua instituição
 \instituicaosigla{UFSC}
-\instituicao{Federal University of Santa Catarina}
+\instituicao{\brazilword{Universidade Federal de Santa Catarina}}
 
 % FIXME: Preencha com Tese, Dissertação, Monografia ou Trabalho de Conclusão de Curso, Bachelor's Thesis, etc
-\tipotrabalho{Bachelor's Thesis}
+\tipotrabalho{\lang{Bachelor\s Thesis}{Trabalho de Conclusão de Curso}}
 
 % FIXME: Se houver Área de Concentração, descomente a linha abaixo
-\area{Formal Languages}
+\area{\lang{Formal Languages}{Linguagens Formais}}
 
 % FIXME: Preencha com Doutor, Bacharel ou Mestrando
-\formacao{Bachelor of Science Degree in Computer Science}
-\programa{Undergraduate Program in Computer Science}
+\formacao{\lang
+	{Bachelor of Science degree in Computer Science}
+	{Bacharel em Ciência da Computação}%
+}
+\programa{\lang
+	{Undergraduate Program in Computer Science}
+	{Programa de Graduação em Ciências da Computação}%
+}
 
 % FIXME: Preencha com Departamento de XXXXXX, Centro de XXXXXX
-\centro{INE - Department of Informatics and Statistics, CTC - Technological Center}
+\centro{\lang
+	{INE - Department of Informatics and Statistics, CTC - Technological Center}
+    {INE - Departamento de Informática e Estatística, CTC - Centro Tecnológico}%
+}
 
 % FIXME: Data da sua defesa
-\data{30 de março de 2001}
+\data{\lang{30 of march of 2001}{30 de março de 2001}}
+
+% O preambulo deve conter tipo do trabalho, objetivo, nome da instituição e a área de concentração.
+\preambulo{\lang%
+    {%
+        \imprimirtipotrabalho~ submitted to the \imprimirprograma~ of
+        \imprimirinstituicao~ for degree acquirement in \imprimirformacao.%
+    }{%
+        \imprimirtipotrabalho~ submetido ao \imprimirprograma~ da
+        \imprimirinstituicao~ para a obtenção do Grau de \imprimirformacao.%
+    }%
+}
 
 \newcommand{\palavraschaveportugues}
 {%
-    \item fonte. \item código. \item formatador. \item embelezante. \item prettyprint. \item
-    universal. \item reuso. \item blocos. \item objeto. \item orientado. \item programação. \item
-    estruturada. \item análise. \item analisador. \item regular. \item expressão. \item regex. \item
-    C. \item C++. \item gramática. \item Turing. \item máquina. \item autômatos. \item lexer. \item
-    sintaxe. \item Sublime. \item Java. \item Rust. \item Shell. \item roteiro. \item ofuscadores.
-    \item aprendizado. \item Syntec. \item teamicide. \item consenso. \item indentation. \item
-    configurações.
+    \item fonte.
+    \item código.
+    \item formatador.
+    \item embelezante.
+    \item prettyprint.
+    \item universal.
+    \item reuso.
+    \item blocos.
+    \item objeto.
+    \item orientado.
+    \item programação.
+    \item estruturada.
+    \item análise.
+    \item analisador.
+    \item regular.
+    \item expressão.
+    \item regex.
+    \item C.
+    \item C++.
+    \item gramática.
+    \item Turing.
+    \item máquina.
+    \item autômatos.
+    \item lexer.
+    \item sintaxe.
+    \item Sublime.
+    \item Java.
+    \item Rust.
+    \item Shell.
+    \item roteiro.
+    \item ofuscadores.
+    \item aprendizado.
+    \item Syntec.
+    \item teamicide.
+    \item consenso.
+    \item indentation.
+    \item configurações.
 }
 
 \newcommand{\palavraschaveingles}
 {%
-    \item source. \item code. \item formatter. \item beautifier. \item prettyprint. \item universal.
-    \item reuse. \item blocks. \item object. \item oriented. \item programming. \item structured.
-    \item parsing. \item parse. \item regular. \item expression. \item regex. \item C. \item C++.
-    \item grammar. \item Turing. \item machine. \item automata. \item lexer. \item syntax. \item
-    Sublime. \item Java. \item Rust. \item Shell. \item script. \item obfuscators. \item learning.
-    \item syntec. \item teamicide. \item concensus. \item indentação. \item settings.
+
+    \item source.
+    \item code.
+    \item formatter.
+    \item beautifier.
+    \item prettyprint.
+    \item universal.
+    \item reuse.
+    \item blocks.
+    \item object.
+    \item oriented.
+    \item programming.
+    \item structured.
+    \item parsing.
+    \item parse.
+    \item regular.
+    \item expression.
+    \item regex.
+    \item C.
+    \item C++.
+    \item grammar.
+    \item Turing.
+    \item machine.
+    \item automata.
+    \item lexer.
+    \item syntax.
+    \item Sublime.
+    \item Java.
+    \item Rust.
+    \item Shell.
+    \item script.
+    \item obfuscators.
+    \item learning.
+    \item syntec.
+    \item teamicide.
+    \item concensus.
+    \item indentação.
+    \item settings.
 }
 
 % Altere o arquivo 'settings.tex' para incluir customizações de aparência da sua tese
