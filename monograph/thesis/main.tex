@@ -55,6 +55,10 @@
 \newcommand{\brazilword}[1]{\foreignlanguage{brazil}{#1}}
 \newcommand{\englishword}[1]{\foreignlanguage{english}{#1}}
 
+% Allow you to write `Evandro's house` in latex as `Evandro\s house` instead of `Evandro\textquotesingle{}s house`
+\newcommand{\s}[0]{\textquotesingle{}s{ }}
+\newcommand{\q}[0]{\textquotesingle{}{}}
+
 % Backward compatibility with `abntex2cite` package `\citeonline` command with the new `biblatex` package
 % https://tex.stackexchange.com/questions/655/what-is-the-difference-between-def-and-newcommand
 \let\citeonline\textcite
