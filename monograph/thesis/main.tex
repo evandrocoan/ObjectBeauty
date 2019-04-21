@@ -56,8 +56,9 @@
 \newcommand{\englishword}[1]{\foreignlanguage{english}{#1}}
 
 % Allow you to write `Evandro's house` in latex as `Evandro\s house` instead of `Evandro\textquotesingle{}s house`
-\newcommand{\s}[0]{\textquotesingle{}s{ }}
-\newcommand{\q}[0]{\textquotesingle{}{}}
+% https://tex.stackexchange.com/questions/31091/space-after-latex-commands
+\newcommand{\s}[0]{\textquotesingle{}s\xspace}
+\newcommand{\q}[0]{\textquotesingle{}\xspace}
 
 % Backward compatibility with `abntex2cite` package `\citeonline` command with the new `biblatex` package
 % https://tex.stackexchange.com/questions/655/what-is-the-difference-between-def-and-newcommand
