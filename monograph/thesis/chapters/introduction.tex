@@ -1,38 +1,51 @@
 
 
-% The \phantomsection command is needed to create a link to a place in the document that is not a
-% figure, equation, table, section, subsection, chapter, etc.
-%
-% When do I need to invoke \phantomsection?
-% https://tex.stackexchange.com/questions/44088/when-do-i-need-to-invoke-phantomsection
-\phantomsection
-
-
 % Is it possible to keep my translation together with original text?
 % https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
 \chapter{\lang{Introduction}{Introdução}}
 
-The work first part will be based on research in
-articles, books, theses, dissertations, trusted authors websites,
-and through new demonstrated evidences based on arguments
-in the monograph evolution.
-Also, present results after building a new tool
-which proposes a solution for the problems presented and detailed.
+\lang{
+    The work first part will be based on research in
+    articles, books, theses, dissertations, trusted authors websites,
+    and through new demonstrated evidences based on arguments
+    in the monograph evolution.
+    Also, present results after building a new tool
+    which proposes a solution for the problems presented and detailed.
+}{
+    A \hyperref[sec:primeira_parte]{primeira parte} deste trabalho será baseado em artigos,
+    livros, outras dissertações,
+    sites confiáveis e por novas evidências demonstradas no desenvolvimento deste trabalho.
+}
 
-In this proposal last chapter which lies on the part
-called `\nameref{sec:software_implementation}', which holds the implementation of a
-tool for code `Beautifying'.
+\lang{
+    In this proposal last chapter which lies on the part
+    called `\nameref{sec:segunda_parte}', which holds the implementation of a
+    tool for code `Beautifying'.
+}{
+    E finalmente,
+    na \hyperref[sec:segunda_parte]{segunda parte} deste trabalho,
+    será apresentada a sugestão e implementação de uma ferramenta.
+}
 
 
 
-\section{Context}
+\section{\lang{Context}{Contexto}}
 
-Questions like ``What are good programming practices?'' Or ``Why are these
-practices are good?''Are not easy to answer. But each programmer learns to
-write their codes in a certain way, with certain features like using 4 or 8
-spaces to indent lines, always leave a blank line before each control
-structure as if or for statements, and alike rules.
-\cite{naturalCodingConventions}
+\lang{
+    Questions like ``What are good programming practices?'' Or ``Why are these
+    practices are good?''Are not easy to answer. But each programmer learns to
+    write their codes in a certain way, with certain features like using 4 or 8
+    spaces to indent lines, always leave a blank line before each control
+    structure as if or for statements, and alike rules.
+    \cite{naturalCodingConventions}
+}{
+    Perguntas como ``O quê são boas práticas de programação'' não são fáceis de responder.
+    Cada programador aprende a escrever seu códigos de uma determinada maneira,
+    seja utilizando 2, 4,
+    ou 8 espaços para criar blocos de indentação,
+    ou sempre deixar uma linha em branco antes de estruturas de controle como if\s,
+    while\s, etc. \cite{naturalCodingConventions}
+}
 
 But entering the universe of good practices, there are many things for
 discoursing. Nonetheless, in this work is presented the implementation of
