@@ -4,24 +4,24 @@
 % https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
 \chapter{\lang{Introduction}{Introdução}}
 
-\lang{
+\lang{%
     The work first part will be based on research in
     articles, books, theses, dissertations, trusted authors websites,
     and through new demonstrated evidences based on arguments
     in the monograph evolution.
     Also, present results after building a new tool
     which proposes a solution for the problems presented and detailed.
-}{
+}{%
     A \hyperref[sec:primeira_parte]{primeira parte} deste trabalho será baseado em artigos,
     livros, outras dissertações,
     sites confiáveis e por novas evidências demonstradas no desenvolvimento deste trabalho.
 }
 
-\lang{
+\lang{%
     In this proposal last chapter which lies on the part
     called `\nameref{sec:segunda_parte}', which holds the implementation of a
     tool for code `Beautifying'.
-}{
+}{%
     E finalmente,
     na \hyperref[sec:segunda_parte]{segunda parte} deste trabalho,
     será apresentada a sugestão e implementação de uma ferramenta.
@@ -31,14 +31,14 @@
 
 \section{\lang{Context}{Contexto}}
 
-\lang{
+\lang{%
     Questions like ``What are good programming practices?'' Or ``Why are these
     practices are good?''Are not easy to answer. But each programmer learns to
     write their codes in a certain way, with certain features like using 4 or 8
     spaces to indent lines, always leave a blank line before each control
     structure as if or for statements, and alike rules.
     \cite{naturalCodingConventions}
-}{
+}{%
     Perguntas como ``O quê são boas práticas de programação'' não são fáceis de responder.
     Cada programador aprende a escrever seu códigos de uma determinada maneira,
     seja utilizando 2, 4,
@@ -47,183 +47,322 @@
     while\s, etc. \cite{naturalCodingConventions}
 }
 
-But entering the universe of good practices, there are many things for
-discoursing. Nonetheless, in this work is presented the implementation of
-tool called `Object Beautifier', which specifically dedicates on how to
-perform the best layout/display of programming code on the computer screen,
-so that maximize and facilitate the understanding of same
-\cite{automaticSynthesis}.
-Therefore, allowing the programmer to disperse
-more time and efforts thinking about its coding algorithms problem,
-other than trying to decipher the information that is presented
-to it on the screen through infinit different code layouts
-\cite{usingVersionControlData}.
+\lang{%
+    But entering the universe of good practices, there are many things for
+    discoursing. Nonetheless, in this work is presented the implementation of
+    tool called `Object Beautifier', which specifically dedicates on how to
+    perform the best layout/display of programming code on the computer screen,
+    so that maximize and facilitate the understanding of same
+    \cite{automaticSynthesis}.
+    Therefore, allowing the programmer to disperse
+    more time and efforts thinking about its coding algorithms problem,
+    other than trying to decipher the information that is presented
+    to it on the screen through infinit different code layouts
+    \cite{usingVersionControlData}.
+}{%
+    Assim,
+    este trabalho será focado nas ferramentas disposição ou organização do código,
+    também conhecidos como ``Source Code Beautifiers'' ou ``Formatadores de Código''.
+    Com isso,
+    espera\hyp{}se que o desenvolvimento de códigos demande menos esforços,
+    pois o desenvolvedor pode forcar seus esforços pensando mais sobre o problema que está sendo resolvido,
+    ao contrário de tentar decifrar o que está escrito em sua frente por meio
+    de layouts extravagantes ou incomuns \cite{usingVersionControlData}.
+}
 
-Within this work\s area, we need to also think long and hard about how to
-share the programming code of the programmers among you. Now, the problem of
-human diversity, like all big scientific questions -- how do you explain
-something like that -- It can be broken down into sub-questions. It happens
-many times, which is a good practice for a `Programmer A', is not the same
-to another `Programmer B'. For example, imagine some code where a programmer
-decided to put before each `if' statement, a blank line. It is therefore
-expected that whenever we see a blank line we can potentially find a
-matching `if', which can be considered a quite useful pattern matching as
-empty line may call better your attention. \cite{aPrettyGoodFormatting}
+\lang{%
+    Within this work\s area, we need to also think long and hard about how to
+    share the programming code of the programmers among you. Now, the problem of
+    human diversity, like all big scientific questions -- how do you explain
+    something like that -- It can be broken down into sub-questions. It happens
+    many times, which is a good practice for a `Programmer A', is not the same
+    to another `Programmer B'. For example, imagine some code where a programmer
+    decided to put before each `if' statement, a blank line. It is therefore
+    expected that whenever we see a blank line we can potentially find a
+    matching `if', which can be considered a quite useful pattern matching as
+    empty line may call better your attention. \cite{aPrettyGoodFormatting}
+}{%
+    Programação de computadores usualmente não é uma tarefa solitária.
+    Muitos projetos podem sempre ser escritos pela mesma pessoa durante toda a vide desse projeto mas,
+    o quão grande pode ser um projeto que uma pessoa pode fazer sozinha?
+    Poderia uma pessoa escrever sozinha todo o sistema de controle de tráfego aéreo do Estados Unidos?
+    Uma vez que precisa-se escrever sistemas computacionais maiores,
+    tende-se a colocar vários programadores,
+    engenheiros de software, gerentes de projeto, etc,
+    para que se possa escrever o sistema computacional requerido
+    entro do prazo que dado projeto computacional possui.
 
-But again this is something heavily dependent of what each one learning
-through their life time. Imagine another programmer do not liked this rule,
-and when he was writing your code involving an `if', he did not put such
-blank line another programmer is expecting. So when the first programmer
-start reading its the code and look for `if', he will be expecting for blank
-lines before its if\s. But will lose some time searching until realize
-another programmer does not put them, or perhaps he forgot to insert them.
-\cite{quantifyingProgramComprehension}
+    Uma vez que isso acontece,
+    como essas pessoas todas poderiam trabalhar juntas,
+    mesmo elas não tendo o mesmo background?
+    Assim,
+    uma barreira extra para cada um desses programadores ao desenvolvimento do projeto será
+    aprender as diferenças de trabalho que cada um desses desenvolvedores possuem entre sí.
+    Uma das diferenças é a maneira no qual cada programador organiza
+    estrutura de seu código no requisito de formatação.
+    Por exemplo,
+    imagine que um certo `Programador A' tem o costume de deixar uma linha
+    em branco antes de cada estrutura de controle do tipo `if',
+    `for',
+    etc.
+    Já um outro `Programador B',
+    possui o costume oposto,
+    ele jamais deixa uma linha em branco antes dessas estruturas de controle.
+    Então,
+    o quê pode dar de errado quando ambos os programadores `A' e `B' trabalham num mesmo projeto?
 
-These differences are due to the diversity of ways we learn programming,
-i.e., to the ways we are used to doing coding, as much as the abilities and
-objectives of every programmer developed. Hence, nowadays it becomes a big
-problem because we increasingly need more and more programmers working
-together developing several and diverse computing systems. Where the latter
-is due to the fact of the complexity of computer systems growing
-increasingly, therefore over requiring programmers working and sharing their
-codes and ideas. \cite{howProgrammersRead}
+    Existem algumas possibilidades,
+    uma delas poderia ser que a metade do código escrita pelo `Programador A' estará de um jeito.
+    Já a outra metade escrita pelo `Programador B' estará de outro.
+    Então,
+    que tipos de problema isso poderia causar?
+    Uma vez que o código não está mais todo escrito sobre um mesmo padrão,
+    certas heurísticas perdem possuem sua taxa de acerto reduzidas ao fazer o reconhecimento de padrões.
+    Um exemplo de padrão poderia ser rapidamente identificar onde pode estar uma estrutura de controle
+    como `if' ou `for' de acordo com a presença ou não de uma linha em branco antes dela,
+    já que a presença de uma linha em branco faz um destacamento maior sendo
+    reconhecida como um separador de blocos de código distintos.
+    \cite{aPrettyGoodFormatting}.
+}
 
-Moreover besides only worrying about how the code is displayed on their
-computer screen, we need to worry about on how it will be saved in the file
-system on its `plain-text' mode. Since for code sharing, it is vital for you
-to use a versioning control system\footnote{\url{http://www.codeservedcold.com/version-control-importance/}}
-which enable project manager\s and
-programmers themselves, take control of their code changes
-\cite{redesignOfGit}. It does allow to easily perform the tracking of code
-changes \cite{gettingProductive} and
-allow you to better understand what each programmer is doing
-every time he formalizes a change in the code through a `commit', as in
-`git' systems for example. \cite{usingSourceControl}
+\lang{%
+    But again this is something heavily dependent of what each one learning
+    through their life time. Imagine another programmer do not liked this rule,
+    and when he was writing your code involving an `if', he did not put such
+    blank line another programmer is expecting. So when the first programmer
+    start reading its the code and look for `if', he will be expecting for blank
+    lines before its if\s. But will lose some time searching until realize
+    another programmer does not put them, or perhaps he forgot to insert them.
+    \cite{quantifyingProgramComprehension}
+}{%
+
+}
+
+\lang{%
+    These differences are due to the diversity of ways we learn programming,
+    i.e., to the ways we are used to doing coding, as much as the abilities and
+    objectives of every programmer developed. Hence, nowadays it becomes a big
+    problem because we increasingly need more and more programmers working
+    together developing several and diverse computing systems. Where the latter
+    is due to the fact of the complexity of computer systems growing
+    increasingly, therefore over requiring programmers working and sharing their
+    codes and ideas. \cite{howProgrammersRead}
+}{%
+
+}
+
+\lang{%
+    Moreover besides only worrying about how the code is displayed on their
+    computer screen, we need to worry about on how it will be saved in the file
+    system on its `plain-text' mode. Since for code sharing, it is vital for you
+    to use a versioning control system\footnote{\url{http://www.codeservedcold.com/version-control-importance/}}
+    which enable project manager\s and
+    programmers themselves, take control of their code changes
+    \cite{redesignOfGit}. It does allow to easily perform the tracking of code
+    changes \cite{gettingProductive} and
+    allow you to better understand what each programmer is doing
+    every time he formalizes a change in the code through a `commit', as in
+    `git' systems for example. \cite{usingSourceControl}
+}{%
+
+}
 
 \begin{citacao}
-I'd say there are two main reasons to enforce a single code format in a project. First has
-to do with version control: with everybody formatting the code identically, all changes in
-the files are guaranteed to be meaningful. No more just adding or removing a space here or
-there, let alone reformatting an entire file as a `side effect' of actually changing just a
-line or two. \cite{Geukens}
+\lang{%
+    I'd say there are two main reasons to enforce a single code format in a project. First has
+    to do with version control: with everybody formatting the code identically, all changes in
+    the files are guaranteed to be meaningful. No more just adding or removing a space here or
+    there, let alone reformatting an entire file as a `side effect' of actually changing just a
+    line or two. \cite{Geukens}
+}{%
+
+}
 \end{citacao}
 
-That is because while working with a versioning system like `git', we need
-to keep the code among a single style or which we may call a `good practice'
-set as standard for everybody, due the fact of letting each programmer to
-write as he pleases, there will be plenty of noise on the code review and we
-are figuring out what actually each programmer did \cite{quitDiffCalculating}.
-Hence, if every programmer re-writes the history making changes
-like inserting new lines
-before each if, we end up with too much noise and focus of a versioning
-system is to look at only those changes that are significant to the code,
-such as the creation of new functions and not the addition of new blank
-lines. \cite{findingRegressionsInProjects}
+\lang{%
+    That is because while working with a versioning system like `git', we need
+    to keep the code among a single style or which we may call a `good practice'
+    set as standard for everybody, due the fact of letting each programmer to
+    write as he pleases, there will be plenty of noise on the code review and we
+    are figuring out what actually each programmer did \cite{quitDiffCalculating}.
+    Hence, if every programmer re-writes the history making changes
+    like inserting new lines
+    before each if, we end up with too much noise and focus of a versioning
+    system is to look at only those changes that are significant to the code,
+    such as the creation of new functions and not the addition of new blank
+    lines. \cite{findingRegressionsInProjects}
+}{%
 
-Talking about the last ideia pointed out, we could also think about an
-approach to creating a new version control system which focuses only on
-significant changes to the code, while reviewing code changes. However, this
-approach could not be ideal, as for example, it would allow programmers to
-start tedious wars of unproductive code adjustments. For example, imagine
-how it would be for your every day and have to go through your code
-re-adding new lines before each one of your beloved if\s, just because some
-night shift programmer\footnote{\url{https://blog.codinghorror.com/who-wrote-this-crap/}}
-had just removed them?
+}
+
+\lang{%
+    Talking about the last ideia pointed out, we could also think about an
+    approach to creating a new version control system which focuses only on
+    significant changes to the code, while reviewing code changes. However, this
+    approach could not be ideal, as for example, it would allow programmers to
+    start tedious wars of unproductive code adjustments. For example, imagine
+    how it would be for your every day and have to go through your code
+    re-adding new lines before each one of your beloved if\s, just because some
+    night shift programmer\footnote{\url{https://blog.codinghorror.com/who-wrote-this-crap/}}
+    had just removed them?
+}{%
+
+}
 
 
 
 \section{Research Goals}
 
-Beforehand due the scope limitation for a Graduation Thesis,
-we should only think about a basic, simple,
-and yet reusable core of features.
+\lang{%
+    Beforehand due the scope limitation for a Graduation Thesis,
+    we should only think about a basic, simple,
+    and yet reusable core of features.
+}{%
+
+}
 
 \begin{enumerate}
-    \item A Software Product with a great Object Orientation and possibilities of extension of features,
-    decent research on the state of the art.
+    \item
+    \lang{%
+        A Software Product with a great Object Orientation and possibilities of extension of features,
+        decent research on the state of the art.
+    }{%
 
-    \item Ranking all code formatting classes (beautifying) applicable.
-    Including a study on what does is source beautifying,
-    how to do such and why.
+    }
+    \item
+    \lang{%
+        Ranking all code formatting classes (beautifying) applicable.
+        Including a study on what does is source beautifying,
+        how to do such and why.
+    }{%
 
-    \item Establish relationships between good programming practices and efficiency in programming,
-    in addition to a new tool to support programmers in order to automate the long and diverse
-    programming process in teams of developers with different programming `best practices'.
+    }
+    \item
+    \lang{%
+        Establish relationships between good programming practices and efficiency in programming,
+        in addition to a new tool to support programmers in order to automate the long and diverse
+        programming process in teams of developers with different programming `best practices'.
+    }{%
 
-    \item Define, determine and classify which one are good programming practices and
-    perform an in-depth study on the good practices on visual layout area,
-    also known as code `Beautifying'.
+    }
+    \item
+    \lang{%
+        Define, determine and classify which one are good programming practices and
+        perform an in-depth study on the good practices on visual layout area,
+        also known as code `Beautifying'.
+    }{%
 
-    \item The definition of a flow pattern of development allowing teams of
-    developers with different programming best practices,
-    to work without intervene with each other up to start wars of `best good practices'.
+    }
+    \item
+    \lang{%
+        The definition of a flow pattern of development allowing teams of
+        developers with different programming best practices,
+        to work without intervene with each other up to start wars of `best good practices'.
+    }{%
 
-    \item Discourse on the variety of existing tools for the support of good programming practices,
-    with a comparative analysis between them,
-    determining their weaknesses and strengths.
+    }
+    \item
+    \lang{%
+        Discourse on the variety of existing tools for the support of good programming practices,
+        with a comparative analysis between them,
+        determining their weaknesses and strengths.
+    }{%
+
+    }
 \end{enumerate}
 
 
 
 \section{Implementation Goals}
 
-Propose a unique tool that allowing several and distinct
-programming `best practices' being implemented in several programming
-languages, which can be configured and set accordingly to their wishes,
-from a single software working well behaved across all programming languages.
+\lang{%
+    Propose a unique tool that allowing several and distinct
+    programming `best practices' being implemented in several programming
+    languages, which can be configured and set accordingly to their wishes,
+    from a single software working well behaved across all programming languages.
+}{%
 
-Moreover, explain the differences for other softwares and the benefits
-of a unique tool, instead of several heavily different ones.
+}
 
-From this point, a sketch is presented on the problem, solutions,
-information as for why to want make such software, or even why do we want to
-beautifying things:
+\lang{%
+    Moreover, explain the differences for other softwares and the benefits
+    of a unique tool, instead of several heavily different ones.
+}{%
+
+}
+
+\lang{%
+    From this point, a sketch is presented on the problem, solutions,
+    information as for why to want make such software, or even why do we want to
+    beautifying things:
+}{%
+
+}
 
 \begin{enumerate}[leftmargin=*]
-    \item There are many different tools, sometimes paid, and difficult to
-          complete. \cite{universalCodeFormatter}
+    \item
+    \lang{%
+        There are many different tools, sometimes paid, and difficult to
+        complete. \cite{universalCodeFormatter}
+    }{%
 
-    \item Many programming languages exist, so always having Beautifier
-          software for each of them is very laborious
-          \cite{universalCodeFormatter}. But the approach to a Universal
-          Beautifier proposed in this work, would allow easily new languages to be
-          added, being completely different from previous ones, or alike. And in
-          case of similarities between them, it is enough to reuse their
-          configuration structures already implemented.
+    }
+    \item
+    \lang{%
+        Many programming languages exist, so always having Beautifier
+        software for each of them is very laborious
+        \cite{universalCodeFormatter}. But the approach to a Universal
+        Beautifier proposed in this work, would allow easily new languages to be
+        added, being completely different from previous ones, or alike. And in
+        case of similarities between them, it is enough to reuse their
+        configuration structures already implemented.
+    }{%
 
-    \item Looking for a Beautifier for each one of them because programmers
-          currently work daily with several of these languages, and they are not
-          similar. So you need to configure several beautifiers to do the
-          formatting. This is a problem because only a few beautifiers are more
-          complete, and every time you need to make a change in the formatting
-          style, you must manually propagate the same change over several
-          different program configuration files, which is bad because it takes the
-          user a lot of time to learn how to handle many different types of
-          settings. \cite{Schweitzer}
+    }
+    \item
+    \lang{%
+        Looking for a Beautifier for each one of them because programmers
+        currently work daily with several of these languages, and they are not
+        similar. So you need to configure several beautifiers to do the
+        formatting. This is a problem because only a few beautifiers are more
+        complete, and every time you need to make a change in the formatting
+        style, you must manually propagate the same change over several
+        different program configuration files, which is bad because it takes the
+        user a lot of time to learn how to handle many different types of
+        settings. \cite{Schweitzer}
+    }{%
 
-    \item In the case of ideal Beautifier, a change in your styling is
-          propagated to all languages. And if you want to leave some language out
-          of it, you just need to remove it from the list on which the
-          configuration block applies to, and `a)' leave it out so no change is
-          applied to. Or `b)' create a new block including only the block within
-          the desired settings.
+    }
+    \item
+    \lang{%
+        In the case of ideal Beautifier, a change in your styling is
+        propagated to all languages. And if you want to leave some language out
+        of it, you just need to remove it from the list on which the
+        configuration block applies to, and `a)' leave it out so no change is
+        applied to. Or `b)' create a new block including only the block within
+        the desired settings.
+    }{%
 
+    }
 \end{enumerate}
 
-The difference from this proposal to remaining formatting tools,
-is the tradeoff between end\hyp{}users and developers responsibilities.
-Most tools rarely expose to end\hyp{}users their language syntax specification,
-in contrast,
-this proposal completely exposes the language to the end\hyp{}user as simple plain\hyp{}text,
-not requiring the tool to know any language syntax neither semantics.
-Moreover,
-with no syntax knowledge required,
-the tool be can used with any languages their user wishes to.
+\lang{%
+    The difference from this proposal to remaining formatting tools,
+    is the tradeoff between end\hyp{}users and developers responsibilities.
+    Most tools rarely expose to end\hyp{}users their language syntax specification,
+    in contrast,
+    this proposal completely exposes the language to the end\hyp{}user as simple plain\hyp{}text,
+    not requiring the tool to know any language syntax neither semantics.
+    Moreover,
+    with no syntax knowledge required,
+    the tool be can used with any languages their user wishes to.
+}{%
+
+}
 
 
 
 \section{Related Works}
-
 
 \url{http://editorconfig.org/}
 
