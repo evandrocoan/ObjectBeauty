@@ -66,15 +66,15 @@
     Com isso,
     espera\hyp{}se que o desenvolvimento de códigos demande menos esforços,
     pois o desenvolvedor pode forcar seus esforços pensando mais sobre o problema que está sendo resolvido,
-    ao contrário de tentar decifrar o que está escrito em sua frente por meio
-    de layouts extravagantes ou incomuns \cite{usingVersionControlData}.
+    ao contrário de tentar decifrar o que está escrito em sua frente por meio de layouts extravagantes ou incomuns.
+    \cite{usingVersionControlData}
 }
 
 \lang{%
     Within this work\s area, we need to also think long and hard about how to
     share the programming code of the programmers among you. Now, the problem of
     human diversity, like all big scientific questions -- how do you explain
-    something like that -- It can be broken down into sub-questions. It happens
+    something like that -- It can be broken down into sub\hyp{}questions. It happens
     many times, which is a good practice for a `Programmer A', is not the same
     to another `Programmer B'. For example, imagine some code where a programmer
     decided to put before each `if' statement, a blank line. It is therefore
@@ -86,8 +86,8 @@
     Muitos projetos podem sempre ser escritos pela mesma pessoa durante toda a vide desse projeto mas,
     o quão grande pode ser um projeto que uma pessoa pode fazer sozinha?
     Poderia uma pessoa escrever sozinha todo o sistema de controle de tráfego aéreo do Estados Unidos?
-    Uma vez que precisa-se escrever sistemas computacionais maiores,
-    tende-se a colocar vários programadores,
+    Uma vez que precisa\hyp{}se escrever sistemas computacionais maiores,
+    tende\hyp{}se a colocar vários programadores,
     engenheiros de software, gerentes de projeto, etc,
     para que se possa escrever o sistema computacional requerido
     entro do prazo que dado projeto computacional possui.
@@ -121,8 +121,8 @@
     Um exemplo de padrão poderia ser rapidamente identificar onde pode estar uma estrutura de controle
     como `if' ou `for' de acordo com a presença ou não de uma linha em branco antes dela,
     já que a presença de uma linha em branco faz um destacamento maior sendo
-    reconhecida como um separador de blocos de código distintos.
-    \cite{aPrettyGoodFormatting}.
+    reconhecida como um separador de blocos de código distintos,
+    \cite{aPrettyGoodFormatting}
 }
 
 \lang{%
@@ -135,7 +135,16 @@
     another programmer does not put them, or perhaps he forgot to insert them.
     \cite{quantifyingProgramComprehension}
 }{%
-
+    E por mais uma vez,
+    estas heurísticas são fortemente dependentes do aprendizado de cada programador durante sua vida.
+    Imagine um segundo programador que não esta habituado com a heurística de outro,
+    e toda vez que ele for ler o código deste terceiro programador,
+    ela estará perdido para poder se localizar rapidamente dentro do código.
+    E portanto,
+    o que isso significa?
+    Que ele terá que atentamente ler o código escrito por este terceiro programador,
+    uma vez que a sua organização difere dos padrões no qual ele sabe como
+    rapidamente se localizar. \cite{quantifyingProgramComprehension}
 }
 
 \lang{%
@@ -148,13 +157,41 @@
     increasingly, therefore over requiring programmers working and sharing their
     codes and ideas. \cite{howProgrammersRead}
 }{%
-
+    As diferenças entres os diversos estilos de programação entre os programadores deve\hyp{}se à diversos fatores.
+    \begin{enumerate}
+        \item
+        Alguns programadores simplesmente fazem de um determinado jeito
+        por que foi assim que ele aprenderam de seus tutores,
+        e nunca preocuparam\hyp{}se em questionar se poderia ser feito de outra maneira.
+        Uma caso onde isso pode acontecer é devido se ao cansaço que algumas linguagens de
+        programação como \latex causam por sua sintaxe incomum e extraordinária.
+        Uma vez que você já está cansado de ver tantos errors,
+        você simplesmente para de questionar como o texto poderia ser formado e aceita o que
+        você encontra escrito e funcionando como parte da sintaxe da linguagem.
+        \item
+        Outros podem ter determinadas características devido a alguma característica emocional ou física.
+        Emocionalmente você pode ``não gostar'' de alguma característica por que sofreu
+        algum trauma ou simplesmente esta muito acostumado a ter a ter
+        visualmente todos os elementos muito próximos um dos outros na tela.
+        Assim,
+        mesmo tal característica não ser nada fácil para que outras pessoas entendam o seu código,
+        ela pode ser muito fácil de ser compreendida por você,
+        que a muitos anos já está habituado a realizar a escrita de seus códigos desta determinada
+        forma e portanto é muito hábil e muito rapidamente consegue entender o que escreve.
+        \item
+        Uma característica física que pode determinar
+    \end{enumerate}
+    Hoje em dia,
+    com a criação de sistemas computacionais cada vez mais complexos,
+    torna-se um problema juntar em um único projeto diversos programadores,
+    cada um com suas características pessoais distintas.
+    \cite{howProgrammersRead}
 }
 
 \lang{%
     Moreover besides only worrying about how the code is displayed on their
     computer screen, we need to worry about on how it will be saved in the file
-    system on its `plain-text' mode. Since for code sharing, it is vital for you
+    system on its `plain\hyp{}text' mode. Since for code sharing, it is vital for you
     to use a versioning control system\footnote{\url{http://www.codeservedcold.com/version-control-importance/}}
     which enable project manager\s and
     programmers themselves, take control of their code changes
@@ -185,7 +222,7 @@
     set as standard for everybody, due the fact of letting each programmer to
     write as he pleases, there will be plenty of noise on the code review and we
     are figuring out what actually each programmer did \cite{quitDiffCalculating}.
-    Hence, if every programmer re-writes the history making changes
+    Hence, if every programmer re\hyp{}writes the history making changes
     like inserting new lines
     before each if, we end up with too much noise and focus of a versioning
     system is to look at only those changes that are significant to the code,
@@ -202,7 +239,7 @@
     approach could not be ideal, as for example, it would allow programmers to
     start tedious wars of unproductive code adjustments. For example, imagine
     how it would be for your every day and have to go through your code
-    re-adding new lines before each one of your beloved if\s, just because some
+    re\hyp{}adding new lines before each one of your beloved if\s, just because some
     night shift programmer\footnote{\url{https://blog.codinghorror.com/who-wrote-this-crap/}}
     had just removed them?
 }{%
@@ -248,7 +285,7 @@
     \item
     \lang{%
         Define, determine and classify which one are good programming practices and
-        perform an in-depth study on the good practices on visual layout area,
+        perform an in\hyp{}depth study on the good practices on visual layout area,
         also known as code `Beautifying'.
     }{%
 
