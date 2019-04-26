@@ -179,12 +179,25 @@
         que a muitos anos já está habituado a realizar a escrita de seus códigos desta determinada
         forma e portanto é muito hábil e muito rapidamente consegue entender o que escreve.
         \item
-        Uma característica física que pode determinar
+        Uma característica física que pode determinar a formatação
+        de código de alguém pode ser um teclado defeituoso.
+        Caso determinada tecla não funcione adequadamente e a pessoa
+        não se de ao trabalho de comprar um teclado novo,
+        a pessoa pode então adquirir um novo hábito,
+        e uma vez que ela aprenda este habito,
+        ela provavelmente continuará com ele mesmo depois de comprar um teclado novo.
+        Por exemplo,
+        suponha que a sua tecla `TAB' não funcione.
+        Assim,
+        ao invés de somente pressionar `TAB' uma vez para indentar seu código,
+        você ganha habito de pressionar a tecla de espaços 4 vezes.
     \end{enumerate}
     Hoje em dia,
     com a criação de sistemas computacionais cada vez mais complexos,
-    torna-se um problema juntar em um único projeto diversos programadores,
-    cada um com suas características pessoais distintas.
+    torna\hyp{}se um problema juntar em um único projeto diversos programadores,
+    pois cada um com suas características pessoais distintas,
+    entende melhor código escrito de acordo com seu costume,
+    já que pode saber melhor como localizar e entender os seus elementos.
     \cite{howProgrammersRead}
 }
 
@@ -201,19 +214,39 @@
     every time he formalizes a change in the code through a `commit', as in
     `git' systems for example. \cite{usingSourceControl}
 }{%
-
+    Além do mais,
+    também tem-se que preocupar como o código será salvo no sistema de arquivos,
+    em seu formato de texto pleno.
+    Já que para compartilhar código e trabalhar em times de forma eficiente,
+    é essential utilizar-se um sistema de
+    versionamento\footnote{\url{http://www.codeservedcold.com/version-control-importance/}} que
+    permita gerente de projetos e os próprios programadores,
+    ter o controle de suas mudanças no código \cite{redesignOfGit}.
+    Tal ferramenta deve permitir facilmente realizar o rastreamento
+    das mudanças \cite{gettingProductive} e assim,
+    permitir que você entenda melhor o que cada programador está fazendo,
+    todas as vezes que eles formalizam uma nova alteração no código-fonte,
+    por exemplo,
+    através de uma `commit' como conhecidas em sistemas `git' \cite{usingSourceControl}.
 }
 
 \begin{citacao}
-\lang{%
-    I'd say there are two main reasons to enforce a single code format in a project. First has
-    to do with version control: with everybody formatting the code identically, all changes in
-    the files are guaranteed to be meaningful. No more just adding or removing a space here or
-    there, let alone reformatting an entire file as a `side effect' of actually changing just a
-    line or two. \cite{Geukens}
-}{%
-
-}
+    Eu diria que há duas razões principais para impor um formato de código único em um projeto.
+    Primeiro,
+    tem a ver com controle de versão:
+    com todo mundo formatando o código de forma idêntica,
+    todas as alterações nos arquivos têm a garantia de terem algum significado.
+    Nada mais de coisas como adicionar ou remover um espaço aqui ou ali aleatoriamente,
+    muito menos reformatar um arquivo inteiro como um `efeito
+    colateral' de alterar apenas uma linha ou duas.
+    \cite[our translation]{Geukens} \footnote{\englishword{I'd say there
+    are two main reasons to enforce a single code format in a project.
+    First has to do with version control:
+    with everybody formatting the code identically,
+    all changes in the files are guaranteed to be meaningful.
+    No more just adding or removing a space here or there,
+    let alone reformatting an entire file as a `side effect' of actually changing just a line or two.
+    }}
 \end{citacao}
 
 \lang{%
@@ -229,7 +262,17 @@
     such as the creation of new functions and not the addition of new blank
     lines. \cite{findingRegressionsInProjects}
 }{%
+    Estas conclusões devem-se por que ao trabalhar com um sistema de versionamento como `git',
+    recomenda-se manter todo o código sobre um único stilo,
+    ou aquilo que conhece-se ``Boas Práticas'' colocado como um padrão a todos.
+    Segue-se isso devido aos problemas gerado ao permitir
+    que cada programador escreva como lhe agrada melhor.
+    Se cada um escreve como bem entende,
+    irá existir ruídos de formação em abundância espalhados por tudo o código-fonte,
+    o quê complicará a revisão de código,
+    dificultando entender o que cada programador fez \cite{quitDiffCalculating}.
 
+    \cite{findingRegressionsInProjects}
 }
 
 \lang{%
