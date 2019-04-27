@@ -294,41 +294,7 @@ section=TITLE, % Título de seções em caixa alta
     }
 \fi
 
-% https://tex.stackexchange.com/questions/487648/how-to-use-the-standard-hyphen-as-the-hyp-command-from-the-hyphenat-packa
-\usepackage{expl3}
-
 \begin{document}
-
-    % https://tex.stackexchange.com/questions/487648/how-to-use-the-standard-hyphen-as-the-hyp-command-from-the-hyphenat-packa
-    \ExplSyntaxOn
-    \cs_new:Npn \hyphenfix_emdash:c {---}
-    \cs_new:Npn \hyphenfix_endash:c {--}
-    \cs_new:Npn \hyphenfix_discardnext:NN #1#2{#1}
-
-    \catcode`\-=\active
-    \cs_new_protected:Npn -{
-        \futurelet\hyphenfix_nexttok\hyphenfix_i:w
-    }
-
-    \cs_new:Npn \hyphenfix_i:w {
-        \cs_if_eq:NNTF{\hyphenfix_nexttok}{-}{
-            %discard the next `-` token
-            \hyphenfix_discardnext:NN{\futurelet\hyphenfix_nexttok\hyphenfix_ii:w}
-        }{
-            % from package hyphenat
-            \hyp
-        }
-    }
-
-    \cs_new:Npn \hyphenfix_ii:w {
-        \cs_if_eq:NNTF{\hyphenfix_nexttok}{-}{
-            \hyphenfix_discardnext:NN{\hyphenfix_emdash:c}
-        }{
-            \hyphenfix_endash:c
-        }
-    }
-    \ExplSyntaxOff
-
     % FIXME: Comment this after finishing the thesis, so you can start fixing the \flushbottom vs \raggedbottom
     % https://tex.stackexchange.com/questions/65355/flushbottom-vs-raggedbottom
     \raggedbottom
