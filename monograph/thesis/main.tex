@@ -60,10 +60,6 @@
 \newcommand{\s}[0]{\textquotesingle{}s\xspace}
 \newcommand{\q}[0]{\textquotesingle{}\xspace}
 
-% Backward compatibility with `abntex2cite` package `\citeonline` command with the new `biblatex` package
-% https://tex.stackexchange.com/questions/655/what-is-the-difference-between-def-and-newcommand
-\let\citeonline\textcite
-
 % Uncomment the following line if you want to use other biblatex settings
 % \PassOptionsToPackage{style=numeric,repeatfields=true,backend=biber,backref=true,citecounter=true}{biblatex}
 
@@ -273,8 +269,8 @@ section=TITLE, % Título de seções em caixa alta
 % of the document, before uncommenting these lines.
 %
 % Uncomment these two lines, to only partially generate the document
-\doincludeonly
-\forcedincludetrue
+% \doincludeonly
+% \forcedincludetrue
 
 \ifenglish
     \hypersetup
