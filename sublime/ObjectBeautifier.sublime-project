@@ -133,28 +133,44 @@
             "variants":
             [
                 {
-                    "name": "Proposal",
-                    "cmd": ["make", "proposal"],
-                },
-                {
                     "name": "Thesis (Default)",
                     "cmd": ["make", "thesis"],
+                },
+                {
+                    "name": "Thesis (Default) [Remote]",
+                    "shell": true,
+                    "cmd": ["make", "remote"],
+                    "env": {"arguments": "thesis", "debug": ""},
                 },
                 {
                     "name": "Thesis Biber",
                     "cmd": ["make", "biber"],
                 },
                 {
+                    "name": "Thesis Biber [Remote]",
+                    "shell": true,
+                    "cmd": ["make", "remote"],
+                    "env": {"arguments": "biber", "debug": ""},
+                },
+                {
                     "name": "Thesis LaTeX",
                     "cmd": ["make", "latex"],
                 },
                 {
-                    "name": "Thesis Clean",
-                    "cmd": ["make", "clean"],
+                    "name": "Thesis LaTeX [Remote]",
+                    "shell": true,
+                    "cmd": ["make", "remote"],
+                    "env": {"arguments": "latex", "debug": ""},
                 },
                 {
                     "name": "Thesis Veryclean",
                     "cmd": ["make", "veryclean"],
+                },
+                {
+                    "name": "Thesis Veryclean [Remote]",
+                    "shell": true,
+                    "cmd": ["make", "remote"],
+                    "env": {"arguments": "veryclean", "debug": ""},
                 },
             ],
         },
