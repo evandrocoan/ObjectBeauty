@@ -44,8 +44,11 @@ contidos.
                 \ttfamily
                 \imprimirautor
 
-                \hspace{0.5cm} \imprimirtitulo~:~\imprimirsubtitulo~/~\imprimirautor;
-                \imprimirorientadorRotulo,~\imprimirorientador;~\imprimircoorientadorRotulo,~\imprimircoorientador
+                \hspace{0.5cm} \imprimirtitulo%
+                \ifnotempty{\imprimirsubtitulo}{~:~\imprimirsubtitulo}%
+                ~/~\imprimirautor%
+                ;~\imprimirorientadorRotulo,~\imprimirorientador%
+                \ifnotempty{\imprimircoorientador}{;~\imprimircoorientadorRotulo,~\imprimircoorientador}%
                 ~--~\imprimirlocal,~\currenttime,~\imprimirdata.
 
                 % Prints how much pages there are on the document and links to the last page
@@ -59,14 +62,18 @@ contidos.
                 \hspace{0.5cm} \lang{Includes references}{Inclui referências}
                 \bigskip
 
+                % https://tex.stackexchange.com/questions/54055/using-lower-case-roman-numerals-in-enumerate-lists
+                % https://tex.stackexchange.com/questions/61811/how-to-define-inparaenum-in-the-preamble
                 \hspace{0.44cm}
                 \begin{inparaenum}
                     \lang{\palavraschaveingles}{\palavraschaveportugues}
                 \end{inparaenum}
-                I. \imprimirorientador~
-                II. \imprimircoorientador~
-                III. \imprimirprograma~
-                IV. \imprimirtitulo~
+                \begin{inparaenum}[I.]
+                    \item \imprimirorientador~
+                    \ifnotempty{\imprimircoorientador}{\item \imprimircoorientador~}
+                    \item \imprimirprograma~
+                    \item \imprimirtitulo~
+                \end{inparaenum}
                 \bigskip
 
                 \hspace{7.75cm} CDU 02:141:005.7
