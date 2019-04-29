@@ -271,8 +271,16 @@
     irá existir ruídos de formação em abundância espalhados por tudo o código\hyp{}fonte,
     o quê complicará a revisão de código,
     dificultando entender o que cada programador fez \cite{quitDiffCalculating}.
-
-    \cite{findingRegressionsInProjects}
+    Portando,
+    caso todos os programadores decidam re~=escrever o histórico,
+    fazendo mudanças como inserindo novas linhas antes de cada `if':
+    \begin{enumerate}
+        \item Eles irão disperdiçar um tempo que eles poderiam estar utilizando para escrever código.
+        \item O histórico git irá conter ruídos desnecessários,
+        pois o foco de um sistema de versionamento são conter mudanças se sejam significantes,
+        como criações de novas funções,
+        correção de bugs, etc. \cite{findingRegressionsInProjects}
+    \end{enumerate}
 }
 
 \lang{%
@@ -286,7 +294,21 @@
     night shift programmer\footnote{\url{https://blog.codinghorror.com/who-wrote-this-crap/}}
     had just removed them?
 }{%
-
+    Sobre a última ideia apontada,
+    poderíamos também pensar em uma abordagem para criar um novo sistema de controle de versão,
+    que foca apenas mudanças significativas no código enquanto faz-se a revisão das mudanças no código.
+    No entanto,
+    essa abordagem poderia não ser ideal,
+    pois, por exemplo,
+    permitiria que os programadores iniciassem guerras tediosas de ajustes de código improdutivos.
+    Por exemplo,
+    imagine como seria se todo os dias você tivesse que passar pelo código
+    re~=adicionando novas linhas antes de cada um dos seus amados if\s,
+    só porque algum programador
+    do turno da
+    noite\footnote{\url{https://blog.codinghorror.com/who-wrote-this-crap/}}
+    tinha acabado de
+    removê-los?
 }
 
 
