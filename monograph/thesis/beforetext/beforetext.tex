@@ -79,11 +79,11 @@
 
 % Some tables of contents
 \ifforcedinclude\else
-    % inserir lista de figuras
-    \ifforcedinclude\else\cleardoublepage\fi
-    \addtotextpreliminarycontent{\listfigurename}
-    \pdfbookmark[0]{\listfigurename}{lof}
-    \listoffigures*
+    % % inserir lista de figuras
+    % \ifforcedinclude\else\cleardoublepage\fi
+    % \addtotextpreliminarycontent{\listfigurename}
+    % \pdfbookmark[0]{\listfigurename}{lof}
+    % \listoffigures*
 
     % % inserir lista de quadros
     % \ifforcedinclude\else\cleardoublepage\fi
@@ -91,11 +91,11 @@
     % \pdfbookmark[0]{\listofquadrosname}{lob}
     % \listofquadros*
 
-    % inserir lista de tabelas
-    \ifforcedinclude\else\cleardoublepage\fi
-    \addtotextpreliminarycontent{\listtablename}
-    \pdfbookmark[0]{\listtablename}{lot}
-    \listoftables*
+    % % inserir lista de tabelas
+    % \ifforcedinclude\else\cleardoublepage\fi
+    % \addtotextpreliminarycontent{\listtablename}
+    % \pdfbookmark[0]{\listtablename}{lot}
+    % \listoftables*
 
     % inserir códigos fonte (List of Listings `lol`)
     \ifforcedinclude\else\cleardoublepage\fi
@@ -105,13 +105,13 @@
 \fi
 
 
-% inserir lista de abreviaturas e siglas
-\ifforcedinclude\else\cleardoublepage\fi
-\include{beforetext/siglas}
+% % inserir lista de abreviaturas e siglas
+% \ifforcedinclude\else\cleardoublepage\fi
+% \include{beforetext/siglas}
 
-% Inserir lista de símbolos
-\ifforcedinclude\else\cleardoublepage\fi
-\include{beforetext/simbolos}
+% % Inserir lista de símbolos
+% \ifforcedinclude\else\cleardoublepage\fi
+% \include{beforetext/simbolos}
 
 % Add the table of contents to the brief table of contents
 \addtotextpreliminarycontent{\contentsname}
