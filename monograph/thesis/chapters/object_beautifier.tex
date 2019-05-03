@@ -75,29 +75,7 @@ _parser = lark.Lark(r"""
 \end{lstlisting}
 
 
-\section{Introduction}
-
-TODO:
-Explains what does `translation` means and what is a translator,
-compiler,
-etc.
-(the first slide contents' from Introdução a Compiladores)
-
-This work aims to propose a translator,
-where the input and output languages are the same language.
-Such translation objective is to change the language representational structure,
-but without affecting the language lex,
-syntactic or semantics, i.e.,
-the language meaning.
-
-This program class is commonly know as text formatters.
-The differential from this work from others is the goal of a single expandable tool,
-capable of manipulating all existent and future programming languages,
-based on the use of deterministic
-% TODO:\cite{deterministic free grammars explanation}
-and controlled nondeterministic
-% \cite{TODO:section explaning what does controlled means}
-context free grammars.
+\section{Como implementar}
 
 This audacious goal,
 can only be accomplished because the proposed tool does not rely on the lex,
