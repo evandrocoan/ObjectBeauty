@@ -27,6 +27,51 @@
     será apresentada a sugestão e implementação de uma ferramenta.
 }
 
+\lang{%
+    The difference from this proposal to remaining formatting tools,
+    is the tradeoff between end\hyp{}users and developers responsibilities.
+    Most tools rarely expose to end\hyp{}users their language syntax specification,
+    in contrast,
+    this proposal completely exposes the language to the end\hyp{}user as simple plain\hyp{}text,
+    not requiring the tool to know any language syntax neither semantics.
+    Moreover,
+    with no syntax knowledge required,
+    the tool be can used with any languages their user wishes to.
+}{%
+
+}
+
+\begin{enumerate}[leftmargin=*]
+    \item
+        There are many different tools, sometimes paid, and difficult to
+        complete. \cite{universalCodeFormatter}
+    \item
+        Many programming languages exist, so always having Beautifier
+        software for each of them is very laborious
+        \cite{universalCodeFormatter}. But the approach to a Universal
+        Beautifier proposed in this work, would allow easily new languages to be
+        added, being completely different from previous ones, or alike. And in
+        case of similarities between them, it is enough to reuse their
+        configuration structures already implemented.
+    \item
+        Looking for a Beautifier for each one of them because programmers
+        currently work daily with several of these languages, and they are not
+        similar. So you need to configure several beautifiers to do the
+        formatting. This is a problem because only a few beautifiers are more
+        complete, and every time you need to make a change in the formatting
+        style, you must manually propagate the same change over several
+        different program configuration files, which is bad because it takes the
+        user a lot of time to learn how to handle many different types of
+        settings. \cite{Schweitzer}
+    \item
+        In the case of ideal Beautifier, a change in your styling is
+        propagated to all languages. And if you want to leave some language out
+        of it, you just need to remove it from the list on which the
+        configuration block applies to, and `a)' leave it out so no change is
+        applied to. Or `b)' create a new block including only the block within
+        the desired settings.
+\end{enumerate}
+
 
 \section{\lang{Context}{Contextualização}}
 
@@ -313,10 +358,16 @@
 
 \section{\lang{Goals}{Objetivos}}
 
+\lang{%
     Beforehand due the scope limitation for a Graduation Thesis,
     we should only think about a basic, simple,
     and yet reusable core of features.
+}{%
+    Devido ao trabalho tratar-se de uma tese de graduação,
+    limita~=se seu escopo de trabalho a somente realizara criação de um núcleo reduzido de recursos.
+}
 
+\lang{%
 \begin{enumerate}
     \item
         A Software Product with a great Object Orientation and possibilities of extension of features,
@@ -342,62 +393,38 @@
         with a comparative analysis between them,
         determining their weaknesses and strengths.
 \end{enumerate}
-
+}{%
+    Enumerar e
+    explicar as ferramentas de formatação de código~=fonte e
+    realizar o desenvolvimento de uma nova ferramenta de formatação de código~=fonte que seja extensível.
+}
 
 \subsection{Objetivos Específicos}
 
+\lang{%
     Propose a unique tool that allowing several and distinct
     programming `best practices' being implemented in several programming
     languages, which can be configured and set accordingly to their wishes,
     from a single software working well behaved across all programming languages.
+}{%
+    Propor uma ferramenta que permita várias e
+    diferentes linguagens de programação sejam formatadas utilizando o mesmo conjunto de configurações.
+    Utilizando esta única ferramenta,
+    novas linguagens podem ser configuradas e
+    adicionadas de acordo com a vontade de seus usuários.
+}
 
+\lang{%
     Moreover, explain the differences for other softwares and the benefits
     of a unique tool, instead of several heavily different ones.
-
     From this point, a sketch is presented on the problem, solutions,
     information as for why to want make such software, or even why do we want to
     beautifying things:
-
-\begin{enumerate}[leftmargin=*]
-    \item
-        There are many different tools, sometimes paid, and difficult to
-        complete. \cite{universalCodeFormatter}
-    \item
-        Many programming languages exist, so always having Beautifier
-        software for each of them is very laborious
-        \cite{universalCodeFormatter}. But the approach to a Universal
-        Beautifier proposed in this work, would allow easily new languages to be
-        added, being completely different from previous ones, or alike. And in
-        case of similarities between them, it is enough to reuse their
-        configuration structures already implemented.
-    \item
-        Looking for a Beautifier for each one of them because programmers
-        currently work daily with several of these languages, and they are not
-        similar. So you need to configure several beautifiers to do the
-        formatting. This is a problem because only a few beautifiers are more
-        complete, and every time you need to make a change in the formatting
-        style, you must manually propagate the same change over several
-        different program configuration files, which is bad because it takes the
-        user a lot of time to learn how to handle many different types of
-        settings. \cite{Schweitzer}
-    \item
-        In the case of ideal Beautifier, a change in your styling is
-        propagated to all languages. And if you want to leave some language out
-        of it, you just need to remove it from the list on which the
-        configuration block applies to, and `a)' leave it out so no change is
-        applied to. Or `b)' create a new block including only the block within
-        the desired settings.
-\end{enumerate}
-
-    The difference from this proposal to remaining formatting tools,
-    is the tradeoff between end\hyp{}users and developers responsibilities.
-    Most tools rarely expose to end\hyp{}users their language syntax specification,
-    in contrast,
-    this proposal completely exposes the language to the end\hyp{}user as simple plain\hyp{}text,
-    not requiring the tool to know any language syntax neither semantics.
-    Moreover,
-    with no syntax knowledge required,
-    the tool be can used with any languages their user wishes to.
+}{%
+    E explicar como esta nova ferramenta difere das demais já existentes,
+    e qual as vantagens de ter uma ferramenta para formatar todas as linguagens de programação,
+    ao contrário de ter uma ferramenta para cada linguagem.
+}
 
 
 \section{ESTRUTURAÇÃO DO TEXTO}
