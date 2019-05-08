@@ -35,12 +35,15 @@
 % Allows you to write your thesis both in English and Portuguese
 % https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
 \newif\ifenglish\englishfalse
+\newif\ifadvisor\advisorfalse
 
 % Uncomment the line `\englishtrue` to set the document default language to English
 % \englishtrue
+\advisortrue
 
 % https://tex.stackexchange.com/questions/131002/how-to-expand-ifthenelse-so-that-it-can-be-used-in-parshape
 \newcommand{\lang}[2]{\ifenglish#1\else#2\fi}
+\newcommand{\advisor}[2]{\ifadvisor#1\else#2\fi}
 
 % https://tex.stackexchange.com/questions/385895/how-to-make-passoptionstopackage-add-the-option-as-the-last
 \ifenglish
