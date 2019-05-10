@@ -30,6 +30,291 @@
 \advisor{}{\section{\lang{Context}{Contextualização}}}
 
 \lang{%
+    Within this work\s area, we need to also think long and hard about how to
+    share the programming code of the programmers among you. Now, the problem of
+    human diversity, like all big scientific questions -- how do you explain
+    something like that -- It can be broken down into sub\hyp{}questions. It happens
+    many times, which is a good practice for a `Programmer A', is not the same
+    to another `Programmer B'. For example, imagine some code where a programmer
+    decided to put before each `if' statement, a blank line. It is therefore
+    expected that whenever we see a blank line we can potentially find a
+    matching `if', which can be considered a quite useful pattern matching as
+    empty line may call better your attention. \cite{aPrettyGoodFormatting}
+}{%
+    Programação de computadores usualmente não é uma tarefa solitária.
+    Muitos projetos podem \advisor{}{sempre} ser escritos pela mesma pessoa durante toda a vida desse projeto mas,
+    o quão grande pode ser um projeto que uma pessoa pode fazer sozinha?
+    Poderia uma pessoa escrever sozinha todo o sistema de controle de tráfego aéreo dos Estados Unidos?
+    Uma vez que precisa\hyp{}se escrever sistemas computacionais maiores,
+    % TODO: cite reference to `escrever sistemas computacionais maiores`
+    tende\hyp{}se a colocar vários programadores,
+    engenheiros de software, gerentes de projeto, etc,
+    para que se possa escrever o sistema computacional requerido
+    entro do prazo que dado projeto computacional possui.
+    Com a criação de sistemas computacionais cada vez mais complexos,
+    torna\hyp{}se um problema juntar em um único projeto diversos programadores,
+    pois cada um com suas características pessoais distintas,
+    entende melhor código escrito de acordo com seu costume,
+    já que pode saber melhor como localizar e
+    entender os seus elementos \cite{howProgrammersRead}.
+
+    Então,
+    quando diferentes programadores co~=operam em grandes projetos,
+    \advisor{como unir pessoas com experiências e
+    preferências diferentes?}{%
+    como essas pessoas todas poderiam trabalhar juntas,
+    mesmo elas não tendo as mesmas experiências?} \advisor{Uma}{Assim,
+    uma} barreira adicional \advisor{ao}{para cada um desses programadores no} desenvolvimento do projeto
+    será aprender as diferenças de trabalho que cada um desses desenvolvedores possuem entre sí.
+    Uma dessas diferenças é a maneira no qual cada programador
+    organiza estrutura de seu código no requisito de formatação.
+    Por exemplo,
+    imagine que um certo ``Programador A'' tem o costume de deixar uma linha em
+    branco antes de cada estrutura de controle\advisor{.}{ do tipo ``if'',
+    ``for'',
+    etc.
+    } Já um outro ``Programador B'',
+    possui o costume oposto,
+    ele jamais deixa uma linha em branco antes dessas estruturas de controle.
+    Então,
+    o quê pode dar de errado quando ambos os programadores ``A'' e
+    ``B'' trabalham num mesmo projeto?
+
+    \advisor{O problema mais provável é que o código-fonte esteja escrito em dois estilos:
+    do Programador A e
+    B.
+    }{Existem algumas possibilidades,
+    uma delas poderia ser que a metade do código escrita pelo ``Programador A'' estará de um jeito.
+    Já a outra metade escrita pelo ``Programador B'' estará de outro.
+    } Então,
+    que tipos de problema isso poderia causar?
+    Uma vez que o código não está mais todo escrito sobre um mesmo padrão,
+    \advisor{há uma dificuldade na leitura do código como algo homogêneo.
+    Os próprios Programadores A e
+    B, autores do código, teriam dificuldades,
+    pois ele segue um estilo diferente ao que A e
+    B estão habituados.
+    }{certas heurísticas tem sua taxa de acerto reduzida ao fazer o reconhecimento dos padrões.
+    } Um exemplo de padrão que estaria prejudicado seria rapidamente
+    identificar onde pode estar uma estrutura de controle,
+    \advisor{}{como ``if'' ou ``for''} de acordo com a presença ou não de uma linha em branco antes dela,
+    já que a presença de uma linha em branco faz um destacamento maior sendo
+    reconhecida como um separador de blocos de código distintos,
+    \cite{aPrettyGoodFormatting}
+}
+
+\lang{%
+    But again this is something heavily dependent of what each one learning
+    through their life time. Imagine another programmer do not liked this rule,
+    and when he was writing your code involving an ``if'', he did not put such
+    blank line another programmer is expecting. So when the first programmer
+    start reading its the code and look for ``if'', he will be expecting for blank
+    lines before its if\s. But will lose some time searching until realize
+    another programmer does not put them, or perhaps he forgot to insert them.
+    \cite{quantifyingProgramComprehension}
+}{%
+    \advisor{}{E por mais uma vez,
+    estas heurísticas são fortemente dependentes do aprendizado de cada programador durante sua vida.
+    Imagine um segundo programador que não esta habituado com a heurística de outro,
+    e toda vez que ele for ler o código deste terceiro programador,
+    ela estará perdido para poder se localizar rapidamente dentro do código.
+    E portanto,
+    o que isso significa?
+    Que ele terá que atentamente ler o código escrito por este terceiro programador,
+    uma vez que a sua organização difere dos padrões no qual ele sabe como rapidamente se localizar.
+    \cite{quantifyingProgramComprehension}
+    }
+}
+
+\lang{%
+    These differences are due to the diversity of ways we learn programming,
+    i.e., to the ways we are used to doing coding, as much as the abilities and
+    objectives of every programmer developed. Hence, nowadays it becomes a big
+    problem because we increasingly need more and more programmers working
+    together developing several and diverse computing systems. Where the latter
+    is due to the fact of the complexity of computer systems growing
+    increasingly, therefore over requiring programmers working and sharing their
+    codes and ideas. \cite{howProgrammersRead}
+}{%
+    As diferenças entres os diversos estilos de programação entre
+    os programadores deve\hyp{}se à diversos fatores:
+    \begin{enumerate}
+        \item Alguns programadores simplesmente fazem de um determinado
+        \advisor{estilo devido as suas experiências iniciais}{jeito por
+        que foi assim que eles aprenderam de seus tutores} e
+        nunca preocuparam\hyp{}se em questionar se poderia ser feito de outra maneira.
+        Um caso onde isso pode acontecer é devido ao cansaço \advisor{da tarefa de programar.%
+        }{que algumas linguagens de programação como \latex causam por sua sintaxe incomum e
+        extraordinária.} \advisor{Estando cansado,
+        um programador pode apresentar problemas de concentração,
+        como qualquer outro profissional,
+        e consequentemente,
+        não conseguir manter organização e
+        legibilidade no código.}{Uma vez que você já está cansado de ver tantos errors,
+        você simplesmente para de questionar como o texto poderia ser formado e
+        aceita o que você encontra escrito e
+        funcionando como parte da sintaxe da linguagem.}
+
+        \item Outros podem ter determinadas características na formatação da escrita
+        de seus códigos devido a algum aspecto emocional ou físico.
+        Emocionalmente o programador pode ``não gostar'' de alguma característica por que
+        \advisor{}{sofreu algum trauma ou} simplesmente pode estar muito acostumado a ter
+        ter visualmente todos os elementos muito próximos um dos outros na tela.
+        Assim,
+        mesmo tal característica não sendo nada fácil para que outras pessoas entendam o código,
+        ela pode ser muito fácil de ser compreendida pelo próprio programador que a escreveu,
+        já que o mesmo vem a muitos anos habituado a realizar a
+        escrita de seus códigos desta determinada forma,
+        portanto é muito hábil com a mesma e
+        rapidamente consegue entender o que escreve.
+
+        \advisor{}{\item Uma característica física que pode determinar a
+            formatação de código de alguém pode ser um teclado defeituoso.
+            Caso determinada tecla não funcione adequadamente e
+            a pessoa não se dê ao trabalho de comprar um teclado novo,
+            a pessoa pode então adquirir um novo hábito,
+            e uma vez que ela aprenda este habito,
+            ela provavelmente continuará com ele mesmo depois de comprar um teclado novo.
+            Por exemplo,
+            suponha que a sua tecla ``TAB'' não funcione.
+            Assim,
+            ao invés de somente pressionar ``TAB'' uma vez para indentar seu código,
+            você ganha habito de pressionar a tecla de espaços 4 vezes.
+            Portanto,
+            nasce um motivo para alguém utilizar espaços ao invés ``TAB\s''
+            para realizar a indentação de seu código.
+        }
+    \end{enumerate}
+}
+
+\lang{%
+    Moreover besides only worrying about how the code is displayed on their
+    computer screen, we need to worry about on how it will be saved in the file
+    system on its `plain\hyp{}text' mode. Since for code sharing, it is vital for you
+    to use a versioning control system\footnote{\url{http://www.codeservedcold.com/version-control-importance/}}
+    which enable project manager\s and
+    programmers themselves, take control of their code changes
+    \cite{redesignOfGit}. It does allow to easily perform the tracking of code
+    changes \cite{gettingProductive} and
+    allow you to better understand what each programmer is doing
+    every time he formalizes a change in the code through a `commit', as in
+    `git' systems for example. \cite{usingSourceControl}
+}{%
+    Indo além de como programadores leem código enquanto estão escrevendo ele,
+    também tem que se preocupar como o código será salvo no sistema de arquivos,
+    em seu formato de texto simples.
+    Já que para compartilhar código e
+    trabalhar em times de forma eficiente,
+    é essencial utilizar um sistema de
+    versionamento\footnote{\url{http://www.codeservedcold.com/version-control-importance/}}
+    que permita aos gerentes de projetos e
+    os próprios programadores,
+    ter o controle de suas mudanças no código \cite{redesignOfGit}.
+    \advisor{Tal ferramenta deve permitir rastrear mudanças \cite{gettingProductive},
+    habilitando que se entenda melhor as atividades de cada programador.
+    \cite{usingSourceControl}
+    }{Tal ferramenta deve permitir facilmente realizar o
+    rastreamento das mudanças \cite{gettingProductive} e
+    assim,
+    permitir que entenda-se melhor o que cada programador está fazendo,
+    todas as vezes que eles formalizam uma nova alteração no código\hyp{}fonte,
+    por exemplo,
+    através de uma ``commit'' como conhecidas em sistemas ``git'' \cite{usingSourceControl}.
+    }
+}
+
+\begin{citacao}
+    Há duas razões principais para impor um formato de código único em um projeto.
+    A primeira razão tem a ver com o controle de versão:
+    comp todo mundo formata o código de forma idêntica,
+    todas as alterações nos arquivos têm a garantia de terem algum significado.
+    Nada mais de coisas como adicionar ou remover um espaço aleatoriamente,
+    muito menos formatar um arquivo inteiro como um ``efeito
+    colateral'' de alterar apenas uma linha ou duas.
+    \cite[tradução nossa]{Geukens} \footnote{\englishword{I'd say there
+    are two main reasons to enforce a single code format in a project.
+    First has to do with version control:
+    with everybody formatting the code identically,
+    all changes in the files are guaranteed to be meaningful.
+    No more just adding or removing a space here or there,
+    let alone reformatting an entire file as a ``side effect'' of actually changing just a line or two.
+    }}
+\end{citacao}
+
+\lang{%
+    That is because while working with a versioning system like `git', we need
+    to keep the code among a single style or which we may call a `good practice'
+    set as standard for everybody, due the fact of letting each programmer to
+    write as he pleases, there will be plenty of noise on the code review and we
+    are figuring out what actually each programmer did \cite{quitDiffCalculating}.
+    Hence, if every programmer re\hyp{}writes the history making changes
+    like inserting new lines
+    before each if, we end up with too much noise and focus of a versioning
+    system is to look at only those changes that are significant to the code,
+    such as the creation of new functions and not the addition of new blank
+    lines. \cite{findingRegressionsInProjects}
+}{%
+    \advisor{
+      Estas conclusões seguem porque ao trabalhar com um sistema de versionamento como ``git'',
+      recomenda\hyp{}se manter todo o código sobre um único estilo,
+      devido aos problemas gerados ao permitir que cada programador escreva como lhe bem entender.
+      Por exemplo,
+      gerando ruídos de formatação dificultando a revisão do código~=fonte,
+      dificultando o entendimento que cada programador \cite{quitDiffCalculating}.
+
+      Caso todos os programadores decidam re~=escrever o histórico,
+      fazendo mudanças como inserindo novas linhas antes de cada ``if'':
+    }{
+        Segue\hyp{}se estas conclusões devido aos problemas gerados ao permitir
+        que cada programador escreva como lhe agrada melhor.
+        Caso cada um escreva como bem entende,
+        irá existir ruídos de formatação em abundância espalhados por tudo o código\hyp{}fonte,
+        o quê complicará a revisão de código,
+        dificultando entender o que cada programador fez \cite{quitDiffCalculating}.
+
+        Portando,
+        caso todos os programadores decidam re~=escrever o histórico,
+        fazendo mudanças como inserindo novas linhas antes de cada ``if'':
+    }%
+    \begin{enumerate}
+        \item Eles irão desperdiçar um tempo que eles poderiam estar utilizando para escrever código.
+        \item O histórico git irá conter ruídos desnecessários,
+        pois o foco de um sistema de versionamento são conter mudanças se sejam significantes,
+        como criações de novas funções,
+        correção de bugs, etc. \cite{findingRegressionsInProjects}
+    \end{enumerate}
+}
+
+\lang{%
+    Talking about the last ideia pointed out, we could also think about an
+    approach to creating a new version control system which focuses only on
+    significant changes to the code, while reviewing code changes. However, this
+    approach could not be ideal, as for example, it would allow programmers to
+    start tedious wars of unproductive code adjustments. For example, imagine
+    how it would be for your every day and have to go through your code
+    re\hyp{}adding new lines before each one of your beloved if\s, just because some
+    night shift programmer\footnote{\url{https://blog.codinghorror.com/who-wrote-this-crap/}}
+    had just removed them?
+}{%
+    \advisor{}{%
+        Poderia~=se também pensar em uma abordagem para criar um novo sistema de controle de versão,
+        que foca apenas mudanças significativas no código enquanto faz-se a revisão das mudanças no código.
+        No entanto,
+        essa abordagem poderia não ser ideal,
+        pois, por exemplo,
+        permitiria que os programadores iniciassem guerras tediosas de ajustes de código improdutivos.
+        Por exemplo,
+        imagine como seria se todo os dias você tivesse que passar pelo código
+        re~=adicionando novas linhas antes de cada um dos seus amados if\s,
+        só porque algum programador do
+        turno da
+        noite\footnote{\url{https://blog.codinghorror.com/who-wrote-this-crap/}}
+        tinha acabado de
+        removê-los?
+    }
+}
+
+\lang{%
     Questions like ``What are good programming practices?'' Or ``Why are these
     practices are good?''Are not easy to answer. But each programmer learns to
     write their codes in a certain way, with certain features like using 4 or 8
@@ -71,333 +356,99 @@
     \cite{usingVersionControlData}.
 }{%
     Assim,
-    este trabalho será focado nas ferramentas disposição ou organização do código,
+    este trabalho tem por objetivo estudar e
+    desenvolver uma ferramenta de disposição ou organização do código,
     também conhecidos como ``Source Code Beautifiers'' ou ``Formatadores de Código''.
     Com isso,
-    espera\hyp{}se que o desenvolvimento de códigos demande menos esforços,
-    pois o desenvolvedor pode forcar seus esforços pensando mais sobre o problema que está sendo resolvido,
-    ao contrário de tentar decifrar o que está escrito em sua frente por meio de layouts extravagantes ou incomuns.
-    \cite{usingVersionControlData}
-}
-
-\lang{%
-    Within this work\s area, we need to also think long and hard about how to
-    share the programming code of the programmers among you. Now, the problem of
-    human diversity, like all big scientific questions -- how do you explain
-    something like that -- It can be broken down into sub\hyp{}questions. It happens
-    many times, which is a good practice for a `Programmer A', is not the same
-    to another `Programmer B'. For example, imagine some code where a programmer
-    decided to put before each `if' statement, a blank line. It is therefore
-    expected that whenever we see a blank line we can potentially find a
-    matching `if', which can be considered a quite useful pattern matching as
-    empty line may call better your attention. \cite{aPrettyGoodFormatting}
-}{%
-    Programação de computadores usualmente não é uma tarefa solitária.
-    Muitos projetos podem sempre ser escritos pela mesma pessoa durante toda a vida desse projeto mas,
-    o quão grande pode ser um projeto que uma pessoa pode fazer sozinha?
-    Poderia uma pessoa escrever sozinha todo o sistema de controle de tráfego aéreo dos Estados Unidos?
-    Uma vez que precisa\hyp{}se escrever sistemas computacionais maiores,
-    % TODO: cite reference to `escrever sistemas computacionais maiores`
-    tende\hyp{}se a colocar vários programadores,
-    engenheiros de software, gerentes de projeto, etc,
-    para que se possa escrever o sistema computacional requerido
-    entro do prazo que dado projeto computacional possui.
-    Com a criação de sistemas computacionais cada vez mais complexos,
-    torna\hyp{}se um problema juntar em um único projeto diversos programadores,
-    pois cada um com suas características pessoais distintas,
-    entende melhor código escrito de acordo com seu costume,
-    já que pode saber melhor como localizar e
-    entender os seus elementos \cite{howProgrammersRead}.
-
-    Então,
-    quando diferentes programadores co~=operam em grandes projetos,
-    \advisor{como essas unir pessoas com experiências e
-    preferências diferentes?}{%
-    como essas pessoas todas poderiam trabalhar juntas,
-    mesmo elas não tendo as mesmas experiências?} Assim,
-    uma barreira adicional \advisor{ao}{para cada um desses programadores no} desenvolvimento do projeto
-    será aprender as diferenças de trabalho que cada um desses desenvolvedores possuem entre sí.
-    Uma das diferenças é a maneira no qual cada programador organiza
-    estrutura de seu código no requisito de formatação.
-    Por exemplo,
-    imagine que um certo ``Programador A'' tem o costume de deixar uma linha
-    em branco antes de cada estrutura de controle do tipo ``if'',
-    ``for'',
-    etc.
-    Já um outro ``Programador B'',
-    possui o costume oposto,
-    ele jamais deixa uma linha em branco antes dessas estruturas de controle.
-    Então,
-    o quê pode dar de errado quando ambos os programadores ``A'' e
-    ``B'' trabalham num mesmo projeto?
-
-    Existem algumas possibilidades,
-    uma delas poderia ser que a metade do código escrita pelo ``Programador A'' estará de um jeito.
-    Já a outra metade escrita pelo ``Programador B'' estará de outro.
-    Então,
-    que tipos de problema isso poderia causar?
-    Uma vez que o código não está mais todo escrito sobre um mesmo padrão,
-    certas heurísticas perdem possuem sua taxa de acerto reduzidas ao fazer o reconhecimento de padrões.
-    Um exemplo de padrão poderia ser rapidamente identificar onde pode estar uma estrutura de controle
-    como ``if'' ou ``for'' de acordo com a presença ou não de uma linha em branco antes dela,
-    já que a presença de uma linha em branco faz um destacamento maior sendo
-    reconhecida como um separador de blocos de código distintos,
-    \cite{aPrettyGoodFormatting}
-}
-
-\lang{%
-    But again this is something heavily dependent of what each one learning
-    through their life time. Imagine another programmer do not liked this rule,
-    and when he was writing your code involving an ``if'', he did not put such
-    blank line another programmer is expecting. So when the first programmer
-    start reading its the code and look for ``if'', he will be expecting for blank
-    lines before its if\s. But will lose some time searching until realize
-    another programmer does not put them, or perhaps he forgot to insert them.
-    \cite{quantifyingProgramComprehension}
-}{%
-    E por mais uma vez,
-    estas heurísticas são fortemente dependentes do aprendizado de cada programador durante sua vida.
-    Imagine um segundo programador que não esta habituado com a heurística de outro,
-    e toda vez que ele for ler o código deste terceiro programador,
-    ela estará perdido para poder se localizar rapidamente dentro do código.
-    E portanto,
-    o que isso significa?
-    Que ele terá que atentamente ler o código escrito por este terceiro programador,
-    uma vez que a sua organização difere dos padrões no qual ele sabe como
-    rapidamente se localizar. \cite{quantifyingProgramComprehension}
-}
-
-\lang{%
-    These differences are due to the diversity of ways we learn programming,
-    i.e., to the ways we are used to doing coding, as much as the abilities and
-    objectives of every programmer developed. Hence, nowadays it becomes a big
-    problem because we increasingly need more and more programmers working
-    together developing several and diverse computing systems. Where the latter
-    is due to the fact of the complexity of computer systems growing
-    increasingly, therefore over requiring programmers working and sharing their
-    codes and ideas. \cite{howProgrammersRead}
-}{%
-    As diferenças entres os diversos estilos de programação entre os programadores deve\hyp{}se à diversos fatores.
-    \begin{enumerate}
-        \item Alguns programadores simplesmente fazem de um determinado jeito
-        por que foi assim que ele aprenderam de seus tutores,
-        e nunca preocuparam\hyp{}se em questionar se poderia ser feito de outra maneira.
-        Uma caso onde isso pode acontecer é devido se ao cansaço que algumas linguagens de
-        programação como \latex causam por sua sintaxe incomum e extraordinária.
-        Uma vez que você já está cansado de ver tantos errors,
-        você simplesmente para de questionar como o texto poderia ser formado e aceita o que
-        você encontra escrito e funcionando como parte da sintaxe da linguagem.
-
-        \item Outros podem ter determinadas características na formatação da escrita
-        de seus códigos devido a alguma característica emocional ou física.
-        Emocionalmente você pode ``não gostar'' de alguma característica por que sofreu
-        algum trauma ou simplesmente esta muito acostumado a ter a ter
-        visualmente todos os elementos muito próximos um dos outros na tela.
-        Assim,
-        mesmo tal característica não ser nada fácil para que outras pessoas entendam o seu código,
-        ela pode ser muito fácil de ser compreendida por você,
-        que a muitos anos já está habituado a realizar a escrita de seus códigos desta determinada forma e
-        portanto é muito hábil e
-        muito rapidamente consegue entender o que escreve.
-
-        \item Uma característica física que pode determinar a formatação
-        de código de alguém pode ser um teclado defeituoso.
-        Caso determinada tecla não funcione adequadamente e
-        a pessoa não se dê ao trabalho de comprar um teclado novo,
-        a pessoa pode então adquirir um novo hábito,
-        e uma vez que ela aprenda este habito,
-        ela provavelmente continuará com ele mesmo depois de comprar um teclado novo.
-        Por exemplo,
-        suponha que a sua tecla ``TAB'' não funcione.
-        Assim,
-        ao invés de somente pressionar ``TAB'' uma vez para indentar seu código,
-        você ganha habito de pressionar a tecla de espaços 4 vezes.
-        Portanto,
-        nasce um motivo para alguém utilizar espaços ao invés ``TAB\s'' para realizar a indentação de seu código.
-    \end{enumerate}
-}
-
-\lang{%
-    Moreover besides only worrying about how the code is displayed on their
-    computer screen, we need to worry about on how it will be saved in the file
-    system on its `plain\hyp{}text' mode. Since for code sharing, it is vital for you
-    to use a versioning control system\footnote{\url{http://www.codeservedcold.com/version-control-importance/}}
-    which enable project manager\s and
-    programmers themselves, take control of their code changes
-    \cite{redesignOfGit}. It does allow to easily perform the tracking of code
-    changes \cite{gettingProductive} and
-    allow you to better understand what each programmer is doing
-    every time he formalizes a change in the code through a `commit', as in
-    `git' systems for example. \cite{usingSourceControl}
-}{%
-    Indo além de como programadores leem código enquanto estão escrevendo ele,
-    também tem\hyp{}se que preocupar como o código será salvo no sistema de arquivos,
-    em seu formato de texto simples.
-    Já que para compartilhar código e
-    trabalhar em times de forma eficiente,
-    é essential utilizar\hyp{}se um sistema de
-    versionamento\footnote{\url{http://www.codeservedcold.com/version-control-importance/}}
-    que permita aos gerentes de projetos e
-    os próprios programadores,
-    ter o controle de suas mudanças no código \cite{redesignOfGit}.
-    Tal ferramenta deve permitir facilmente realizar o rastreamento das mudanças \cite{gettingProductive} e
-    assim,
-    permitir que você entenda melhor o que cada programador está fazendo,
-    todas as vezes que eles formalizam uma nova alteração no código\hyp{}fonte,
-    por exemplo,
-    através de uma ``commit'' como conhecidas em sistemas ``git'' \cite{usingSourceControl}.
-}
-
-\begin{citacao}
-    Eu diria que há duas razões principais para impor um formato de código único em um projeto.
-    Primeiro,
-    tem a ver com controle de versão:
-    com todo mundo formatando o código de forma idêntica,
-    todas as alterações nos arquivos têm a garantia de terem algum significado.
-    Nada mais de coisas como adicionar ou remover um espaço aqui ou ali aleatoriamente,
-    muito menos reformatar um arquivo inteiro como um ``efeito
-    colateral'' de alterar apenas uma linha ou duas.
-    \cite[our translation]{Geukens} \footnote{\englishword{I'd say there
-    are two main reasons to enforce a single code format in a project.
-    First has to do with version control:
-    with everybody formatting the code identically,
-    all changes in the files are guaranteed to be meaningful.
-    No more just adding or removing a space here or there,
-    let alone reformatting an entire file as a ``side effect'' of actually changing just a line or two.
-    }}
-\end{citacao}
-
-\lang{%
-    That is because while working with a versioning system like `git', we need
-    to keep the code among a single style or which we may call a `good practice'
-    set as standard for everybody, due the fact of letting each programmer to
-    write as he pleases, there will be plenty of noise on the code review and we
-    are figuring out what actually each programmer did \cite{quitDiffCalculating}.
-    Hence, if every programmer re\hyp{}writes the history making changes
-    like inserting new lines
-    before each if, we end up with too much noise and focus of a versioning
-    system is to look at only those changes that are significant to the code,
-    such as the creation of new functions and not the addition of new blank
-    lines. \cite{findingRegressionsInProjects}
-}{%
-    Estas conclusões devem\hyp{}se por que ao trabalhar com um sistema de versionamento como ``git'',
-    recomenda\hyp{}se manter todo o código sobre um único stilo,
-    ou aquilo que conhece\hyp{}se ``Boas Práticas'' colocado como um padrão a todos.
-    Segue\hyp{}se isso devido aos problemas gerado ao permitir
-    que cada programador escreva como lhe agrada melhor.
-    Se cada um escreve como bem entende,
-    irá existir ruídos de formação em abundância espalhados por tudo o código\hyp{}fonte,
-    o quê complicará a revisão de código,
-    dificultando entender o que cada programador fez \cite{quitDiffCalculating}.
-    Portando,
-    caso todos os programadores decidam re~=escrever o histórico,
-    fazendo mudanças como inserindo novas linhas antes de cada ``if'':
-    \begin{enumerate}
-        \item Eles irão disperdiçar um tempo que eles poderiam estar utilizando para escrever código.
-        \item O histórico git irá conter ruídos desnecessários,
-        pois o foco de um sistema de versionamento são conter mudanças se sejam significantes,
-        como criações de novas funções,
-        correção de bugs, etc. \cite{findingRegressionsInProjects}
-    \end{enumerate}
-}
-
-\lang{%
-    Talking about the last ideia pointed out, we could also think about an
-    approach to creating a new version control system which focuses only on
-    significant changes to the code, while reviewing code changes. However, this
-    approach could not be ideal, as for example, it would allow programmers to
-    start tedious wars of unproductive code adjustments. For example, imagine
-    how it would be for your every day and have to go through your code
-    re\hyp{}adding new lines before each one of your beloved if\s, just because some
-    night shift programmer\footnote{\url{https://blog.codinghorror.com/who-wrote-this-crap/}}
-    had just removed them?
-}{%
-    Sobre a última ideia apontada,
-    poderíamos também pensar em uma abordagem para criar um novo sistema de controle de versão,
-    que foca apenas mudanças significativas no código enquanto faz-se a revisão das mudanças no código.
-    No entanto,
-    essa abordagem poderia não ser ideal,
-    pois, por exemplo,
-    permitiria que os programadores iniciassem guerras tediosas de ajustes de código improdutivos.
-    Por exemplo,
-    imagine como seria se todo os dias você tivesse que passar pelo código
-    re~=adicionando novas linhas antes de cada um dos seus amados if\s,
-    só porque algum programador
-    do turno da
-    noite\footnote{\url{https://blog.codinghorror.com/who-wrote-this-crap/}}
-    tinha acabado de
-    removê-los?
+    espera\hyp{}se que o desenvolvimento de códigos demande menos trabalho,
+    pois o desenvolvedor pode forcar mais seus esforços pensando
+    mais sobre o problema que está sendo resolvido,
+    ao contrário de tentar decifrar o que está escrito \advisor{em estilo incomum a sua experiência.
+    }{em sua frente por meio de layouts extravagantes ou incomuns.
+    }\cite{usingVersionControlData}
 }
 
 
 \section{\lang{Goals}{Objetivos}}
 
-\lang{%
-    Beforehand due the scope limitation for a Graduation Thesis,
-    we should only think about a basic, simple,
-    and yet reusable core of features.
+\advisor{%
+    Esta seção apresenta os objetivos desse trabalho,
+    divididos em Objetivo Geral e
+    Objetivos Específicos.
 }{%
-    Devido ao trabalho tratar-se de uma tese de graduação,
-    limita~=se seu escopo de trabalho a somente realizara criação de um núcleo reduzido de recursos.
+    \lang{%
+        Beforehand due the scope limitation for a Graduation Thesis,
+        we should only think about a basic, simple,
+        and yet reusable core of features.
+    }{%
+        Devido ao trabalho tratar-se de uma tese de graduação,
+        limita~=se seu escopo de trabalho a criação de um núcleo básico de recursos.
+    }%
+    \lang{%
+    \begin{enumerate}
+        \item
+            A Software Product with a great Object Orientation and possibilities of extension of features,
+            decent research on the state of the art.
+        \item
+            Ranking all code formatting classes (beautifying) applicable.
+            Including a study on what does is source beautifying,
+            how to do such and why.
+        \item
+            Establish relationships between good programming practices and efficiency in programming,
+            in addition to a new tool to support programmers in order to automate the long and diverse
+            programming process in teams of developers with different programming `best practices'.
+        \item
+            Define, determine and classify which one are good programming practices and
+            perform an in\hyp{}depth study on the good practices on visual layout area,
+            also known as code `Beautifying'.
+        \item
+            The definition of a flow pattern of development allowing teams of
+            developers with different programming best practices,
+            to work without intervene with each other up to start wars of `best good practices'.
+        \item
+            Discourse on the variety of existing tools for the support of good programming practices,
+            with a comparative analysis between them,
+            determining their weaknesses and strengths.
+    \end{enumerate}
+    }{%
+        Enumerar e
+        explicar as ferramentas de formatação de código~=fonte e
+        realizar o desenvolvimento de uma nova ferramenta de formatação de código~=fonte
+        que seja extensível por gramáticas fornecidas pelos usuários.
+    }
 }%
-\lang{%
-\begin{enumerate}
-    \item
-        A Software Product with a great Object Orientation and possibilities of extension of features,
-        decent research on the state of the art.
-    \item
-        Ranking all code formatting classes (beautifying) applicable.
-        Including a study on what does is source beautifying,
-        how to do such and why.
-    \item
-        Establish relationships between good programming practices and efficiency in programming,
-        in addition to a new tool to support programmers in order to automate the long and diverse
-        programming process in teams of developers with different programming `best practices'.
-    \item
-        Define, determine and classify which one are good programming practices and
-        perform an in\hyp{}depth study on the good practices on visual layout area,
-        also known as code `Beautifying'.
-    \item
-        The definition of a flow pattern of development allowing teams of
-        developers with different programming best practices,
-        to work without intervene with each other up to start wars of `best good practices'.
-    \item
-        Discourse on the variety of existing tools for the support of good programming practices,
-        with a comparative analysis between them,
-        determining their weaknesses and strengths.
-\end{enumerate}
-}{%
-    Enumerar e
-    explicar as ferramentas de formatação de código~=fonte e
-    realizar o desenvolvimento de uma nova ferramenta de formatação de código~=fonte que seja extensível.
-}
+
+\subsection{Objetivo Geral}
+
+Desenvolver um formatador de código fonte extensível a
+qualquer linguagem de programação por meio de gramáticas.
+
 
 \subsection{Objetivos Específicos}
 
-\lang{%
-    Propose a unique tool that allowing several and distinct
-    programming `best practices' being implemented in several programming
-    languages, which can be configured and set accordingly to their wishes,
-    from a single software working well behaved across all programming languages.
-}{%
-    Propor uma ferramenta que permita várias e
-    diferentes linguagens de programação sejam formatadas utilizando o mesmo conjunto de configurações.
-    Utilizando esta única ferramenta,
-    novas linguagens podem ser configuradas e
-    adicionadas de acordo com a vontade de seus usuários.
-}
-
-\lang{%
-    Moreover, explain the differences for other softwares and the benefits
-    of a unique tool, instead of several heavily different ones.
-    From this point, a sketch is presented on the problem, solutions,
-    information as for why to want make such software, or even why do we want to
-    beautifying things:
-}{%
-    E explicar como esta nova ferramenta difere das demais já existentes,
-    e qual as vantagens de ter uma ferramenta para formatar todas as linguagens de programação,
-    ao contrário de ter uma ferramenta para cada linguagem.
-}
+\begin{enumerate}
+    \item Analisar a fundamentação teórica de linguagens formais e
+    compiladores.
+    \item Analisar o estado da arte das ferramentas que fazem formatação de código.
+    \lang{%
+        \item Propose a unique tool that allowing several and distinct
+        programming `best practices' being implemented in several programming
+        languages, which can be configured and set accordingly to their wishes,
+        from a single software working well behaved across all programming languages.
+    }{%
+        \item Projetar uma ferramenta que permita várias e
+        diferentes linguagens de programação sejam formatadas utilizando o mesmo conjunto de configurações.
+    }
+    \lang{%
+        \item Moreover, explain the differences for other softwares and the benefits
+        of a unique tool, instead of several heavily different ones.
+        From this point, a sketch is presented on the problem, solutions,
+        information as for why to want make such software, or even why do we want to
+        beautifying things:
+    }{%
+        \item Avaliar como esta nova ferramenta difere das demais já existentes.
+    }
+\end{enumerate}
 
 
 \section{ESTRUTURAÇÃO DO TEXTO}

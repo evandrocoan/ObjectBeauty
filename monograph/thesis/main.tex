@@ -129,7 +129,7 @@ section=TITLE, % Título de seções em caixa alta
 % FIXME: Preencha com Doutor, Bacharel ou Mestrando
 \formacao{\lang
 	{Bachelor of Science degree in Computer Science}
-	{Bacharel em Ciência da Computação}%
+	{Bacharel em Ciências da Computação}%
 }
 \programa{\lang
 	{Undergraduate Program in Computer Science}
@@ -252,9 +252,10 @@ section=TITLE, % Título de seções em caixa alta
     \setlength\afterchapskip{20pt}
 
     % PARTE
-    \ifforcedinclude\else\part{\lang{Research}{Pesquisa}}\fi
-    \label{sec:primeira_parte}
-
+    \advisor{}{%
+        \ifforcedinclude\else\part{\lang{Research}{Pesquisa}}\fi
+        \label{sec:primeira_parte}
+    }
 
     % Introdução (exemplo de capítulo sem numeração, mas presente no Sumário)
     \include{chapters/introduction}
@@ -262,8 +263,10 @@ section=TITLE, % Título de seções em caixa alta
     \include{chapters/beautifiers}
 
     % PARTE
-    \ifforcedinclude\else\part{\lang{Implementation}{Implementação}}\fi
-    \label{sec:segunda_parte}
+    \advisor{}{%
+        \ifforcedinclude\else\part{\lang{Implementation}{Implementação}}\fi
+        \label{sec:segunda_parte}
+    }
 
     % Capitulo com exemplos de comandos inseridos de arquivo externo
     \include{chapters/object_beautifier}

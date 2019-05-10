@@ -116,9 +116,9 @@
             pdftitle={\@title},
             colorlinks=true,     % false: boxed links; true: colored links
             linkcolor=darkblue,  % color of internal links
-            citecolor=darkgreen, % color of links to bibliography
+            citecolor=\advisor{black}{darkgreen}, % color of links to bibliography
             filecolor=black,     % color of file links
-            urlcolor=linkcolor,
+            urlcolor=\advisor{black}{darkgreen},
             bookmarksdepth=4
         }
     }
@@ -126,22 +126,22 @@
 \makeatother
 
 % https://tex.stackexchange.com/questions/14314/changing-the-font-of-the-numbers-in-the-toc-in-the-memoir-class
-\renewcommand{\cftpartfont}{\ABNTEXpartfont\color{ultramarine}}
+\renewcommand{\cftpartfont}{\ABNTEXpartfont\color{black}}
 \renewcommand{\cftpartpagefont}{\ABNTEXpartfont\color{black}}
 
-\renewcommand{\cftchapterfont}{\ABNTEXchapterfont\color{ultramarine}}
+\renewcommand{\cftchapterfont}{\ABNTEXchapterfont\color{black}}
 \renewcommand{\cftchapterpagefont}{\ABNTEXchapterfont\color{black}}
 
-\renewcommand{\cftsectionfont}{\ABNTEXsectionfont\color{ultramarine}}
+\renewcommand{\cftsectionfont}{\ABNTEXsectionfont\color{black}}
 \renewcommand{\cftsectionpagefont}{\ABNTEXsectionfont\color{black}}
 
-\renewcommand{\cftsubsectionfont}{\ABNTEXsubsectionfont\color{ultramarine}}
+\renewcommand{\cftsubsectionfont}{\ABNTEXsubsectionfont\color{black}}
 \renewcommand{\cftsubsectionpagefont}{\ABNTEXsubsectionfont\color{black}}
 
-\renewcommand{\cftsubsubsectionfont}{\ABNTEXsubsubsectionfont\color{ultramarine}}
+\renewcommand{\cftsubsubsectionfont}{\ABNTEXsubsubsectionfont\color{black}}
 \renewcommand{\cftsubsubsectionpagefont}{\ABNTEXsubsubsectionfont\color{black}}
 
-\renewcommand{\cftparagraphfont}{\ABNTEXsubsubsubsectionfont\color{ultramarine}}
+\renewcommand{\cftparagraphfont}{\ABNTEXsubsubsubsectionfont\color{black}}
 \renewcommand{\cftparagraphpagefont}{\ABNTEXsubsubsubsectionfont\color{black}}
 
 % Memoir has another mechanism for the job: \cftsetindents{‹kind›}{indent}{numwidth}. Here kind is
