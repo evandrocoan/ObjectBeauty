@@ -7,94 +7,134 @@
 
 \section{\lang{What does coding is}{Programação de computadores}}
 
+\lang{
     Coding is like writing and reading a book for the large people, you like it
     to look beautifully. Or at least do you expect such when you buy a book, for
     example, to learn programming for you first time \cite{howNovicesRead}.
     You expect:
+    \begin{enumerate}
+        \item
+            Things to be well organized,
+            so you do not get lost.
+        \item
+            The colors to be properly placed,
+            so you do not get distracted from the main content.
+        \item
+            The spacing between paragraphs, words, chapters, sections
+            subsections, etc, to be well adjusted.
+            Not everything cluttered in only one file,
+            line, function, class, or whatsoever so.
+    \end{enumerate}
+}{%
+    Programar pode ser considerado pela maioria das pessoas como escrever um livro,
+    e para tal,
+    gostar~=se mais caso este ``livro'' tenha uma boa aparência.
+    No mínimo espera~=se algumas características chave ao comprar~=se
+    um livro \cite{visualizationsInAFunctionalProgramming}.
+    Por exemplo,
+    quando compra~=se um livro para aprender a programar pela primeira vez,
+    espera-se que \cite{howNovicesRead}:
+    \begin{enumerate}
+        \item
+            Seu conteúdo esteja bem organizado,
+            para que o leitor não perda-se durante sua leitura.
+        \item
+            Que suas cores estejam propriamente escolhidas e
+            utilizadas,
+            para que elas não distraiam o leitor ou tirem o foco do principal,
+            o conteúdo do livro.
+        \item
+            Que o espaçamento entre os parágrafos,
+            palavras, capítulos, seções, subseções, etc, estejam propriamente ajustados,
+            e não todo aglomerado ou desordenado em um único parágrafo,
+            frase, capítulo,
+            etc.
+    \end{enumerate}
+}
 
-\begin{enumerate}
-    \item
-        Things to be well organized,
-        so you do not get lost.
-    \item
-        The colors to be properly placed,
-        so you do not get distracted from the main content.
-    \item
-        The spacing between paragraphs, words, chapters, sections
-        subsections, etc, to be well adjusted.
-        Not everything cluttered in only one file,
-        line, function, class, or whatsoever so.
-\end{enumerate}
+\advisor{}{%
+    \subsection{\lang{Computer Assisted Programming}{Programação auxiliada}}
+
+    \lang{%
+        Your computer should help you with these unforeseen tasks.
+        Why should I spend my precious time checking whether I am actually copying
+        something space indented,
+        when I am actually coping something tab indented?
+        Perhaps we should sit and cry while waiting for some greater force to come
+        and rescue us. Or may be you should stop crying and actually do something
+        about other than keep waiting for you mommy to come and save you from the
+        darkness growing behind you back leading you to endless unsleepy nights
+        fixing your code just because everything just went wrong.
+    }{%
+        Seu computador deveria ajudar você com aquelas imprevistas tarefas.
+        Por que eu deveria gastar meu precioso tempo verificando se algo que estou copiando,
+        está indentado por ``TAB''\s ou espaços?
+        Talvez devêssemos sentar e
+        chorar enquanto aguardamos que alguma força maior do Universo venha e
+        nos salve.
+        Ou talvez você deva para de chorar e
+        realmente fazer alguma coisa a respeito além de continuar esperando que sua mamãe venha e
+        resgate você da escuridão crescendo pela suas costas levando você a infinitas noites
+        acordado corrigindo seu código simplesmente por que tudo deu errado.
+    }
+}
+
+% \section{Gramáticas}
+
+% O que são Gramáticas?
 
 
-\subsection{\lang{Computer Assisted Programming}{Programação auxiliada}}
+% \subsection{Expressões Regulares}
 
-    Your computer should help you with with these unforeseen tasks.
-    Why should I spend my precious time checking whether I am actually copying
-    something space indented,
-    when I am actually coping something tab indented?
-    Perhaps we should sit and cry while waiting for some greater force to come
-    and rescue us. Or may be you should stop crying and actually do something
-    about other than keep waiting for you mommy to come and save you from the
-    darkness growing behind you back leading you to endless unsleepy nights
-    fixing your code just because everything just went wrong.
+% O que são Gramáticas?
 
 
-\section{Gramáticas}
-
-O que são Gramáticas?
+% \subsection{Gramáticas Livre de Contexto}
 
 
-\subsection{Expressões Regulares}
+% \subsection{Sintaxes de linguagens}
 
-O que são Gramáticas?
-
-
-\subsection{Gramáticas Livre de Contexto}
+% O que são sintaxes de linguagens?
 
 
-\subsection{Sintaxes de linguagens}
+\subsection{Tradução de Código}
 
-O que são sintaxes de linguagens?
+\lang{%
+    This work aims to propose a translator \cite{generatingInterpretiveTranslators},
+    where the input and output languages are the same language.
+    Such translation objective is to change the language representational structure,
+    but without affecting the language lex,
+    syntactic or semantics, i.e.,
+    the language meaning.
 
+    This program class is commonly know as text formatters.
+    The differential from this work from others is the goal of a single expandable tool,
+    capable of manipulating all existent and future programming languages,
+    based on the use of deterministic \cite{introductionToContextFreeGrammars}
+    and controlled nondeterministic
+    % \cite{TODO:section explaning what does controlled means}
+    context free grammars.
+}{%
+    Em linguagens formais,
+    tradutores são ferramentas que operam realizando a transformação de um programa de entrada,
+    em um programa de saída \cite{generatingInterpretiveTranslators}.
+    Diferente de um compilador,
+    a linguagem de destino da ``tradução'' é do \textbf{mesmo nível} que a linguagem de origem.
+    Por exemplo,
+    dado a aplicação um programa de entrada em C++ e
+    a saída de um programa em Java,
+    tem-se um processo de tradução.
+    Pelo outro lado,
+    dado um programa de entrada em C++ e
+    um programa de saída em Assembly,
+    tem-se um processo de compilação \cite{translatorGenerationCompilier}.
+}
 
-\section{Tradução de Código}
-
-TODO:
-Explains what does `translation` means and what is a translator,
-compiler,
-etc.
-(the first slide contents' from Introdução a Compiladores)
-
-This work aims to propose a translator,
-where the input and output languages are the same language.
-Such translation objective is to change the language representational structure,
-but without affecting the language lex,
-syntactic or semantics, i.e.,
-the language meaning.
-
-This program class is commonly know as text formatters.
-The differential from this work from others is the goal of a single expandable tool,
-capable of manipulating all existent and future programming languages,
-based on the use of deterministic
-% TODO:\cite{deterministic free grammars explanation}
-and controlled nondeterministic
-% \cite{TODO:section explaning what does controlled means}
-context free grammars.
-
-
-\section{Formatadores de código}
+\subsection{Formatadores de código}
 
 Também conhecidos como embelezadores\footnote{do inglês:
-Beautifiers} de código.
-
-
-\section{Pretty-printing}
-
-Depende do autor, ele é o mesmo que beautifying.
-
-
-\section{\lang{Code Beautifying}{Embelezamento de Código}}
+Beautifiers} \cite{prettyPrintingForSoftware} de código,
+``pretty~=printing'' tem o mesmo significado que beautifying.
 
     A robust Code Beautifier can get a lot more complicated just with the basic
     definitions of formatting (\nameref{source_code_beautifiers})
