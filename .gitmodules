@@ -10,3 +10,6 @@
 [submodule "monograph/thesis/setup"]
 	path = monograph/thesis/setup
 	url = https://github.com/evandrocoan/ufscthesisx-setup
+[submodule "monograph/thesis/pictures"]
+	path = monograph/thesis/pictures
+	url = https://github.com/evandrocoan/objectbeatypictures.git
