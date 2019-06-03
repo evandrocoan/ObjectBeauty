@@ -1032,6 +1032,128 @@
 }
 
 
+@article{knuthLrParser1965,
+    title = {On the translation of languages from left to right},
+    journal = {Information and Control},
+    volume = {8},
+    number = {6},
+    pages = {607 - 639},
+    year = {1965},
+    issn = {0019-9958},
+    doi = {https://doi.org/10.1016/S0019-9958(65)90426-2},
+    url = {http://www.sciencedirect.com/science/article/pii/S0019995865904262},
+    author = {Donald E. Knuth},
+    abstract = {There has been much recent interest in languages whose grammar
+    is sufficiently simple that an efficient left-to-right parsing algorithm can
+    be mechanically produced from the grammar. In this paper, we define LR(k)
+    grammars, which are perhaps the most general ones of this type, and they
+    provide the basis for understanding all of the special tricks which have
+    been used in the construction of parsing algorithms for languages with
+    simple structure, e.g. algebraic languages. We give algorithms for deciding
+    if a given grammar satisfies the LR(k) condition, for given k, and also give
+    methods for generating recognizes for LR(k) grammars. It is shown that the
+    problem of whether or not a grammar is LR(k) for some k is undecidable, and
+    the paper concludes by establishing various connections between LR(k)
+    grammars and deterministic languages. In particular, the LR(k) condition is
+    a natural analogue, for grammars, of the deterministic condition, for
+    languages.},
+}
+
+
+@ARTICLE{chomskyGrammars1956,
+    author={N. {Chomsky}},
+    journal={IRE Transactions on Information Theory},
+    title={Three models for the description of language},
+    year={1956},
+    volume={2},
+    number={3},
+    pages={113-124},
+    abstract={We investigate several conceptions of linguistic structure to
+    determine whether or not they can provide simple and "revealing" grammars
+    that generate all of the sentences of English and only these. We find that
+    no finite-state Markov process that produces symbols with transition from
+    state to state can serve as an English grammar. Furthermore, the particular
+    subclass of such processes that producen-order statistical approximations to
+    English do not come closer, with increasingn, to matching the output of an
+    English grammar. We formalize-the notions of "phrase structure" and show
+    that this gives us a method for describing language which is essentially
+    more powerful, though still representable as a rather elementary type of
+    finite-state process. Nevertheless, it is successful only when limited to a
+    small subset of simple sentences. We study the formal properties of a set of
+    grammatical transformations that carry sentences with phrase structure into
+    new sentences with derived phrase structure, showing that transformational
+    grammars are processes of the same elementary type as phrase-structure
+    grammars; that the grammar of English is materially simplified if phrase
+    structure description is limited to a kernel of simple sentences from which
+    all other sentences are constructed by repeated transformations; and that
+    this view of linguistic structure gives a certain insight into the use and
+    understanding of language.},
+    keywords={Languages;Markov processes;Natural
+    languages;Testing;Laboratories;Markov processes;Impedance
+    matching;Kernel;Research and development},
+    doi={10.1109/TIT.1956.1056813},
+    ISSN={0096-1000},
+    month={Sep.},
+}
+
+
+@article{lalrDeRemer1982,
+    author = {DeRemer, Frank and Pennello, Thomas},
+    title = {Efficient Computation of LALR(1) Look-Ahead Sets},
+    journal = {ACM Trans. Program. Lang. Syst.},
+    issue_date = {Oct. 1982},
+    volume = {4},
+    number = {4},
+    month = oct,
+    year = {1982},
+    issn = {0164-0925},
+    pages = {615--649},
+    numpages = {35},
+    url = {http://doi.acm.org/10.1145/69622.357187},
+    doi = {10.1145/69622.357187},
+    acmid = {357187},
+    publisher = {ACM},
+    address = {New York, NY, USA},
+    abstract = {Two relations that capture the essential structure of the
+    problem of computing LALR(1) look-ahead sets are defined, and an efficient
+    algorithm is presented to compute the sets in time linear in the size of the
+    relations. In particular, for a PASCAL grammar, the algorithm performs fewer
+    than 15 percent of the set unions performed by the popular compiler-compiler
+    YACC. When a grammar is not LALR(1), the relations, represented explicitly,
+    provide for printing useroriented error messages that specifically indicate
+    how the look-ahead problem arose. In addition, certain loops in the digraphs
+    induced by these relations indicate that the grammar is not LR(k) for any k.
+    Finally, an oft-discovered and used but incorrect look-ahead set algorithm
+    is similarly based on two other relations defined for the fwst time here.
+    The formal presentation of this algorithm should help prevent its
+    rediscovery.},
+}
+
+
+@article{beatty1982,
+    author = {Beatty, John C.},
+    title = {On the Relationship Between LL(1) and LR(1) Grammars},
+    journal = {J. ACM},
+    volume = {29},
+    number = {4},
+    month = {oct},
+    year = {1982},
+    issn = {0004-5411},
+    pages = {1007--1022},
+    numpages = {16},
+    url = {http://doi.acm.org/10.1145/322344.322350},
+    doi = {10.1145/322344.322350},
+    acmid = {322350},
+    publisher = {ACM},
+    address = {New York, NY, USA},
+    abstract = {It is shown that every p-reduced LL(1) grammar is LALR(1) and,
+    as a corollary, that every A-free LL(1) grammar is SLR(1) A partial converse to
+    this result is also demonstrated: If there is at most one marked rule m the
+    basis of every state set in the canonical collection of sets of LR(k) items for
+    a grammar G in which S =+> Sy impossible, then G is LL(k).},
+}
+
+
 @Article{generatingInterpretiveTranslators,
     author="Murphree, E. L.
     and Fenves, S. J.",

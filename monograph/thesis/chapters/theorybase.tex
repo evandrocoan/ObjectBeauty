@@ -129,12 +129,12 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Por exemplo,
     dado um programa de entrada em C++ e
     um programa de saída em Java,
-    tem-se um processo de tradução.
+    tem-se um processo de tradução (figura \ref{fig:pictures/ProcessoTraducao.png}).
     \advisor{A tradução é diferente de um processo de compilação,
     que é dotado de mais etapas \cite{translatorGenerationCompilier}.
     }{Pelo outro lado,
     dado um programa de entrada em C++ e
-    um programa de saída em Assembly,
+    um programa de saída em \textit{Assembly},
     tem-se um processo de compilação \cite{translatorGenerationCompilier}.
     }
     \begin{figure}[H]
@@ -217,13 +217,13 @@ Fazer depois que a fundamentação teórica estiver concluída.
         o primeira regra de produção utilizado para iniciar o reconhecimento do programa de entrada.
     \end{enumerate}
 
-    A partir da definição formal de gramática,
-    é possível realizar diversas classificações como as classificações Chomsky \cite{sipserBook},
-    de acordo com a forma de produção da gramática,
-    ela pode ser classificada como Regular,
+    A partir da definição formal de gramática ou de seu mecanismo reconhecedor,
+    é possível realizar diversas classificações como a
+    hierarquia \citeonline{chomskyGrammars1956},
+    onde uma linguagem pode ser classificada como Regular,
     Livre de Contexto,
     Sensível ao Contexto e
-    Tipo 0:
+    Tipo 0 (figura \ref{fig:pictures/HierarquiaDeChomsky.png}).
     \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/HierarquiaDeChomsky.png}
@@ -231,20 +231,86 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \label{fig:pictures/HierarquiaDeChomsky.png}
     \end{figure}
 
-    A maior classe de gramáticas determinísticas suportadas por
-    analisadores sintáticos são as gramáticas LR(K)
-    [\textit{Left-to-right,
-    Rightmost derivation in reverse by ``K'' lookahead symbols},
-    \citeonline{ahoCompilerDragonBook}].
+    Linguagens Regulares são todas aquelas reconhecidas por
+    Automatos Finitos Determinísticos ou
+    Não~=Determinísticos e
+    Gramaticas de linguagens Regulares pela definição formal,
+    são todas aquelas nos quais todas as produções da gramática possuem a seguinte forma:
+    $$ P = \{\; \alpha ::= a \beta \;|\; \alpha \in V_n \land a \in Vt
+                \land \beta \in \{\; Vn \cup \varepsilon\; \} \;\} $$
+
+    Linguagens Livre de Contexto são todas aquelas
+    reconhecidas por Automatos de Pinha
+    Não~=Determinísticos e
+    Gramaticas de linguagens Livre de Contexto pela definição formal,
+    são todas aquelas nos quais todas as produções da gramática possuem a seguinte forma:
+    $$ P = \{\; \alpha ::= \beta \;|\; \alpha \in V_n \land \beta \in V^* \;\} $$
+
+    Linguagens Sensíveis ao Contexto são todas aquelas
+    reconhecidas por Automatos Linearmente Limitados,
+    que se tratam somente de Máquinas de Turing com Fita (ou memória) Finita.
+    Gramaticas de linguagens Sensíveis ao Contexto pela definição formal,
+    são todas aquelas nos quais todas as produções da gramática possuem a seguinte forma:
+    $$ P = \{\; \alpha ::= \beta \;|\; \alpha \in V^* V_n V^* \land \beta \in V^*
+                \land \vert\alpha\vert \leq \vert\beta\vert \;\} $$
+
+    Por fim,
+    as linguagens do Tipo 0 possuem a mesma definição do que a definição
+    válida de uma gramática como apresentado anteriormente:
+    $$ P = \{\; \alpha ::= \beta \;|\; \alpha \in V^* V_n V^* \land \beta \in V^* \;\} $$
+
+    Gramáticas do Tipo 0 são reconhecidas somente por Máquinas de Turing\footnote{Máquinas
+    de Turing possuem por definição fita (ou memória) infinita.
+    },
+    e diferente das Gramáticas Sensíveis ao Contexto,
+    a Máquina de Turing não possui parada garantida,
+    i.e.,
+    Linguagens do Tipo 0 representam problemas incomputáveis e
+    que podem ser representados de procedimentos.
+    Já Linguagens do Tipo 1 ou Sensíveis ao Contexto,
+    representam todos os problemas computáveis e
+    sua implementação pode ser representada por algoritmos pois possuem parada garantida,
+    apesar de terem em pior caso,
+    tempo exponential.
+
+    Pode-se dizer que todas as linguagens de programação são Livres de Contexto,
+    porque uma vez que a gramática não é mais determinística,
+    podemos mover aspectos sensíveis ao contexto para o Analisador Semântico,
+    assim,
+    deixando a gramática somente com aspectos determinísticos.
+    A maior classe de gramáticas determinísticas suportadas por analisadores
+    sintáticos são as gramáticas LR(K)\footnote{\textit{Left-to-right,
+    Rightmost derivation in reverse by ``K'' lookahead symbols.
+    }} \citeonline{ahoCompilerDragonBook}.
     Analisadores LR(K) são Ascendentes e
-    são um subconjunto das linguagens Livre de Contexto.
+    reconhecem um subconjunto das linguagens Livre de Contexto
+    (figura \ref{fig:pictures/LinguagensDeterministicas.png}).
     \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/LinguagensDeterministicas.png}
-    \caption{Linguagens Determinísticas -- Adaptação de \citeonline{ahoCompilerDragonBook}}
+    \caption{Linguagens Determinísticas -- Adaptação de \citeonline{beatty1982} e \citeonline{ahoCompilerDragonBook}}
     \label{fig:pictures/LinguagensDeterministicas.png}
     \end{figure}
 
+    Gramáticas de linguagens determinísticas são chamadas de LR por que todas
+    as linguagens determinísticas são reconhecidas por analisadores LR(K).
+    \citeonline{knuthLrParser1965} provou que todas as gramáticas
+    determinísticas são aceitas por um parser LR(K).
+    Assim,
+    além da hierarquia de Chomsky,
+    também classificasse as gramáticas de acordo com o tipo de parser
+    que reconhece as linguagens representadas por elas.
+    Como mostrado na figura \ref{fig:pictures/LinguagensDeterministicas.png},
+    nem todas as gramáticas Livre de Contexto são de determinísticas.
+    Uma gramática é determinística se ela pode ser
+    reconhecida por um parser LR(K).
+
+    \citeonline{lalrDeRemer1982} criaram os parsers LALR(K)\footnote{\textit{Look-Ahead LR parser},
+    i.e.,
+    um parser LA(K)LR(0) onde LR(0) é um parser LR(K) com $K=0$
+    } e
+    SLR(K) com o objeto de viabilizar a implementação de parsers LR(K),
+    que requerem grandes quantidades de memória para operar.
 }
 
 \subsection{Formatadores de código}
