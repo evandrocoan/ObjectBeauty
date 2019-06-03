@@ -140,9 +140,111 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/ProcessoTraducao.png}
-    \caption{Processo de Tradução -- \citeonline{ahoCompilerDragonBook}}
+    \caption{Processo de Tradução -- Adaptação de \citeonline{ahoCompilerDragonBook}}
     \label{fig:pictures/ProcessoTraducao.png}
     \end{figure}
+
+    No processo de compilação ou tradução,
+    um analisador léxico cria múltiplos \textit{tokens} \cite{ahoCompilerDragonBook}.
+    Um token é composto por diversos atributos como a posição e
+    o \textit{lexema}, i.e.,
+    a sequencia de caracteres que este token representa no programa de entrada.
+    Uma vez que o programa é ``\textit{tokenizado}'' pelo analisador léxico,
+    o analisador sintático constrói a árvore da sintaxe do programa.
+    Utilizando a árvore sintática do programa de entrada,
+    o tradutor constrói uma nova árvore sintática correspondente a
+    árvore sintática da linguagem do programa destino,
+    utilizada para construir o código~=fonte do programa destino.
+    Em um processo de compilação,
+    não seria criado uma nova árvore como no processo de tradução,
+    mas sim a geração de código objeto ou binário.
+
+    Analisadores Sintáticos podem ser Ascendentes ou Descendentes.
+    Devido a essa característica ambos possuem as suas vantagens e
+    desvantagens.
+    Um analisador Ascendente realiza a construção da árvore sintática das folhas até a raíz,
+    o contrário de um analisador Descendente que realiza a construção
+    da árvore sintática a partir da raíz até as folhas.
+    Uma vantagem de um analisador ascendente é o suporte
+    de uma maior classe de gramáticas determinísticas.
+    Uma vantagem de um analisador descendente é a facilidade
+    da recuperação de erros \cite{ahoCompilerDragonBook}.
+
+    Gramáticas são conjuntos de regras de definem uma linguagem.
+    Em linguagens formais,
+    sendo $\alpha$ um não~=terminal,
+    $\beta$ um terminal,
+    $Vn$ um conjunto de não~=terminais,
+    $Vt$ um conjunto de terminais e
+    $V = Vn \cup Vt$,
+    uma gramática é definida por quatro componentes:
+    \begin{enumerate}%[nosep,nolistsep]
+        \item Um conjunto de símbolos terminais $Vt$,
+        chamados algumas vezes de ``\textit{tokens}'' devido a sua forte conexão.
+        Durante a análise léxica,
+        os símbolos terminais serão utilizados definir os lexemas que são a base principal dos tokens.
+        Na composição da árvore sintática,
+        os ``\textit{tokens}'' ou terminais,
+        serão sempre as folhas da árvore.
+
+        \item Um conjunto de símbolos não-terminais $Vn$,
+        algumas vezes chamados de ``variáveis sintáticas''.
+        Não-terminais servem para agrupar vários não-terminais e/ou terminais.
+        Na composição da árvore sintática,
+        os símbolos não-terminais sempre serão os nós da árvore.
+        Por convenção,
+        a intersecção entre o conjunto de símbolos terminais e
+        não terminais é sempre vazia, i.e., $Vn \cap Vt = \varnothing$,
+        uma vez que não respeitando essa convenção,
+        não se tem como deterministicamente analisar o programa de entrada,
+        podendo-se infinitamente realizar a substituição da mesma regra de produção infinitamente.
+
+        \item Um conjunto de produções.
+        Uma produção consiste em uma dupla de dois elementos.
+        O primeiro elemento é a cabeça ou lado esquerdo e
+        representa a substituição ou consumo que será feito no programa de entrada.
+        Ele é obrigatoriamente constituído de no mínimo um não~=terminal e
+        um ou mais não-terminais ou terminais.
+        O segundo elemento é a cauda ou lado direito da produção,
+        composto de terminais e/ou não-terminais.
+        Formalmente defini-se um produção pela seguinte regra,
+        onde ``*'' representa o operador de fechamento do conjunto \cite{hopcroftBook}:
+        $$ P = \{\; \alpha ::= \beta \;|\; \alpha \in V^* V_n V^* \land \beta \in V^* \;\} $$
+
+        \item Um símbolo inicial selecionado a partir do conjunto de símbolos não~=terminais.
+        O símbolo inicial é utilizado para definir qual será a raíz da árvore sintática,
+        i.e.,
+        o primeira regra de produção utilizado para iniciar o reconhecimento do programa de entrada.
+    \end{enumerate}
+
+    A partir da definição formal de gramática,
+    é possível realizar diversas classificações como as classificações Chomsky \cite{sipserBook},
+    de acordo com a forma de produção da gramática,
+    ela pode ser classificada como Regular,
+    Livre de Contexto,
+    Sensível ao Contexto e
+    Tipo 0:
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{pictures/HierarquiaDeChomsky.png}
+    \caption{Hierarquia de Chomsky -- Adaptação de \citeonline{sipserBook}}
+    \label{fig:pictures/HierarquiaDeChomsky.png}
+    \end{figure}
+
+    A maior classe de gramáticas determinísticas suportadas por
+    analisadores sintáticos são as gramáticas LR(K)
+    [\textit{Left-to-right,
+    Rightmost derivation in reverse by ``K'' lookahead symbols},
+    \citeonline{ahoCompilerDragonBook}].
+    Analisadores LR(K) são Ascendentes e
+    são um subconjunto das linguagens Livre de Contexto.
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{pictures/LinguagensDeterministicas.png}
+    \caption{Linguagens Determinísticas -- Adaptação de \citeonline{ahoCompilerDragonBook}}
+    \label{fig:pictures/LinguagensDeterministicas.png}
+    \end{figure}
+
 }
 
 \subsection{Formatadores de código}
