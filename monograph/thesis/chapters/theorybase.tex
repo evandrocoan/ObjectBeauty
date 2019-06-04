@@ -199,7 +199,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
         não se tem como deterministicamente analisar o programa de entrada,
         podendo-se infinitamente realizar a substituição da mesma regra de produção infinitamente.
 
-        \item Um conjunto de produções.
+        \item \label{definicaoDeGramatica}Um conjunto de produções.
         Uma produção consiste em uma dupla de dois elementos.
         O primeiro elemento é a cabeça ou lado esquerdo e
         representa a substituição ou consumo que será feito no programa de entrada.
@@ -231,10 +231,19 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \label{fig:pictures/HierarquiaDeChomsky.png}
     \end{figure}
 
+    Toda Gramática Regular ou Livre de Contexto,
+    é também uma gramática Tipo 0 ou Sensível ao contexto,
+    uma vez que Gramáticas Livre de Contexto ou Regulares são um
+    subconjunto das gramáticas Tipo 0 ou Sensível ao Contexto como
+    apresentado na figura \ref{fig:pictures/HierarquiaDeChomsky.png}.
+    Quando diz-se que uma dada Gramática ou Linguagem é Livre de Contexto,
+    tem-se a convenção de pensar que este é o melhor tipo (mais eficiente em tempo
+    computational) no qual dada Gramática ou Linguagem pode ser representada.
+
     Linguagens Regulares são todas aquelas reconhecidas por
     Automatos Finitos Determinísticos ou
     Não~=Determinísticos e
-    Gramaticas de linguagens Regulares pela definição formal,
+    Gramaticas de Linguagens Regulares pela definição formal,
     são todas aquelas nos quais todas as produções da gramática possuem a seguinte forma:
     $$ P = \{\; \alpha ::= a \beta \;|\; \alpha \in V_n \land a \in Vt
                 \land \beta \in \{\; Vn \cup \varepsilon\; \} \;\} $$
@@ -242,21 +251,21 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Linguagens Livre de Contexto são todas aquelas
     reconhecidas por Automatos de Pinha
     Não~=Determinísticos e
-    Gramaticas de linguagens Livre de Contexto pela definição formal,
+    Gramaticas de Linguagens Livre de Contexto pela definição formal,
     são todas aquelas nos quais todas as produções da gramática possuem a seguinte forma:
     $$ P = \{\; \alpha ::= \beta \;|\; \alpha \in V_n \land \beta \in V^* \;\} $$
 
     Linguagens Sensíveis ao Contexto são todas aquelas
     reconhecidas por Automatos Linearmente Limitados,
     que se tratam somente de Máquinas de Turing com Fita (ou memória) Finita.
-    Gramaticas de linguagens Sensíveis ao Contexto pela definição formal,
+    Gramaticas de Linguagens Sensíveis ao Contexto pela definição formal,
     são todas aquelas nos quais todas as produções da gramática possuem a seguinte forma:
     $$ P = \{\; \alpha ::= \beta \;|\; \alpha \in V^* V_n V^* \land \beta \in V^*
                 \land \vert\alpha\vert \leq \vert\beta\vert \;\} $$
 
     Por fim,
-    as linguagens do Tipo 0 possuem a mesma definição do que a definição
-    válida de uma gramática como apresentado anteriormente:
+    as Linguagens do Tipo 0 possuem a mesma definição do que a definição válida de
+    uma gramática como apresentado anteriormente (em \ref{definicaoDeGramatica}):
     $$ P = \{\; \alpha ::= \beta \;|\; \alpha \in V^* V_n V^* \land \beta \in V^* \;\} $$
 
     Gramáticas do Tipo 0 são reconhecidas somente por Máquinas de Turing\footnote{Máquinas
@@ -269,12 +278,14 @@ Fazer depois que a fundamentação teórica estiver concluída.
     que podem ser representados de procedimentos.
     Já Linguagens do Tipo 1 ou Sensíveis ao Contexto,
     representam todos os problemas computáveis e
-    sua implementação pode ser representada por algoritmos pois possuem parada garantida,
+    sua implementação pode ser representada por algoritmos,
+    pois possuem parada garantida,
     apesar de terem em pior caso,
     tempo exponential.
 
-    Pode-se dizer que todas as linguagens de programação são Livres de Contexto,
-    porque uma vez que a gramática não é mais determinística,
+    Pode-se dizer que as gramáticas de todas as Linguagens de Programação são Livres de Contexto e
+    Determinísticas,
+    porque uma vez que a gramática não é mais Livre de Contexto ou determinística,
     podemos mover aspectos sensíveis ao contexto para o Analisador Semântico,
     assim,
     deixando a gramática somente com aspectos determinísticos.
@@ -283,7 +294,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Rightmost derivation in reverse by ``K'' lookahead symbols.
     }} \citeonline{ahoCompilerDragonBook}.
     Analisadores LR(K) são Ascendentes e
-    reconhecem um subconjunto das linguagens Livre de Contexto
+    reconhecem um subconjunto das Linguagens Livre de Contexto
     (figura \ref{fig:pictures/LinguagensDeterministicas.png}).
     \begin{figure}[H]
     \centering
@@ -292,8 +303,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \label{fig:pictures/LinguagensDeterministicas.png}
     \end{figure}
 
-    Gramáticas de linguagens determinísticas são chamadas de LR por que todas
-    as linguagens determinísticas são reconhecidas por analisadores LR(K).
+    Gramáticas de Linguagens Determinísticas são chamadas de LR por que todas
+    as Linguagens Determinísticas são reconhecidas por Analisadores LR(K).
     \citeonline{knuthLrParser1965} provou que todas as gramáticas
     determinísticas são aceitas por um parser LR(K).
     Assim,
@@ -305,11 +316,12 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Uma gramática é determinística se ela pode ser
     reconhecida por um parser LR(K).
 
-    \citeonline{lalrDeRemer1982} criaram os parsers LALR(K)\footnote{\textit{Look-Ahead LR parser},
-    i.e.,
-    um parser LA(K)LR(0) onde LR(0) é um parser LR(K) com $K=0$
+    \citeonline{lalrDeRemer1982} criaram os parsers
+    LALR(K)\footnote{\textit{Look-Ahead} LA(K) LR(0),
+    onde LR(0) é um parser LR(K) com $K=0$
     } e
-    SLR(K) com o objeto de viabilizar a implementação de parsers LR(K),
+    SLR(K)\footnote{Simple LR(K) \textit{parser}} com o objeto
+    de viabilizar a implementação de parsers LR(K),
     que requerem grandes quantidades de memória para operar.
 }
 
@@ -321,8 +333,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     applied over each language own characteristics
     as for example:
 }{%
-    Conhecido como ``pretty~=printing'' ou embelezadores\footnote{do inglês:
-    \textit{Beautifiers}} \cite{prettyPrintingForSoftware},
+    Conhecido como ``pretty~=printing'' ou embelezadores\footnote{Do
+    inglês \textit{Beautifiers}} \cite{prettyPrintingForSoftware},
     uma ferramenta de formatação pode ser complicada de
     utilizar somente com um conjunto básico de definições.
     Por exemplo,
