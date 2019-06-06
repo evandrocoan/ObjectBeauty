@@ -30,7 +30,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
 }{%
     Programar pode ser considerado pela maioria das pessoas como escrever um livro,
     e para tal,
-    \advisor{busca-se mais a ideia de facilidade de leitura.
+    \advisor{busca~=se mais a ideia de facilidade de leitura.
     Existem livros muito horríveis de se ler:
     fontes inadequadas ou pequenas,
     com folhas que brilham contra a luz.
@@ -40,7 +40,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Por exemplo,
     quando compra~=se um livro,
     \advisor{}{para aprender a programar pela primeira vez,
-    }espera-se que \cite{howNovicesRead}:
+    }espera~=se que \cite{howNovicesRead}:
     \begin{enumerate}
         \item
             Seu conteúdo esteja bem organizado,
@@ -129,13 +129,13 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Por exemplo,
     dado um programa de entrada em C++ e
     um programa de saída em Java,
-    tem-se um processo de tradução (figura \ref{fig:pictures/ProcessoTraducao.png}).
+    tem~=se um processo de tradução (figura \ref{fig:pictures/ProcessoTraducao.png}).
     \advisor{A tradução é diferente de um processo de compilação,
     que é dotado de mais etapas \cite{translatorGenerationCompilier}.
     }{Pelo outro lado,
     dado um programa de entrada em C++ e
     um programa de saída em \textit{Assembly},
-    tem-se um processo de compilação \cite{translatorGenerationCompilier}.
+    tem~=se um processo de compilação \cite{translatorGenerationCompilier}.
     }
     \begin{figure}[H]
     \centering
@@ -197,7 +197,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
         não terminais é sempre vazia, i.e., $Vn \cap Vt = \varnothing$,
         uma vez que não respeitando essa convenção,
         não se tem como deterministicamente analisar o programa de entrada,
-        podendo-se infinitamente realizar a substituição da mesma regra de produção infinitamente.
+        podendo~=se infinitamente realizar a substituição da mesma regra de produção infinitamente.
 
         \item \label{definicaoDeGramatica}Um conjunto de produções.
         Uma produção consiste em uma dupla de dois elementos.
@@ -207,7 +207,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
         um ou mais não-terminais ou terminais.
         O segundo elemento é a cauda ou lado direito da produção,
         composto de terminais e/ou não-terminais.
-        Formalmente defini-se um produção pela seguinte regra,
+        Formalmente defini~=se um produção pela seguinte regra,
         onde ``*'' representa o operador de fechamento do conjunto \cite{hopcroftBook}:
         $$ P = \{\; \alpha ::= \beta \;|\; \alpha \in V^* V_n V^* \land \beta \in V^* \;\} $$
 
@@ -236,8 +236,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     uma vez que Gramáticas Livre de Contexto ou Regulares são um
     subconjunto das gramáticas Tipo 0 ou Sensível ao Contexto como
     apresentado na figura \ref{fig:pictures/HierarquiaDeChomsky.png}.
-    Quando diz-se que uma dada Gramática ou Linguagem é Livre de Contexto,
-    tem-se a convenção de pensar que este é o melhor tipo (mais eficiente em tempo
+    Quando diz~=se que uma dada Gramática ou Linguagem é Livre de Contexto,
+    tem~=se a convenção de pensar que este é o melhor tipo (mais eficiente em tempo
     computational) no qual dada Gramática ou Linguagem pode ser representada.
 
     Linguagens Regulares são todas aquelas reconhecidas por
@@ -282,27 +282,51 @@ Fazer depois que a fundamentação teórica estiver concluída.
     pois possuem parada garantida,
     apesar de terem em pior caso,
     tempo exponential.
-
-    Pode-se dizer que as gramáticas de todas as Linguagens de Programação são Livres de Contexto e
-    Determinísticas,
-    porque uma vez que a gramática não é mais Livre de Contexto ou determinística,
-    podemos mover aspectos sensíveis ao contexto para o Analisador Semântico,
-    assim,
-    deixando a gramática somente com aspectos determinísticos.
     A maior classe de gramáticas determinísticas suportadas por analisadores
     sintáticos são as gramáticas LR(K)\footnote{\textit{Left-to-right,
-    Rightmost derivation in reverse by ``K'' lookahead symbols.
-    }} \citeonline{ahoCompilerDragonBook}.
-    Analisadores LR(K) são Ascendentes e
+    Rightmost derivation in reverse by ``K'' lookahead symbols
+    }}.
+    Analisadores LR(K) \cite{ahoCompilerDragonBook} são Ascendentes e
     reconhecem um subconjunto das Linguagens Livre de Contexto
     (figura \ref{fig:pictures/LinguagensDeterministicas.png}).
     \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/LinguagensDeterministicas.png}
-    \caption{Linguagens Determinísticas -- Adaptação de \citeonline{beatty1982} e \citeonline{ahoCompilerDragonBook}}
+    \caption{Mapa Mental das Linguagens e
+    Gramáticas \newline Adaptação de \citeonline{beatty1982} e
+    \citeonline{ahoCompilerDragonBook}}
     \label{fig:pictures/LinguagensDeterministicas.png}
     \end{figure}
 
+    A figura \ref{fig:pictures/LinguagensDeterministicas.png} não é
+    um Diagrama de Venn \cite{generalizedVennDiagrams},
+    somente uma relação abstrata entre linguagens ambíguas e
+    gramática determinísticas.
+    O primeiro nível significa que todas as Linguagens Inerentemente
+    Ambíguas são representadas somente por Gramáticas Ambíguas.
+    O segundo nível significa que Linguagens Não Inerentemente Ambíguas podem
+    ser representadas por Gramáticas Ambíguas e/ou Determinísticas.
+    No terceiro nível encontra~=se as gramáticas que são mais importantes,
+    as Gramáticas Determinísticas,
+    que podem ser classificadas como LR(K),
+    LL(K), i.e.,
+    de acordo com o tipo de parser que poder ser construído para reconhecer elas.
+
+    É importante fazer a distinção entre Gramáticas Livre de Contexto e
+    as Linguagens Livre de Contexto.
+    \citeonline{parikh1966} provou que existem linguagens nas quais não
+    existem gramáticas não~=ambíguas que representem estas linguagens.
+    Tais linguagens são conhecidas como Linguagens Inerentemente Ambíguas\footnote{Do
+    inglês \textit{Inherently ambiguous languages}} onde não existem Gramáticas
+    Livre de Contexto determinísticas capazes de representa~=las.
+
+    \citeonline{lalrDeRemer1982} criaram os parsers
+    LALR(K)\footnote{\textit{Look-Ahead} LA(K) LR(0),
+    onde LR(0) é um parser LR(K) com $K=0$
+    } e
+    SLR(K)\footnote{Simple LR(K) \textit{parser}} com o objeto
+    de viabilizar a implementação de parsers LR(K),
+    que requerem grandes quantidades de memória para operar.
     Gramáticas de Linguagens Determinísticas são chamadas de LR por que todas
     as Linguagens Determinísticas são reconhecidas por Analisadores LR(K).
     \citeonline{knuthLrParser1965} provou que todas as gramáticas
@@ -312,17 +336,55 @@ Fazer depois que a fundamentação teórica estiver concluída.
     também classificasse as gramáticas de acordo com o tipo de parser
     que reconhece as linguagens representadas por elas.
     Como mostrado na figura \ref{fig:pictures/LinguagensDeterministicas.png},
-    nem todas as gramáticas Livre de Contexto são de determinísticas.
-    Uma gramática é determinística se ela pode ser
-    reconhecida por um parser LR(K).
+    nem todas as gramáticas Livre de Contexto são de determinísticas e
+    uma gramática é determinística somente se ela pode ser reconhecida por um parser LR(K).
 
-    \citeonline{lalrDeRemer1982} criaram os parsers
-    LALR(K)\footnote{\textit{Look-Ahead} LA(K) LR(0),
-    onde LR(0) é um parser LR(K) com $K=0$
-    } e
-    SLR(K)\footnote{Simple LR(K) \textit{parser}} com o objeto
-    de viabilizar a implementação de parsers LR(K),
-    que requerem grandes quantidades de memória para operar.
+    Usualmente,
+    somente depois que a Árvore Sintática é construída,
+    realiza~=se o processo de Análise Semântica,
+    i.e.,
+    a verificação da corretude do programa escrito em relação os aspectos não-estruturais,
+    por exemplo,
+    é sintaticamente correta escrever a declaração de uma mesma variável duas vezes ou mais,
+    entretanto,
+    é semanticamente errado redeclarar uma variável duas vezes ou mais.
+    O analisador sintático representado por uma Gramática Livre de Contexto,
+    não tem poder suficiente para realizar tais verificações
+    devido as limitações das gramáticas livre de contexto.
+    Entretanto,
+    linguagens Sensíveis ao Contexto podem ser Turing Completa quando devidamente
+    construídas \cite{areThereDomainSpecificLanguages,contextSensitiveParsing},
+    são capazes de realizar qualquer operação computacional algorítmica.
+    Portanto,
+    uma vez que o programa foi verificado sintaticamente,
+    inicia~=se o processo de análise semântica.
+
+    Nem todas as linguagens podem ser analisadas completamente em diferentes etapas,
+    como análise léxica, sintática e semântica. Muitas vezes,
+    estas três etapas acontecem em paralelo como realizado na implementação do
+    compilador da Linguagem C \cite{jourdan2017,whyCcannotBeParsedWithALR1Parser}.
+    A gramática da linguagem C não é Livre de Contexto devido as
+    ambiguidades existentes como a expressão ``\textit{x * y ;}''.
+    Tal sentença pode ser ou a declaração de um ponteiro chamado de \textit{y} do tipo \textit{x},
+    ou a multiplicação de dois números armazenados nas variáveis \textit{x} e
+    \textit{y}.
+    Uma otimização que o compilador C faz para poder saber se a expressão
+    trata~=se de de uma mera multiplicação ou a declaração de uma variável,
+    é exatamente a realização simultânea da análise léxica,
+    sintática e
+    semântica.
+    Uma vez que um novo \textit{token} é reconhecido,
+    ele é alimentado para o analisador sintático,
+    que também o alimenta para o Analisador Semântico.
+    Assim,
+    o Analisador Sintático é capaz de consultar a Tabela de Símbolos e
+    descobrir se dado token ou tratar~=se de um tipo ou uma variável numérica.
+    Pode dizer que as gramáticas de todas as Linguagens de Programação são Livres de Contexto e
+    Determinísticas,
+    uma vez que a gramática não é mais Livre de Contexto ou determinística,
+    pode~=se mover aspectos sensíveis ao contexto para o Analisador Semântico,
+    assim,
+    deixando a gramática somente com aspectos determinísticos.
 }
 
 \subsection{Formatadores de código}
@@ -357,7 +419,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Uma possível implementação para tal ajuste fino,
     pode ser uma configuração específica para cada aspecto da linguagem como uma
     entrada booleana ``\textit{use\_spaces\_after\_if}'' em um arquivo de
-    configuração para definir caso deva-se ou não ser adicionados espaços antes
+    configuração para definir caso deva~=se ou não ser adicionados espaços antes
     de cada ``if'' ao fazer a formatação da linguagem,
     ``if (var)'' contra ``if(var)''.
 }
