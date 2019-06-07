@@ -167,8 +167,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     da árvore sintática a partir da raíz até as folhas.
     Uma vantagem de um analisador ascendente é o suporte
     de uma maior classe de gramáticas determinísticas.
-    Uma vantagem de um analisador descendente é a facilidade
-    da recuperação de erros \cite{ahoCompilerDragonBook}.
+    Uma vantagem de um analisador descendente é a facilidade da recuperação de erros em relação
+    aos \textit{parsers} LR(K) \cite{sippu1982,lr1ErrorRecovery,larkJosefGrosch}.
 
     Gramáticas são conjuntos de regras de definem uma linguagem.
     Em linguagens formais,
@@ -365,11 +365,13 @@ Fazer depois que a fundamentação teórica estiver concluída.
     compilador da Linguagem C \cite{jourdan2017,whyCcannotBeParsedWithALR1Parser}.
     A gramática da linguagem C não é Livre de Contexto devido as
     ambiguidades existentes como a expressão ``\textit{x * y ;}''.
-    Tal sentença pode ser ou a declaração de um ponteiro chamado de \textit{y} do tipo \textit{x},
+    Tal sentença pode ser ou a declaração de um ponteiro chamado \textit{y} do tipo \textit{x},
     ou a multiplicação de dois números armazenados nas variáveis \textit{x} e
-    \textit{y}.
-    Uma otimização que o compilador C faz para poder saber se a expressão
-    trata~=se de de uma mera multiplicação ou a declaração de uma variável,
+    \textit{y},
+    portanto ela não pode ser aceita por um \textit{parser} LR(K) tradicional.
+    Uma otimização que o compilador C faz para poder fazer o parser Determinístico da linguagem C,
+    e assim saber se a expressão ``\textit{x * y ;}'' trata~=se de
+    de uma mera multiplicação ou a declaração de uma variável,
     é exatamente a realização simultânea da análise léxica,
     sintática e
     semântica.
@@ -379,9 +381,10 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Assim,
     o Analisador Sintático é capaz de consultar a Tabela de Símbolos e
     descobrir se dado token ou tratar~=se de um tipo ou uma variável numérica.
-    Pode dizer que as gramáticas de todas as Linguagens de Programação são Livres de Contexto e
+    Portanto,
+    pode dizer que as gramáticas de todas as Linguagens de Programação são Livres de Contexto e
     Determinísticas,
-    uma vez que a gramática não é mais Livre de Contexto ou determinística,
+    pois uma vez que a gramática não é mais Livre de Contexto ou determinística,
     pode~=se mover aspectos sensíveis ao contexto para o Analisador Semântico,
     assim,
     deixando a gramática somente com aspectos determinísticos.
