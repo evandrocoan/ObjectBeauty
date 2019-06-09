@@ -348,15 +348,14 @@ Fazer depois que a fundamentação teórica estiver concluída.
     é sintaticamente correta escrever a declaração de uma mesma variável duas vezes ou mais,
     entretanto,
     é semanticamente errado redeclarar uma variável duas vezes ou mais.
-    O analisador sintático representado por uma Gramática Livre de Contexto,
-    não tem poder suficiente para realizar tais verificações
-    devido as limitações das gramáticas livre de contexto.
-    Entretanto,
-    linguagens Sensíveis ao Contexto podem ser Turing Completa quando devidamente
-    construídas \cite{areThereDomainSpecificLanguages,contextSensitiveParsing},
+    O analisador sintático representado por uma Gramática Livre de Contexto não tem poder
+    suficiente para realizar tais verificações devido as limitações desse tipo de gramática.
+    Quando devidamente construídas,
+    linguagens Sensíveis ao Contexto podem ser Turing Completa\footnote{A Turing Completude
+    acontece quando uma dada linguagem pode simular o funcionamento completo de uma Máquina
+    de Turing} \cite{areThereDomainSpecificLanguages,contextSensitiveParsing} e
     são capazes de realizar qualquer operação computacional algorítmica.
-    Portanto,
-    uma vez que o programa foi verificado sintaticamente,
+    Uma vez que o programa foi verificado sintaticamente,
     inicia~=se o processo de análise semântica.
 
     Nem todas as linguagens podem ser analisadas completamente em diferentes etapas,
