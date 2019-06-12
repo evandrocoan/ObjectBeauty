@@ -67,11 +67,11 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Devido a essa característica ambos possuem as suas vantagens e
     desvantagens.
     Um analisador Ascendente realiza a construção da árvore sintática das folhas até a raíz,
-    o contrário de um analisador Descendente que realiza a construção
+    o contrário de um Analisador Descendente que realiza a construção
     da árvore sintática a partir da raíz até as folhas.
     Uma vantagem de um analisador ascendente é o suporte
     de uma maior classe de Gramáticas Determinísticas.
-    Uma vantagem de um analisador descendente é a facilidade da recuperação de erros
+    Uma vantagem de um Analisador Descendente é a facilidade da recuperação de erros
     em relação aos \textit{parsers} LR(K)\footnote{Conceito abordado na
     \fullref{analisadoresSintaticos}} \cite{sippu1982,lr1ErrorRecovery,larkJosefGrosch}.
 
@@ -159,7 +159,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     subconjunto das Gramáticas Tipo 0 ou Sensíveis ao Contexto como
     apresentado na Figura \ref{fig:pictures/HierarquiaDeChomsky.png}.
     Por isso,
-    também podemos chamar uma dada Gramática Regular de Tipo 0 ou Livre de Contexto.
+    também pode~=se chamar uma dada Gramática Regular de Tipo 0 ou Livre de Contexto.
     Quando diz~=se que existe Gramática Livre de Contexto para um dada Linguagem,
     pode~=se ter o equívoco de pensar que este é o melhor tipo,
     i.e.,
@@ -360,6 +360,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     ou a multiplicação de dois números armazenados nas variáveis \textit{x} e
     \textit{y},
     portanto ela não pode ser aceita por um \textit{parser} LR(K) tradicional.
+
     Uma otimização que o compilador C faz para poder fazer o parser Determinístico da linguagem C,
     e assim saber se a expressão ``\textit{x * y ;}'' trata~=se de
     de uma mera multiplicação ou a declaração de uma variável,
