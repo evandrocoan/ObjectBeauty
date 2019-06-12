@@ -7,7 +7,7 @@
 Fazer depois que a fundamentação teórica estiver concluída.
 
 
-\subsection{Tradução de Código}
+\section{Compiladores e Tradutores}
 
 \lang{%
     This work aims to propose a translator \cite{generatingInterpretiveTranslators},
@@ -33,7 +33,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Por exemplo,
     dado um programa de entrada em C++ e
     um programa de saída em Java,
-    tem~=se um processo de tradução (figura \ref{fig:pictures/ProcessoTraducao.png}).
+    tem~=se um processo de tradução (Figura \ref{fig:pictures/ProcessoTraducao.png}).
     \advisor{A tradução é diferente de um processo de compilação,
     que é dotado de mais etapas \cite{translatorGenerationCompilier}.
     }{Pelo outro lado,
@@ -70,50 +70,67 @@ Fazer depois que a fundamentação teórica estiver concluída.
     o contrário de um analisador Descendente que realiza a construção
     da árvore sintática a partir da raíz até as folhas.
     Uma vantagem de um analisador ascendente é o suporte
-    de uma maior classe de gramáticas determinísticas.
-    Uma vantagem de um analisador descendente é a facilidade da recuperação de erros em relação
-    aos \textit{parsers} LR(K) \cite{sippu1982,lr1ErrorRecovery,larkJosefGrosch}.
+    de uma maior classe de Gramáticas Determinísticas.
+    Uma vantagem de um analisador descendente é a facilidade da recuperação de erros
+    em relação aos \textit{parsers} LR(K)\footnote{Conceito abordado na
+    \fullref{analisadoresSintaticos}} \cite{sippu1982,lr1ErrorRecovery,larkJosefGrosch}.
 
-    Gramáticas são conjuntos de regras de definem uma linguagem.
+
+\section{Gramáticas}
+
+    Gramáticas são conjuntos de regras que definem uma linguagem.
     Em linguagens formais,
     sendo $\alpha$ um não~=terminal,
     $\beta$ um terminal,
-    $Vn$ um conjunto de não~=terminais,
-    $Vt$ um conjunto de terminais e
-    $V = Vn \cup Vt$,
-    uma gramática é definida por quatro componentes:
+    $V_n$ um conjunto de não~=terminais,
+    $V_t$ um conjunto de terminais e
+    $V = V_n \cup V_t$,
+    uma Gramática é definida por quatro componentes:
     \begin{enumerate}%[nosep,nolistsep]
-        \item Um conjunto de símbolos terminais $Vt$,
+        \item \advisor{O}{Um} conjunto $V_t$ de símbolos terminais\advisor{ (também chamados
+        de tokens ou símbolos do alfabeto da linguagem).
+        Cada terminal corresponde a um símbolo presente na linguagem.
+        }{,
         chamados algumas vezes de ``\textit{tokens}'' devido a sua forte conexão.
+        Cada terminal corresponde a um símbolo presente no alfabeto da linguagem.
+        }
         Durante a análise léxica,
         os símbolos terminais serão utilizados definir os lexemas que são a base principal dos tokens.
         Na composição da árvore sintática,
         os ``\textit{tokens}'' ou terminais,
         serão sempre as folhas da árvore.
 
-        \item Um conjunto de símbolos não-terminais $Vn$,
+        \item \advisor{O}{Um} conjunto $V_n$ de símbolos
+        não~=terminais\advisor{ (algumas vezes chamados de ``variáveis sintáticas'').}{,
         algumas vezes chamados de ``variáveis sintáticas''.
-        Não-terminais servem para agrupar vários não-terminais e/ou terminais.
+        }
+        Não~=terminais servem para agrupar vários não~=terminais e/ou terminais.
         Na composição da árvore sintática,
-        os símbolos não-terminais sempre serão os nós da árvore.
+        os símbolos não~=terminais sempre serão os nós da árvore\footnote{Desde
+        que a Gramática da linguagem não contenha símbolos inúteis,
+        i.e.,
+        todos os símbolos da Gramática são férteis e
+        permitem a geração de palavras além do conjunto vazio $\varnothing$}.
         Por convenção,
         a intersecção entre o conjunto de símbolos terminais e
-        não terminais é sempre vazia, i.e., $Vn \cap Vt = \varnothing$,
+        não~=terminais é sempre vazia,
+        i.e.,
+        $V_n \cap V_t = \varnothing$,
         uma vez que não respeitando essa convenção,
         não se tem como deterministicamente analisar o programa de entrada,
-        podendo~=se infinitamente realizar a substituição da mesma regra de produção infinitamente.
+        podendo~=se indefinidamente realizar a substituição da mesma regra de produção.
 
-        \item \label{definicaoDeGramatica}Um conjunto de produções.
-        Uma produção consiste em uma dupla de dois elementos.
+        \item \label{definicaoDeGramatica}Um conjunto de produções $P$.
+        Uma produção consiste em uma dupla elementos.
         O primeiro elemento é a cabeça ou lado esquerdo e
         representa a substituição ou consumo que será feito no programa de entrada.
         Ele é obrigatoriamente constituído de no mínimo um não~=terminal e
-        um ou mais não-terminais ou terminais.
+        um ou mais não~=terminais ou terminais.
         O segundo elemento é a cauda ou lado direito da produção,
-        composto de terminais e/ou não-terminais.
+        composto de terminais e/ou não~=terminais.
         Formalmente defini~=se um produção pela seguinte regra,
         onde ``*'' representa o operador de fechamento do conjunto \cite{hopcroftBook}:
-        $$ P = \{\; \alpha ::= \beta \;|\; \alpha \in V^* V_n V^* \land \beta \in V^* \;\} $$
+        $$P = \{\; \alpha ::= \beta \;|\; \alpha \in V^* V_n V^* \land \beta \in V^* \;\}$$
 
         \item Um símbolo inicial selecionado a partir do conjunto de símbolos não~=terminais.
         O símbolo inicial é utilizado para definir qual será a raíz da árvore sintática,
@@ -121,13 +138,14 @@ Fazer depois que a fundamentação teórica estiver concluída.
         o primeira regra de produção utilizado para iniciar o reconhecimento do programa de entrada.
     \end{enumerate}
 
-    A partir da definição formal de gramática ou de seu mecanismo reconhecedor,
-    é possível realizar diversas classificações como a
-    hierarquia \citeonline{chomskyGrammars1956},
+    A partir da adição restrições sobre a definição formal de Gramática recém apresentada,
+    também pode~=se \advisor{compreender}{realizar diversas
+    classificações como} a hierarquia de
+    \citeonline{chomskyGrammars1956},
     onde uma linguagem pode ser classificada como Regular,
     Livre de Contexto,
     Sensível ao Contexto e
-    Tipo 0 (figura \ref{fig:pictures/HierarquiaDeChomsky.png}).
+    Tipo 0 (Figura \ref{fig:pictures/HierarquiaDeChomsky.png}).
     \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/HierarquiaDeChomsky.png}
@@ -136,63 +154,123 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \end{figure}
 
     Toda Gramática Regular ou Livre de Contexto,
-    é também uma gramática Tipo 0 ou Sensível ao contexto,
-    uma vez que Gramáticas Livre de Contexto ou Regulares são um
-    subconjunto das gramáticas Tipo 0 ou Sensível ao Contexto como
-    apresentado na figura \ref{fig:pictures/HierarquiaDeChomsky.png}.
-    Quando diz~=se que uma dada Gramática ou Linguagem é Livre de Contexto,
-    tem~=se a convenção de pensar que este é o melhor tipo (mais eficiente em tempo
-    computational) no qual dada Gramática ou Linguagem pode ser representada.
+    é também uma Gramática Tipo 0 ou Sensível ao Contexto,
+    uma vez que Gramáticas Livres de Contexto ou Regulares são um
+    subconjunto das Gramáticas Tipo 0 ou Sensíveis ao Contexto como
+    apresentado na Figura \ref{fig:pictures/HierarquiaDeChomsky.png}.
+    Por isso,
+    também podemos chamar uma dada Gramática Regular de Tipo 0 ou Livre de Contexto.
+    Quando diz~=se que existe Gramática Livre de Contexto para um dada Linguagem,
+    pode~=se ter o equívoco de pensar que este é o melhor tipo,
+    i.e.,
+    o tipo mais eficiente em tempo computational de Gramática
+    no qual dada Linguagem pode ser representada.
+    Entretanto,
+    precisa~=se tomar cuidado quando fala~=se sobre Gramáticas e
+    Linguagens.
+    Para uma dada Linguagem,
+    dizer que existe uma Gramática Livre de Contexto para ela
+    não significa que esta Linguagem é Livre de Contexto.
+    Sempre pode~=se escrever uma Gramática menos eficiente do que o
+    tipo mínimo de Gramática que uma Linguagem pode ser escrita.
+    Utilizando o Lemma do Bombeamento \cite{hopcroftBook} pode-se determinar
+    se dada Gramática é o tipo mínimo de Gramática para dada Linguagem.
+    Assim,
+    não pode~=se dizer uma dada Linguagem é Livre de Contexto simplesmente
+    por que existe uma Gramática Livre de Contexto para dada Linguagem,
+    pois também é preciso que esta Gramática seja o tipo
+    mínimo no qual esta Linguagem pode ser escrita.
 
-    Linguagens Regulares são todas aquelas reconhecidas por
-    Automatos Finitos Determinísticos ou
-    Não~=Determinísticos e
+    As Gramáticas Regulares e
+    Livres de Contexto Não~=Determinísticas possuem Complexidade Exponential.
+    Como um todo,
+    o conjunto de Linguagens Regulares podem ser considerados com Complexidade Linear por que
+    toda Gramática Regular Não~=Determinística pode ser convertida em uma Gramática
+    Regular Determinística\footnote{Com Complexidade Linear} \cite{sipserBook}.
+    Infelizmente isso não é verdade para Gramáticas Livres de Contexto
+    por que Gramáticas Livre de Contexto Determinísticas e
+    Não~=Determinísticas não são equivalentes.
+    Gramáticas Não~=Determinísticas possuem Complexidade Exponential por que somente
+    podemos simular o funcionamento de um \textit{Parser} Não~=Determinístico
+    utilizando uma máquina determinística\footnote{Nossos computadores atuais},
+    que somente podem realizar a execução de um ramo de computação Não~=Determinístico.
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{pictures/ParserDeterministic.png}
+    \caption{Computação com 15 Passos -- Fonte Própria}
+    \label{fig:pictures/ParserDeterministic.png}
+    \end{figure}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{pictures/ParserNonDeterministic.png}
+    \caption{Computação com 4 Passos -- Fonte Própria}
+    \label{fig:pictures/ParserNonDeterministic.png}
+    \end{figure}
+
+
+\subsection*{Gramáticas Regulares}
+
+    Gramáticas Regulares (também conhecidas como Tipo 3) são todas aquelas reconhecidas
+    por Automatos Finitos Determinísticos e/ou Não~=Determinísticos e
     Gramaticas de Linguagens Regulares pela definição formal,
-    são todas aquelas nos quais todas as produções da gramática possuem a seguinte forma:
-    $$ P = \{\; \alpha ::= a \beta \;|\; \alpha \in V_n \land a \in Vt
-                \land \beta \in \{\; Vn \cup \varepsilon\; \} \;\} $$
+    são todas aquelas nos quais todas as produções da Gramática possuem a seguinte forma:
+    $$ P = \{\; \alpha ::= a \beta \;|\; \alpha \in V_n \land a \in V_t
+                \land \beta \in \{\; V_n \cup \varepsilon\; \} \;\} $$
 
-    Linguagens Livre de Contexto são todas aquelas
-    reconhecidas por Automatos de Pinha
-    Não~=Determinísticos e
+\subsection*{Gramáticas Livres de Contexto}
+
+    Gramáticas Livres de Contexto (também conhecidas como Tipo 2) são todas
+    aquelas reconhecidas por Automatos de Pilha Não~=Determinísticos e
     Gramaticas de Linguagens Livre de Contexto pela definição formal,
-    são todas aquelas nos quais todas as produções da gramática possuem a seguinte forma:
+    são todas aquelas nos quais todas as produções da Gramática possuem a seguinte forma:
     $$ P = \{\; \alpha ::= \beta \;|\; \alpha \in V_n \land \beta \in V^* \;\} $$
 
-    Linguagens Sensíveis ao Contexto são todas aquelas
-    reconhecidas por Automatos Linearmente Limitados,
+
+\subsection*{Gramáticas Sensíveis ao Contexto}
+
+    Gramáticas Sensíveis ao Contexto (também conhecidas como Tipo 1) são
+    todas aquelas reconhecidas por Automatos Linearmente Limitados,
     que se tratam somente de Máquinas de Turing com Fita (ou memória) Finita.
     Gramaticas de Linguagens Sensíveis ao Contexto pela definição formal,
-    são todas aquelas nos quais todas as produções da gramática possuem a seguinte forma:
+    são todas aquelas nos quais todas as produções da Gramática possuem a seguinte forma:
     $$ P = \{\; \alpha ::= \beta \;|\; \alpha \in V^* V_n V^* \land \beta \in V^*
                 \land \vert\alpha\vert \leq \vert\beta\vert \;\} $$
 
+
+\subsection*{Gramáticas Tipo 0}
+
     Por fim,
-    as Linguagens do Tipo 0 possuem a mesma definição do que a definição válida de
-    uma gramática como apresentado anteriormente (em \ref{definicaoDeGramatica}):
+    as Linguagens do Tipo 0 possuem a mesma definição do que a definição
+    válida de uma Gramática como apresentado anteriormente (no
+    \fullref{definicaoDeGramatica}):
     $$ P = \{\; \alpha ::= \beta \;|\; \alpha \in V^* V_n V^* \land \beta \in V^* \;\} $$
 
     Gramáticas do Tipo 0 são reconhecidas somente por Máquinas de Turing\footnote{Máquinas
-    de Turing possuem por definição fita (ou memória) infinita.
+    de Turing possuem por definição fita (ou memória) infinita
     },
     e diferente das Gramáticas Sensíveis ao Contexto,
     a Máquina de Turing não possui parada garantida,
     i.e.,
     Linguagens do Tipo 0 representam problemas incomputáveis e
-    que podem ser representados de procedimentos.
+    que podem ser representados de procedimentos \cite{sipserBook}.
     Já Linguagens do Tipo 1 ou Sensíveis ao Contexto,
     representam todos os problemas computáveis e
     sua implementação pode ser representada por algoritmos,
     pois possuem parada garantida,
     apesar de terem em pior caso,
     tempo exponential.
-    A maior classe de gramáticas determinísticas suportadas por analisadores
-    sintáticos são as gramáticas LR(K)\footnote{\textit{Left-to-right,
+
+
+\section{Analisadores Sintáticos}
+\label{analisadoresSintaticos}
+
+    A maior classe de Gramáticas Determinísticas suportadas por analisadores
+    sintáticos são as Gramáticas LR(K)\footnote{\textit{Left~=to~=right,
     Rightmost derivation in reverse by ``K'' lookahead symbols
     }}.
     Analisadores LR(K) \cite{ahoCompilerDragonBook} são Ascendentes e
     reconhecem um subconjunto das Linguagens Livre de Contexto
-    (figura \ref{fig:pictures/LinguagensDeterministicas.png}).
+    (Figura \ref{fig:pictures/LinguagensDeterministicas.png}).
     \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/LinguagensDeterministicas.png}
@@ -202,58 +280,68 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \label{fig:pictures/LinguagensDeterministicas.png}
     \end{figure}
 
-    A figura \ref{fig:pictures/LinguagensDeterministicas.png} não é
+    A Figura \ref{fig:pictures/LinguagensDeterministicas.png} não é
     um Diagrama de Venn \cite{generalizedVennDiagrams},
-    somente uma relação abstrata entre linguagens ambíguas e
-    gramática determinísticas.
+    somente uma relação abstrata entre Linguagens Ambíguas e
+    Gramáticas Determinísticas.
     O primeiro nível significa que todas as Linguagens Inerentemente
-    Ambíguas são representadas somente por Gramáticas Ambíguas.
-    O segundo nível significa que Linguagens Não Inerentemente Ambíguas podem
+    Ambíguas são representáveis somente por Gramáticas Ambíguas.
+    O segundo nível significa que Linguagens Não~=Inerentemente Ambíguas podem
     ser representadas por Gramáticas Ambíguas e/ou Determinísticas.
-    No terceiro nível encontra~=se as gramáticas que são mais importantes,
+    No terceiro nível encontra~=se as Gramáticas que são mais importantes,
     as Gramáticas Determinísticas,
     que podem ser classificadas como LR(K),
-    LL(K), i.e.,
+    LL(K), \advisor{}{entre outros, }i.e.,
     de acordo com o tipo de parser que poder ser construído para reconhecer elas.
 
     É importante fazer a distinção entre Gramáticas Livre de Contexto e
     as Linguagens Livre de Contexto.
     \citeonline{parikh1966} provou que existem linguagens nas quais não
-    existem gramáticas não~=ambíguas que representem estas linguagens.
+    existem Gramáticas Não~=Ambíguas que representem estas linguagens.
     Tais linguagens são conhecidas como Linguagens Inerentemente Ambíguas\footnote{Do
     inglês \textit{Inherently ambiguous languages}} onde não existem Gramáticas
-    Livre de Contexto determinísticas capazes de representa~=las.
+    Livre de Contexto Determinísticas capazes de representa~=las e
+    tais Linguagens somente podem ser reconhecidas por Automatos de Pilha Não~=Determinísticos.
 
+    Uma vez que \textit{parsers} LR(K) requerem grandes quantidades de memória para operar,
     \citeonline{lalrDeRemer1982} criaram os parsers
-    LALR(K)\footnote{\textit{Look-Ahead} LA(K) LR(0),
+    LALR(K)\footnote{\textit{Look~=Ahead} LA(K) LR(0),
     onde LR(0) é um parser LR(K) com $K=0$
     } e
-    SLR(K)\footnote{Simple LR(K) \textit{parser}} com o objeto
-    de viabilizar a implementação de parsers LR(K),
-    que requerem grandes quantidades de memória para operar.
+    SLR(K)\footnote{\textit{Simple} LR(K) \textit{parser}} com o objeto de
+    viabilizar a implementação de parsers Ascendentes Determinísticos.
     Gramáticas de Linguagens Determinísticas são chamadas de LR por que todas
     as Linguagens Determinísticas são reconhecidas por Analisadores LR(K).
-    \citeonline{knuthLrParser1965} provou que todas as gramáticas
-    determinísticas são aceitas por um parser LR(K).
+    \citeonline{knuthLrParser1965} provou que todas as Gramáticas
+    Determinísticas são aceitas por um parser LR(K).
     Assim,
     além da hierarquia de Chomsky,
-    também classificasse as gramáticas de acordo com o tipo de parser
-    que reconhece as linguagens representadas por elas.
-    Como mostrado na figura \ref{fig:pictures/LinguagensDeterministicas.png},
-    nem todas as gramáticas Livre de Contexto são de determinísticas e
-    uma gramática é determinística somente se ela pode ser reconhecida por um parser LR(K).
+    também classifica~=se as Gramáticas de acordo com o tipo de
+    parser que reconhece as linguagens representadas por elas.
+    Como mostrado na Figura \ref{fig:pictures/LinguagensDeterministicas.png},
+    nem todas as Gramáticas Livre de Contexto são de Determinísticas e
+    uma Gramática é Determinística somente se ela pode ser reconhecida por um parser LR(K).
+    Portanto uma maneira fácil de decidir se uma dada Gramática é Determinística ou não,
+    é tentar construir a tabela de \textit{parser} dela para um \textit{parser} LR(K).
+    Caso consiga~=se construir com sucesso a Tabela de Parsing \cite{ahoCompilerDragonBook},
+    a Gramática é LR(K),
+    caso contrário a Gramática não é Determinística.
+    A mesma técnica pode ser aplicada no caso de \textit{parsers} menos poderosos como LALR(K),
+    entretanto,
+    uma vez que não se consiga construir a Tabela de Parsing,
+    não se pode ter certeza se dada Gramática não é Determinística.
 
     Usualmente,
     somente depois que a Árvore Sintática é construída,
     realiza~=se o processo de Análise Semântica,
     i.e.,
-    a verificação da corretude do programa escrito em relação os aspectos não-estruturais,
+    a verificação da corretude do programa escrito em relação os aspectos não~=estruturais,
     por exemplo,
     é sintaticamente correta escrever a declaração de uma mesma variável duas vezes ou mais,
     entretanto,
     é semanticamente errado redeclarar uma variável duas vezes ou mais.
     O analisador sintático representado por uma Gramática Livre de Contexto não tem poder
-    suficiente para realizar tais verificações devido as limitações desse tipo de gramática.
+    suficiente para realizar tais verificações devido as limitações desse tipo de Gramática.
     Quando devidamente construídas,
     linguagens Sensíveis ao Contexto podem ser Turing Completa\footnote{A Turing Completude
     acontece quando uma dada linguagem pode simular o funcionamento completo de uma Máquina
@@ -266,7 +354,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     como análise léxica, sintática e semântica. Muitas vezes,
     estas três etapas acontecem em paralelo como realizado na implementação do
     compilador da Linguagem C \cite{jourdan2017,whyCcannotBeParsedWithALR1Parser}.
-    A gramática da linguagem C não é Livre de Contexto devido as
+    A Gramática da linguagem C não é Livre de Contexto devido as
     ambiguidades existentes como a expressão ``\textit{x * y ;}''.
     Tal sentença pode ser ou a declaração de um ponteiro chamado \textit{y} do tipo \textit{x},
     ou a multiplicação de dois números armazenados nas variáveis \textit{x} e
@@ -285,13 +373,14 @@ Fazer depois que a fundamentação teórica estiver concluída.
     o Analisador Sintático é capaz de consultar a Tabela de Símbolos e
     descobrir se dado token ou tratar~=se de um tipo ou uma variável numérica.
     Portanto,
-    pode dizer que as gramáticas de todas as Linguagens de Programação são Livres de Contexto e
+    pode dizer que as Gramáticas de todas as Linguagens de Programação são Livres de Contexto e
     Determinísticas,
-    pois uma vez que a gramática não é mais Livre de Contexto ou determinística,
+    pois uma vez que a Gramática não é mais Livre de Contexto ou Determinística,
     pode~=se mover aspectos sensíveis ao contexto para o Analisador Semântico,
     assim,
-    deixando a gramática somente com aspectos determinísticos.
+    deixando a Gramática somente com aspectos determinísticos.
 }
+
 
 \subsection{Formatadores de código}
 
@@ -342,11 +431,11 @@ Fazer depois que a fundamentação teórica estiver concluída.
     uma lista contendo todas as configurações de formatação para cada
     aspecto da linguagem ficará muito grande quando todos os aspectos
     das linguagens mais complexas como C ou C++ forem implementados.
-    Em softwares como
-    \textit{Uncrustify}\footnote{\url{https://github.com/uncrustify/uncrustify}}
-    encontra~=se mais de 500 configurações tais como as a seguir:
+    Em softwares como \textit{Uncrustify}\footnote{\url{https://github.com/uncrustify/uncrustify}}
+    encontra~=se mais de 500 configurações tais como o Código \ref{lst:uncrustifySettingSample}.
 }
-\begin{lstlisting}
+\begin{lstlisting}[caption={Trecho do Arquivo de Configuração de
+\textit{Uncrustify}},label={lst:uncrustifySettingSample}]
 # If the body of the namespace is longer than this
 # number, it won't be indented. Requires
 # indent_namespace=true. Default=0 (no limit)
@@ -391,13 +480,13 @@ indent_constr_colon = false # false/true
     no que ela pode customizar,
     uma vez que \textit{Uncrustify} já é uma das mais completas.
     Além disso,
-    ainda precisa-se configurar todas as novas opções já configuradas.
+    ainda precisa~=se configurar todas as novas opções já configuradas.
     Outra forte desvantagem do arquivo de configurações do
     \textit{Uncrustify} segue na dificuldade de entender e
     visualizar o que está sendo configurado.
     Algumas opções são claras e
     fáceis de se entender,
     já outras,
-    não consegue-se ter a mínima ideia do que elas estão fazendo e
+    não consegue~=se ter a mínima ideia do que elas estão fazendo e
     qual será o seu resultado final.
 }
