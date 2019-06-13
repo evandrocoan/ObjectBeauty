@@ -181,87 +181,6 @@ Fazer depois que a fundamentação teórica estiver concluída.
     pois também é preciso que esta Gramática seja o tipo
     mínimo no qual esta Linguagem pode ser escrita.
 
-    As Gramáticas Regulares e
-    Livres de Contexto Não~=Determinísticas possuem Complexidade Exponential.
-    Como um todo,
-    o conjunto de Linguagens Regulares podem ser considerados com Complexidade
-    Linear por que toda Gramática Regular Não~=Determinística pode ser
-    convertida em uma Gramática Regular Determinística \cite{sipserBook}.
-    Infelizmente isso não é verdade para Gramáticas Livres de Contexto
-    por que Gramáticas Livre de Contexto Determinísticas e
-    Não~=Determinísticas não são equivalentes.
-    Gramáticas Não~=Determinísticas possuem Complexidade Exponential por que
-    somente pode~=se simular o funcionamento de um \textit{Parser}
-    Não~=Determinístico utilizando uma máquina determinística,
-    tal como os computadores atuais,
-    que somente podem realizar a execução de um ramo de computação Não~=Determinístico,
-    exceto para Computadores Quânticos \cite{nonlinearQuantumComputers}.
-
-    Na Figura \ref{fig:pictures/ParserNonDeterministic.png} encontra~=se uma
-    Árvore de Computação de um \textit{Parser} Não~=Determinístico.
-    Diz~=se que que o tempo de execução de um \textit{Parser} Não~=Determinístico é Linear ou
-    Polinomial ao tamanho da entrada por que um \textit{Parser} Não~=Determinístico
-    executa simultaneamente todos os Ramos de Computação Não~=Determinísticos.
-    Como mostrado na Figura \ref{fig:pictures/ParserNonDeterministic.png},
-    após a cada um dos passo de computação 1,
-    2, 3 e 4,
-    todos os 15 ramos de computação foram concluídos.
-    Cada um desses passos é corresponde a um item a ser analisado na entrada do programa.
-    O que torna a computação Não~=Determinística é o fato de cada um dos itens 1,
-    2, 3 e 4 da entrada,
-    permitirem simultaneamente a escolha de mais de um caminho
-    na escolha do próximo estado do \textit{Parser},
-    i.e.,
-    mais de um Ramo de Computação.
-    \begin{figure}[H]
-    \centering
-    \includegraphics[width=1.0\textwidth]{pictures/ParserNonDeterministic.png}
-    \caption{Árvore de Computação com 4 Passos -- Fonte Própria}
-    \label{fig:pictures/ParserNonDeterministic.png}
-    \end{figure}
-
-    O tempo de execução será Linear ao tamanho da entrada caso o
-    \textit{Parser} Não~=Determinístico seja de uma Linguagem Regular e,
-    Polinomial caso o \textit{Parser} Não~=Determinístico seja de uma linguagem Livre de Contexto.
-    Uma fez que o conjunto de Linguagens Determinísticas LR(K) (com tempo
-    Polinomial) está contida no conjunto das Linguagens Livres de Contexto,
-    não faz sentido em falar em tempos lineares ou polinomiais
-    de execução para Linguagens Sensíveis ao Contexto,
-    por que os algoritmos de \textit{parsing} são exponenciais e
-    quando analisados por uma Máquinas de Turing Não~=Determinísticas
-    terão no máximo tempo Polinomial de execução.
-    Como um \textit{addendum} para Computação Quântica,
-    pode~=se encontrar autores dizendo que Computadores Quânticos
-    são equivalentes a \textit{Parsers} Não-Determinísticos.
-    Entretanto,
-    Computadores Quânticos não são equivalentes a \textit{Parsers}
-    Não~=Determinísticos devido a sua execução ser probabilística
-    \cite{polynomialQuantumComputers},
-    que é diferente de Não~=Determinística.
-
-    Diferente dos Computadores Tradicionais,
-    Computadores Quânticos são construídos com base nas leis da Física Quântica,
-    que são completamente diferentes das Leis da Física
-    Tradicional (ou Clássica)
-    \cite{churchTuringQuantumComputer}.
-    Assim,
-    Computadores Quânticos podem em alguns casos e
-    para problemas específicos,
-    realizar a execução de todos os Ramos Não~=determinísticos
-    de Computação em tempo Linear ou Polinomial.
-    Esta é a gama de problemas nos quais Computadores Quânticos são úteis,
-    não sendo assim,
-    substitutos completos da Computação Tradicional (ou Clássica),
-    somente otimizadores na resolução de alguns problemas específicos.
-    \begin{figure}[H]
-    \centering
-    \includegraphics[width=1.0\textwidth]{pictures/ParserDeterministic.png}
-    \caption{Árvore de Computação com 15 Passos -- Fonte Própria}
-    \label{fig:pictures/ParserDeterministic.png}
-    \end{figure}
-
-    Na Figura \ref{fig:pictures/ParserDeterministic.png} encontra-se
-
 
 \subsection*{Gramáticas Regulares}
 
@@ -438,5 +357,89 @@ Fazer depois que a fundamentação teórica estiver concluída.
     pode~=se mover aspectos sensíveis ao contexto para o Analisador Semântico,
     assim,
     deixando a Gramática somente com aspectos determinísticos.
+
+
+\section{Classes de Complexidade}
+
+    As Gramáticas Regulares e
+    Livres de Contexto Não~=Determinísticas possuem Complexidade Exponential.
+    Como um todo,
+    o conjunto de Linguagens Regulares podem ser considerados com Complexidade
+    Linear por que toda Gramática Regular Não~=Determinística pode ser
+    convertida em uma Gramática Regular Determinística \cite{sipserBook}.
+    Infelizmente isso não é verdade para Gramáticas Livres de Contexto
+    por que Gramáticas Livre de Contexto Determinísticas e
+    Não~=Determinísticas não são equivalentes.
+    Gramáticas Não~=Determinísticas possuem Complexidade Exponential por que
+    somente pode~=se simular o funcionamento de um \textit{Parser}
+    Não~=Determinístico utilizando uma máquina determinística,
+    tal como os computadores atuais,
+    que somente podem realizar a execução de um ramo de computação Não~=Determinístico,
+    exceto para Computadores Quânticos \cite{nonlinearQuantumComputers}.
+
+    Na Figura \ref{fig:pictures/ParserNonDeterministic.png} encontra~=se uma
+    Árvore de Computação de um \textit{Parser} Não~=Determinístico.
+    Diz~=se que que o tempo de execução de um \textit{Parser} Não~=Determinístico é Linear ou
+    Polinomial ao tamanho da entrada por que um \textit{Parser} Não~=Determinístico
+    executa simultaneamente todos os Ramos de Computação Não~=Determinísticos.
+    Como mostrado na Figura \ref{fig:pictures/ParserNonDeterministic.png},
+    após a cada um dos passo de computação 1,
+    2, 3 e 4,
+    todos os 15 ramos de computação foram concluídos.
+    Cada um desses passos é corresponde a um item a ser analisado na entrada do programa.
+    O que torna a computação Não~=Determinística é o fato de cada um dos itens 1,
+    2, 3 e 4 da entrada,
+    permitirem simultaneamente a escolha de mais de um caminho
+    na escolha do próximo estado do \textit{Parser},
+    i.e.,
+    mais de um Ramo de Computação.
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{pictures/ParserNonDeterministic.png}
+    \caption{Árvore de Computação com 4 Passos -- Fonte Própria}
+    \label{fig:pictures/ParserNonDeterministic.png}
+    \end{figure}
+
+    O tempo de execução será Linear ao tamanho da entrada caso o
+    \textit{Parser} Não~=Determinístico seja de uma Linguagem Regular e,
+    Polinomial caso o \textit{Parser} Não~=Determinístico seja de uma linguagem Livre de Contexto.
+    Uma fez que o conjunto de Linguagens Determinísticas LR(K) (com tempo
+    Polinomial) está contida no conjunto das Linguagens Livres de Contexto,
+    não faz sentido em falar em tempos Lineares ou Polinomiais
+    de execução para Linguagens Sensíveis ao Contexto,
+    por que os algoritmos de \textit{parsing} são exponenciais e
+    quando analisados por uma Máquinas de Turing Não~=Determinísticas
+    terão no máximo tempo Polinomial de execução.
+    Como um \textit{addendum} para Computação Quântica,
+    pode~=se encontrar pessoas dizendo que Computadores Quânticos
+    são equivalentes a \textit{Parsers} Não-Determinísticos.
+    Entretanto,
+    Computadores Quânticos não são equivalentes a \textit{Parsers}
+    Não~=Determinísticos devido a sua execução ser probabilística
+    \cite{polynomialQuantumComputers},
+    que é diferente de Não~=Determinística.
+
+    Diferente dos Computadores Tradicionais,
+    Computadores Quânticos são construídos com base nas leis da Física Quântica,
+    que são completamente diferentes das Leis da Física
+    Tradicional (ou Clássica)
+    \cite{churchTuringQuantumComputer}.
+    Assim,
+    Computadores Quânticos podem em alguns casos e
+    para problemas específicos,
+    realizar a execução de todos os Ramos Não~=determinísticos
+    de Computação em tempo Linear ou Polinomial.
+    Esta é a gama de problemas nos quais Computadores Quânticos são úteis,
+    não sendo assim,
+    substitutos completos da Computação Tradicional (ou Clássica),
+    somente otimizadores na resolução de alguns problemas específicos.
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{pictures/ParserDeterministic.png}
+    \caption{Árvore de Computação com 15 Passos -- Fonte Própria}
+    \label{fig:pictures/ParserDeterministic.png}
+    \end{figure}
+
+    Na Figura \ref{fig:pictures/ParserDeterministic.png} encontra-se
 }
 
