@@ -292,7 +292,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     as Gramáticas Determinísticas,
     que podem ser classificadas como LR(K),
     LL(K), \advisor{}{entre outros, }i.e.,
-    de acordo com o tipo de parser que poder ser construído para reconhecer elas.
+    de acordo com o tipo de \textit{parser} que poder ser construído para reconhecer elas.
 
     É importante fazer a distinção entre Gramáticas Livre de Contexto e
     as Linguagens Livre de Contexto.
@@ -304,23 +304,23 @@ Fazer depois que a fundamentação teórica estiver concluída.
     tais Linguagens somente podem ser reconhecidas por Automatos de Pilha Não~=Determinísticos.
 
     Uma vez que \textit{parsers} LR(K) requerem grandes quantidades de memória para operar,
-    \citeonline{lalrDeRemer1982} criaram os parsers
+    \citeonline{lalrDeRemer1982} criaram os \textit{parsers}
     LALR(K)\footnote{\textit{Look~=Ahead} LA(K) LR(0),
-    onde LR(0) é um parser LR(K) com $K=0$
+    onde LR(0) é um \textit{parser} LR(K) com $K=0$
     } e
     SLR(K)\footnote{\textit{Simple} LR(K) \textit{parser}} com o objeto de
-    viabilizar a implementação de parsers Ascendentes Determinísticos.
+    viabilizar a implementação de \textit{parsers} Ascendentes Determinísticos.
     Gramáticas de Linguagens Determinísticas são chamadas de LR por que todas
     as Linguagens Determinísticas são reconhecidas por Analisadores LR(K).
     \citeonline{knuthLrParser1965} provou que todas as Gramáticas
-    Determinísticas são aceitas por um parser LR(K).
+    Determinísticas são aceitas por um \textit{parser} LR(K).
     Assim,
     além da hierarquia de Chomsky,
     também classifica~=se as Gramáticas de acordo com o tipo de
-    parser que reconhece as linguagens representadas por elas.
+    \textit{parser} que reconhece as linguagens representadas por elas.
     Como mostrado na Figura \ref{fig:pictures/LinguagensDeterministicas.png},
     nem todas as Gramáticas Livre de Contexto são de Determinísticas e
-    uma Gramática é Determinística somente se ela pode ser reconhecida por um parser LR(K).
+    uma Gramática é Determinística somente se ela pode ser reconhecida por um \textit{parser} LR(K).
     Portanto uma maneira fácil de decidir se uma dada Gramática é Determinística ou não,
     é tentar construir a tabela de \textit{parser} dela para um \textit{parser} LR(K).
     Caso consiga~=se construir com sucesso a Tabela de Parsing \cite{ahoCompilerDragonBook},
@@ -361,7 +361,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \textit{y},
     portanto ela não pode ser aceita por um \textit{parser} LR(K) tradicional.
 
-    Uma otimização que o compilador C faz para poder fazer o parser Determinístico da linguagem C,
+    Uma otimização que o compilador C faz para poder fazer o \textit{parser} Determinístico da linguagem C,
     e assim saber se a expressão ``\textit{x * y ;}'' trata~=se de
     de uma mera multiplicação ou a declaração de uma variável,
     é exatamente a realização simultânea da análise léxica,
