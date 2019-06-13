@@ -621,6 +621,7 @@
     year          = {2009},
     location      = {Online},
     url           = {https://stackoverflow.com/questions/243383/why-cant-c-be-parsed-with-a-lr1-parser},
+    HOWPUBLISHED  = {StackOverflow Stack Exchange},
     urlaccessdate = {2019-06-06},
     abstract      = {LR parsers can't handle ambiguous grammar rules, by design.
                     (Made the theory easier back in the 1970s when the ideas
@@ -628,20 +629,19 @@
 }
 
 
-@article{larkJosefGrosch,
-    author = {Grosch, Josef},
-    year = {2005},
-    month = {06},
-    url = {http://www.cocolab.com/products/cocktail/doc.pdf/lark.pdf},
-    publisher = {Online},
-    urlaccessdate = {2019-06-06},
-    title = {Lark-An LALR(2) parser generator with backtracking},
-    abstract = {Lark is a parser generator for LALR(2) and LR(1) grammars. With
-    its backtracking facility it is ev en able to generate parsers for non-LR(k)
-    languages. It is compatible with its predecessor, the parser generator Lalr
-    [GrV]. The parser generator Lark offers the following features: generates
-    highly efficient parsers provides automatic error reporting, error recovery,
-    and error repair},
+@online{turingCompleteRegularLanguages,
+    title         = {Can regular languages be Turing complete?},
+    author        = {Eugene Kirpichov},
+    year          = {2014},
+    location      = {Online},
+    url           = {https://cs.stackexchange.com/questions/33666/can-regular-languages-be-turing-complete},
+    HOWPUBLISHED  = {Computer Science Stack Exchange},
+    urlaccessdate = {2019-06-13},
+    abstract      = {While the set of legal programs in Jot is regular, Jot
+    itself is Turing-complete. That means that each computable function can be
+    expressed in Jot. We can even come up with a language in which all binary
+    strings are legal, but the language itself is Turing complete (exercise).
+    You're confusing syntax and semantics.},
 }
 
 
@@ -1118,6 +1118,58 @@
     from favourite languages. The question then arises: once a DSL becomes
     Turing complete, then in what sense is it still domain specific?
     },
+}
+
+
+@article{theGoodAndBadQuantumComputing,
+    title = {Seeking Quantum Speedup Through Spin Glasses: The Good, the Bad, and the Ugly},
+    author = {Katzgraber, Helmut G. and Hamze, Firas and Zhu, Zheng and Ochoa, Andrew J. and Munoz-Bauza, H.},
+    journal = {Phys. Rev. X},
+    volume = {5},
+    issue = {3},
+    pages = {031026},
+    numpages = {15},
+    year = {2015},
+    month = {Sep},
+    publisher = {American Physical Society},
+    doi = {10.1103/PhysRevX.5.031026},
+    url = {https://link.aps.org/doi/10.1103/PhysRevX.5.031026},
+    abstract = {There has been considerable progress in the design and
+    construction of quantum annealing devices. However, a conclusive detection
+    of quantum speedup over traditional silicon-based machines remains elusive,
+    despite multiple careful studies. In this work we outline strategies to
+    design hard tunable benchmark instances based on insights from the study of
+    spin glasses—the archetypal random benchmark problem for novel algorithms
+    and optimization devices. We propose to complement head-to-head scaling
+    studies that compare quantum annealing machines to state-of-the-art
+    classical codes with an approach that compares the performance of different
+    algorithms and/or computing architectures on different classes of
+    computationally hard tunable spin-glass instances. The advantage of such an
+    approach lies in having to compare only the performance hit felt by a given
+    algorithm and/or architecture when the instance complexity is increased.
+    Furthermore, we propose a methodology that might not directly translate into
+    the detection of quantum speedup but might elucidate whether quantum
+    annealing has a “quantum advantage” over corresponding classical algorithms,
+    such as simulated annealing. Our results on a 496-qubit D-Wave Two quantum
+    annealing device are compared to recently used state-of-the-art thermal
+    simulated annealing codes.},
+}
+
+
+@article{larkJosefGrosch,
+    author = {Grosch, Josef},
+    year = {2005},
+    month = {06},
+    url = {http://www.cocolab.com/products/cocktail/doc.pdf/lark.pdf},
+    publisher = {Online},
+    urlaccessdate = {2019-06-06},
+    title = {Lark-An LALR(2) parser generator with backtracking},
+    abstract = {Lark is a parser generator for LALR(2) and LR(1) grammars. With
+    its backtracking facility it is ev en able to generate parsers for non-LR(k)
+    languages. It is compatible with its predecessor, the parser generator Lalr
+    [GrV]. The parser generator Lark offers the following features: generates
+    highly efficient parsers provides automatic error reporting, error recovery,
+    and error repair},
 }
 
 

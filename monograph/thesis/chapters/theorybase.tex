@@ -49,30 +49,30 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \end{figure}
 
     No processo de compilação ou tradução,
-    um analisador léxico cria múltiplos \textit{tokens} \cite{ahoCompilerDragonBook}.
+    um Analisador Léxico cria múltiplos \textit{tokens} \cite{ahoCompilerDragonBook}.
     Um token é composto por diversos atributos como a posição e
     o \textit{lexema}, i.e.,
     a sequencia de caracteres que este token representa no programa de entrada.
-    Uma vez que o programa é ``\textit{tokenizado}'' pelo analisador léxico,
-    o analisador sintático constrói a árvore da sintaxe do programa.
-    Utilizando a árvore sintática do programa de entrada,
-    o tradutor constrói uma nova árvore sintática correspondente a
-    árvore sintática da linguagem do programa destino,
+    Uma vez que o programa é ``\textit{tokenizado}'' pelo Analisador Léxico,
+    o Analisador Sintático constrói a Árvore da Sintaxe do programa.
+    Utilizando a Árvore Sintática do programa de entrada,
+    o tradutor constrói uma nova Árvore Sintática correspondente a
+    Árvore Sintática da linguagem do programa destino,
     utilizada para construir o código~=fonte do programa destino.
     Em um processo de compilação,
-    não seria criado uma nova árvore como no processo de tradução,
+    não seria criado uma nova Árvore de Sintaxe como no processo de tradução,
     mas sim a geração de código objeto ou binário.
 
     Analisadores Sintáticos podem ser Ascendentes ou Descendentes.
     Devido a essa característica ambos possuem as suas vantagens e
     desvantagens.
-    Um analisador Ascendente realiza a construção da árvore sintática das folhas até a raíz,
+    Um Analisador Ascendente realiza a construção da Árvore Sintática das folhas até a raíz,
     o contrário de um Analisador Descendente que realiza a construção
-    da árvore sintática a partir da raíz até as folhas.
-    Uma vantagem de um analisador ascendente é o suporte
+    da Árvore Sintática a partir da raíz até as folhas.
+    Uma vantagem de um Analisador Ascendente é o suporte
     de uma maior classe de Gramáticas Determinísticas.
-    Uma vantagem de um Analisador Descendente é a facilidade da recuperação de erros
-    em relação aos \textit{parsers} LR(K)\footnote{Conceito abordado na
+    Uma vantagem de um Analisador Descendente é a facilidade da recuperação de erros em
+    relação aos \textit{parsers} Ascendentes\footnote{Conceito abordado na
     \fullref{analisadoresSintaticos}} \cite{sippu1982,lr1ErrorRecovery,larkJosefGrosch}.
 
 
@@ -94,23 +94,23 @@ Fazer depois que a fundamentação teórica estiver concluída.
         chamados algumas vezes de ``\textit{tokens}'' devido a sua forte conexão.
         Cada terminal corresponde a um símbolo presente no alfabeto da linguagem.
         }
-        Durante a análise léxica,
+        Durante a Análise Léxica,
         os símbolos terminais serão utilizados definir os lexemas que são a base principal dos tokens.
-        Na composição da árvore sintática,
+        Na composição da Árvore Sintática,
         os ``\textit{tokens}'' ou terminais,
-        serão sempre as folhas da árvore.
+        serão sempre as folhas da Árvore de Sintaxe.
 
         \item \advisor{O}{Um} conjunto $V_n$ de símbolos
         não~=terminais\advisor{ (algumas vezes chamados de ``variáveis sintáticas'').}{,
         algumas vezes chamados de ``variáveis sintáticas''.
         }
         Não~=terminais servem para agrupar vários não~=terminais e/ou terminais.
-        Na composição da árvore sintática,
-        os símbolos não~=terminais sempre serão os nós da árvore\footnote{Desde
+        Na composição da Árvore Sintática,
+        os símbolos não~=terminais sempre serão os nós da Árvore de Sintaxe\footnote{Desde
         que a Gramática da linguagem não contenha símbolos inúteis,
         i.e.,
         todos os símbolos da Gramática são férteis e
-        permitem a geração de palavras além do conjunto vazio $\varnothing$}.
+        permitem a geração de palavras além do conjunto vazio $\varnothing$ \cite{hopcroftBook}}.
         Por convenção,
         a intersecção entre o conjunto de símbolos terminais e
         não~=terminais é sempre vazia,
@@ -133,7 +133,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
         $$P = \{\; \alpha ::= \beta \;|\; \alpha \in V^* V_n V^* \land \beta \in V^* \;\}$$
 
         \item Um símbolo inicial selecionado a partir do conjunto de símbolos não~=terminais.
-        O símbolo inicial é utilizado para definir qual será a raíz da árvore sintática,
+        O símbolo inicial é utilizado para definir qual será a raíz da Árvore Sintática,
         i.e.,
         o primeira regra de produção utilizado para iniciar o reconhecimento do programa de entrada.
     \end{enumerate}
@@ -246,8 +246,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     reconhecem um subconjunto das Linguagens Livre de Contexto
     (Figura \ref{fig:pictures/LinguagensDeterministicas.png}).
     Já os Analisadores LL(K) são Descendente e
-    reconhecem somente um subconjunto das Linguagens LR(K)\footnote{Diz~=se que
-    uma linguagem é LR(K) ou LL(K) quando ela é reconhecida por um dos mesmos}.
+    reconhecem somente um subconjunto das Linguagens LR(K)\footnote{Diz~=se que uma
+    linguagem é LR(K) ou LL(K) quando ela é reconhecida por um tal \textit{Parser}}.
     \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/LinguagensDeterministicas.png}
@@ -310,25 +310,18 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
     Usualmente,
     somente depois que a Árvore Sintática é construída,
-    realiza~=se o processo de Análise Semântica,
+    realiza~=se o processo de Análise Semântica \cite{ahoCompilerDragonBook},
     i.e.,
     a verificação da corretude do programa escrito em relação os aspectos não~=estruturais,
     por exemplo,
-    é sintaticamente correta escrever a declaração de uma mesma variável duas vezes ou mais,
+    é Sintaticamente correto escrever a declaração de uma mesma variável duas vezes ou mais,
     entretanto,
     é semanticamente errado redeclarar uma variável duas vezes ou mais.
-    O analisador sintático representado por uma Gramática Livre de Contexto não tem poder
+    O Analisador Sintático representado por uma Gramática Livre de Contexto não tem poder
     suficiente para realizar tais verificações devido as limitações desse tipo de Gramática.
-    Quando devidamente construídas,
-    linguagens Sensíveis ao Contexto podem ser Turing Completa\footnote{A Turing Completude
-    acontece quando uma dada linguagem pode simular o funcionamento completo de uma Máquina
-    de Turing} \cite{areThereDomainSpecificLanguages,contextSensitiveParsing} e
-    são capazes de realizar qualquer operação computacional algorítmica.
-    Uma vez que o programa foi verificado sintaticamente,
-    inicia~=se o processo de análise semântica.
 
     Nem todas as linguagens podem ser analisadas completamente em diferentes etapas,
-    como análise léxica, sintática e semântica. Muitas vezes,
+    como Análise Léxica, Sintática e Semântica. Muitas vezes,
     estas três etapas acontecem em paralelo como realizado na implementação do
     compilador da Linguagem C \cite{jourdan2017,whyCcannotBeParsedWithALR1Parser}.
     A Gramática da linguagem C não é Livre de Contexto devido as
@@ -338,17 +331,18 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \textit{y},
     portanto ela não pode ser aceita por um \textit{parser} LR(K) tradicional.
 
-    Uma otimização que o compilador C faz para poder fazer o \textit{parser} Determinístico da linguagem C,
+    Uma otimização que o compilador C faz para poder fazer
+    o \textit{parser} Determinístico da linguagem C,
     e assim saber se a expressão ``\textit{x * y ;}'' trata~=se de
     de uma mera multiplicação ou a declaração de uma variável,
-    é exatamente a realização simultânea da análise léxica,
+    é exatamente a realização simultânea da Análise Léxica,
     sintática e
     semântica.
     Uma vez que um novo \textit{token} é reconhecido,
-    ele é alimentado para o analisador sintático,
+    ele é alimentado para o Analisador Sintático,
     que também o alimenta para o Analisador Semântico.
     Assim,
-    o Analisador Sintático é capaz de consultar a Tabela de Símbolos e
+    o Analisador Sintático é capaz de consultar a Tabela de Símbolos\cite{ahoCompilerDragonBook} e
     descobrir se dado token ou tratar~=se de um tipo ou uma variável numérica.
     Portanto,
     pode dizer que as Gramáticas de todas as Linguagens de Programação são Livres de Contexto e
@@ -357,6 +351,12 @@ Fazer depois que a fundamentação teórica estiver concluída.
     pode~=se mover aspectos sensíveis ao contexto para o Analisador Semântico,
     assim,
     deixando a Gramática somente com aspectos determinísticos.
+    Quando devidamente construídas \cite{turingCompleteRegularLanguages},
+    linguagens Regulares,
+    Livres de Contexto ou Sensíveis ao Contexto podem atingir a Turing Completude\footnote{A Turing
+    Completude acontece quando uma dada linguagem pode simular o funcionamento completo de uma
+    Máquina de Turing} \cite{areThereDomainSpecificLanguages,contextSensitiveParsing} e
+    são capazes de realizar qualquer operação computacional algorítmica.
 
 
 \section{Classes de Complexidade}
@@ -411,8 +411,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     quando analisados por uma Máquinas de Turing Não~=Determinísticas
     terão no máximo tempo Polinomial de execução.
     Como um \textit{addendum} para Computação Quântica,
-    pode~=se encontrar pessoas dizendo que Computadores Quânticos
-    são equivalentes a \textit{Parsers} Não-Determinísticos.
+    pode~=se ingenuamente pensar que Computadores Quânticos são
+    equivalentes a \textit{Parsers} Não-Determinísticos.
     Entretanto,
     Computadores Quânticos não são equivalentes a \textit{Parsers}
     Não~=Determinísticos devido a sua execução ser probabilística
@@ -432,7 +432,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Esta é a gama de problemas nos quais Computadores Quânticos são úteis,
     não sendo assim,
     substitutos completos da Computação Tradicional (ou Clássica),
-    somente otimizadores na resolução de alguns problemas específicos.
+    somente otimizadores na resolução de alguns problemas
+    específicos \cite{theGoodAndBadQuantumComputing}.
     \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/ParserDeterministic.png}
