@@ -44,7 +44,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/ProcessoTraducao.png}
-    \caption{Processo de Tradução -- Adaptação de \citeonline{ahoCompilerDragonBook}}
+    \caption{Processo de Tradução -- Fonte Própria \citeonline{ahoCompilerDragonBook}}
     \label{fig:pictures/ProcessoTraducao.png}
     \end{figure}
 
@@ -104,7 +104,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
         não~=terminais\advisor{ (algumas vezes chamados de ``variáveis sintáticas'').}{,
         algumas vezes chamados de ``variáveis sintáticas''.
         }
-        Não~=terminais servem para agrupar vários não~=terminais e/ou terminais.
+        Não~=terminais servem para agrupar vários não~=terminais e\slash{}ou terminais.
         Na composição da Árvore Sintática,
         os símbolos não~=terminais sempre serão os nós da Árvore de Sintaxe\footnote{Desde
         que a Gramática da linguagem não contenha símbolos inúteis,
@@ -127,7 +127,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
         Ele é obrigatoriamente constituído de no mínimo um não~=terminal e
         um ou mais não~=terminais ou terminais.
         O segundo elemento é a cauda ou lado direito da produção,
-        composto de terminais e/ou não~=terminais.
+        composto de terminais e\slash{}ou não~=terminais.
         Formalmente defini~=se um produção pela seguinte regra,
         onde ``*'' representa o operador de fechamento do conjunto \cite{hopcroftBook}:
         $$P = \{\; \alpha ::= \beta \;|\; \alpha \in V^* V_n V^* \land \beta \in V^* \;\}$$
@@ -149,7 +149,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/HierarquiaDeChomsky.png}
-    \caption{Hierarquia de Chomsky -- Adaptação de \citeonline{sipserBook}}
+    \caption{Hierarquia de Chomsky -- Fonte Própria \citeonline{sipserBook}}
     \label{fig:pictures/HierarquiaDeChomsky.png}
     \end{figure}
 
@@ -174,7 +174,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Sempre pode~=se escrever uma Gramática menos eficiente do que o
     tipo mínimo de Gramática que uma Linguagem pode ser escrita.
     Utilizando o Lema do Bombeamento\footnote{Do inglês \textit{Pumping Lemma}} \cite{hopcroftBook}
-    pode-se determinar se dada Gramática é o tipo mínimo de Gramática para dada Linguagem.
+    pode~=se determinar se dada Gramática é o tipo mínimo de Gramática para dada Linguagem.
     Assim,
     não pode~=se dizer uma dada Linguagem é Livre de Contexto simplesmente
     por que existe uma Gramática Livre de Contexto para dada Linguagem,
@@ -185,7 +185,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
 \subsection*{Gramáticas Regulares}
 
     Gramáticas Regulares (também conhecidas como Tipo 3) são todas aquelas reconhecidas
-    por Automatos Finitos Determinísticos e/ou Não~=Determinísticos e
+    por Automatos Finitos Determinísticos e\slash{}ou Não~=Determinísticos e
     Gramaticas de Linguagens Regulares pela definição formal,
     são todas aquelas nos quais todas as produções da Gramática possuem a seguinte forma:
     $$ P = \{\; \alpha ::= a \beta \;|\; \alpha \in V_n \land a \in V_t
@@ -252,7 +252,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/LinguagensDeterministicas.png}
     \caption{Mapa Mental das Linguagens e
-    Gramáticas \newline Adaptação de \citeonline{beatty1982} e
+    Gramáticas \newline Fonte Própria \citeonline{beatty1982} e
     \citeonline{ahoCompilerDragonBook}}
     \label{fig:pictures/LinguagensDeterministicas.png}
     \end{figure}
@@ -264,7 +264,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     O primeiro nível significa que todas as Linguagens Inerentemente
     Ambíguas são representáveis somente por Gramáticas Ambíguas.
     O segundo nível significa que Linguagens Não~=Inerentemente Ambíguas podem
-    ser representadas por Gramáticas Ambíguas e/ou Determinísticas.
+    ser representadas por Gramáticas Ambíguas e\slash{}ou Determinísticas.
     No terceiro nível encontra~=se as Gramáticas que são mais importantes,
     as Gramáticas Determinísticas,
     que podem ser classificadas como LR(K),
@@ -381,7 +381,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Árvore de Computação de um \textit{Parser} Não~=Determinístico.
     Diz~=se que que o tempo de execução de um \textit{Parser} Não~=Determinístico é Linear ou
     Polinomial ao tamanho da entrada por que um \textit{Parser} Não~=Determinístico
-    executa simultaneamente todos os Ramos de Computação Não~=Determinísticos.
+    executa simultaneamente todos os ramos de Computação Não~=Determinísticos.
     Como mostrado na Figura \ref{fig:pictures/ParserNonDeterministic.png},
     após a cada um dos passo de computação 1,
     2, 3 e 4,
@@ -411,37 +411,44 @@ Fazer depois que a fundamentação teórica estiver concluída.
     quando analisados por uma Máquinas de Turing Não~=Determinísticas
     terão no máximo tempo Polinomial de execução.
     Como um \textit{addendum} para Computação Quântica,
-    pode~=se ingenuamente pensar que Computadores Quânticos são
-    equivalentes a \textit{Parsers} Não-Determinísticos.
-    Entretanto,
+    pode~=se confundir Computadores Quânticos como equivalentes a \textit{Parsers}
+    Não~=Determinísticos devido as nomenclaturas utilizadas.
+    Enquanto \textit{Parsers} são Não~=Determinísticos no
+    devido à ambiguidades nas Gramáticas de Entrada,
+    Computadores Quânticos são Não Determinísticos
+    devido à serem baseado em modelos
+    Probabilísticos.
     Computadores Quânticos não são equivalentes a \textit{Parsers}
     Não~=Determinísticos devido a sua execução ser probabilística
-    \cite{polynomialQuantumComputers},
-    que é diferente de Não~=Determinística.
+    \cite{polynomialQuantumComputers}.
 
     Diferente dos Computadores Tradicionais,
     Computadores Quânticos são construídos com base nas leis da Física Quântica,
     que são radicalmente diferentes das Leis da Física Tradicional ou Clássica,
     i.e.,
     as Leis de Newton.
-    As Leis da Física Clássica regem as coisas muitos grandes na escala galáxias,
+    As Leis da Física Clássica regem os elementos muitos grandes na escala galáxias,
     planetas, células e
     virus \cite{halliday2013fundamentals}.
-    Já Leis da Física Quântica regem as coisas muito pequenas na escala de átomos,
+    Já as Leis da Física Quântica regem as elementos muito pequenos na escala de átomos,
     elétrons, prótons, fótons e
-    quarks \cite{dicke1963QuantumPhysicsIntroduction}.
+    \textit{quarks} \cite{dicke1963QuantumPhysicsIntroduction}.
     Computadores Quânticos podem em alguns casos e
     para problemas específicos,
-    realizar a execução de todos os Ramos Não~=determinísticos de Computação em
+    realizar a execução de todos os ramos Não~=determinísticos de Computação em
     tempo Linear ou Polinomial \cite{theGoodAndBadQuantumComputing}.
     Esta é a gama de problemas nos quais Computadores Quânticos são úteis,
     não sendo assim,
     substitutos completos da Computação Tradicional (ou Clássica),
-    somente otimizadores na resolução de alguns problemas específicos que podem ser otimizados
-    devido as propriedades específicas das leis Física Quântica
+    somente otimizadores na resolução de alguns problemas específicos que
+    podem ser otimizados devido as propriedades
+    específicas\slash{}probabilísticas das leis Física Quântica
     \cite{churchTuringQuantumComputer}.
 
-    Na Figura \ref{fig:pictures/ParserDeterministic.png} encontra-se
+    Na Figura \ref{fig:pictures/ParserDeterministic.png} encontra~=se a mesma Árvore de
+    Computação apresentada na Figura \ref{fig:pictures/ParserNonDeterministic.png},
+    mas com a diferença de que desta vez o utiliza~=se um \textit{Parser}
+    Determinístico ao contrário de um \textit{Parser} Não~=Determinístico.
     \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/ParserDeterministic.png}
