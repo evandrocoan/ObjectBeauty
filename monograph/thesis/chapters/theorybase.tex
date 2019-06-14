@@ -238,6 +238,27 @@ Fazer depois que a fundamentação teórica estiver concluída.
 \section{Analisadores Sintáticos}
 \label{analisadoresSintaticos}
 
+    Analisadores Sintáticos são equivalentes a mecanismos reconhecedores como Automatos Finitos,
+    Automatos de Pilha ou Máquinas de Turing.
+    Tais mecanismos realizam o reconhecimento da linguagem recebendo
+    diretamente como entrada a Gramática da Linguagem.
+    No caso de outros mecanismos como Automatos Finitos,
+    o reconhecimento é feito a partir da especificação ou construção
+    do Automato que reconhece palavras de dada linguagem.
+    Ambos Gramáticas e
+    Automatos são equivalentes e
+    existem algoritmos de conversão entre um e
+    outro \cite{hopcroftBook}.
+
+    É importante fazer a distinção entre Gramáticas Livre de Contexto e
+    as Linguagens Livre de Contexto.
+    \citeonline{parikh1966} provou que existem linguagens nas quais não
+    existem Gramáticas Não~=Ambíguas que representem estas linguagens.
+    Tais linguagens são conhecidas como Linguagens Inerentemente Ambíguas\footnote{Do
+    inglês \textit{Inherently ambiguous languages}} onde não existem Gramáticas
+    Livre de Contexto Determinísticas capazes de representa~=las e
+    tais Linguagens somente podem ser reconhecidas por Automatos de Pilha Não~=Determinísticos.
+
     A maior classe de Gramáticas Determinísticas suportadas por analisadores
     sintáticos são as Gramáticas LR(K)\footnote{\textit{Left~=to~=right,
     Rightmost derivation in reverse by ``K'' lookahead symbols
@@ -245,7 +266,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Analisadores LR(K) \cite{ahoCompilerDragonBook} são Ascendentes e
     reconhecem um subconjunto das Linguagens Livre de Contexto
     (Figura \ref{fig:pictures/LinguagensDeterministicas.png}).
-    Já os Analisadores LL(K) são Descendente e
+    Já os Analisadores LL(K) são Descendentes e
     reconhecem somente um subconjunto das Linguagens LR(K)\footnote{Diz~=se que uma
     linguagem é LR(K) ou LL(K) quando ela é reconhecida por um tal \textit{Parser}}.
     \begin{figure}[H]
@@ -258,8 +279,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \end{figure}
 
     A Figura \ref{fig:pictures/LinguagensDeterministicas.png} não é
-    um Diagrama de Venn \cite{generalizedVennDiagrams},
-    somente uma relação abstrata entre Linguagens Ambíguas e
+    inteiramente um Diagrama de Venn \cite{generalizedVennDiagrams},
+    mas somente uma relação abstrata entre Linguagens Ambíguas e
     Gramáticas Determinísticas.
     O primeiro nível significa que todas as Linguagens Inerentemente
     Ambíguas são representáveis somente por Gramáticas Ambíguas.
@@ -270,15 +291,6 @@ Fazer depois que a fundamentação teórica estiver concluída.
     que podem ser classificadas como LR(K),
     LL(K), \advisor{}{entre outros, }i.e.,
     de acordo com o tipo de \textit{parser} que poder ser construído para reconhecer elas.
-
-    É importante fazer a distinção entre Gramáticas Livre de Contexto e
-    as Linguagens Livre de Contexto.
-    \citeonline{parikh1966} provou que existem linguagens nas quais não
-    existem Gramáticas Não~=Ambíguas que representem estas linguagens.
-    Tais linguagens são conhecidas como Linguagens Inerentemente Ambíguas\footnote{Do
-    inglês \textit{Inherently ambiguous languages}} onde não existem Gramáticas
-    Livre de Contexto Determinísticas capazes de representa~=las e
-    tais Linguagens somente podem ser reconhecidas por Automatos de Pilha Não~=Determinísticos.
 
     Uma vez que \textit{parsers} LR(K) requerem grandes quantidades de memória para operar,
     \citeonline{lalrDeRemer1982} criaram os \textit{parsers}
@@ -376,6 +388,12 @@ Fazer depois que a fundamentação teórica estiver concluída.
     tal como os computadores atuais,
     que somente podem realizar a execução de um ramo de computação Não~=Determinístico,
     exceto para Computadores Quânticos \cite{nonlinearQuantumComputers}.
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{pictures/ParserNonDeterministic.png}
+    \caption{Árvore de Computação com 4 Passos -- Fonte Própria}
+    \label{fig:pictures/ParserNonDeterministic.png}
+    \end{figure}
 
     Na Figura \ref{fig:pictures/ParserNonDeterministic.png} encontra~=se uma
     Árvore de Computação de um \textit{Parser} Não~=Determinístico.
@@ -393,12 +411,6 @@ Fazer depois que a fundamentação teórica estiver concluída.
     na escolha do próximo estado do \textit{Parser},
     i.e.,
     mais de um Ramo de Computação.
-    \begin{figure}[H]
-    \centering
-    \includegraphics[width=1.0\textwidth]{pictures/ParserNonDeterministic.png}
-    \caption{Árvore de Computação com 4 Passos -- Fonte Própria}
-    \label{fig:pictures/ParserNonDeterministic.png}
-    \end{figure}
 
     O tempo de execução será Linear ao tamanho da entrada caso o
     \textit{Parser} Não~=Determinístico seja de uma Linguagem Regular e,
@@ -444,16 +456,29 @@ Fazer depois que a fundamentação teórica estiver concluída.
     podem ser otimizados devido as propriedades
     específicas\slash{}probabilísticas das leis Física Quântica
     \cite{churchTuringQuantumComputer}.
-
-    Na Figura \ref{fig:pictures/ParserDeterministic.png} encontra~=se a mesma Árvore de
-    Computação apresentada na Figura \ref{fig:pictures/ParserNonDeterministic.png},
-    mas com a diferença de que desta vez o utiliza~=se um \textit{Parser}
-    Determinístico ao contrário de um \textit{Parser} Não~=Determinístico.
     \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/ParserDeterministic.png}
     \caption{Árvore de Computação com 15 Passos -- Fonte Própria}
     \label{fig:pictures/ParserDeterministic.png}
     \end{figure}
+
+    Na Figura \ref{fig:pictures/ParserDeterministic.png} encontra~=se a mesma Árvore de
+    Computação apresentada na Figura \ref{fig:pictures/ParserNonDeterministic.png},
+    mas com a diferença de que desta vez utiliza~=se um \textit{Parser}
+    Determinístico ao contrário de um \textit{Parser} Não~=Determinístico.
+    Com isso,
+    ao invés de um tempo Linear ao tamanho da entrada,
+    tem~=se um tempo exponential ao tamanho da entrada por que para que um \textit{Parser}
+    Determinístico possa processar uma Gramática Não~=Determinística,
+    é necessário execute cada um dos ramos de computação.
+    Já parsers Não~=Determinísticos executam simultaneamente
+    todos os ramos de computação não~=determinísticos,
+    conseguindo assim,
+    desempenho Linear ou Polinomial ao tamanho da entrada.
+    Para que \textit{Parsers} Não~=Determinísticos como apresentado na Figura
+    \ref{fig:pictures/ParserNonDeterministic.png} possam ser executados,
+    eles precisam de computadores que suportem a execução simultânea dos diversos ramos de
+    computação tal como Computadores Quânticos fazem com sua execução probabilística.
 }
 
