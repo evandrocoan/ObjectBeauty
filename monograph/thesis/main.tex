@@ -237,6 +237,11 @@ section=TITLE, % Título de seções em caixa alta
 % https://tex.stackexchange.com/questions/23313/how-can-i-reduce-padding-after-figure
 \setlength{\belowcaptionskip}{-10pt}
 
+% https://tex.stackexchange.com/questions/85113/xrightarrow-text
+\makeatletter
+\newcommand{\xRightarrow}[2][]{\ext@arrow 0359\Rightarrowfill@{#1}{#2}}
+\makeatother
+
 \begin{document}
     % FIXME: Comment this after finishing the thesis, so you can start fixing the \flushbottom vs \raggedbottom
     % https://tex.stackexchange.com/questions/65355/flushbottom-vs-raggedbottom

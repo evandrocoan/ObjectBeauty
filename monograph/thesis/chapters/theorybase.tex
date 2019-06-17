@@ -128,6 +128,10 @@ Fazer depois que a fundamentação teórica estiver concluída.
         um ou mais não~=terminais ou terminais.
         O segundo elemento é a cauda ou lado direito da produção,
         composto de terminais e\slash{}ou não~=terminais.
+        Todas as Gramáticas que existem são no mínimo Gramáticas Tipo 0,
+        também conhecidas como Gramáticas Irrestritas por que não possuem nenhum
+        restrição de complexidade de tempo como outros tipos de
+        Gramáticas a serem definidos nas próximas seções.
         Formalmente defini~=se um produção pela seguinte regra,
         onde ``*'' representa o operador de fechamento do conjunto \cite{hopcroftBook}:
         $$P = \{\; \alpha ::= \beta \;|\; \alpha \in V^* V_n V^* \land \beta \in V^* \;\}$$
@@ -173,8 +177,9 @@ Fazer depois que a fundamentação teórica estiver concluída.
     não significa que esta Linguagem é Livre de Contexto.
     Sempre pode~=se escrever uma Gramática menos eficiente do que o
     tipo mínimo de Gramática que uma Linguagem pode ser escrita.
-    Utilizando o Lema do Bombeamento\footnote{Do inglês \textit{Pumping Lemma}} \cite{hopcroftBook}
-    pode~=se determinar se dada Gramática é o tipo mínimo de Gramática para dada Linguagem.
+    Utilizando o Lema do Bombeamento\footnote{Do inglês \textit{Pumping
+    Lemma}} \cite{hopcroftBook,sipserBook} pode~=se determinar se
+    dada Gramática é o tipo mínimo de Gramática para dada Linguagem.
     Assim,
     não pode~=se dizer uma dada Linguagem é Livre de Contexto simplesmente
     por que existe uma Gramática Livre de Contexto para dada Linguagem,
@@ -292,6 +297,26 @@ Fazer depois que a fundamentação teórica estiver concluída.
     LL(K), \advisor{}{entre outros, }i.e.,
     de acordo com o tipo de \textit{parser} que poder ser construído para reconhecer elas.
 
+    Como pode ser observado na Figura \ref{fig:pictures/LinguagensDeterministicas.png},
+    existem Gramaticas SLR(K) que não são Gramáticas LL(K) por que para uma Gramáticas ser LL(K),
+    ela precisa respeitar 3 propriedades,
+    \begin{inparaenum}
+        \item Não possuir Recursão a Esquerda,
+        \item Estar fatorada,
+        \item $\forall\; A\, \in\, V_n\; |\; A\,
+                \xRightarrow{*}\, \varepsilon\,
+                \land\, First(A)\, \cap\, Follow(A) = \varnothing$
+    \end{inparaenum} \cite{ahoCompilerDragonBook}.
+    Entretanto,
+    Gramáticas LR(K), LALR(K) e
+    SLR(K) não precisam de nenhuma dessas restrições.
+    No caso da Recursão a Esquerda,
+    o algoritmo de criação da tabela de parsing da Gramática LR(K),
+    LALR(K) ou SLR(K),
+    não possui o problema de entrar em um loop infinito
+    assim como acontecem com as Gramáticas LL(K),
+    portanto aceitando-se gramáticas com Recursão a Esquerda.
+
     Uma vez que \textit{parsers} LR(K) requerem grandes quantidades de memória para operar,
     \citeonline{lalrDeRemer1982} criaram os \textit{parsers}
     LALR(K)\footnote{\textit{Look~=Ahead} LA(K) LR(0),
@@ -326,9 +351,9 @@ Fazer depois que a fundamentação teórica estiver concluída.
     i.e.,
     a verificação da corretude do programa escrito em relação os aspectos não~=estruturais,
     por exemplo,
-    é Sintaticamente correto escrever a declaração de uma mesma variável duas vezes ou mais,
-    entretanto,
-    é semanticamente errado redeclarar uma variável duas vezes ou mais.
+    é sintaticamente correto escrever a declaração de uma mesma variável duas vezes ou mais.
+    Entretanto,
+    para algumas linguagens é semanticamente errado redeclarar uma variável duas vezes ou mais.
     O Analisador Sintático representado por uma Gramática Livre de Contexto não tem poder
     suficiente para realizar tais verificações devido as limitações desse tipo de Gramática.
 
@@ -434,7 +459,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Não~=Determinísticos devido a sua execução ser probabilística
     \cite{polynomialQuantumComputers}.
 
-    Diferente dos Computadores Tradicionais,
+    \advisor{}{Diferente dos Computadores Tradicionais,
     Computadores Quânticos são construídos com base nas leis da Física Quântica,
     que são radicalmente diferentes das Leis da Física Tradicional ou Clássica,
     i.e.,
@@ -456,6 +481,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     podem ser otimizados devido as propriedades
     específicas\slash{}probabilísticas das leis Física Quântica
     \cite{churchTuringQuantumComputer}.
+    }
     \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/ParserDeterministic.png}
@@ -478,7 +504,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     desempenho Linear ou Polinomial ao tamanho da entrada.
     Para que \textit{Parsers} Não~=Determinísticos como apresentado na Figura
     \ref{fig:pictures/ParserNonDeterministic.png} possam ser executados,
-    eles precisam de computadores que suportem a execução simultânea dos diversos ramos de
-    computação tal como Computadores Quânticos fazem com sua execução probabilística.
+    eles precisam de computadores que suportem a execução simultânea dos diversos
+    ramos de computação não-determinísticos tal como Computadores Quânticos
+    talvez possam em alguns casos com sua execução probabilística.
 }
 
