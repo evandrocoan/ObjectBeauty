@@ -72,7 +72,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Uma vantagem de um Analisador Ascendente é o suporte
     de uma maior classe de Gramáticas Determinísticas.
     Uma vantagem de um Analisador Descendente é a facilidade da recuperação de erros em
-    relação aos \textit{parsers} Ascendentes\footnote{Conceito abordado na
+    relação aos Analisadores Ascendentes\footnote{Conceito abordado na
     \fullref{analisadoresSintaticos}} \cite{sippu1982,lr1ErrorRecovery,larkJosefGrosch}.
 
 
@@ -264,8 +264,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Livre de Contexto Determinísticas capazes de representa~=las e
     tais Linguagens somente podem ser reconhecidas por Automatos de Pilha Não~=Determinísticos.
 
-    A maior classe de Gramáticas Determinísticas suportadas por analisadores
-    sintáticos são as Gramáticas LR(K)\footnote{\textit{Left~=to~=right,
+    A maior classe de Gramáticas Determinísticas suportadas por Analisadores
+    Sintáticos são as Gramáticas LR(K)\footnote{\textit{Left~=to~=right,
     Rightmost derivation in reverse by ``K'' lookahead symbols
     }}.
     Analisadores LR(K) \cite{ahoCompilerDragonBook} são Ascendentes e
@@ -273,13 +273,13 @@ Fazer depois que a fundamentação teórica estiver concluída.
     (Figura \ref{fig:pictures/LinguagensDeterministicas.png}).
     Já os Analisadores LL(K) são Descendentes e
     reconhecem somente um subconjunto das Linguagens LR(K)\footnote{Diz~=se que uma
-    linguagem é LR(K) ou LL(K) quando ela é reconhecida por um tal \textit{Parser}}.
+    linguagem é LR(K) ou LL(K) quando ela é reconhecida por um tal Analisador}.
     \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/LinguagensDeterministicas.png}
     \caption{Mapa Mental das Linguagens e
-    Gramáticas \newline Fonte Própria \citeonline{beatty1982} e
-    \citeonline{ahoCompilerDragonBook}}
+    Gramáticas -- Fonte Própria,
+    \citeonline{llVersusLrContainment,llContainmentInLalr,beatty1982,ahoCompilerDragonBook}}
     \label{fig:pictures/LinguagensDeterministicas.png}
     \end{figure}
 
@@ -295,7 +295,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     as Gramáticas Determinísticas,
     que podem ser classificadas como LR(K),
     LL(K), \advisor{}{entre outros, }i.e.,
-    de acordo com o tipo de \textit{parser} que poder ser construído para reconhecer elas.
+    de acordo com o tipo de Analisador que poder ser construído para reconhecer elas.
 
     Como pode ser observado na Figura \ref{fig:pictures/LinguagensDeterministicas.png},
     existem Gramaticas SLR(K) que não são Gramáticas LL(K) por que para uma Gramáticas ser LL(K),
@@ -317,30 +317,30 @@ Fazer depois que a fundamentação teórica estiver concluída.
     assim como acontecem com as Gramáticas LL(K),
     portanto aceitando-se gramáticas com Recursão a Esquerda.
 
-    Uma vez que \textit{parsers} LR(K) requerem grandes quantidades de memória para operar,
-    \citeonline{lalrDeRemer1982} criaram os \textit{parsers}
+    Uma vez que Analisadores LR(K) requerem grandes quantidades de memória para operar,
+    \citeonline{lalrDeRemer1982} criaram os Analisadores
     LALR(K)\footnote{\textit{Look~=Ahead} LA(K) LR(0),
-    onde LR(0) é um \textit{parser} LR(K) com $K=0$
+    onde LR(0) é um Analisador LR(K) com $K=0$
     } e
-    SLR(K)\footnote{\textit{Simple} LR(K) \textit{parser}} com o objeto de
-    viabilizar a implementação de \textit{parsers} Ascendentes Determinísticos.
+    SLR(K)\footnote{\textit{Simple} LR(K) Analisador} com o objeto de
+    viabilizar a implementação de Analisadores Ascendentes Determinísticos.
     Gramáticas de Linguagens Determinísticas são chamadas de LR por que todas
     as Linguagens Determinísticas são reconhecidas por Analisadores LR(K).
     \citeonline{knuthLrParser1965} provou que todas as Gramáticas
-    Determinísticas são aceitas por um \textit{parser} LR(K).
+    Determinísticas são aceitas por um Analisador LR(K).
     Assim,
     além da hierarquia de Chomsky,
     também classifica~=se as Gramáticas de acordo com o tipo de
-    \textit{parser} que reconhece as linguagens representadas por elas.
+    Analisador que reconhece as linguagens representadas por elas.
     Como mostrado na Figura \ref{fig:pictures/LinguagensDeterministicas.png},
     nem todas as Gramáticas Livre de Contexto são de Determinísticas e
-    uma Gramática é Determinística somente se ela pode ser reconhecida por um \textit{parser} LR(K).
+    uma Gramática é Determinística somente se ela pode ser reconhecida por um Analisador LR(K).
     Portanto uma maneira fácil de decidir se uma dada Gramática é Determinística ou não,
-    é tentar construir a tabela de \textit{parser} dela para um \textit{parser} LR(K).
+    é tentar construir a tabela de Analisador dela para um Analisador LR(K).
     Caso consiga~=se construir com sucesso a Tabela de Parsing \cite{ahoCompilerDragonBook},
     a Gramática é LR(K),
     caso contrário a Gramática não é Determinística.
-    A mesma técnica pode ser aplicada no caso de \textit{parsers} menos poderosos como LALR(K),
+    A mesma técnica pode ser aplicada no caso de Analisadores menos poderosos como LALR(K),
     entretanto,
     uma vez que não se consiga construir a Tabela de Parsing,
     não se pode ter certeza se dada Gramática não é Determinística.
@@ -366,10 +366,10 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Tal sentença pode ser ou a declaração de um ponteiro chamado \textit{y} do tipo \textit{x},
     ou a multiplicação de dois números armazenados nas variáveis \textit{x} e
     \textit{y},
-    portanto ela não pode ser aceita por um \textit{parser} LR(K) tradicional.
+    portanto ela não pode ser aceita por um Analisador LR(K) tradicional.
 
     Uma otimização que o compilador C faz para poder fazer
-    o \textit{parser} Determinístico da linguagem C,
+    o Analisador Determinístico da linguagem C,
     e assim saber se a expressão ``\textit{x * y ;}'' trata~=se de
     de uma mera multiplicação ou a declaração de uma variável,
     é exatamente a realização simultânea da Análise Léxica,
@@ -396,19 +396,20 @@ Fazer depois que a fundamentação teórica estiver concluída.
     são capazes de realizar qualquer operação computacional algorítmica.
 
 
-\section{Classes de Complexidade}
+\section{\advisor{Compiladores e }{}Classes de Complexidade}
 
     As Gramáticas Regulares e
-    Livres de Contexto Não~=Determinísticas possuem Complexidade Exponential.
+    Livres de Contexto Não~=Determinísticas demandam
+    complexidade exponential em tempo computacional.
     Como um todo,
-    o conjunto de Linguagens Regulares podem ser considerados com Complexidade
-    Linear por que toda Gramática Regular Não~=Determinística pode ser
+    o conjunto de Linguagens Regulares pode ser considerado com complexidade Linear em
+    tempo computacional por que toda Gramática Regular Não~=Determinística pode ser
     convertida em uma Gramática Regular Determinística \cite{sipserBook}.
     Infelizmente isso não é verdade para Gramáticas Livres de Contexto
     por que Gramáticas Livre de Contexto Determinísticas e
     Não~=Determinísticas não são equivalentes.
-    Gramáticas Não~=Determinísticas possuem Complexidade Exponential por que
-    somente pode~=se simular o funcionamento de um \textit{Parser}
+    Gramáticas Não~=Determinísticas possuem complexidade exponential por que
+    somente pode~=se simular o funcionamento de um Analisador
     Não~=Determinístico utilizando uma máquina determinística,
     tal como os computadores atuais,
     que somente podem realizar a execução de um ramo de computação Não~=Determinístico,
@@ -420,10 +421,10 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \label{fig:pictures/ParserNonDeterministic.png}
     \end{figure}
 
-    Na Figura \ref{fig:pictures/ParserNonDeterministic.png} encontra~=se uma
-    Árvore de Computação de um \textit{Parser} Não~=Determinístico.
-    Diz~=se que que o tempo de execução de um \textit{Parser} Não~=Determinístico é Linear ou
-    Polinomial ao tamanho da entrada por que um \textit{Parser} Não~=Determinístico
+    Na Figura \ref{fig:pictures/ParserNonDeterministic.png},
+    encontra~=se uma Árvore de Computação de um Analisador Não~=Determinístico.
+    Diz~=se que que o tempo de execução de um Analisador Não~=Determinístico é Linear
+    ou Polinomial ao tamanho da entrada por que um Analisador Não~=Determinístico
     executa simultaneamente todos os ramos de Computação Não~=Determinísticos.
     Como mostrado na Figura \ref{fig:pictures/ParserNonDeterministic.png},
     após a cada um dos passo de computação 1,
@@ -432,30 +433,30 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Cada um desses passos é corresponde a um item a ser analisado na entrada do programa.
     O que torna a computação Não~=Determinística é o fato de cada um dos itens 1,
     2, 3 e 4 da entrada,
-    permitirem simultaneamente a escolha de mais de um caminho
-    na escolha do próximo estado do \textit{Parser},
+    permitirem simultaneamente a escolha de mais de um
+    caminho na escolha do próximo estado do Analisador,
     i.e.,
     mais de um Ramo de Computação.
 
     O tempo de execução será Linear ao tamanho da entrada caso o
-    \textit{Parser} Não~=Determinístico seja de uma Linguagem Regular e,
-    Polinomial caso o \textit{Parser} Não~=Determinístico seja de uma linguagem Livre de Contexto.
+    Analisador Não~=Determinístico seja de uma Linguagem Regular e,
+    Polinomial caso o Analisador Não~=Determinístico seja de uma linguagem Livre de Contexto.
     Uma fez que o conjunto de Linguagens Determinísticas LR(K) (com tempo
     Polinomial) está contida no conjunto das Linguagens Livres de Contexto,
-    não faz sentido em falar em tempos Lineares ou Polinomiais
+    não faz sentido em considerar tempos Lineares ou Polinomiais
     de execução para Linguagens Sensíveis ao Contexto,
     por que os algoritmos de \textit{parsing} são exponenciais e
     quando analisados por uma Máquinas de Turing Não~=Determinísticas
     terão no máximo tempo Polinomial de execução.
     Como um \textit{addendum} para Computação Quântica,
-    pode~=se confundir Computadores Quânticos como equivalentes a \textit{Parsers}
+    pode~=se confundir Computadores Quânticos como equivalentes a Analisadores
     Não~=Determinísticos devido as nomenclaturas utilizadas.
-    Enquanto \textit{Parsers} são Não~=Determinísticos no
+    Enquanto Analisadores são Não~=Determinísticos
     devido à ambiguidades nas Gramáticas de Entrada,
     Computadores Quânticos são Não Determinísticos
     devido à serem baseado em modelos
     Probabilísticos.
-    Computadores Quânticos não são equivalentes a \textit{Parsers}
+    Computadores Quânticos não são equivalentes a Analisadores
     Não~=Determinísticos devido a sua execução ser probabilística
     \cite{polynomialQuantumComputers}.
 
@@ -489,20 +490,21 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \label{fig:pictures/ParserDeterministic.png}
     \end{figure}
 
-    Na Figura \ref{fig:pictures/ParserDeterministic.png} encontra~=se a mesma Árvore de
-    Computação apresentada na Figura \ref{fig:pictures/ParserNonDeterministic.png},
-    mas com a diferença de que desta vez utiliza~=se um \textit{Parser}
-    Determinístico ao contrário de um \textit{Parser} Não~=Determinístico.
+    Na Figura \ref{fig:pictures/ParserDeterministic.png},
+    encontra~=se a mesma Árvore de Computação apresentada na
+    Figura \ref{fig:pictures/ParserNonDeterministic.png},
+    mas com a diferença de que desta vez utiliza~=se um Analisador
+    Determinístico ao contrário de um Analisador Não~=Determinístico.
     Com isso,
     ao invés de um tempo Linear ao tamanho da entrada,
-    tem~=se um tempo exponential ao tamanho da entrada por que para que um \textit{Parser}
-    Determinístico possa processar uma Gramática Não~=Determinística,
+    tem~=se um tempo exponential ao tamanho da entrada por que para que um
+    Analisador Determinístico possa processar uma Gramática Não~=Determinística,
     é necessário execute cada um dos ramos de computação.
     Já parsers Não~=Determinísticos executam simultaneamente
     todos os ramos de computação não~=determinísticos,
     conseguindo assim,
     desempenho Linear ou Polinomial ao tamanho da entrada.
-    Para que \textit{Parsers} Não~=Determinísticos como apresentado na Figura
+    Para que Analisadores Não~=Determinísticos como apresentado na Figura
     \ref{fig:pictures/ParserNonDeterministic.png} possam ser executados,
     eles precisam de computadores que suportem a execução simultânea dos diversos
     ramos de computação não-determinísticos tal como Computadores Quânticos
