@@ -242,6 +242,9 @@ section=TITLE, % Título de seções em caixa alta
 \newcommand{\xRightarrow}[2][]{\ext@arrow 0359\Rightarrowfill@{#1}{#2}}
 \makeatother
 
+% https://tex.stackexchange.com/questions/32208/footnote-runs-onto-second-page
+\interfootnotelinepenalty=10000
+
 \begin{document}
     % FIXME: Comment this after finishing the thesis, so you can start fixing the \flushbottom vs \raggedbottom
     % https://tex.stackexchange.com/questions/65355/flushbottom-vs-raggedbottom
