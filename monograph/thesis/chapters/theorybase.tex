@@ -128,11 +128,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
         um ou mais não~=terminais ou terminais.
         O segundo elemento é a cauda ou lado direito da produção,
         composto de terminais e\slash{}ou não~=terminais.
-        Todas as Gramáticas que existem são no mínimo Gramáticas Tipo 0,
-        também conhecidas como Gramáticas Irrestritas por que não possuem nenhum
-        restrição de complexidade de tempo como outros tipos de
-        Gramáticas a serem definidos nas próximas seções.
-        Formalmente defini~=se um produção pela seguinte regra,
+        Formalmente defini~=se uma produção pela seguinte regra,
         onde ``*'' representa o operador de fechamento do conjunto \cite{hopcroftBook}:
         $$P = \{\; \alpha ::= \beta \;|\; \alpha \in V^* V_n V^* \land \beta \in V^* \;\}$$
 
@@ -142,6 +138,10 @@ Fazer depois que a fundamentação teórica estiver concluída.
         o primeira regra de produção utilizado para iniciar o reconhecimento do programa de entrada.
     \end{enumerate}
 
+    Todas as Gramáticas que existem são no mínimo Gramáticas Tipo 0,
+    também conhecidas como Gramáticas Irrestritas por que não possuem
+    nenhuma restrição de complexidade de tempo como outros tipos de
+    Gramáticas a serem definidos nas próximas seções{}.
     A partir da adição restrições sobre a definição formal de Gramática recém apresentada,
     também pode~=se \advisor{compreender}{realizar diversas
     classificações como} a hierarquia de
@@ -172,6 +172,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Entretanto,
     precisa~=se tomar cuidado quando fala~=se sobre Gramáticas e
     Linguagens.
+
     Para uma dada Linguagem,
     dizer que existe uma Gramática Livre de Contexto para ela
     não significa que esta Linguagem é Livre de Contexto.
@@ -315,7 +316,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     LALR(K) ou SLR(K),
     não possui o problema de entrar em um loop infinito
     assim como acontecem com as Gramáticas LL(K),
-    portanto aceitando-se gramáticas com Recursão a Esquerda.
+    portanto aceitando~=se gramáticas com Recursão a Esquerda.
 
     Uma vez que Analisadores LR(K) requerem grandes quantidades de memória para operar,
     \citeonline{lalrDeRemer1982} criaram os Analisadores
@@ -335,6 +336,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Como mostrado na Figura \ref{fig:pictures/LinguagensDeterministicas.png},
     nem todas as Gramáticas Livre de Contexto são de Determinísticas e
     uma Gramática é Determinística somente se ela pode ser reconhecida por um Analisador LR(K).
+
     Portanto uma maneira fácil de decidir se uma dada Gramática é Determinística ou não,
     é tentar construir a tabela de Analisador dela para um Analisador LR(K).
     Caso consiga~=se construir com sucesso a Tabela de Parsing \cite{ahoCompilerDragonBook},
@@ -379,24 +381,52 @@ Fazer depois que a fundamentação teórica estiver concluída.
     ele é alimentado para o Analisador Sintático,
     que também o alimenta para o Analisador Semântico.
     Assim,
-    o Analisador Sintático é capaz de consultar a Tabela de Símbolos\cite{ahoCompilerDragonBook} e
+    o Analisador Sintático é capaz de consultar a Tabela de Símbolos \cite{ahoCompilerDragonBook} e
     descobrir se dado token ou tratar~=se de um tipo ou uma variável numérica.
-    Portanto,
-    pode dizer que as Gramáticas de todas as Linguagens de Programação são Livres de Contexto e
+    Pode~=se pensar que as Gramáticas de todas as Linguagens
+    de Programação são ``Livres de Contexto'' e
     Determinísticas,
-    pois uma vez que a Gramática não é mais Livre de Contexto ou Determinística,
-    pode~=se mover aspectos sensíveis ao contexto para o Analisador Semântico,
+    e uma vez que a Gramática não é mais Livre de Contexto ou Determinística,
+    pode~=se mover Aspectos Sensíveis ao Contexto para o Analisador Semântico,
     assim,
     deixando a Gramática somente com aspectos determinísticos.
-    Quando devidamente construídas \cite{turingCompleteRegularLanguages},
-    linguagens Regulares,
-    Livres de Contexto ou Sensíveis ao Contexto podem atingir a Turing Completude\footnote{A Turing
-    Completude acontece quando uma dada linguagem pode simular o funcionamento completo de uma
-    Máquina de Turing} \cite{areThereDomainSpecificLanguages,contextSensitiveParsing} e
+
+    Entretanto,
+    dependendo de como isso é feito,
+    isso pode não ser verdade.
+    Uma vez que se adiciona suporte a Aspectos Sensíveis ao Contexto a Gramáticas
+    Livre de Contexto por meio de alterações do Analisador Sintático,
+    a Gramática deixa de ser Livre de Contexto.
+    Mas isso não impede que ela seja Analisada com eficiência,
+    mas deixa a brechas para que ela possa não ser Analisada com eficiência.
+    A diferença para um Analisador onde a Gramática é inteiramente Livre de Contexto,
+    é que elas tem performance \textit{garantida} pela sua Classe
+    de Complexidade (Veja Seção \ref{classesDeComplexidade}).
+
+    Sintaxe e
+    Semântica de Linguagens são completamente ortogonais.
+    Linguagens Sensíveis ao Contexto são Turing Completas\footnote{A Turing Completude
+    acontece quando uma dada linguagem pode simular o funcionamento completo de uma
+    Máquina de Turing} devido a sua equivalência com Automatos Linearmente Limitados
+    \cite{areThereDomainSpecificLanguages,contextSensitiveParsing} e
     são capazes de realizar qualquer operação computacional algorítmica.
+    Mas,
+    isso não pode ser confundido com as Strings ou Programas gerados por estas Gramáticas.
+    Tais programas podem ou não ser Turing Completos.
+    Neste caso,
+    até Linguagens Regulares podem gerar programas que são
+    Turing Completos \cite{turingCompleteRegularLanguages}.
+
+    Na Seção \ref{sec:software_implementation} será mostrado a implementação de
+    uma Gramática ``Livre de Contexto'' em um Analisador LALR(1),
+    onde Aspectos Sensíveis ao Contexto serão analisados pelo Analisador Semântico,
+    tal como feito na implementação do Compilador da Linguagem C apresentado.
+    Mas com a diferença de que utiliza~= um Analisador LALR(1) genérico,
+    ao contrário de um Analisador feito exclusivamente para a linguagem alvo.
 
 
 \section{\advisor{Compiladores e }{}Classes de Complexidade}
+\label{classesDeComplexidade}
 
     As Gramáticas Regulares e
     Livres de Contexto Não~=Determinísticas demandam
@@ -500,14 +530,14 @@ Fazer depois que a fundamentação teórica estiver concluída.
     tem~=se um tempo exponential ao tamanho da entrada por que para que um
     Analisador Determinístico possa processar uma Gramática Não~=Determinística,
     é necessário execute cada um dos ramos de computação.
-    Já parsers Não~=Determinísticos executam simultaneamente
+    Já Analisadores Não~=Determinísticos executam simultaneamente
     todos os ramos de computação não~=determinísticos,
     conseguindo assim,
     desempenho Linear ou Polinomial ao tamanho da entrada.
     Para que Analisadores Não~=Determinísticos como apresentado na Figura
     \ref{fig:pictures/ParserNonDeterministic.png} possam ser executados,
     eles precisam de computadores que suportem a execução simultânea dos diversos
-    ramos de computação não-determinísticos tal como Computadores Quânticos
+    ramos de computação não~=determinísticos tal como Computadores Quânticos
     talvez possam em alguns casos com sua execução probabilística.
 }
 
