@@ -225,7 +225,11 @@ Fazer depois que a fundamentação teórica estiver concluída.
     que a definição válida de uma Gramática como apresentado anteriormente (No
     \fullref{definicaoDeGramatica}).
     Gramáticas do Tipo 0 são reconhecidas somente por Máquinas de Turing\footnote{Máquinas
-    de Turing possuem por definição fita (ou memória) infinita
+    de Turing possuem por definição fita (ou memória) ilimitada,
+    mas não infinita,
+    pois em um dado momento,
+    somente uma quantidade finita de símbolos podem estar na fita,
+    que continuamente pode crescer ilimitadamente.
     },
     e diferente das Gramáticas Sensíveis ao Contexto,
     a Máquina de Turing não possui parada garantida,
@@ -421,17 +425,24 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
     Sintaxe e
     Semântica de Linguagens são completamente ortogonais.
-    Linguagens Irrestritas são Turing Completas\footnote{A Turing Completude acontece quando
-    uma dada linguagem pode simular o funcionamento completo de uma Máquina de Turing}
-    devido a sua equivalência com Máquinas de Turing  e
+    Linguagens Irrestritas são Turing Completas\footnote{A Turing Completude acontece
+    quando uma dada linguagem pode simular o funcionamento completo de uma Máquina
+    de Turing} devido a sua equivalência com Máquinas de Turing  e
     são capazes de realizar qualquer operação computacional.
     Mas,
     isso não pode ser confundido com as Strings ou Programas gerados por
-    estas Gramáticas \cite{areThereDomainSpecificLanguages}.
+    suas Gramáticas \cite{areThereDomainSpecificLanguages}.
     Tais programas podem ou não ser Turing Completos.
-    Neste caso,
-    até Linguagens Regulares podem gerar programas que são
-    Turing Completos \cite{turingCompleteRegularLanguages}.
+    Do lado oposto,
+    até Linguagens Regulares podem gerar programas que são Turing Completos,
+    mesmo que seu dispositivo reconhecedor equivalente,
+    os Automatos Finitos,
+    não tenham Turing Completude\footnote{Caso isso esteja confuso,
+    reveja a Figura \ref{fig:pictures/HierarquiaDeChomsky.png} e
+    note que de todas as Linguagens,
+    quem tem Turing Completude são as Linguagens Irrestritas ou Tipo 0,
+    enquanto Automatos Finitos são um subconjunto das Máquinas
+    de Turing} \cite{turingCompleteRegularLanguages}.
 
     Na Seção \ref{sec:software_implementation} será mostrado a implementação de
     uma Gramática ``Livre de Contexto'' em um Analisador LALR(1),
@@ -454,14 +465,16 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Infelizmente isso não é verdade para Gramáticas Livres de Contexto
     por que Gramáticas Livre de Contexto Determinísticas e
     Não~=Determinísticas não são equivalentes.
+
     Gramáticas Não~=Determinísticas possuem complexidade exponential por
     que somente pode~=se simular o funcionamento de um Analisador
     Não~=Determinístico utilizando uma máquina determinística,
     tal como os computadores atuais,
-    que somente podem realizar a execução de um ramo de computação Não~=Determinístico,
-    exceto para alguns problemas com a execução probabilística de Computadores
-    Quânticos \cite{nonlinearQuantumComputers} que são baseados nas leis da
-    Física Quântica \cite{dicke1963QuantumPhysicsIntroduction}.
+    que somente podem realizar a execução de um ramo de computação Não~=Determinístico por vez,
+    exceto para alguns problemas onde a execução probabilística de Computadores
+    Quânticos \cite{nonlinearQuantumComputers} baseados nas leis da Física
+    Quântica \cite{dicke1963QuantumPhysicsIntroduction} possam talvez cortar
+    o caminho\slash{}pular ramos de Computação Não~=Determinísticos.
     \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/ParserNonDeterministic.png}
@@ -487,19 +500,35 @@ Fazer depois que a fundamentação teórica estiver concluída.
     mais de um Ramo de Computação.
 
     O tempo de execução será Linear ao tamanho da entrada caso o
-    Analisador Não~=Determinístico seja de uma Linguagem Regular e,
-    Polinomial caso o Analisador Não~=Determinístico seja de uma linguagem Livre de Contexto.
-    Uma fez que o conjunto de Linguagens Determinísticas LR(K) (com tempo
-    Polinomial) está contida no conjunto das Linguagens Livres de Contexto,
+    Analisador Não~=Determinístico seja de uma Linguagem Regular e
+    implementado através de um Automato Finito.
+    O tempo de execução será Polinomial ao tamanho da entrada caso o Analisador
+    Não~=Determinístico seja de uma linguagem Livre de Contexto e
+    implementado através de algum algoritmo de Análise com tempo Polinomial\footnote{Até o momento,
+    não se conhece ou existem algoritmos de Análise de
+    Linguagens Livre de Contexto em tempo Linear,
+    enquanto $P \stackrel{?}{=} NP$ ainda não é decido \cite{turingMachinesFunctions}.
+    $P$ representa o conjunto de problemas resolvidos Tempo Polinomial,
+    enquanto $NP$ o conjunto de Problemas resolvido em Tempo Não~=Determinístico Polinomial.}.
+    Uma fez que o conjunto de Linguagens Determinísticas LR(K) (com tempo Polinomial) está
+    contida no conjunto das Linguagens Livres de Contexto com complexidade Exponencial,
     não faz sentido em considerar tempos Lineares ou Polinomiais
     de execução para Linguagens Sensíveis ao Contexto,
-    por que algoritmos de Analise Sintática são exponenciais \cite{contextSensitiveParsing} e
+    por que algoritmos de Analise Sintática são exponenciais
+    em pior caso \cite{contextSensitiveParsing} e
     quando analisados por dispositivos equivalentes a Máquinas de Turing
-    Não~=Determinísticas terão no mínimo tempo Polinomial de execução.
+    Não~=Determinísticas terão no mínimo tempo Polinomial\footnote{Quando fala~=se
+    de complexidade de tempo polinomial para Máquinas Não~=Determinísticas,
+    resulta~=se em uma complexidade de tempo Exponencial ao simular o
+    funcionamento dessa Máquina Não~=Determinística em um computador,
+    ou seja,
+    a real complexidade do Problema termina sendo Exponencial,
+    enquanto teoricamente a complexidade é Polinomial.
+    Veja as figuras \ref{fig:pictures/ParserNonDeterministic.png} e
+    \ref{fig:pictures/ParserDeterministic.png} como comparativo.} de execução.
 
-    Lembre~=se que,
     Máquinas de Turing Não~=Determinísticas não existem fisicamente,
-    portanto sua complexidade de tempo reduzida não pode ser fisicamente alcançada e
+    portanto sua complexidade de tempo reduzida não pode ser alcançada e
     seu tempo de execução é exponential pois para simular o
     funcionamento de uma Máquina de Turing
     Não~=Determinística,
@@ -551,7 +580,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     mas com a diferença de que desta vez utiliza~=se um Analisador
     Determinístico ao contrário de um Analisador Não~=Determinístico.
     Com isso,
-    ao invés de um tempo Linear ao tamanho da entrada,
+    ao invés de um tempo Polinomial ao tamanho da entrada,
     tem~=se um tempo exponential ao tamanho da entrada por que para que um
     Analisador Determinístico possa processar uma Gramática Não~=Determinística,
     é necessário execute cada um dos ramos de computação.
@@ -561,8 +590,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     desempenho Linear ou Polinomial ao tamanho da entrada.
     Para que Analisadores Não~=Determinísticos como apresentado na Figura
     \ref{fig:pictures/ParserNonDeterministic.png} possam ser executados,
-    eles precisam de computadores que suportem a execução simultânea dos diversos
-    ramos de computação não~=determinísticos tal como Computadores Quânticos
-    talvez possam em alguns casos com sua execução probabilística.
+    eles precisam de computadores que suportem a execução simultânea dos
+    diversos ramos de computação não~=determinísticos tal como
+    Computadores Quânticos talvez possam em alguns casos.
 }
 
