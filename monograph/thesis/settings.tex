@@ -228,29 +228,31 @@
 % \DeclareFieldFormat{citehyperref}{#1}
 
 % https://tex.stackexchange.com/questions/19105/how-can-i-put-more-space-between-bibliography-entries-biblatex
-% \setlength\bibitemsep{2.1\itemsep}
+\advisor{}{\setlength\bibitemsep{2.1\itemsep}}
 
 % % https://tex.stackexchange.com/questions/203764/reduce-font-size-of-bibliography-overfull-bibliography
 % \newcommand{\bibliographyfontsize}{\fontsize{10.0pt}{10.5pt}\selectfont}
 % \renewcommand*{\bibfont}{\bibliographyfontsize}
 
-% % Uncomment this to insert the abstract into your bibliography entries when the abstract is available
-% % https://tex.stackexchange.com/questions/398666/how-to-correctly-insert-and-justify-abstract
-% \DeclareFieldFormat{abstract}%
-% {%
-%     \vspace*{-0.5mm}\par\justifying
-%     \begin{adjustwidth}{1cm}{}
-%         \textbf{\bibsentence\bibstring{abstract}:} #1
-%     \end{adjustwidth}
-% }
-% \renewbibmacro*{finentry}%
-% {%
-%     \iffieldundef{abstract}
-%     {\finentry}
-%     {\finentrypunct
-%         \printfield{abstract}%
-%         \renewcommand*{\finentrypunct}{}%
-%         \finentry
-%     }
-% }
-
+% Uncomment this to insert the abstract into your bibliography entries when the abstract is available
+% https://tex.stackexchange.com/questions/398666/how-to-correctly-insert-and-justify-abstract
+\ifadvisor
+\else
+    \DeclareFieldFormat{abstract}%
+    {%
+        \vspace*{-0.5mm}\par\justifying
+        \begin{adjustwidth}{1cm}{}
+            \textbf{\bibsentence\bibstring{abstract}:} #1
+        \end{adjustwidth}
+    }
+    \renewbibmacro*{finentry}%
+    {%
+        \iffieldundef{abstract}
+        {\finentry}
+        {\finentrypunct
+            \printfield{abstract}%
+            \renewcommand*{\finentrypunct}{}%
+            \finentry
+        }
+    }
+\fi
