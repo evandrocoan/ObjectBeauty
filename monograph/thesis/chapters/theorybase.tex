@@ -425,23 +425,29 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
     Sintaxe e
     Semântica de Linguagens são completamente ortogonais.
-    Linguagens Irrestritas são Turing Completas\footnote{A Turing Completude acontece
-    quando uma dada linguagem pode simular o funcionamento completo de uma
-    Máquina de Turing} devido a sua equivalência com Máquinas de Turing e
+    Gramáticas de Linguagens Irrestritas\footnote{
+    Não a linguagem no qual elas representam,
+    mas a própria gramática \cite{finiteAutomataTuringComplete}
+    } podem ser Turing Completas\footnote{
+    A Turing Completude acontece quando uma dada linguagem pode simular o funcionamento completo de uma Máquina de Turing }
+    devido a sua equivalência com Máquinas de Turing e
     são capazes de realizar qualquer operação computacional.
     Mas,
-    isso não pode ser confundido com as Strings ou Programas gerados por
-    suas Gramáticas \cite{areThereDomainSpecificLanguages}.
-    Tais programas podem ou não ser Turing Completos.
+    isso não pode ser confundido com as Strings ou
+    Programas gerados por suas Gramáticas \cite{areThereDomainSpecificLanguages}.
+    Tais programas podem ou
+    não ser Turing Completos.
     Do lado oposto,
     até Linguagens Regulares podem gerar programas que são Turing Completos,
     mesmo que seu dispositivo reconhecedor equivalente,
     os Automatos Finitos,
-    não tenham Turing Completude\footnote{Caso isso esteja confuso,
-    reveja a Figura \ref{fig:pictures/HierarquiaDeChomsky.png} e
-    note que de todas as Linguagens,
-    quem tem Turing Completude são as Linguagens Irrestritas ou Tipo 0,
-    enquanto Automatos Finitos são um subconjunto das Máquinas de Turing}
+    não tenham Turing Completude\footnote{
+    Caso isso esteja confuso,
+    reveja a Figura \ref{fig:pictures/HierarquiaDeChomsky.png}
+    e note que de todas as Linguagens,
+    quem tem Turing Completude são as Linguagens Irrestritas ou
+    Tipo 0,
+    enquanto Automatos Finitos são um subconjunto das Máquinas de Turing }
     \cite{turingCompleteRegularLanguages,finiteAutomataTuringComplete}.
 
     Na Seção \ref{sec:software_implementation} será mostrado a implementação de
