@@ -125,48 +125,6 @@
 }{}
 \makeatother
 
-% https://tex.stackexchange.com/questions/14314/changing-the-font-of-the-numbers-in-the-toc-in-the-memoir-class
-\renewcommand{\cftpartfont}{\ABNTEXpartfont\color{black}}
-\renewcommand{\cftpartpagefont}{\ABNTEXpartfont\color{black}}
-
-\renewcommand{\cftchapterfont}{\ABNTEXchapterfont\color{black}}
-\renewcommand{\cftchapterpagefont}{\ABNTEXchapterfont\color{black}}
-
-\renewcommand{\cftsectionfont}{\ABNTEXsectionfont\color{black}}
-\renewcommand{\cftsectionpagefont}{\ABNTEXsectionfont\color{black}}
-
-\renewcommand{\cftsubsectionfont}{\ABNTEXsubsectionfont\color{black}}
-\renewcommand{\cftsubsectionpagefont}{\ABNTEXsubsectionfont\color{black}}
-
-\renewcommand{\cftsubsubsectionfont}{\ABNTEXsubsubsectionfont\color{black}}
-\renewcommand{\cftsubsubsectionpagefont}{\ABNTEXsubsubsectionfont\color{black}}
-
-\renewcommand{\cftparagraphfont}{\ABNTEXsubsubsubsectionfont\color{black}}
-\renewcommand{\cftparagraphpagefont}{\ABNTEXsubsubsubsectionfont\color{black}}
-
-% Memoir has another mechanism for the job: \cftsetindents{‹kind›}{indent}{numwidth}. Here kind is
-% chapter, section, or whatever; the indent specifies the ‘margin’ before the entry starts; and the
-% width is of the box into which the number is typeset (so needs to be wide enough for the largest
-% number, with the necessary spacing to separate it from what comes after it in the line.
-% http://www.tex.ac.uk/FAQ-tocloftwrong.html
-% https://tex.stackexchange.com/questions/264668/memoir-indentation-of-unnumbered-sections-in-table-of-contents
-% https://tex.stackexchange.com/questions/394227/memoir-toc-indent-the-second-line-by-numberspace
-%
-% `\cftlastnumwidth` and these `\cftsetindents` are defined by the abntex2 class,
-% obeying the `ABNTEXsumario-abnt-6027-2012`. \newlength{\cftlastnumwidth}
-\setlength{\cftlastnumwidth}{\cftsubsubsectionnumwidth}
-\addtolength{\cftlastnumwidth}{-1em}
-
-% http://www.tex.ac.uk/FAQ-tocloftwrong.html
-% Use \setlength\cftsectionnumwidth{4em} to override all these values at once
-\cftsetindents{part}         {0em}{\cftlastnumwidth}
-\cftsetindents{chapter}      {0em}{\cftlastnumwidth}
-\cftsetindents{section}      {0em}{\cftlastnumwidth}
-\cftsetindents{subsection}   {0em}{\cftlastnumwidth}
-\cftsetindents{subsubsection}{0em}{\cftlastnumwidth}
-\cftsetindents{paragraph}    {0em}{\cftlastnumwidth}
-\cftsetindents{subparagraph} {0em}{\cftlastnumwidth}
-
 % Backref package settings, pages with citations in bibliography
 \newcommand{\biblatexcitedntimes}{\autocap{c}ited \arabic{citecounter} times}
 \newcommand{\biblatexcitedonetime}{\autocap{c}ited one time}
@@ -255,4 +213,103 @@
             \finentry
         }
     }
+\fi
+
+
+% https://tex.stackexchange.com/questions/14314/changing-the-font-of-the-numbers-in-the-toc-in-the-memoir-class
+\renewcommand{\cftpartfont}{\ABNTEXpartfont\color{black}}
+\renewcommand{\cftpartpagefont}{\ABNTEXpartfont\color{black}}
+
+\renewcommand{\cftchapterfont}{\ABNTEXchapterfont\color{black}}
+\renewcommand{\cftchapterpagefont}{\ABNTEXchapterfont\color{black}}
+
+\renewcommand{\cftsectionfont}{\ABNTEXsectionfont\color{black}}
+\renewcommand{\cftsectionpagefont}{\ABNTEXsectionfont\color{black}}
+
+\renewcommand{\cftsubsectionfont}{\ABNTEXsubsectionfont\color{black}}
+\renewcommand{\cftsubsectionpagefont}{\ABNTEXsubsectionfont\color{black}}
+
+\renewcommand{\cftsubsubsectionfont}{\ABNTEXsubsubsectionfont\color{black}}
+\renewcommand{\cftsubsubsectionpagefont}{\ABNTEXsubsubsectionfont\color{black}}
+
+\renewcommand{\cftparagraphfont}{\ABNTEXsubsubsubsectionfont\color{black}}
+\renewcommand{\cftparagraphpagefont}{\ABNTEXsubsubsubsectionfont\color{black}}
+
+% Memoir has another mechanism for the job: \cftsetindents{‹kind›}{indent}{numwidth}. Here kind is
+% chapter, section, or whatever; the indent specifies the ‘margin’ before the entry starts; and the
+% width is of the box into which the number is typeset (so needs to be wide enough for the largest
+% number, with the necessary spacing to separate it from what comes after it in the line.
+% http://www.tex.ac.uk/FAQ-tocloftwrong.html
+% https://tex.stackexchange.com/questions/264668/memoir-indentation-of-unnumbered-sections-in-table-of-contents
+% https://tex.stackexchange.com/questions/394227/memoir-toc-indent-the-second-line-by-numberspace
+%
+% `\cftlastnumwidth` and these `\cftsetindents` are defined by the abntex2 class,
+% obeying the `ABNTEXsumario-abnt-6027-2012`. \newlength{\cftlastnumwidth}
+% \setlength{\cftlastnumwidth}{\cftsubsubsectionnumwidth}
+% \addtolength{\cftlastnumwidth}{-1em}
+
+% http://www.tex.ac.uk/FAQ-tocloftwrong.html
+% Use \setlength\cftsectionnumwidth{4em} to override all these values at once
+\ifadvisor
+\else
+    \cftsetindents{part}          {0em} {3em}
+    \cftsetindents{chapter}       {0em} {3em}
+    \cftsetindents{section}       {0em} {4.3em}
+    \cftsetindents{subsection}    {0em} {5.2em}
+    \cftsetindents{subsubsection} {0em} {5.1em}
+    \cftsetindents{paragraph}     {0em} {6.0em}
+    \cftsetindents{subparagraph}  {0em} {7.0em}
+
+    \makechapterstyle{fixedabntex2indentation}{%
+      \renewcommand{\chapterheadstart}{}
+
+      \ifx \chapternamenumlength \undefined
+        \newlength{\chapternamenumlength}
+      \fi
+
+       % tamanhos de fontes de chapter e part
+       \ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
+         \setlength\beforechapskip{\baselineskip}
+         \renewcommand{\chaptitlefont}{\ABNTEXsectionfont\ABNTEXsectionfontsize}
+       }{%else
+         \setlength{\beforechapskip}{0pt}
+         \renewcommand{\chaptitlefont}{\ABNTEXchapterfont\ABNTEXchapterfontsize}
+       }
+
+      \renewcommand{\chapnumfont}{\chaptitlefont}
+      \renewcommand{\parttitlefont}{\ABNTEXpartfont\ABNTEXpartfontsize}
+      \renewcommand{\partnumfont}{\ABNTEXpartfont\ABNTEXpartfontsize}
+      \renewcommand{\partnamefont}{\ABNTEXpartfont\ABNTEXpartfontsize}
+
+      % tamanhos de fontes de section, subsection, subsubsection e subsubsubsection
+      \setsecheadstyle{\ABNTEXsectionfont\ABNTEXsectionfontsize\ABNTEXsectionupperifneeded}
+      \setsubsecheadstyle{\ABNTEXsubsectionfont\ABNTEXsubsectionfontsize\ABNTEXsubsectionupperifneeded}
+      \setsubsubsecheadstyle{\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize\ABNTEXsubsubsectionupperifneeded}
+      \setsubsubsubsecheadstyle{\ABNTEXsubsubsubsectionfont\ABNTEXsubsubsubsectionfontsize\ABNTEXsubsubsubsectionupperifneeded}
+
+      % impressao do numero do capitulo
+      \renewcommand{\chapternamenum}{}
+
+      % impressao do nome do capitulo
+      \renewcommand{\printchaptername}{%
+       \chaptitlefont
+       \ifthenelse{\boolean{abntex@apendiceousecao}}{\appendixname}{}%
+      }
+
+      % impressao do titulo do capitulo
+      \def\printchaptertitle##1{%
+        \chaptitlefont%
+        \ifthenelse{\boolean{abntex@innonumchapter}}{\centering\ABNTEXchapterupperifneeded{##1}}{%
+        \ifthenelse{\boolean{abntex@apendiceousecao}}{%
+            \centering%
+            \settowidth{\chapternamenumlength}{\printchaptername\printchapternum\afterchapternum}%
+            \ABNTEXchapterupperifneeded{##1}%
+          }{%
+            \settowidth{\chapternamenumlength}{\printchaptername\printchapternum\afterchapternum}%
+            \parbox[t]{\columnwidth-\chapternamenumlength}{\ABNTEXchapterupperifneeded{##1}}}%
+         }
+      }
+    }
+
+    \chapterstyle{fixedabntex2indentation}
 \fi
