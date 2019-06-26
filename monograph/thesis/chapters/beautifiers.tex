@@ -90,14 +90,6 @@
     definitions of formatting (\nameref{source_code_beautifiers})
     applied over each language own characteristics
     as for example:
-}{%
-    Conhecido como ``pretty~=printing'' ou embelezadores\footnote{Do
-    inglês \textit{Beautifiers}} \cite{prettyPrintingForSoftware},
-    uma ferramenta de formatação pode ser complicada de
-    utilizar somente com um conjunto básico de definições.
-    Por exemplo,
-}%
-\lang{%
     \begin{enumerate}[nosep,nolistsep]
         \item
             Add spaces before if\s name as in `if(var)' versus `if (var)'
@@ -109,16 +101,19 @@
             Add spaces inside for\s as in `for(var)' versus `for( var )'
     \end{enumerate}
 }{%
+    Conhecido como ``pretty~=printing'' ou
+    embelezadores\footnote{Do inglês \textit{Beautifiers}} \cite{prettyPrintingForSoftware},
+    uma ferramenta de formatação pode ser complicada de se utilizar,
+    somente com um conjunto básico de definições.
+    Por exemplo,
     para permitir um melhor controle do usuário,
-    a ferramenta de formatação pode permitir que exista uma
-    configuração específica para cada aspecto da linguagem.
+    a ferramenta de formatação pode permitir que exista uma configuração específica para cada aspecto da linguagem.
     Uma possível implementação para tal ajuste fino,
-    pode ser uma configuração específica para cada aspecto da linguagem como uma
-    entrada booleana ``\textit{use\_spaces\_after\_if}'' em um arquivo de
-    configuração para definir caso deva~=se ou não ser adicionados espaços antes
-    de cada ``if'' ao fazer a formatação da linguagem,
+    pode ser uma configuração específica como por exemplo a entrada booleana ``\textit{use\_spaces\_after\_if}'',
+    em um arquivo de configuração para definir caso deva~=se ou
+    não ser adicionados espaços antes de cada ``if'' ao fazer a formatação da linguagem,
     por exemplo,
-    ``if (var)'' ao invés de ``if(var)''.
+    ``if (var)'' ao contrário de ``if(var)''.
 }
 
 \lang{
@@ -129,10 +124,10 @@
     we can find about 500 settings with specifications like these above.
 }{%
     Como pode ser percebido,
-    uma lista contendo todas as configurações de formatação para cada
-    aspecto da linguagem ficará muito grande quando todos os aspectos
-    das linguagens mais complexas como C ou C++ forem implementados.
-    Em softwares como \textit{Uncrustify}\footnote{\url{https://github.com/uncrustify/uncrustify}}
+    uma lista contendo todas as configurações de formatação para cada aspecto da linguagem,
+    ficará muito grande quando todos os aspectos das linguagens mais complexas como C ou
+    C++ forem implementados.
+    Em softwares como \textit{Uncrustify}\footnote{\url{https://github.com/uncrustify/uncrustify}},
     encontra~=se mais de 500 configurações tais como o Código \ref{lst:uncrustifySettingSample}.
 }
 \begin{lstlisting}[caption={Trecho do Arquivo de Configuração de
@@ -169,21 +164,24 @@ indent_constr_colon = false # false/true
 }{%
     O problema é,
     mesmo que se passe por todas essas configurações,
-    levará um bom tempo,
-    mas você ainda está apenas configurando algumas linguagens fortemente relacionadas.
+    realizando os ajustes de preferência do usuário,
+    isso levará um bom tempo.
+    Infelizmente,
+    você ainda está apenas configurando uma e
+    talvez algumas linguagens fortemente relacionadas,
+    dependendo do suporte que a ferramenta oferece.
     No caso da ferramenta \textit{Uncrustify},
     serão configurados as linguagens \textit{C},
     \textit{C++}, \textit{Java}, \textit{Pawn}\advisor{.}{,
     etc.} Para todos os outras linguagens,
     você ainda precisará encontrar outra ferramenta de formatação,
-    que será certamente mais
-    limitada\footnote{\url{https://stackoverflow.com/questions/31438377/how-can-i-get-eclipse-to-wrap-lines-after-a-period-instead-of-before}}
-    no que ela pode customizar,
+    que será certamente mais limitada\footnote{
+    \url{https://stackoverflow.com/questions/31438377/how-can-i-get-eclipse-to-wrap-lines-after-a-period-instead-of-before}
+    } no que ela pode customizar,
     uma vez que \textit{Uncrustify} já é uma das mais completas.
     Além disso,
     ainda precisa~=se configurar todas as novas opções já configuradas.
-    Outra forte desvantagem do arquivo de configurações do
-    \textit{Uncrustify} segue na dificuldade de entender e
+    Outra forte desvantagem do arquivo de configurações do \textit{Uncrustify} segue na dificuldade de entender e
     visualizar o que está sendo configurado.
     Algumas opções são claras e
     fáceis de se entender,
