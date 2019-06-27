@@ -175,9 +175,7 @@ indent_constr_colon = false # false/true
     \textit{C++}, \textit{Java}, \textit{Pawn}\advisor{.}{,
     etc.} Para todos os outras linguagens,
     você ainda precisará encontrar outra ferramenta de formatação,
-    que será certamente mais limitada\footnote{
-    \url{https://stackoverflow.com/questions/31438377/how-can-i-get-eclipse-to-wrap-lines-after-a-period-instead-of-before}
-    } no que ela pode customizar,
+    que será certamente mais limitada no que ela pode customizar \cite{eclisePeriodSettings},
     uma vez que \textit{Uncrustify} já é uma das mais completas.
     Além disso,
     ainda precisa~=se configurar todas as novas opções já configuradas.
@@ -190,32 +188,37 @@ indent_constr_colon = false # false/true
     qual será o seu resultado final.
 }
 
+\advisor{}{%
+    \lang{%
+        Below there are some basic formatting rules for illustration:
 
-Below there are some basic formatting rules for
-illustration:\footnote{\url{https://www.python.org/dev/peps/pep-0008/#should-a-line-break-before-or-after-a-binary-operator}}
+        % \begin{bluebox}
+        \begin{enumerate}[nosep,nolistsep]
+            \item Add new lines after `\{' and before `\}'
+            \item Add new lines before `\{'
+            \item Remove empty lines
+            \item Add comment lines before function
+            \item Add new lines after `;'
+            \item Add new lines after `\}'
+            \item Remove new lines
+            \item Reduce whitespace
+            \item Fix bad indentation
+        \end{enumerate}
+        % \end{bluebox}
+        \vspace{-4mm}\begin{flushright}\textcite{prettyPrinter}\end{flushright}
 
-\medskip
-% \begin{bluebox}
-\begin{enumerate}[nosep,nolistsep]
-    \item Add new lines after `\{' and before `\}
-    \item Add new lines before `\{'
-    \item Remove empty lines
-    \item Add comment lines before function
-    \item Add new lines after `;'
-    \item Add new lines after `\}'
-    \item Remove new lines
-    \item Reduce whitespace
-    \item Fix bad indentation
-\end{enumerate}
-% \end{bluebox}
-\vspace{-4mm}\begin{flushright}\textcite{prettyPrinter}\end{flushright}
-
-Mostly,
-code formatting is recuded into this set of changes.
-
+        Mostly,
+        code formatting is resumed into this set of changes.
+    }{%
+    }
+}
 
 
-\section{For what is their use?}
+\section{\lang{For what is their use?}{Qual a utilidade de Formatadores?}}
+
+\url{https://www.python.org/dev/peps/pep-0008/#should-a-line-break-before-or-after-a-binary-operator}
+
+
 
 For now could not find any strong evidence or correlation about code
 comprehension and source code beautifying \cite{improvingCodeReadability},
