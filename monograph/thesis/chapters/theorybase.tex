@@ -467,7 +467,10 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Veja \citeonline{complexityClasses} para aprender mais sobre Classes de Complexidade.
     }.
     Como um todo,
-    o conjunto de Linguagens Regulares pode ser considerado com complexidade Linear em tempo computacional para determinar de dada palavra pertence ou
+    o conjunto de Linguagens Regulares pode ser considerado com complexidade Linear\footnote{
+    Complexidade Linear é um caso particular de complexidade Polinomial onde o grau do Polinômio é 1.
+    Aprenda mais sobre complexidade Linear com \citeonline{cormenIntroductionToAlgorithms,computationalComplexityAuroraBarak}.
+    } em tempo computacional para determinar de dada palavra pertence ou
     não a linguagem,
     por que toda Gramática Regular Não~=Determinística pode ser convertida em uma Gramática Regular Determinística \cite{sipserBook}.
     Infelizmente isso não é verdade para Gramáticas Livres de Contexto por que Gramáticas Livre de Contexto Determinísticas e
@@ -480,8 +483,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     que somente podem realizar a execução de um ramo de computação Não~=Determinístico por vez,
     exceto para alguns problemas onde a execução probabilística de Computadores
     Quânticos \cite{nonlinearQuantumComputers} baseados nas leis da Física
-    Quântica \cite{dicke1963QuantumPhysicsIntroduction} possam talvez cortar
-    o caminho\slash{}pular ramos de Computação Não~=Determinísticos.
+    Quântica \cite{dicke1963QuantumPhysicsIntroduction} possam talvez ``cortar
+    o caminho pulando'' ramos de Computação Não~=Determinísticos.
     \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/ParserNonDeterministic.png}
@@ -514,7 +517,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     implementado através de algum algoritmo de Análise com tempo Polinomial\footnote{Até o momento,
     não se conhece ou existem algoritmos de Análise de
     Linguagens Livre de Contexto em tempo Linear,
-    enquanto $P \stackrel{?}{=} NP$ ainda não é decido \cite{turingMachinesFunctions}.
+    enquanto $P \stackrel{?}{=} NP$ ainda não é decido \cite{turingMachinesFunctions,computationalComplexityAuroraBarak}.
     $P$ representa o conjunto de problemas resolvidos Tempo Polinomial,
     enquanto $NP$ o conjunto de Problemas resolvido em Tempo Não~=Determinístico Polinomial.}.
     Uma fez que o conjunto de Linguagens Determinísticas LR(K) (com tempo Polinomial) está
@@ -532,7 +535,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     a real complexidade do Problema termina sendo Exponencial,
     enquanto teoricamente a complexidade é Polinomial.
     Veja as figuras \ref{fig:pictures/ParserNonDeterministic.png} e
-    \ref{fig:pictures/ParserDeterministic.png} como comparativo.} de execução.
+    \ref{fig:pictures/ParserDeterministic.png} e as compare.} de execução.
 
     Máquinas de Turing Não~=Determinísticas não existem fisicamente,
     portanto sua complexidade de tempo reduzida não pode ser alcançada e
