@@ -48,31 +48,32 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \label{fig:pictures/ProcessoTraducao.png}
     \end{figure}
 
-    No processo de compilação ou tradução,
+    No processo de compilação ou
+    tradução,
     um Analisador Léxico cria múltiplos \textit{tokens} \cite{ahoCompilerDragonBook}.
     Um token é composto por diversos atributos como a posição e
     o \textit{lexema}, i.e.,
     a sequencia de caracteres que este token representa no programa de entrada.
     Uma vez que o programa é ``\textit{tokenizado}'' pelo Analisador Léxico,
     o Analisador Sintático constrói a Árvore da Sintaxe do programa.
+
     Utilizando a Árvore Sintática do programa de entrada,
-    o tradutor constrói uma nova Árvore Sintática correspondente a
-    Árvore Sintática da linguagem do programa destino,
+    o tradutor constrói uma nova Árvore Sintática correspondente a Árvore Sintática da linguagem do programa destino,
     utilizada para construir o código~=fonte do programa destino.
     Em um processo de compilação,
     não seria criado uma nova Árvore de Sintaxe como no processo de tradução,
-    mas sim a geração de código objeto ou binário.
+    mas sim a geração de código objeto ou
+    binário.
 
-    Analisadores Sintáticos podem ser Ascendentes ou Descendentes.
+    Analisadores Sintáticos podem ser Ascendentes ou
+    Descendentes.
     Devido a essa característica ambos possuem as suas vantagens e
     desvantagens.
     Um Analisador Ascendente realiza a construção da Árvore Sintática das folhas até a raíz,
-    o contrário de um Analisador Descendente que realiza a construção
-    da Árvore Sintática a partir da raíz até as folhas.
-    Uma vantagem de um Analisador Ascendente é o suporte
-    de uma maior classe de Gramáticas Determinísticas.
-    Uma vantagem de um Analisador Descendente é a facilidade da recuperação de erros em
-    relação aos Analisadores Ascendentes\footnote{Conceito abordado na
+    o contrário de um Analisador Descendente que realiza a construção da Árvore Sintática a partir da raíz até as folhas.
+
+    Uma vantagem de um Analisador Ascendente é o suporte de uma maior classe de Gramáticas Determinísticas.
+    Uma vantagem de um Analisador Descendente é a facilidade da recuperação de erros em relação aos Analisadores Ascendentes\footnote{Conceito abordado na
     \fullref{analisadoresSintaticos}} \cite{sippu1982,lr1ErrorRecovery,larkJosefGrosch}.
 
 
@@ -106,8 +107,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
         }
         Não~=terminais servem para agrupar vários não~=terminais e\slash{}ou terminais.
         Na composição da Árvore Sintática,
-        os símbolos não~=terminais sempre serão os nós da Árvore de Sintaxe\footnote{Desde
-        que a Gramática da linguagem não contenha símbolos inúteis,
+        os símbolos não~=terminais sempre serão os nós da Árvore de Sintaxe\footnote{Desde que a Gramática da linguagem não contenha símbolos inúteis,
         i.e.,
         todos os símbolos da Gramática são férteis e
         permitem a geração de palavras além do conjunto vazio $\varnothing$ \cite{hopcroftBook}}.
@@ -122,11 +122,15 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
         \item \label{definicaoDeGramatica}Um conjunto de produções $P$.
         Uma produção consiste em uma dupla elementos.
-        O primeiro elemento é a cabeça ou lado esquerdo e
-        representa a substituição ou consumo que será feito no programa de entrada.
+        O primeiro elemento é a cabeça ou
+        lado esquerdo e
+        representa a substituição ou
+        consumo que será feito no programa de entrada.
         Ele é obrigatoriamente constituído de no mínimo um não~=terminal e
-        um ou mais não~=terminais ou terminais.
-        O segundo elemento é a cauda ou lado direito da produção,
+        um ou mais não~=terminais ou
+        terminais.
+        O segundo elemento é a cauda ou
+        lado direito da produção,
         composto de terminais e\slash{}ou não~=terminais.
         Formalmente defini~=se uma produção pela seguinte regra,
         onde ``*'' representa o operador de fechamento do conjunto \cite{hopcroftBook}:
@@ -139,13 +143,9 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \end{enumerate}
 
     Todas as Gramáticas que existem são no mínimo Gramáticas Tipo 0,
-    também conhecidas como Gramáticas Irrestritas por que não possuem
-    nenhuma restrição de complexidade de tempo como outros tipos de
-    Gramáticas a serem definidos nas próximas seções{}.
+    também conhecidas como Gramáticas Irrestritas por que não possuem nenhuma restrição de complexidade de tempo como outros tipos de Gramáticas a serem definidos nas próximas seções{}.
     A partir da adição restrições sobre a definição formal de Gramática recém apresentada,
-    também pode~=se \advisor{compreender}{realizar diversas
-    classificações como} a hierarquia de
-    \citeonline{chomskyGrammars1956},
+    também pode~=se \advisor{compreender}{realizar diversas classificações como} a hierarquia de \citeonline{chomskyGrammars1956},
     onde uma linguagem pode ser classificada como Regular,
     Livre de Contexto,
     Sensível ao Contexto e
@@ -157,62 +157,58 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \label{fig:pictures/HierarquiaDeChomsky.png}
     \end{figure}
 
-    Toda Gramática Regular ou Livre de Contexto,
-    é também uma Gramática Tipo 0 ou Sensível ao Contexto,
-    uma vez que Gramáticas Livres de Contexto ou Regulares são um
-    subconjunto das Gramáticas Tipo 0 ou Sensíveis ao Contexto como
-    apresentado na Figura \ref{fig:pictures/HierarquiaDeChomsky.png}.
+    Toda Gramática Regular ou
+    Livre de Contexto,
+    é também uma Gramática Tipo 0 ou
+    Sensível ao Contexto,
+    uma vez que Gramáticas Livres de Contexto ou
+    Regulares são um subconjunto das Gramáticas Tipo 0 ou
+    Sensíveis ao Contexto como apresentado na Figura \ref{fig:pictures/HierarquiaDeChomsky.png}.
     Por isso,
-    também pode~=se chamar uma dada Gramática Regular de Tipo 0 ou Livre de Contexto.
+    também pode~=se chamar uma dada Gramática Regular de Tipo 0 ou
+    Livre de Contexto.
+
     Quando diz~=se que existe Gramática Livre de Contexto para um dada Linguagem,
     pode~=se ter o equívoco de pensar que este é o melhor tipo,
     i.e.,
-    o tipo mais eficiente em tempo computational de Gramática
-    no qual dada Linguagem pode ser representada.
+    o tipo mais eficiente em tempo computational de Gramática no qual dada Linguagem pode ser representada.
     Entretanto,
     precisa~=se tomar cuidado quando fala~=se sobre Gramáticas e
     Linguagens.
 
     Para uma dada Linguagem,
-    dizer que existe uma Gramática Livre de Contexto para ela
-    não significa que esta Linguagem é Livre de Contexto.
-    Sempre pode~=se escrever uma Gramática menos eficiente do que o
-    tipo mínimo de Gramática que uma Linguagem pode ser escrita.
-    Utilizando o Lema do Bombeamento\footnote{Do inglês \textit{Pumping
-    Lemma}} \cite{hopcroftBook,sipserBook} pode~=se determinar se
-    dada Gramática é o tipo mínimo de Gramática para dada Linguagem.
+    dizer que existe uma Gramática Livre de Contexto para ela não significa que esta Linguagem é Livre de Contexto.
+    Sempre pode~=se escrever uma Gramática menos eficiente do que o tipo mínimo de Gramática que uma Linguagem pode ser escrita.
+    Utilizando o Lema do Bombeamento\footnote{Do inglês \textit{Pumping Lemma}} \cite{hopcroftBook,sipserBook} pode~=se determinar se dada Gramática é o tipo mínimo de Gramática para dada Linguagem.
+
     Assim,
-    não pode~=se dizer uma dada Linguagem é Livre de Contexto simplesmente
-    por que existe uma Gramática Livre de Contexto para dada Linguagem,
-    pois também é preciso que esta Gramática seja o tipo
-    mínimo no qual esta Linguagem pode ser escrita.
+    não pode~=se dizer uma dada Linguagem é Livre de Contexto simplesmente por que existe uma Gramática Livre de Contexto para dada Linguagem,
+    pois também é preciso que esta Gramática seja o tipo mínimo no qual esta Linguagem pode ser escrita e
+    para saber se este tipo de gramática é o mínimo,
+    utiliza~=se o Lema do Bombeamento.
 
 
 \subsection*{Gramáticas Regulares}
 
-    Gramáticas Regulares (também conhecidas como Tipo 3) são todas aquelas reconhecidas
-    por Automatos Finitos Determinísticos e\slash{}ou Não~=Determinísticos e
-    Gramaticas de Linguagens Regulares pela definição formal,
+    Gramáticas Regulares (também conhecidas como Tipo 3) são todas aquelas reconhecidas por Automatos Finitos Determinísticos e\slash{}ou Não~=Determinísticos e
+    Gramáticas de Linguagens Regulares pela definição formal,
     são todas aquelas nos quais todas as Produções $P$ da Gramática possuem a seguinte forma:
     $$ P = \{\; \alpha ::= a \beta \;|\; \alpha \in V_n \land a \in V_t
                 \land \beta \in \{\; V_n \cup \varepsilon\; \} \;\} $$
 
 \subsection*{Gramáticas Livres de Contexto}
 
-    Gramáticas Livres de Contexto (também conhecidas como Tipo 2) são todas
-    aquelas reconhecidas por Automatos de Pilha Não~=Determinísticos e
-    Gramaticas de Linguagens Livre de Contexto pela definição formal,
+    Gramáticas Livres de Contexto (também conhecidas como Tipo 2) \cite{hopcroftBook} são todas aquelas reconhecidas por Automatos de Pilha Não~=Determinísticos e
+    Gramáticas de Linguagens Livre de Contexto pela definição formal,
     são todas aquelas nos quais todas as Produções $P$ da Gramática possuem a seguinte forma:
     $$ P = \{\; \alpha ::= \beta \;|\; \alpha \in V_n \land \beta \in V^* \;\} $$
 
 
 \subsection*{Gramáticas Sensíveis ao Contexto}
 
-    Gramáticas Sensíveis ao Contexto (também conhecidas como Tipo 1) são
-    todas aquelas reconhecidas por Automatos Linearmente Limitados,
-    que tratam~=se somente de Máquinas de Turing
-    \cite{turingMachinesRoyer} com Fita (ou memória) Finita.
-    Gramaticas de Linguagens Sensíveis ao Contexto pela definição formal,
+    Gramáticas Sensíveis ao Contexto (também conhecidas como Tipo 1) são todas aquelas reconhecidas por Automatos Linearmente Limitados,
+    que tratam~=se somente de Máquinas de Turing \cite{sipserBook} com Fita (ou memória) Finita.
+    Gramáticas de Linguagens Sensíveis ao Contexto pela definição formal,
     são todas aquelas nos quais todas as Produções $P$ da Gramática possuem a seguinte forma:
     $$ P = \{\; \alpha ::= \beta \;|\; \alpha \in V^* V_n V^* \land \beta \in V^*
                 \land \vert\alpha\vert \leq \vert\beta\vert \;\} $$
@@ -224,36 +220,37 @@ Fazer depois que a fundamentação teórica estiver concluída.
     as Gramáticas Irrestritas ou (também conhecidas como Tipo 0) possuem a mesma definição do
     que a definição válida de uma Gramática como apresentado anteriormente (No
     \fullref{definicaoDeGramatica}).
-    Gramáticas do Tipo 0 são reconhecidas somente por Máquinas de Turing\footnote{Máquinas
-    de Turing possuem por definição fita (ou memória) ilimitada,
+    Gramáticas do Tipo 0 são reconhecidas somente por Máquinas de Turing\footnote{Máquinas de Turing possuem por definição fita (ou memória) ilimitada,
     mas não infinita,
     pois em um dado momento,
     somente uma quantidade finita de símbolos podem estar na fita,
     que continuamente pode crescer ilimitadamente.
     },
     e diferente das Gramáticas Sensíveis ao Contexto,
-    a Máquina de Turing não possui parada garantida,
-    i.e.,
+    a Máquina de Turing não possui parada garantida.
+
     Linguagens do Tipo 0 representam problemas incomputáveis e
     que podem ser representados de procedimentos \cite{sipserBook}.
-    Já Linguagens do Tipo 1 ou Sensíveis ao Contexto,
+    Já Linguagens do Tipo 1 ou
+    Sensíveis ao Contexto,
     representam todos os problemas computáveis e
     sua implementação pode ser representada por algoritmos,
     pois possuem parada garantida,
     apesar de terem em pior caso,
-    tempo exponential ao contrário de tempo infinito como nas Linguagens Irrestritas.
+    tempo exponential ao contrário de tempo infinito como nas Linguagens Irrestritas ou
+    Tipo 0.
 
 
 \section{Analisadores Sintáticos}
 \label{analisadoresSintaticos}
 
     Analisadores Sintáticos são equivalentes a mecanismos reconhecedores como Automatos Finitos,
-    Automatos de Pilha ou Máquinas de Turing.
-    Tais mecanismos realizam o reconhecimento da linguagem recebendo
-    diretamente como entrada a Gramática da Linguagem.
+    Automatos de Pilha ou
+    Máquinas de Turing.
+    Tais mecanismos realizam o reconhecimento da linguagem recebendo diretamente como entrada a Gramática da Linguagem.
     No caso de outros mecanismos como Automatos Finitos,
-    o reconhecimento é feito a partir da especificação ou construção
-    do Automato que reconhece palavras de dada linguagem.
+    o reconhecimento é feito a partir da especificação ou
+    construção do Automato que reconhece palavras de dada linguagem.
     Ambos Gramáticas e
     Automatos são equivalentes e
     existem algoritmos de conversão entre um e
@@ -261,11 +258,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
     É importante fazer a distinção entre Gramáticas Livre de Contexto e
     as Linguagens Livre de Contexto.
-    \citeonline{parikh1966} provou que existem linguagens nas quais não
-    existem Gramáticas Não~=Ambíguas que representem estas linguagens.
-    Tais linguagens são conhecidas como Linguagens Inerentemente Ambíguas\footnote{Do
-    inglês \textit{Inherently ambiguous languages}} onde não existem Gramáticas
-    Livre de Contexto Determinísticas capazes de representa~=las e
+    \citeonline{parikh1966} provou que existem linguagens nas quais não existem Gramáticas Não~=Ambíguas que representem estas linguagens.
+    Tais linguagens são conhecidas como Linguagens Inerentemente Ambíguas\footnote{Do inglês \textit{Inherently ambiguous languages}} onde não existem Gramáticas Livre de Contexto Determinísticas capazes de representa~=las e
     tais Linguagens somente podem ser reconhecidas por Automatos de Pilha Não~=Determinísticos.
 
     A maior classe de Gramáticas Determinísticas suportadas por Analisadores
@@ -273,11 +267,10 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Rightmost derivation in reverse by ``K'' lookahead symbols
     }}.
     Analisadores LR(K) \cite{ahoCompilerDragonBook} são Ascendentes e
-    reconhecem um subconjunto das Linguagens Livre de Contexto
-    (Figura \ref{fig:pictures/LinguagensDeterministicas.png}).
-    Já os Analisadores LL(K) são Descendentes e
-    reconhecem somente um subconjunto das Linguagens LR(K)\footnote{Diz~=se que uma
-    linguagem é LR(K) ou LL(K) quando ela é reconhecida por este Analisador}.
+    reconhecem um subconjunto das Linguagens Livre de Contexto (Figura \ref{fig:pictures/LinguagensDeterministicas.png}).
+    Já os Analisadores LL(K) são Descendentes \cite{antlrBookTerrentParr} e
+    reconhecem somente um subconjunto das Linguagens LR(K)\footnote{Diz~=se que uma linguagem é LR(K) ou
+    LL(K) quando ela é reconhecida por este Analisador}.
     \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/LinguagensDeterministicas.png}
@@ -286,32 +279,29 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \label{fig:pictures/LinguagensDeterministicas.png}
     \end{figure}
 
-    A Figura \ref{fig:pictures/LinguagensDeterministicas.png} não é
-    inteiramente um Diagrama de Venn \cite{generalizedVennDiagrams},
+    A Figura \ref{fig:pictures/LinguagensDeterministicas.png} não é inteiramente um Diagrama de Venn \cite{generalizedVennDiagrams},
     inicialmente ele é uma relação abstrata entre Linguagens Ambíguas e
     Gramáticas Determinísticas,
     conjunto que está contido dentro das Linguagens Livre de Contexto.
-    O primeiro nível significa que todas as Linguagens Inerentemente
-    Ambíguas são representáveis somente por Gramáticas Ambíguas.
+    O primeiro nível significa que todas as Linguagens Inerentemente Ambíguas são representáveis somente por Gramáticas Ambíguas.
+
     O segundo nível significa que Linguagens ``Não~=Inerentemente'' Ambíguas\footnote{Propriamente,
     o termo Não~=Inerentemente Ambíguas não existe.
     Somente utilizado para enfatizar o conjunto de Linguagens no qual existem Gramáticas Ambíguas e
-    Determinísticas (ou Não~=Ambíguas)} podem ser representadas
-    por Gramáticas Ambíguas e\slash{}ou Determinísticas.
+    Determinísticas (ou Não~=Ambíguas)} podem ser representadas por Gramáticas Ambíguas e\slash{}ou Determinísticas.
     No terceiro nível encontra~=se as Gramáticas que são mais importantes,
-    as Gramáticas Determinísticas\footnote{As Gramáticas Determinísticas representam o
-    conjunto de Linguagens que podem ser analisadas Deterministicamente e
+    as Gramáticas Determinísticas\footnote{As Gramáticas Determinísticas representam o conjunto de Linguagens que podem ser analisadas Deterministicamente e
     tais Linguagens também podem ser conhecidas como LR(K),
     LR(K).
     Reveja os dois paragrafo após a Figura \ref{fig:pictures/HierarquiaDeChomsky.png}.},
     que podem ser classificadas como LR(K),
-    LL(K), \advisor{}{entre outros, }i.e.,
-    de acordo com o tipo de Analisador que pode ser construído sem
-    conflitos em sua Tabela de Analise Sintática\footnote{Do inglês,
-    Parsing Table} \cite{ahoCompilerDragonBook} utilizada para reconhecer elas.
+    LL(K)\advisor{... }{ entre outros, }i.e.,
+    de acordo com o tipo de Analisador que pode ser construído.
+    Diz~= que um Analisador para dada gramática pode ser construído quando a criação de sua Tabela de Análise\footnote{Do inglês,
+    Parsing Table} \cite{ahoCompilerDragonBook} acontece sem conflitos.
 
     Como pode ser observado na Figura \ref{fig:pictures/LinguagensDeterministicas.png},
-    existem Gramaticas SLR(K) que não são Gramáticas LL(K) por que para uma Gramáticas ser LL(K),
+    existem Gramáticas SLR(K) que não são Gramáticas LL(K) por que para uma Gramáticas ser LL(K),
     ela precisa respeitar 3 propriedades,
     \begin{inparaenum}
         \item Não possuir Recursão a Esquerda,
@@ -325,19 +315,18 @@ Fazer depois que a fundamentação teórica estiver concluída.
     símbolo $\varepsilon$ em 0 ou mais passos de derivação.
     Similarmente,
     $\xRightarrow{+}$ significa em 1 ou mais passos \cite{contextSensitiveParsing}.}.
+
     Entretanto,
     Gramáticas LR(K), LALR(K) e
     SLR(K) não precisam de nenhuma dessas restrições.
     No caso da Recursão a Esquerda,
     o algoritmo de criação da Tabela de Analise Sintática da Gramática LR(K),
     LALR(K) ou SLR(K),
-    não possui o problema de entrar em um loop infinito
-    assim como acontecem com as Gramáticas LL(K),
+    não possui o problema de entrar em um loop infinito assim como acontecem com as Gramáticas LL(K),
     portanto aceitando~=se gramáticas com Recursão a Esquerda.
 
     Uma vez que Analisadores LR(K) requerem grandes quantidades de memória para operar,
-    \citeonline{lalrDeRemer1982} criaram os Analisadores
-    LALR(K)\footnote{\textit{Look~=Ahead} LA(K) LR(0),
+    \citeonline{lalrDeRemer1982} criaram os Analisadores LALR(K)\footnote{\textit{Look~=Ahead} LA(K) LR(0),
     onde LR(0) é um Analisador LR(K) com $K=0$
     } e
     SLR(K)\footnote{\textit{Simple} LR(K) Analisador} com o objeto de
@@ -346,19 +335,21 @@ Fazer depois que a fundamentação teórica estiver concluída.
     as Linguagens Determinísticas são reconhecidas por Analisadores LR(K).
     \citeonline{knuthLrParser1965} provou que todas as Gramáticas
     Determinísticas são aceitas por um Analisador LR(K).
+
     Assim,
     além da hierarquia de Chomsky,
-    também classifica~=se as Gramáticas de acordo com o tipo de
-    Analisador que reconhece as linguagens representadas por elas.
+    também classifica~=se as Gramáticas de acordo com o tipo de Analisador que reconhece as linguagens representadas por elas.
     Como mostrado na Figura \ref{fig:pictures/LinguagensDeterministicas.png},
     nem todas as Gramáticas Livre de Contexto são de Determinísticas e
     uma Gramática é Determinística somente se ela pode ser reconhecida por um Analisador LR(K).
 
-    Portanto uma maneira fácil de decidir se uma dada Gramática é Determinística ou não,
+    Portanto uma maneira fácil de decidir se uma dada Gramática é Determinística ou
+    não,
     é tentar construir a tabela de Analisador dela para um Analisador LR(K).
     Caso consiga~=se construir com sucesso a Tabela de Analise Sintática \cite{ahoCompilerDragonBook},
     a Gramática é LR(K),
     caso contrário a Gramática não é Determinística.
+
     A mesma técnica pode ser aplicada no caso de Analisadores menos poderosos como LALR(K),
     entretanto,
     uma vez que não se consiga construir a Tabela de Analise Sintática,
@@ -370,40 +361,44 @@ Fazer depois que a fundamentação teórica estiver concluída.
     i.e.,
     a verificação da corretude do programa escrito em relação os aspectos não~=estruturais,
     por exemplo,
-    é sintaticamente correto escrever a declaração de uma mesma variável duas vezes ou mais.
+    é sintaticamente correto escrever a declaração de uma mesma variável duas vezes ou
+    mais.
+
     Entretanto,
-    para algumas linguagens é semanticamente errado redeclarar uma variável duas vezes ou mais.
-    O Analisador Sintático representado por uma Gramática Livre de Contexto não tem poder
-    suficiente para realizar tais verificações devido as limitações desse tipo de Gramática.
+    para algumas linguagens é semanticamente errado redeclarar uma variável duas vezes ou
+    mais.
+    O Analisador Sintático representado por uma Gramática Livre de Contexto não tem poder suficiente para realizar tais verificações devido as limitações desse tipo de Gramática.
 
     Nem todas as linguagens podem ser analisadas completamente em diferentes etapas,
     como Análise Léxica, Sintática e Semântica. Muitas vezes,
-    estas três etapas acontecem em paralelo como realizado na implementação do
-    compilador da Linguagem C \cite{jourdan2017,whyCcannotBeParsedWithALR1Parser}.
-    A Gramática da linguagem C não é Livre de Contexto devido as
-    ambiguidades existentes como a expressão ``\textit{x * y ;}''.
-    Tal sentença pode ser ou a declaração de um ponteiro chamado \textit{y} do tipo \textit{x},
+    estas três etapas acontecem em paralelo como realizado na implementação do compilador da Linguagem C \cite{jourdan2017,whyCcannotBeParsedWithALR1Parser}.
+
+    A Gramática da linguagem C não é Livre de Contexto devido as ambiguidades existentes como a expressão ``\textit{x * y ;}''.
+    Tal sentença pode ser ou
+    a declaração de um ponteiro chamado \textit{y} do tipo \textit{x},
     ou a multiplicação de dois números armazenados nas variáveis \textit{x} e
     \textit{y},
     portanto ela não pode ser aceita por um Analisador LR(K) tradicional.
 
-    Uma otimização que o compilador C faz para poder fazer
-    o Analisador Determinístico da linguagem C,
-    e assim saber se a expressão ``\textit{x * y ;}'' trata~=se de
-    de uma mera multiplicação ou a declaração de uma variável,
+    Uma otimização que o compilador C faz para poder fazer o Analisador Determinístico da linguagem C,
+    e assim saber se a expressão ``\textit{x * y ;}'' trata~=se de de uma mera multiplicação ou
+    a declaração de uma variável,
     é exatamente a realização simultânea da Análise Léxica,
     sintática e
     semântica.
     Uma vez que um novo \textit{token} é reconhecido,
     ele é alimentado para o Analisador Sintático,
     que também o alimenta para o Analisador Semântico.
+
     Assim,
     o Analisador Sintático é capaz de consultar a Tabela de Símbolos \cite{ahoCompilerDragonBook} e
-    descobrir se dado token ou tratar~=se de um tipo ou uma variável numérica.
-    Pode~=se pensar que as Gramáticas de todas as Linguagens
-    de Programação são ``Livres de Contexto'' e
+    descobrir se dado token ou
+    tratar~=se de um tipo ou
+    uma variável numérica.
+    Pode~=se pensar que as Gramáticas de todas as Linguagens de Programação são ``Livres de Contexto'' e
     Determinísticas,
-    e uma vez que a Gramática não é mais Livre de Contexto ou Determinística,
+    e uma vez que a Gramática não é mais Livre de Contexto ou
+    Determinística,
     pode~=se mover Aspectos Sensíveis ao Contexto para o Analisador Semântico,
     assim,
     deixando a Gramática somente com aspectos determinísticos.
@@ -411,17 +406,14 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Entretanto,
     dependendo de como isso é feito,
     isso pode não ser verdade.
-    Isso é somente verdade caso estas alterações sejam somente mover
-    checagens da etapa de Análise Sintática para a etapa de Análise
-    Semântica sem realizar alterações no Analisador Sintático.
-    Uma vez que se adiciona suporte a Aspectos Sensíveis ao Contexto \cite{contextSensitiveParsing}
-    a Gramáticas Livre de Contexto por meio de alterações do Analisador Sintático,
+    Isso é somente verdade caso estas alterações sejam somente mover checagens da etapa de Análise Sintática para a etapa de Análise Semântica sem realizar alterações no Analisador Sintático.
+    Uma vez que se adiciona suporte a Aspectos Sensíveis ao Contexto \cite{contextSensitiveParsing} a Gramáticas Livre de Contexto por meio de alterações do Analisador Sintático,
     a Gramática deixa de ser Livre de Contexto.
+
     Mas isso não impede que ela seja Analisada com eficiência,
     mas deixa a brechas para que ela possa não ser Analisada com eficiência.
     A diferença para um Analisador onde a Gramática é inteiramente Livre de Contexto,
-    é que elas tem performance \textit{garantida} pela sua Classe
-    de Complexidade (Veja Seção \ref{classesDeComplexidade}).
+    é que elas tem performance \textit{garantida} pela sua Classe de Complexidade (Veja Seção \ref{classesDeComplexidade}).
 
     Sintaxe e
     Semântica de Linguagens são completamente ortogonais.
@@ -429,12 +421,12 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Não a linguagem no qual elas representam,
     mas a própria gramática \cite{finiteAutomataTuringComplete}
     } podem ser Turing Completas\footnote{
-    A Turing Completude acontece quando uma dada linguagem pode simular o funcionamento completo de uma Máquina de Turing }
-    devido a sua equivalência com Máquinas de Turing e
+    A Turing Completude acontece quando uma dada linguagem pode simular o funcionamento completo de uma Máquina de Turing } devido a sua equivalência com Máquinas de Turing e
     são capazes de realizar qualquer operação computacional.
     Mas,
     isso não pode ser confundido com as Strings ou
     Programas gerados por suas Gramáticas \cite{areThereDomainSpecificLanguages}.
+
     Tais programas podem ou
     não ser Turing Completos.
     Do lado oposto,
@@ -443,15 +435,13 @@ Fazer depois que a fundamentação teórica estiver concluída.
     os Automatos Finitos,
     não tenham Turing Completude\footnote{
     Caso isso esteja confuso,
-    reveja a Figura \ref{fig:pictures/HierarquiaDeChomsky.png}
-    e note que de todas as Linguagens,
+    reveja a Figura \ref{fig:pictures/HierarquiaDeChomsky.png} e
+    note que de todas as Linguagens,
     quem tem Turing Completude são as Linguagens Irrestritas ou
     Tipo 0,
-    enquanto Automatos Finitos são um subconjunto das Máquinas de Turing }
-    \cite{turingCompleteRegularLanguages,finiteAutomataTuringComplete}.
+    enquanto Automatos Finitos são um subconjunto das Máquinas de Turing } \cite{turingCompleteRegularLanguages,finiteAutomataTuringComplete}.
 
-    Na Seção \ref{sec:software_implementation} será mostrado a implementação de
-    uma Gramática ``Livre de Contexto'' em um Analisador LALR(1),
+    Na Seção \ref{sec:software_implementation} será mostrado a implementação de uma Gramática ``Livre de Contexto'' em um Analisador LALR(1),
     onde Aspectos Sensíveis ao Contexto serão analisados pelo Analisador Semântico,
     tal como feito na implementação do Compilador da Linguagem C apresentado.
     Mas com a diferença de que utiliza~= um Analisador LALR(1) genérico,
@@ -464,7 +454,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     As Gramáticas Regulares e
     Livres de Contexto Não~=Determinísticas,
     demandam complexidade exponential em tempo computacional\footnote{
-    Veja \citeonline{complexityClasses} para aprender mais sobre Classes de Complexidade.
+    Veja \citeonline{computationalComplexityAuroraBarak,complexityClasses} para aprender mais sobre Classes de Complexidade.
     }.
     Como um todo,
     o conjunto de Linguagens Regulares pode ser considerado com complexidade Linear\footnote{
@@ -474,17 +464,14 @@ Fazer depois que a fundamentação teórica estiver concluída.
     não a linguagem,
     por que toda Gramática Regular Não~=Determinística pode ser convertida em uma Gramática Regular Determinística \cite{sipserBook}.
     Infelizmente isso não é verdade para Gramáticas Livres de Contexto por que Gramáticas Livre de Contexto Determinísticas e
-    Não~=Determinísticas não são equivalentes.
+    Não~=Determinísticas não são equivalentes\footnote{
+    A validade desta afirmação como muitas outras dependem da resposta da pergunta $P \stackrel{?}{=} NP$ que ainda não foi decida \cite{computationalComplexityAuroraBarak,turingMachinesRoyer}
+    }.
 
-    Gramáticas Não~=Determinísticas possuem complexidade exponential por
-    que somente pode~=se simular o funcionamento de um Analisador
-    Não~=Determinístico utilizando uma máquina determinística,
+    Gramáticas Não~=Determinísticas possuem complexidade exponential por que somente pode~=se simular o funcionamento de um Analisador Não~=Determinístico utilizando uma máquina determinística,
     tal como os computadores atuais,
     que somente podem realizar a execução de um ramo de computação Não~=Determinístico por vez,
-    exceto para alguns problemas onde a execução probabilística de Computadores
-    Quânticos \cite{nonlinearQuantumComputers} baseados nas leis da Física
-    Quântica \cite{dicke1963QuantumPhysicsIntroduction} possam talvez ``cortar
-    o caminho pulando'' ramos de Computação Não~=Determinísticos.
+    exceto para alguns problemas onde a execução probabilística de Computadores Quânticos \cite{nonlinearQuantumComputers} baseados nas leis da Física Quântica \cite{dicke1963QuantumPhysicsIntroduction} possam talvez ``cortar o caminho pulando'' ramos de Computação Não~=Determinísticos.
     \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/ParserNonDeterministic.png}
@@ -494,9 +481,9 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
     Na Figura \ref{fig:pictures/ParserNonDeterministic.png},
     encontra~=se uma Árvore de Computação de um Analisador Não~=Determinístico.
-    Diz~=se que que o tempo de execução de um Analisador Não~=Determinístico é Linear
-    ou Polinomial ao tamanho da entrada por que um Analisador Não~=Determinístico
-    executa simultaneamente todos os ramos de Computação Não~=Determinísticos.
+    Diz~=se que que o tempo de execução de um Analisador Não~=Determinístico é Linear ou
+    Polinomial ao tamanho da entrada por que um Analisador Não~=Determinístico executa simultaneamente todos os ramos de Computação Não~=Determinísticos.
+
     Como mostrado na Figura \ref{fig:pictures/ParserNonDeterministic.png},
     após a cada um dos passo de computação 1,
     2, 3 e 4,
@@ -504,61 +491,49 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Cada um desses passos é corresponde a um item a ser analisado na entrada do programa.
     O que torna a computação Não~=Determinística é o fato de cada um dos itens 1,
     2, 3 e 4 da entrada,
-    permitirem simultaneamente a escolha de mais de um
-    caminho na escolha do próximo estado do Analisador,
+    permitirem simultaneamente a escolha de mais de um caminho na escolha do próximo estado do Analisador,
     i.e.,
     mais de um Ramo de Computação.
 
-    O tempo de execução será Linear ao tamanho da entrada caso o
-    Analisador Não~=Determinístico seja de uma Linguagem Regular e
+    O tempo de execução será Linear ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Regular e
     implementado através de um Automato Finito.
-    O tempo de execução será Polinomial ao tamanho da entrada caso o Analisador
-    Não~=Determinístico seja de uma linguagem Livre de Contexto e
+    O tempo de execução será Polinomial ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma linguagem Livre de Contexto e
     implementado através de algum algoritmo de Análise com tempo Polinomial\footnote{Até o momento,
-    não se conhece ou existem algoritmos de Análise de
-    Linguagens Livre de Contexto em tempo Linear,
-    enquanto $P \stackrel{?}{=} NP$ ainda não é decido \cite{turingMachinesRoyer,computationalComplexityAuroraBarak}.
+    não se conhece ou
+    existem algoritmos de Análise de Linguagens Livre de Contexto em tempo Linear,
+    enquanto $P \stackrel{?}{=} NP$ ainda não é decido \cite{computationalComplexityAuroraBarak,turingMachinesRoyer}.
     $P$ representa o conjunto de problemas resolvidos Tempo Polinomial,
     enquanto $NP$ o conjunto de Problemas resolvido em Tempo Não~=Determinístico Polinomial.}.
-    Uma fez que o conjunto de Linguagens Determinísticas LR(K) (com tempo Polinomial) está
-    contida no conjunto das Linguagens Livres de Contexto com complexidade Exponencial,
-    não faz sentido em considerar tempos Lineares ou Polinomiais
-    de execução para Linguagens Sensíveis ao Contexto,
-    por que algoritmos de Analise Sintática são exponenciais
-    em pior caso \cite{contextSensitiveParsing} e
-    quando analisados por dispositivos equivalentes a Máquinas de Turing
-    Não~=Determinísticas terão no mínimo tempo Polinomial\footnote{Quando fala~=se
-    de complexidade de tempo polinomial para Máquinas Não~=Determinísticas,
-    resulta~=se em uma complexidade de tempo Exponencial ao simular o
-    funcionamento dessa Máquina Não~=Determinística em um computador,
+
+    Uma fez que o conjunto de Linguagens Determinísticas LR(K) (com tempo Polinomial) está contida no conjunto das Linguagens Livres de Contexto com complexidade Exponencial,
+    não faz sentido em considerar tempos Lineares ou
+    Polinomiais de execução para Linguagens Sensíveis ao Contexto,
+    por que algoritmos de Analise Sintática são exponenciais em pior caso \cite{contextSensitiveParsing} e
+    quando analisados por dispositivos equivalentes a Máquinas de Turing Não~=Determinísticas terão no mínimo tempo Polinomial\footnote{Quando fala~=se de complexidade de tempo polinomial para Máquinas Não~=Determinísticas,
+    resulta~=se em uma complexidade de tempo Exponencial ao simular o funcionamento dessa Máquina Não~=Determinística em um computador,
     ou seja,
     a real complexidade do Problema termina sendo Exponencial,
     enquanto teoricamente a complexidade é Polinomial.
     Veja as figuras \ref{fig:pictures/ParserNonDeterministic.png} e
-    \ref{fig:pictures/ParserDeterministic.png} e as compare.} de execução.
+    \ref{fig:pictures/ParserDeterministic.png} e
+    as compare.} de execução.
 
     Máquinas de Turing Não~=Determinísticas não existem fisicamente,
     portanto sua complexidade de tempo reduzida não pode ser alcançada e
-    seu tempo de execução é exponential pois para simular o
-    funcionamento de uma Máquina de Turing
-    Não~=Determinística,
-    utiliza~=se uma Máquina de Turing Determinística \cite{turingMachinesRoyer}.
+    seu tempo de execução é exponential pois para simular o funcionamento de uma Máquina de Turing Não~=Determinística,
+    utiliza~=se uma Máquina de Turing Determinística \cite{sipserBook,turingMachinesRoyer}.
+
     Como um \textit{addendum} para Computação Quântica,
-    pode~=se confundir Computadores Quânticos como equivalentes a Analisadores
-    Não~=Determinísticos devido as nomenclaturas utilizadas.
+    pode~=se confundir Computadores Quânticos como equivalentes a Analisadores Não~=Determinísticos devido as nomenclaturas utilizadas.
     Enquanto Analisadores são Não~=Determinísticos devido à ambiguidades nas Gramáticas de Entrada,
-    Computadores Quânticos são Não Determinísticos
-    devido à serem baseado em modelos
-    Probabilísticos,
+    Computadores Quânticos são Não Determinísticos devido à serem baseado em modelos Probabilísticos,
     i.e.,
-    Computadores Quânticos não são equivalentes a Analisadores Não~=Determinísticos devido a sua
-    execução ser probabilística
-    \cite{polynomialQuantumComputers,probabilisticQuantumComputation}.
+    Computadores Quânticos não são equivalentes a Analisadores Não~=Determinísticos devido a sua execução ser probabilística \cite{polynomialQuantumComputers,probabilisticQuantumComputation,quantumSimulatorChagas}.
 
     \advisor{}{Diferente dos Computadores Tradicionais,
     Computadores Quânticos são construídos com base nas leis da Física Quântica,
-    que são radicalmente diferentes das Leis da Física Tradicional ou Clássica,
-    i.e.,
+    que são radicalmente diferentes das Leis da Física Tradicional ou
+    Clássica, i.e.,
     as Leis de Newton.
     As Leis da Física Clássica regem os elementos muitos grandes na escala galáxias,
     planetas, células e
@@ -568,15 +543,12 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \textit{quarks} \cite{dicke1963QuantumPhysicsIntroduction}.
     Computadores Quânticos podem em alguns casos e
     para problemas específicos,
-    realizar a execução de todos os ramos Não~=determinísticos de Computação em
-    tempo Linear ou Polinomial \cite{theGoodAndBadQuantumComputing}.
+    realizar a execução de todos os ramos Não~=determinísticos de Computação em tempo Linear ou
+    Polinomial \cite{theGoodAndBadQuantumComputing}.
     Esta é a gama de problemas nos quais Computadores Quânticos são úteis,
     não sendo assim,
     substitutos completos da Computação Tradicional (ou Clássica),
-    somente otimizadores na resolução de alguns problemas específicos que
-    podem ser otimizados devido as propriedades
-    específicas\slash{}probabilísticas das leis Física Quântica
-    \cite{churchTuringQuantumComputer}.
+    somente otimizadores na resolução de alguns problemas específicos que podem ser otimizados devido as propriedades específicas\slash{}probabilísticas das leis Física Quântica \cite{churchTuringQuantumComputer}.
     }
     \begin{figure}[H]
     \centering
@@ -585,24 +557,19 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \label{fig:pictures/ParserDeterministic.png}
     \end{figure}
 
-    Na Figura \ref{fig:pictures/ParserDeterministic.png},
-    encontra~=se a mesma Árvore de Computação apresentada na
-    Figura \ref{fig:pictures/ParserNonDeterministic.png},
-    mas com a diferença de que desta vez utiliza~=se um Analisador
-    Determinístico ao contrário de um Analisador Não~=Determinístico.
+    Concluindo,
+    na Figura \ref{fig:pictures/ParserDeterministic.png},
+    encontra~=se a mesma Árvore de Computação apresentada na Figura \ref{fig:pictures/ParserNonDeterministic.png},
+    mas com a diferença de que desta vez utiliza~=se um Analisador Determinístico ao contrário de um Analisador Não~=Determinístico.
     Com isso,
     ao invés de um tempo Polinomial ao tamanho da entrada,
-    tem~=se um tempo exponential ao tamanho da entrada por que para que um
-    Analisador Determinístico possa processar uma Gramática Não~=Determinística,
+    tem~=se um tempo exponential ao tamanho da entrada por que para que um Analisador Determinístico possa processar uma Gramática Não~=Determinística,
     é necessário execute cada um dos ramos de computação.
-    Já Analisadores Não~=Determinísticos executam simultaneamente
-    todos os ramos de computação não~=determinísticos,
-    conseguindo assim,
-    desempenho Linear ou Polinomial ao tamanho da entrada.
-    Para que Analisadores Não~=Determinísticos como apresentado na Figura
-    \ref{fig:pictures/ParserNonDeterministic.png} possam ser executados,
-    eles precisam de computadores que suportem a execução simultânea dos
-    diversos ramos de computação não~=determinísticos tal como
-    Computadores Quânticos talvez possam em alguns casos.
+
+    Já Analisadores Não~=Determinísticos executam simultaneamente todos os ramos de computação não~=determinísticos,
+    conseguindo assim, desempenho Linear ou
+    Polinomial ao tamanho da entrada.
+    Para que Analisadores Não~=Determinísticos como apresentado na Figura \ref{fig:pictures/ParserNonDeterministic.png} possam ser executados,
+    eles precisam de computadores que suportem a execução simultânea dos diversos ramos de computação não~=determinísticos tal como Computadores Quânticos talvez possam em alguns casos.
 }
 
