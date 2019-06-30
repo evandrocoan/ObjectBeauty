@@ -871,6 +871,54 @@
 }
 
 
+@online{larkContextualLexer,
+    author = {Erez Shinan},
+    url = {https://lark-parser.readthedocs.io/en/latest/parsers/},
+    publisher = {Online},
+    year = {2014},
+    urlaccessdate = {2019-06-30},
+    title = {Lark implements the following parsing algorithms: Earley, LALR(1), and CYK},
+    abstract = {Lark extends the traditional YACC-based architecture with a
+    contextual lexer, which automatically provides feedback from the parser to
+    the lexer, making the LALR(1) algorithm stronger than ever. The contextual
+    lexer communicates with the parser, and uses the parser's lookahead
+    prediction to narrow its choice of tokens. So at each point, the lexer only
+    matches the subgroup of terminals that are legal at that parser state,
+    instead of all of the terminals. It’s surprisingly effective at resolving
+    common terminal collisions, and allows to parse languages that LALR(1) was
+    previously incapable of parsing. This is an improvement to LALR(1) that is
+    unique to Lark.},
+}
+
+
+@inproceedings{efficientQuantumComputation,
+    author = {Purewal,Jr., Tarsem S.},
+    title = {Revisiting a Limit on Efficient Quantum Computation},
+    booktitle = {Proceedings of the 44th Annual Southeast Regional Conference},
+    series = {ACM-SE 44},
+    year = {2006},
+    isbn = {1-59593-315-8},
+    location = {Melbourne, Florida},
+    pages = {239--243},
+    numpages = {5},
+    url = {http://doi.acm.org/10.1145/1185448.1185502},
+    doi = {10.1145/1185448.1185502},
+    acmid = {1185502},
+    publisher = {ACM},
+    address = {New York, NY, USA},
+    keywords = {computational complexity, quantum computing},
+    abstract = {In this paper, we offer an exposition of a theorem originally
+    due to Adleman, Demarrais and Huang that shows that the quantum complexity
+    class BQP (Bounded-error Quantum Polynomial time) is contained in the
+    classical counting class PP (Probabilistic Polynomial time). Our proof
+    follows the one given by Fortnow and Rogers that relates quantum computing
+    to counting complexity classes by way of GapP functions. The contribution of
+    this paper is an exposition of an important result that assumes a minimal
+    background in computational complexity theory and no knowledge of quantum
+    mechanics.},
+}
+
+
 @inproceedings{sippu1982,
     author = {Sippu, Seppo and Soisalon-Soininen, Eljas},
     title = {Practical Error Recovery in LR Parsing},
@@ -1347,6 +1395,90 @@
 }
 
 
+@inproceedings{efficientBreadthFirstSearch,
+    author = {Shang, Haichuan and Kitsuregawa, Masaru},
+    title = {Efficient Breadth-first Search on Large Graphs with Skewed Degree Distributions},
+    booktitle = {Proceedings of the 16th International Conference on Extending Database Technology},
+    series = {EDBT '13},
+    year = {2013},
+    isbn = {978-1-4503-1597-5},
+    location = {Genoa, Italy},
+    pages = {311--322},
+    numpages = {12},
+    url = {http://doi.acm.org/10.1145/2452376.2452413},
+    doi = {10.1145/2452376.2452413},
+    acmid = {2452413},
+    publisher = {ACM},
+    address = {New York, NY, USA},
+    keywords = {breadth-first search, graph database, graph indexing},
+    abstract = {Many recent large-scale data intensive applications are increasingly demanding efficient graph databases. Distributed graph algorithms, as a core part of practical graph databases, have a wide range of important applications, but have been rarely studied in sufficient detail. These problems are challenging as real graphs are usually extremely large and the intrinsic character of graph data, lacking locality, causes unbalanced computation and communication workloads. In this paper, we explore distributed breadth-first search algorithms with regards to large-scale applications. We propose DPC (Degree-based Partitioning and Communication), a scalable and efficient distributed BFS algorithm which achieves high scalability and performance through novel balancing techniques between computation and communication. In experimental study, we compare our algorithm with two state-of-the-art algorithms under the Graph500 benchmark with a variety of settings. The result shows our algorithm significantly outperforms the existing algorithms under all the settings.},
+}
+
+
+@article{quantumComputingForNonPhysicists,
+    author = {Rieffel, Eleanor and Polak, Wolfgang},
+    title = {An Introduction to Quantum Computing for Non-physicists},
+    journal = {ACM Comput. Surv.},
+    volume = {32},
+    number = {3},
+    month = {sep},
+    year = {2000},
+    issn = {0360-0300},
+    pages = {300--335},
+    numpages = {36},
+    url = {http://doi.acm.org/10.1145/367701.367709},
+    doi = {10.1145/367701.367709},
+    acmid = {367709},
+    publisher = {ACM},
+    address = {New York, NY, USA},
+    keywords = {complexity, parallelism, quantum computing},
+    abstract = {Richard Feynman's observation that certain quantum mechanical
+    effects cannot be simulated efficiently on a computer led to speculation
+    that computation in general could be done more efficiently if it used these
+    quantum effects. This speculation proved justified when Peter Shor described
+    a polynomial time quantum algorithm for factoring intergers.In quantum
+    systems, the computational space increases exponentially with the size of
+    the system, which enables exponential parallelism. This parallelism could
+    lead to exponentially faster quantum algorithms than possible classically.
+    The catch is that accessing the results, which requires measurement, proves
+    tricky and requires new nontraditional programming techniques.The aim of
+    this paper is to guide computer scientists through the barriers that
+    separate quantum computing from conventional computing. We introduce basic
+    principles of quantum mechanics to explain where the power of quantum
+    computers comes from and why it is difficult to harness. We describe quantum
+    cryptography, teleportation, and dense coding. Various approaches to
+    exploiting the power of quantum parallelism are explained. We conclude with
+    a discussion of quantum error correction.},
+}
+
+
+@article{quantumComputerSurvey,
+    author = {Yoshito Kanamori and Seong-Moo Yoo and W. D. Pan and F. T. Sheldon},
+    title = {A short survey on quantum computers},
+    journal = {International Journal of Computers and Applications},
+    volume = {28},
+    issue = {3},
+    year = {2006},
+    issn = {1925-7074},
+    url = {https://www.researchgate.net/publication/228613051_A_short_survey_on_quantum_computers},
+    doi = {10.2316/Journal.202.2006.3.202-1700},
+    publisher = {ACTA Press},
+    address = {2451 Dieppe Ave SW, Calgary, AB, Canada},
+    keywords = {Classical computers, quantum computers, quantum computer systems, quantum simulators, Shor's algorithm},
+    abstract = {Quantum computing is an emerging technology. The clock frequency
+    of current computer processor systems may reach about 40 GHz within the next
+    10 years. By then, one atom may represent one bit. Electrons under such
+    conditions are no longer described by classical physics, and a new model of
+    the computer may be necessary by that time. The quantum computer is one
+    proposal that may have merit in dealing with the problems presented.
+    Currently, there exist some algorithms utilizing the advantage of quantum
+    computers. For example, Shor's algorithm performs factoring of a large
+    integer in polynomial time, whereas classical factoring algorithms can do it
+    in exponential time. In this paper we briey survey the current status of
+    quantum computers, quantum computer systems, and quantum simulators.},
+}
+
+
 @article{complexityClasses,
     author = {Tor\'{a}n, Jacobo},
     title = {Complexity Classes Defined by Counting Quantifiers},
@@ -1553,23 +1685,23 @@
     is an implicit physical assertion. Here, this assertion is presented
     explicitly as a physical principle: ‘every finitely realizible physical
     system can be perfectly simulated by a universal model computing machine
-    operating by finite means’. Classical physics and the universal Turing
+    operating by finite means'. Classical physics and the universal Turing
     machine, because the former is continuous and the latter discrete, do not
     obey the principle, at least in the strong form above. A class of model
     computing machines that is the quantum generalization of the class of Turing
     machines is described, and it is shown that quantum theory and the
-    'universal quantum computer’ are compatible with the principle. Computing
+    'universal quantum computer' are compatible with the principle. Computing
     machines resembling the universal quantum computer could, in principle, be
     built and would have many remarkable properties not reproducible by any
     Turing machine. These do not include the computation of non-recursive
-    functions, but they do include ‘quantum parallelism’, a method by which
+    functions, but they do include ‘quantum parallelism', a method by which
     certain probabilistic tasks can be performed faster by a universal quantum
     computer than by any classical restriction of it. The intuitive explanation
     of these properties places an intolerable strain on all interpretations of
-    quantum theory other than Everett’s. Some of the numerous connections
+    quantum theory other than Everett's. Some of the numerous connections
     between the quantum theory of computation and the rest of physics are
     explored. Quantum complexity theory allows a physically more reasonable
-    definition of the ‘complexity’ or ‘knowledge’ in a physical system than does
+    definition of the ‘complexity' or ‘knowledge' in a physical system than does
     classical complexity theory. },
 }
 
@@ -1886,7 +2018,7 @@
                     cumbersome. The first problem is that “everybody” wants to format their code
                     differently, leading to either many formatter variants or a ridiculous number of
                     configuration options. Second, the size of each implementation scales with a
-                    language’s grammar size, leading to hundreds of rules. In this paper, we solve
+                    language's grammar size, leading to hundreds of rules. In this paper, we solve
                     the formatter construction problem using a novel approach, one that
                     automatically derives formatters for any given language without intervention
                     from a language expert. We introduce a code formatter called CODEB UFF that uses
@@ -2189,7 +2321,7 @@
     issue         = {1},
     pages         = {852-861},
     abstract      = {In the development of large and complex software application software engineers
-                    has to focuses on many requirements other than desired application’s requirement
+                    has to focuses on many requirements other than desired application's requirement
                     at the coding and design level. Code Generation is a technique which is use to
                     automatically generates lower level executable code from higher level design
                     artifact. Code generation provides design of the code at higher abstract level
@@ -2293,7 +2425,7 @@
                     identifier naming to preferences about object relationships and design patterns.
                     Coding conventions define a consistent syntactic style, fostering readability
                     and hence maintainability. When collaborating, programmers strive to obey a
-                    project’s coding conventions. However, one third of reviews of changes contain
+                    project's coding conventions. However, one third of reviews of changes contain
                     feedback about coding conventions, indicating that programmers do not always
                     follow them and that project members care deeply about adherence. Unfortunately,
                     programmers are often unaware of coding conventions because inferring them
@@ -2326,7 +2458,7 @@
     abstract      = {Plagiarism has become an increasing problem in higher education in recent
                     years. A number of research papers have discussed the problem of plagiarism in
                     terms of text and source code and the techniques to detect it in various
-                    contexts. There is a variety of easy ways of copying others’ work because the
+                    contexts. There is a variety of easy ways of copying others' work because the
                     source code can be obtained from online source code banks and textbooks, which
                     makes plagiarism easy for students. Source code plagiarism has a very specific
                     definition, and Parker and Hamblen define plagiarism on software as “A program
