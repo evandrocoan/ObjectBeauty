@@ -293,7 +293,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     as Gramáticas Determinísticas\footnote{As Gramáticas Determinísticas representam o conjunto de Linguagens que podem ser analisadas Deterministicamente e
     tais Linguagens também podem ser conhecidas como LR(K),
     LR(K).
-    Reveja os dois paragrafo após a Figura \ref{fig:pictures/HierarquiaDeChomsky.png}.},
+    Reveja os parágrafos após a Figura \ref{fig:pictures/HierarquiaDeChomsky.png}
+    },
     que podem ser classificadas como LR(K),
     LL(K)\advisor{... }{ entre outros, }i.e.,
     de acordo com o tipo de Analisador que pode ser construído.
@@ -307,18 +308,27 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
     Diz~= que um Analisador para dada gramática pode ser construído quando a criação de sua Tabela de Análise\footnote{Do inglês,
     Parsing Table} \cite{ahoCompilerDragonBook} acontece sem conflitos.
-    É importante notar que o processor de análise por um Analisador,
+    É importante notar que usualmente o processo de análise por um Analisador,
     seja ele LR(K) ou
     LL(K),
-    acontece em duas etapas.
+    acontece em duas etapas\footnote{
+    Com a exceção dos Analisadores LL(K) que também podem ser facilmente construídos programaticamente,
+    i.e.,
+    com o programador construindo manualmente como deve acontecer cada transição de estado do analisador \cite{ahoCompilerDragonBook}.
+    }.
     Primeiro utilizam~=se algoritmos de construção da Tabela de Análise.
-    Uma vez que esta tabele está construída sem conflitos,
-    entra em cena o algoritmos de análise,
-    que utilizando a tabela de análise,
+
+    Quando a tabela está construída sem conflitos,
+    entra em cena o algoritmo de análise,
+    que utilizando a Tabela de Análise,
     realiza o reconhecimento do programa de entrada.
+    Como única diferença entre os Analisadores LR(K),
+    LALR(K) e
+    SLR(K) é exatamente construção da Tabela de Análise,
+    ambos possuem a mesma complexidade de análise polinomial ao tamanho do programa de entrada \cite{linearLL1AndLR1Grammars,generalContextFreeParsingAlgorithm}.
 
 
-\subsection{Analisadores LALR(K) e SLR(K)}
+\subsection{Analisadores LR(K)}
 
     Como pode ser observado na Figura \ref{fig:pictures/LinguagensDeterministicas.png},
     existem Gramáticas SLR(K) que não são Gramáticas LL(K) por que para uma Gramáticas ser LL(K),
@@ -345,16 +355,14 @@ Fazer depois que a fundamentação teórica estiver concluída.
     não possui o problema de entrar em um loop infinito assim como acontecem com as Gramáticas LL(K),
     portanto aceitando~=se gramáticas com Recursão a Esquerda.
 
-    Uma vez que Analisadores LR(K) requerem grandes quantidades de memória para operar,
+    Uma vez que Analisadores LR(K) requerem uma quantidade de memória exponencial ao tamanho da Gramáticas de entrada para operar \cite{complexityOfLRKTesting},
     \citeonline{lalrDeRemer1982} criaram os Analisadores LALR(K)\footnote{\textit{Look~=Ahead} LA(K) LR(0),
     onde LR(0) é um Analisador LR(K) com $K=0$
     } e
-    SLR(K)\footnote{\textit{Simple} LR(K) Analisador} com o objeto de
-    viabilizar a implementação de Analisadores Ascendentes Determinísticos.
-    Gramáticas de Linguagens Determinísticas são chamadas de LR por que todas
-    as Linguagens Determinísticas são reconhecidas por Analisadores LR(K).
-    \citeonline{knuthLrParser1965} provou que todas as Gramáticas
-    Determinísticas são aceitas por um Analisador LR(K).
+    SLR(K)\footnote{\textit{Simple} LR(K) Analisador} com o objeto de viabilizar a implementação de Analisadores Ascendentes Determinísticos.
+    Gramáticas de Linguagens Determinísticas são chamadas de LR,
+    por que todas as Linguagens Determinísticas são reconhecidas por Analisadores LR(K).
+    \citeonline{knuthLrParser1965} provou que todas as Gramáticas Determinísticas são aceitas por um Analisador LR(K).
 
     Assim,
     além da hierarquia de Chomsky,
