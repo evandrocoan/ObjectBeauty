@@ -42,21 +42,22 @@
     empty line may call better your attention \cite{aPrettyGoodFormatting}.
 }{%
     Programação de computadores usualmente não é uma tarefa solitária.
-    Muitos projetos podem \advisor{}{sempre} ser escritos pela mesma pessoa durante toda a vida desse projeto mas,
+    Muitos projetos podem\advisor{}{ sempre} ser escritos pela mesma pessoa durante toda a vida desse projeto mas,
     o quão grande pode ser um projeto que uma pessoa pode fazer sozinha?
     Poderia uma pessoa escrever sozinha todo o sistema de controle de tráfego aéreo dos Estados Unidos?
+
     Uma vez que precisa\hyp{}se escrever sistemas computacionais maiores,
     % TODO: cite reference to `escrever sistemas computacionais maiores`
     tende\hyp{}se a colocar vários programadores,
     engenheiros de software, gerentes de projeto, etc,
-    para que se possa escrever o sistema computacional requerido
-    entro do prazo que dado projeto computacional possui.
+    para que se possa escrever o sistema computacional requerido dentro do prazo que dado projeto computacional possui.
+
     Com a criação de sistemas computacionais cada vez mais complexos,
     torna\hyp{}se um desafio ter em um único projeto diversos programadores,
-    pois cada um com suas características pessoais distintas,
-    entende melhor código escrito de acordo com seu costume,
-    já que pode saber melhor como localizar e
-    entender os seus elementos \cite{howProgrammersRead}.
+    pois cada um possui características pessoais distintas,
+    e entende melhor o código escrito de acordo com seu costume,
+    já que previamente sabe como localizar~=se e
+    entender melhor os seus elementos \cite{howProgrammersRead}.
 
     \lang{%
         Questions like ``What are good programming practices?'' Or ``Why are these
@@ -95,7 +96,8 @@
     mesmo elas não tendo as mesmas experiências?} \advisor{Uma}{Assim,
     uma} barreira adicional \advisor{ao}{para cada um desses programadores
     no} desenvolvimento do projeto será aprender as diferenças de
-    trabalho que cada um desses desenvolvedores possuem entre sí.
+    trabalho que cada um desses desenvolvedores possuem entre si.
+
     Uma dessas diferenças é a maneira no qual cada programador organiza estrutura de seu código
     no requisito de formatação \cite{transformationForDomainSpecificOptimisation}.
     Por exemplo,
@@ -110,26 +112,32 @@
     o quê pode dar de errado quando ambos os programadores ``A'' e
     ``B'' trabalham num mesmo projeto?
 
-    \advisor{O problema mais provável é que o código-fonte esteja escrito em dois estilos:
-        do Programador A e
-        B.
-    }{Existem algumas possibilidades,
-        uma delas poderia ser que a metade do código escrita pelo ``Programador A'' estará de um jeito.
-        Já a outra metade escrita pelo ``Programador B'' estará de outro.
+    \advisor{%
+    O problema mais provável é que o código-fonte esteja escrito em dois estilos:
+    do Programador A e
+    B.%
+    }{%
+    Existem algumas possibilidades,
+    uma delas poderia ser que a metade do código escrita pelo ``Programador A'' estará de um jeito.
+    Já a outra metade escrita pelo ``Programador B'' estará de outro.%
     } Então,
     que tipos de problema isso poderia causar?
     Uma vez que o código não está mais todo escrito sobre um mesmo padrão,
-    \advisor{há uma dificuldade na leitura do código como algo homogêneo.
-        Os próprios Programadores A e
-        B, autores do código, teriam dificuldades,
-        pois ele segue um estilo diferente ao que A e
-        B estão habituados.
-    }{certas heurísticas tem sua taxa de acerto reduzida ao fazer o
-    reconhecimento dos padrões.}Um exemplo de padrão que estaria prejudicado
-    seria rapidamente identificar onde pode estar uma estrutura de controle,
-    \advisor{}{como ``if'' ou ``for''} de acordo com a presença ou não de uma linha em branco antes dela,
-    já que a presença de uma linha em branco faz um destacamento maior sendo reconhecida
-    como um separador de blocos de código distintos \cite{aPrettyGoodFormatting}.
+    \advisor{%
+    há uma dificuldade na leitura do código como algo homogêneo.
+    Os próprios Programadores A e
+    B, autores do código, teriam dificuldades,
+    pois ele segue um estilo diferente ao que A e
+    B estão habituados.
+    }{%
+    certas heurísticas tem sua taxa de acerto reduzida ao fazer o reconhecimento dos padrões.
+    }
+
+    Um exemplo de padrão que estaria prejudicado seria o de rapidamente identificar onde pode estar uma estrutura de controle,\advisor{}{
+    como ``if'' ou
+    ``for''} de acordo com a presença ou
+    não de uma linha em branco antes dela,
+    já que a presença de uma linha em branco faz um destacamento maior sendo facilmente reconhecida como um separador de blocos de código \cite{aPrettyGoodFormatting}.
 }
 
 \lang{%
@@ -232,21 +240,22 @@
     em seu formato de texto simples.
     Já que para compartilhar código e
     trabalhar em times de forma eficiente,
-    é essencial utilizar um sistema de
-    versionamento\footnote{\url{http://www.codeservedcold.com/version-control-importance/}}
-    que permita aos gerentes de projetos e
-    os próprios programadores,
-    ter o controle de suas mudanças no código \cite{redesignOfGit}.
-    \advisor{Tal ferramenta deve permitir rastrear mudanças \cite{gettingProductive},
-        habilitando que se entenda melhor as atividades de cada programador \cite{usingSourceControl}.
-    }{Tal ferramenta deve permitir facilmente realizar o
-    rastreamento das mudanças \cite{gettingProductive} e
+    é essencial utilizar um sistema de versionamento \cite{whyVersionControlIsCritical}.
+
+    \advisor{%
+    Tal ferramenta deve permitir rastrear mudanças \cite{gettingProductive},
+    habilitando que se entenda melhor as atividades de cada programador \cite{usingSourceControl}.
+    }{%
+    Tal ferramenta deve permitir facilmente realizar o rastreamento das mudanças \cite{gettingProductive} e
     assim,
     permitir que entenda-se melhor o que cada programador está fazendo,
     todas as vezes que eles formalizam uma nova alteração no código\hyp{}fonte,
     por exemplo,
     através de uma ``commit'' como conhecidas em sistemas ``git'' \cite{usingSourceControl}.
-    }
+    }%
+    Permitindo que gerentes de projetos e
+    os próprios programadores,
+    tenham o controle das (e de suas) mudanças no código \cite{redesignOfGit}.
 }
 
 \begin{citacao}
@@ -285,7 +294,8 @@
         devido aos problemas gerados ao permitir que cada programador escreva como lhe bem entender.
         Por exemplo,
         gerando ruídos de formatação dificultando a revisão do código~=fonte,
-        dificultando o entendimento que cada programador \cite{quitDiffCalculating}.
+        dificultando o entendimento que cada programador que agora tem que aprender incontáveis e
+        diferentes estilos de formatação \cite{quitDiffCalculating}.
 
         Caso todos os programadores decidam re~=escrever o histórico,
         fazendo mudanças insignificantes como inserindo novas linhas antes de cada ``if'',
