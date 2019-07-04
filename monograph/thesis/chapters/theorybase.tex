@@ -306,17 +306,21 @@ Fazer depois que a fundamentação teórica estiver concluída.
     É importante fazer a distinção entre Gramáticas Livre de Contexto e
     as Linguagens Livre de Contexto.
     \citeonline{parikh1966} provou que existem linguagens nas quais não existem Gramáticas Não~=Ambíguas que representem estas linguagens.
-    Tais linguagens são conhecidas como Linguagens Inerentemente Ambíguas\footnote{Do inglês \textit{Inherently ambiguous languages}} onde não existem Gramáticas Livre de Contexto Determinísticas capazes de representa~=las e
+    Tais linguagens são conhecidas como Linguagens Inerentemente Ambíguas\footnote{Do inglês,
+    \textit{Inherently Ambiguous Languages}} onde não existem Gramáticas Livre de Contexto Determinísticas capazes de representa~=las e
     tais Linguagens somente podem ser reconhecidas por Analisadores com Backtracking \cite{ahoCompilerDragonBook} ou
     Automatos de Pilha Não~=Determinísticos.
 
-    A maior classe de Gramáticas Determinísticas suportadas por Analisadores
-    Sintáticos são as Gramáticas LR(K)\footnote{\textit{Left~=to~=right,
-    Rightmost derivation in reverse by ``K'' lookahead symbols
-    }}.
+    A maior classe de Gramáticas Determinísticas suportadas por Analisadores Sintáticos são as Gramáticas LR(K)\footnote{
+    Do inglês, \textit{Left~=to~=right,
+    Rightmost derivation} em reverso com K símbolos de \textit{lookahead}
+    }.
     Analisadores LR(K) \cite{ahoCompilerDragonBook} são Ascendentes e
     reconhecem um subconjunto das Linguagens Livre de Contexto (Figura \ref{fig:pictures/LinguagensDeterministicas.png}).
-    Já os Analisadores LL(K) são Descendentes \cite{antlrBookTerrentParr} e
+    Já os Analisadores LL(K)\footnote{
+    Do inglês, \textit{Left-to-right,
+    Leftmost derivation} com K símbolos de \textit{lookahead}
+    } são Descendentes \cite{antlrBookTerrentParr} e
     reconhecem somente um subconjunto das Linguagens LR(K)\footnote{Diz~=se que uma linguagem é LR(K) ou
     LL(K) quando ela é reconhecida por este Analisador}.
 
@@ -347,8 +351,9 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \label{fig:pictures/LinguagensDeterministicas.png}
     \end{figure}
 
-    Diz~= que um Analisador para dada gramática pode ser construído quando a criação de sua Tabela de Análise\footnote{Do inglês,
-    Parsing Table} \cite{ahoCompilerDragonBook} acontece sem conflitos.
+    Diz~= que um Analisador para dada gramática pode ser construído quando a criação de sua Tabela de Análise\footnote{
+    Do inglês,
+    \textit{Parsing Table}} \cite{ahoCompilerDragonBook} acontece sem conflitos.
     É importante notar que usualmente o processo de análise por um Analisador,
     seja ele LR(K) ou
     LL(K),
@@ -366,7 +371,22 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Como única diferença entre os Analisadores LR(K),
     LALR(K) e
     SLR(K) é exatamente construção da Tabela de Análise,
-    ambos possuem a mesma complexidade de análise polinomial ao tamanho do programa de entrada que será utilizado para fazer a análise \cite{linearLL1AndLR1Grammars,generalContextFreeParsingAlgorithm}.
+    ambos possuem a mesma complexidade de análise polinomial ao tamanho do programa\footnote{
+    Quando refere~=se a programa,
+    fala~=se da \textit{string} ou
+    texto que será analisado e
+    decidir se tal programa é um programa da linguagem que se está analisando.
+    Um ponto curioso,
+    caso o programa não seja aceito pelo analisador,
+    ele não é um programa com erros,
+    mas um programa inválido,
+    i.e.,
+    de uma outra linguagem,
+    que não é a linguagem que está sendo analisada.
+    Comumente ou
+    informalmente,
+    chamamos estes programas como programas com erros (de sintaxe).
+    } de entrada que será analisado \cite{linearLL1AndLR1Grammars,generalContextFreeParsingAlgorithm}.
 
 
 \subsection{Analisadores LR(K)}
@@ -381,11 +401,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
                 \xRightarrow{*}\, \varepsilon\,
                 \land\, First(A)\, \cap\, Follow(A) = \varnothing$
     \end{inparaenum}
-    \cite{ahoCompilerDragonBook}\footnote{$\xRightarrow{*}$ significa que
-    a partir de uma produção $A$ é possível chegar\slash{}derivar o
-    símbolo $\varepsilon$ em 0 ou mais passos de derivação.
-    Similarmente,
-    $\xRightarrow{+}$ significa em 1 ou mais passos \cite{contextSensitiveParsing}.}.
+    \cite{ahoCompilerDragonBook}.
 
     Entretanto,
     Gramáticas LR(K), LALR(K) e
@@ -397,10 +413,12 @@ Fazer depois que a fundamentação teórica estiver concluída.
     portanto aceitando~=se gramáticas com Recursão a Esquerda.
 
     Uma vez que Analisadores LR(K) requerem uma quantidade de memória exponencial ao tamanho da Gramáticas de entrada para operar \cite{complexityOfLRKTesting},
-    \citeonline{lalrDeRemer1982} criaram os Analisadores LALR(K)\footnote{\textit{Look~=Ahead} LA(K) LR(0),
+    \citeonline{lalrDeRemer1982} criaram os Analisadores LALR(K)\footnote{
+    Do inglês, \textit{Look~=Ahead} LA(K) LR(0),
     onde LR(0) é um Analisador LR(K) com $K=0$
     } e
-    SLR(K)\footnote{\textit{Simple} LR(K) Analisador} com o objeto de viabilizar a implementação de Analisadores Ascendentes Determinísticos.
+    SLR(K)\footnote{ Do inglês, \textit{Simple LR(K) parser}
+    } com o objeto de viabilizar a implementação de Analisadores Ascendentes Determinísticos.
     Gramáticas de Linguagens Determinísticas são chamadas de LR,
     por que todas as Linguagens Determinísticas são reconhecidas por Analisadores LR(K).
     \citeonline{knuthLrParser1965} provou que todas as Gramáticas Determinísticas são aceitas por um Analisador LR(K).
@@ -616,7 +634,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Na Figura \ref{fig:pictures/ParserNonDeterministic.png},
     encontra~=se uma Árvore de Computação de um Analisador Não~=Determinístico.
     Diz~=se que que o tempo de execução de um Analisador Não~=Determinístico é Não~=Determinístico  Polinomial $NP$\footnote{
-    Do inglês, Non~=Deterministic Polynomial Time,
+    Do inglês, \textit{Non~=Deterministic Polynomial Time},
     comumente conhecida pela pergunta,
     $P \stackrel{?}{=} NP$, i.e.,
     a classe de problemas com complexidade de tempo Polinomial,
