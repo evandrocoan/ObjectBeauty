@@ -257,48 +257,9 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Automatos são equivalentes e
     existem algoritmos de conversão entre um e
     outro \cite{hopcroftBook}.
-    Analisadores Sintáticos é um nome dado para Analisadores que recebem como entrada uma Gramática que representa os aspectos estruturais de uma Linguagem,
+    Analisador Sintático é um nome dado para Analisadores que recebem como entrada uma Gramática que representa os aspectos estruturais de uma Linguagem,
     i.e.,
     sua sintaxe \cite{ahoCompilerDragonBook}.
-
-    Diferente Máquinas Reconhecedoras específicas como Automatos Finitos,
-    os Analisadores recebem diretamente como entrada uma Gramática de uma dada Linguagem.
-    Mas diferente de Gramáticas,
-    Analisadores especificamente funcionam de modo contrário a Gramáticas.
-    Eles operam por meio de Reduções ao invés de Derivações como no caso das Gramáticas \cite{sipserBook}.
-
-    Uma Derivação acontece quanto a dada regra de produção como ``$S \Rightarrow a a $'' de uma Gramática expande e
-    tem~=se como resultado ``$a a$'' a partir do símbolo de origem ``$S$''.
-    Já uma Derivação acontece quanto a dada regra de produção como ``$S \Rightarrow a a $'' de uma Gramática reduz e
-    tem~=se como resultado ``$S$'' a partir do símbolo de origem ``$a a$''.
-
-    Tanto Derivações quanto Reduções podem ser descritas em termos que quantos passos de derivações são necessários para que se possa sair de um ponto até outra na Arvore de Derivações ou
-    Reduções \cite{ahoCompilerDragonBook}.
-    \begin{enumerate}%[nosep,nolistsep]
-        \item Quanto um derivação é denotada como ``$S \Rightarrow a a $'',
-        isso significa que somente um passo é necessário para sair do símbolo inicial ``$S$'' e
-        chegar no símbolo final ``$a a$''.
-        \item Quanto um derivação é denotada como ``$S \xRightarrow{*} a a $'',
-        isso significa que são necessários,
-        desde zero (nenhum) até infinitos passos para sair do símbolo inicial ``$S$'' e
-        chegar no símbolo final ``$a a$''.
-        \item Quanto um derivação é denotada como ``$S \xRightarrow{+} a a $'',
-        isso significa que são necessários,
-        desde um passo até infinitos passos para sair do símbolo inicial ``$S$'' e
-        chegar no símbolo final ``$a a$''.
-    \end{enumerate}
-
-    Para reduções,
-    estas mesmas condições se aplicam,
-    mas em ordem reversa,
-    i.e., $\Leftarrow$, $\xLeftarrow{*}$ e $\xLeftarrow{+}$,
-    ao invés de $\Rightarrow$,
-    $\xRightarrow{*}$ e
-    $\xRightarrow{+}$.
-    Enquanto Gramáticas são geradores de palavras que partem do Símbolo Inicial da Gramática até chegarem em uma palavra da linguagem,
-    Analisadores são reconhecedores de palavras que partem da palavra de uma linguagem até chegarem no Símbolo Inicial da Gramática,
-    independente se estes Analisadores são Ascendentes ou
-    Descendentes.
 
 
 \subsection{Gramáticas $versus$ Linguagens}
@@ -387,6 +348,48 @@ Fazer depois que a fundamentação teórica estiver concluída.
     informalmente,
     chamamos estes programas como programas com erros (de sintaxe).
     } de entrada que será analisado \cite{linearLL1AndLR1Grammars,generalContextFreeParsingAlgorithm}.
+
+
+\subsection{Reduções e Derivações}
+
+    Diferente Máquinas Reconhecedoras específicas como Automatos Finitos,
+    os Analisadores recebem diretamente como entrada uma Gramática de uma dada Linguagem.
+    Mas diferente de Gramáticas,
+    Analisadores especificamente funcionam de modo contrário a Gramáticas.
+    Eles operam por meio de Reduções ao invés de Derivações como no caso das Gramáticas \cite{sipserBook}.
+
+    Uma Derivação acontece quanto a dada regra de produção como ``$S \Rightarrow a a $'' de uma Gramática expande e
+    tem~=se como resultado ``$a a$'' a partir do símbolo de origem ``$S$''.
+    Já uma Derivação acontece quanto a dada regra de produção como ``$S \Rightarrow a a $'' de uma Gramática reduz e
+    tem~=se como resultado ``$S$'' a partir do símbolo de origem ``$a a$''.
+
+    Tanto Derivações quanto Reduções podem ser descritas em termos que quantos passos de derivações são necessários para que se possa sair de um ponto até outra na Arvore de Derivações ou
+    Reduções \cite{ahoCompilerDragonBook}.
+    \begin{enumerate}%[nosep,nolistsep]
+        \item Quanto um derivação é denotada como ``$S \Rightarrow a a $'',
+        isso significa que somente um passo é necessário para sair do símbolo inicial ``$S$'' e
+        chegar no símbolo final ``$a a$''.
+        \item Quanto um derivação é denotada como ``$S \xRightarrow{*} a a $'',
+        isso significa que são necessários,
+        desde zero (nenhum) até infinitos passos para sair do símbolo inicial ``$S$'' e
+        chegar no símbolo final ``$a a$''.
+        \item Quanto um derivação é denotada como ``$S \xRightarrow{+} a a $'',
+        isso significa que são necessários,
+        desde um passo até infinitos passos para sair do símbolo inicial ``$S$'' e
+        chegar no símbolo final ``$a a$''.
+    \end{enumerate}
+
+    Para reduções,
+    estas mesmas condições se aplicam,
+    mas em ordem reversa,
+    i.e., $\Leftarrow$, $\xLeftarrow{*}$ e $\xLeftarrow{+}$,
+    ao invés de $\Rightarrow$,
+    $\xRightarrow{*}$ e
+    $\xRightarrow{+}$.
+    Enquanto Gramáticas são geradores de palavras que partem do Símbolo Inicial da Gramática até chegarem em uma palavra da linguagem,
+    Analisadores são reconhecedores de palavras que partem da palavra de uma linguagem até chegarem no Símbolo Inicial da Gramática,
+    independente se estes Analisadores são Ascendentes ou
+    Descendentes.
 
 
 \subsection{Analisadores LR(K)}
@@ -734,7 +737,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Duas principais abordagens distintas e
     comumente conhecidas\footnote{
     Além dessas duas abordagens,
-    existem muitas outras que podem ser cridas como misturas dessas duas estratégias extremas
+    existem muitas outras técnicas que podem ser cridas como misturas dessas duas estratégias extremas,
+    como heurísticas e inteligências artificias
     } são a Busca em Largura\footnote{
     Do inglês, \textit{Breadth-First Search (BFS)}
     } e
