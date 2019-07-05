@@ -138,8 +138,8 @@ section=TITLE, % Título de seções em caixa alta
 
 % FIXME: Preencha com Departamento de XXXXXX, Centro de XXXXXX
 \centro{\lang
-	{INE - Department of Informatics and Statistics, CTC - Technological Center}
-    {INE - Departamento de Informática e Estatística, CTC - Centro Tecnológico}%
+	{INE -- Department of Informatics and Statistics, CTC -- Technological Center}
+    {INE -- Departamento de Informática e Estatística, CTC -- Centro Tecnológico}%
 }
 
 % FIXME: Data da sua defesa
@@ -156,16 +156,20 @@ section=TITLE, % Título de seções em caixa alta
     }%
 }
 
+% Allows you to use ~= instead of `\hyp{}`
+% https://tex.stackexchange.com/questions/488008/how-to-create-an-alternative-to-shortcut-or-hyp
+\useshorthands{~}\defineshorthand{~=}{\hyp{}}
+
 \palavraschaveufsc{palavraschaveingles}   {Text Formatter}
 \palavraschaveufsc{palavraschaveportugues}{Formatador do texto}
 
 \palavraschaveufsc{palavraschaveingles}   {Source Code Beautifier}
 \palavraschaveufsc{palavraschaveportugues}{Embelezador de código~=fonte}
 
-\palavraschaveufsc{palavraschaveingles}   {Pretty-printing}
-\palavraschaveufsc{palavraschaveportugues}{Impressão-bonita}
+\palavraschaveufsc{palavraschaveingles}   {Pretty~=printing}
+\palavraschaveufsc{palavraschaveportugues}{Impressão~=bonita}
 
-\palavraschaveufsc{palavraschaveingles}   {Context-free Grammars}
+\palavraschaveufsc{palavraschaveingles}   {Context~=free Grammars}
 \palavraschaveufsc{palavraschaveportugues}{Gramáticas Livre de Contexto}
 
 \palavraschaveufsc{palavraschaveingles}   {Programming Languages Syntax}
@@ -173,10 +177,6 @@ section=TITLE, % Título de seções em caixa alta
 
 % Altere o arquivo 'settings.tex' para incluir customizações de aparência da sua tese
 \input{settings.tex}
-
-% Allows you to use ~= instead of `\hyp{}`
-% https://tex.stackexchange.com/questions/488008/how-to-create-an-alternative-to-shortcut-or-hyp
-\useshorthands{~}\defineshorthand{~=}{\hyp{}}
 
 % When writing a large document, it is sometimes useful to work on selected sections of the document
 % to speed up compilation time: https://en.wikibooks.org/wiki/TeX/includeonly
