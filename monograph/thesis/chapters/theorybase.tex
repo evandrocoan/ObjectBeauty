@@ -8,6 +8,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
 
 \section{Compiladores e Tradutores}
+\label{compiladoresEtradutores}
 
 \lang{%
     This work aims to propose a translator \cite{generatingInterpretiveTranslators},
@@ -50,27 +51,32 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
     No processo de compilação ou
     tradução,
-    um Analisador Léxico cria múltiplos \textit{tokens} \cite{ahoCompilerDragonBook}.
+    um Analisador Léxico cria múltiplos \textit{tokens}.
     Um token é composto por diversos atributos como a posição e
     o \textit{lexema}, i.e.,
     a sequencia de caracteres que este token representa no programa de entrada.
     Uma vez que o programa é ``\textit{tokenizado}'' pelo Analisador Léxico,
-    o Analisador Sintático constrói a Árvore da Sintaxe do programa.
+    o Analisador Sintático constrói a Árvore Sintática do programa.
 
     Utilizando a Árvore Sintática do programa de entrada,
     o tradutor constrói uma nova Árvore Sintática correspondente a Árvore Sintática da linguagem do programa destino,
     utilizada para construir o código~=fonte do programa destino.
     Em um processo de compilação,
-    não seria criado uma nova Árvore de Sintaxe como no processo de tradução,
+    não seria criado uma nova Árvore Sintática como no processo de tradução,
     mas sim a geração de código objeto ou
-    binário.
+    binário \cite{ahoCompilerDragonBook}.
 
     Analisadores Sintáticos podem ser Ascendentes ou
     Descendentes.
     Devido a essa característica ambos possuem as suas vantagens e
     desvantagens.
     Um Analisador Ascendente realiza a construção da Árvore Sintática das folhas até a raíz,
-    o contrário de um Analisador Descendente que realiza a construção da Árvore Sintática a partir da raíz até as folhas.
+    o contrário de um Analisador Descendente que realiza a construção da Árvore Sintática a partir da raíz até as folhas\footnote{
+    Como pode ser observados em seus nomes,
+    ambos os Analisadores tanto da familia LL (Descendentes,
+    \textit{Left-to-right, Leftmost derivation}) ou LR (Ascendentes, \textit{Left~=to~=right,
+    Rightmost derivation}) fazem a leitura do programa de entrada da esquerda para a direita.
+    }.
 
     Uma vantagem de um Analisador Ascendente é o suporte de uma maior classe de Gramáticas Determinísticas.
     Uma vantagem de um Analisador Descendente é a facilidade da recuperação de erros em relação aos Analisadores Ascendentes\footnote{Conceito abordado na
@@ -94,12 +100,12 @@ Fazer depois que a fundamentação teórica estiver concluída.
         }{,
         chamados algumas vezes de ``\textit{tokens}'' devido a sua forte conexão.
         Cada terminal corresponde a um símbolo presente no alfabeto da linguagem.
-        }
+        }%
         Durante a Análise Léxica,
         os símbolos terminais serão utilizados definir os lexemas que são a base principal dos tokens.
         Na composição da Árvore Sintática,
         os ``\textit{tokens}'' ou terminais,
-        serão sempre as folhas da Árvore de Sintaxe.
+        serão sempre as folhas da Árvore Sintática.
 
         \item \advisor{O}{Um} conjunto $V_n$ de símbolos
         não~=terminais\advisor{ (algumas vezes chamados de ``variáveis sintáticas'').}{,
@@ -107,7 +113,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
         }
         Não~=terminais servem para agrupar vários não~=terminais e\slash{}ou terminais.
         Na composição da Árvore Sintática,
-        os símbolos não~=terminais sempre serão os nós da Árvore de Sintaxe\footnote{Desde que a Gramática da linguagem não contenha símbolos inúteis,
+        os símbolos não~=terminais sempre serão os nós da Árvore Sintática\footnote{Desde que a Gramática da linguagem não contenha símbolos inúteis,
         i.e.,
         todos os símbolos da Gramática são férteis e
         permitem a geração de palavras além do conjunto vazio $\varnothing$ \cite{hopcroftBook}}.
@@ -139,7 +145,12 @@ Fazer depois que a fundamentação teórica estiver concluída.
         \item Um símbolo inicial selecionado a partir do conjunto de símbolos não~=terminais.
         O símbolo inicial é utilizado para definir qual será a raíz da Árvore Sintática,
         i.e.,
-        o primeira regra de produção utilizado para iniciar o reconhecimento do programa de entrada.
+        o última regra de produção utilizada para terminar o reconhecimento do programa de entrada,
+        e o primeira  utilizada ao gerar palavras desta dada linguagem\footnote{
+        Processo natural quanto um Analisador Sintático realiza o reconhecimento de um programa de entrada.
+        Para mais informações,
+        veja a \fullref{reducoesEderivacoes}.
+        }.
     \end{enumerate}
 
 
@@ -152,7 +163,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     onde uma linguagem pode ser classificada como Regular,
     Livre de Contexto,
     Sensível ao Contexto e
-    Tipo 0 (Figura \ref{fig:pictures/HierarquiaDeChomsky.png}).
+    Irrestrita (Figura \ref{fig:pictures/HierarquiaDeChomsky.png}).
     \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/HierarquiaDeChomsky.png}
@@ -162,13 +173,13 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
     Toda Gramática Regular ou
     Livre de Contexto,
-    é também uma Gramática Tipo 0 ou
+    é também uma Gramática Irrestrita ou
     Sensível ao Contexto,
     uma vez que Gramáticas Livres de Contexto ou
-    Regulares são um subconjunto das Gramáticas Tipo 0 ou
+    Regulares são um subconjunto das Gramáticas Irrestritas ou
     Sensíveis ao Contexto como apresentado na Figura \ref{fig:pictures/HierarquiaDeChomsky.png}.
     Por isso,
-    também pode~=se chamar uma dada Gramática Regular de Tipo 0 ou
+    também pode~=se chamar uma dada Gramática Regular de Irrestrita ou
     Livre de Contexto.
 
     Quando diz~=se que existe Gramática Livre de Contexto para um dada Linguagem,
@@ -187,13 +198,13 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Assim,
     não pode~=se dizer uma dada Linguagem é Livre de Contexto simplesmente por que existe uma Gramática Livre de Contexto para dada Linguagem,
     pois também é preciso que esta Gramática seja o tipo mínimo no qual esta Linguagem pode ser escrita e
-    para saber se este tipo de gramática é o mínimo,
+    para saber se este tipo de Gramática é o mínimo,
     utiliza~=se o Lema do Bombeamento.
 
 
 \subsection{Gramáticas Regulares}
 
-    Gramáticas Regulares (também conhecidas como Tipo 3) são todas aquelas reconhecidas por Automatos Finitos Determinísticos e\slash{}ou Não~=Determinísticos e
+    Gramáticas Regulares (também conhecidas como Tipo 3) são todas aquelas reconhecidas por Automatos Finitos Determinísticos e\slash{}ou Não~=Determinísticos.
     Gramáticas de Linguagens Regulares pela definição formal,
     são todas aquelas nos quais todas as Produções $P$ da Gramática possuem a seguinte forma:
     $$ P = \{\; \alpha ::= a \beta \;|\; \alpha \in V_n \land a \in V_t
@@ -201,7 +212,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
 \subsection{Gramáticas Livres de Contexto}
 
-    Gramáticas Livres de Contexto (também conhecidas como Tipo 2) \cite{hopcroftBook} são todas aquelas reconhecidas por Automatos de Pilha Não~=Determinísticos e
+    Gramáticas Livres de Contexto (também conhecidas como Tipo 2) \cite{hopcroftBook} são todas aquelas reconhecidas por Automatos de Pilha Não~=Determinísticos.
     Gramáticas de Linguagens Livre de Contexto pela definição formal,
     são todas aquelas nos quais todas as Produções $P$ da Gramática possuem a seguinte forma:
     $$ P = \{\; \alpha ::= \beta \;|\; \alpha \in V_n \land \beta \in V^* \;\} $$
@@ -223,7 +234,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     as Gramáticas Irrestritas ou (também conhecidas como Tipo 0) possuem a mesma definição do
     que a definição válida de uma Gramática como apresentado anteriormente (No
     \fullref{definicaoDeGramatica}).
-    Gramáticas do Tipo 0 são reconhecidas somente por Máquinas de Turing\footnote{Máquinas de Turing possuem por definição fita (ou memória) ilimitada,
+    Gramáticas Irrestritas são reconhecidas somente por Máquinas de Turing\footnote{Máquinas de Turing possuem por definição fita (ou memória) ilimitada,
     mas não infinita,
     pois em um dado momento,
     somente uma quantidade finita de símbolos podem estar na fita,
@@ -232,16 +243,14 @@ Fazer depois que a fundamentação teórica estiver concluída.
     e diferente das Gramáticas Sensíveis ao Contexto,
     a Máquina de Turing não possui parada garantida.
 
-    Linguagens do Tipo 0 representam problemas incomputáveis e
+    Linguagens do Tipo 0 (ou Irrestritas) representam problemas incomputáveis e
     que podem ser representados de procedimentos \cite{sipserBook}.
-    Já Linguagens do Tipo 1 ou
-    Sensíveis ao Contexto,
+    Já Linguagens do Tipo 1 (ou Sensíveis ao Contexto),
     representam todos os problemas computáveis e
     sua implementação pode ser representada por algoritmos,
     pois possuem parada garantida,
     apesar de terem em pior caso,
-    tempo exponential ao contrário de tempo infinito como nas Linguagens Irrestritas ou
-    Tipo 0.
+    tempo exponential ao contrário de tempo infinito como nas Linguagens Irrestritas.
 
 
 \section{Analisadores Sintáticos}
@@ -257,9 +266,15 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Automatos são equivalentes e
     existem algoritmos de conversão entre um e
     outro \cite{hopcroftBook}.
+
     Analisador Sintático é um nome dado para Analisadores que recebem como entrada uma Gramática que representa os aspectos estruturais de uma Linguagem,
     i.e.,
     sua sintaxe \cite{ahoCompilerDragonBook}.
+    Analisadores Sintáticos possuem muito mais utilidade do que somente checar se a sintaxe do programa de entrada está correta.
+    Uma vez que eles também geram a árvore sintática do programa\footnote{
+    Como visto no começo desde capítulo na \fullref{compiladoresEtradutores}.
+    } que é utilizada para realizar a análise semântica e
+    geração de código.
 
 
 \subsection{Gramáticas $versus$ Linguagens}
@@ -302,7 +317,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Reveja os parágrafos após a Figura \ref{fig:pictures/HierarquiaDeChomsky.png}
     },
     que podem ser classificadas como LR(K),
-    LL(K)\advisor{... }{ entre outros, }i.e.,
+    LL(K)\advisor{etc, }{ entre outros, }i.e.,
     de acordo com o tipo de Analisador que pode ser construído.
     \begin{figure}[h]
     \centering
@@ -312,21 +327,20 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \label{fig:pictures/LinguagensDeterministicas.png}
     \end{figure}
 
-    Diz~= que um Analisador para dada gramática pode ser construído quando a criação de sua Tabela de Análise\footnote{
+    Diz~= que um Analisador para dada Gramática pode ser construído quando a criação de sua Tabela de Análise\footnote{
     Do inglês,
     \textit{Parsing Table}} \cite{ahoCompilerDragonBook} acontece sem conflitos.
     É importante notar que usualmente o processo de análise por um Analisador,
     seja ele LR(K) ou
     LL(K),
-    acontece em duas etapas\footnote{
+    acontece em duas etapas.
     Com a exceção dos Analisadores LL(K) que também podem ser facilmente construídos programaticamente,
     i.e.,
     com o programador construindo manualmente como deve acontecer cada transição de estado do analisador \cite{ahoCompilerDragonBook}.
-    }.
 
-    Primeiro utilizam~=se algoritmos de construção da Tabela de Análise.
+    Na primeira etapa do Analisador utilizam~=se algoritmos de construção da Tabela de Análise.
     Quando a tabela está construída sem conflitos,
-    entra em cena o algoritmo de análise,
+    entra em cena o algoritmo de análise na segunda etapa,
     que utilizando a Tabela de Análise,
     realiza o reconhecimento do programa de entrada.
     Como única diferença entre os Analisadores LR(K),
@@ -351,6 +365,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
 
 \subsection{Reduções e Derivações}
+\label{reducoesEderivacoes}
 
     Diferente Máquinas Reconhecedoras específicas como Automatos Finitos,
     os Analisadores recebem diretamente como entrada uma Gramática de uma dada Linguagem.
@@ -413,9 +428,9 @@ Fazer depois que a fundamentação teórica estiver concluída.
     o algoritmo de criação da Tabela de Analise Sintática da Gramática LR(K),
     LALR(K) ou SLR(K),
     não possui o problema de entrar em um loop infinito assim como acontecem com as Gramáticas LL(K),
-    portanto aceitando~=se gramáticas com Recursão a Esquerda.
+    portanto aceitando~=se Gramáticas com Recursão a Esquerda.
 
-    Uma vez que Analisadores LR(K) requerem uma quantidade de memória exponencial ao tamanho da Gramáticas de entrada para operar \cite{complexityOfLRKTesting},
+    Uma vez que Analisadores LR(K) requerem uma quantidade de memória exponencial \cite{complexityOfLRKTesting} ao tamanho da Gramáticas de entrada para operar,
     \citeonline{lalrDeRemer1982} criaram os Analisadores LALR(K)\footnote{
     Do inglês, \textit{Look~=Ahead} LA(K) LR(0),
     onde LR(0) é um Analisador LR(K) com $K=0$
@@ -423,8 +438,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     SLR(K)\footnote{ Do inglês, \textit{Simple LR(K) parser}
     } com o objeto de viabilizar a implementação de Analisadores Ascendentes Determinísticos.
     Gramáticas de Linguagens Determinísticas são chamadas de LR,
-    por que todas as Linguagens Determinísticas são reconhecidas por Analisadores LR(K).
-    \citeonline{knuthLrParser1965} provou que todas as Gramáticas Determinísticas são aceitas por um Analisador LR(K).
+    por que todas as Linguagens Determinísticas são reconhecidas por Analisadores LR(K),
+    uma vez que \citeonline{knuthLrParser1965} provou que todas as Gramáticas Determinísticas são aceitas por um Analisador LR(K).
 
     Assim,
     além da hierarquia de Chomsky,
@@ -435,14 +450,14 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
     Portanto uma maneira fácil de decidir se uma dada Gramática é Determinística ou
     não,
-    é tentar construir a tabela de Analisador dela para um Analisador LR(K).
-    Caso consiga~=se construir com sucesso a Tabela de Analise Sintática \cite{ahoCompilerDragonBook},
+    é tentar construir a sua tabela de um Analisador LR(K).
+    Caso consiga~=se construir com sucesso (sem conflitos) a Tabela de Analise Sintática \cite{ahoCompilerDragonBook},
     a Gramática é LR(K),
     caso contrário a Gramática não é Determinística.
     A mesma técnica pode ser aplicada no caso de Analisadores menos poderosos como LALR(K),
     entretanto,
     uma vez que não se consiga construir a Tabela de Analise Sintática,
-    não se pode ter certeza se dada Gramática não é Determinística.
+    não se pode ter certeza se dada Gramática é ou não Determinística.
 
 
 \subsection{Análise Semântica}
@@ -515,13 +530,13 @@ Fazer depois que a fundamentação teórica estiver concluída.
     seja analisada com eficiência.
     Mas isso deixa a brechas para que ela possa não ser analisada com eficiência.
     A diferença para um Analisador onde a Gramática é inteiramente Livre de Contexto,
-    é que elas tem performance \textit{garantida} pela sua Classe de Complexidade (Veja Seção \ref{classesDeComplexidade}).
+    é que elas tem performance \textit{garantida} pela sua Classe de Complexidade (Veja seção \ref{classesDeComplexidade}).
 
     Sintaxe e
     Semântica de Linguagens são completamente ortogonais.
     Gramáticas de Linguagens Irrestritas\footnote{
     Não a linguagem no qual elas representam,
-    mas a própria gramática \cite{finiteAutomataTuringComplete}
+    mas a própria Gramática em si \cite{finiteAutomataTuringComplete}
     } podem ser Turing Completas\footnote{
     A Turing Completude acontece quando uma dada linguagem pode simular o funcionamento completo de uma Máquina de Turing } devido a sua equivalência com Máquinas de Turing e
     são capazes de realizar qualquer operação computacional.
@@ -539,12 +554,11 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Caso isso esteja confuso,
     reveja a Figura \ref{fig:pictures/HierarquiaDeChomsky.png} e
     note que de todas as Linguagens,
-    quem tem Turing Completude são as Linguagens Irrestritas ou
-    Tipo 0,
+    quem tem Turing Completude são as Linguagens Irrestritas,
     enquanto Automatos Finitos são um subconjunto das Máquinas de Turing \cite{finiteAutomataTuringComplete}
     } \cite{turingCompleteRegularLanguages,finiteAutomataTuringComplete}.
 
-    Na Seção \ref{sec:software_implementation},
+    Na seção \ref{sec:software_implementation},
     será mostrado a implementação de uma Gramática ``Livre de Contexto'' em um Analisador LALR(1),
     onde Aspectos Sensíveis ao Contexto serão analisados pelo Analisador Semântico,
     tal como feito na implementação do Compilador da Linguagem C apresentado.
@@ -751,7 +765,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     caso o primeiro ramo Não~=Determinístico que escolhe~=se seja uma solução para o problema,
     i.e.,
     leve o Analisador a um estado de aceitação,
-    Mas ao mesmo tempo de pode~=se ter ``sorte'',
+    mas ao mesmo tempo de pode~=se ter ``sorte'',
     pode~=se ter o ``azar'' de que o primeiro ramo Não~=Determinístico seja um ramo infinito de computações que nunca levarão o Analisador à um estado de aceitação.
 
     A Figura \ref{fig:pictures/ParserDeterministic.png} mostrou um exemplo de uso do algoritmo de Busca em Profundidade.
