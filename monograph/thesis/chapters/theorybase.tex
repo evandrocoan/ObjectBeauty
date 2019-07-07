@@ -78,7 +78,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Um Analisador Ascendente realiza a construção da Árvore Sintática das folhas até a raíz,
     o contrário de um Analisador Descendente que realiza a construção da Árvore Sintática a partir da raíz até as folhas\footnote{
     Como pode ser observados em seus nomes,
-    ambos os Analisadores tanto da familia LL (Descendentes,
+    ambos os analisadores tanto da familia LL (Descendentes,
     \textit{Left-to-right, Leftmost derivation}) ou LR (Ascendentes, \textit{Left~=to~=right,
     Rightmost derivation}) fazem a leitura do programa de entrada da esquerda para a direita.
     }.
@@ -316,7 +316,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Além de Analisadores Sintáticos (Gramáticas Livre de Contexto),
     existem muitos outros como Analisadores Semânticos (Gramáticas Sensíveis ao Contexto) \cite{contextSensitiveParsing}.
     }
-    é um nome dado para Analisadores que recebem como entrada uma gramática que representa os aspectos estruturais de uma linguagem,
+    é um nome dado para analisadores que recebem como entrada uma gramática que representa os aspectos estruturais de uma linguagem,
     i.e.,
     sua sintaxe \cite{ahoCompilerDragonBook}.
     Analisadores Sintáticos possuem muito mais utilidade do que somente checar se a sintaxe do programa de entrada está correta.
@@ -358,7 +358,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     são Descendentes \cite{antlrBookTerrentParr,llStarAntlr} e
     reconhecem somente um subconjunto das Linguagens LR(K)\footnote{
     Diz~=se que uma linguagem é LR(K) ou
-    LL(K) quando ela é reconhecida por este Analisador
+    LL(K) quando ela é reconhecida por este analisador
     }.
 
     A Figura \ref{fig:pictures/LinguagensDeterministicas.png} não é inteiramente um Diagrama de Venn \cite{generalizedVennDiagrams},
@@ -396,7 +396,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     },
     que podem ser classificadas como LR(K),
     LL(K)\advisor{etc, }{ entre outros, }i.e.,
-    de acordo com o tipo de Analisador que pode ser construído.
+    de acordo com o tipo de analisador que pode ser construído.
     \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/LinguagensDeterministicas.png}
@@ -409,7 +409,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Do inglês, \textit{Parsing Table}
     }
     \cite{ahoCompilerDragonBook} acontece sem conflitos.
-    É importante notar que usualmente o processo de análise por um Analisador,
+    É importante notar que usualmente o processo de análise por um analisador,
     seja ele LR(K) ou
     LL(K),
     acontece em duas etapas.
@@ -417,9 +417,9 @@ Fazer depois que a fundamentação teórica estiver concluída.
     i.e.,
     com o programador construindo manualmente como deve acontecer cada transição de estado do analisador \cite{ahoCompilerDragonBook}.
 
-    Na primeira etapa do Analisador utilizam~=se algoritmos de construção da Tabela de Análise.
-    Quando a tabela está construída sem conflitos (este Analisador portanto,
-    é Determinístico),
+    Na primeira etapa do analisador utilizam~=se algoritmos de construção da Tabela de Análise.
+    Quando a tabela está construída sem conflitos (este analisador portanto,
+    é determinístico),
     entra em cena o algoritmo de análise na segunda etapa,
     que utilizando a Tabela de Análise,
     realiza o reconhecimento do programa de entrada.
@@ -461,7 +461,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
 \label{reducoesEderivacoes}
 
     Diferente Máquinas Reconhecedoras específicas como Automatos Finitos,
-    os Analisadores recebem diretamente como entrada uma gramática de uma dada linguagem.
+    os analisadores recebem diretamente como entrada uma gramática de uma dada linguagem.
     Mas diferente de gramáticas e
     Analisadores LL(K),
     Analisadores LR(K) especificamente funcionam de modo contrário.
@@ -568,22 +568,22 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
     Assim,
     além da hierarquia de Chomsky,
-    também classifica~=se as gramáticas de acordo com o tipo de Analisador que reconhece as linguagens representadas por elas.
+    também classifica~=se as gramáticas de acordo com o tipo de analisador que reconhece as linguagens representadas por elas.
     Como mostrado na Figura \ref{fig:pictures/LinguagensDeterministicas.png},
     nem todas as Gramáticas Livre de Contexto são de Determinísticas e
     uma gramática é Determinística somente se ela pode ser reconhecida por um Analisador LR(K).
 
-    Portanto uma maneira fácil de decidir se uma dada gramática é Determinística ou
+    Portanto uma maneira fácil de decidir se uma dada gramática é determinística ou
     não,
     é tentar construir a sua tabela de um Analisador LR(K).
     Caso consiga~=se construir com sucesso (sem conflitos) a Tabela de Análise Sintática \cite{ahoCompilerDragonBook},
     a gramática é LR(K),
-    caso contrário a gramática não é Determinística.
+    caso contrário a gramática não é determinística.
 
-    A mesma técnica pode ser aplicada no caso de Analisadores menos poderosos como LALR(K),
+    A mesma técnica pode ser aplicada no caso de analisadores menos poderosos como LALR(K),
     entretanto,
     uma vez que não se consiga construir a Tabela de Análise Sintática,
-    não se pode ter certeza se dada gramática é ou não Determinística.
+    não se pode ter certeza se dada gramática é ou não determinística.
 
 
 \subsection{Análise Semântica}
@@ -604,7 +604,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     que restringem~=se a estrutura do programa e
     não a seu significado (semântica).
 
-    Nem todas as linguagens podem ser Analisadas completamente em diferentes etapas,
+    Nem todas as linguagens podem ser analisadas completamente em diferentes etapas,
     como Análise Léxica, Sintática e Semântica. Muitas vezes,
     estas três etapas acontecem em paralelo como realizado na implementação do compilador da Linguagem C \cite{jourdan2017,whyCcannotBeParsedWithALR1Parser}.
 
@@ -644,12 +644,12 @@ Fazer depois que a fundamentação teórica estiver concluída.
 \subsection{Alterações nos Analisadores Sintáticos}
 
     Dependendo de como o Analisador Sintático de Gramáticas Livre de Contexto é alterado,
-    o conjunto de gramáticas aceitos por tal Analisador pode deixar de serem Livres de Contexto.
+    o conjunto de gramáticas aceitos por tal analisador pode deixar de serem Livres de Contexto.
     As gramáticas somente continuarão Livre de Contexto caso estas alterações sejam somente mover checagens da etapa de Análise Sintática para a etapa de Análise Semântica sem realizar alterações no Analisador Sintático.
 
     Quanto se adiciona suporte a Aspectos Sensíveis ao Contexto \cite{contextSensitiveParsing} a Gramáticas Livre de Contexto por meio de alterações do Analisador Sintático,
     como feito no Analisador da Linguagem C,
-    o Analisador da gramática deixa de ser Livre de Contexto,
+    o analisador da gramática deixa de ser Livre de Contexto,
     suportando assim,
     algumas Gramáticas Sensíveis ao Contexto e\slash{}ou também algumas Gramáticas Não~=Determinísticas.
 
@@ -658,7 +658,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     como mostrado na seção anterior,
     seja analisada com eficiência.
     Mas isso deixa a brechas para que ela possa não ser analisada com eficiência.
-    A diferença para um Analisador onde a gramática é inteiramente Livre de Contexto,
+    A diferença para um analisador onde a gramática é inteiramente Livre de Contexto,
     é que elas tem performance \textit{garantida} pela sua Classe de Complexidade (Veja seção \ref{classesDeComplexidade}).
 
     Sintaxe e
@@ -696,13 +696,13 @@ Fazer depois que a fundamentação teórica estiver concluída.
     onde Aspectos Sensíveis ao Contexto serão analisados pelo Analisador Semântico,
     tal como feito na implementação do Compilador da Linguagem C apresentado.
     Mas com a diferença de que utiliza~= um Analisador LALR(1) genérico,
-    ao contrário de um Analisador feito exclusivamente para a linguagem alvo.
+    ao contrário de um analisador feito exclusivamente para a linguagem alvo.
 
     Este Analisador LALR(1),
     possui suporte a pequenos ``\textit{\englishword{hacks}}'' ou
     otimizações que permitem adicionar alguns aspectos Sensíveis ao Contexto ao Analisador LALR(1).
     Assim,
-    as gramáticas aceitas por esse Analisador incluem somente algumas Gramáticas Não~=Determinísticas,
+    as gramáticas aceitas por esse analisador incluem somente algumas Gramáticas Não~=Determinísticas,
     não incluindo todas as Gramáticas Livre de Contexto Ambíguas ou
     Sensíveis ao Contexto devido a limitações das alterações do algoritmo de Análise LALR(1) \cite{larkContextualLexer}.
 
@@ -725,9 +725,9 @@ Fazer depois que a fundamentação teórica estiver concluída.
     por que Gramáticas Livre de Contexto Determinísticas $\Theta(n)$ e
     Não~=Determinísticas não são equivalentes.
     Gramáticas Não~=Determinísticas possuem complexidade exponential,
-    quando Analisadas por um Analisador com Backtracking.
+    quando analisadas por um Analisador com Backtracking.
     Em contra~=partida,
-    Gramáticas Livre de Contexto Não~=Determinísticas também podem ser Analisadas em tempo polinomial $\Theta(n^3)$ utilizando algoritmos de parsing tal como CYK (seção \ref{hierarquiaDeChomsky} e
+    Gramáticas Livre de Contexto Não~=Determinísticas também podem ser analisadas em tempo polinomial $\Theta(n^3)$ utilizando algoritmos de parsing tal como CYK (seção \ref{hierarquiaDeChomsky} e
     \citeonline{larkContextualLexer}).
 
 
@@ -755,7 +755,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     somente otimizadores na resolução de alguns problemas que podem ser otimizados devido as propriedades específicas\slash{}probabilísticas das leis Física Quântica \cite{churchTuringQuantumComputer}.
 
     Pode~=se confundir Computadores Quânticos como equivalentes a Analisadores Não~=Determinísticos devido as nomenclaturas utilizadas.
-    Enquanto Analisadores são Não~=Determinísticos devido à ambiguidades nas gramáticas de entrada,
+    Enquanto analisadores são Não~=Determinísticos devido à ambiguidades nas gramáticas de entrada,
     Computadores Quânticos são Não Determinísticos devido à serem baseado em modelos Probabilísticos,
     i.e.,
     Computadores Quânticos não são equivalentes a Analisadores Não~=Determinísticos devido a sua execução ser probabilística \cite{polynomialQuantumComputers,probabilisticQuantumComputation,quantumSimulatorChagas}.
@@ -777,7 +777,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
     Na Figura \ref{fig:pictures/ParserNonDeterministic.png},
     encontra~=se uma Árvore de Computação de um Analisador Não~=Determinístico.
-    Diz~=se que que o tempo de execução de um Analisador Não~=Determinístico é Não~=Determinístico  Polinomial $NP$\footnote{
+    Diz~=se que que o tempo de execução de um Analisador Não~=Determinístico é Não~=Determinístico Polinomial $NP$\footnote{
     Do inglês, \textit{Non~=Deterministic Polynomial Time},
     comumente conhecida pela pergunta,
     $P \stackrel{?}{=} NP$, i.e.,
@@ -808,7 +808,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     E pertencente a classe dos problemas Não~=Determinístico Polinomial.
     } é o fato de cada um dos itens 1,
     2, 3 e 4 da entrada,
-    permitirem simultaneamente a escolha de mais de um caminho na escolha do próximo estado do Analisador,
+    permitirem simultaneamente a escolha de mais de um caminho na escolha do próximo estado do analisador,
     i.e.,
     mais de um Ramo de Computação,
     devido a ambiguidades da gramática de entrada \cite{antlrBookTerrentParr}.
@@ -874,14 +874,14 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \cite{sipserBook,turingMachinesRoyer}.
 
     Assim,
-    máquinas de Turing Determinísticas e
+    Máquinas de Turing Determinísticas e
     Não~=Determinísticas são equivalentes,
     pois sempre é possível simular o funcionamento de uma Máquina de Turing Não~=Determinística,
     utilizando uma Máquina de Turing Determinística \cite{hopcroftBook}.
 
     Na Figura \ref{fig:pictures/ParserDeterministic.png},
     encontra~=se a mesma Árvore de Computação apresentada na Figura \ref{fig:pictures/ParserNonDeterministic.png},
-    mas com a diferença de que desta vez utiliza~=se uma máquina de Turing Determinística ao contrário de uma Máquina de Turing Não~=Determinística.
+    mas com a diferença de que desta vez utiliza~=se uma Máquina de Turing Determinística ao contrário de uma Máquina de Turing Não~=Determinística.
     Com isso,
     ao invés de um tempo polinomial ao tamanho da entrada,
     tem~=se um tempo exponential ao tamanho da entrada.
@@ -925,11 +925,11 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Cada uma delas apresenta suas vantagens e
     desvantagens.
     Uma vantagem da Busca em Profundidade é possibilidade de ``sorte'',
-    caso o primeiro ramo Não~=Determinístico que escolhe~=se seja uma solução para o problema,
+    caso o primeiro ramo não~=determinístico que escolhe~=se seja uma solução para o problema,
     i.e.,
-    leve o Analisador a um estado de aceitação,
+    leve o analisador a um estado de aceitação,
     mas ao mesmo tempo de pode~=se ter ``sorte'',
-    pode~=se ter o ``azar'' de que o primeiro ramo Não~=Determinístico seja um ramo infinito de computações que nunca levarão o Analisador à um estado de aceitação.
+    pode~=se ter o ``azar'' de que o primeiro ramo não~=determinístico seja um ramo infinito de computações que nunca levarão o analisador à um estado de aceitação.
 
     A Figura \ref{fig:pictures/ParserDeterministic.png} mostrou um exemplo de uso do algoritmo de Busca em Profundidade.
     Já na Figura \ref{fig:pictures/ParserDeterministicBreadth.png},
