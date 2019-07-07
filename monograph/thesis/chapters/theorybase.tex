@@ -42,7 +42,6 @@ Fazer depois que a fundamentação teórica estiver concluída.
     um programa de saída em \textit{Assembly},
     tem~=se um processo de compilação \cite{translatorGenerationCompilier}.
     }
-
     \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/ProcessoTraducao.png}
@@ -155,9 +154,10 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
         \item Um símbolo inicial selecionado a partir do conjunto de símbolos Não~=Terminais.
         O símbolo inicial é utilizado para definir qual será a raíz da Árvore Sintática,
-        i.e.,
-        o última regra de produção utilizada para terminar o reconhecimento do programa de entrada,
-        e o primeira  utilizada ao gerar palavras desta dada linguagem\footnote{
+        e.g.,
+        o última regra de produção utilizada para terminar o reconhecimento do programa de entrada em um Analisador Ascendente (ver seção \ref{reducoesEderivacoes}),
+        e a primeira regra utilizada em um Analisador Descendente ou
+        gerar~=se palavras desta linguagem\footnote{
         Processo natural quanto um Analisador Sintático realiza o reconhecimento de um programa de entrada.
         Para mais informações,
         veja a \fullref{reducoesEderivacoes}.
@@ -168,18 +168,46 @@ Fazer depois que a fundamentação teórica estiver concluída.
 \subsection{Hierarquia de Chomsky}
 \label{hierarquiaDeChomsky}
 
-    Todas as Gramáticas que existem são no mínimo Gramáticas Tipo 0,
-    também conhecidas como Gramáticas Irrestritas por que não possuem nenhuma restrição de complexidade de tempo como outros tipos de Gramáticas a serem definidos nas próximas seções{}.
+    Todas as Gramáticas que existem são no mínimo\footnote{
+    Caso contrário não serão Gramáticas,
+    mas qualquer outra definição no qual a Teoria de Linguagens Formais e
+    Compiladores pode não se aplicar.
+    }
+    Gramáticas Tipo 0,
+    também conhecidas como Gramáticas Irrestritas por que não possuem nenhuma restrição de complexidade de tempo,
+    como os outros tipos de Gramáticas a serem definidos nas próximas seções{}.
     A partir da adição restrições sobre a definição formal de Gramática recém apresentada,
     também pode~=se \advisor{compreender}{realizar diversas classificações como} a hierarquia de \citeonline{chomskyGrammars1956},
     onde uma linguagem pode ser classificada como Regular,
     Livre de Contexto,
     Sensível ao Contexto e
     Irrestrita (Figura \ref{fig:pictures/HierarquiaDeChomsky.png}).
-
     \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/HierarquiaDeChomsky.png}
+    \begin{minipage}{\textwidth} \footnotesize
+    *Para Gramáticas Regulares Determinísticas,
+    complexidade linear ao tamanho da palavra de entrada para determinar se uma dada palavra pertence ou
+    não a linguagem.
+    Para Gramáticas Regulares Não~=Determinísticas,
+    complexidade polinomial para construir as Árvores de Derivações e
+    determinar se dada palavra pertence ou
+    não a Linguagem com algoritmos como CYK \cite{hopcroftBook,cykParsingAlgorithm}.
+    Por fim,
+    para Automatos Finitos Não~=Determinísticos ou
+    Analisadores com Backtracking,
+    tempo exponencial.
+
+    **Para Gramáticas Livres de Contexto Determinísticas,
+    também conhecidas como LR(K),
+    complexidade linear ao tamanho da palavra de entrada (veja a seção \ref{gramaticasVersusLinguagens}).
+    Para Gramáticas Livre de Contexto Não~=Determinísticas,
+    vale o mesmo que para Linguagens Regulares Não~=Determinísticas logo acima,
+    mas no lugar de Automatos Finitos,
+    utilizam~=se Máquinas de Pilha.
+
+    ***Para verificar se uma dada sentença pertence ou não a linguagem.
+    \end{minipage}
     \caption[Hierarquia de Chomsky]{Hierarquia de Chomsky -- Fonte Própria\protect\footnotemark,
     \citeonline{sipserBook,ahoTheoryOfParsing,efficientNonDeterministicParsers,johnCocke}}
     \label{fig:pictures/HierarquiaDeChomsky.png}
@@ -187,23 +215,6 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \footnotetext{
     Veja \citeonline{computationalComplexityAuroraBarak,complexityClasses} para aprender mais sobre Classes de Complexidade.
     }
-
-    *Para Gramáticas Regulares Determinísticas,
-    complexidade Linear ao tamanho da palavra de entrada para determinar se uma dada palavra pertence ou
-    não a linguagem.
-    Para Gramáticas Regulares Não~=Determinísticas,
-    Automatos Finitos Não~=Determinísticos ou
-    Analisadores com Backtracking,
-    tempo Exponencial ao tamanho da Gramática de Entrada.
-
-    **Para Gramáticas Livres de Contexto Determinísticas,
-    também conhecidas como LR(K),
-    complexidade Linear ao tamanho da palavra de entrada (veja a seção \ref{gramaticasVersusLinguagens}).
-    Para Gramáticas Livre de Contexto Não~=Determinísticas,
-    complexidade Exponencial construir a Árvore de Derivações utilizado Backtracking e
-    complexidade Polinomial para construir as Árvores de Derivações e
-    determinar se dada palavra pertence ou
-    não a Linguagem com algoritmos como CYK \cite{hopcroftBook,cykParsingAlgorithm}.
 
     Toda Gramática Regular ou
     Livre de Contexto,
@@ -269,7 +280,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
     Por fim,
     as Gramáticas Irrestritas ou (também conhecidas como Tipo 0) possuem a mesma definição do
-    que a definição válida de uma Gramática como apresentado anteriormente (No
+    que a definição válida de uma Gramática como apresentado anteriormente (no
     \fullref{definicaoDeGramatica}).
     Gramáticas Irrestritas são reconhecidas somente por Máquinas de Turing\footnote{
     Máquinas de Turing possuem por definição fita (ou memória) ilimitada,
@@ -363,7 +374,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Também existem Gramáticas Sensíveis ao Contexto Determinísticas \cite{contextSensitiveParsing},
     entretanto,
     algoritmos de análise possuem em pior caso,
-    complexidade Exponencial.
+    complexidade exponencial.
     }.
     O primeiro nível significa que todas as Linguagens Inerentemente Ambíguas\footnote{
     É comum confundir~=se e
@@ -390,7 +401,6 @@ Fazer depois que a fundamentação teórica estiver concluída.
     que podem ser classificadas como LR(K),
     LL(K)\advisor{etc, }{ entre outros, }i.e.,
     de acordo com o tipo de Analisador que pode ser construído.
-
     \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/LinguagensDeterministicas.png}
@@ -421,7 +431,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Como única diferença entre os Analisadores LR(K),
     LALR(K) e
     SLR(K) é exatamente construção da Tabela de Análise,
-    ambos possuem a mesma complexidade de Análise Linear \cite{knuthLrParser1965} ao tamanho do programa\footnote{
+    ambos possuem a mesma complexidade de análise linear \cite{knuthLrParser1965} ao tamanho do programa\footnote{
     Quando refere~=se a programa,
     fala~=se da \textit{string} ou
     texto que será analisado e
@@ -445,7 +455,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     reveja a seção \ref{hierarquiaDeChomsky}) precisam ser utilizados para construção da Árvore Sintática.
     Como mostrado para Máquinas de Turing Não~=Determinísticas na seção \ref{mecanismosReconhecedores},
     Analisadores com Backtracking também funcionam em pior caso,
-    com tempo Exponencial e
+    com tempo exponencial e
     podem escolher uma estratégia como Busca em Profundidade\footnote{
     Veja a \fullref{buscaEmLarguraEProfundidade} para saber mais.
     } para executar os Ramos de Computação Não~=Determinístico.
@@ -512,7 +522,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Tem~=se somente a construção de uma Árvore de Derivação partial \cite{allStarAntlr}.
 
     No caso dos Analisadores Ascendentes,
-    será um floresta de árvores,
+    será uma floresta de árvores,
     por que somente no final da análise,
     com a chegada ao símbolo inicial da Gramática,
     completa~=se custura de todas a árvores que foram parcialmente construídas durante o processo de análise (\textit{Bottom~=Up}).
@@ -602,7 +612,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     como Análise Léxica, Sintática e Semântica. Muitas vezes,
     estas três etapas acontecem em paralelo como realizado na implementação do compilador da Linguagem C \cite{jourdan2017,whyCcannotBeParsedWithALR1Parser}.
 
-    A Gramática da linguagem C não é Livre de Contexto devido as ambiguidades existentes como a expressão ``\textit{x * y ;}''.
+    A Gramática da linguagem C não é Livre de Contexto devido as ambiguidades (conhecido também como Não~=Determinismo) existentes como a expressão ``\textit{x * y ;}''.
     Tal sentença pode ser ou
     a declaração de um ponteiro chamado \textit{y} do tipo \textit{x},
     ou a multiplicação de dois números armazenados nas variáveis \textit{x} e
@@ -705,11 +715,11 @@ Fazer depois que a fundamentação teórica estiver concluída.
 \label{classesDeComplexidade}
 
     Como um todo,
-    o conjunto de Linguagens Regulares pode ser considerado com complexidade Linear\footnote{
-    Complexidade Linear é um caso particular de complexidade Polinomial onde o grau do Polinômio é 1,
+    o conjunto de Linguagens Regulares pode ser considerado com complexidade linear\footnote{
+    Complexidade linear é um caso particular de complexidade polinomial onde o grau do Polinômio é 1,
     i.e.,
     $\Theta(n)$.
-    Aprenda mais sobre complexidade Linear com \citeonline{cormenIntroductionToAlgorithms,computationalComplexityAuroraBarak}.
+    Aprenda mais sobre complexidade linear com \citeonline{cormenIntroductionToAlgorithms,computationalComplexityAuroraBarak}.
     }
     em tempo computacional para determinar de dada palavra pertence ou
     não a linguagem,
@@ -718,10 +728,11 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Infelizmente isso não é verdade para Gramáticas Livres de Contexto,
     por que Gramáticas Livre de Contexto Determinísticas $\Theta(n)$ e
     Não~=Determinísticas não são equivalentes.
-    Gramáticas Não~=Determinísticas possuem complexidade Exponential,
+    Gramáticas Não~=Determinísticas possuem complexidade exponential,
     quando Analisadas por um Analisador com Backtracking.
     Em contra~=partida,
-    Gramáticas Livre de Contexto Não~=Determinísticas também podem ser Analisadas em tempo Polinomial $\Theta(n^3)$ utilizando algoritmos de parsing tal como CYK (seção \ref{hierarquiaDeChomsky,larkContextualLexer}).
+    Gramáticas Livre de Contexto Não~=Determinísticas também podem ser Analisadas em tempo polinomial $\Theta(n^3)$ utilizando algoritmos de parsing tal como CYK (seção \ref{hierarquiaDeChomsky} e
+    \citeonline{larkContextualLexer}).
 
 
 \advisor{}{%
@@ -739,7 +750,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     caminho ``pulando'' ramos de Computação Não~=Determinísticos (da computação Clássica) com a superposição quântica.
     Assim,
     conseguindo resolver alguns problemas que são exponenciais,
-    em tempo Polinomial ao tamanho da entrada,
+    em tempo polinomial ao tamanho da entrada,
     utilizando algoritmos específicos para computadores quânticos \cite{quantumComputerSurvey,quantumSimulatorChagas}.
 
     Esta é a gama de problemas nos quais Computadores Quânticos são úteis \cite{quantumComputingForNonPhysicists},
@@ -774,7 +785,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Do inglês, \textit{Non~=Deterministic Polynomial Time},
     comumente conhecida pela pergunta,
     $P \stackrel{?}{=} NP$, i.e.,
-    a classe de problemas com complexidade de tempo Polinomial,
+    a classe de problemas com complexidade de tempo polinomial,
     está estritamente contida na classe de problemas $NP$ (Não~=Determinísticos Polinomiais) \cite{computationalComplexityAuroraBarak}?
     }
     ao tamanho da entrada,
@@ -790,7 +801,6 @@ Fazer depois que a fundamentação teórica estiver concluída.
     com expoente de $n$ igual a $1$,
     i.e.,
     $n^1$.
-
     \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/ParserNonDeterministic.png}
@@ -811,12 +821,12 @@ Fazer depois que a fundamentação teórica estiver concluída.
     $P$ representa o conjunto de problemas resolvidos tempo Determinístico Polinomial (por Máquinas de Turing Determinísticas),
     enquanto $NP$ o conjunto de Problemas resolvido em tempo Não~=Determinístico Polinomial (por Máquinas de Turing Não~=Determinísticas).
     Assim,
-    um problema Não~=Determinístico Polinomial somente pode ser resolvido por uma Máquinas de Turing Determinística em tempo Exponencial.
+    um problema Não~=Determinístico Polinomial somente pode ser resolvido por uma Máquinas de Turing Determinística em tempo exponencial.
 
-    O tempo de execução será Linear ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Regular e
+    O tempo de execução será linear ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Regular e
     implementado através de um Automato Finito.
-    O tempo de execução será Polinomial ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Livre de Contexto Ambígua (Gramática Não~=Determinística) e
-    implementado através de algum algoritmo com tempo Polinomial como CYK \cite{allStarAntlr}.
+    O tempo de execução será polinomial ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Livre de Contexto Ambígua (Gramática Não~=Determinística) e
+    implementado através de algum algoritmo com tempo polinomial como CYK \cite{allStarAntlr}.
 
     Como já explicado nas observações da Figura \ref{fig:pictures/HierarquiaDeChomsky.png},
     existem duas classes distintas de Complexidade para Gramáticas Livre de Contexto Não~=Determinísticas.
@@ -824,22 +834,21 @@ Fazer depois que a fundamentação teórica estiver concluída.
     tem~=se como resultado várias possíveis Árvores de Derivação\footnote{
     Como a Gramática é Não~=Determinística,
     existem muitas possíveis Árvores de Derivação,
-    (devido à ambiguidade da Gramática,
-    conhecido também como Não~=Determinismo).
+    (devido à ambiguidade da Gramática).
     }.
 
     Algoritmos de construção das Árvores de Derivação com Backtracking para Gramáticas Livre de Contexto Não~=Determinística,
-    possuem tempo Exponencial de execução.
+    possuem tempo exponencial de execução.
     Já algoritmos como CYK,
     que simplesmente dizem se dada palavra pertence ou
     não a Linguagem,
-    possuem complexidade Polinomial ao tamanho da palavra de entrada \cite{hopcroftBook}.
+    possuem complexidade polinomial ao tamanho da palavra de entrada \cite{hopcroftBook}.
 
 
 \subsection{Mecanismos Reconhecedores}
 \label{mecanismosReconhecedores}
 
-    Uma vez que o conjunto de Linguagens Determinísticas LR(K) (com tempo Linear) está contida no conjunto das Linguagens Livres de Contexto,
+    Uma vez que o conjunto de Linguagens Determinísticas LR(K) (com tempo linear) está contida no conjunto das Linguagens Livres de Contexto,
     não considera~=se tempos Análise Lineares ou
     Polinomiais de execução para Linguagens Sensíveis ao Contexto ou
     Irrestritas,
@@ -847,19 +856,19 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Determinístico.
 
     Algoritmos de Análise para essas outras classes de Linguagens serão exponenciais em pior caso \cite{contextSensitiveParsing} e
-    quando analisados por dispositivos equivalentes a Máquinas de Turing Não~=Determinísticas terão no mínimo tempo Polinomial\footnote{
-    Quando fala~=se de complexidade de tempo Polinomial para Máquinas Não~=Determinísticas,
-    resulta~=se em uma complexidade de tempo Exponencial ao simular o funcionamento dessa Máquina Não~=Determinística em um computador,
+    quando analisados por dispositivos equivalentes a Máquinas de Turing Não~=Determinísticas terão no mínimo tempo polinomial\footnote{
+    Quando fala~=se de complexidade de tempo polinomial para Máquinas Não~=Determinísticas,
+    resulta~=se em uma complexidade de tempo exponencial ao simular o funcionamento dessa Máquina Não~=Determinística em um computador,
     ou seja,
-    a Real Complexidade do problema termina sendo Exponencial,
-    enquanto teoricamente a complexidade é Polinomial.
+    a Real Complexidade do problema termina sendo exponencial,
+    enquanto teoricamente a complexidade é polinomial.
     Veja as figuras \ref{fig:pictures/ParserNonDeterministic.png} e
     \ref{fig:pictures/ParserDeterministic.png} e
     as compare.
     }
     de execução.
 
-    Máquinas de Turing Não~=Determinísticas que resolvem os problemas da Classe $NP$ em tempo Polinomial não existem fisicamente,
+    Máquinas de Turing Não~=Determinísticas que resolvem os problemas da Classe $NP$ em tempo polinomial não existem fisicamente,
     portanto sua complexidade de tempo reduzida não pode ser alcançada e
     seu tempo de execução é exponential,
     pois para simular o funcionamento de uma Máquina de Turing Não~=Determinística,
@@ -878,9 +887,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     encontra~=se a mesma Árvore de Computação apresentada na Figura \ref{fig:pictures/ParserNonDeterministic.png},
     mas com a diferença de que desta vez utiliza~=se uma máquina de Turing Determinística ao contrário de uma Máquina de Turing Não~=Determinística.
     Com isso,
-    ao invés de um tempo Polinomial ao tamanho da entrada,
+    ao invés de um tempo polinomial ao tamanho da entrada,
     tem~=se um tempo exponential ao tamanho da entrada.
-
     \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/ParserDeterministic.png}
@@ -895,8 +903,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     somente existem teoricamente
     }
     executam simultaneamente todos os ramos de computação Não~=determinísticos,
-    conseguindo assim, desempenho Linear ou
-    Polinomial ao tamanho da entrada compondo os problemas da classe $NP$ (com tempo Não~=Determinístico Polinomial) \cite{hopcroftBook}.
+    conseguindo assim, desempenho linear ou
+    polinomial ao tamanho da entrada compondo os problemas da classe $NP$ (com tempo Não~=Determinístico Polinomial) \cite{hopcroftBook}.
 
 
 \subsection{Busca em Largura e Profundidade}
@@ -930,7 +938,6 @@ Fazer depois que a fundamentação teórica estiver concluída.
     A Figura \ref{fig:pictures/ParserDeterministic.png} mostrou um exemplo de uso do algoritmo de Busca em Profundidade.
     Já na Figura \ref{fig:pictures/ParserDeterministicBreadth.png},
     encontra~=se a variação de execução de um Analisador Determinístico que utilizou o algoritmo de Busca em Largura.
-
     \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/ParserDeterministicBreadth.png}
