@@ -67,8 +67,12 @@ Fazer depois que a fundamentação teórica estiver concluída.
     mas sim a geração de código objeto ou
     binário \cite{ahoCompilerDragonBook}.
 
-    Analisadores Sintáticos podem ser Ascendentes ou
-    Descendentes.
+    Analisadores Sintáticos podem ser Ascendentes\footnote{
+    Do inglês, \textit{Bottom~=Up}
+    }
+    ou Descendentes\footnote{
+    Do inglês, \textit{Top~=Down}
+    }.
     Devido a essa característica ambos possuem as suas vantagens e
     desvantagens.
     Um Analisador Ascendente realiza a construção da Árvore Sintática das folhas até a raíz,
@@ -474,10 +478,36 @@ Fazer depois que a fundamentação teórica estiver concluída.
     ao invés de $\Rightarrow$,
     $\xRightarrow{*}$ e
     $\xRightarrow{+}$.
-    Enquanto Gramáticas são geradores de palavras que partem do Símbolo Inicial da Gramática até chegarem em uma palavra da linguagem,
-    Analisadores são reconhecedores de palavras que partem da palavra de uma linguagem até chegarem no Símbolo Inicial da Gramática,
-    independente se estes Analisadores são Ascendentes ou
-    Descendentes.
+    Enquanto Gramáticas são geradores de palavras que partem do Símbolo Inicial da Gramática até gerarem uma palavra da linguagem,
+    Analisadores Ascendentes como LR(K) são reconhecedores de palavras.
+
+    Diferente de Gramáticas,
+    Analisadores Ascendentes partem de uma palavra da Linguagem até chegarem no Símbolo Inicial da Gramática,
+    consumindo toda a palavra de entrada e
+    chegando em um Estado de Aceitação.
+    Já Analisadores Descendentes como LL(K),
+    partem do Símbolo Inicial da Gramática até consumirem toda palavra de entrada,
+    também chegando um em Estado de Aceitação.
+
+    Ambos os Analisadores Ascendentes ou
+    Descendentes,
+    terminam no final do processo,
+    gerando toda a Árvore de Derivação.
+    Entretanto,
+    caso no final do processo,
+    não chega~=se em um Estado de Aceitação.
+    Tem~=se a construção de uma Árvore de Derivação partial.
+
+    No caso dos Analisadores Ascendentes,
+    será um floresta de árvores,
+    por que somente no final da análise,
+    com a chegada ao símbolo inicial da Gramática,
+    completa~=se custura de todas a árvores que foram parcialmente construídas durante o processo de análise (\textit{Bottom~=Up}).
+
+    Já no caso dos Analisadores Descendentes,
+    não existe uma floresta de árvores.
+    Como parte~=se diretamente do Símbolo Inicial da Gramática,
+    a Árvore de Derivação desde o começo é construído como sendo uma única árvore (\textit{Top~=Down}).
 
 
 \subsection{Analisadores LR(K)}
@@ -512,6 +542,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Do inglês, \textit{Simple LR(K) parser}
     }
     com o objeto de viabilizar a implementação de Analisadores Ascendentes Determinísticos.
+
     Gramáticas de Linguagens Determinísticas são chamadas de LR,
     por que todas as Linguagens Determinísticas são reconhecidas por Analisadores LR(K),
     uma vez que \citeonline{knuthLrParser1965} provou que todas as Gramáticas Determinísticas são aceitas por um Analisador LR(K).
@@ -529,6 +560,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Caso consiga~=se construir com sucesso (sem conflitos) a Tabela de Analise Sintática \cite{ahoCompilerDragonBook},
     a Gramática é LR(K),
     caso contrário a Gramática não é Determinística.
+
     A mesma técnica pode ser aplicada no caso de Analisadores menos poderosos como LALR(K),
     entretanto,
     uma vez que não se consiga construir a Tabela de Analise Sintática,
@@ -605,7 +637,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     seja analisada com eficiência.
     Mas isso deixa a brechas para que ela possa não ser analisada com eficiência.
     A diferença para um Analisador onde a Gramática é inteiramente Livre de Contexto,
-    é que elas tem performance \textit{garantida} pela sua Classe de complexidade (Veja seção \ref{classesDeComplexidade}).
+    é que elas tem performance \textit{garantida} pela sua Classe de Complexidade (Veja seção \ref{classesDeComplexidade}).
 
     Sintaxe e
     Semântica de Linguagens são completamente ortogonais.
@@ -663,7 +695,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     }.
     Como um todo,
     o conjunto de Linguagens Regulares pode ser considerado com complexidade Linear\footnote{
-    complexidade Linear é um caso particular de complexidade Polinomial onde o grau do Polinômio é 1,
+    Complexidade Linear é um caso particular de complexidade Polinomial onde o grau do Polinômio é 1,
     i.e.,
     $\Theta(n)$.
     Aprenda mais sobre complexidade Linear com \citeonline{cormenIntroductionToAlgorithms,computationalComplexityAuroraBarak}.
@@ -737,7 +769,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Do inglês, \textit{Non~=Deterministic Polynomial Time},
     comumente conhecida pela pergunta,
     $P \stackrel{?}{=} NP$, i.e.,
-    a classe de problemas com complexidade de Tempo Polinomial,
+    a classe de problemas com complexidade de tempo Polinomial,
     está estritamente contida na classe de problemas $NP$ (Não~=Determinísticos Polinomiais) \cite{computationalComplexityAuroraBarak}?
     }
     ao tamanho da entrada,
@@ -770,8 +802,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     não se conhece ou
     existem algoritmos de Análise de Linguagens Livre de Contexto em tempo Linear,
     enquanto $P \stackrel{?}{=} NP$ ainda não é decido \cite{computationalComplexityAuroraBarak}.
-    $P$ representa o conjunto de problemas resolvidos Tempo Polinomial,
-    enquanto $NP$ o conjunto de Problemas resolvido em Tempo Não~=Determinístico Polinomial.
+    $P$ representa o conjunto de problemas resolvidos tempo Polinomial,
+    enquanto $NP$ o conjunto de Problemas resolvido em tempo Não~=Determinístico Polinomial.
     }.
 
 
@@ -784,8 +816,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Irrestritas.
     Algoritmos de Analise Sintática serão exponenciais em pior caso \cite{contextSensitiveParsing} e
     quando analisados por dispositivos equivalentes a Máquinas de Turing Não~=Determinísticas terão no mínimo tempo Polinomial\footnote{
-    Quando fala~=se de complexidade de Tempo Polinomial para Máquinas Não~=Determinísticas,
-    resulta~=se em uma complexidade de Tempo Exponencial ao simular o funcionamento dessa Máquina Não~=Determinística em um computador,
+    Quando fala~=se de complexidade de tempo Polinomial para Máquinas Não~=Determinísticas,
+    resulta~=se em uma complexidade de tempo Exponencial ao simular o funcionamento dessa Máquina Não~=Determinística em um computador,
     ou seja,
     a Real Complexidade do problema termina sendo Exponencial,
     enquanto teoricamente a complexidade é Polinomial.
@@ -830,7 +862,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     }
     executam simultaneamente todos os ramos de computação não~=determinísticos,
     conseguindo assim, desempenho Linear ou
-    Polinomial ao tamanho da entrada compondo os problemas da classe $NP$ (Em Tempo Não~=Determinístico Polinomial) \cite{hopcroftBook}.
+    Polinomial ao tamanho da entrada compondo os problemas da classe $NP$ (em tempo Não~=Determinístico Polinomial) \cite{hopcroftBook}.
 
 
 \subsection{Busca em Largura e Profundidade}
