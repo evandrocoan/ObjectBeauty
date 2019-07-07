@@ -42,6 +42,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     um programa de saída em \textit{Assembly},
     tem~=se um processo de compilação \cite{translatorGenerationCompilier}.
     }
+
     \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/ProcessoTraducao.png}
@@ -174,6 +175,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Livre de Contexto,
     Sensível ao Contexto e
     Irrestrita (Figura \ref{fig:pictures/HierarquiaDeChomsky.png}).
+
     \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/HierarquiaDeChomsky.png}
@@ -195,7 +197,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     também conhecidas como LR(K),
     complexidade Linear ao tamanho da palavra de entrada (veja \fullref{gramaticasVersusLinguagens}).
     Para Gramáticas Livre de Contexto Não~=Determinísticas,
-    vale o mesmo que para Gramáticas Regulares Não~=Determinísticas.
+    vale o mesmo que para Gramáticas Regulares Não~=Determinísticas apresentado no parágrafo anterior.
 
     Toda Gramática Regular ou
     Livre de Contexto,
@@ -305,7 +307,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     i.e.,
     sua sintaxe \cite{ahoCompilerDragonBook}.
     Analisadores Sintáticos possuem muito mais utilidade do que somente checar se a sintaxe do programa de entrada está correta.
-    Uma vez que eles também geram a árvore sintática do programa\footnote{
+    Uma vez que eles também geram a Árvore Sintática do programa\footnote{
     Como visto no começo desde capítulo na \fullref{compiladoresEtradutores}.
     }
     que é utilizada para realizar a análise semântica e
@@ -382,6 +384,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     que podem ser classificadas como LR(K),
     LL(K)\advisor{etc, }{ entre outros, }i.e.,
     de acordo com o tipo de Analisador que pode ser construído.
+
     \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/LinguagensDeterministicas.png}
@@ -433,7 +436,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     No caso de conflitos na Tabela de Análise,
     a Gramática não pode ser analisada deterministicamente e
     algoritmos de análise com backtracking precisam ser utilizados para construção da Árvore Sintática.
-    Como mostrado para Máquinas de Turing Não~=Determinísticas na seção \ref{buscaEmLarguraEProfundidade},
+    Como mostrado para Máquinas de Turing Não~=Determinísticas na seção \ref{mecanismosReconhecedores},
     Analisadores com Backtracking também funcionam em pior caso,
     com tempo Exponencial e
     usualmente escolhem uma estratégia como Busca em Profundidade para executar os Ramos de Computação Não~=Determinístico.
@@ -455,8 +458,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Já uma Redução acontece quanto a dada regra de produção como ``$S \Rightarrow a a $'' de uma Gramática reduz e
     tem~=se como resultado ``$S$'' a partir do símbolo de origem ``$a a$''.
 
-    Tanto Derivações quanto Reduções podem ser descritas em termos que quantos passos de derivações são necessários para que se possa sair de um ponto até outra na Arvore de Derivações ou
-    Reduções \cite{ahoCompilerDragonBook}.
+    Tanto Derivações quanto Reduções podem ser descritas em termos que quantos passos são necessários para que se possa sair de um ponto até outro \cite{ahoCompilerDragonBook}:
     \begin{enumerate}%[nosep,nolistsep]
         \item Quanto um derivação é denotada como ``$S \Rightarrow a a $'',
         isso significa que somente um passo é necessário para sair do símbolo inicial ``$S$'' e
@@ -528,7 +530,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Gramáticas LR(K), LALR(K) e
     SLR(K) não precisam de nenhuma dessas restrições.
     No caso da Recursão a Esquerda,
-    o algoritmo de criação da Tabela de Analise Sintática da Gramática LR(K),
+    o algoritmo de criação da Tabela de Análise Sintática da Gramática LR(K),
     LALR(K) ou SLR(K),
     não possui o problema de entrar em um loop infinito assim como acontecem com as Gramáticas LL(K),
     portanto aceitando~=se Gramáticas com Recursão a Esquerda.
@@ -557,13 +559,13 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Portanto uma maneira fácil de decidir se uma dada Gramática é Determinística ou
     não,
     é tentar construir a sua tabela de um Analisador LR(K).
-    Caso consiga~=se construir com sucesso (sem conflitos) a Tabela de Analise Sintática \cite{ahoCompilerDragonBook},
+    Caso consiga~=se construir com sucesso (sem conflitos) a Tabela de Análise Sintática \cite{ahoCompilerDragonBook},
     a Gramática é LR(K),
     caso contrário a Gramática não é Determinística.
 
     A mesma técnica pode ser aplicada no caso de Analisadores menos poderosos como LALR(K),
     entretanto,
-    uma vez que não se consiga construir a Tabela de Analise Sintática,
+    uma vez que não se consiga construir a Tabela de Análise Sintática,
     não se pode ter certeza se dada Gramática é ou não Determinística.
 
 
@@ -600,8 +602,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     e assim saber se a expressão ``\textit{x * y ;}'' trata~=se de de uma mera multiplicação ou
     a declaração de uma variável,
     é exatamente a realização simultânea da Análise Léxica,
-    sintática e
-    semântica.
+    Sintática e
+    Semântica.
     Uma vez que um novo \textit{token} é reconhecido,
     ele é alimentado para o Analisador Sintático,
     que também o alimenta para o Analisador Semântico.
@@ -719,6 +721,13 @@ Fazer depois que a fundamentação teórica estiver concluída.
     tal como os computadores atuais,
     que somente podem realizar a execução de um ramo de computação Não~=Determinístico por vez.
 
+    Nesse contexto,
+    $P$ representa o conjunto de problemas resolvidos tempo Determinístico Polinomial (por Máquinas de Turing Determinísticas),
+    enquanto $NP$ o conjunto de Problemas resolvido em tempo Não~=Determinístico Polinomial (por Máquinas de Turing Não~=Determinísticas).
+    Assim,
+    um problema Não~=Determinístico Polinomial somente pode ser resolvido por uma Máquinas de Turing Determinística em tempo Exponencial.
+
+
 \advisor{}{%
 \subsection{Complexidade Computacional com Computadores Quânticos}
 
@@ -780,6 +789,12 @@ Fazer depois que a fundamentação teórica estiver concluída.
     2, 3 e 4,
     todos os 15 ramos de computação foram concluídos.
     Cada um desses passos é corresponde a um item a ser analisado na entrada do programa.
+    E esta computação,
+    acontece em tempo Não~=Determinístico Polinomial,
+    com expoente de $n$ igual a $1$,
+    i.e.,
+    $n^1$.
+
     \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/ParserNonDeterministic.png}
@@ -787,7 +802,9 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \label{fig:pictures/ParserNonDeterministic.png}
     \end{figure}
 
-    O que torna a computação Não~=Determinística é o fato de cada um dos itens 1,
+    O que torna a computação Não~=Determinística\footnote{
+    E pertencente a classe dos problemas Não~=Determinístico Polinomial.
+    } é o fato de cada um dos itens 1,
     2, 3 e 4 da entrada,
     permitirem simultaneamente a escolha de mais de um caminho na escolha do próximo estado do Analisador,
     i.e.,
@@ -797,24 +814,39 @@ Fazer depois que a fundamentação teórica estiver concluída.
     O tempo de execução será Linear ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Regular e
     implementado através de um Automato Finito.
     O tempo de execução será Polinomial ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Livre de Contexto Ambígua (Gramática Não~=Determinística) e
-    implementado através de algum algoritmo de Análise com tempo Polinomial\footnote{
-    Até o momento,
-    não se conhece ou
-    existem algoritmos de Análise de Linguagens Livre de Contexto em tempo Linear,
-    enquanto $P \stackrel{?}{=} NP$ ainda não é decido \cite{computationalComplexityAuroraBarak}.
-    $P$ representa o conjunto de problemas resolvidos tempo Polinomial,
-    enquanto $NP$ o conjunto de Problemas resolvido em tempo Não~=Determinístico Polinomial.
-    }.
+    implementado através de algum algoritmo com tempo Polinomial.
+
+    Como já explicado nas observações da Figura \ref{fig:pictures/HierarquiaDeChomsky.png},
+    existem duas classes distintas de Complexidade para Gramáticas Livre de Contexto Não~=Determinísticas.
+    Quando faz~=se uma Análise de uma Gramáticas Livre de Contexto Não~=Determinística,
+    tem~=se como resultado várias possíveis Árvores de Derivação\footnote{
+    Como a Gramática é Não~=Determinística,
+    existem muitas possíveis Árvores de Derivação,
+    (devido à ambiguidade da Gramática,
+    conhecido também como Não~=Determinismo).
+    },
+    ou como também chamada de Árvores Sintática por tratar~=se de um Gramáticas Livre de Contexto que trata de Aspectos Estruturais de Linguagens.
+
+    Algoritmos de construção das Árvores de Derivação para Gramáticas Livre de Contexto Não~=Determinística,
+    possuem tempo Exponencial de execução.
+    Já algoritmos como CYK,
+    que simplesmente dizem se dada palavra pertence ou
+    não a Linguagem,
+    possuem complexidade Polinomial ao tamanho da palavra de entrada \cite{hopcroftBook}.
 
 
 \subsection{Mecanismos Reconhecedores}
+\label{mecanismosReconhecedores}
 
-    Uma vez que o conjunto de Linguagens Determinísticas LR(K) (com tempo Polinomial) está contida no conjunto das Linguagens Livres de Contexto,
-    não considera~=se tempos Lineares ou
+    Uma vez que o conjunto de Linguagens Determinísticas LR(K) (com tempo Linear) está contida no conjunto das Linguagens Livres de Contexto,
+    não considera~=se tempos Análise Lineares ou
     Polinomiais de execução para Linguagens Livre de Contexto Inerentemente Ambíguas,
     Linguagens Sensíveis ao Contexto ou
-    Irrestritas.
-    Algoritmos de Analise Sintática serão exponenciais em pior caso \cite{contextSensitiveParsing} e
+    Irrestritas,
+    por que tudo o que é eficiente é Livre de Contexto e
+    Determinístico.
+
+    Algoritmos de Análise para essas outras classes de Linguagens serão exponenciais em pior caso \cite{contextSensitiveParsing} e
     quando analisados por dispositivos equivalentes a Máquinas de Turing Não~=Determinísticas terão no mínimo tempo Polinomial\footnote{
     Quando fala~=se de complexidade de tempo Polinomial para Máquinas Não~=Determinísticas,
     resulta~=se em uma complexidade de tempo Exponencial ao simular o funcionamento dessa Máquina Não~=Determinística em um computador,
@@ -835,6 +867,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Maquinas de Turing Determinísticas são equivalentes aos computadores de propósito geral
     }
     \cite{sipserBook,turingMachinesRoyer}.
+
     Assim,
     máquinas de Turing Determinísticas e
     Não~=Determinísticas são equivalentes,
@@ -847,6 +880,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Com isso,
     ao invés de um tempo Polinomial ao tamanho da entrada,
     tem~=se um tempo exponential ao tamanho da entrada.
+
     \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/ParserDeterministic.png}
@@ -866,7 +900,6 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
 
 \subsection{Busca em Largura e Profundidade}
-\label{buscaEmLarguraEProfundidade}
 
     Quando uma Máquina de Turing Determinística é utilizado para simular o funcionamento de uma Máquina de Turing não determinística,
     ela precisa decidir como escolher executar os Ramos de Computação Não~=Determinísticos.
@@ -896,6 +929,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     A Figura \ref{fig:pictures/ParserDeterministic.png} mostrou um exemplo de uso do algoritmo de Busca em Profundidade.
     Já na Figura \ref{fig:pictures/ParserDeterministicBreadth.png},
     encontra~=se a variação de execução de um Analisador Determinístico que utilizou o algoritmo de Busca em Largura.
+
     \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/ParserDeterministicBreadth.png}
