@@ -782,6 +782,31 @@
 }
 
 
+@online{cykParsingAlgorithm,
+    TITLE = {Can CYK Parsing algorithm generate the parsing tree in $O(n^3)$?},
+    AUTHOR = {Stack Rici},
+    location = {Online},
+    year = {2019},
+    HOWPUBLISHED = {Computer Science Stack Exchange},
+    NOTE = {URL:https://cs.stackexchange.com/q/111565},
+    EPRINT = {https://cs.stackexchange.com/q/111565},
+    URL = {https://cs.stackexchange.com/q/111565},
+    urlaccessdate = {2019-07-06},
+    abstract = {You can build a parse forest in $O(n^3)$ time and space. The
+    forest represents all parse trees, even an infinite number of parse trees,
+    because it is a graph, not a tree. From a parse forest, it is possible to
+    produce a single parse tree in time linear to the size of the forest, and it
+    is possible to iterate through all possible parses. So if you either
+    consider that "build a parse tree" means "find one of the possible parses"
+    or if you consider that it means "build a datastructure which represents all
+    possible parses", then you can certainly do that with a CYK grammar in
+    $O(n^3)$. If, on the other hand, you intend "build a parse tree" to mean
+    "build all parse trees for a sentence", then it is not limited to
+    exponential time; it is easy to write a grammar with an infinite number of
+    possible parses for certain sentences.},
+}
+
+
 @online{llVersusLrContainment,
     TITLE = {Language theoretic comparison of LL and LR grammars},
     AUTHOR = {Alex ten Brink},
