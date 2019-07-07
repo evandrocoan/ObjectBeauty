@@ -994,6 +994,81 @@
 }
 
 
+@inproceedings{allStarAntlr,
+    author = {Parr, Terence and Harwell, Sam and Fisher, Kathleen},
+    title = {Adaptive LL(*) Parsing: The Power of Dynamic Analysis},
+    booktitle = {Proceedings of the 2014 ACM International Conference on Object
+    Oriented Programming Systems Languages \& Applications},
+    series = {OOPSLA '14},
+    year = {2014},
+    isbn = {978-1-4503-2585-1},
+    location = {Portland, Oregon, USA},
+    pages = {579--598},
+    numpages = {20},
+    url = {http://doi.acm.org/10.1145/2660193.2660202},
+    doi = {10.1145/2660193.2660202},
+    acmid = {2660202},
+    publisher = {ACM},
+    address = {New York, NY, USA},
+    keywords = {all(*), augmented transition networks, dfa, gll, glr, grammar,
+    ll(*), nondeterministic parsing, peg},
+    abstract = {Despite the advances made by modern parsing strategies such as
+    PEG, LL(*), GLR, and GLL, parsing is not a solved problem. Existing
+    approaches suffer from a number of weaknesses, including difficulties
+    supporting side-effecting embedded actions, slow and/or unpredictable
+    performance, and counter-intuitive matching strategies. This paper
+    introduces the ALL(*) parsing strategy that combines the simplicity,
+    efficiency, and predictability of conventional top-down LL(k) parsers with
+    the power of a GLR-like mechanism to make parsing decisions. The critical
+    innovation is to move grammar analysis to parse-time, which lets ALL(*)
+    handle any non-left-recursive context-free grammar. ALL(*) is O(n4) in
+    theory but consistently performs linearly on grammars used in practice,
+    outperforming general strategies such as GLL and GLR by orders of magnitude.
+    ANTLR 4 generates ALL(*) parsers and supports direct left-recursion through
+    grammar rewriting. Widespread ANTLR 4 use (5000 downloads/month in 2013)
+    provides evidence that ALL(*) is effective for a wide variety of
+    applications.},
+}
+
+
+@inproceedings{llStarAntlr,
+    author = {Parr, Terence and Fisher, Kathleen},
+    title = {LL(*): The Foundation of the ANTLR Parser Generator},
+    booktitle = {Proceedings of the 32Nd ACM SIGPLAN Conference on Programming Language Design and Implementation},
+    series = {PLDI '11},
+    year = {2011},
+    isbn = {978-1-4503-0663-8},
+    location = {San Jose, California, USA},
+    pages = {425--436},
+    numpages = {12},
+    url = {http://doi.acm.org/10.1145/1993498.1993548},
+    doi = {10.1145/1993498.1993548},
+    acmid = {1993548},
+    publisher = {ACM},
+    address = {New York, NY, USA},
+    keywords = {augmented transition networks, backtracking, context-sensitive
+    parsing, deterministic finite automata, glr, memoization, nondeterministic
+    parsing, peg, semantic predicates, subset construction, syntactic
+    predicates},
+    abstract = {Despite the power of Parser Expression Grammars (PEGs) and GLR,
+    parsing is not a solved problem. Adding nondeterminism (parser speculation)
+    to traditional LL and LR parsers can lead to unexpected parse-time behavior
+    and introduces practical issues with error handling, single-step debugging,
+    and side-effecting embedded grammar actions. This paper introduces the LL(*)
+    parsing strategy and an associated grammar analysis algorithm that
+    constructs LL(*) parsing decisions from ANTLR grammars. At parse-time,
+    decisions gracefully throttle up from conventional fixed k>=1 lookahead to
+    arbitrary lookahead and, finally, fail over to backtracking depending on the
+    complexity of the parsing decision and the input symbols. LL(*) parsing
+    strength reaches into the context-sensitive languages, in some cases beyond
+    what GLR and PEGs can express. By statically removing as much speculation as
+    possible, LL(*) provides the expressivity of PEGs while retaining LL's good
+    error handling and unrestricted grammar actions. Widespread use of ANTLR
+    (over 70,000 downloads/year) shows that it is effective for a wide variety
+    of applications.},
+}
+
+
 @inproceedings{efficientNonDeterministicParsers,
     author = {Lang, Bernard},
     title = {Deterministic Techniques for Efficient Non-Deterministic Parsers},

@@ -348,7 +348,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \textit{Leftmost} significa que ao realizar as derivações,
     escolhe~=se sempre o Não~=Terminal mais a esquerda.
     }
-    são Descendentes \cite{antlrBookTerrentParr} e
+    são Descendentes \cite{antlrBookTerrentParr,llStarAntlr} e
     reconhecem somente um subconjunto das Linguagens LR(K)\footnote{
     Diz~=se que uma linguagem é LR(K) ou
     LL(K) quando ela é reconhecida por este Analisador
@@ -509,7 +509,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     não chegue~=se em um Estado de Aceitação,
     i.e.,
     no Símbolo Inicial da Gramática.
-    Tem~=se somente a construção de uma Árvore de Derivação partial.
+    Tem~=se somente a construção de uma Árvore de Derivação partial \cite{allStarAntlr}.
 
     No caso dos Analisadores Ascendentes,
     será um floresta de árvores,
@@ -721,7 +721,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Gramáticas Não~=Determinísticas possuem complexidade Exponential,
     quando Analisadas por um Analisador com Backtracking.
     Em contra~=partida,
-    Gramáticas Livre de Contexto Não~=Determinísticas também podem ser Analisadas em tempo Polinomial $\Theta(n^3)$ utilizando algoritmos de parsing tal como CYK (seção \ref{hierarquiaDeChomsky}).
+    Gramáticas Livre de Contexto Não~=Determinísticas também podem ser Analisadas em tempo Polinomial $\Theta(n^3)$ utilizando algoritmos de parsing tal como CYK (seção \ref{hierarquiaDeChomsky,larkContextualLexer}).
 
 
 \advisor{}{%
@@ -816,7 +816,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     O tempo de execução será Linear ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Regular e
     implementado através de um Automato Finito.
     O tempo de execução será Polinomial ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Livre de Contexto Ambígua (Gramática Não~=Determinística) e
-    implementado através de algum algoritmo com tempo Polinomial como CYK.
+    implementado através de algum algoritmo com tempo Polinomial como CYK \cite{allStarAntlr}.
 
     Como já explicado nas observações da Figura \ref{fig:pictures/HierarquiaDeChomsky.png},
     existem duas classes distintas de Complexidade para Gramáticas Livre de Contexto Não~=Determinísticas.
