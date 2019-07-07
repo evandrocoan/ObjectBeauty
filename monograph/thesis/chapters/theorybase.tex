@@ -95,46 +95,43 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
     Gramáticas são conjuntos de regras que definem uma linguagem.
     Em linguagens formais,
-    sendo $\alpha$ um Não~=Terminal,
-    $\beta$ um Terminal,
-    $V_n$ um conjunto de Não~=Terminais,
-    $V_t$ um conjunto de Terminais e
+    sendo $\alpha$ um não~=terminal,
+    $\beta$ um terminal,
+    $V_n$ um conjunto de não~=terminais,
+    $V_t$ um conjunto de terminais e
     $V = V_n \cup V_t$,
     uma gramática é definida por quatro componentes:
     \begin{enumerate}%[nosep,nolistsep]
-        \item \advisor{O}{Um} conjunto $V_t$ de símbolos Terminais\advisor{ (também chamados
+        \item \advisor{O}{Um} conjunto $V_t$ de símbolos terminais\advisor{ (também chamados
         de tokens ou símbolos do alfabeto da linguagem).
-        Cada Terminal corresponde a um símbolo presente na linguagem.
+        Cada terminal corresponde a um símbolo presente na linguagem.
         }{,
         chamados algumas vezes de ``\textit{tokens}'' devido a sua forte conexão.
-        Cada Terminal corresponde a um símbolo presente no alfabeto da linguagem.
+        Cada terminal corresponde a um símbolo presente no alfabeto da linguagem.
         }%
         Durante a Análise Léxica,
-        os símbolos Terminais serão utilizados definir os lexemas que são a base principal dos tokens.
+        os símbolos terminais serão utilizados definir os lexemas que são a base principal dos tokens.
         Na composição da Árvore Sintática,
-        os ``\textit{tokens}'' ou Terminais,
+        os ``\textit{tokens}'' ou terminais,
         serão sempre as folhas da Árvore Sintática.
 
         \item \advisor{O}{Um} conjunto $V_n$ de símbolos
-        Não~=Terminais\advisor{ (algumas vezes chamados de ``variáveis sintáticas'').}{,
+        não~=terminais\advisor{ (algumas vezes chamados de ``variáveis sintáticas'').}{,
         algumas vezes chamados de ``variáveis sintáticas''.
         }
-        Não~=Terminais servem para agrupar vários Não~=Terminais e\slash{}ou Terminais.
+        não~=terminais servem para agrupar vários não~=terminais e\slash{}ou terminais.
         Na composição da Árvore Sintática,
-        os símbolos Não~=Terminais sempre serão os nós da Árvore Sintática\footnote{
+        os símbolos não~=terminais sempre serão os nós da Árvore Sintática\footnote{
         Desde que a gramática da linguagem não contenha símbolos inúteis,
         i.e.,
         todos os símbolos da gramática são férteis e
         permitem a geração de palavras além do conjunto vazio $\varnothing$ \cite{hopcroftBook}
         }.
         Por convenção,
-        a intersecção entre o conjunto de símbolos Terminais e
-        Não~=Terminais é sempre vazia,
-        i.e.,
-        $V_n \cap V_t = \varnothing$,
-        uma vez que não seja respeitando essa convenção,
-        não se tem como deterministicamente analisar o programa de entrada,
-        podendo~=se indefinidamente realizar a substituição da mesma regra de produção.
+        e para evitar confusões entre quais são os símbolos terminais e não~=terminais,
+        a intersecção entre o conjunto de símbolos terminais e
+        não~=terminais é sempre vazia, i.e.,
+        $V_n \cap V_t = \varnothing$.
 
         \item \label{definicaoDeGramatica}Um conjunto de produções $P$.
         Uma produção consiste em uma dupla elementos.
@@ -142,17 +139,17 @@ Fazer depois que a fundamentação teórica estiver concluída.
         lado esquerdo e
         representa a substituição ou
         consumo que será feito no programa de entrada.
-        Ele é obrigatoriamente constituído de no mínimo um Não~=Terminal e
-        um ou mais Não~=Terminais ou
-        Terminais.
+        Ele é obrigatoriamente constituído de no mínimo um não~=terminal e
+        um ou mais não~=terminais ou
+        terminais.
         O segundo elemento é a cauda ou
         lado direito da produção,
-        composto de Terminais e\slash{}ou Não~=Terminais.
+        composto de terminais e\slash{}ou não~=terminais.
         Formalmente defini~=se uma produção pela seguinte regra,
         onde ``*'' representa o operador de fechamento do conjunto \cite{hopcroftBook}:
         $$P = \{\; \alpha ::= \beta \;|\; \alpha \in V^* V_n V^* \land \beta \in V^* \;\}$$
 
-        \item Um símbolo inicial selecionado a partir do conjunto de símbolos Não~=Terminais.
+        \item Um símbolo inicial selecionado a partir do conjunto de símbolos não~=terminais.
         O símbolo inicial é utilizado para definir qual será a raíz da Árvore Sintática,
         e.g.,
         o última regra de produção utilizada para terminar o reconhecimento do programa de entrada em um Analisador Ascendente (ver seção \ref{reducoesEderivacoes}),
@@ -345,7 +342,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Do inglês, \textit{Left~=to~=right,
     Rightmost derivation} em reverso com K símbolos de \textit{lookahead}.
     \textit{Rightmost} significa que ao realizar as derivações,
-    escolhe~=se sempre o Não~=Terminal mais a direita.
+    escolhe~=se sempre o não~=terminal mais a direita.
     }.
     Analisadores LR(K) \cite{ahoCompilerDragonBook} são Ascendentes e
     reconhecem um subconjunto das Linguagens Livre de Contexto (Figura \ref{fig:pictures/LinguagensDeterministicas.png}).
@@ -353,7 +350,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Do inglês, \textit{Left-to-right,
     Leftmost derivation} com K símbolos de \textit{lookahead}.
     \textit{Leftmost} significa que ao realizar as derivações,
-    escolhe~=se sempre o Não~=Terminal mais a esquerda.
+    escolhe~=se sempre o não~=terminal mais a esquerda.
     }
     são Descendentes \cite{antlrBookTerrentParr,llStarAntlr} e
     reconhecem somente um subconjunto das Linguagens LR(K)\footnote{
@@ -495,15 +492,15 @@ Fazer depois que a fundamentação teórica estiver concluída.
     ao invés de $\Rightarrow$,
     $\xRightarrow{*}$ e
     $\xRightarrow{+}$.
-    Enquanto gramáticas são geradores de palavras que partem do Símbolo Inicial da gramática até gerarem uma palavra da linguagem,
+    Enquanto gramáticas são geradores de palavras que partem do símbolo inicial da gramática até gerarem uma palavra da linguagem,
     Analisadores Ascendentes como LR(K) são reconhecedores de palavras.
 
     Diferente de gramáticas,
-    Analisadores Ascendentes partem de uma palavra da linguagem até chegarem no Símbolo Inicial da gramática,
+    Analisadores Ascendentes partem de uma palavra da linguagem até chegarem no símbolo inicial da gramática,
     consumindo toda a palavra de entrada e
     chegando em um Estado de Aceitação.
     Já Analisadores Descendentes como LL(K),
-    partem do Símbolo Inicial da gramática até consumirem toda palavra de entrada,
+    partem do símbolo inicial da gramática até consumirem toda palavra de entrada,
     também chegando um em Estado de Aceitação.
 
     Ambos os Analisadores Ascendentes ou
@@ -514,18 +511,18 @@ Fazer depois que a fundamentação teórica estiver concluída.
     caso no final do processo,
     não chegue~=se em um Estado de Aceitação,
     i.e.,
-    no Símbolo Inicial da gramática.
+    no símbolo inicial da gramática.
     Tem~=se somente a construção de uma Árvore de Derivação partial \cite{allStarAntlr}.
 
     No caso dos Analisadores Ascendentes,
     será uma floresta de árvores,
     por que somente no final da análise,
-    com a chegada ao Símbolo Inicial da gramática,
+    com a chegada ao símbolo inicial da gramática,
     completa~=se custura de todas a árvores que foram parcialmente construídas durante o processo de análise (\textit{Bottom~=Up}).
 
     Já no caso dos Analisadores Descendentes,
     não existe uma floresta de árvores.
-    Como parte~=se diretamente do Símbolo Inicial da gramática,
+    Como parte~=se diretamente do símbolo inicial da gramática,
     a Árvore de Derivação desde o começo é construído como sendo uma única árvore (\textit{Top~=Down}).
 
 
