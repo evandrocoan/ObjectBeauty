@@ -166,6 +166,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
 
 \subsection{Hierarquia de Chomsky}
+\label{hierarquiaDeChomsky}
 
     Todas as Gramáticas que existem são no mínimo Gramáticas Tipo 0,
     também conhecidas como Gramáticas Irrestritas por que não possuem nenhuma restrição de complexidade de tempo como outros tipos de Gramáticas a serem definidos nas próximas seções{}.
@@ -197,7 +198,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
     **Para Gramáticas Livres de Contexto Determinísticas,
     também conhecidas como LR(K),
-    complexidade Linear ao tamanho da palavra de entrada (veja \fullref{gramaticasVersusLinguagens}).
+    complexidade Linear ao tamanho da palavra de entrada (veja a seção \ref{gramaticasVersusLinguagens}).
     Para Gramáticas Livre de Contexto Não~=Determinísticas,
     complexidade Exponencial construir a Árvore de Derivações utilizado Backtracking e
     complexidade Polinomial para construir as Árvores de Derivações e
@@ -440,11 +441,14 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
     No caso de conflitos na Tabela de Análise,
     a Gramática não pode ser analisada deterministicamente e
-    algoritmos de análise com backtracking precisam ser utilizados para construção da Árvore Sintática.
+    algoritmos de análise com backtracking (ou CYK,
+    reveja a seção \ref{hierarquiaDeChomsky}) precisam ser utilizados para construção da Árvore Sintática.
     Como mostrado para Máquinas de Turing Não~=Determinísticas na seção \ref{mecanismosReconhecedores},
     Analisadores com Backtracking também funcionam em pior caso,
     com tempo Exponencial e
-    usualmente escolhem uma estratégia como Busca em Profundidade para executar os Ramos de Computação Não~=Determinístico.
+    podem escolher uma estratégia como Busca em Profundidade\footnote{
+    Veja a \fullref{buscaEmLarguraEProfundidade} para saber mais.
+    } para executar os Ramos de Computação Não~=Determinístico.
 
 
 \subsection{Reduções e Derivações}
@@ -502,8 +506,10 @@ Fazer depois que a fundamentação teórica estiver concluída.
     gerando toda a Árvore de Derivação.
     Entretanto,
     caso no final do processo,
-    não chega~=se em um Estado de Aceitação.
-    Tem~=se a construção de uma Árvore de Derivação partial.
+    não chegue~=se em um Estado de Aceitação,
+    i.e.,
+    no Símbolo Inicial da Gramática.
+    Tem~=se somente a construção de uma Árvore de Derivação partial.
 
     No caso dos Analisadores Ascendentes,
     será um floresta de árvores,
@@ -618,10 +624,11 @@ Fazer depois que a fundamentação teórica estiver concluída.
     descobrir se dado token ou
     tratar~=se de um tipo ou
     uma variável numérica.
-    Cuidado com isso,
+    Entretanto,
+    requer~=se cuidado sobre como estas alterações são feitas,
     pois pode~=se pensar que as Gramáticas de todas as Linguagens de Programação são ``Livres de Contexto'' e
-    Determinísticas,
-    e uma vez que a Gramática não é mais Livre de Contexto ou
+    Determinísticas.
+    E uma vez que a Gramática não é mais Livre de Contexto ou
     Determinística,
     pode~=se mover Aspectos Sensíveis ao Contexto para o Analisador Semântico,
     assim,
@@ -636,7 +643,9 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
     Quanto se adiciona suporte a Aspectos Sensíveis ao Contexto \cite{contextSensitiveParsing} a Gramáticas Livre de Contexto por meio de alterações do Analisador Sintático,
     como feito no Analisador da Linguagem C,
-    a Gramática deixa de ser Livre de Contexto.
+    o Analisador da Gramática deixa de ser Livre de Contexto,
+    suportando assim,
+    algumas Gramáticas Sensíveis ao Contexto e\slash{}ou também algumas Gramáticas Não~=Determinísticas.
 
     Note que,
     a pesar disso não impede~=se que a Gramática da Linguagem C,
@@ -707,15 +716,12 @@ Fazer depois que a fundamentação teórica estiver concluída.
     por que toda Gramática Regular Não~=Determinística pode ser convertida em uma Gramática Regular Determinística \cite{sipserBook}.
 
     Infelizmente isso não é verdade para Gramáticas Livres de Contexto,
-    por que Gramáticas Livre de Contexto Determinísticas e
+    por que Gramáticas Livre de Contexto Determinísticas $\Theta(n)$ e
     Não~=Determinísticas não são equivalentes.
-    Gramáticas Não~=Determinísticas possuem complexidade Exponential\footnote{
-    Entretanto,
-    Gramáticas Livre de Contexto Não~=Determinísticas também podem ser Analisadas em tempo Polinomial quando utilizados algoritmos como CYK \cite{hopcroftBook}.
-    } quando Analisadas por um Analisador com Backtracking,
-    por que somente pode~=se simular o funcionamento de um Analisador Não~=Determinístico utilizando uma máquina determinística,
-    tal como os computadores atuais,
-    que somente podem realizar a execução de um ramo de computação Não~=Determinístico por vez.
+    Gramáticas Não~=Determinísticas possuem complexidade Exponential,
+    quando Analisadas por um Analisador com Backtracking.
+    Em contra~=partida,
+    Gramáticas Livre de Contexto Não~=Determinísticas também podem ser Analisadas em tempo Polinomial $\Theta(n^3)$ utilizando algoritmos de parsing tal como CYK (seção \ref{hierarquiaDeChomsky}).
 
 
 \advisor{}{%
@@ -733,7 +739,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     caminho ``pulando'' ramos de Computação Não~=Determinísticos (da computação Clássica) com a superposição quântica.
     Assim,
     conseguindo resolver alguns problemas que são exponenciais,
-    em tempo polinomial ao tamanho da entrada,
+    em tempo Polinomial ao tamanho da entrada,
     utilizando algoritmos específicos para computadores quânticos \cite{quantumComputerSurvey,quantumSimulatorChagas}.
 
     Esta é a gama de problemas nos quais Computadores Quânticos são úteis \cite{quantumComputingForNonPhysicists},
@@ -810,7 +816,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     O tempo de execução será Linear ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Regular e
     implementado através de um Automato Finito.
     O tempo de execução será Polinomial ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Livre de Contexto Ambígua (Gramática Não~=Determinística) e
-    implementado através de algum algoritmo com tempo Polinomial.
+    implementado através de algum algoritmo com tempo Polinomial como CYK.
 
     Como já explicado nas observações da Figura \ref{fig:pictures/HierarquiaDeChomsky.png},
     existem duas classes distintas de Complexidade para Gramáticas Livre de Contexto Não~=Determinísticas.
@@ -820,10 +826,9 @@ Fazer depois que a fundamentação teórica estiver concluída.
     existem muitas possíveis Árvores de Derivação,
     (devido à ambiguidade da Gramática,
     conhecido também como Não~=Determinismo).
-    },
-    ou como também chamada de Árvores Sintática por tratar~=se de um Gramáticas Livre de Contexto que trata de Aspectos Estruturais de Linguagens.
+    }.
 
-    Algoritmos de construção das Árvores de Derivação para Gramáticas Livre de Contexto Não~=Determinística,
+    Algoritmos de construção das Árvores de Derivação com Backtracking para Gramáticas Livre de Contexto Não~=Determinística,
     possuem tempo Exponencial de execução.
     Já algoritmos como CYK,
     que simplesmente dizem se dada palavra pertence ou
@@ -895,6 +900,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
 
 \subsection{Busca em Largura e Profundidade}
+\label{buscaEmLarguraEProfundidade}
 
     Quando uma Máquina de Turing Determinística é utilizado para simular o funcionamento de uma Máquina de Turing Não~=Determinística,
     ela precisa decidir como escolher executar os Ramos de Computação Não~=Determinísticos \cite{sipserBook}.
