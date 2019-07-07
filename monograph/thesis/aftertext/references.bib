@@ -235,6 +235,63 @@
 }
 
 
+@book{johnCocke,
+    author = {Cocke, John},
+    title = {Programming Languages and Their Compilers: Preliminary Notes},
+    year = {1969},
+    isbn = {B0007F4UOA},
+    publisher = {New York University},
+    address = {New York, NY, USA},
+    abstract = {Our aim in the present volume is to describe the inner
+    working of a variety of programming languages, especially from the point of
+    view of the compilers which translate these languages from their original
+    "source" form into executable machine code. While this aim will of course
+    make it necessary for us to describe in somedetail the external form of each
+    of the 1angua.ges which we shall study, no more detail will be given than is
+    strictly neeessary in order to make it possible for the reader to gain a
+    clear view of the machine code forms into which the language will be
+    translated and of the problems that a compiler for the language must handle.
+    However, interna1 description of the languages studied will be carried
+    rather far. Thus the attentive reader of the present work should gain a
+    rather good idea of the methods which can be employed to write a compiler
+    for a giyen language. On the other hand, he cannot expect to find in this
+    book the detailed account af the source conventions for any language whiqh
+    he would need to use the language. },
+}
+
+
+@book{ahoTheoryOfParsing,
+    author = {Aho, Alfred V. and Ullman, Jeffrey D.},
+    title = {The Theory of Parsing, Translation, and Compiling},
+    year = {1972},
+    isbn = {0-13-914556-7},
+    publisher = {Prentice-Hall, Inc.},
+    address = {Upper Saddle River, NJ, USA},
+    abstract = {This book is intended for a one or two semester course in
+    compiling theory at the senior or graduate level. It is a theoretically
+    oriented treatment of a practical subject. Our motivation for making it so
+    is threefold. (1) In an area as rapidly changing as Computer Science, sound
+    pedagogy demands that courses emphasize ideas, rather than implementation
+    details. It is our hope that the algorithms and concepts presented in this
+    book will survive the next generation of computers and programming
+    languages, and that at least some of them will be applicable to fields other
+    than compiler writing. (2) Compiler writing has progressed to the point
+    where many portions of a compiler can be isolated and subjected to design
+    optimization. It is important that appropriate mathematical tools be
+    available to the person attempting this optimization. (3) Some of the most
+    useful and most efficient compiler algorithms, e.g. LR(k) parsing, require a
+    good deal of mathematical background for full understanding. We expect,
+    therefore, that a good theoretical background will become essential for the
+    compiler designer. While we have not omitted difficult theorems that are
+    relevant to compiling, we have tried to make the book as readable as
+    possible. Numerous examples are given, each based on a small grammar, rather
+    than on the large grammars encountered in practice. It is hoped that these
+    examples are sufficient to illustrate the basic ideas, even in cases where
+    the theoretical developments are difficult to follow in isolation.
+    },
+}
+
+
 @book{computationalComplexityAuroraBarak,
     author = {Arora, Sanjeev and Barak, Boaz},
     title = {Computational Complexity: A Modern Approach},
@@ -909,6 +966,31 @@
     common terminal collisions, and allows to parse languages that LALR(1) was
     previously incapable of parsing. This is an improvement to LALR(1) that is
     unique to Lark.},
+}
+
+
+@inproceedings{efficientNonDeterministicParsers,
+    author = {Lang, Bernard},
+    title = {Deterministic Techniques for Efficient Non-Deterministic Parsers},
+    booktitle = {Proceedings of the 2Nd Colloquium on Automata, Languages and Programming},
+    year = {1974},
+    isbn = {3-540-06841-4},
+    pages = {255--269},
+    numpages = {15},
+    doi = {10.1007/3-540-06841-4_65},
+    url = {http://dl.acm.org/citation.cfm?id=646230.681872},
+    acmid = {681872},
+    publisher = {Springer-Verlag},
+    address = {Berlin, Heidelberg},
+    abstract = {A general study of parallel non-deterministic parsing and
+    translation à la Earley is developped formally, based on non-deterministic
+    pushdown acceptor-transducers. Several results (camplexity and efficiency)
+    are established, same new and other previously proved only in special cases.
+    As an application, we show that for every family of deterministic
+    context-free pushdown parsers (e.g. precedence, LR(k), LL(k), ...) there is
+    a family of general context-free parallel parsers that have the same
+    efficiency in most practical cases (e.g. analysis of programming
+    languages).},
 }
 
 
