@@ -7,9 +7,12 @@
 % \section{\lang{What does coding is}{Programação de computadores}}
 
 \lang{
-    Coding is like writing and reading a book for the large people, you like it
-    to look beautifully. Or at least do you expect such when you buy a book, for
-    example, to learn programming for you first time \cite{howNovicesRead}.
+    Coding is like writing and
+    reading a book for the large people,
+    you like it to look beautifully.
+    Or at least do you expect such when you buy a book,
+    for example,
+    to learn programming for you first time \cite{howNovicesRead}.
     You expect:
     \begin{enumerate}
         \item
@@ -19,10 +22,12 @@
             The colors to be properly placed,
             so you do not get distracted from the main content.
         \item
-            The spacing between paragraphs, words, chapters, sections
-            subsections, etc, to be well adjusted.
+            The spacing between paragraphs,
+            words, chapters, sections subsections, etc,
+            to be well adjusted.
             Not everything cluttered in only one file,
-            line, function, class, or whatsoever so.
+            line, function, class,
+            or whatsoever so.
     \end{enumerate}
 }{%
     Programar pode ser considerado pela maioria das pessoas como escrever um livro,
@@ -59,10 +64,7 @@
 \section{Formatadores de código}
 
 \lang{%
-    A robust Code Beautifier can get a lot more complicated just with the basic
-    definitions of formatting (\nameref{source_code_beautifiers})
-    applied over each language own characteristics
-    as for example:
+    A robust Code Beautifier can get a lot more complicated just with the basic definitions of formatting (\nameref{source_code_beautifiers}) applied over each language own characteristics as for example:
     \begin{enumerate}[nosep,nolistsep]
         \item
             Add spaces before if\s name as in `if(var)' versus `if (var)'
@@ -91,10 +93,10 @@
 }
 
 \lang{
-    As may be noticed, the list may became quite big,
+    As may be noticed,
+    the list may became quite big,
     and if fact such big list of rules has been implemented.
-    Looking over the Beautifier called
-    `Uncrustify'\footnote{\url{https://github.com/uncrustify/uncrustify}},
+    Looking over the Beautifier called `Uncrustify'\footnote{\url{https://github.com/uncrustify/uncrustify}},
     we can find about 500 settings with specifications like these above.
 }{%
     Como pode ser percebido,
@@ -127,14 +129,16 @@ indent_constr_colon = false # false/true
 \end{lstlisting}
 
 \lang{%
-    The problem about is, even if you go through all these settings,
+    The problem about is,
+    even if you go through all these settings,
     which will take you quite some time,
     you still only configuring a few languages closely related.
-    On this case, C, C++, Java, Pawn, etc.
-    For all other languages you still need to find out another source code
-    formatter tool, which will be certainly
-    limited\footnote{\url{https://stackoverflow.com/questions/31438377/how-can-i-get-eclipse-to-wrap-lines-after-a-period-instead-of-before}}
-    and still need to configure all over again.
+    On this case,
+    C, C++, Java, Pawn,
+    etc.
+    For all other languages you still need to find out another source code formatter tool,
+    which will be certainly limited\footnote{\url{https://stackoverflow.com/questions/31438377/how-can-i-get-eclipse-to-wrap-lines-after-a-period-instead-of-before}} and
+    still need to configure all over again.
 }{%
     O problema é,
     mesmo que se passe por todas essas configurações,
@@ -198,14 +202,14 @@ indent_constr_colon = false # false/true
 
     \lang{%
         Your computer should help you with these unforeseen tasks.
-        Why should I spend my precious time checking whether I am actually copying
-        something space indented,
+        Why should I spend my precious time checking whether I am actually copying something space indented,
         when I am actually coping something tab indented?
-        Perhaps we should sit and cry while waiting for some greater force to come
-        and rescue us. Or may be you should stop crying and actually do something
-        about other than keep waiting for you mommy to come and save you from the
-        darkness growing behind you back leading you to endless unsleepy nights
-        fixing your code just because everything just went wrong.
+        Perhaps we should sit and
+        cry while waiting for some greater force to come and
+        rescue us.
+        Or may be you should stop crying and
+        actually do something about other than keep waiting for you mommy to come and
+        save you from the darkness growing behind you back leading you to endless unsleepy nights fixing your code just because everything just went wrong.
     }{%
         Seu computador deveria ajudar você com aquelas imprevistas tarefas.
         Por que eu deveria gastar meu precioso tempo verificando se algo que estou copiando,
@@ -224,8 +228,9 @@ indent_constr_colon = false # false/true
 \section{\lang{For what is their use?}{Qual a utilidade de Formatadores?}}
 
 \lang{%
-    For now could not find any strong evidence or correlation about code
-    comprehension and source code beautifying \cite{improvingCodeReadability},
+    For now could not find any strong evidence or
+    correlation about code comprehension and
+    source code beautifying \cite{improvingCodeReadability},
     except perhaps for team annoyance:
 }{%
     Não pôde~=se encontrar nenhuma forte evidência ou
@@ -269,10 +274,15 @@ indent_constr_colon = false # false/true
 
 }
 \begin{citacao}
-So yes, absurd as it may sound, fighting over whitespace characters and other seemingly
-trivial issues of code layout is actually justified. Within reason of course -- when done
-openly, in a fair and concensus building way, and without stabbing your teammates in the
-face along the way. \cite{deathToTheSpaceInfidels}
+So yes,
+absurd as it may sound,
+fighting over whitespace characters and
+other seemingly trivial issues of code layout is actually justified.
+Within reason of course -- when done openly,
+in a fair and
+concensus building way,
+and without stabbing your teammates in the face along the way.
+\cite{deathToTheSpaceInfidels}
 \end{citacao}
 
 
@@ -299,7 +309,8 @@ it will be used to store the automatically generated configurations based on the
 Such thing,
 cannot be easily implemented because of the various complexities which can be introduced into the formatting rules.
 For example,
-the if configurations rules are simple and limited to just changing simple aspects of the formatting,
+the if configurations rules are simple and
+limited to just changing simple aspects of the formatting,
 then the configuration generation will also be simple,
 because there are only a few aspects to analyze.
 However,
@@ -319,7 +330,8 @@ Then when we save our YAML copy,
 we translate it to the XML original copy.
 Similarly,
 for a C language code,
-it would be like to change some bit on the compiled binary code and have the change reflected on the original C source code.
+it would be like to change some bit on the compiled binary code and
+have the change reflected on the original C source code.
 \url{https://github.com/Microsoft/XmlNotepad}
 
 Open Source Neural Machine Translation in Torch,
@@ -363,9 +375,7 @@ translates between languages by machine learning.
 TODO
 
 On a distributed version control system,
-continuous integration would be continuously running the system tests
-as long new code is integrated into main system
-from the distributed clients \cite{continuousIntegration}.
+continuous integration would be continuously running the system tests as long new code is integrated into main system from the distributed clients \cite{continuousIntegration}.
 
 \begin{enumerate}[leftmargin=*]
     \item \citeonline{trackingChanges},
