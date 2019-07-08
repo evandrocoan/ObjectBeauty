@@ -223,34 +223,56 @@ indent_constr_colon = false # false/true
 
 \section{\lang{For what is their use?}{Qual a utilidade de Formatadores?}}
 
-\url{https://www.python.org/dev/peps/pep-0008/#should-a-line-break-before-or-after-a-binary-operator}
-
-
-
-For now could not find any strong evidence or correlation about code
-comprehension and source code beautifying \cite{improvingCodeReadability},
-except perhaps for team annoyance:
-
+\lang{%
+    For now could not find any strong evidence or correlation about code
+    comprehension and source code beautifying \cite{improvingCodeReadability},
+    except perhaps for team annoyance:
+}{%
+    Não pôde~=se encontrar nenhuma forte evidência ou
+    relação sobre a compreensão de códigos~=fonte e
+    formatadores de código.
+    Somente indícios de que certas características combinadas podem melhorar ou
+    facilitar a tarefa de programar \cite{pep8operatorsBlankLine}.
+}%
 \begin{citacao}
-% \setlength{\itemindent}{5pt}
-One of absolute worst, worst methods of teamicide for software developers is to engage
-in these kinds of passive-aggressive formatting wars. I know because I've been there.
-They destroy peer relationships, and depending on the type of formatting, can also damage
-your ability to effectively compare revisions in source control, which is really scary.
-I can't even imagine how bad it would get if the lead was guilty of this behavior. That's
-leading by example, all right. Bad example. \cite{Atwood}
+    % \setlength{\itemindent}{5pt}
+    Um dos melhores métodos de destruição de equipes de desenvolvedores de software,
+    é engajar~=se em guerras de formatação passiva~=agressiva.
+    Eles destroem os relacionamentos entre colegas,
+    e dependendo do tipo de formatação feita,
+    também podem prejudicar a capacidade de comparar efetivamente as revisões no sistema de controle de versão,
+    o que é realmente assustador.
+    Não pode~=se nem imaginar o quão ruim seria caso a liderança das equipes fosse a culpada por esse comportamento.
+    Isso é liderar por exemplo.
+    Por mau exemplo.
+    \cite[tradução nossa]{deathToTheSpaceInfidels}\footnote{
+    \englishword{%
+    One of absolute worst,
+    worst methods of teamicide for software developers is to engage in these kinds of passive~=aggressive formatting wars.
+    I know because I've been there.
+    They destroy peer relationships,
+    and depending on the type of formatting,
+    can also damage your ability to effectively compare revisions in source control,
+    which is really scary.
+    I can't even imagine how bad it would get if the lead was guilty of this behavior.
+    That's leading by example,
+    all right.
+    Bad example.
+    }}.
 \end{citacao}
 
-On \citeonline{improvingCodeReadability} was analyzed the level of program
-comprehension which can be gained by the indentation and was constated that
-the indentation levels of 2 and 4 spaces proved to have the best
-comprehension levels again other levels.
+\lang{%
+    On \citeonline{improvingCodeReadability} was analyzed the level of program comprehension which can be gained by the indentation and
+    was constated that the indentation levels of 2 and
+    4 spaces proved to have the best comprehension levels again other levels.
+}{%
 
+}
 \begin{citacao}
 So yes, absurd as it may sound, fighting over whitespace characters and other seemingly
 trivial issues of code layout is actually justified. Within reason of course -- when done
 openly, in a fair and concensus building way, and without stabbing your teammates in the
-face along the way. \cite{Atwood}
+face along the way. \cite{deathToTheSpaceInfidels}
 \end{citacao}
 
 
@@ -272,7 +294,7 @@ TODO.
 \subsection{Configuration Detection}
 
 If found on the project root folder,
-a folder named `.object-beauty',
+a folder named `.object~=beauty',
 it will be used to store the automatically generated configurations based on the current configuration\s rules.
 Such thing,
 cannot be easily implemented because of the various complexities which can be introduced into the formatting rules.
@@ -291,7 +313,7 @@ due the increased count of possibilities to analyze when combined together.
 With this ObjectBeautifier,
 we can edit XML files like YAML files,
 because the when we load the XML,
-we create a copy (the YAML version of the XML) on the `.object-beauty` folder which is edited by Sublime Text,
+we create a copy (the YAML version of the XML) on the `.object~=beauty` folder which is edited by Sublime Text,
 and let the XML on its original place.
 Then when we save our YAML copy,
 we translate it to the XML original copy.
