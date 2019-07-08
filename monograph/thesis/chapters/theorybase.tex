@@ -288,7 +288,10 @@ Fazer depois que a fundamentação teórica estiver concluída.
     que podem ser representados de procedimentos \cite{sipserBook}.
     Já Linguagens do Tipo 1 (ou Sensíveis ao Contexto),
     representam todos os problemas computáveis e
-    sua implementação pode ser representada por algoritmos,
+    sua implementação pode ser representada por algoritmos\footnote{
+    Aprenda mais sobre decidibilidade e
+    computabilidade com \citeonline{turingMachinesRoyer,sipserBook}.
+    },
     pois possuem parada garantida,
     apesar de terem em pior caso,
     tempo exponential ao contrário de tempo infinito como nas Linguagens Irrestritas.
@@ -352,7 +355,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \textit{Leftmost} significa que ao realizar as derivações,
     escolhe~=se sempre o não~=terminal mais a esquerda.
     }
-    são Descendentes \cite{antlrBookTerrentParr,llStarAntlr} e
+    são Descendentes \cite{antlrBookTerrentParr,llStarAntlr,allStarAntlr} e
     reconhecem somente um subconjunto das Linguagens LR(K)\footnote{
     Diz~=se que uma linguagem é LR(K) ou
     LL(K) quando ela é reconhecida por este analisador
@@ -392,8 +395,11 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Reveja os parágrafos após a Figura \ref{fig:pictures/HierarquiaDeChomsky.png}
     },
     que podem ser classificadas como LR(K),
-    LL(K)\advisor{etc, }{ entre outros, }i.e.,
-    de acordo com o tipo de analisador que pode ser construído.
+    LL(K), etc, i.e.,
+    de acordo com o tipo de analisador que pode ser construído sem conflitos em sua Tabela de Análise\footnote{
+    Do inglês, \textit{Parsing Table},
+    \cite{ahoCompilerDragonBook}.
+    }.
     \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/LinguagensDeterministicas.png}
@@ -402,15 +408,16 @@ Fazer depois que a fundamentação teórica estiver concluída.
     \label{fig:pictures/LinguagensDeterministicas.png}
     \end{figure}
 
-    Diz~= que um Analisador Determinístico para dada gramática pode ser construído quando a criação de sua Tabela de Análise\footnote{
-    Do inglês, \textit{Parsing Table}
-    }
-    \cite{ahoCompilerDragonBook} acontece sem conflitos.
     É importante notar que usualmente o processo de análise por um analisador,
     seja ele LR(K) ou
     LL(K),
     acontece em duas etapas.
-    Com a exceção dos Analisadores LL(K) que também podem ser facilmente construídos programaticamente,
+    Com a exceção dos Analisadores LL(K) que também podem ser facilmente construídos programaticamente\footnote{
+    Neste caso,
+    o analisador pode ser conhecido como Descendente Recursivo,
+    (do inglês,
+    Recursive Descent).
+    },
     i.e.,
     com o programador construindo manualmente como deve acontecer cada transição de estado do analisador \cite{ahoCompilerDragonBook}.
 
@@ -424,7 +431,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Como única diferença entre os Analisadores LR(K),
     LALR(K) e
     SLR(K) é exatamente construção da Tabela de Análise,
-    ambos possuem a mesma complexidade de análise linear \cite{knuthLrParser1965} ao tamanho do programa\footnote{
+    ambos possuem a mesma complexidade de análise linear ao tamanho do programa\footnote{
     Quando refere~=se a programa,
     fala~=se da \textit{string} ou
     texto que será analisado e
@@ -440,12 +447,15 @@ Fazer depois que a fundamentação teórica estiver concluída.
     informalmente,
     chamamos estes programas como programas com erros (de sintaxe).
     }
-    de entrada que será analisado \cite{linearLL1AndLR1Grammars,generalContextFreeParsingAlgorithm}.
+    de entrada que será analisado \cite{knuthLrParser1965,linearLL1AndLR1Grammars,generalContextFreeParsingAlgorithm}.
 
     No caso de conflitos na Tabela de Análise,
     a gramática não pode ser analisada deterministicamente e
-    algoritmos de análise com backtracking (ou CYK,
-    reveja a \fullref{hierarquiaDeChomsky}) precisam ser utilizados para construção da Árvore Sintática.
+    algoritmos de análise com backtracking\footnote{
+    Ou algoritmos de tempo polinomial como CYK,
+    reveja a \fullref{hierarquiaDeChomsky}
+    }
+    precisam ser utilizados para construção da Árvore Sintática.
     Como mostrado para Máquinas de Turing Não~=Determinísticas na \fullref{mecanismosReconhecedores},
     Analisadores com Backtracking também funcionam em pior caso,
     com tempo exponencial e
@@ -463,14 +473,14 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Analisadores LL(K),
     Analisadores LR(K) especificamente funcionam de modo contrário.
     Eles operam por meio de Reduções ao invés de Derivações como no caso das Gramáticas e
-    Analisadores LL(K) \cite{sipserBook}.
+    Analisadores LL(K) \cite{ahoCompilerDragonBook}.
 
     Uma Derivação acontece quando uma regra de produção como ``$S \Rightarrow a a $'' de uma gramática expande e
     tem~=se como resultado ``$a a$'' a partir do símbolo de origem ``$S$''.
     Já uma Redução acontece quanto a dada regra de produção como ``$S \Rightarrow a a $'' de uma gramática reduz e
     tem~=se como resultado ``$S$'' a partir do símbolo de origem ``$a a$''.
 
-    Tanto Derivações quanto Reduções podem ser descritas em termos que quantos passos são necessários para que se possa sair de um ponto até outro \cite{ahoCompilerDragonBook}:
+    Tanto Derivações quanto Reduções podem ser descritas em termos que quantos passos são necessários para que se possa sair de um ponto até outro:
     \begin{enumerate}%[nosep,nolistsep]
         \item Quanto um derivação é denotada como ``$S \Rightarrow a a $'',
         isso significa que somente um passo é necessário para sair do símbolo inicial ``$S$'' e
@@ -491,7 +501,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     i.e., $\Leftarrow$, $\xLeftarrow{*}$ e $\xLeftarrow{+}$,
     ao invés de $\Rightarrow$,
     $\xRightarrow{*}$ e
-    $\xRightarrow{+}$.
+    $\xRightarrow{+}$ \cite{ahoCompilerDragonBook}.
     Enquanto gramáticas são geradores de palavras que partem do símbolo inicial da gramática até gerarem uma palavra da linguagem,
     Analisadores Ascendentes como LR(K) são reconhecedores de palavras.
 
@@ -509,10 +519,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     gerando toda a Árvore de Derivação.
     Entretanto,
     caso no final do processo,
-    não chegue~=se em um Estado de Aceitação,
-    i.e.,
-    no símbolo inicial da gramática.
-    Tem~=se somente a construção de uma Árvore de Derivação partial \cite{allStarAntlr}.
+    não chegue~=se em um Estado de Aceitação \cite{ahoCompilerDragonBook},
+    tem~=se somente a construção de uma Árvore de Derivação partial.
 
     No caso dos Analisadores Ascendentes,
     será uma floresta de árvores,
@@ -524,6 +532,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     não existe uma floresta de árvores.
     Como parte~=se diretamente do símbolo inicial da gramática,
     a Árvore de Derivação desde o começo é construído como sendo uma única árvore (\textit{Top~=Down}).
+    Em caso de erros na construção da Árvore Sintática,
+    ela terminará somente com algumas nós folha faltando.
 
 
 \subsection{Analisadores LR(K)}
@@ -547,9 +557,11 @@ Fazer depois que a fundamentação teórica estiver concluída.
     o algoritmo de criação da Tabela de Análise Sintática da Gramática LR(K),
     LALR(K) ou SLR(K),
     não possui o problema de entrar em um loop infinito assim como acontecem com as Gramáticas LL(K),
-    portanto aceitando~=se Gramáticas com Recursão a Esquerda.
+    portanto aceitando~=se Gramáticas com Recursão a Esquerda \cite{ahoCompilerDragonBook}.
 
-    Uma vez que Analisadores LR(K) requerem uma quantidade de memória exponencial \cite{complexityOfLRKTesting} ao tamanho da gramáticas de entrada para operar,
+    Analisadores LR(K) requerem grandes quantidades de memória,
+    proporcional ao tamanho da gramáticas de entrada para operar \cite{complexityOfLRKTesting}.
+    Por isso,
     \citeonline{lalrDeRemer1982} criaram os Analisadores LALR(K)\footnote{
     Do inglês, \textit{Look~=Ahead} LA(K) LR(0),
     onde LR(0) é um Analisador LR(K) com $K=0$
@@ -567,12 +579,12 @@ Fazer depois que a fundamentação teórica estiver concluída.
     além da hierarquia de Chomsky,
     também classifica~=se as gramáticas de acordo com o tipo de analisador que reconhece as linguagens representadas por elas.
     Como mostrado na Figura \ref{fig:pictures/LinguagensDeterministicas.png},
-    nem todas as Gramáticas Livre de Contexto são de Determinísticas e
+    nem todas as Gramáticas Livre de Contexto são de gramáticas Determinísticas e
     uma gramática é Determinística somente se ela pode ser reconhecida por um Analisador LR(K).
 
     Portanto uma maneira fácil de decidir se uma dada gramática é determinística ou
     não,
-    é tentar construir a sua tabela de um Analisador LR(K).
+    é tentar construir a sua Tabela de Análise para um Analisador LR(K).
     Caso consiga~=se construir com sucesso (sem conflitos) a Tabela de Análise Sintática \cite{ahoCompilerDragonBook},
     a gramática é LR(K),
     caso contrário a gramática não é determinística.
@@ -590,7 +602,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     somente depois que a Árvore Sintática é construída,
     realiza~=se o processo de Análise Semântica \cite{ahoCompilerDragonBook},
     i.e.,
-    a verificação da corretude do programa escrito em relação os aspectos Não~=estruturais,
+    a verificação da corretude do programa escrito em relação os aspectos não~=estruturais,
     por exemplo,
     é sintaticamente correto escrever a declaração de uma mesma variável duas vezes ou
     mais.
@@ -614,10 +626,10 @@ Fazer depois que a fundamentação teórica estiver concluída.
     portanto ela não pode ser aceita por um Analisador LR(K) tradicional,
     pois sua gramática é ambígua.
 
-    Uma otimização que o compilador C faz para poder fazer o Analisador ``Determinístico'' da linguagem C,
+    Uma otimização que o compilador C faz para poder fazer a Análise ``Determinística'' da Linguagem C,
     e assim saber se a expressão ``\textit{x * y ;}'' trata~=se de de uma mera multiplicação ou
     a declaração de uma variável,
-    é exatamente a realização simultânea da Análise Léxica,
+    é exatamente a realização ``simultânea'' da Análise Léxica,
     Sintática e
     Semântica.
     Uma vez que um novo \textit{token} é reconhecido,
@@ -631,7 +643,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     uma variável numérica.
     Entretanto,
     requer~=se cuidado sobre como estas alterações são feitas,
-    pois pode~=se pensar que as gramáticas de todas as linguagens de programação são ``Livres de Contexto'' e
+    pois pode~=se pensar que todas as gramáticas de todas as linguagens de programação são ``Livres de Contexto'' e
     Determinísticas.
     E uma vez que a gramática não é mais Livre de Contexto ou
     Determinística,
@@ -694,7 +706,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     será mostrado a implementação de uma Gramática ``Livre de Contexto'' em um Analisador LALR(1),
     onde Aspectos Sensíveis ao Contexto serão analisados pelo Analisador Semântico,
     tal como feito na implementação do Compilador da Linguagem C apresentado.
-    Mas com a diferença de que utiliza~= um Analisador LALR(1) genérico,
+    Mas com a diferença de que utiliza~=se um Analisador LALR(1) genérico,
     ao contrário de um analisador feito exclusivamente para a linguagem alvo.
 
     Este Analisador LALR(1),
@@ -721,13 +733,14 @@ Fazer depois que a fundamentação teórica estiver concluída.
     por que toda Gramática Regular Não~=Determinística pode ser convertida em uma Gramática Regular Determinística \cite{sipserBook}.
 
     Infelizmente isso não é verdade para Gramáticas Livres de Contexto,
-    por que Gramáticas Livre de Contexto Determinísticas $\Theta(n)$ e
-    Não~=Determinísticas não são equivalentes.
+    por que Gramáticas Livre de Contexto Determinísticas e
+    Não~=Determinísticas não são equivalentes e
+    uma não pode ser convertida em outra.
     Gramáticas Não~=Determinísticas possuem complexidade exponential,
     quando analisadas por um Analisador com Backtracking.
     Em contra~=partida,
-    Gramáticas Livre de Contexto Não~=Determinísticas também podem ser analisadas em tempo polinomial $\Theta(n^3)$ utilizando algoritmos de parsing tal como CYK (reveja a \fullref{hierarquiaDeChomsky} e
-    \citeonline{larkContextualLexer}).
+    Gramáticas Livre de Contexto Não~=Determinísticas também podem ser analisadas em tempo polinomial $\Theta(n^3)$ utilizando algoritmos de parsing tal como CYK (\citeonline{larkContextualLexer} e
+    \fullref{hierarquiaDeChomsky}).
 
 
 \advisor{}{%
@@ -780,7 +793,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Do inglês, \textit{Non~=Deterministic Polynomial Time},
     comumente conhecida pela pergunta,
     $P \stackrel{?}{=} NP$, i.e.,
-    a classe de problemas com complexidade de tempo polinomial,
+    a classe de problemas com complexidade de tempo Determinístico Polinomial,
     está estritamente contida na classe de problemas $NP$ (Não~=Determinísticos Polinomiais) \cite{computationalComplexityAuroraBarak}?
     }
     ao tamanho da entrada,
@@ -821,7 +834,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     O tempo de execução será linear ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Regular e
     implementado através de um Automato Finito.
     O tempo de execução será polinomial ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Livre de Contexto Ambígua (Gramática Não~=Determinística) e
-    implementado através de algum algoritmo com tempo polinomial como CYK \cite{allStarAntlr}.
+    implementado através de algum algoritmo com tempo polinomial como CYK (\fullref{hierarquiaDeChomsky}).
 
     Como já explicado nas observações da Figura \ref{fig:pictures/HierarquiaDeChomsky.png},
     existem duas classes distintas de complexidade para Gramáticas Livre de Contexto Não~=Determinísticas.
@@ -829,15 +842,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     tem~=se como resultado várias possíveis Árvores de Derivação\footnote{
     Como a gramática é Não~=Determinística,
     existem muitas possíveis Árvores de Derivação,
-    (devido à ambiguidade da gramática).
+    (devido à ambiguidades da gramática).
     }.
-
-    Algoritmos de construção das Árvores de Derivação com Backtracking para Gramáticas Livre de Contexto Não~=Determinística,
-    possuem tempo exponencial de execução.
-    Já algoritmos como CYK,
-    que simplesmente dizem se dada palavra pertence ou
-    não a linguagem,
-    possuem complexidade polinomial ao tamanho da palavra de entrada \cite{hopcroftBook}.
 
 
 \subsection{Mecanismos Reconhecedores}
@@ -850,29 +856,18 @@ Fazer depois que a fundamentação teórica estiver concluída.
     por que tudo o que é eficiente é Livre de Contexto e
     Determinístico.
 
-    Algoritmos de Análise para essas outras classes de Linguagens serão exponenciais em pior caso \cite{contextSensitiveParsing} e
-    quando analisados por dispositivos equivalentes a Máquinas de Turing Não~=Determinísticas terão no mínimo tempo polinomial\footnote{
-    Quando fala~=se de complexidade de tempo polinomial para Máquinas Não~=Determinísticas,
-    resulta~=se em uma complexidade de tempo exponencial ao simular o funcionamento dessa Máquina Não~=Determinística em um computador,
-    ou seja,
-    a Real Complexidade do problema termina sendo exponencial,
-    enquanto teoricamente a complexidade é polinomial.
-    Veja as Figuras \ref{fig:pictures/ParserNonDeterministic.png} e
-    \ref{fig:pictures/ParserDeterministic.png} e
-    as compare.
-    }
-    de execução.
-
-    Máquinas de Turing Não~=Determinísticas que resolvem os problemas da Classe $NP$ em tempo polinomial não existem fisicamente,
+    Máquinas de Turing Não~=Determinísticas que resolvem os problemas da Classe $NP$ em tempo Não~=Determinístico Polinomial não existem fisicamente,
     portanto sua complexidade de tempo reduzida não pode ser alcançada e
-    seu tempo de execução é exponential,
+    seu tempo de execução é Determinístico Exponential,
     pois para simular o funcionamento de uma Máquina de Turing Não~=Determinística,
     utiliza~=se uma Máquina de Turing Determinística\footnote{
-    Máquinas de Turing Determinísticas são equivalentes aos computadores de propósito geral
+    Máquinas de Turing Determinísticas seriam os equivalentes aos computadores de propósito geral
     }
     \cite{sipserBook,turingMachinesRoyer}.
 
-    Assim,
+    Veja as Figuras \ref{fig:pictures/ParserNonDeterministic.png} e
+    \ref{fig:pictures/ParserDeterministic.png} e
+    as compare.
     Máquinas de Turing Determinísticas e
     Não~=Determinísticas são equivalentes,
     pois sempre é possível simular o funcionamento de uma Máquina de Turing Não~=Determinística,
