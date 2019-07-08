@@ -135,11 +135,10 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
         \item \label{definicaoDeGramatica}Um conjunto de produções $P$.
         Uma produção consiste em uma dupla elementos.
-        O primeiro elemento é a cabeça ou
-        lado esquerdo e
+        O primeiro elemento é a cabeça ou lado esquerdo e
         representa a substituição ou
         consumo que será feito no programa de entrada.
-        Ele é obrigatoriamente constituído de no mínimo um não~=terminal e
+        Ele é obrigatoriamente constituído de no mínimo um símbolo não~=terminal e
         um ou mais não~=terminais ou
         terminais.
         O segundo elemento é a cauda ou
@@ -152,7 +151,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
         \item Um símbolo inicial selecionado a partir do conjunto de símbolos não~=terminais.
         O símbolo inicial é utilizado para definir qual será a raíz da Árvore Sintática,
         e.g.,
-        o última regra de produção utilizada para terminar o reconhecimento do programa de entrada em um Analisador Ascendente (ver seção \ref{reducoesEderivacoes}),
+        o última regra de produção utilizada para terminar o reconhecimento do programa de entrada em um Analisador Ascendente (veja a \fullref{reducoesEderivacoes}),
         e a primeira regra utilizada em um Analisador Descendente ou
         gerar~=se palavras desta linguagem\footnote{
         Processo natural quanto um Analisador Sintático realiza o reconhecimento de um programa de entrada.
@@ -197,7 +196,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
     **Para Gramáticas Livres de Contexto Determinísticas,
     também conhecidas como LR(K),
-    complexidade linear ao tamanho da palavra de entrada (veja a seção \ref{gramaticasVersusLinguagens}).
+    complexidade linear ao tamanho da palavra de entrada (veja a \fullref{gramaticasVersusLinguagens}).
     Para Gramáticas Livre de Contexto Não~=Determinísticas,
     vale o mesmo que para Linguagens Regulares Não~=Determinísticas logo acima,
     mas no lugar de Automatos Finitos,
@@ -333,6 +332,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Tais linguagens são conhecidas como Linguagens Inerentemente Ambíguas\footnote{
     Do inglês,
     \textit{Inherently Ambiguous Languages}.
+    Veja o que significa ambiguidade na \fullref{analiseSemantica}.
     }
     onde não existem Gramáticas Livre de Contexto Determinísticas capazes de representa~=las e
     tais Linguagens somente podem ser reconhecidas por Analisadores com Backtracking \cite{ahoCompilerDragonBook} ou
@@ -445,8 +445,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     No caso de conflitos na Tabela de Análise,
     a gramática não pode ser analisada deterministicamente e
     algoritmos de análise com backtracking (ou CYK,
-    reveja a seção \ref{hierarquiaDeChomsky}) precisam ser utilizados para construção da Árvore Sintática.
-    Como mostrado para Máquinas de Turing Não~=Determinísticas na seção \ref{mecanismosReconhecedores},
+    reveja a \fullref{hierarquiaDeChomsky}) precisam ser utilizados para construção da Árvore Sintática.
+    Como mostrado para Máquinas de Turing Não~=Determinísticas na \fullref{mecanismosReconhecedores},
     Analisadores com Backtracking também funcionam em pior caso,
     com tempo exponencial e
     podem escolher uma estratégia como Busca em Profundidade\footnote{
@@ -584,6 +584,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
 
 \subsection{Análise Semântica}
+\label{analiseSemantica}
 
     Usualmente,
     somente depois que a Árvore Sintática é construída,
@@ -610,7 +611,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     a declaração de um ponteiro chamado \textit{y} do tipo \textit{x},
     ou a multiplicação de dois números armazenados nas variáveis \textit{x} e
     \textit{y},
-    portanto ela não pode ser aceita por um Analisador LR(K) tradicional.
+    portanto ela não pode ser aceita por um Analisador LR(K) tradicional,
+    pois sua gramática é ambígua.
 
     Uma otimização que o compilador C faz para poder fazer o Analisador ``Determinístico'' da linguagem C,
     e assim saber se a expressão ``\textit{x * y ;}'' trata~=se de de uma mera multiplicação ou
@@ -656,7 +658,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     seja analisada com eficiência.
     Mas isso deixa a brechas para que ela possa não ser analisada com eficiência.
     A diferença para um analisador onde a gramática é inteiramente Livre de Contexto,
-    é que elas tem performance \textit{garantida} pela sua Classe de Complexidade (Veja seção \ref{classesDeComplexidade}).
+    é que elas tem performance \textit{garantida} pela sua Classe de Complexidade (Veja a \fullref{classesDeComplexidade}).
 
     Sintaxe e
     Semântica de Linguagens são completamente ortogonais.
@@ -688,7 +690,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     }
     \cite{turingCompleteRegularLanguages,finiteAutomataTuringComplete}.
 
-    Na seção \ref{sec:software_implementation},
+    No \fullref{sec:software_implementation},
     será mostrado a implementação de uma Gramática ``Livre de Contexto'' em um Analisador LALR(1),
     onde Aspectos Sensíveis ao Contexto serão analisados pelo Analisador Semântico,
     tal como feito na implementação do Compilador da Linguagem C apresentado.
@@ -724,7 +726,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Gramáticas Não~=Determinísticas possuem complexidade exponential,
     quando analisadas por um Analisador com Backtracking.
     Em contra~=partida,
-    Gramáticas Livre de Contexto Não~=Determinísticas também podem ser analisadas em tempo polinomial $\Theta(n^3)$ utilizando algoritmos de parsing tal como CYK (seção \ref{hierarquiaDeChomsky} e
+    Gramáticas Livre de Contexto Não~=Determinísticas também podem ser analisadas em tempo polinomial $\Theta(n^3)$ utilizando algoritmos de parsing tal como CYK (reveja a \fullref{hierarquiaDeChomsky} e
     \citeonline{larkContextualLexer}).
 
 
@@ -855,7 +857,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     ou seja,
     a Real Complexidade do problema termina sendo exponencial,
     enquanto teoricamente a complexidade é polinomial.
-    Veja as figuras \ref{fig:pictures/ParserNonDeterministic.png} e
+    Veja as Figuras \ref{fig:pictures/ParserNonDeterministic.png} e
     \ref{fig:pictures/ParserDeterministic.png} e
     as compare.
     }
