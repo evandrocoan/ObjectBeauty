@@ -739,7 +739,9 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Gramáticas Não~=Determinísticas possuem complexidade exponential,
     quando analisadas por um Analisador com Backtracking.
     Em contra~=partida,
-    Gramáticas Livre de Contexto Não~=Determinísticas também podem ser analisadas em tempo polinomial $\Theta(n^3)$ utilizando algoritmos de parsing tal como CYK (\citeonline{larkContextualLexer} e
+    Gramáticas Livre de Contexto Não~=Determinísticas também podem ser analisadas em tempo polinomial,
+    por exemplo,
+    com complexidade de tempo $\Theta(n^3)$ ao utilizar o algoritmo de parsing CYK (\citeonline{larkContextualLexer} e
     \fullref{hierarquiaDeChomsky}).
 
 
@@ -808,7 +810,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     acontece em tempo Não~=Determinístico Polinomial,
     com expoente de $n$ igual a $1$,
     i.e.,
-    $n^1$.
+    $\Theta(n^1)$.
     \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{pictures/ParserNonDeterministic.png}
@@ -830,6 +832,9 @@ Fazer depois que a fundamentação teórica estiver concluída.
     enquanto $NP$ o conjunto de Problemas resolvido em tempo Não~=Determinístico Polinomial (por Máquinas de Turing Não~=Determinísticas).
     Assim,
     um problema Não~=Determinístico Polinomial somente pode ser resolvido por uma Máquinas de Turing Determinística em tempo exponencial.
+    Veja as Figuras \ref{fig:pictures/ParserNonDeterministic.png} e
+    \ref{fig:pictures/ParserDeterministic.png} e
+    as compare.
 
     O tempo de execução será linear ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Regular e
     implementado através de um Automato Finito.
@@ -865,9 +870,6 @@ Fazer depois que a fundamentação teórica estiver concluída.
     }
     \cite{sipserBook,turingMachinesRoyer}.
 
-    Veja as Figuras \ref{fig:pictures/ParserNonDeterministic.png} e
-    \ref{fig:pictures/ParserDeterministic.png} e
-    as compare.
     Máquinas de Turing Determinísticas e
     Não~=Determinísticas são equivalentes,
     pois sempre é possível simular o funcionamento de uma Máquina de Turing Não~=Determinística,
@@ -890,7 +892,8 @@ Fazer depois que a fundamentação teórica estiver concluída.
     é necessário execute cada um dos ramos de computação.
     Já Máquinas de Turing Não~=Determinísticas\footnote{
     Máquinas de Turing da classe $NP$,
-    somente existem teoricamente
+    somente existem teoricamente,
+    com a exceção de algums trabalhos como \citeonline{efficientNonDeterministicParsers} que tenta utilizar computação paralela para representar o Não~=Determinismo.
     }
     executam simultaneamente todos os ramos de computação Não~=determinísticos,
     conseguindo assim, desempenho linear ou
