@@ -236,19 +236,27 @@ indent_constr_colon = false # false/true
     Não pôde~=se encontrar nenhuma forte evidência ou
     relação sobre a compreensão de códigos~=fonte e
     formatadores de código.
-    Somente indícios de que certas características combinadas podem melhorar ou
-    facilitar a tarefa de programar \cite{pep8operatorsBlankLine}.
+    Alguns estudos como \citeonline{improvingCodeReadability} implementam modelos de Inteligências Artificiais,
+    utilizados para classificar trechos de código~=fonte como ``bem legíveis'' ou
+    ``mal legíveis''.
+    Inicialmente estes estudos começam coletando dados de pessoas,
+    para então treinar Inteligências Artificiais para classificar códigos~=fonte.
+
+    Além desses estudos científicos para classificar códigos~=fonte,
+    encontra~=se em outros lugares como \citeonline{pep8operatorsBlankLine} dicas ou
+    notas explicando quais características de formatação de código~=fonte ajudam ou
+    prejudicam a legibilidade de código.
 }%
 \begin{citacao}
     % \setlength{\itemindent}{5pt}
     Um dos melhores métodos de destruição de equipes de desenvolvedores de software,
     é engajar~=se em guerras de formatação passiva~=agressiva.
-    Eles destroem os relacionamentos entre colegas,
+    Elas destroem os relacionamentos entre colegas,
     e dependendo do tipo de formatação feita,
     também podem prejudicar a capacidade de comparar efetivamente as revisões no sistema de controle de versão,
     o que é realmente assustador.
     Não pode~=se nem imaginar o quão ruim seria caso a liderança das equipes fosse a culpada por esse comportamento.
-    Isso é liderar por exemplo.
+    Isso que é liderar por exemplo.
     Por mau exemplo.
     \cite[tradução nossa]{deathToTheSpaceInfidels}\footnote{
     \englishword{%
@@ -267,24 +275,36 @@ indent_constr_colon = false # false/true
 \end{citacao}
 
 \lang{%
-    On \citeonline{improvingCodeReadability} was analyzed the level of program comprehension which can be gained by the indentation and
-    was constated that the indentation levels of 2 and
+    On \citeonline{programIndentation} was analyzed the level of program comprehension which can be gained by the indentation and
+    was comprehended that the indentation levels of 2 and
     4 spaces proved to have the best comprehension levels again other levels.
 }{%
-
-}
+    Em \citeonline{programIndentation} foi analisado o nível de compreensão do programa que pode ser obtido pela indentação e
+    foi constatado que os níveis de indentação de 2 e
+    4 espaços provaram ter os melhores níveis de compreensão do que outros níveis.
+}%
 \begin{citacao}
-So yes,
-absurd as it may sound,
-fighting over whitespace characters and
-other seemingly trivial issues of code layout is actually justified.
-Within reason of course -- when done openly,
-in a fair and
-concensus building way,
-and without stabbing your teammates in the face along the way.
-\cite{deathToTheSpaceInfidels}
+    % \setlength{\itemindent}{5pt}
+    Por mais absurdo que possa parecer,
+    lutar sobre espaços em branco e
+    outras questões aparentemente triviais de layout de código~=fonte é realmente justificado.
+    Desde que feito com moderação,
+    abertamente,
+    de uma forma justa e
+    com construção de consenso,
+    sem esfaquear os seus companheiros de equipe ao longo do caminho.
+    \cite[tradução nossa]{deathToTheSpaceInfidels}\footnote{
+    \englishword{%
+    So yes,
+    absurd as it may sound,
+    fighting over whitespace characters and
+    other seemingly trivial issues of code layout is actually justified.
+    Within reason of course -- when done openly,
+    in a fair and
+    concensus building way,
+    and without stabbing your teammates in the face along the way.
+    }}.
 \end{citacao}
-
 
 
 \section{Application Fields}
@@ -348,7 +368,6 @@ translates between languages by machine learning.
 \citeonline{prettyPrinting},
 \citeonline{architectureFormatting},
 \citeonline{independentFramework},
-\citeonline{programIndentation},
 \citeonline{industrialApplication},
 \citeonline{toolsForProjectManagement},
 \citeonline{codeClassification},
