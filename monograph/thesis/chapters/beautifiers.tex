@@ -292,7 +292,7 @@ indent_constr_colon = false # false/true
     abertamente,
     de uma forma justa e
     com construção de consenso,
-    sem esfaquear os seus companheiros de equipe ao longo do caminho.
+    sem esfaquear companheiros de equipe ao longo do caminho.
     \cite[tradução nossa]{deathToTheSpaceInfidels}\footnote{
     \englishword{%
     So yes,
@@ -309,8 +309,6 @@ indent_constr_colon = false # false/true
 
 \section{Application Fields}
 
-TODO.
-
 \url{https://github.com/r-lib/styler}
 \url{https://github.com/github/linguist}
 \url{https://forum.sublimetext.com/t/auto-align-symbolic/34375}
@@ -318,47 +316,6 @@ TODO.
 \url{https://github.com/wbond/package_control_channel/issues/4310} Write a formatter utility
 \url{https://github.com/PyCQA/pydocstyle}
 \url{https://github.com/PyCQA/pycodestyle}
-
-
-
-\subsection{Configuration Detection}
-
-If found on the project root folder,
-a folder named `.object~=beauty',
-it will be used to store the automatically generated configurations based on the current configuration\s rules.
-Such thing,
-cannot be easily implemented because of the various complexities which can be introduced into the formatting rules.
-For example,
-the if configurations rules are simple and
-limited to just changing simple aspects of the formatting,
-then the configuration generation will also be simple,
-because there are only a few aspects to analyze.
-However,
-as the formatting rules grow up,
-their complexity equally proportionally grows,
-due the increased count of possibilities to analyze when combined together.
-
-
-\subsection{Multidirectional Translation}
-
-With this ObjectBeautifier,
-we can edit XML files like YAML files,
-because the when we load the XML,
-we create a copy (the YAML version of the XML) on the `.object~=beauty` folder which is edited by Sublime Text,
-and let the XML on its original place.
-Then when we save our YAML copy,
-we translate it to the XML original copy.
-Similarly,
-for a C language code,
-it would be like to change some bit on the compiled binary code and
-have the change reflected on the original C source code.
-\url{https://github.com/Microsoft/XmlNotepad}
-
-Open Source Neural Machine Translation in Torch,
-translates between languages by machine learning.
-\url{https://github.com/OpenNMT/OpenNMT}
-
-
 
 \citeonline{annotationAssistant},
 \citeonline{codePlagiarismDetection},
@@ -388,10 +345,7 @@ translates between languages by machine learning.
 \citeonline{pushdownAutomata},
 
 
-
 \section{Continuous Integration}
-
-TODO
 
 On a distributed version control system,
 continuous integration would be continuously running the system tests as long new code is integrated into main system from the distributed clients \cite{continuousIntegration}.
@@ -403,10 +357,7 @@ continuous integration would be continuously running the system tests as long ne
 \end{enumerate}
 
 
-
 \section{Language Server Protocol}
-
-TODO.
 
 \url{https://www.youtube.com/watch?v=2GqpdfIAhz8}
 \url{http://langserver.org/}
@@ -415,7 +366,6 @@ TODO.
 \url{https://code.visualstudio.com/blogs/2016/06/27/common-language-protocol}
 \url{https://www.eclipse.org/community/eclipse_newsletter/2017/may/article1.php}
 \url{https://github.com/Microsoft/language-server-protocol/wiki/Protocol-Implementations}
-
 
 
 \section{\lang{Related Works}{Trabalhos Relacionados}}

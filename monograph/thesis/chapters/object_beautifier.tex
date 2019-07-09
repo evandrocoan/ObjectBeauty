@@ -82,6 +82,23 @@ as the objective of text formatters is to change the structural aspects
 .
 
 
+\subsection{Configuration Detection}
+
+If found on the project root folder,
+a folder named `.object~=beauty',
+it will be used to store the automatically generated configurations based on the current configuration\s rules.
+Such thing,
+cannot be easily implemented because of the various complexities which can be introduced into the formatting rules.
+For example,
+the if configurations rules are simple and
+limited to just changing simple aspects of the formatting,
+then the configuration generation will also be simple,
+because there are only a few aspects to analyze.
+However,
+as the formatting rules grow up,
+their complexity equally proportionally grows,
+due the increased count of possibilities to analyze when combined together.
+
 
 .sublime-syntax or my .object-beauty is a meta-language, as EBNF
 % TODO: \cite{Extended Backus–Naur form}.
@@ -330,4 +347,25 @@ For reference,
 the Sublime Text Editor uniquely uses this approach to perform source code highlight in most diverse languages,
 and has showed to fulfill it purpose.
 TODO put reference to this.
+
+
+\subsection{Multidirectional Translation}
+
+With this ObjectBeautifier,
+we can edit XML files like YAML files,
+because the when we load the XML,
+we create a copy (the YAML version of the XML) on the `.object~=beauty` folder which is edited by Sublime Text,
+and let the XML on its original place.
+Then when we save our YAML copy,
+we translate it to the XML original copy.
+Similarly,
+for a C language code,
+it would be like to change some bit on the compiled binary code and
+have the change reflected on the original C source code.
+\url{https://github.com/Microsoft/XmlNotepad}
+
+Open Source Neural Machine Translation in Torch,
+translates between languages by machine learning.
+\url{https://github.com/OpenNMT/OpenNMT}
+
 
