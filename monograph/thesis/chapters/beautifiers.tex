@@ -76,8 +76,9 @@
             Add spaces inside for\s as in `for(var)' versus `for( var )'
     \end{enumerate}
 }{%
-    Conhecido como ``pretty~=printing'' ou
-    embelezadores\footnote{Do inglês \textit{Beautifiers}} \cite{prettyPrintingForSoftware},
+    Conhecido como ``\textit{pretty~=printing}'' ou
+    embelezadores\footnote{Do inglês,
+    \textit{Source Code Beautifiers}} \cite{prettyPrintingForSoftware},
     uma ferramenta de formatação pode ser complicada de se utilizar,
     somente com um conjunto básico de definições.
     Por exemplo,
@@ -87,8 +88,8 @@
     Uma possível implementação para tal ajuste fino,
     pode ser uma configuração específica como por exemplo a entrada booleana ``\textit{use\_spaces\_after\_if}'',
     em um arquivo de configuração para definir caso deva~=se ou
-    não ser adicionados espaços antes de cada ``if'' ao fazer a formatação da linguagem,
-    por exemplo,
+    não ser adicionados espaços após cada ``if'' ao fazer a formatação da linguagem,
+    i.e.,
     ``if (var)'' ao contrário de ``if(var)''.
 }
 
@@ -96,14 +97,14 @@
     As may be noticed,
     the list may became quite big,
     and if fact such big list of rules has been implemented.
-    Looking over the Beautifier called `Uncrustify'\footnote{\url{https://github.com/uncrustify/uncrustify}},
+    Looking over the Beautifier called `Uncrustify' \cite{uncrustifySourceCode},
     we can find about 500 settings with specifications like these above.
 }{%
     Como pode ser percebido,
     uma lista contendo todas as configurações de formatação para cada aspecto da linguagem,
     ficará muito grande quando todos os aspectos das linguagens mais complexas como C ou
     C++ forem implementados.
-    Em softwares como \textit{Uncrustify}\footnote{\url{https://github.com/uncrustify/uncrustify}},
+    Em softwares como \textit{Uncrustify} \cite{uncrustifySourceCode},
     encontra~=se mais de 500 configurações tais como o Código \ref{lst:uncrustifySettingSample}.
 }
 \begin{lstlisting}[caption={Trecho do Arquivo de Configuração de
@@ -151,10 +152,11 @@ indent_constr_colon = false # false/true
 
     No caso da ferramenta \textit{Uncrustify},
     serão configurados as linguagens \textit{C},
-    \textit{C++}, \textit{Java}, \textit{Pawn}\advisor{.}{,
-    etc.} Para todos os outras linguagens,
+    \textit{C++}, \textit{C\#}, \textit{ObjectiveC}, \textit{D}, \textit{Java}, \textit{Pawn} e
+    \textit{VALA} \cite{uncrustifySourceCode}.
+    Para todos os outras linguagens,
     você ainda precisará encontrar outra ferramenta de formatação,
-    que será certamente mais limitada no que ela pode customizar \cite{eclisePeriodSettings},
+    que será certamente mais limitada no que ela pode customizar \cite{eclisePeriodSettings,uncrustifyNotMeetingCodingStandards},
     uma vez que \textit{Uncrustify} já é uma das mais completas.
 
     Além disso,
@@ -227,6 +229,11 @@ indent_constr_colon = false # false/true
 
 \section{\lang{For what is their use?}{Qual a utilidade de Formatadores?}}
 
+Um bom estilo de formatação é como uma boa pontuação,
+você consegue viver sem \cite{theTidyverseStyleGuide}:
+
+mascomcertezatornamascoisasmaisfaceisdeseler
+
 \lang{%
     For now could not find any strong evidence or
     correlation about code comprehension and
@@ -237,10 +244,11 @@ indent_constr_colon = false # false/true
     relação sobre a compreensão de códigos~=fonte e
     formatadores de código.
     Alguns estudos como \citeonline{improvingCodeReadability} implementam modelos de Inteligências Artificiais,
-    utilizados para classificar trechos de código~=fonte como ``bem legíveis'' ou
+    utilizados para classificar códigos~=fonte como ``bem legíveis'' ou
     ``mal legíveis''.
-    Inicialmente estes estudos começam coletando dados de pessoas,
-    para então treinar Inteligências Artificiais para classificar códigos~=fonte.
+    Inicialmente estes estudos começam coletando dados de pessoas classificando códigos~=fonte como legíveis ou
+    não,
+    para então treinar Inteligências Artificiais classificando códigos~=fonte.
 
     Além desses estudos científicos para classificar códigos~=fonte,
     encontra~=se em outros lugares como \citeonline{pep8operatorsBlankLine} dicas ou
@@ -258,7 +266,7 @@ indent_constr_colon = false # false/true
     Não pode~=se nem imaginar o quão ruim seria caso a liderança das equipes fosse a culpada por esse comportamento.
     Isso que é liderar por exemplo.
     Por mau exemplo.
-    \cite[tradução nossa]{deathToTheSpaceInfidels}\footnote{
+    \cite[tradução nossa\protect\footnotemark]{deathToTheSpaceInfidels}\footnotetext{
     \englishword{%
     One of absolute worst,
     worst methods of teamicide for software developers is to engage in these kinds of passive~=aggressive formatting wars.
@@ -293,7 +301,7 @@ indent_constr_colon = false # false/true
     de uma forma justa e
     com construção de consenso,
     sem esfaquear companheiros de equipe ao longo do caminho.
-    \cite[tradução nossa]{deathToTheSpaceInfidels}\footnote{
+    \cite[tradução nossa\protect\footnotemark]{deathToTheSpaceInfidels}\footnotetext{
     \englishword{%
     So yes,
     absurd as it may sound,
