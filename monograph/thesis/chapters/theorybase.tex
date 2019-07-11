@@ -90,7 +90,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Conceito abordado na
     \fullref{analisadoresSintaticos}
     }
-    \cite{sippu1982,lr1ErrorRecovery,larkJosefGrosch}.
+    \cite{sippu1982,lr1ErrorRecovery,errorRecoveryForYaccParsers,repairingSyntaxErrorsInLR,larkJosefGrosch,errorsInLRParsers}.
 
 
 \section{Gramáticas}
@@ -262,7 +262,10 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
 \subsection{Gramáticas Sensíveis ao Contexto}
 
-    Gramáticas Sensíveis ao Contexto (também conhecidas como Tipo 1) são todas aquelas reconhecidas por Automatos Linearmente Limitados,
+    Gramáticas Sensíveis ao Contexto (também conhecidas como Tipo 1) são todas aquelas reconhecidas por Automatos Linearmente Limitados\footnote{
+    Do inglês,
+    Linear Bounded Automata \cite{fundamentalsOfTheoreticalComputerScience}.
+    },
     que tratam~=se somente de Máquinas de Turing \cite{sipserBook} com Fita (ou memória) Finita.
     Gramáticas de Linguagens Sensíveis ao Contexto pela definição formal,
     são todas aquelas nos quais todas as Produções $P$ da gramática possuem a seguinte forma:
@@ -372,7 +375,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Também existem Gramáticas Sensíveis ao Contexto Determinísticas \cite{contextSensitiveParsing},
     entretanto,
     algoritmos de análise possuem em pior caso,
-    complexidade exponencial.
+    complexidade exponencial \cite{areContextSensitiveGrammarWithPolynomialTime}.
     }.
     O primeiro nível significa que todas as Linguagens Inerentemente Ambíguas\footnote{
     É comum confundir~=se e
@@ -861,7 +864,9 @@ Fazer depois que a fundamentação teórica estiver concluída.
     Polinomiais de execução para Linguagens Sensíveis ao Contexto ou
     Irrestritas,
     por que tudo o que é eficiente é Livre de Contexto e
-    Determinístico.
+    Determinístico e
+    Gramáticas Sensíveis ao Contexto terão em pior caso,
+    complexidade exponential \cite{growingContextSensitiveLanguages}.
 
     Máquinas de Turing Não~=Determinísticas que resolvem os problemas da Classe $NP$ em tempo Não~=Determinístico Polinomial não existem fisicamente,
     portanto sua complexidade de tempo reduzida não pode ser alcançada e
