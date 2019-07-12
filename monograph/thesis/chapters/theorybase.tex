@@ -631,6 +631,24 @@ Fazer depois que a fundamentação teórica estiver concluída.
     portanto ela não pode ser aceita por um Analisador LR(K) tradicional,
     pois sua gramática é ambígua.
 
+\vspace{4mm}
+\begin{quadro}[h]
+\caption{Exemplo de Ambiguidade Linguística}
+\begin{bluebox}
+    SOCORRO!
+
+    UM TIGRE DE BENGALA ESTÁ ME ATACANDO!
+
+    \vspace{-1mm}
+    \begin{enumerate}%[nosep,nolistsep]
+        \item Um tigre que está utilizando uma bengala para se locomover está atrás de você.
+        \item Um tigre que veio da grande área metropolitana de Bengala na Ásia está atrás de você.
+        \item Um torcedor do Criciúma (tigre) que usa sua bengala,
+        depois que seu time perdeu de 7 à 1 está atrás de você.
+    \end{enumerate}
+\end{bluebox}
+\end{quadro}
+
     Uma otimização que o compilador C faz para poder fazer a Análise ``Determinística'' da Linguagem C,
     e assim saber se a expressão ``\textit{x * y ;}'' trata~=se de de uma mera multiplicação ou
     a declaração de uma variável,
