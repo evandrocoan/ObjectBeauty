@@ -603,19 +603,27 @@ Fazer depois que a fundamentação teórica estiver concluída.
 \subsection{Análise Semântica}
 \label{analiseSemantica}
 
-    Usualmente,
+    Usualmente\footnote{
+    Como será apresentado mais a frente nesta seção,
+    \begin{inparaenum}
+    \item O processo de Análise Semântica pode acontecer ao mesmo tempo que a Análise Sintática,
+    \item Por fim,
+    a Árvore Sintática também pode nem ser gerada em um estrutura de dados,
+    ocorrendo diretamente Análise Semântica seguido da Geração de Código.
+    \end{inparaenum}
+    },
     somente depois que a Árvore Sintática é construída,
     realiza~=se o processo de Análise Semântica \cite{ahoCompilerDragonBook},
     i.e.,
-    a verificação da corretude do programa escrito em relação os aspectos não~=estruturais,
-    por exemplo,
+    a verificação da corretude do programa escrito em relação os aspectos não~=estruturais.
+    Por exemplo,
     é sintaticamente correto escrever a declaração de uma mesma variável duas vezes ou
-    mais.
-
-    Entretanto,
+    mais. Entretanto,
     para algumas linguagens é semanticamente errado redeclarar uma variável duas vezes ou
     mais.
-    O Analisador Sintático representado por uma Gramática Livre de Contexto não tem poder suficiente para realizar tais verificações devido as limitações desse tipo de gramática,
+
+    O Analisador Sintático representado por uma Gramática Livre de Contexto não tem poder suficiente para realizar verificações de significado,
+    devido as limitações desse tipo de gramática,
     que restringem~=se a estrutura do programa e
     não a seu significado (semântica).
 
@@ -623,7 +631,11 @@ Fazer depois que a fundamentação teórica estiver concluída.
     como Análise Léxica, Sintática e Semântica. Muitas vezes,
     estas três etapas acontecem em paralelo como realizado na implementação do compilador da Linguagem C \cite{jourdan2017,whyCcannotBeParsedWithALR1Parser}.
 
-    A Gramática da Linguagem C não é Livre de Contexto devido as ambiguidades (conhecido também como Não~=Determinismo) existentes como a expressão ``\textit{x * y ;}''.
+    A Gramática da Linguagem C não é Livre de Contexto Determinística devido as ambiguidades\footnote{
+    Conhecido também como Não~=Determinismo,
+    veja o \fullref{exemploDeAmbiguidadeLinguistica}
+    }
+    existentes como a expressão ``\textit{x * y ;}''.
     Tal sentença pode ser ou
     a declaração de um ponteiro chamado \textit{y} do tipo \textit{x},
     ou a multiplicação de dois números armazenados nas variáveis \textit{x} e
@@ -631,15 +643,14 @@ Fazer depois que a fundamentação teórica estiver concluída.
     portanto ela não pode ser aceita por um Analisador LR(K) tradicional,
     pois sua gramática é ambígua.
 
-\vspace{4mm}
 \begin{quadro}[h]
 \caption{Exemplo de Ambiguidade Linguística}
+\label{exemploDeAmbiguidadeLinguistica}
 \begin{bluebox}
     SOCORRO!
 
     UM TIGRE DE BENGALA ESTÁ ME ATACANDO!
 
-    \vspace{-1mm}
     \begin{enumerate}%[nosep,nolistsep]
         \item Um tigre que está utilizando uma bengala para se locomover está atrás de você.
         \item Um tigre que veio da grande área metropolitana de Bengala na Ásia está atrás de você.
@@ -649,26 +660,38 @@ Fazer depois que a fundamentação teórica estiver concluída.
 \end{bluebox}
 \end{quadro}
 
-    Uma otimização que o compilador C faz para poder fazer a Análise ``Determinística'' da Linguagem C,
-    e assim saber se a expressão ``\textit{x * y ;}'' trata~=se de de uma mera multiplicação ou
+    O compilador da linguagem C consegue fazer a ``Análise Determinística\footnote{
+    Como o Compilador da Linguagem C é escrito programaticamente,
+    ele é equivalente a uma Máquina de Turing e
+    portanto possui em pior caso,
+    tempo infinito de execução,
+    reveja a \fullref{fig:pictures/HierarquiaDeChomsky.png}.
+    }'' da linguagem tratando a ambiguidade relativa ao uso do símbolo asterisco ou
+    estrela ``*'' como operador de multiplicação ou
+    declaração de variável do tipo ponteiro.
+    Assim consegue saber se a expressão ``\textit{x * y ;}'' trata~=se de de uma mera multiplicação ou
     a declaração de uma variável,
-    é exatamente a realização ``simultânea'' da Análise Léxica,
+    com a realização ``simultânea'' da Análise Léxica,
     Sintática e
     Semântica.
+
     Uma vez que um novo \textit{token} é reconhecido,
     ele é alimentado para o Analisador Sintático,
-    que também o alimenta para o Analisador Semântico.
-
+    que também o alimenta o Analisador Semântico,
+    que alimenta a Tabela de Símbolos.
     Assim,
     o Analisador Sintático é capaz de consultar a Tabela de Símbolos \cite{ahoCompilerDragonBook} e
     descobrir se dado token ou
     tratar~=se de um tipo ou
     uma variável numérica.
-    Entretanto,
-    requer~=se cuidado sobre como estas alterações são feitas,
+
+    \advisor{Requer~=se}{Entretanto,
+    requer~=se} cuidado sobre como as alterações do Analisador são feitas,
     pois pode~=se pensar que todas as gramáticas de todas as linguagens de programação são ``Livres de Contexto'' e
-    Determinísticas.
-    E uma vez que a gramática não é mais Livre de Contexto ou
+    Determinísticas,
+    o que não é verdade,
+    veja a próxima seção \ref{alteracoesNosAnalisadoresSintaticos}.
+    Uma vez que a gramática não é mais Livre de Contexto ou
     Determinística,
     pode~=se mover Aspectos Sensíveis ao Contexto para o Analisador Semântico,
     assim,
@@ -676,6 +699,7 @@ Fazer depois que a fundamentação teórica estiver concluída.
 
 
 \subsection{Alterações nos Analisadores Sintáticos}
+\label{alteracoesNosAnalisadoresSintaticos}
 
     Dependendo de como o Analisador Sintático de Gramáticas Livre de Contexto é alterado,
     o conjunto de gramáticas aceitos por tal analisador pode deixar de serem Livres de Contexto.
