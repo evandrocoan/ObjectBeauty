@@ -1,6 +1,6 @@
 
 
-\chapter{Source Code Beautifiers}
+\chapter{Estado da Arte}
 \label{source_code_beautifiers}
 
 
@@ -229,10 +229,23 @@ indent_constr_colon = false # false/true
 
 \section{\lang{For what is their use?}{Qual a utilidade de Formatadores?}}
 
-Um bom estilo de formatação é como uma boa pontuação,
-você consegue viver sem \cite{theTidyverseStyleGuide}:
+\advisor{%
+    Pode-se compreender uma frase sem pontuação,
+    mas é mais fácil de fazer essa operação utilizando-as.
+    Por exemplo:
 
-mascomcertezatornamascoisasmaisfaceisdeseler
+    \noindent
+    umaboapontuacaocomcertezatornamascoisasmaisfaceisdeseler
+
+    Um leitor hábil pode compreender facilmente a oração acima,
+    mas a pontuação tornaria a tarefa mais fácil \cite{theTidyverseStyleGuide}.
+}{%
+    Um bom estilo de formatação é como uma boa pontuação,
+    você consegue viver sem \cite{theTidyverseStyleGuide}:
+
+    \noindent
+    mascomcertezatornamascoisasmaisfaceisdeseler
+}
 
 \lang{%
     For now could not find any strong evidence or
@@ -243,14 +256,13 @@ mascomcertezatornamascoisasmaisfaceisdeseler
     Não pôde~=se encontrar nenhuma forte evidência ou
     relação sobre a compreensão de códigos~=fonte e
     formatadores de código.
-    Alguns estudos como \citeonline{improvingCodeReadability} implementam modelos de Inteligências Artificiais,
-    utilizados para classificar códigos~=fonte como ``bem legíveis'' ou
+    Alguns estudos como \citeonline{improvingCodeReadability} implementam modelos de Inteligências Artificiais utilizados para classificar códigos~=fonte como ``bem legíveis'' ou
     ``mal legíveis''.
     Inicialmente estes estudos começam coletando dados de pessoas classificando códigos~=fonte como legíveis ou
     não,
     para então treinar Inteligências Artificiais classificando códigos~=fonte.
 
-    Além desses estudos científicos para classificar códigos~=fonte,
+    Além desse estudo científico para classificar códigos~=fonte,
     encontra~=se em outros lugares como \citeonline{pep8operatorsBlankLine} dicas ou
     notas explicando quais características de formatação de código~=fonte ajudam ou
     prejudicam a legibilidade de código.
@@ -314,6 +326,10 @@ mascomcertezatornamascoisasmaisfaceisdeseler
     }}.
 \end{citacao}
 
+Como não pode~=se dizer certamente que ao utilizar ferramentas de formatação irá~=se ter um melhor desempenho,
+cabe a cada desenvolvedor decidir por si e
+sua experiência se ele sente a necessidade de algo mais durante o período de desenvolvimento.
+
 
 \advisor{}{%
 \section{Lista de curiosidades}
@@ -369,10 +385,10 @@ mascomcertezatornamascoisasmaisfaceisdeseler
 }
 
 
-
 \section{\lang{Related Works}{Trabalhos Relacionados}}
 
-\url{http://editorconfig.org/}
+\cite{editorConfig}
+\cite{universalIndentGUI}
 \cite{prettyPrintingOfVisualSentences}
 \cite{anAbstractPrettyPrinter}
 \cite{improvingRefactoringSpeed}
