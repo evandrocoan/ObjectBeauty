@@ -393,3 +393,49 @@ sua experiência se ele sente a necessidade de algo mais durante o período de d
 \cite{anAbstractPrettyPrinter}
 \cite{improvingRefactoringSpeed}
 
+
+\subsection{Ofuscadores}
+
+Ofuscadores\footnote{Do inglês,
+\textit{Obfuscator} \url{https://en.wikipedia.org/wiki/Obfuscation_(software)}
+}
+são formatadores de código que funcionam com objetivo contrário,
+veja o Quadro \ref{exemploDeOfuscador}.
+Em vez de melhorar a leitura do código~=fonte,
+sua função é impossibilitar que o código~=fonte seja compreendido.
+Tais técnicas e
+utilidades para estes tipos de software podem ser encontradas em \citeonline{codeObfuscationTechniques}.
+
+Dentre as utilidades dos Ofuscadores estão economizar banda de internet ao reduzir o tamanho do arquivo de linguagens como \textit{JavaScript},
+quando eles são baixados pelos navegadores de internet ao acessar um site que utiliza essas linguagens de script.
+Por exemplo,
+caso um certo arquivo seja muito grande,
+pois possui muitos comentários de documentação,
+fazendo seu ofuscamento pode~=se reduzir seu tamanho em até pela metade.
+
+\begin{quadro}[h]
+\caption{Exemplo de Ofuscador de Código~=Fonte \cite{familyOfSourceCodeObfuscators}}
+\label{exemploDeOfuscador}
+\begin{bluebox}
+\lstset{xleftmargin=2em,aboveskip=0pt}
+
+\begin{lstlisting}[caption={Antes do ofuscamento}]
+for (i=0; i < M.length; i++)
+{
+   // Adjust position of clock hands
+   var ML = (ns) ? document.layers['nsMinutes' + i]:ieMinutes[i].style;
+
+   ML.top = y[i] + HandY + ( i*HandHeight ) * Math.sin(min) + scroll;
+   ML.left = x[i] + HandX + ( i*HandWidth ) * Math.cos(min);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Depois do ofuscamento}]
+for(O79=0;O79<l6x.length;O79++){var O63=(l70)?
+document.layers["nsM\151\156u\164\145s"+O79]:
+ieMinutes[O79].style;O63.top=l61[O79]+O76+(O79*O75)
+*Math.sin(O51)+l73;O63.left=l75[O79]+l77+(O79*l76)
+*Math.cos(O51);}
+\end{lstlisting}
+\end{bluebox}
+\end{quadro}
