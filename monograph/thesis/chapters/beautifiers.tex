@@ -61,6 +61,34 @@
 }
 
 
+\advisor{}{%
+    \section{\lang{Computer Assisted Programming}{Programação auxiliada}}
+
+    \lang{%
+        Your computer should help you with these unforeseen tasks.
+        Why should I spend my precious time checking whether I am actually copying something space indented,
+        when I am actually coping something tab indented?
+        Perhaps we should sit and
+        cry while waiting for some greater force to come and
+        rescue us.
+        Or may be you should stop crying and
+        actually do something about other than keep waiting for you mommy to come and
+        save you from the darkness growing behind you back leading you to endless unsleepy nights fixing your code just because everything just went wrong.
+    }{%
+        Seu computador deveria ajudar você com aquelas imprevistas tarefas.
+        Por que eu deveria gastar meu precioso tempo verificando se algo que estou copiando,
+        está indentado por ``TAB''\s ou
+        espaços?
+        Talvez devêssemos sentar e
+        chorar enquanto aguardamos que alguma força maior do Universo venha e
+        nos salve.
+        Ou talvez você deva para de chorar e
+        realmente fazer alguma coisa a respeito além de continuar esperando que sua mamãe venha e
+        resgate você da escuridão crescendo pela suas costas levando você a infinitas noites acordado corrigindo seu código simplesmente por que tudo deu errado.
+    }
+}
+
+
 \section{Formatadores de código}
 
 \lang{%
@@ -77,8 +105,11 @@
     \end{enumerate}
 }{%
     Conhecido como ``\textit{pretty~=printing}'' ou
-    embelezadores\footnote{Do inglês,
-    \textit{Source Code Beautifiers}} \cite{prettyPrintingForSoftware},
+    embelezadores\footnote{
+    Do inglês,
+    \textit{Source Code Beautifiers}
+    }
+    \cite{prettyPrintingForSoftware},
     uma ferramenta de formatação pode ser complicada de se utilizar,
     somente com um conjunto básico de definições.
     Por exemplo,
@@ -105,7 +136,8 @@
     ficará muito grande quando todos os aspectos das linguagens mais complexas como C ou
     C++ forem implementados.
     Em softwares como \textit{Uncrustify} \cite{uncrustifySourceCode},
-    encontra~=se mais de 500 configurações tais como o Código \ref{lst:uncrustifySettingSample}.
+    encontra~=se mais de 500 configurações tais como o Código \ref{lst:uncrustifySettingSample},
+    veja mais sobre configurações na \fullref{sectionUncrustify}.
 }
 \begin{lstlisting}[caption={Trecho do Arquivo de Configuração de
 \textit{Uncrustify}},label={lst:uncrustifySettingSample}]
@@ -151,18 +183,18 @@ indent_constr_colon = false # false/true
     dependendo do suporte que a ferramenta oferece.
 
     No caso da ferramenta \textit{Uncrustify},
-    serão configurados as linguagens \textit{C},
-    \textit{C++}, \textit{C\#}, \textit{ObjectiveC}, \textit{D}, \textit{Java}, \textit{Pawn} e
-    \textit{VALA} \cite{uncrustifySourceCode}.
+    serão configurados linguagens como \textit{C},
+    \textit{C++}, \textit{C\#} e \textit{ObjectiveC},
+    veja mais linguagens na \fullref{sectionUncrustify}.
     Para todos os outras linguagens,
     você ainda precisará encontrar outra ferramenta de formatação,
     que será certamente mais limitada no que ela pode customizar \cite{eclisePeriodSettings,uncrustifyNotMeetingCodingStandards},
     uma vez que \textit{Uncrustify} já é uma das mais completas.
 
-    Além disso,
-    ainda precisa~=se configurar todas as novas opções já configuradas.
+    Ao realiza~=se a migração de uma ferramenta de formatação como \textit{Uncrustify} para outra,
+    precisa~=se configurar novamente todas as novas opções já definidas para \textit{Uncrustify}.
     Outra forte desvantagem do arquivo de configurações do \textit{Uncrustify} segue na dificuldade de entender e
-    visualizar o que está sendo configurado.
+    visualizar o que está sendo configurado para que possa~=se realizar a migração.
 
     Algumas opções são claras e
     fáceis de se entender,
@@ -199,34 +231,6 @@ indent_constr_colon = false # false/true
 }
 
 
-\advisor{}{%
-    \subsection{\lang{Computer Assisted Programming}{Programação auxiliada}}
-
-    \lang{%
-        Your computer should help you with these unforeseen tasks.
-        Why should I spend my precious time checking whether I am actually copying something space indented,
-        when I am actually coping something tab indented?
-        Perhaps we should sit and
-        cry while waiting for some greater force to come and
-        rescue us.
-        Or may be you should stop crying and
-        actually do something about other than keep waiting for you mommy to come and
-        save you from the darkness growing behind you back leading you to endless unsleepy nights fixing your code just because everything just went wrong.
-    }{%
-        Seu computador deveria ajudar você com aquelas imprevistas tarefas.
-        Por que eu deveria gastar meu precioso tempo verificando se algo que estou copiando,
-        está indentado por ``TAB''\s ou
-        espaços?
-        Talvez devêssemos sentar e
-        chorar enquanto aguardamos que alguma força maior do Universo venha e
-        nos salve.
-        Ou talvez você deva para de chorar e
-        realmente fazer alguma coisa a respeito além de continuar esperando que sua mamãe venha e
-        resgate você da escuridão crescendo pela suas costas levando você a infinitas noites acordado corrigindo seu código simplesmente por que tudo deu errado.
-    }
-}
-
-
 \section{\lang{For what is their use?}{Qual a utilidade de Formatadores?}}
 
 \advisor{%
@@ -253,7 +257,13 @@ indent_constr_colon = false # false/true
     source code beautifying \cite{improvingCodeReadability},
     except perhaps for team annoyance:
 }{%
-    Não pôde~=se encontrar nenhuma forte evidência ou
+    Não pôde~=se encontrar nenhuma forte evidência\footnote{
+    Com forte evidência refere~=se a afirmações absolutas como:
+    ``--Ao utilizar formatadores de código,
+    é garantido que seu projeto de desenvolvimento de código~=fonte irá sofre ganhos em tempo de desenvolvimento e
+    qualidade de software''.
+    }
+    ou
     relação sobre a compreensão de códigos~=fonte e
     formatadores de código.
     Alguns estudos como \citeonline{improvingCodeReadability} implementam modelos de Inteligências Artificiais utilizados para classificar códigos~=fonte como ``bem legíveis'' ou
@@ -327,12 +337,110 @@ indent_constr_colon = false # false/true
 \end{citacao}
 
 Como não pode~=se dizer certamente que ao utilizar ferramentas de formatação irá~=se ter um melhor desempenho,
-cabe a cada desenvolvedor decidir por si e
+cabe a cada desenvolvedor ou
+time de desenvolvimento decidir por si e
 sua experiência se ele sente a necessidade de algo mais durante o período de desenvolvimento.
 
 
+\subsection{Uncrustify}
+\label{sectionUncrustify}
+
+\textit{Uncrustify}, \citeonline{uncrustifySourceCode} é capaz de formatar as linguagens \begin{inparaenum} \item C,
+\item C++,
+\item C\#,
+\item ObjectiveC,
+\item D,
+\item Java,
+\item Pawn e
+\item VALA.
+\end{inparaenum}%
+De acordo com o site\footnote{
+\url{http://uncrustify.sourceforge.net/}
+},
+na versão ``0.69.0'' existem 671 configurações para personalizar a formatação do código~=fonte.
+
+
+\section{\lang{Related Works}{Trabalhos Relacionados}}
+
+\cite{editorConfig}
+
+\cite{universalIndentGUI}
+
+\cite{prettyPrintingOfVisualSentences}
+
+\cite{anAbstractPrettyPrinter}
+
+\cite{improvingRefactoringSpeed}
+
+
+\subsection{Ofuscadores}
+
+Ofuscadores\footnote{Do inglês,
+\textit{Obfuscator}, \url{https://en.wikipedia.org/wiki/Obfuscation_(software)}
+}
+são formatadores de código que funcionam com objetivo contrário,
+veja o Quadro \ref{exemploDeOfuscador}.
+Em vez de melhorar a leitura do código~=fonte,
+sua função é impossibilitar que o código~=fonte seja compreendido.
+Tais técnicas e
+utilidades para estes tipos de software podem ser encontradas em \citeonline{codeObfuscationTechniques}.
+
+\begin{quadro}[h]
+\caption{Exemplo de Ofuscador de Código~=Fonte \cite{familyOfSourceCodeObfuscators}}
+\label{exemploDeOfuscador}
+\begin{bluebox}
+\lstset{xleftmargin=2em,aboveskip=0pt}
+
+\begin{lstlisting}[caption={Antes do ofuscamento}]
+for (i=0; i < M.length; i++)
+{
+   // Adjust position of clock hands
+   var ML = (ns) ? document.layers['nsMinutes' + i]:ieMinutes[i].style;
+
+   ML.top = y[i] + HandY + ( i*HandHeight ) * Math.sin(min) + scroll;
+   ML.left = x[i] + HandX + ( i*HandWidth ) * Math.cos(min);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Depois do ofuscamento}]
+for(O79=0;O79<l6x.length;O79++){var O63=(l70)?
+document.layers["nsM\151\156u\164\145s"+O79]:
+ieMinutes[O79].style;O63.top=l61[O79]+O76+(O79*O75)
+*Math.sin(O51)+l73;O63.left=l75[O79]+l77+(O79*l76)
+*Math.cos(O51);}
+\end{lstlisting}
+\end{bluebox}
+\end{quadro}
+
+Dentre as utilidades dos Ofuscadores estão economizar banda de internet ao reduzir o tamanho do arquivo de linguagens como \textit{JavaScript},
+quando eles são baixados pelos navegadores de internet ao acessar um site que utiliza essas linguagens de script.
+Por exemplo,
+caso um certo arquivo seja muito grande,
+pois possui muitos comentários de documentação,
+fazendo seu ofuscamento pode~=se reduzir seu tamanho em até pela metade.
+
+Eventualmente,
+existem linguagens onde o uso de ofuscadores possui limitações.
+Por exemplo,
+diferente da linguagem \textit{JavaScript} utilizada no Quadro \ref{exemploDeOfuscador},
+a sintaxe da linguagem YAML\footnote{
+Do inglês,
+YAML \textit{Ain't Markup Language},
+i.e.,
+a sigla de YAML é uma definição recursiva.
+}
+\cite{yamlSpecificModelChecking} obrigatoriamente deve utilizar espaços para indentação e
+linhas novas para separar blocos de informação.
+Tais características enfraquecem o poder do ofuscamento uma vez que ele possui um maior efeito quando pode~=se introduzir mair caos no documento,
+removendo~=se as indentações e
+linhas novas. Entretanto,
+mesmo sem esses elementos chave,
+ainda pode~=se introduzir caos removendo todos os comentários e
+renomeando variáveis para nomes obtusos como ``A88''.
+
+
 \advisor{}{%
-\section{Lista de curiosidades}
+\subsection{Lista de curiosidades}
 
 \lang{%
     On a distributed version control system,
@@ -383,59 +491,3 @@ sua experiência se ele sente a necessidade de algo mais durante o período de d
     \item \url{https://github.com/Microsoft/language-server-protocol/wiki/Protocol-Implementations}
 \end{enumerate}
 }
-
-
-\section{\lang{Related Works}{Trabalhos Relacionados}}
-
-\cite{editorConfig}
-\cite{universalIndentGUI}
-\cite{prettyPrintingOfVisualSentences}
-\cite{anAbstractPrettyPrinter}
-\cite{improvingRefactoringSpeed}
-
-
-\subsection{Ofuscadores}
-
-Ofuscadores\footnote{Do inglês,
-\textit{Obfuscator} \url{https://en.wikipedia.org/wiki/Obfuscation_(software)}
-}
-são formatadores de código que funcionam com objetivo contrário,
-veja o Quadro \ref{exemploDeOfuscador}.
-Em vez de melhorar a leitura do código~=fonte,
-sua função é impossibilitar que o código~=fonte seja compreendido.
-Tais técnicas e
-utilidades para estes tipos de software podem ser encontradas em \citeonline{codeObfuscationTechniques}.
-
-Dentre as utilidades dos Ofuscadores estão economizar banda de internet ao reduzir o tamanho do arquivo de linguagens como \textit{JavaScript},
-quando eles são baixados pelos navegadores de internet ao acessar um site que utiliza essas linguagens de script.
-Por exemplo,
-caso um certo arquivo seja muito grande,
-pois possui muitos comentários de documentação,
-fazendo seu ofuscamento pode~=se reduzir seu tamanho em até pela metade.
-
-\begin{quadro}[h]
-\caption{Exemplo de Ofuscador de Código~=Fonte \cite{familyOfSourceCodeObfuscators}}
-\label{exemploDeOfuscador}
-\begin{bluebox}
-\lstset{xleftmargin=2em,aboveskip=0pt}
-
-\begin{lstlisting}[caption={Antes do ofuscamento}]
-for (i=0; i < M.length; i++)
-{
-   // Adjust position of clock hands
-   var ML = (ns) ? document.layers['nsMinutes' + i]:ieMinutes[i].style;
-
-   ML.top = y[i] + HandY + ( i*HandHeight ) * Math.sin(min) + scroll;
-   ML.left = x[i] + HandX + ( i*HandWidth ) * Math.cos(min);
-}
-\end{lstlisting}
-
-\begin{lstlisting}[caption={Depois do ofuscamento}]
-for(O79=0;O79<l6x.length;O79++){var O63=(l70)?
-document.layers["nsM\151\156u\164\145s"+O79]:
-ieMinutes[O79].style;O63.top=l61[O79]+O76+(O79*O75)
-*Math.sin(O51)+l73;O63.left=l75[O79]+l77+(O79*l76)
-*Math.cos(O51);}
-\end{lstlisting}
-\end{bluebox}
-\end{quadro}
