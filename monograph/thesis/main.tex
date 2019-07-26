@@ -256,14 +256,14 @@ section=TITLE, % Título de seções em caixa alta
     % https://tex.stackexchange.com/questions/4705/double-space-between-sentences
     \frenchspacing
 
+    % Uncomment this to put a ←← | ← (Go To Top/Go Back) on each section header
+    \advisor{}{\addGoToSummary}
+
     % ELEMENTOS PRÉ-TEXTUAIS
     \input{beforetext/beforetext.tex}
 
     % ELEMENTOS TEXTUAIS
     \textual
-
-    % Uncomment this to put a ←← | ← (Go To Top/Go Back) on each section header
-    \advisor{}{\addGoToSummary}
     \setlength\beforechapskip{50pt}
     \setlength\midchapskip{20pt}
     \setlength\afterchapskip{20pt}
