@@ -829,7 +829,7 @@
 @online{uncrustifySourceCode,
     title         = {Uncrustify -- A source code beautifier for C, C++, C\#, ObjectiveC, D, Java, Pawn and VALA},
     author        = {André Berg and Ben Gardner and Guy Maurel},
-    year          = {2009},
+    year          = {2005},
     location      = {Online},
     url           = {https://github.com/uncrustify/uncrustify},
     urlaccessdate = {2019-07-09},
@@ -1507,6 +1507,48 @@
     optimization;Runtime;Optimizing compilers;Informatics;Productivity;Software
     performance;Performance analysis;Bridges;Software engineering;Software
     libraries},
+}
+
+
+@inproceedings{yamlSpecificModelChecking,
+    author = {Zervoudakis, Fokion and Rosenblum, David S. and Elbaum, Sebastian and Finkelstein, Anthony},
+    title = {Cascading Verification: An Integrated Method for Domain-specific Model Checking},
+    booktitle = {Proceedings of the 2013 9th Joint Meeting on Foundations of Software Engineering},
+    series = {ESEC/FSE 2013},
+    year = {2013},
+    isbn = {978-1-4503-2237-9},
+    location = {Saint Petersburg, Russia},
+    pages = {400--410},
+    numpages = {11},
+    url = {http://doi.acm.org/10.1145/2491411.2491454},
+    doi = {10.1145/2491411.2491454},
+    acmid = {2491454},
+    publisher = {ACM},
+    address = {New York, NY, USA},
+    keywords = {Composite reasoning, OWL, PRISM, Prolog, SWRL, UAVs, domain model, model checking},
+    abstract = {Model checking is an established method for verifying behavioral
+    properties of system models. But model checkers tend to support low-level
+    modeling languages that require intricate models to represent even the
+    simplest systems. Modeling complexity arises in part from the need to encode
+    domain knowledge at relatively low levels of abstraction. In this paper, we
+    demonstrate that formalized domain knowledge can be reused to raise the
+    abstraction level of model and property specifications, and hence the
+    effectiveness of model checking. We describe a novel method for
+    domain-specific model checking called cascading verification that uses
+    composite reasoning over high-level system specifications and formalized
+    domain knowledge to synthesize both low-level system models and their
+    behavioral properties for verification. In particular, model builders use a
+    high-level domain-specific language (DSL) based on YAML to express system
+    specifications that can be verified with probabilistic model checking.
+    Domain knowledge is encoded in the Web Ontology Language (OWL), the Semantic
+    Web Rule Language (SWRL) and Prolog, which are used in combination to
+    overcome their individual limitations. A compiler then synthesizes models
+    and properties for verification by the probabilistic model checker PRISM. We
+    illustrate cascading verification for the domain of uninhabited aerial
+    vehicles (UAVs), for which we have constructed a prototype implementation.
+    An evaluation of this prototype reveals nontrivial reductions in the size
+    and complexity of input specifications compared to the artifacts synthesized
+    for PRISM.},
 }
 
 
