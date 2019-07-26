@@ -114,9 +114,6 @@
 % \ifforcedinclude\else\cleardoublepage\fi
 % \include{beforetext/simbolos}
 
-% Add the table of contents to the brief table of contents
-\addtotextpreliminarycontent{\contentsname}
-
 % How to remove the self-reference of the ToC from the ToC?
 % https://tex.stackexchange.com/questions/10943/how-to-remove-the-self-reference-of-the-toc-from-the-toc
 \ifforcedinclude\else\cleardoublepage\fi
@@ -151,6 +148,8 @@
         % https://tex.stackexchange.com/questions/179506/disable-colorlinks-locally-or-just-for-the-toc
         \hypersetup{hidelinks}
 
+        % Add the table of contents to the brief table of contents
+        \addtotextpreliminarycontent{\contentsname}
         \tableofcontents
     }
 
