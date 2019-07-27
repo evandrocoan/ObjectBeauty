@@ -135,12 +135,12 @@
     uma lista contendo todas as configurações de formatação para cada aspecto da linguagem,
     ficará muito grande quando todos os aspectos das linguagens mais complexas como C ou
     C++ forem implementados.
-    Em softwares como \textit{Uncrustify} \cite{uncrustifySourceCode},
+    Em softwares como Uncrustify \cite{uncrustifySourceCode},
     encontra~=se mais de 500 configurações tais como o Código \ref{lst:uncrustifySettingSample},
-    veja mais sobre configurações na \fullref{sectionUncrustify}.
+    veja mais sobre configurações na \fullref{trabalhosRelacionados}.
 }
 \begin{lstlisting}[caption={Trecho do Arquivo de Configuração de
-\textit{Uncrustify}},label={lst:uncrustifySettingSample}]
+Uncrustify},label={lst:uncrustifySettingSample}]
 # If the body of the namespace is longer than this
 # number, it won't be indented. Requires
 # indent_namespace=true. Default=0 (no limit)
@@ -182,18 +182,18 @@ indent_constr_colon = false # false/true
     talvez algumas linguagens fortemente relacionadas,
     dependendo do suporte que a ferramenta oferece.
 
-    No caso da ferramenta \textit{Uncrustify},
+    No caso da ferramenta Uncrustify,
     serão configurados linguagens como \textit{C},
     \textit{C++}, \textit{C\#} e \textit{ObjectiveC},
-    veja mais linguagens na \fullref{sectionUncrustify}.
+    veja mais linguagens na \fullref{trabalhosRelacionados}.
     Para todos os outras linguagens,
     você ainda precisará encontrar outra ferramenta de formatação,
     que será certamente mais limitada no que ela pode customizar \cite{eclisePeriodSettings,uncrustifyNotMeetingCodingStandards},
-    uma vez que \textit{Uncrustify} já é uma das mais completas.
+    uma vez que Uncrustify já é uma das mais completas.
 
-    Ao realiza~=se a migração de uma ferramenta de formatação como \textit{Uncrustify} para outra,
-    precisa~=se configurar novamente todas as novas opções já definidas para \textit{Uncrustify}.
-    Outra forte desvantagem do arquivo de configurações do \textit{Uncrustify} segue na dificuldade de entender e
+    Ao realiza~=se a migração de uma ferramenta de formatação como Uncrustify para outra,
+    precisa~=se configurar novamente todas as novas opções já definidas para Uncrustify.
+    Outra forte desvantagem do arquivo de configurações do Uncrustify segue na dificuldade de entender e
     visualizar o que está sendo configurado para que possa~=se realizar a migração.
 
     Algumas opções são claras e
@@ -234,8 +234,8 @@ indent_constr_colon = false # false/true
 \section{\lang{For what is their use?}{Qual a utilidade de Formatadores?}}
 
 \advisor{%
-    Pode-se compreender uma frase sem pontuação,
-    mas é mais fácil de fazer essa operação utilizando-as.
+    Pode~=se compreender uma frase sem pontuação,
+    mas é mais fácil de fazer essa operação utilizando~=as.
     Por exemplo:
 
     \noindent
@@ -342,10 +342,11 @@ time de desenvolvimento decidir por si e
 sua experiência se ele sente a necessidade de algo mais durante o período de desenvolvimento.
 
 
-\subsection{Uncrustify}
-\label{sectionUncrustify}
+\section{\lang{Related Works}{Trabalhos Relacionados}}
+\label{trabalhosRelacionados}
 
-\textit{Uncrustify}, \citeonline{uncrustifySourceCode} é capaz de formatar as linguagens \begin{inparaenum} \item C,
+Segundo \citeonline{uncrustifySourceCode},
+Uncrustify é capaz de formatar as linguagens \begin{inparaenum}[1)] \item C,
 \item C++,
 \item C\#,
 \item ObjectiveC,
@@ -354,13 +355,8 @@ sua experiência se ele sente a necessidade de algo mais durante o período de d
 \item Pawn e
 \item VALA.
 \end{inparaenum}%
-De acordo com o site\footnote{
-\url{http://uncrustify.sourceforge.net/}
-},
+De acordo com o site \citetitle{uncrustifyWebSite},
 na versão ``0.69.0'' existem 671 configurações para personalizar a formatação do código~=fonte.
-
-
-\section{\lang{Related Works}{Trabalhos Relacionados}}
 
 \cite{editorConfig}
 
@@ -412,12 +408,17 @@ ieMinutes[O79].style;O63.top=l61[O79]+O76+(O79*O75)
 \end{bluebox}
 \end{quadro}
 
-Dentre as utilidades dos Ofuscadores estão economizar banda de internet ao reduzir o tamanho do arquivo de linguagens como \textit{JavaScript},
-quando eles são baixados pelos navegadores de internet ao acessar um site que utiliza essas linguagens de script.
-Por exemplo,
-caso um certo arquivo seja muito grande,
-pois possui muitos comentários de documentação,
-fazendo seu ofuscamento pode~=se reduzir seu tamanho em até pela metade.
+Dentre as utilidades dos Ofuscadores está minimizar a quantidade de dados transmitidos entre um Servidor e
+um Cliente Web ao reduzir o tamanho dos arquivos de linguagens como \textit{JavaScript},
+quando eles são baixados pelos Navegadores de Internet ao acessar um site que utiliza essas linguagens de script.
+Como exemplo,
+pode~=se imaginar um arquivo com grande volume de comentários\advisor{.}{
+de documentação.} Nesse arquivo,
+a transmissão dos comentários pode ser considerada inútil e
+consequentemente podem removidos.
+Portanto,
+fazendo seu ofuscamento pode~=se reduzir seu tamanho em até pela metade ou
+mais.
 
 Eventualmente,
 existem linguagens onde o uso de ofuscadores possui limitações.
@@ -431,12 +432,12 @@ a sigla de YAML é uma definição recursiva.
 }
 \cite{yamlSpecificModelChecking} obrigatoriamente deve utilizar espaços para indentação e
 linhas novas para separar blocos de informação.
-Tais características enfraquecem o poder do ofuscamento uma vez que ele possui um maior efeito quando pode~=se introduzir mair caos no documento,
+Tais características enfraquecem o poder do ofuscamento uma vez que ele possui um maior efeito quando pode~=se introduzir maior caos no documento,
 removendo~=se as indentações e
 linhas novas. Entretanto,
 mesmo sem esses elementos chave,
 ainda pode~=se introduzir caos removendo todos os comentários e
-renomeando variáveis para nomes obtusos como ``A88''.
+renomeando variáveis para nomes \advisor{sem significo de uso}{obtusos\footnote{Sem significo de uso.}} como ``A88''.
 
 
 \advisor{}{%
