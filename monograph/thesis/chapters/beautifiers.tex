@@ -231,6 +231,77 @@ indent_constr_colon = false # false/true
 }
 
 
+\subsection{Ofuscadores}
+
+Ofuscadores\footnote{Do inglês,
+\textit{Obfuscator}, \url{https://en.wikipedia.org/wiki/Obfuscation_(software)}
+}
+são formatadores de código que funcionam com objetivo contrário,
+veja o Quadro \ref{exemploDeOfuscador}.
+Em vez de melhorar a leitura do código~=fonte,
+sua função é impossibilitar que o código~=fonte seja compreendido.
+Tais técnicas e
+utilidades para estes tipos de software podem ser encontradas em \citeonline{codeObfuscationTechniques}.
+
+\begin{quadro}[h]
+\caption{Exemplo de Ofuscador de Código~=Fonte \cite{familyOfSourceCodeObfuscators}}
+\label{exemploDeOfuscador}
+\begin{bluebox}
+\lstset{xleftmargin=2em,aboveskip=0pt}
+
+\begin{lstlisting}[caption={Antes do ofuscamento}]
+for (i=0; i < M.length; i++)
+{
+   // Adjust position of clock hands
+   var ML = (ns) ? document.layers['nsMinutes' + i]:ieMinutes[i].style;
+
+   ML.top = y[i] + HandY + ( i*HandHeight ) * Math.sin(min) + scroll;
+   ML.left = x[i] + HandX + ( i*HandWidth ) * Math.cos(min);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Depois do ofuscamento}]
+for(O79=0;O79<l6x.length;O79++){var O63=(l70)?
+document.layers["nsM\151\156u\164\145s"+O79]:
+ieMinutes[O79].style;O63.top=l61[O79]+O76+(O79*O75)
+*Math.sin(O51)+l73;O63.left=l75[O79]+l77+(O79*l76)
+*Math.cos(O51);}
+\end{lstlisting}
+\end{bluebox}
+\end{quadro}
+
+Dentre as utilidades dos Ofuscadores está minimizar a quantidade de dados transmitidos entre um Servidor e
+um Cliente Web ao reduzir o tamanho dos arquivos de linguagens como \textit{JavaScript},
+quando eles são baixados pelos Navegadores de Internet ao acessar um site que utiliza essas linguagens de script.
+Como exemplo,
+pode~=se imaginar um arquivo com grande volume de comentários\advisor{.}{
+de documentação.} Nesse arquivo,
+a transmissão dos comentários pode ser considerada inútil e
+consequentemente podem removidos.
+Portanto,
+fazendo seu ofuscamento pode~=se reduzir seu tamanho em até pela metade ou
+mais.
+
+Eventualmente,
+existem linguagens onde o uso de ofuscadores possui limitações.
+Por exemplo,
+diferente da linguagem \textit{JavaScript} utilizada no Quadro \ref{exemploDeOfuscador},
+a sintaxe da linguagem YAML\footnote{
+Do inglês,
+YAML \textit{Ain't Markup Language},
+i.e.,
+a sigla de YAML é uma definição recursiva.
+}
+\cite{yamlSpecificModelChecking} obrigatoriamente deve utilizar espaços para indentação e
+linhas novas para separar blocos de informação.
+Tais características enfraquecem o poder do ofuscamento uma vez que ele possui um maior efeito quando pode~=se introduzir maior caos no documento,
+removendo~=se as indentações e
+linhas novas. Entretanto,
+mesmo sem esses elementos chave,
+ainda pode~=se introduzir caos removendo todos os comentários e
+renomeando variáveis para nomes \advisor{sem significo de uso}{obtusos\footnote{Sem significo de uso.}} como ``A88''.
+
+
 \section{\lang{For what is their use?}{Qual a utilidade de Formatadores?}}
 
 \advisor{%
@@ -367,77 +438,6 @@ na versão ``0.69.0'' existem 671 configurações para personalizar a formataç�
 \cite{anAbstractPrettyPrinter}
 
 \cite{improvingRefactoringSpeed}
-
-
-\subsection{Ofuscadores}
-
-Ofuscadores\footnote{Do inglês,
-\textit{Obfuscator}, \url{https://en.wikipedia.org/wiki/Obfuscation_(software)}
-}
-são formatadores de código que funcionam com objetivo contrário,
-veja o Quadro \ref{exemploDeOfuscador}.
-Em vez de melhorar a leitura do código~=fonte,
-sua função é impossibilitar que o código~=fonte seja compreendido.
-Tais técnicas e
-utilidades para estes tipos de software podem ser encontradas em \citeonline{codeObfuscationTechniques}.
-
-\begin{quadro}[h]
-\caption{Exemplo de Ofuscador de Código~=Fonte \cite{familyOfSourceCodeObfuscators}}
-\label{exemploDeOfuscador}
-\begin{bluebox}
-\lstset{xleftmargin=2em,aboveskip=0pt}
-
-\begin{lstlisting}[caption={Antes do ofuscamento}]
-for (i=0; i < M.length; i++)
-{
-   // Adjust position of clock hands
-   var ML = (ns) ? document.layers['nsMinutes' + i]:ieMinutes[i].style;
-
-   ML.top = y[i] + HandY + ( i*HandHeight ) * Math.sin(min) + scroll;
-   ML.left = x[i] + HandX + ( i*HandWidth ) * Math.cos(min);
-}
-\end{lstlisting}
-
-\begin{lstlisting}[caption={Depois do ofuscamento}]
-for(O79=0;O79<l6x.length;O79++){var O63=(l70)?
-document.layers["nsM\151\156u\164\145s"+O79]:
-ieMinutes[O79].style;O63.top=l61[O79]+O76+(O79*O75)
-*Math.sin(O51)+l73;O63.left=l75[O79]+l77+(O79*l76)
-*Math.cos(O51);}
-\end{lstlisting}
-\end{bluebox}
-\end{quadro}
-
-Dentre as utilidades dos Ofuscadores está minimizar a quantidade de dados transmitidos entre um Servidor e
-um Cliente Web ao reduzir o tamanho dos arquivos de linguagens como \textit{JavaScript},
-quando eles são baixados pelos Navegadores de Internet ao acessar um site que utiliza essas linguagens de script.
-Como exemplo,
-pode~=se imaginar um arquivo com grande volume de comentários\advisor{.}{
-de documentação.} Nesse arquivo,
-a transmissão dos comentários pode ser considerada inútil e
-consequentemente podem removidos.
-Portanto,
-fazendo seu ofuscamento pode~=se reduzir seu tamanho em até pela metade ou
-mais.
-
-Eventualmente,
-existem linguagens onde o uso de ofuscadores possui limitações.
-Por exemplo,
-diferente da linguagem \textit{JavaScript} utilizada no Quadro \ref{exemploDeOfuscador},
-a sintaxe da linguagem YAML\footnote{
-Do inglês,
-YAML \textit{Ain't Markup Language},
-i.e.,
-a sigla de YAML é uma definição recursiva.
-}
-\cite{yamlSpecificModelChecking} obrigatoriamente deve utilizar espaços para indentação e
-linhas novas para separar blocos de informação.
-Tais características enfraquecem o poder do ofuscamento uma vez que ele possui um maior efeito quando pode~=se introduzir maior caos no documento,
-removendo~=se as indentações e
-linhas novas. Entretanto,
-mesmo sem esses elementos chave,
-ainda pode~=se introduzir caos removendo todos os comentários e
-renomeando variáveis para nomes \advisor{sem significo de uso}{obtusos\footnote{Sem significo de uso.}} como ``A88''.
 
 
 \advisor{}{%
