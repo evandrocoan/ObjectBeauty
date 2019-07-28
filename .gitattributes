@@ -7,7 +7,7 @@
 # Custom for Visual Studio
 *.cs diff=csharp
 
-# Definitively text files 
+# Definitively text files
 *.txt text
 *.c text
 *.h text
