@@ -47,7 +47,7 @@ Construção de Compiladores.
     Por exemplo,
     dado um programa de entrada em C++ e
     um programa de saída em Java,
-    tem~=se um processo de tradução (\autoref{ProcessoTraducao}).
+    tem~=se um processo de tradução (\typeref{ProcessoTraducao}).
     \advisor{A tradução é diferente de um processo de compilação,
     que é dotado de mais etapas \cite{translatorGenerationCompilier}.
     }{Pelo outro lado,
@@ -191,7 +191,7 @@ também pode~=se \advisor{compreender}{realizar diversas classificações como} 
 onde uma linguagem pode ser classificada como Regular,
 Livre de Contexto,
 Sensível ao Contexto e
-Irrestrita (\autoref{HierarquiaDeChomsky}).
+Irrestrita (\typeref{HierarquiaDeChomsky}).
 \begin{figure}[h]
 \centering
 \includegraphics[width=1.0\textwidth]{HierarquiaDeChomsky.png}
@@ -232,7 +232,7 @@ Livre de Contexto,
 Sensível ao Contexto,
 uma vez que Gramáticas Livres de Contexto ou
 Regulares são um subconjunto das Gramáticas Irrestritas ou
-Sensíveis ao Contexto como apresentado na \autoref{HierarquiaDeChomsky}.
+Sensíveis ao Contexto como apresentado na \typeref{HierarquiaDeChomsky}.
 Por isso,
 também pode~=se chamar uma dada Gramática Regular de Irrestrita ou
 Livre de Contexto.
@@ -365,7 +365,7 @@ Rightmost derivation} em reverso com K símbolos de \textit{lookahead}.
 escolhe~=se sempre o não~=terminal mais a direita.
 }.
 Analisadores LR(K) \cite{ahoCompilerDragonBook} são Ascendentes e
-reconhecem um subconjunto das Linguagens Livre de Contexto (\autoref{LinguagensDeterministicas}).
+reconhecem um subconjunto das Linguagens Livre de Contexto (\typeref{LinguagensDeterministicas}).
 Já os Analisadores LL(K)\footnote{
 Do inglês, \textit{Left-to-right,
 Leftmost derivation} com K símbolos de \textit{lookahead}.
@@ -378,7 +378,7 @@ Diz~=se que uma linguagem é LR(K) ou
 LL(K) quando ela é reconhecida por este analisador
 }.
 
-A \autoref{LinguagensDeterministicas} não é inteiramente um Diagrama de Venn \cite{generalizedVennDiagrams},
+A \typeref{LinguagensDeterministicas} não é inteiramente um Diagrama de Venn \cite{generalizedVennDiagrams},
 inicialmente,
 nas camadas mais externas,
 ele é uma relação abstrata entre Linguagens Ambíguas e
@@ -409,7 +409,7 @@ as Gramáticas Determinísticas\footnote{
 As Gramáticas Determinísticas representam o conjunto de Linguagens que podem ser Analisadas Deterministicamente e
 tais Linguagens também podem ser conhecidas como LR(K),
 LR(K).
-Reveja os parágrafos após a \autoref{HierarquiaDeChomsky}
+Reveja os parágrafos após a \typeref{HierarquiaDeChomsky}
 },
 que podem ser classificadas como LR(K),
 LL(K), etc, i.e.,
@@ -555,7 +555,7 @@ ela terminará somente com algumas nós folha faltando.
 
 \subsection{Analisadores LR(K)}
 
-Como pode ser observado na \autoref{LinguagensDeterministicas},
+Como pode ser observado na \typeref{LinguagensDeterministicas},
 existem Gramáticas SLR(K) que não são Gramáticas LL(K) por que para uma gramática ser LL(K),
 ela precisa respeitar 3 propriedades,
 \begin{inparaenum}
@@ -595,7 +595,7 @@ uma vez que \citeonline{knuthLrParser1965} provou que todas as Gramáticas Deter
 Assim,
 além da hierarquia de Chomsky,
 também classifica~=se as gramáticas de acordo com o tipo de analisador que reconhece as linguagens representadas por elas.
-Como mostrado na \autoref{LinguagensDeterministicas},
+Como mostrado na \typeref{LinguagensDeterministicas},
 nem todas as Gramáticas Livre de Contexto são de gramáticas Determinísticas e
 uma gramática é Determinística somente se ela pode ser reconhecida por um Analisador LR(K).
 
@@ -754,7 +754,7 @@ mesmo que seu dispositivo reconhecedor equivalente,
 os Automatos Finitos,
 não tenham Turing Completude\footnote{
 Caso isso esteja confuso,
-reveja a \autoref{HierarquiaDeChomsky} e
+reveja a \typeref{HierarquiaDeChomsky} e
 note que de todas as Linguagens,
 quem tem Turing Completude são as Linguagens Irrestritas,
 enquanto Automatos Finitos são um subconjunto das Máquinas de Turing \cite{finiteAutomataTuringComplete}
@@ -849,7 +849,7 @@ com complexidade de tempo $\Theta(n^3)$ ao utilizar o algoritmo de parsing CYK (
 
 \subsection{Complexidade Teórica $versus$ Real}
 
-Na Figura \autoref{ParserNonDeterministic},
+Na Figura \typeref{ParserNonDeterministic},
 encontra~=se uma Árvore de Computação de um Analisador Não~=Determinístico.
 Diz~=se que que o tempo de execução de um Analisador Não~=Determinístico é Não~=Determinístico Polinomial $NP$\footnote{
 Do inglês, \textit{Non~=Deterministic Polynomial Time},
@@ -861,7 +861,7 @@ está estritamente contida na classe de problemas $NP$ (Não~=Determinísticos P
 ao tamanho da entrada,
 por que um Analisador Não~=Determinístico executa simultaneamente todos os ramos de Computação Não~=Determinísticos \cite{hopcroftBook}.
 
-Como mostrado na Figura \autoref{ParserNonDeterministic},
+Como mostrado na Figura \typeref{ParserNonDeterministic},
 após a cada um dos passo de computação 1,
 2, 3 e 4,
 todos os 15 ramos de computação foram concluídos.
@@ -892,7 +892,7 @@ $P$ representa o conjunto de problemas resolvidos tempo Determinístico Polinomi
 enquanto $NP$ o conjunto de Problemas resolvido em tempo Não~=Determinístico Polinomial (por Máquinas de Turing Não~=Determinísticas).
 Assim,
 um problema Não~=Determinístico Polinomial somente pode ser resolvido por uma Máquinas de Turing Determinística em tempo exponencial.
-Veja as Figuras \autoref{ParserNonDeterministic,ParserDeterministic} e
+Veja as Figuras \typeref{ParserNonDeterministic,ParserDeterministic} e
 as compare.
 
 O tempo de execução será linear ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Regular e
@@ -900,7 +900,7 @@ implementado através de um Automato Finito.
 O tempo de execução será polinomial ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Livre de Contexto Ambígua (Gramática Não~=Determinística) e
 implementado através de algum algoritmo com tempo polinomial como CYK (\fullref{hierarquiaDeChomsky}).
 
-Como já explicado nas observações da \autoref{HierarquiaDeChomsky},
+Como já explicado nas observações da \typeref{HierarquiaDeChomsky},
 existem duas classes distintas de complexidade para Gramáticas Livre de Contexto Não~=Determinísticas.
 Quando faz~=se uma Análise de uma Gramáticas Livre de Contexto Não~=Determinística,
 tem~=se como resultado várias possíveis Árvores de Derivação\footnote{
@@ -936,8 +936,8 @@ Não~=Determinísticas são equivalentes,
 pois sempre é possível simular o funcionamento de uma Máquina de Turing Não~=Determinística,
 utilizando uma Máquina de Turing Determinística \cite{hopcroftBook}.
 
-Na \autoref{ParserDeterministic},
-encontra~=se a mesma Árvore de Computação apresentada na \autoref{ParserNonDeterministic},
+Na \typeref{ParserDeterministic},
+encontra~=se a mesma Árvore de Computação apresentada na \typeref{ParserNonDeterministic},
 mas com a diferença de que desta vez utiliza~=se uma Máquina de Turing Determinística ao contrário de uma Máquina de Turing Não~=Determinística.
 Com isso,
 ao invés de um tempo polinomial ao tamanho da entrada,
@@ -989,8 +989,8 @@ leve o analisador a um estado de aceitação,
 mas ao mesmo tempo de pode~=se ter ``sorte'',
 pode~=se ter o ``azar'' de que o primeiro ramo não~=determinístico seja um ramo infinito de computações que nunca levarão o analisador à um estado de aceitação.
 
-A \autoref{ParserDeterministic} mostrou um exemplo de uso do algoritmo de Busca em Profundidade.
-Já na \autoref{ParserDeterministicBreadth},
+A \typeref{ParserDeterministic} mostrou um exemplo de uso do algoritmo de Busca em Profundidade.
+Já na \typeref{ParserDeterministicBreadth},
 encontra~=se a variação de execução de um Analisador Determinístico que utilizou o algoritmo de Busca em Largura.
 \begin{figure}[h]
 \centering
