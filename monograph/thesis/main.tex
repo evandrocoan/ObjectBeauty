@@ -242,7 +242,7 @@ section=TITLE, % Título de seções em caixa alta
 
 % https://tex.stackexchange.com/questions/23313/how-can-i-reduce-padding-after-figure
 % https://tex.stackexchange.com/questions/499580/how-to-keep-my-default-floating-environment-spacing-before-them-while-reducing
-% \setlength{\belowcaptionskip}{-10pt}
+% \xpretocmd{\figure}{\setlength{\belowcaptionskip}{-10pt}}{}{}
 
 % https://tex.stackexchange.com/questions/85113/xrightarrow-text
 \makeatletter
