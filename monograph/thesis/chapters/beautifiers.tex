@@ -245,7 +245,7 @@ Tais técnicas e
 utilidades para estes tipos de software podem ser encontradas com mais detalhes em \citeonline{codeObfuscationTechniques}.
 
 \begin{quadro}[h]
-\caption{Exemplo de Ofuscador de Código~=Fonte \cite{familyOfSourceCodeObfuscators}}
+\caption[Exemplo de Ofuscador de Código~=Fonte]{Exemplo de Ofuscador de Código~=Fonte \cite{familyOfSourceCodeObfuscators}}
 \label{exemploDeOfuscador}
 \begin{bluebox}
 \lstset{xleftmargin=2em,aboveskip=0pt}
@@ -435,19 +435,50 @@ Existem muitas ferramentas e\slash{}ou editores de texto,
 e cada uma dessas ferramentas possuí suas vantagens e
 desvantagens. Por isso,
 alguns desenvolvedores de software que são mais inquietos ou
-entusiastas por novas tecnologias podem utilizar suas ou
+entusiastas por novas tecnologias podem utilizar simultaneamente duas ou
 mais ferramentas dependendo de suas especialidades e
 da tarefa que o desenvolvedor está realizando no momento.
 
-Trabalhos como \cite{editorConfig} não é diretamente um formatador de código~=fonte,
+Trabalhos como \cite{editorConfig} não são diretamente um formatador de código~=fonte,
 tema foco desta monografia.
-Mas sua relação com este trabalho é seu proposito de servir como uma ponte de compartilhamento de configurações entre todos os editores de texto que exitem.
+Mas sua relação com este trabalho é seu proposito de servir como uma ponte de compartilhamento de configurações entre todos os editores de texto.
 Com isso,
-facilitando a traca de uma ferramenta pela outra durante o desenvolvimento.
+facilitando a troca de um editor pelo outro durante o desenvolvimento.
 Do mesmo jeito,
-este trabalho foca em propor uma ferramenta de formatação extensível para todas as linguagens de programação (ver \typeref{software_implementation}).
+este trabalho foca em propor uma ferramenta de formatação extensível várias linguagens de programação (ver \fullref{software_implementation}).
 
-\cite{universalIndentGUI}
+\citeonline{universalIndentGUI} é outra ferramenta que não é um formatador de código~=fonte,
+mas sim uma interface comum a várias e
+diferentes ferramentas de formatação de código~=fonte.
+Na \typeref{UniversalIndentGUIScreenshot4} pode~=se ver como é a interface com o usuário que esta ferramenta proporciona.
+Ela permite que se escolha qual será o formatador de código que utilizado,
+e permite que carregue~=se um arquivo de código~=fonte para ser formatado,
+e na medida que seleciona~=se as opções pela interface gráfica,
+pode~=se visualizar as mudanças no código~=fonte de exemplo carregado.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=1.0\textwidth]{UniversalIndentGUIScreenshot4.png}
+\caption[Exemplo da Tela de Configuração de UniversalIndentGUI]{Exemplo da Tela de Configuração de UniversalIndentGUI -- \cite{UniversalIndentGUIScreenshot4}}
+\label{UniversalIndentGUIScreenshot4}
+\end{figure}
+
+Entretanto,
+\citeonline{universalIndentGUI} enfrenta problemas como as limitações de sua interface gráfica.
+Como já mencionado na \typeref{trabalhosRelacionados},
+Uncrustify na sua versão ``0.69.0'' possuí 671 configurações de formatação de código~=fonte.
+Mas a interface gráfica de \citeonline{universalIndentGUI} não possui nem próximo de tantas opções de configuração.
+
+Todas as opções que não aparecem na interface gráfica,
+não podem ser utilizadas ao realizar a formatação do código~=fonte por que os arquivos de configuração gerados e
+lidos pela ferramenta não conterão estas opções e
+qualquer outra opção além inserido pelo usuário manualmente serão apagadas.
+Assim não podendo ser utilizadas mais opções além das quais a limitada interface gráfica mostra.
+
+Outra desvantagem da visualização das mudanças como mostrado na \typeref{UniversalIndentGUIScreenshot4},
+acontece quando o código~=fonte de amostra carregado não contém partes que são afetados\slash{}formatados pela configuração utilizada.
+Neste caso,
+não serão apresentados nenhuma mudança durante a visualização.
 
 \cite{prettyPrintingOfVisualSentences}
 
