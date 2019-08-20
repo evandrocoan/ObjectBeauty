@@ -434,7 +434,8 @@ a versão ``0.69.0'' possui 671 configurações para personalizar a formatação
 
 Existem muitas ferramentas e\slash{}ou editores de texto,
 e cada uma dessas ferramentas possuí suas vantagens e
-desvantagens. Por isso,
+desvantagens \cite{prettyPrintingOfVisualSentences,anAbstractPrettyPrinter,improvingRefactoringSpeed}.
+Por isso,
 alguns desenvolvedores de software\advisor{}{
 que são mais inquietos ou
 entusiastas por novas tecnologias
@@ -486,11 +487,21 @@ acontece quando o código~=fonte de amostra carregado não contém partes que s�
 Neste caso,
 não serão apresentados nenhuma mudança durante a visualização.
 
-Em trabalhos como \citeonline{prettyPrintingOfVisualSentences} apresenta~=se
+Com o que foi apresentado sobre as ferramentas de formatação de código~=fonte,
+já pode~=se ter uma visão sobre como funcionam e
+são todas as ferramentas de formação.
+Ou elas serão configuradas,
+diretamente pelo usuário editando arquivos de configuração \cite{uncrustifySourceCode},
+ou elas terão uma interface gráfica que permita com que o usuário visualize as suas alterações diretamente em uma amostra de código~=fonte \cite{universalIndentGUI}.
 
-\cite{anAbstractPrettyPrinter}
-
-\cite{improvingRefactoringSpeed}
+Quanto ao seu funcionamento interno,
+formatadores de código~=fonte seguem o processo tradução como apresentado na \fullref{compiladoresEtradutores}.
+Mas diferente do usual para um tradutor,
+um formatador realiza um processo de tradução onde o nível da linguagem e
+a própria linguagem de origem e
+destino são mesmo.
+Por exemplo,
+ao realizar a tradução de um programa em \textit{C++} para \textit{C++}.
 
 
 \advisor{}{%
