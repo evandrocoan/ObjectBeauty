@@ -3,7 +3,6 @@
 \chapter{Estado da Arte}
 \label{source_code_beautifiers}
 
-
 % \section{\lang{What does coding is}{Programação de computadores}}
 
 \lang{
@@ -417,8 +416,10 @@ sua experiência se ele sente a necessidade de algo mais durante o período de d
 \section{\lang{Related Works}{Trabalhos Relacionados}}
 \label{trabalhosRelacionados}
 
+Nesta seção,
+são relatados os trabalhos relacionados obtidos através de pesquisa na literatura utilizando metodologia especificada no \typeref{firstChapterIntroduction}.
 Segundo \citeonline{uncrustifySourceCode},
-Uncrustify é capaz de formatar as linguagens
+Uncrustify é capaz de formatar as linguagens:
 \begin{inparaenum}[1)] \item C,
 \item C++,
 \item C\#,
@@ -429,19 +430,21 @@ Uncrustify é capaz de formatar as linguagens
 \item VALA.
 \end{inparaenum}%
 De acordo com o site \citetitle{uncrustifyWebSite},
-na versão ``0.69.0'' existem 671 configurações para personalizar a formatação do código~=fonte como mostrado no \typeref{uncrustifySettingSample}.
+a versão ``0.69.0'' possui 671 configurações para personalizar a formatação do código~=fonte como mostrado no \typeref{uncrustifySettingSample}.
 
 Existem muitas ferramentas e\slash{}ou editores de texto,
 e cada uma dessas ferramentas possuí suas vantagens e
 desvantagens. Por isso,
-alguns desenvolvedores de software que são mais inquietos ou
-entusiastas por novas tecnologias podem utilizar simultaneamente duas ou
+alguns desenvolvedores de software\advisor{}{
+que são mais inquietos ou
+entusiastas por novas tecnologias
+} podem utilizar simultaneamente duas ou
 mais ferramentas dependendo de suas especialidades e
 da tarefa que o desenvolvedor está realizando no momento.
 
-Trabalhos como \cite{editorConfig} não são diretamente um formatador de código~=fonte,
+Trabalhos como \citeonline{editorConfig} não são diretamente um formatador de código~=fonte\advisor{.}{,
 tema foco desta monografia.
-Mas sua relação com este trabalho é seu proposito de servir como uma ponte de compartilhamento de configurações entre todos os editores de texto.
+} Mas sua relação com este trabalho é seu proposito de servir como uma ponte de compartilhamento de configurações entre todos os editores de texto.
 Com isso,
 facilitando a troca de um editor pelo outro durante o desenvolvimento.
 Do mesmo jeito,
@@ -451,10 +454,6 @@ este trabalho foca em propor uma ferramenta de formatação extensível várias 
 mas sim uma interface comum a várias e
 diferentes ferramentas de formatação de código~=fonte.
 Na \typeref{UniversalIndentGUIScreenshot4} pode~=se ver como é a interface com o usuário que esta ferramenta proporciona.
-Ela permite que se escolha qual será o formatador de código que utilizado,
-e permite que carregue~=se um arquivo de código~=fonte para ser formatado,
-e na medida que seleciona~=se as opções pela interface gráfica,
-pode~=se visualizar as mudanças no código~=fonte de exemplo carregado.
 
 \begin{figure}[h]
 \centering
@@ -463,24 +462,31 @@ pode~=se visualizar as mudanças no código~=fonte de exemplo carregado.
 \label{UniversalIndentGUIScreenshot4}
 \end{figure}
 
+A interface da \typeref{UniversalIndentGUIScreenshot4} permite que se escolha qual será o formatador de código que será utilizado,
+e permite que carregue~=se um arquivo de código~=fonte para ser formatado,
+e na medida que seleciona~=se as opções pela interface gráfica,
+pode~=se visualizar as mudanças no código~=fonte de exemplo carregado.
 Entretanto,
 \citeonline{universalIndentGUI} enfrenta problemas como as limitações de sua interface gráfica.
 Como já mencionado na \typeref{trabalhosRelacionados},
-Uncrustify na sua versão ``0.69.0'' possuí 671 configurações de formatação de código~=fonte.
-Mas a interface gráfica de \citeonline{universalIndentGUI} não possui nem próximo de tantas opções de configuração.
+Uncrustify na sua versão ``0.69.0'' possuí 671 configurações de formatação de código~=fonte,
+mas a interface gráfica de \citeonline{universalIndentGUI} não possui\advisor{
+tal número}{
+nem próximo de tantas} opções de configuração.
 
-Todas as opções que não aparecem na interface gráfica,
-não podem ser utilizadas ao realizar a formatação do código~=fonte por que os arquivos de configuração gerados e
-lidos pela ferramenta não conterão estas opções e
-qualquer outra opção além inserido pelo usuário manualmente serão apagadas.
-Assim não podendo ser utilizadas mais opções além das quais a limitada interface gráfica mostra.
+Todas as opções que não aparecem na interface gráfica de \citeonline{universalIndentGUI},
+não podem ser utilizadas ao realizar a formatação do código~=fonte porque os arquivos de configuração gerados e
+lidos pela ferramenta não conterão estas opções.
+Qualquer outra opção adicional inserida manualmente pelo usuário serão apagadas,
+assim não podendo ser utilizadas mais opções além das quais a\advisor{}{
+limitada} interface gráfica apresenta.
 
 Outra desvantagem da visualização das mudanças como mostrado na \typeref{UniversalIndentGUIScreenshot4},
 acontece quando o código~=fonte de amostra carregado não contém partes que são afetados\slash{}formatados pela configuração utilizada.
 Neste caso,
 não serão apresentados nenhuma mudança durante a visualização.
 
-\cite{prettyPrintingOfVisualSentences}
+Em trabalhos como \citeonline{prettyPrintingOfVisualSentences} apresenta~=se
 
 \cite{anAbstractPrettyPrinter}
 
