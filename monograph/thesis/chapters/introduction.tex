@@ -478,20 +478,33 @@ extensível a diversas linguagem de programação por meio de gramáticas.
 \end{enumerate}
 
 
-\section{Método de Pesquisa}
+\section{Método de Pesquisa e Estruturação do Texto}
 
-Cria a seção de metodologia para incluir como deve ser feita a classificação dos beautifiers.
+A criação deste trabalho dividi~=se em três áreas distintas.
+Na primeira parte encontra~=se o \typeref{fundamentacaoTeorica} e
+foi utilizado como guia as notas de aula retiradas das disciplinas relacionadas a construção deste trabalho.
+Então pesquisas em artigos científicos,
+livros e
+sites foram utilizados para obter~=se referências e
+resolver dúvidas pendentes sobre quaisquer conteúdos.
 
-Método usado para:
-- Levantamento da literatura base: livros-base de disciplinas teóricas e de aplicação de teoria da computação;
-- Levantamento do estato da arte: google scholar, artigos encontrados na ACM, IEEE, ArxiV;
-- Especificação: reflexão sobre o que foi levantado, codificação (especificação) e testes.
+Para a segunda parte no \typeref{source_code_beautifiers},
+foi escolhido explicar sobre dois tipos distintos de formatadores de código~=fonte.
+Um formatador de código configurável por arquivos de texto e
+outro configurável por uma interface gráfica com o usuário.
+Foram escolhidos estes dois tipos de exemplo por que eles definem bem toda a classe de formatadores,
+isto é,
+não existem grandes diferenças de uso e
+implementação entres estes dois formatadores e
+os demais, podendo assim,
+ter~=se uma noção de toda a classe de formatadores.
 
-
-\section{Estruturação do Texto}
-
-No capítulo 2,
-será mostrado um revisão da literatura sobre os conceitos básicos.
-
-TODO.
-
+Por fim,
+no \typeref{software_implementation},
+será apresentado a proposta e
+implementação de uma nova ferramenta de formatação de código~=fonte,
+configurável por arquivos de texto e
+extensível para novas linguagem de programação através da especificação de suas gramáticas.
+Para que as gramáticas de novas linguagens de programação possam ser interpretadas,
+também será proposto uma nova gramática de gramáticas de linguagens de programação.
+Esta nova gramática de gramáticas será então utilizada pela nova ferramenta de formatação para realizar as alterações nos códigos~=fonte escolhidos pelo usuário.
