@@ -89,22 +89,22 @@ class TestSemanticRules(TestingGrammarUtilities):
             name: Abstract Machine Language
             scope: source.sma
             contexts: {
-              match: (true|false) {
-                scope: constant.language
-              }
+                match: (true|false) {
+                    scope: constant.language
+                }
             }
 
             contexts: {
-              match: (true|false) {
-                scope: constant.language
-              }
+                match: (true|false) {
+                    scope: constant.language
+                }
             }
         """
         error = self._getError(example_grammar)
 
         self.assertTextEqual(
         r"""
-            + 1. Extra `contexts` rule defined in your grammar on [@-1,219:226='contexts'<__ANON_1>,10:13]
+            + 1. Extra `contexts` rule defined in your grammar on [@-1,227:234='contexts'<__ANON_1>,10:13]
         """, error.exception )
 
     def test_duplicatedIncludes(self):
@@ -113,29 +113,29 @@ class TestSemanticRules(TestingGrammarUtilities):
             name: Abstract Machine Language
             scope: source.sma
             contexts: {
-              match: (true|false) {
-                scope: constant.language
-              }
-              include: duplicate
+                match: (true|false) {
+                    scope: constant.language
+                }
+                include: duplicate
             }
 
             duplicate: {
-              match: (true|false) {
-                scope: constant.language
-              }
+                match: (true|false) {
+                    scope: constant.language
+                }
             }
 
             duplicate: {
-              match: (true|false) {
-                scope: constant.language
-              }
+                match: (true|false) {
+                    scope: constant.language
+                }
             }
         """
         error = self._getError(example_grammar)
 
         self.assertTextEqual(
         r"""
-            + 1. Duplicated include `duplicate` defined in your grammar on [@-1,385:393='duplicate'<__ANON_1>,17:13]
+            + 1. Duplicated include `duplicate` defined in your grammar on [@-1,403:411='duplicate'<__ANON_1>,17:13]
         """, error.exception )
 
     def test_missingIncludeDetection(self):
@@ -144,17 +144,17 @@ class TestSemanticRules(TestingGrammarUtilities):
             name: Abstract Machine Language
             scope: source.sma
             contexts: {
-              match: (true|false) {
-                scope: constant.language
-              }
-              include: missing_include
+                match: (true|false) {
+                    scope: constant.language
+                }
+                include: missing_include
             }
         """
         error = self._getError(example_grammar)
 
         self.assertTextEqual(
         r"""
-            + 1. Missing include `missing_include` defined in your grammar on [@-1,215:229='missing_include'<TEXT_CHUNK_END_>,8:24]
+            + 1. Missing include `missing_include` defined in your grammar on [@-1,225:239='missing_include'<TEXT_CHUNK_END_>,8:26]
         """, error.exception )
 
     def test_invalidRegexInput(self):
@@ -163,9 +163,9 @@ class TestSemanticRules(TestingGrammarUtilities):
             name: Abstract Machine Language
             scope: source.sma
             contexts: {
-              match: (true|false {
-                scope: constant.language
-              }
+                match: (true|false {
+                    scope: constant.language
+                }
             }
         """
         error = self._getError(example_grammar)
@@ -183,8 +183,8 @@ class TestSemanticRules(TestingGrammarUtilities):
             scope: source.sma
             scope: source.sma
             contexts: {
-                match: (true|false) {
-              }
+                    match: (true|false) {
+                }
             }
         """
         error = self._getError(example_grammar)
@@ -200,8 +200,8 @@ class TestSemanticRules(TestingGrammarUtilities):
         r"""
             name: Abstract Machine Language
             contexts: {
-                match: (true|false) {
-              }
+                    match: (true|false) {
+                }
             }
         """
         error = self._getError(example_grammar)
@@ -216,8 +216,8 @@ class TestSemanticRules(TestingGrammarUtilities):
         r"""
             scope: source.sma
             contexts: {
-                match: (true|false) {
-              }
+                    match: (true|false) {
+                }
             }
         """
         error = self._getError(example_grammar)
@@ -233,13 +233,13 @@ class TestSemanticRules(TestingGrammarUtilities):
             scope: source.sma
             name: Abstract Machine Language
             contexts: {
-                match: (true|false) {
-              }
+                    match: (true|false) {
+                }
             }
 
             unused: {
-                match: (true|false) {
-              }
+                    match: (true|false) {
+                }
             }
         """
         error = self._getError(example_grammar)
@@ -247,7 +247,7 @@ class TestSemanticRules(TestingGrammarUtilities):
         self.assertTextEqual(
         r"""
             +   Warnings:
-            + 1. Unused include `unused` defined in your grammar on [@-1,180:185='unused'<__ANON_1>,9:13]
+            + 1. Unused include `unused` defined in your grammar on [@-1,186:191='unused'<__ANON_1>,9:13]
         """, error.exception )
 
     def test_unsusedConstantDeclaration(self):
@@ -257,8 +257,8 @@ class TestSemanticRules(TestingGrammarUtilities):
             name: Abstract Machine Language
             $constant: test
             contexts: {
-                match: (true|false) {
-              }
+                    match: (true|false) {
+                }
             }
         """
         error = self._getError(example_grammar)
@@ -276,8 +276,8 @@ class TestSemanticRules(TestingGrammarUtilities):
             name: Abstract Machine Language
             $constant:  test
             contexts: {
-                match: (true$constant:|false)$constant: {
-              }
+                    match: (true$constant:|false)$constant: {
+                }
             }
         """
         tree = self._getError(example_grammar, True)
@@ -322,16 +322,16 @@ class TestSemanticRules(TestingGrammarUtilities):
             name: Abstract Machine Language
             $constant: test
             contexts: {
-              $constant: test
-                match: (true$constant:|false) {
-              }
+                $constant: test
+                    match: (true$constant:|false) {
+                }
             }
         """
         error = self._getError(example_grammar)
 
         self.assertTextEqual(
         r"""
-            + 1. Constant redefinition on [@-1,141:150='$constant:'<CONSTANT_NAME_>,6:15]
+            + 1. Constant redefinition on [@-1,143:152='$constant:'<CONSTANT_NAME_>,6:17]
         """, error.exception )
 
     def test_recursiveConstantDefinition(self):
@@ -341,8 +341,8 @@ class TestSemanticRules(TestingGrammarUtilities):
             name: Abstract Machine Language
             $constant:  test$constant:
             contexts: {
-                match: (true$constant:|false) {
-              }
+                    match: (true$constant:|false) {
+                }
             }
         """
         error = self._getError(example_grammar)
@@ -359,9 +359,9 @@ class TestSemanticRules(TestingGrammarUtilities):
             scope: source.sma
             name: Abstract Machine Language
             contexts: {
-                match: (true$constant:|false) {
-              }
-              $constant: test
+                    match: (true$constant:|false) {
+                }
+                $constant: test
             }
         """
         error = self._getError(example_grammar)
@@ -369,8 +369,8 @@ class TestSemanticRules(TestingGrammarUtilities):
         self.assertTextEqual(
         r"""
             + 1. Using constant `$constant:` out of scope on
-            +    [@-1,127:136='$constant:'<CONSTANT_USAGE_>,5:29] from
-            +    [@-1,177:186='$constant:'<CONSTANT_NAME_>,7:15]
+            +    [@-1,131:140='$constant:'<CONSTANT_USAGE_>,5:33] from
+            +    [@-1,185:194='$constant:'<CONSTANT_NAME_>,7:17]
         """, error.exception )
 
     def test_usingConstOutOfBlockDefinition(self):
@@ -381,13 +381,13 @@ class TestSemanticRules(TestingGrammarUtilities):
             contexts: {
                 $constant: test:
                 match: (true $constant:|false) {
-                  include: block
-              }
+                    include: block
+                }
             }
 
             block: {
                 match: ($constant:) {
-              }
+                }
             }
         """
         error = self._getError(example_grammar)
@@ -395,7 +395,7 @@ class TestSemanticRules(TestingGrammarUtilities):
         self.assertTextEqual(
         r"""
             + 1. Using constant `$constant:` out of block on
-            +    [@-1,290:299='$constant:'<CONSTANT_USAGE_>,12:25] from
+            +    [@-1,294:303='$constant:'<CONSTANT_USAGE_>,12:25] from
             +    [@-1,115:124='$constant:'<CONSTANT_NAME_>,5:17]
         """, error.exception )
 
@@ -422,9 +422,9 @@ class TestBackEnd(TestingGrammarUtilities):
             scope: source.sma
             name: Abstract Machine Language
             contexts: {
-              match: (true|false) {
-                scope: boolean.sma
-              }
+                match: (true|false) {
+                    scope: boolean.sma
+                }
             }
         """
 
@@ -450,9 +450,9 @@ class TestBackEnd(TestingGrammarUtilities):
             scope: source.sma
             name: Abstract Machine Language
             contexts: {
-              match: // {
-                scope: comment.line.start.sma
-              }
+                match: // {
+                    scope: comment.line.start.sma
+                }
             }
         """
 
@@ -480,12 +480,12 @@ class TestBackEnd(TestingGrammarUtilities):
             scope: source.sma
             name: Abstract Machine Language
             contexts: {
-              match: // {
-                scope: comment.line.start.sma
-              }
-              match: single {
-                scope: comment.middle.start.sma
-              }
+                match: // {
+                    scope: comment.line.start.sma
+                }
+                match: single {
+                    scope: comment.middle.start.sma
+                }
             }
         """
 
@@ -513,15 +513,15 @@ class TestBackEnd(TestingGrammarUtilities):
             scope: source.sma
             name: Abstract Machine Language
             contexts: {
-              match: // {
-                scope: comment.start.sma
-                push: {
-                  meta_scope: comment.line.sma
-                  match: \n {
-                    pop: true
-                  }
+                match: // {
+                    scope: comment.start.sma
+                    push: {
+                        meta_scope: comment.line.sma
+                        match: \n {
+                            pop: true
+                        }
+                    }
                 }
-              }
             }
         """
 
@@ -547,82 +547,82 @@ class TestBackEnd(TestingGrammarUtilities):
     def test_complexGrammarFile(self):
         example_grammar = \
         r"""
-            scope: source.sma
-            name: Abstract Machine Language
-            contexts: {
-              include: pawn_keywords
-              include: pawn_comment
-              include: pawn_boolean
-              include: pawn_preprocessor
-              include: pawn_string
-              include: pawn_function
-              include: pawn_numbers
-            }
-            pawn_boolean: {
-              match: (true|false) {
+        scope: source.sma
+        name: Abstract Machine Language
+        contexts: {
+            include: pawn_keywords
+            include: pawn_comment
+            include: pawn_boolean
+            include: pawn_preprocessor
+            include: pawn_string
+            include: pawn_function
+            include: pawn_numbers
+        }
+        pawn_boolean: {
+            match: (true|false) {
                 scope: boolean.sma
-              }
             }
-            pawn_comment: {
-              match: /\* {
+        }
+        pawn_comment: {
+            match: /\* {
                 scope: comment.begin.sma
                 push: {
-                  meta_scope: comment.sma
-                  match: \*/ {
-                    pop: true
-                  }
+                    meta_scope: comment.sma
+                    match: \*/ {
+                        pop: true
+                    }
                 }
-              }
-              match: // {
-                push: {
-                  meta_scope: comment.documentation.sma
-                  match: \n {
-                    pop: true
-                  }
-                }
-              }
             }
-            pawn_preprocessor: {
-              match: \s*#define {
+            match: // {
+                push: {
+                    meta_scope: comment.documentation.sma
+                    match: \n {
+                        pop: true
+                    }
+                }
+            }
+        }
+        pawn_preprocessor: {
+            match: \s*#define {
                 scope: function.definition.sma
                 push: {
-                  meta_scope: meta.preprocessor.sma
-                  match: \n {
-                    pop: true
-                  }
+                    meta_scope: meta.preprocessor.sma
+                    match: \n {
+                        pop: true
+                    }
                 }
-              }
             }
-            pawn_string: {
-              match: "(?=.*") {
+        }
+        pawn_string: {
+            match: "(?=.*") {
                 scope: punctuation.definition.string.begin.sma
                 push: {
-                  meta_scope: string.quoted.double.sma
-                  match: "(?!.*") {
-                    scope: punctuation.definition.string.end.sma
-                    pop: true
-                  }
+                    meta_scope: string.quoted.double.sma
+                    match: "(?!.*") {
+                        scope: punctuation.definition.string.end.sma
+                        pop: true
+                    }
                 }
-              }
             }
-            pawn_function: {
-              match: (\w+)\s*(\(.*\)) {
+        }
+        pawn_function: {
+            match: (\w+)\s*(\(.*\)) {
                 scope: function.call.sma
-              }
             }
-            pawn_numbers: {
-              match: \d+\.?\d* {
+        }
+        pawn_numbers: {
+            match: \d+\.?\d* {
                 scope: constant.numeric.sma
-              }
             }
-            pawn_keywords: {
-              match: \b(sizeof|charsmax|assert|break|case|continue|default|do|in|else|exit|for|goto|if|return|switch|while)\b {
+        }
+        pawn_keywords: {
+            match: \b(sizeof|charsmax|assert|break|case|continue|default|do|in|else|exit|for|goto|if|return|switch|while)\b {
                 scope: keyword.control.sma
-              }
-              match: \b(var|new)\b {
-                scope: keyword.new.sma
-              }
             }
+            match: \b(var|new)\b {
+                scope: keyword.new.sma
+            }
+        }
         """
 
         example_program = debug_tools.utilities.wrap_text(
