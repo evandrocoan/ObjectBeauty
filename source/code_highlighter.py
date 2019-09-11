@@ -9,7 +9,7 @@ from pushdown import Tree
 from collections import OrderedDict
 
 from debug_tools import getLogger
-log = getLogger(1, __name__)
+log = getLogger(127, __name__, time=0, tick=0, msecs=0)
 
 def escape_html(input_text):
     return dominate.util.escape( input_text, quote=False ).replace("\n", "<br />" )
@@ -306,6 +306,7 @@ class Backend(pushdown.Interpreter):
 
             for last_match in last_matches:
                 match = self.match.search( str( self.program ), last_match.end(0) )
+                log( 'last_match.end', last_match.end(0) )
                 self.program.add_meta_scope( str(self.meta_scope), reversed_last_matches, match )
 
     def scope_name_statement(self, tree):

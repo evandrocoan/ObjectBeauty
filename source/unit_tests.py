@@ -25,6 +25,7 @@ assert_path( os.path.realpath( __file__ ) )
 from utilities import make_png
 from debug_tools.utilities import get_relative_path
 from debug_tools.testing_utilities import TestingUtilities
+from debug_tools.testing_utilities import wrap_text
 
 def main():
     # https://stackoverflow.com/questions/6813837/stop-testsuite-if-a-testcase-find-an-error
@@ -57,6 +58,8 @@ class TestingGrammarUtilities(TestingUtilities):
             return my_parser
 
     def _getError(self, example_grammar, return_tree=False, log_level=0):
+        example_grammar = wrap_text( example_grammar )
+
         my_parser = self._getParser(log_level)
         tree = my_parser.parse(example_grammar)
 
@@ -84,7 +87,7 @@ class TestingGrammarUtilities(TestingUtilities):
 class TestSemanticRules(TestingGrammarUtilities):
 
     def test_duplicatedContext(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
             name: Abstract Machine Language
             scope: source.sma
@@ -99,8 +102,8 @@ class TestSemanticRules(TestingGrammarUtilities):
                     scope: constant.language
                 }
             }
-        """
-        error = self._getError(example_grammar)
+        """ )
+        error = self._getError( example_grammar )
 
         self.assertTextEqual(
         r"""
@@ -108,7 +111,7 @@ class TestSemanticRules(TestingGrammarUtilities):
         """, error.exception )
 
     def test_duplicatedIncludes(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
             name: Abstract Machine Language
             scope: source.sma
@@ -130,8 +133,8 @@ class TestSemanticRules(TestingGrammarUtilities):
                     scope: constant.language
                 }
             }
-        """
-        error = self._getError(example_grammar)
+        """ )
+        error = self._getError( example_grammar )
 
         self.assertTextEqual(
         r"""
@@ -139,7 +142,7 @@ class TestSemanticRules(TestingGrammarUtilities):
         """, error.exception )
 
     def test_missingIncludeDetection(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
             name: Abstract Machine Language
             scope: source.sma
@@ -149,8 +152,8 @@ class TestSemanticRules(TestingGrammarUtilities):
                 }
                 include: missing_include
             }
-        """
-        error = self._getError(example_grammar)
+        """ )
+        error = self._getError( example_grammar )
 
         self.assertTextEqual(
         r"""
@@ -158,7 +161,7 @@ class TestSemanticRules(TestingGrammarUtilities):
         """, error.exception )
 
     def test_invalidRegexInput(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
             name: Abstract Machine Language
             scope: source.sma
@@ -167,8 +170,8 @@ class TestSemanticRules(TestingGrammarUtilities):
                     scope: constant.language
                 }
             }
-        """
-        error = self._getError(example_grammar)
+        """ )
+        error = self._getError( example_grammar )
 
         self.assertTextEqual(
         r"""
@@ -176,7 +179,7 @@ class TestSemanticRules(TestingGrammarUtilities):
         """, error.exception )
 
     def test_duplicatedGlobalNames(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
             name: Abstract Machine Language
             name: Abstract Machine Language
@@ -186,8 +189,8 @@ class TestSemanticRules(TestingGrammarUtilities):
                     match: (true|false) {
                 }
             }
-        """
-        error = self._getError(example_grammar)
+        """ )
+        error = self._getError( example_grammar )
 
         self.assertTextEqual(
         r"""
@@ -196,15 +199,15 @@ class TestSemanticRules(TestingGrammarUtilities):
         """, error.exception )
 
     def test_missingScopeGlobalName(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
             name: Abstract Machine Language
             contexts: {
                     match: (true|false) {
                 }
             }
-        """
-        error = self._getError(example_grammar)
+        """ )
+        error = self._getError( example_grammar )
 
         self.assertTextEqual(
         r"""
@@ -212,15 +215,15 @@ class TestSemanticRules(TestingGrammarUtilities):
         """, error.exception )
 
     def test_missingNameGlobal(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
             scope: source.sma
             contexts: {
                     match: (true|false) {
                 }
             }
-        """
-        error = self._getError(example_grammar)
+        """ )
+        error = self._getError( example_grammar )
 
         self.assertTextEqual(
         r"""
@@ -228,7 +231,7 @@ class TestSemanticRules(TestingGrammarUtilities):
         """, error.exception )
 
     def test_unsusedInclude(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
             scope: source.sma
             name: Abstract Machine Language
@@ -241,8 +244,8 @@ class TestSemanticRules(TestingGrammarUtilities):
                     match: (true|false) {
                 }
             }
-        """
-        error = self._getError(example_grammar)
+        """ )
+        error = self._getError( example_grammar )
 
         self.assertTextEqual(
         r"""
@@ -251,7 +254,7 @@ class TestSemanticRules(TestingGrammarUtilities):
         """, error.exception )
 
     def test_unsusedConstantDeclaration(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
             scope: source.sma
             name: Abstract Machine Language
@@ -260,8 +263,8 @@ class TestSemanticRules(TestingGrammarUtilities):
                     match: (true|false) {
                 }
             }
-        """
-        error = self._getError(example_grammar)
+        """ )
+        error = self._getError( example_grammar )
 
         self.assertTextEqual(
         r"""
@@ -270,7 +273,7 @@ class TestSemanticRules(TestingGrammarUtilities):
         """, error.exception )
 
     def test_constantUsage(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
             scope: source.sma
             name: Abstract Machine Language
@@ -279,8 +282,8 @@ class TestSemanticRules(TestingGrammarUtilities):
                     match: (true$constant:|false)$constant: {
                 }
             }
-        """
-        tree = self._getError(example_grammar, True)
+        """ )
+        tree = self._getError( example_grammar, True )
 
         self.assertTextEqual(
         r"""
@@ -299,24 +302,24 @@ class TestSemanticRules(TestingGrammarUtilities):
         my_parser = pushdown.Lark(
         r"""
             free_input_string: ( constant_usage | TEXT_CHUNK )* ( TEXT_CHUNK_END_ | )
-            TEXT_CHUNK: /(\\{|\\}|\\\$|[^\n{}\$])+(?=\$)/
-            TEXT_CHUNK_END_: /(\\{|\\}|\\\$|[^\n{}\$])+(?!{)/
+            TEXT_CHUNK: /(\\{|\\}|\\\$|[^\n{}\$])+/
+            TEXT_CHUNK_END_: /(\\{|\\}|\\\$|[^\n{}\$])+/
             constant_usage: CONSTANT_USAGE_
-            CONSTANT_USAGE_: /\$[^\n\$\:]+\:(?!{)/
+            CONSTANT_USAGE_: /\$[^\n\$\:]+\:/
         """,
-        start='free_input_string', parser='lalr', lexer='contextual')
-        tree = my_parser.parse( "true$constant:|false" )
+        start='free_input_string', parser='lalr', lexer='contextual' )
+        tree = my_parser.parse( r"true$constant:\$|false" )
 
         self.assertTextEqual(
         r"""
             + free_input_string
             +   [@1,0:3='true'<TEXT_CHUNK>,1:1]
             +   constant_usage  [@2,4:13='$constant:'<CONSTANT_USAGE_>,1:5]
-            +   [@3,14:19='|false'<TEXT_CHUNK_END_>,1:15]
+            +   [@3,14:21='\\$|false'<TEXT_CHUNK>,1:15]
         """, tree.pretty(debug=True) )
 
     def test_redifinedConst(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
             scope: source.sma
             name: Abstract Machine Language
@@ -326,8 +329,8 @@ class TestSemanticRules(TestingGrammarUtilities):
                     match: (true$constant:|false) {
                 }
             }
-        """
-        error = self._getError(example_grammar)
+        """ )
+        error = self._getError( example_grammar )
 
         self.assertTextEqual(
         r"""
@@ -335,7 +338,7 @@ class TestSemanticRules(TestingGrammarUtilities):
         """, error.exception )
 
     def test_recursiveConstantDefinition(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
             scope: source.sma
             name: Abstract Machine Language
@@ -344,8 +347,8 @@ class TestSemanticRules(TestingGrammarUtilities):
                     match: (true$constant:|false) {
                 }
             }
-        """
-        error = self._getError(example_grammar)
+        """ )
+        error = self._getError( example_grammar )
 
         self.assertTextEqual(
         r"""
@@ -354,7 +357,7 @@ class TestSemanticRules(TestingGrammarUtilities):
         """, error.exception )
 
     def test_usingConstOutOfScope(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
             scope: source.sma
             name: Abstract Machine Language
@@ -363,8 +366,8 @@ class TestSemanticRules(TestingGrammarUtilities):
                 }
                 $constant: test
             }
-        """
-        error = self._getError(example_grammar)
+        """ )
+        error = self._getError( example_grammar )
 
         self.assertTextEqual(
         r"""
@@ -374,7 +377,7 @@ class TestSemanticRules(TestingGrammarUtilities):
         """, error.exception )
 
     def test_usingConstOutOfBlockDefinition(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
             scope: source.sma
             name: Abstract Machine Language
@@ -389,8 +392,8 @@ class TestSemanticRules(TestingGrammarUtilities):
                 match: ($constant:) {
                 }
             }
-        """
-        error = self._getError(example_grammar)
+        """ )
+        error = self._getError( example_grammar )
 
         self.assertTextEqual(
         r"""
@@ -406,7 +409,7 @@ class TestBackEnd(TestingGrammarUtilities):
         function_file = get_relative_path( "examples/%s.html" % getCallerName(), __file__ )
         # log( 1, "function_file: %s", function_file )
 
-        tree = self._getError(example_grammar, True)
+        tree = self._getError( example_grammar, True )
         backend = code_highlighter.Backend(tree, example_program, example_theme)
         generated_html = backend.generated_html()
 
@@ -417,7 +420,7 @@ class TestBackEnd(TestingGrammarUtilities):
         return generated_html
 
     def test_simpleMatchStamement(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
             scope: source.sma
             name: Abstract Machine Language
@@ -426,10 +429,10 @@ class TestBackEnd(TestingGrammarUtilities):
                     scope: boolean.sma
                 }
             }
-        """
+        """ )
 
-        example_program = \
-        r"""true"""
+        example_program = wrap_text(
+        r"""true""" )
 
         example_theme = \
         {
@@ -445,7 +448,7 @@ class TestBackEnd(TestingGrammarUtilities):
         """, generated_html )
 
     def test_unmatchedProgramCompletionAtEnd(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
             scope: source.sma
             name: Abstract Machine Language
@@ -454,12 +457,12 @@ class TestBackEnd(TestingGrammarUtilities):
                     scope: comment.line.start.sma
                 }
             }
-        """
+        """ )
 
-        example_program = \
+        example_program = wrap_text(
         r"""
             // Example single line commentary
-        """
+        """ )
 
         example_theme = \
         {
@@ -475,7 +478,7 @@ class TestBackEnd(TestingGrammarUtilities):
         """, generated_html )
 
     def test_unmatchedProgramCompletionAtMiddle(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
             scope: source.sma
             name: Abstract Machine Language
@@ -487,12 +490,12 @@ class TestBackEnd(TestingGrammarUtilities):
                     scope: comment.middle.start.sma
                 }
             }
-        """
+        """ )
 
-        example_program = \
+        example_program = wrap_text(
         r"""
             // Example single line commentary
-        """
+        """ )
 
         example_theme = \
         {
@@ -508,7 +511,7 @@ class TestBackEnd(TestingGrammarUtilities):
         """, generated_html )
 
     def test_simplePushPopStatement(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
             scope: source.sma
             name: Abstract Machine Language
@@ -517,18 +520,18 @@ class TestBackEnd(TestingGrammarUtilities):
                     scope: comment.start.sma
                     push: {
                         meta_scope: comment.line.sma
-                        match: \n {
+                        match: \n|\$ {
                             pop: true
                         }
                     }
                 }
             }
-        """
+        """ )
 
-        example_program = \
+        example_program = wrap_text(
         r"""
             // Example single line commentary
-        """
+        """ )
 
         example_theme = \
         {
@@ -536,7 +539,7 @@ class TestBackEnd(TestingGrammarUtilities):
             "comment.line" : "#00FF00",
         }
 
-        generated_html = self._getBackend(example_grammar, example_program, example_theme)
+        generated_html = self._getBackend( example_grammar, example_program, example_theme )
 
         self.assertTextEqual(
         r"""
@@ -545,7 +548,7 @@ class TestBackEnd(TestingGrammarUtilities):
         """, generated_html )
 
     def test_complexGrammarFile(self):
-        example_grammar = \
+        example_grammar = wrap_text(
         r"""
         scope: source.sma
         name: Abstract Machine Language
@@ -623,9 +626,9 @@ class TestBackEnd(TestingGrammarUtilities):
                 scope: keyword.new.sma
             }
         }
-        """
+        """ )
 
-        example_program = debug_tools.utilities.wrap_text(
+        example_program = wrap_text(
         r"""
             /* Commentary example */ true or false
             #define GLOBAL_CONSTANT
