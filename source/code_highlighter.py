@@ -306,7 +306,7 @@ class Backend(pushdown.Interpreter):
 
             for last_match in last_matches:
                 match = self.match.search( str( self.program ), last_match.end(0) )
-                log( 'last_match.end', last_match.end(0) )
+                log( "match: '%s' last_match.end", self.match.pattern, last_match.end(0) )
                 self.program.add_meta_scope( str(self.meta_scope), reversed_last_matches, match )
 
     def scope_name_statement(self, tree):

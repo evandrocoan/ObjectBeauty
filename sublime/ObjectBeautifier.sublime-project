@@ -5,7 +5,9 @@
         "rulers": [80],
         "WrapPlus.semantic_line_wrap": true,
         "WrapPlus.semantic_maximum_items_in_comma_separated_list": 1,
-        "WrapPlus.semantic_wrap_extension_percent": 1.3,
+        "WrapPlus.semantic_wrap_extension_percent": 100.0,
+        "WrapPlus.word_separator_characters": [ ".", "?", "!", ":" ],
+        "WrapPlus.alpha_separator_characters": [ "e", "and", "or", "ou", "{" ],
         // "buildview.enabled": true,
         "buildview.scroll": "last",
         "buildview.focus_build": false,
@@ -68,6 +70,10 @@
 
             "cmd": ["python", "unit_tests.py"],
             "working_dir": "$project_path/../source",
+
+            "full_regex": "^(\\d\\d:\\d\\d:\\d\\d:\\d\\d\\d.\\d\\d\\d\\d\\d\\d \\d.\\d\\de-\\d\\d - )?(?P<file>(?:(?:\\w+\\.))+)[^:]+:(?P<line>\\d+) - (?P<message>.*)$",
+            "result_dir": [ "$project_path/../source" ],
+            "replaceby": [ [ "\\.$", "" ], [ "(?<!\\.)\\.(?!\\.)", "\\\\" ], [ "(.*)", "\\1.py" ] ],
 
             "variants":
             [
