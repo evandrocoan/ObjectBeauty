@@ -31,11 +31,17 @@ constant_usage_end: CONSTANT_USAGE_END_
 text_chunk_end: TEXT_CHUNK_END_
 
 CONSTANT_USAGE_: /\$[^\n\$\:]+\:/
-TEXT_CHUNK_: /(\\{|\\}|\\\$|[^\n{}\$])+/
-CONSTANT_USAGE_END_: /\$[^\n\$\:]+\:(?=(?:{|\n))/
-TEXT_CHUNK_END_: /(\\{|\\}|\\\$|[^\n{}\$])+(?=(?:{|\n))/
+TEXT_CHUNK_: /(?:\\{|\\}|\\\$|[^\n{}\$])+/
+CONSTANT_USAGE_END_: /(?:\$[^\n\$\:]+\:)(?=(?:\n|$))/
+TEXT_CHUNK_END_: /(?:\\{|\\}|\\\$|[^\n{}\$])+(?=(?:\n|$))/
 
-match_statement: "match" ": " free_input_string "{" ( _NEWLINE statements_list )* _NEWLINE "}"
+braced_free_input_string: ( constant_usage | text_chunk )* ( braced_constant_usage_end | braced_text_chunk_end )
+braced_constant_usage_end: BRACED_CONSTANT_USAGE_END_
+braced_text_chunk_end: BRACED_TEXT_CHUNK_END_
+BRACED_CONSTANT_USAGE_END_: /(?:\$[^\n\$\:]+\:)(?=(?: {))/
+BRACED_TEXT_CHUNK_END_: /(?:\\{|\\}|\\\$|[^\n{}\$])+(?=(?: {))/
+
+match_statement: "match" ": " braced_free_input_string "{" ( _NEWLINE statements_list )* _NEWLINE "}"
 scope_name_statement: "scope" ": " free_input_string
 
 capturing_block: "captures" ": " "{" ( _NEWLINE capturing_lines )+ _NEWLINE "}"
@@ -49,8 +55,8 @@ CR: "/r"
 LF: "/n"
 SPACES: /[\t \f]+/
 
-SINGLE_LINE_COMMENT: /(\#|\/\/)[^\n]*/
-MULTI_LINE_COMMENT: /\/\*([\s\S]*?)\*\//
+SINGLE_LINE_COMMENT: /(?:\#|\/\/)[^\n]*/
+MULTI_LINE_COMMENT: /\/\*(?:[\s\S]*?)\*\//
 
 NEWLINE: (CR? LF)+
 _NEWLINE: ( /\r?\n[\t ]*/ | SINGLE_LINE_COMMENT )+

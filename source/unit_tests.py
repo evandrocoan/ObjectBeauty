@@ -107,7 +107,7 @@ class TestSemanticRules(TestingGrammarUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Extra `contexts` rule defined in your grammar on [@-1,227:234='contexts'<__ANON_1>,10:13]
+            + 1. Extra `contexts` rule defined in your grammar on [@-1,130:137='contexts'<__ANON_1>,9:1]
         """, error.exception )
 
     def test_duplicatedIncludes(self):
@@ -138,7 +138,7 @@ class TestSemanticRules(TestingGrammarUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Duplicated include `duplicate` defined in your grammar on [@-1,403:411='duplicate'<__ANON_1>,17:13]
+            + 1. Duplicated include `duplicate` defined in your grammar on [@-1,234:242='duplicate'<__ANON_1>,16:1]
         """, error.exception )
 
     def test_missingIncludeDetection(self):
@@ -157,7 +157,7 @@ class TestSemanticRules(TestingGrammarUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Missing include `missing_include` defined in your grammar on [@-1,225:239='missing_include'<TEXT_CHUNK_END_>,8:26]
+            + 1. Missing include `missing_include` defined in your grammar on [@-1,140:154='missing_include'<TEXT_CHUNK_END_>,7:14]
         """, error.exception )
 
     def test_invalidRegexInput(self):
@@ -194,8 +194,8 @@ class TestSemanticRules(TestingGrammarUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Duplicated target language name defined in your grammar on [@-1,63:87='Abstract Machine Language'<TEXT_CHUNK_END_>,3:19]
-            + 2. Duplicated master scope name defined in your grammar on [@-1,138:147='source.sma'<TEXT_CHUNK_END_>,5:20]
+            + 1. Duplicated target language name defined in your grammar on [@-1,38:62='Abstract Machine Language'<TEXT_CHUNK_END_>,2:7]
+            + 2. Duplicated master scope name defined in your grammar on [@-1,89:98='source.sma'<TEXT_CHUNK_END_>,4:8]
         """, error.exception )
 
     def test_missingScopeGlobalName(self):
@@ -250,7 +250,7 @@ class TestSemanticRules(TestingGrammarUtilities):
         self.assertTextEqual(
         r"""
             +   Warnings:
-            + 1. Unused include `unused` defined in your grammar on [@-1,186:191='unused'<__ANON_1>,9:13]
+            + 1. Unused include `unused` defined in your grammar on [@-1,101:106='unused'<__ANON_1>,8:1]
         """, error.exception )
 
     def test_unsusedConstantDeclaration(self):
@@ -269,7 +269,7 @@ class TestSemanticRules(TestingGrammarUtilities):
         self.assertTextEqual(
         r"""
             +   Warnings:
-            + 1. Unused constant `$constant:` defined in your grammar on [@-1,87:96='$constant:'<CONSTANT_NAME_>,4:13]
+            + 1. Unused constant `$constant:` defined in your grammar on [@-1,50:59='$constant:'<CONSTANT_NAME_>,3:1]
         """, error.exception )
 
     def test_constantUsage(self):
@@ -301,11 +301,16 @@ class TestSemanticRules(TestingGrammarUtilities):
     def test_isolatedConstantUsage(self):
         my_parser = pushdown.Lark(
         r"""
-            free_input_string: ( constant_usage | TEXT_CHUNK )* ( TEXT_CHUNK_END_ | )
-            TEXT_CHUNK: /(\\{|\\}|\\\$|[^\n{}\$])+/
-            TEXT_CHUNK_END_: /(\\{|\\}|\\\$|[^\n{}\$])+/
+            free_input_string: ( constant_usage | text_chunk )* ( constant_usage_end | text_chunk_end )
             constant_usage: CONSTANT_USAGE_
+            text_chunk: TEXT_CHUNK_
+            constant_usage_end: CONSTANT_USAGE_END_
+            text_chunk_end: TEXT_CHUNK_END_
+
             CONSTANT_USAGE_: /\$[^\n\$\:]+\:/
+            TEXT_CHUNK_: /(\\{|\\}|\\\$|[^\n{}\$])+/
+            CONSTANT_USAGE_END_: /(?:\$[^\n\$\:]+\:)(?=(?:\n|$))/
+            TEXT_CHUNK_END_: /(\\{|\\}|\\\$|[^\n{}\$])+(?=(?:\n|$))/
         """,
         start='free_input_string', parser='lalr', lexer='contextual' )
         tree = my_parser.parse( r"true$constant:\$|false" )
@@ -313,9 +318,37 @@ class TestSemanticRules(TestingGrammarUtilities):
         self.assertTextEqual(
         r"""
             + free_input_string
-            +   [@1,0:3='true'<TEXT_CHUNK>,1:1]
+            +   text_chunk  [@1,0:3='true'<TEXT_CHUNK_>,1:1]
             +   constant_usage  [@2,4:13='$constant:'<CONSTANT_USAGE_>,1:5]
-            +   [@3,14:21='\\$|false'<TEXT_CHUNK>,1:15]
+            +   text_chunk_end  [@3,14:21='\\$|false'<TEXT_CHUNK_END_>,1:15]
+        """, tree.pretty(debug=True) )
+
+    def test_isolatedBracedEnd(self):
+        my_parser = pushdown.Lark(
+        r"""
+            start: braced_free_input_string " {"
+
+            constant_usage: CONSTANT_USAGE_
+            text_chunk: TEXT_CHUNK_
+            CONSTANT_USAGE_: /\$[^\n\$\:]+\:/
+            TEXT_CHUNK_: /(\\{|\\}|\\\$|[^\n{}\$])+/
+
+            braced_free_input_string: ( constant_usage | text_chunk )* ( braced_constant_usage_end | braced_text_chunk_end )
+            braced_constant_usage_end: BRACED_CONSTANT_USAGE_END_
+            braced_text_chunk_end: BRACED_TEXT_CHUNK_END_
+            BRACED_CONSTANT_USAGE_END_: /(?:\$[^\n\$\:]+\:)(?=(?: {))/
+            BRACED_TEXT_CHUNK_END_: /(\\{|\\}|\\\$|[^\n{}\$])+(?=(?: {))/
+        """,
+        start='start', parser='lalr', lexer='contextual' )
+        tree = my_parser.parse( r"true$constant:\$|false {" )
+
+        self.assertTextEqual(
+        r"""
+            + start
+            +   braced_free_input_string
+            +     text_chunk  [@1,0:3='true'<TEXT_CHUNK_>,1:1]
+            +     constant_usage  [@2,4:13='$constant:'<CONSTANT_USAGE_>,1:5]
+            +     braced_text_chunk_end  [@3,14:21='\\$|false'<BRACED_TEXT_CHUNK_END_>,1:15]
         """, tree.pretty(debug=True) )
 
     def test_redifinedConst(self):
@@ -334,7 +367,7 @@ class TestSemanticRules(TestingGrammarUtilities):
 
         self.assertTextEqual(
         r"""
-            + 1. Constant redefinition on [@-1,143:152='$constant:'<CONSTANT_NAME_>,6:17]
+            + 1. Constant redefinition on [@-1,82:91='$constant:'<CONSTANT_NAME_>,5:5]
         """, error.exception )
 
     def test_recursiveConstantDefinition(self):
@@ -353,7 +386,7 @@ class TestSemanticRules(TestingGrammarUtilities):
         self.assertTextEqual(
         r"""
             +   Warnings:
-            + 1. Recursive constant definition on [@-1,87:96='$constant:'<CONSTANT_NAME_>,4:13]
+            + 1. Recursive constant definition on [@-1,50:59='$constant:'<CONSTANT_NAME_>,3:1]
         """, error.exception )
 
     def test_usingConstOutOfScope(self):
@@ -372,8 +405,8 @@ class TestSemanticRules(TestingGrammarUtilities):
         self.assertTextEqual(
         r"""
             + 1. Using constant `$constant:` out of scope on
-            +    [@-1,131:140='$constant:'<CONSTANT_USAGE_>,5:33] from
-            +    [@-1,185:194='$constant:'<CONSTANT_NAME_>,7:17]
+            +    [@-1,82:91='$constant:'<CONSTANT_USAGE_>,4:21] from
+            +    [@-1,112:121='$constant:'<CONSTANT_NAME_>,6:5]
         """, error.exception )
 
     def test_usingConstOutOfBlockDefinition(self):
@@ -398,8 +431,8 @@ class TestSemanticRules(TestingGrammarUtilities):
         self.assertTextEqual(
         r"""
             + 1. Using constant `$constant:` out of block on
-            +    [@-1,294:303='$constant:'<CONSTANT_USAGE_>,12:25] from
-            +    [@-1,115:124='$constant:'<CONSTANT_NAME_>,5:17]
+            +    [@-1,173:182='$constant:'<CONSTANT_USAGE_>,11:13] from
+            +    [@-1,66:75='$constant:'<CONSTANT_NAME_>,4:5]
         """, error.exception )
 
 
@@ -474,7 +507,7 @@ class TestBackEnd(TestingGrammarUtilities):
         self.assertTextEqual(
         r"""
             + <!DOCTYPE html><html><head><title>Abstract Machine Language - source.sma</title></head>
-            + <body style="white-space: pre; font-family: monospace;"><font color="#FF0000" grammar_scope="comment.line.start.sma" theme_scope="comment">//</font><span grammar_scope="none" theme_scope="none"> Example single line commentary<br />        </span></body></html>
+            + <body style="white-space: pre; font-family: monospace;"><font color="#FF0000" grammar_scope="comment.line.start.sma" theme_scope="comment">//</font><span grammar_scope="none" theme_scope="none"> Example single line commentary</span></body></html>
         """, generated_html )
 
     def test_unmatchedProgramCompletionAtMiddle(self):
@@ -507,7 +540,7 @@ class TestBackEnd(TestingGrammarUtilities):
         self.assertTextEqual(
         r"""
             + <!DOCTYPE html><html><head><title>Abstract Machine Language - source.sma</title></head>
-            + <body style="white-space: pre; font-family: monospace;"><font color="#FF0000" grammar_scope="comment.line.start.sma" theme_scope="comment">//</font><span grammar_scope="none" theme_scope="none"> Example </span><font color="#FF0000" grammar_scope="comment.middle.start.sma" theme_scope="comment">single</font><span grammar_scope="none" theme_scope="none"> line commentary<br />        </span></body></html>
+            + <body style="white-space: pre; font-family: monospace;"><font color="#FF0000" grammar_scope="comment.line.start.sma" theme_scope="comment">//</font><span grammar_scope="none" theme_scope="none"> Example </span><font color="#FF0000" grammar_scope="comment.middle.start.sma" theme_scope="comment">single</font><span grammar_scope="none" theme_scope="none"> line commentary</span></body></html>
         """, generated_html )
 
     def test_simplePushPopStatement(self):
@@ -544,7 +577,8 @@ class TestBackEnd(TestingGrammarUtilities):
         self.assertTextEqual(
         r"""
             + <!DOCTYPE html><html><head><title>Abstract Machine Language - source.sma</title></head>
-            + <body style="white-space: pre; font-family: monospace;"><font color="#FF0000" grammar_scope="comment.start.sma" theme_scope="comment">//</font><font color="#00FF00" grammar_scope="comment.line.sma" theme_scope="comment.line"> Example single line commentary<br /></font><span grammar_scope="none" theme_scope="none">        </span></body></html>
+            + <body style="white-space: pre; font-family: monospace;"><font color="#FF0000" grammar_scope="comment.start.sma" theme_scope="comment">//</font><font color="#00FF00" grammar_scope="comment.line.sma" theme_scope="comment.line"> Example single line commentary</font></body></html>
+
         """, generated_html )
 
     def test_complexGrammarFile(self):

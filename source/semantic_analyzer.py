@@ -118,6 +118,7 @@ class InputString(UndefinedInput):
     """
         Always recalculate itself when asked for its string form because it is not always beforehand know.
     """
+    unescape_control_characters = re.compile( r"\\([${}])" )
 
     def __init__(self, chunks, definitions, errors, indentations):
         super(InputString, self).__init__()
@@ -127,12 +128,15 @@ class InputString(UndefinedInput):
         self.definitions = definitions
         self.errors = errors
         self.indentations = indentations
+        self.is_resolved = False
 
     def __str__(self):
         """
             @param `definitions` a dictionary with all completely know
                 constants. For example { "$varrrr:" : " varrrr " }
         """
+        if self.is_resolved: return self.str
+
         scope_usage_error = ""
         is_resolved = True
         resolutions = []
@@ -202,7 +206,8 @@ class InputString(UndefinedInput):
                 resolutions.append( str( usage.name ) )
 
         if is_resolved:
-            self.str = "".join( resolutions )
+            self.is_resolved = True
+            self.str = self.unescape_control_characters.sub( "\\1", "".join( resolutions ) )
             if scope_usage_error: self.errors.append( scope_usage_error )
             return self.str
 
@@ -388,6 +393,12 @@ class TreeTransformer(pushdown.Transformer):
 
         return token
 
+    def braced_constant_usage_end(self, tree, children):
+        return self.constant_usage( tree, children )
+
+    def constant_usage_end(self, tree, children):
+        return self.constant_usage( tree, children )
+
     def constant_usage(self, tree, children):
         token = children[0]
         constant_name = str( token )
@@ -407,6 +418,9 @@ class TreeTransformer(pushdown.Transformer):
 
         self.pending_match_statements.append( include_name )
         return self.__default__(tree, children)
+
+    def braced_free_input_string(self, tree, children):
+        return self.free_input_string( tree, children )
 
     def free_input_string(self, tree, children):
         # log(1, 'tree: \n%s', tree.pretty(debug=1))
@@ -438,6 +452,9 @@ class TreeTransformer(pushdown.Transformer):
         return defined_chunk
 
     def text_chunk_end(self, tree, children):
+        return self.text_chunk(tree, children)
+
+    def braced_text_chunk_end(self, tree, children):
         return self.text_chunk(tree, children)
 
     def _check_for_main_rules(self):
