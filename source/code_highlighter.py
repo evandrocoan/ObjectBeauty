@@ -310,8 +310,10 @@ class Backend(pushdown.Interpreter):
                 # log( "pattern: '%s' last_match.end", self.match.pattern, last_match.end(0) )
 
                 if match is None:
+                    log( 1, "Error: Could not find the pop end statement! Skipping highlighting... match '%s' pattern '%s' end '%s'",
+                            match, self.match.pattern, last_match.end(0) )
+
                     match = last_match
-                    log( 1, 'Error: Could not find the pop end statement! Skipping highlighting...' )
 
                 self.program.add_meta_scope( str(self.meta_scope), reversed_last_matches, match )
 
