@@ -1,15 +1,12 @@
 import os
 import sys
-import debug_tools
 
 import pushdown
 import semantic_analyzer
+import code_formatter
 import code_highlighter
 
-import inspect
 import unittest
-import profile
-import cProfile
 
 from debug_tools import getLogger
 
@@ -22,7 +19,6 @@ def assert_path(module):
 
 assert_path( os.path.realpath( __file__ ) )
 
-from utilities import make_png
 from debug_tools.utilities import get_relative_path
 from debug_tools.testing_utilities import TestingUtilities
 from debug_tools.testing_utilities import wrap_text
@@ -63,10 +59,12 @@ class TestingGrammarUtilities(TestingUtilities):
         my_parser = self._getParser(log_level)
         tree = my_parser.parse(example_grammar)
 
-        function_file = get_relative_path( "examples/%s.png" % getCallerName(), __file__ )
+        # function_file = get_relative_path( "examples/%s.png" % getCallerName(), __file__ )
+        # from utilities import make_png
         # make_png( tree, get_relative_path( function_file, __file__ ) )
 
         # https://stackoverflow.com/questions/5067604/determine-function-name-from-within-that-function-without-using-traceback
+        # import inspect
         # log( 1, "%s", getCallerName() )
         # log( 1, "%s", inspect.stack()[1][3] )
 
@@ -436,7 +434,7 @@ class TestSemanticRules(TestingGrammarUtilities):
         """, error.exception )
 
 
-class TestBackEnd(TestingGrammarUtilities):
+class TestCodeHighlighterBackEnd(TestingGrammarUtilities):
 
     def _getBackend(self, example_grammar, example_program, example_theme):
         function_file = get_relative_path( "examples/%s.html" % getCallerName(), __file__ )
