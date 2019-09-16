@@ -5,6 +5,53 @@
 \chapter{Uma Ferramenta de Formatação Programável Por Gramáticas}
 \label{software_implementation}
 
+Neste capítulo será explicado o funcionamento e
+implementação de uma nova ferramenta de formatação e
+os desafios de trabalhos futuros sobre esta implementação.
+
+
+\section{Uma Gramática de Gramáticas}
+
+Na \fullref{introducaoGramaticas},
+foi explicado o que são gramáticas.
+Mas,
+como gramáticas podem ser expressadas?
+Isso depende de como o Analisador delas foi implementado,
+sendo assim,
+um detalhe de implementação.
+Usualmente,
+os Analisadores seguem uma notação comum como EBNF\footnote{
+Do inglês,
+\textit{Extended Backus–Naur Form} uma extensão do padrão BNF.
+}\cite{teachingEbnf,antlrBookTerrentParr},
+que não difere muito de um Analisador para outros,
+exceto por detalhes de implementação específicos de cada Analisador.
+
+Para realizar a implementação da nova ferramenta de formatação de código,
+foi realizado a construção de uma nova gramática de gramáticas.
+Na \typeref{MyWorflowForLarkTraduzido} é apresentado o fluxo de uso comum para um analisador.
+Neste processo,
+o desenvolvedor da linguagem escreve a sua gramática de especificação,
+que é entregue a algum Analisador e gera~=se um Compilador para tal linguagem.
+\begin{figure}[h]
+\centering
+\includegraphics[width=1.0\textwidth]{MyWorflowForLarkTraduzido.png}
+\caption[Fluxo de uso comum de um Analisador]{Fluxo de uso comum de um Analisador -- Fonte Própria}
+\label{MyWorflowForLarkTraduzido}
+\end{figure}
+
+Já este trabalho faz um uso fora do comum.
+Como mostrado na \typeref{MyWorflowForLarkTraduzido2},
+primeiro especifica~=se uma gramática da gramática que será utilizada pelos usuários da nova ferramenta de formatação.
+Para escrever esta nova gramática,
+utilizou~=se a ferramenta Lark \cite{larkContextualLexer}.
+\begin{figure}[h]
+\centering
+\includegraphics[width=1.0\textwidth]{MyWorflowForLarkTraduzido2.png}
+\caption[Uso feito pela nova ferramenta de formatação]{Uso feito pela nova ferramenta de formatação -- Fonte Própria}
+\label{MyWorflowForLarkTraduzido2}
+\end{figure}
+
 Para processar a árvore de sintática, é necessário iterar várias vezes pela árvore, que novos escopos não sejam mais aplicados.
 Por exemplo,
 \begin{lstlisting}
