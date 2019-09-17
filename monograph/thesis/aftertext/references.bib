@@ -826,6 +826,25 @@
 }
 
 
+@online{rustSublimeTextSyntaxSyntec,
+    title         = {Rust library for syntax highlighting using Sublime Text syntax definitions},
+    author        = {Tristan Hume},
+    year          = {2016},
+    location      = {Online},
+    url           = {https://github.com/trishume/syntect},
+    urlaccessdate = {2019-09-16},
+    abstract      = {Syntect is a syntax highlighting library for Rust that uses
+    Sublime Text syntax definitions. It aims to be a good solution for any Rust
+    project that needs syntax highlighting, including deep integration with text
+    editors written in Rust. It's used in production by at least two companies,
+    and by many open source projects. If you are writing a text editor (or
+    something else needing highlighting) in Rust and this library doesn't fit
+    your needs, I consider that a bug and you should file an issue or email me.
+    I consider this project mostly complete, I still maintain it and review PRs,
+    but it's not under heavy development.},
+}
+
+
 @online{uncrustifySourceCode,
     title         = {Uncrustify -- A source code beautifier for C, C++, C\#, ObjectiveC, D, Java, Pawn and VALA},
     author        = {André Berg and Ben Gardner and Guy Maurel},
@@ -1090,10 +1109,10 @@
 }
 
 
-@online{Skinner,
+@online{sublimeTextSyntax,
     title         = {SUBLIME TEXT 3 DOCUMENTATION, Syntax Definitions},
     author        = {Jon Skinner},
-    year          = {2016},
+    year          = {2015},
     location      = {Online},
     url           = {https://www.sublimetext.com/docs/3/syntax.html},
     urlaccessdate = {2017-03-01},
@@ -1102,6 +1121,47 @@
                     files are YAML files with a small header, followed by a list of contexts. Each
                     context has a list of patterns that describe how to highlight text in that
                     context, and how to change the current text.},
+}
+
+
+@online{sublimeTextScopeNaming,
+    title         = {SUBLIME TEXT 3 DOCUMENTATION, Scope Naming},
+    author        = {Jon Skinner},
+    year          = {2015},
+    location      = {Online},
+    url           = {http://www.sublimetext.com/docs/3/scope_naming.html},
+    urlaccessdate = {2019-09-17},
+    abstract      = {Syntax definitions and color schemes in Sublime Text
+    interact through the use of scope names. Scopes are dotted strings,
+    specified from least-to-most specific. For example, the if keyword in PHP
+    could be specified via the scope name keyword.control.php. Sublime Text
+    supports TextMate language grammars, and inherited its default syntaxes from
+    various open-source bundles. The TextMate language grammar documentation
+    provided a base set of scope names that have been slowly expanded and
+    changed by the community.},
+}
+
+
+@online{vsCodeSyntaxHighlighthing,
+    title         = {Optimizations in Syntax Highlighting},
+    author        = {Alexandru Dima},
+    year          = {2017},
+    location      = {Online},
+    url           = {https://code.visualstudio.com/blogs/2017/02/08/syntax-highlighting-optimizations},
+    urlaccessdate = {2019-09-16},
+    abstract      = {Visual Studio Code version 1.9 includes a cool performance
+    improvement that we've been working on and I wanted to tell its story. TL;DR
+    TextMate themes will look more like their authors intended in VS Code 1.9,
+    while being rendered faster and with less memory consumption. Syntax
+    Highlighting usually consists of two phases. Tokens are assigned to source
+    code, and then they are targeted by a theme, assigned colors, and voilà,
+    your source code is rendered with colors. It is the one feature that turns a
+    text editor into a code editor. Tokenization in VS Code (and in the Monaco
+    Editor) runs line-by-line, from top to bottom, in a single pass. A tokenizer
+    can store some state at the end of a tokenized line, which will be passed
+    back when tokenizing the next line. This is a technique used by many
+    tokenization engines, including TextMate grammars, that allows an editor to
+    retokenize only a small subset of the lines when the user makes edits.},
 }
 
 

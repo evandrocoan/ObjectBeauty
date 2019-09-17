@@ -52,20 +52,60 @@ utilizou~=se a ferramenta Lark \cite{larkContextualLexer}.
 \label{MyWorflowForLarkTraduzido2}
 \end{figure}
 
+Em vez de permitir com que o usuário final da aplicação opere diretamente com o Analisador da \typeref{MyWorflowForLarkTraduzido},
+foi criado uma nova gramática de gramáticas como mostrado na \typeref{MyWorflowForLarkTraduzido2}.
+Esta nova gramática simplifica o processo de escrita de gramáticas ao criar uma especificação de gramáticas,
+somente com os recursos necessários para se possa trabalhar com formatação de código.
+A final,
+não é objecto deste trabalho fazer a análise completa de programas,
+pela sua sintaxe e
+semântica e
+gerar código binário executável.
+
+Esta não é a primeira vez que uma gramática de gramáticas com simplificação foi escrita.
+Em trabalhos como \citeonline{rustSublimeTextSyntaxSyntec,sublimeTextSyntax,vsCodeSyntaxHighlighthing} foram realizados as mesmos simplificações aqui apresentadas.
+Existem algumas diferenças técnicas da gramática de gramáticas deste trabalho com as dos recém apresentados.
+Como por exemplo,
+esta gramática de gramáticas não suporta a classificação do mesmo trecho de código por múltiplos tipos de escopo \cite{vsCodeSyntaxHighlighthing}.
+
+Na \typeref{TexMateScopes} é mostrado na primeira linha o trecho de código ``function f1 () \{'' e
+nas demais linhas são apresentados as diversas classificações de escopos aplicados a cada um dos trechos do código~=fonte de amostra.
+Por exemplo, a palavra ``function'' possui simultaneamente os escopos
+\begin{inparaenum}[1)]
+\item ``source.js''
+\item ``meta.function.js'' e
+\item ``storage.type.function.js''.
+\end{inparaenum}
+\begin{figure}[h]
+\centering
+\includegraphics[width=1.0\textwidth]{TexMateScopes.png}
+\caption[Exemplo de Classificação de Código com Múltiplos Escopos]{Exemplo de Classificação de Código com Múltiplos Escopos -- Fonte \citeonline{vsCodeSyntaxHighlighthing}}
+\label{TexMateScopes}
+\end{figure}
+
+Os nomes utilizados na \typeref{TexMateScopes} podem ser qualquer texto que usuário especificador daquela gramática desejar.
+Entretanto,
+pode~=se perceber que o nome dos escopos recém apresentados aparentam seguir um padrão.
+Por conversão,
+desenvolvedores de gramáticas para os editores de texto como \citeonline{sublimeTextSyntax,vsCodeSyntaxHighlighthing},
+seguem uma conversão de nomes para que as utilizações dos escopos gerados pelas gramáticas sejam compatíveis entre si.
+
+Fazendo o uso desta convenção,
+as gramáticas ficam compatíveis com um maior número de arquivos de temas onde são especificados os nomes dos escopos serão utilizados para especificar as cores a serem utilizadas pelo editor de texto.
+Para mais informações sobre a utilização de arquivos de temas em editores de texto veja \citeonline{sublimeTextScopeNaming,vsCodeSyntaxHighlighthing}.
+
 Para processar a árvore de sintática, é necessário iterar várias vezes pela árvore, que novos escopos não sejam mais aplicados.
 Por exemplo,
 \begin{lstlisting}
-pawn_string: {
-  match: " {
+match: " {
     scope: punctuation.definition.string.begin.sma
     push: {
-      meta_scope: string.quoted.double.sma
-      match: " {
-        scope: punctuation.definition.string.end.sma
-        pop: true
-      }
+        meta_scope: string.quoted.double.sma
+        match: " {
+            scope: punctuation.definition.string.end.sma
+            pop: true
+        }
     }
-  }
 }
 \end{lstlisting}
 Essa gramática é válida para reconhecer strings, mas se pegar a primeira expressão
@@ -327,7 +367,7 @@ Scope End:
 In short,
 the above approach is only briefly illustrative,
 as the software engine is based on regular expressions and a stack of contexts.
-This idea to be empowered was initially developed by the text editor `Sublime Text' \cite{Skinner}.
+This idea to be empowered was initially developed by the text editor `Sublime Text' \cite{sublimeTextSyntax}.
 The `Sublime Text' editor uses such block structures to do the syntax highlighting of its source code languages.
 The idea here is to use the same approach,
 so the end user can define in which regions the `Object Beautifier' should propose, i.e.,
