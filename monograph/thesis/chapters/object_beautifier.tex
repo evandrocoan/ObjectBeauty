@@ -2,7 +2,7 @@
 
 % Is it possible to keep my translation together with original text?
 % https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
-\chapter{Uma Ferramenta de Formatação Programável Por Gramáticas}
+\chapter{Uma Ferramenta de Formatação}
 \label{software_implementation}
 
 Neste capítulo será explicado o funcionamento e
@@ -57,7 +57,7 @@ entretanto neste contexto é utilizado como um compilador de compiladores \typer
 \end{figure}
 
 Em vez de permitir com que o usuário final da aplicação opere diretamente com o Analisador da \typeref{MyWorflowForLarkTraduzido},
-foi criado uma nova gramática de gramáticas como mostrado na \typeref{MyWorflowForLarkTraduzido2}.
+foi criado uma nova gramática de gramáticas como mostrado nas \typeref{MyWorflowForLarkTraduzido2}.
 Esta nova gramática simplifica o processo de escrita de gramáticas ao criar uma especificação de gramáticas,
 somente com os recursos necessários para se possa trabalhar com formatação de código.
 A final,
@@ -65,6 +65,27 @@ não é objetivo deste trabalho fazer a análise completa de programas,
 pela sua sintaxe e
 semântica e
 gerar código binário executável.
+
+Na \typeref{ParsersPublicAudienceTraduzido},
+pode~=se encontrar uma relação entre o funcionamento das diversas partes dos formatadores de código~=fonte gerados.
+Basicamente existem três grupos distintos de usuários\slash{}audiência:
+\begin{inparaenum}[1)]
+\item quem escreve ou
+desenvolve a ferramenta de formatação de código~=fonte desenvolvida neste trabalho e
+defini as regras da metalinguagem (a gramática de gramáticas),
+\item quem escreve ou
+desenvolve gramáticas de linguagens para serem formatados de acordo com as regras da metalinguagem e
+\item quem escreve ou
+desenvolvedor programas de computador ou
+códigos~=fonte e
+quer realizar a formatação de seus códigos~=fonte.
+\end{inparaenum}%
+\begin{figure}[h]
+\centering
+\includegraphics[width=1.0\textwidth]{ParsersPublicAudienceTraduzido.png}
+\caption[Relacionamentos entre os Diferentes Públicos deste Projeto]{Relacionamentos Entre os Diferentes Públicos deste Projeto -- Fonte Própria}
+\label{ParsersPublicAudienceTraduzido}
+\end{figure}
 
 Esta não é a primeira vez que uma gramática de gramáticas com simplificação foi escrita.
 Em trabalhos como \citeonline{rustSublimeTextSyntaxSyntec,sublimeTextSyntax,vsCodeSyntaxHighlighthing} foram realizados as mesmos simplificações aqui apresentadas.
@@ -99,12 +120,20 @@ as gramáticas ficam compatíveis com um maior número de arquivos de temas onde
 Para mais informações sobre a utilização de arquivos de temas em editores de texto veja \citeonline{sublimeTextScopeNaming,vsCodeSyntaxHighlighthing}.
 
 
-\subsection{Símbolo Inicial}
+\section{Metalinguagem}
 
+Como já explicado na seção anterior,
+uma metalinguagem é gramática de gramáticas utilizando o ferramenta ``Lark'' como um meta~=compilador ou
+compilador de compiladores.
+Nesta seção será explicado a como a metalinguagem utilizadas foi especificada,
+começando com o seu símbolo inicial \typeref{simboloInicialDaMetalinguagem}.
+Nele,
+defini~=se que o programa é definido em três grandes áreas,
+\begin{inparaenum}[1)]
+\item ``preamble\_statements'' será onde
+\end{inparaenum}%
 
-
-
-\begin{lstlisting}
+\begin{lstlisting}[caption={Simbolo Inicial da Metalinguagem},label={simboloInicialDaMetalinguagem}]
 language_syntax: _NEWLINE? preamble_statements _NEWLINE?
                     language_construct_rules _NEWLINE?
                     ( miscellaneous_language_rules _NEWLINE? )*
@@ -115,7 +144,9 @@ preamble_statements: ( (
                         | master_scope_name_statement
                         | constant_definition
                     ) _NEWLINE )+
+\end{lstlisting}
 
+\begin{lstlisting}
 language_construct_rules: "contexts" ": " indentation_block
 miscellaneous_language_rules: /[^:\n]+/ ": " indentation_block
 
