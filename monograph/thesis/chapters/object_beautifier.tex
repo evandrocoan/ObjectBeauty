@@ -28,11 +28,11 @@ que não difere muito de um Analisador para outros,
 exceto por detalhes de implementação específicos de cada Analisador.
 
 Para realizar a implementação da nova ferramenta de formatação de código,
-foi realizado a construção de uma nova gramática de gramáticas chamada de `ObjectBeauty`,
+foi realizado a construção de uma nova gramática de gramáticas de uma nova linguagem chamada de ``ObjectBeauty'',
 uma meta~=linguagem \cite{compilersCompilerMetaLanguage}.
 Na \typeref{MyWorflowForLarkTraduzido} é apresentado o fluxo de uso comum para um analisador.
 Neste processo,
-o desenvolvedor da linguagem escreve a sua gramática de especificação,
+o desenvolvedor da linguagem escreve a gramática de especificação desta linguagem,
 que é entregue a algum Analisador e
 gera~=se um Compilador para tal linguagem.
 \begin{figure}[h]
@@ -44,7 +44,7 @@ gera~=se um Compilador para tal linguagem.
 
 Já este trabalho faz um uso fora do comum.
 Como mostrado na \typeref{MyWorflowForLarkTraduzido2},
-primeiro especifica~=se uma gramática da gramáticas (meta~=linguagem) que será utilizada pelos usuários da nova ferramenta de formatação.
+primeiro especifica~=se uma gramática de gramáticas (meta~=linguagem) que será utilizada pelos usuários da nova ferramenta de formatação.
 Para escrever esta nova meta~=linguagem,
 utilizou~=se a ferramenta Lark \cite{larkContextualLexer}.
 Usualmente a ferramenta ``Lark'' é utilizada somente como um gerador de compiladores \typeref{MyWorflowForLarkTraduzido},
@@ -58,7 +58,7 @@ entretanto neste contexto é utilizado como um compilador de compiladores \typer
 
 Em vez de permitir com que o usuário final da aplicação opere diretamente com o Analisador da \typeref{MyWorflowForLarkTraduzido},
 foi criado uma nova gramática de gramáticas como mostrado nas \typeref{MyWorflowForLarkTraduzido2}.
-Esta nova gramática simplifica o processo de escrita de gramáticas ao criar uma especificação de gramáticas,
+Esta nova gramática simplifica o processo de escrita de gramáticas ao criar uma nova especificação de gramáticas,
 somente com os recursos necessários para se possa trabalhar com formatação de código.
 A final,
 não é objetivo deste trabalho fazer a análise completa de programas,
@@ -67,18 +67,21 @@ semântica e
 gerar código binário executável.
 
 Na \typeref{ParsersPublicAudienceTraduzido},
-pode~=se encontrar uma relação entre o funcionamento das diversas partes dos formatadores de código~=fonte gerados.
-Basicamente existem três grupos distintos de usuários\slash{}audiência:
+pode~=se encontrar uma relação entre o funcionamento das diversas partes da ferramenta de formatação de código~=fonte e
+a audiência alvo.
+Basicamente existem três grupos distintos de usuários ou
+audiência:
 \begin{inparaenum}[1)]
 \item quem escreve ou
 desenvolve a ferramenta de formatação de código~=fonte desenvolvida neste trabalho e
-defini as regras da metalinguagem (a gramática de gramáticas),
+defini as regras da metalinguagem (especificada pela sua metagramática,
+i.e.,
+a gramática de gramáticas),
 \item quem escreve ou
 desenvolve gramáticas de linguagens para serem formatados de acordo com as regras da metalinguagem e
 \item quem escreve ou
-desenvolvedor programas de computador ou
-códigos~=fonte e
-quer realizar a formatação de seus códigos~=fonte.
+desenvolvedor programas de computador e
+deseja realizar a formatação de seus códigos~=fonte.
 \end{inparaenum}%
 \begin{figure}[h]
 \centering
@@ -92,6 +95,24 @@ Em trabalhos como \citeonline{rustSublimeTextSyntaxSyntec,sublimeTextSyntax,vsCo
 Existem algumas diferenças técnicas da gramática de gramáticas deste trabalho com as dos recém apresentados.
 Como por exemplo,
 esta gramática de gramáticas não suporta a classificação do mesmo trecho de código por múltiplos tipos de escopo \cite{vsCodeSyntaxHighlighthing}.
+
+Foi escolhido a criação de uma nova metagramática por que as gramáticas já existentes como \citeonline{rustSublimeTextSyntaxSyntec,vsCodeSyntaxHighlighthing}
+\begin{inparaenum}[1)]
+\item não são capazes de reconhecer todas as características de todas as linguagens de formatação e
+\item não possuem sintaxe própria,
+i.e.,
+elas utilizam de outras linguagens como YAML,
+XML e
+JSON para fazer a especificação da gramática.
+\end{inparaenum}
+Assim,
+fazendo a especificação de uma nova metagramática,
+é possível adaptar~=se a especificação da sintaxe das gramáticas de acordo as necessidades específicas sem ter que depender de características de outras linguagens como YAML,
+XML ou
+JSON.
+
+
+\subsection{Escopos}
 
 Na \typeref{TexMateScopes} é mostrado na primeira linha o trecho de código ``function f1 () \{'' e
 nas demais linhas são apresentados as diversas classificações de escopos aplicados a cada um dos trechos do código~=fonte de amostra.
@@ -123,16 +144,18 @@ Para mais informações sobre a utilização de arquivos de temas em editores de
 \section{Metalinguagem}
 
 Como já explicado na seção anterior,
-uma metalinguagem é gramática de gramáticas utilizando o ferramenta ``Lark'' como um meta~=compilador ou
+uma metagramática é gramática de gramáticas e
+foi utilizado a ferramenta ``Lark'' \cite{larkContextualLexer} como um meta~=compilador ou
 compilador de compiladores.
-Nesta seção será explicado a como a metalinguagem utilizadas foi especificada,
-começando com o seu símbolo inicial \typeref{simboloInicialDaMetalinguagem}.
+Nesta seção será explicado a como a metalinguagem (especificada pela metagramática) utilizada foi especificada,
+começando com o seu símbolo inicial,
+\typeref{simboloInicialDaMetalinguagem}.
 Nele,
-defini~=se que o programa é definido em três grandes áreas,
+defini~=se que o programa é constituído de três grandes áreas,
+que devem acontecer uma em sequencia da outra:
 \begin{inparaenum}[1)]
 \item ``preamble\_statements'' será onde
 \end{inparaenum}%
-
 \begin{lstlisting}[caption={Simbolo Inicial da Metalinguagem},label={simboloInicialDaMetalinguagem}]
 language_syntax: _NEWLINE? preamble_statements _NEWLINE?
                     language_construct_rules _NEWLINE?
