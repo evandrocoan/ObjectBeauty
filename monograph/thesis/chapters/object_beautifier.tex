@@ -28,11 +28,13 @@ que não difere muito de um Analisador para outros,
 exceto por detalhes de implementação específicos de cada Analisador.
 
 Para realizar a implementação da nova ferramenta de formatação de código,
-foi realizado a construção de uma nova gramática de gramáticas.
+foi realizado a construção de uma nova gramática de gramáticas chamada de `ObjectBeauty`,
+uma meta~=linguagem \cite{compilersCompilerMetaLanguage}.
 Na \typeref{MyWorflowForLarkTraduzido} é apresentado o fluxo de uso comum para um analisador.
 Neste processo,
 o desenvolvedor da linguagem escreve a sua gramática de especificação,
-que é entregue a algum Analisador e gera~=se um Compilador para tal linguagem.
+que é entregue a algum Analisador e
+gera~=se um Compilador para tal linguagem.
 \begin{figure}[h]
 \centering
 \includegraphics[width=1.0\textwidth]{MyWorflowForLarkTraduzido.png}
@@ -42,9 +44,11 @@ que é entregue a algum Analisador e gera~=se um Compilador para tal linguagem.
 
 Já este trabalho faz um uso fora do comum.
 Como mostrado na \typeref{MyWorflowForLarkTraduzido2},
-primeiro especifica~=se uma gramática da gramática que será utilizada pelos usuários da nova ferramenta de formatação.
-Para escrever esta nova gramática,
+primeiro especifica~=se uma gramática da gramáticas (meta~=linguagem) que será utilizada pelos usuários da nova ferramenta de formatação.
+Para escrever esta nova meta~=linguagem,
 utilizou~=se a ferramenta Lark \cite{larkContextualLexer}.
+Usualmente a ferramenta ``Lark'' é utilizada somente como um gerador de compiladores \typeref{MyWorflowForLarkTraduzido},
+entretanto neste contexto é utilizado como um compilador de compiladores \typeref{MyWorflowForLarkTraduzido2}.
 \begin{figure}[h]
 \centering
 \includegraphics[width=1.0\textwidth]{MyWorflowForLarkTraduzido2.png}
@@ -57,7 +61,7 @@ foi criado uma nova gramática de gramáticas como mostrado na \typeref{MyWorflo
 Esta nova gramática simplifica o processo de escrita de gramáticas ao criar uma especificação de gramáticas,
 somente com os recursos necessários para se possa trabalhar com formatação de código.
 A final,
-não é objecto deste trabalho fazer a análise completa de programas,
+não é objetivo deste trabalho fazer a análise completa de programas,
 pela sua sintaxe e
 semântica e
 gerar código binário executável.
@@ -94,6 +98,113 @@ Fazendo o uso desta convenção,
 as gramáticas ficam compatíveis com um maior número de arquivos de temas onde são especificados os nomes dos escopos serão utilizados para especificar as cores a serem utilizadas pelo editor de texto.
 Para mais informações sobre a utilização de arquivos de temas em editores de texto veja \citeonline{sublimeTextScopeNaming,vsCodeSyntaxHighlighthing}.
 
+
+\subsection{Símbolo Inicial}
+
+
+
+
+\begin{lstlisting}
+language_syntax: _NEWLINE? preamble_statements _NEWLINE?
+                    language_construct_rules _NEWLINE?
+                    ( miscellaneous_language_rules _NEWLINE? )*
+                    _NEWLINE?
+
+preamble_statements: ( (
+                        target_language_name_statement
+                        | master_scope_name_statement
+                        | constant_definition
+                    ) _NEWLINE )+
+
+language_construct_rules: "contexts" ": " indentation_block
+miscellaneous_language_rules: /[^:\n]+/ ": " indentation_block
+
+target_language_name_statement: "name" ": " free_input_string
+master_scope_name_statement: "scope" ": " free_input_string
+
+indentation_block: enter_block _NEWLINE (
+                    statements_list _NEWLINE
+                )+ leave_block
+
+statements_list: match_statement
+                | include_statement
+                | push_statement
+                | pop_statement
+                | constant_definition
+                | scope_name_statement
+                | capturing_block
+                | meta_scope_statement
+
+enter_block: OPEN_BRACE
+leave_block: CLOSE_BRACE
+OPEN_BRACE: "{"
+CLOSE_BRACE: "}"
+
+push_statement:  "push" ": " indentation_block
+include_statement: "include" ": " free_input_string
+constant_definition: constant_name free_input_string
+constant_name: CONSTANT_NAME_
+CONSTANT_NAME_: /\$.+?\: /
+
+free_input_string: ( constant_usage
+                    | text_chunk
+                )* ( constant_usage_end
+                    | text_chunk_end
+                )
+
+constant_usage: CONSTANT_USAGE_
+text_chunk: TEXT_CHUNK_
+constant_usage_end: CONSTANT_USAGE_END_
+text_chunk_end: TEXT_CHUNK_END_
+
+CONSTANT_USAGE_: /\$[^\n\$\:]+\:/
+TEXT_CHUNK_: /(?:\\{|\\}|\\\$|[^\n{}\$])+/
+CONSTANT_USAGE_END_: /(?:\$[^\n\$\:]+\:)(?=(?:\n|$))/
+TEXT_CHUNK_END_: /(?:\\{|\\}|\\\$|[^\n{}\$])+(?=(?:\n|$))/
+
+braced_free_input_string: ( constant_usage
+                            | text_chunk
+                        )* ( braced_constant_usage_end
+                            | braced_text_chunk_end
+                        )
+
+braced_constant_usage_end: BRACED_CONSTANT_USAGE_END_
+braced_text_chunk_end: BRACED_TEXT_CHUNK_END_
+BRACED_CONSTANT_USAGE_END_: /(?:\$[^\n\$\:]+\:)(?=(?: {))/
+BRACED_TEXT_CHUNK_END_: /(?:\\{|\\}|\\\$|[^\n{}\$])+(?=(?: {))/
+
+match_statement: "match" ": " braced_free_input_string
+                "{" ( _NEWLINE statements_list )* _NEWLINE
+                "}"
+
+scope_name_statement: "scope" ": " free_input_string
+capturing_block: "captures" ": " "{" (
+                _NEWLINE capturing_lines
+                )+ _NEWLINE "}"
+
+capturing_lines: INTEGER+ ": " free_input_string
+
+pop_statement: "pop" ": " free_input_string
+meta_scope_statement: "meta_scope" ": " free_input_string
+
+// General terminal tokens
+CR: "/r"
+LF: "/n"
+SPACES: /[\t \f]+/
+
+SINGLE_LINE_COMMENT: /(?:\#|\/\/)[^\n]*/
+MULTI_LINE_COMMENT: /\/\*(?:[\s\S]*?)\*\//
+
+NEWLINE: (CR? LF)+
+_NEWLINE: ( /\r?\n[\t ]*/ | SINGLE_LINE_COMMENT )+
+INTEGER: "0".."9"
+
+%ignore SPACES
+%ignore MULTI_LINE_COMMENT
+%ignore SINGLE_LINE_COMMENT
+\end{lstlisting}
+
+
 Para processar a árvore de sintática, é necessário iterar várias vezes pela árvore, que novos escopos não sejam mais aplicados.
 Por exemplo,
 \begin{lstlisting}
@@ -114,324 +225,5 @@ Assim, quando eu chegar no fecha aspas, ele já vai está consumido.
 
 Criar uma nova linguagem para entrar com a syntaxe como sublime text, mas sem utilizar YAML.
 Assim, faz isso como trabalho final de compiladores, onde o seu backend será o formatador.
-
-~Use lark to enter the language grammars, instead writing a syntax parser like Sublime Text YAML .sublime-syntax files.~
-\begin{lstlisting}
-_parser = lark.Lark(r"""
-    productions   : empty_line* ( non_terminal_start "->" non_terminals end_symbol )* non_terminal_start "->" non_terminals end_symbol?
-    non_terminals : production ( "|" production )*
-    production    : epsilon | terminal non_terminal?
-
-    // Forces them to appear in the tree as branches
-    epsilon      : [] | "&"
-    end_symbol   : ";" NEWLINE+ | NEWLINE+
-    terminal     : SIGNED_NUMBER | LCASE_LETTER
-    non_terminal : UCASE_LETTER+ ( DIGIT | "'" )*
-    empty_line   : NEWLINE
-
-    // Rename the start symbol, so when parsing the tree it is simple to find it
-    non_terminal_start : non_terminal
-
-    // Tells the tree-builder to inline this branch if it has only one member
-    ?non_terminal_epsilon : non_terminal | epsilon
-
-    // Stops Lark from automatically filtering out these literals from the tree
-    null   : "null"
-    true   : "true"
-    false  : "false"
-
-    // Import common definitions
-    %import common.INT
-    %import common.DIGIT
-    %import common.UCASE_LETTER
-    %import common.LCASE_LETTER
-    %import common.SIGNED_NUMBER
-    %import common.NEWLINE
-    %import common.WS_INLINE
-
-    // Set to ignore white spaces
-    %ignore WS_INLINE
-""", start='productions' )
-\end{lstlisting}
-
-
-\section{Como implementar}
-
-This audacious goal,
-can only be accomplished because the proposed tool does not rely on the lex,
-syntax and semantic aspects
-% \cite{TODO:what does these languages aspects are}
-of any used languages.
-Therefore,
-it is up to this tool users\s to write the lex and syntactic,
-but they are not required to write the semantic aspects of the desired language,
-as the objective of text formatters is to change the structural aspects
-% \cite{TODO:what are the source code formatters objectives}
-.
-
-
-\subsection{Configuration Detection}
-
-If found on the project root folder,
-a folder named `.object~=beauty',
-it will be used to store the automatically generated configurations based on the current configuration\s rules.
-Such thing,
-cannot be easily implemented because of the various complexities which can be introduced into the formatting rules.
-For example,
-the if configurations rules are simple and
-limited to just changing simple aspects of the formatting,
-then the configuration generation will also be simple,
-because there are only a few aspects to analyze.
-However,
-as the formatting rules grow up,
-their complexity equally proportionally grows,
-due the increased count of possibilities to analyze when combined together.
-
-
-.sublime-syntax or my .object-beauty is a meta-language, as EBNF
-% TODO: \cite{Extended Backus–Naur form}.
-
-With this approach, it is not required for the user to input language\s grammar is
-
- After tool\s user aspects specification, we will treat them as a common text,
-and it will be up to the end user to configure the transformations/formatting to be applied in the text,
-giving reasonably more freedom to easily configure several programming languages (if not them all),
-taking advantage of the fact which many of them share similar structures if not identical.
-
-As a result, it is expected to have a Universal Beautifier capable of
-covering existing languages, and which is easily extendable to cover new
-languages. The key points of this approach are the reusability of components
-between languages. For example, `if/for/while'\s in C++ and Java have of the
-same structure, therefore accordingly to this approach we have to write only
-once the specification for that language component.
-
-Such software ideia may to a certain extent may continue a branch of the of
-the student `Lucas Boppre Niehues'\s graduation thesis, oriented by the
-Professor `Olinto José Varela Furtado', entitled 'Study and Creating a
-Structured Code Editor' defended in 2013/1 \cite{structuredEditorStudy}.
-While reading its work, the following section that links to one of the
-proposals of this work, in the chapter: `8.1.2 Separation of display and
-output format\footnote{Translation of: \brazilword{Separação de formato de
-exibição e de saída}}':
-
-\begin{citacao}
-The ways that code is displayed to the user and that it is saved to disk are
-controlled by different configuration files. The `theme.ini' file contains,
-among other settings, information on how to serialize the syntax tree.
-\cite[our translation]{structuredEditorStudy} \footnote{\brazilword{As
-formas que o código é exibido ao usuário e que ele é salvo em disco são
-controladas por arquivos de configuração distintos. O arquivo `theme.ini'
-contém, entre outras configurações, informações de como serializar a árvore
-sintática.}}
-\end{citacao}
-\begin{citacao}
-The output format setting is given the same way, but in a separate file,
-called `output \_format.ini'. The decision of this separation was in view of
-teams of programmers who want to use a single convention for the saved
-files, but keep the display the choice of each. So members of this team can
-share their `output\_format.ini 'files while customizing the `theme.ini'
-file to their liking. \cite[our translation]{structuredEditorStudy}
-\footnote{\brazilword{A configuração de formato de saída é dada da mesma
-forma, mas em um arquivo separado, chamado `output\_format.ini'. A decisão
-desta separação foi em vista de equipes de programadores que queiram
-utilizar uma convenção única para os arquivos salvos, mas manter a exibição
-a escolha de cada um. Assim os integrantes desta equipe podem compartilhar
-os seus arquivos `output\_format.ini' enquanto personalizam o arquivo
-`theme.ini' a seu gosto.}}
-\end{citacao}
-
-Based on this, we may think about writing plugins for common text
-editors/IDEs as Sublime Text. So while loading files from the disk, such
-plugin calls the formatter and does the formatting according to the display
-settings for the user. After that, when the user saves the file, the file
-with the original formatting is returned.
-
-To assist in this process, an autoconfiguration module is a great help. It
-detects how the source code is formatted and creates configuration files for
-it. So when saving the file, the file is automatically saved in the
-formatting it was originally read from the file system. So we have the same
-benefit of structured editors as the proposed work of
-\textcite{structuredEditorStudy}. At first we can think with the following
-goal/idea for a new automated software tool:
-
-\medskip
-\begin{bluebox}
-\begin{enumerate}[nolistsep]
-    \item Create an easy-to-configure and expandable formatter for the
-    existing and coming up programming languages.
-\end{enumerate}
-\end{bluebox}
-
-
-
-\section{The Problem}
-
-The problem proposed to solve is the creation of a Universal Beautifier.
-Current softwares are limited to a similar/restricted set, or even a single
-language and in addition, many are limited in what they can do for you when
-processing/formatting/beautifying your source code.
-\cite{universalCodeFormatter}
-
-
-\subsection{Goals}
-
-The object in the proposed thesis is not initially to support all the
-formatting rules for all programming languages, but the creation of an
-initial and robust basic formatter capable of being developed to the point
-of being easily expanded by programmers with new processing modules and by
-end users writing the formatting configuration files.
-
-The theory of the technique proposed is quite simple, but different from the
-usual approach because the end user is assigned the responsibility to
-dictate more precisely how the beautifying being configured will be
-performed. Such tradeoff is the price to pay to allow the creation of a
-Universal Beautifier. But notice when it is said, it is supposed to be easy
-to set up, it is meant to not be required to do `C++' programming, i.e.
-change the source code of the program to set/specify where the beautifying
-changes are supposed to be performed.
-
-
-\subsection{General Goals}
-
-\begin{enumerate}[leftmargin=*]
-
-    \item Write the program in C++ for greater performance, allowing the
-    formating/beautifying to be dynamic, i.e.,
-    as you type the text,
-    the text is formatted for you dynamically.
-    So on,
-    you can focus more on writing code,
-    rather than worrying about spacing,
-    alignment, parenthesis control, new lines, and whatsoever else.
-
-    \item Use the `doctest' Framework for writing Unit Tests. Because,
-    after searching and testing some frameworks for unit testing in C ++,
-    this one was entered as serving very well the project requirements.
-    As it causes a very low increment in compile time and allows the tests to be written to the same file where the
-    program code is found,
-    without including them into the final software.
-
-    \item Using a multi-core version of the algorithm,
-    then each one of the rules can be processed in parallel over the same original source code.
-    This is a quite complex to write because the rules can easily generate conflicts between them, i.e.,
-    over work they are producing.
-    To resolve this problem,
-    we put each rule to generate a change object which such rule is proposing, i.e.,
-    the changes it is working on.
-    At the end of the processing of all rules,
-    a merging of the generated changes which each rule produced will be created,
-    and if two rules wanted to change the same piece a.k.a.
-    section of code,
-    an exception will be thrown and a Changes\q Handler must be available to resolve this conflict.
-    If the Changes\q Handler does not exist at the moment for the existing conflict,
-    both changes are discarded and only changes without conflict are reflected, i.e.,
-    incorporated into the code.
-
-\end{enumerate}
-
-This proposed work approach has the advantage of do not previously require we, this tools developers,
-to be aware of the of programming languages syntaxes which will be parsed by its users.
-This come from the fact that we will treat everything just as common plain text,
-and end user will be hold responsible to correctly configure the formatting transformations to be applied into the
-text or source code.
-As so,
-giving freedom to easily configure several programming languages,
-taking advantage of the fact that many of them share similar but not identical structures.
-TODO,
-put reference to this.
-
-Existing `Beautifiers' program\s are programming language dependent.
-This proposal is to make this process independent of language,
-but of dialects like this example:
-
-\begin{lstlisting}
-// This is the name used to reference this scope around the settings files.
-Scope Name:
-%c++_like_block_comment
-
-// This set on which languages this block should be included. Setting it
-// to empty will allow it to be parsed for any languages.
-Language Inclusion:
-Java, C++, Pawn
-
-// Defines a expression which will map the beginning of a exclusion block.
-Scope Start:
-/\*\*
-
-// Defines a expression which will map the ending of a exclusion block.
-Scope End:
-\\\*
-\end{lstlisting}
-\vspace*{-4mm}
-
-In short,
-the above approach is only briefly illustrative,
-as the software engine is based on regular expressions and a stack of contexts.
-This idea to be empowered was initially developed by the text editor `Sublime Text' \cite{sublimeTextSyntax}.
-The `Sublime Text' editor uses such block structures to do the syntax highlighting of its source code languages.
-The idea here is to use the same approach,
-so the end user can define in which regions the `Object Beautifier' should propose, i.e.,
-perform changes to the code.
-Currently this would be equivalent to the same way `Sublime Text' users\q create their own syntaxes highlighting.
-TODO,
-put a reference to this.
-
-The strengths of this approach to a code formatter are the reusability of components between languages by the end
-user of the application rather than the beautifier programmer,
-which makes this software much more generic and opens the possibilities of greater success for the definitive
-creation of a Universal Code formatter for programming languages and even plain text files.
-For example,
-`if/for/while'\q in programming languages like `C++' and `Java' have the same syntax structuring,
-so we have to write only once the specification for a language component like `if/for/while'\q.
-This has the advantage of being configured by the end user rather than the programmer,
-hence it is simpler to configure and expand the set of languages available for beautifying.
-
-
-\section{Future Works}
-
-There is a great number of features and optimizations strategies to be implemented.
-But these improvements can be integrated further after the basic toolset implemented on this work.
-Nowadays,
-the control of spaces in function calls,
-class declarations, comments and etc,
-are more easily to understand and think.
-However,
-there is currently a lack of study on how should be implemented,
-features like text and source code indentation adjustment,
-insertion and removal of redundant parenthesis, and such others.
-
-The user scope definitions (of languages) are restricted to Context Free language\s syntax (powered by stack machines).
-Therefore,
-if the scope specifications need to be made in terms of Context Sensitive or Recursively Enumerable languages,
-it will be necessary to treat these elements directly in the program coding (Turing Machine Complete),
-instead of by user configuration files.
-
-Moreover,
-you can not easily think of cases where you need more than Free Context handlers to set which parts of the code you
-would like to work on.
-For reference,
-the Sublime Text Editor uniquely uses this approach to perform source code highlight in most diverse languages,
-and has showed to fulfill it purpose.
-TODO put reference to this.
-
-
-\subsection{Multidirectional Translation}
-
-With this ObjectBeautifier,
-we can edit XML files like YAML files,
-because the when we load the XML,
-we create a copy (the YAML version of the XML) on the `.object~=beauty` folder which is edited by Sublime Text,
-and let the XML on its original place.
-Then when we save our YAML copy,
-we translate it to the XML original copy.
-Similarly,
-for a C language code,
-it would be like to change some bit on the compiled binary code and
-have the change reflected on the original C source code.
-\url{https://github.com/Microsoft/XmlNotepad}
-
-Open Source Neural Machine Translation in Torch,
-translates between languages by machine learning.
-\url{https://github.com/OpenNMT/OpenNMT}
 
 
