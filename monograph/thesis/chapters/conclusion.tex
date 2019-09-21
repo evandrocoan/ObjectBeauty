@@ -2,6 +2,7 @@
 
 \chapter[]{\lang{Conclusion}{Conclusão}}
 
+\lang{%
     The difference from this proposal to remaining formatting tools,
     is the tradeoff between end\hyp{}users and developers responsibilities.
     Most tools rarely expose to end\hyp{}users their language syntax specification,
@@ -42,4 +43,38 @@
         applied to. Or `b)' create a new block including only the block within
         the desired settings.
 \end{enumerate}
+}{%
+    A diferença desta nova proposta de ferramenta de formatação de código~=fonte para as demais é a troca de responsabilidades entre usuários finais da ferramenta e
+    os desenvolvedores desta ferramenta e
+    das gramáticas para os usuários finais.
+    Formatadores de código~=fonte somente expõe controladamente quais são as mudanças que podem ocorrer ao formatar o código~=fonte.
+    A maior parte das ferramentas raramente permite que usuários finais o controle total das mudanças no código~=fonte,
+    i.e.,
+    enquanto que utilizando a ferramenta desenvolvida neste trabalho,
+    é facilmente possível escrever regras de formatação que quebrem a sintaxe e
+    semântica da linguagem sendo formatada.
+    Entretanto,
+    utilizando~=se as ferramentas usuais de formatação,
+    é impedi~=se que configurações de formatação do usuário final quebrem o código~=fonte da linguagem sendo formatada,
+    a não ser em casos de \textit{bugs} na ferramenta de formatação.
 
+    Esta diferença dá~=se por que as ferramentas de formatação em geral,
+    tentam reconstruir a árvore de sintaxe da linguagem a ser formatação.
+    Já no caso da ferramenta desenvolvida neste trabalho,
+    isso não é um requisito.
+    O usuário pode escolher entre simplesmente especificar a gramática da linguagem o mínimo necessários para atingir somente as suas necessidades de formatação.
+    Mas ao mesmo tempo,
+    ele também pode realizar a especificação completa de toda a sintaxe da sua linguagem.
+    Entretanto,
+    isso ainda não será o suficiente para cobrir os aspectos semânticos das linguagens.
+    Neste caso,
+    o usuário precisará conhecer quais são as regras semânticas da linguagem que ele está realizando a formatação,
+    e configurar o formatador para que ele não quebre nenhuma das regras semânticas da linguagem.
+
+    Para usuários que não possuem conhecimentos sobre semântica das linguagens que querem realizar a formatação,
+    a ferramenta desenvolvida neste trabalho não pode ser utilizada.
+    Neste caso,
+    devem ser utilizados as demais ferramentas de formatação que são mais especificas para cada linguagem e
+    possuem inerentemente conhecimentos específicos da sintaxe e
+    semântica das linguagens.
+}
