@@ -82,10 +82,10 @@ mas sim a geração de código objeto ou
 binário \cite{ahoCompilerDragonBook}.
 
 Analisadores Sintáticos podem ser Ascendentes\footnote{
-Do inglês, \textit{Bottom~=Up}
+Do inglês, \textit{Bottom~=Up}.
 }
 ou Descendentes\footnote{
-Do inglês, \textit{Top~=Down}
+Do inglês, \textit{Top~=Down}.
 }.
 Devido a essa característica ambos possuem as suas vantagens e
 desvantagens.
@@ -100,7 +100,7 @@ Rightmost derivation}) fazem a leitura do programa de entrada da esquerda para a
 Uma vantagem de um Analisador Ascendente é o suporte de uma maior classe de Gramáticas Determinísticas.
 Uma vantagem de um Analisador Descendente é a facilidade da recuperação de erros em relação aos Analisadores Ascendentes\footnote{
 Conceito abordado na
-\fullref{analisadoresSintaticos}
+\fullref{analisadoresSintaticos}.
 }
 \cite{sippu1982,lr1ErrorRecovery,errorRecoveryForYaccParsers,repairingSyntaxErrorsInLR,larkJosefGrosch,errorsInLRParsers}.
 
@@ -140,7 +140,7 @@ uma gramática é definida por quatro componentes:
     Desde que a gramática da linguagem não contenha símbolos inúteis,
     i.e.,
     todos os símbolos da gramática são férteis e
-    permitem a geração de palavras além do conjunto vazio $\varnothing$ \cite{hopcroftBook}
+    permitem a geração de palavras além do conjunto vazio $\varnothing$ \cite{hopcroftBook}.
     }.
     Por convenção,
     e para evitar confusões entre quais são os símbolos terminais e não~=terminais,
@@ -251,7 +251,7 @@ Pois também é preciso que esta gramática seja o tipo mínimo no qual esta lin
 Sempre pode~=se escrever uma gramática menos eficiente do que o tipo mínimo de gramática que uma linguagem pode ser escrita.
 Para saber se este tipo de gramática é o mínimo,
 utiliza~=se o Lema do Bombeamento\footnote{
-Do inglês, \textit{Pumping Lemma} \cite{hopcroftBook,sipserBook}
+Do inglês, \textit{Pumping Lemma} \cite{hopcroftBook,sipserBook}.
 }
 para determinar e
 provar formalmente que dada gramática é o tipo mínimo de gramática para dada linguagem.
@@ -376,7 +376,7 @@ escolhe~=se sempre o não~=terminal mais a esquerda.
 são Descendentes \cite{antlrBookTerrentParr,llStarAntlr,allStarAntlr} e
 reconhecem somente um subconjunto das Linguagens LR(K)\footnote{
 Diz~=se que uma linguagem é LR(K) ou
-LL(K) quando ela é reconhecida por este analisador
+LL(K) quando ela é reconhecida por este analisador.
 }.
 
 A \typeref{LinguagensDeterministicas} não é inteiramente um Diagrama de Venn \cite{generalizedVennDiagrams},
@@ -410,7 +410,7 @@ as Gramáticas Determinísticas\footnote{
 As Gramáticas Determinísticas representam o conjunto de Linguagens que podem ser Analisadas Deterministicamente e
 tais Linguagens também podem ser conhecidas como LR(K),
 LR(K).
-Reveja os parágrafos após a \typeref{HierarquiaDeChomsky}
+Reveja os parágrafos após a \typeref{HierarquiaDeChomsky}.
 },
 que podem ser classificadas como LR(K),
 LL(K), etc, i.e.,
@@ -471,7 +471,7 @@ No caso de conflitos na Tabela de Análise,
 a gramática não pode ser analisada deterministicamente e
 algoritmos de análise com backtracking\footnote{
 Ou algoritmos de tempo polinomial como CYK,
-reveja a \fullref{hierarquiaDeChomsky}
+reveja a \fullref{hierarquiaDeChomsky}.
 }
 precisam ser utilizados para construção da Árvore Sintática.
 Como mostrado para Máquinas de Turing Não~=Determinísticas na \fullref{mecanismosReconhecedores},
@@ -582,10 +582,10 @@ proporcional ao tamanho da gramáticas de entrada para operar \cite{complexityOf
 Por isso,
 \citeonline{lalrDeRemer1982} criaram os Analisadores LALR(K)\footnote{
 Do inglês, \textit{Look~=Ahead} LA(K) LR(0),
-onde LR(0) é um Analisador LR(K) com $K=0$
+onde LR(0) é um Analisador LR(K) com $K=0$.
 }
 e SLR(K)\footnote{
-Do inglês, \textit{Simple LR(K) parser}
+Do inglês, \textit{Simple LR(K) parser}.
 }
 com o objeto de viabilizar a implementação de Analisadores Ascendentes Determinísticos.
 
@@ -646,7 +646,7 @@ estas três etapas acontecem em paralelo como realizado na implementação do co
 
 A Gramática da Linguagem C não é Livre de Contexto Determinística devido as ambiguidades\footnote{
 Conhecido também como Não~=Determinismo,
-veja o \fullref{exemploDeAmbiguidadeLinguistica}
+veja o \fullref{exemploDeAmbiguidadeLinguistica}.
 }
 existentes como a expressão ``\textit{x * y ;}''.
 Tal sentença pode ser ou
@@ -736,10 +736,10 @@ Sintaxe e
 Semântica de Linguagens são completamente ortogonais.
 Gramáticas de Linguagens Irrestritas\footnote{
 Não a linguagem no qual elas representam,
-mas a própria gramática em si \cite{finiteAutomataTuringComplete}
+mas a própria gramática em si \cite{finiteAutomataTuringComplete}.
 }
 podem ser Turing Completas\footnote{
-A Turing Completude acontece quando uma dada linguagem pode simular o funcionamento completo de uma Máquina de Turing
+A Turing Completude acontece quando uma dada linguagem pode simular o funcionamento completo de uma Máquina de Turing.
 }
 devido a sua equivalência com Máquinas de Turing e
 são capazes de realizar qualquer operação computacional.
@@ -758,7 +758,7 @@ Caso isso esteja confuso,
 reveja a \typeref{HierarquiaDeChomsky} e
 note que de todas as Linguagens,
 quem tem Turing Completude são as Linguagens Irrestritas,
-enquanto Automatos Finitos são um subconjunto das Máquinas de Turing \cite{finiteAutomataTuringComplete}
+enquanto Automatos Finitos são um subconjunto das Máquinas de Turing \cite{finiteAutomataTuringComplete}.
 }
 \cite{turingCompleteRegularLanguages,finiteAutomataTuringComplete}.
 
@@ -928,7 +928,7 @@ portanto sua complexidade de tempo reduzida não pode ser alcançada e
 seu tempo de execução é Determinístico Exponential,
 pois para simular o funcionamento de uma Máquina de Turing Não~=Determinística,
 utiliza~=se uma Máquina de Turing Determinística\footnote{
-Máquinas de Turing Determinísticas seriam os equivalentes aos computadores de propósito geral
+Máquinas de Turing Determinísticas seriam os equivalentes aos computadores de propósito geral.
 }
 \cite{sipserBook,turingMachinesRoyer}.
 
@@ -971,13 +971,13 @@ Duas principais abordagens distintas e
 conhecidas\footnote{
 Além dessas duas abordagens,
 existem muitas outras técnicas que podem ser cridas como misturas dessas duas estratégias extremas,
-como heurísticas e inteligências artificias
+como heurísticas e inteligências artificias.
 }
 são a Busca em Largura\footnote{
-Do inglês, \textit{Breadth-First Search (BFS)}
+Do inglês, \textit{Breadth-First Search (BFS)}.
 }
 e Busca em Profundidade\footnote{
-Do inglês, \textit{Depth-First Search (DFS)}
+Do inglês, \textit{Depth-First Search (DFS)}.
 }.
 Os algoritmos funcionamento desses tipos de busca são detalhadas em \citeonline{cormenIntroductionToAlgorithms}.
 
