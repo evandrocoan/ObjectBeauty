@@ -1,7 +1,7 @@
 {
     "settings":
     {
-        "TEXroot": "../monograph/thesis/main.tex",
+        "TEXroot": "../monograph/main.tex",
         "rulers": [80],
         "WrapPlus.semantic_line_wrap": true,
         "WrapPlus.semantic_maximum_items_in_comma_separated_list": 1,
@@ -24,7 +24,7 @@
                 "_gsdata_",
                 ".tmp.drivedownload",
                 "monograph/proposal",
-                "monograph/thesis/abntevandro/doc",
+                "monograph/abntevandro/doc",
                 "source/libraries/doctest/scripts/bench/catch",
             ],
         },
@@ -127,7 +127,7 @@
             "cmd": ["make", "thesis"],
 
             "shell": true,
-            "working_dir": "$project_path/../monograph/thesis",
+            "working_dir": "$project_path/../monograph",
 
             "target": "exec",
             "syntax": "Packages/Text/Plain text.tmLanguage",
