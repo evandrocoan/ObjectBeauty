@@ -796,6 +796,47 @@
 }
 
 
+@online{textMateScopeExclusion,
+    TITLE = {TextMate scope selectors: scope exclusion is not implemented},
+    AUTHOR = {Martin Aeschlimann},
+    HOWPUBLISHED = {VSCode TextMate - GitHub Issue Tracker},
+    URL = {https://github.com/Microsoft/vscode-textmate/issues/52},
+    year = {2017},
+    urlaccessdate = {2019-07-21},
+    abstract = {According to the documentation for TextMate scope selectors,
+    VSCode supports the syntax for excluding matching scopes: entity.name.method
+    - source.java matches all scopes that start with entity.name.method but not
+    if a parent scope matches source.java This functionality is used in at least
+    one built-in theme that I could find:
+    \url{https://github.com/Microsoft/vscode/blob/c00bdb74ee665cccfc5c4e41520893bb19ef61e5/extensions/theme-monokai/themes/monokai-color-theme.json\#L316}
+    But it seems that this syntax makes the selector with - in it invalid, and
+    VSCode doesn't apply the given rule to anything at all.},
+}
+
+
+@online{objectBeautifierFutureWorks,
+    TITLE = {Options to control whitespace stripping},
+    AUTHOR = {Evandro Coan},
+    HOWPUBLISHED = {Uncrustify Source Code Beautifier - GitHub Issue Tracker},
+    URL = {https://github.com/uncrustify/uncrustify/issues/132#issuecomment-249205619},
+    year = {2016},
+    urlaccessdate = {2019-07-21},
+    abstract = {I think the best way to fix this is create a new Beautifier from
+    0. Why? Because I have seen the way Uncrustify is coded, and it is basically
+    a structured programming for most things, and not fully documented.
+    Therefore, it has a very high learning curve for new programmer get
+    engaged/involved efficiently. Also is hard for new user to create a unified
+    configuration file for all languages they use. For example, I to program on
+    several languages, I need to create a big configuration file for each of
+    them. In addition, when there is a change to my style, I need to go across
+    several configuration files changing the same thing, if applicable on that
+    target language. Then while building this new Beautifier take in account
+    everybody in the world. Create a serious Object Oriented Program, fully
+    documented and aiming it be to easily extended program and configurable by
+    the users.},
+}
+
+
 @online{larkErrorRecovery,
     TITLE = {Error recovery: Can I add some error recovery strategy?},
     AUTHOR = {Evandro Coan},
