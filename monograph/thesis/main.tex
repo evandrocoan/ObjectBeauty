@@ -69,9 +69,6 @@
 % Disable the empty pages automatically put by memoir class, except the ones by \cleardoublepage
 % \PassOptionsToClass{openany}{memoir}
 
-% Fixes several `abntex2` class problems
-\input{setup/setup.tex}
-
 % The UFSC font size is 10.5, but memoir embedded by `abntex2` only accepts 10 and 11pt.
 % However, problem will be fixed the `ufscthesisx` package.
 % http://tug.ctan.org/tex-archive/macros/latex/contrib/cleveref/cleveref.pdf
@@ -84,13 +81,7 @@ a5paper,       % Padrão UFSC para versão final
 twoside,       % Impressão nos dois lados da folha
 chapter=TITLE, % Título de capítulos em caixa alta
 section=TITLE, % Título de seções em caixa alta
-]{abntex2}
-
-% Load the UFSC thesis package
-\usepackage{setup/ufscthesisx}
-
-% Load extra commands for tables, lists, summaries, etc.
-\input{setup/utilities.tex}
+]{setup/ufscthesisx}
 
 % % Utilize o arquivo aftertext/references.bib para incluir sua bibliografia.
 \addbibresource{aftertext/references.bib}
@@ -236,6 +227,7 @@ section=TITLE, % Título de seções em caixa alta
     }
 \fi
 
+
 % https://tex.stackexchange.com/questions/171999/overfull-hbox-in-biblatex
 % https://tex.stackexchange.com/questions/499457/why-my-document-is-not-hyphenation-on-words-starting-with-upper-case-letter-i
 \emergencystretch=5em
@@ -255,6 +247,7 @@ section=TITLE, % Título de seções em caixa alta
 
 % https://tex.stackexchange.com/questions/32208/footnote-runs-onto-second-page
 \interfootnotelinepenalty=10000
+
 
 \begin{document}
     % FIXME: Comment this after finishing the thesis, so you can start fixing the \flushbottom vs \raggedbottom
