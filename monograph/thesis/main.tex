@@ -193,12 +193,12 @@ section=TITLE, % Título de seções em caixa alta
 % \addtoincludeonly{beforetext/simbolos}
 
 % Part 1
-\addtoincludeonly{chapters/introduction}
-\addtoincludeonly{chapters/motivation}
+% \addtoincludeonly{chapters/introduction}
+% \addtoincludeonly{chapters/motivation}
 % \addtoincludeonly{chapters/beautifiers}
 
 % Part 2
-% \addtoincludeonly{chapters/object_beautifier}
+\addtoincludeonly{chapters/object_beautifier}
 % \addtoincludeonly{chapters/conclusion}
 
 % \addtoincludeonly{aftertext/apendice_a}
@@ -214,6 +214,9 @@ section=TITLE, % Título de seções em caixa alta
 % Uncomment these two lines, to only partially generate the document
 % \doincludeonly
 % \forcedincludetrue
+
+% Disable \openright default behavior
+\ifforcedinclude\openany\else\fi
 
 \ifenglish
     \hypersetup
