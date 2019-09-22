@@ -1,12 +1,12 @@
 [submodule "code/lark-parser"]
 	path = source/pushdown
 	url = https://github.com/evandrocoan/pushdownparser
-[submodule "monograph/thesis/setup"]
-	path = monograph/thesis/setup
-	url = https://github.com/evandrocoan/ufscthesisx-setup
-[submodule "monograph/thesis/pictures"]
-	path = monograph/thesis/pictures
-	url = https://github.com/evandrocoan/objectbeatypictures.git
 [submodule "proposal/utilities"]
 	path = proposal/utilities
 	url = https://github.com/evandrocoan/latex_utilities
+[submodule "monograph/setup"]
+	path = monograph/setup
+	url = https://github.com/evandrocoan/ufscthesisx-setup
+[submodule "monograph/pictures"]
+	path = monograph/pictures
+	url = https://github.com/evandrocoan/objectbeatypictures.git
