@@ -21,22 +21,20 @@
     % Custom list throw LaTeX Error: Command \mycustomfiction already defined?
     % https://tex.stackexchange.com/questions/388489/custom-list-throw-latex-error-command-mycustomfiction-already-defined/
     \advisor{}{%
-        \ifforcedinclude\else
-            % Manually add the `\textpreliminarycontents` to the Table of Contents here
-            % to keep the hyper link pointing to the beginning of the page, instead of
-            % the beginning of `\textpreliminarycontents`
+        % Manually add the `\textpreliminarycontents` to the Table of Contents here
+        % to keep the hyper link pointing to the beginning of the page, instead of
+        % the beginning of `\textpreliminarycontents`
 
-            % When do I need to invoke \phantomsection?
-            % https://tex.stackexchange.com/questions/44088/when-do-i-need-to-invoke-phantomsection
-            \phantomsection
-            \addcontentsline{toc}{chapter}{\mytextpreliminarylistname}
+        % When do I need to invoke \phantomsection?
+        % https://tex.stackexchange.com/questions/44088/when-do-i-need-to-invoke-phantomsection
+        \phantomsection
+        \addcontentsline{toc}{chapter}{\mytextpreliminarylistname}
 
-            \begin{KeepFromToc}
-                \textpreliminarycontents
-            \end{KeepFromToc}
+        \begin{KeepFromToc}
+            \textpreliminarycontents
+        \end{KeepFromToc}
 
-            \ifforcedinclude\else\clearpage\fi
-        \fi
+        \clearpage
     }
 
     \PRIVATEbookmarkthis{Contracapa}
@@ -44,18 +42,18 @@
 
     % Folha de rosto (o * indica que haverá a ficha bibliográfica)
     \imprimirfolhaderosto*
-\fi
 
-% Inserir a ficha bibliografica
-%
-% Isto é um exemplo de Ficha Catalográfica, ou ``Dados internacionais de
-% catalogação-na-publicação''. Você pode utilizar este modelo como referência.
-% Porém, provavelmente a biblioteca da sua universidade lhe fornecerá um PDF
-% com a ficha catalográfica definitiva após a defesa do trabalho. Quando estiver
-% com o documento, salve-o como PDF no diretório do seu projeto e substitua todo
-% o conteúdo de implementação deste arquivo pelo comando abaixo:
-\PRIVATEbookmarkthis{Ficha Catalográfica}
-\addtotextpreliminarycontent{Ficha Catalográfica}
+    % Inserir a ficha bibliografica
+    %
+    % Isto é um exemplo de Ficha Catalográfica, ou ``Dados internacionais de
+    % catalogação-na-publicação''. Você pode utilizar este modelo como referência.
+    % Porém, provavelmente a biblioteca da sua universidade lhe fornecerá um PDF
+    % com a ficha catalográfica definitiva após a defesa do trabalho. Quando estiver
+    % com o documento, salve-o como PDF no diretório do seu projeto e substitua todo
+    % o conteúdo de implementação deste arquivo pelo comando abaixo:
+    \PRIVATEbookmarkthis{Ficha Catalográfica}
+    \addtotextpreliminarycontent{Ficha Catalográfica}
+\fi
 
 \include{beforetext/fichacatalografica}
 \ifforcedinclude\else\cleardoublepage\fi
