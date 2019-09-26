@@ -142,6 +142,7 @@ Para mais informações sobre a utilização de arquivos de temas em editores de
 
 
 \section{Metalinguagem}
+\label{metalinguagemGrammar}
 
 Como já explicado na seção anterior,
 uma metagramática é gramática de gramáticas e
@@ -149,7 +150,7 @@ foi utilizado a ferramenta ``Lark'' \cite{larkContextualLexer} como um meta~=com
 compilador de compiladores.
 Nesta seção será explicado a como a metalinguagem (especificada pela metagramática) utilizada foi construída,
 começando com o seu símbolo inicial.
-No \typeref{simboloInicialDaMetalinguagem},
+No \typeref{simboloInicialDaMetagramatica},
 defini~=se que o programa é constituído de três grandes áreas,
 que devem acontecer uma em sequencia da outra:
 \begin{enumerate}
@@ -325,4 +326,150 @@ check_brackets: {
     }
 }
 \end{lstlisting}
+
+
+\section{Analisador Semântico}
+
+Depois que a gramática na metalinguagem apresentada na seção anterior é analisada pelo Analisador Lark,
+a ferramenta Lark entrega a árvore de sintaxe da gramática da linguagem sendo descrita pela gramática.
+Todas as verificações de corretude da sintaxe da gramática são verificadas pela ferramenta Lark,
+com base na metagramática da metalinguagem.
+Portando,
+somente resta ser implementado o Analisador Semântico para verificar se a linguagem descrita respeita as regras semânticas da metalinguagem explicadas na seção anterior,
+\nameref{metalinguagemGrammar}.
+
+Neste trabalho,
+o Analisador Semântico recebe como entrada a Árvore de Sintaxe do programa de entrada,
+e uma vez que o Analisador Semântico termina seu trabalho,
+ele devolve Árvore de Sintaxe Abstrata completa.
+Então,
+utilizado a Árvore de Sintaxe Abstrata,
+realiza~=se a formatação de código~=fonte recebendo um programa de entrada e
+as configurações do formatador.
+
+No \typeref{semanticAnalizerConstructor},
+pode~=se ver o construtor do Analisador Semântico.
+Pode~=se estranhar seu construtor não receber como parâmetros a Árvore de Sintaxe,
+entretanto,
+a ela não é passada pelo construtor mas sim por um método chamado ``transform(tree)''.
+Esta é uma característica da analisador Lark utilizada.
+Neste trabalho,
+foi realizado um \textit{fork} \cite{overviewOfGitHubForks,mayTheForkBeWithYou,collaborationAmongGitHubUsers} da analisador Lark e
+foi renomeado o analisador Lark para ``pushdown''\footnote{%
+O código do \textit{fork} pode ser encontrado em \url{https://github.com/evandrocoan/pushdownparser}.
+}.
+
+A função ``transform(tree)'' do ferramenta Lark simplesmente inicia a análise do programa visitando todos os nós da Árvore de Sintaxe,
+partindo das folhas até chegar na raíz.
+Esta visita acontece simplesmente chamado métodos que a classe ``TreeTransformer''\footnote{%
+Definido no \typeref{semanticAnalizerConstructor}.
+} define e
+que possuem os mesmos nomes do que os símbolos terminais definidos na metagramática.
+
+Por exemplo,
+o trecho da metagramática apresentado no \typeref{simboloInicialDaMetagramatica} possui alguns os símbolos não terminais como ``preamble\_statements'' e
+``language\_construct\_rules''. Então,
+para estes dados símbolos,
+serão chamados os métodos da classe ``TreeTransformer'' que possuem os nomes ``preamble\_statements'' e
+``language\_construct\_rules''.
+Casos não existam esses métodos,
+os nós ``preamble\_statements'' e
+``language\_construct\_rules'' da Árvore de Sintaxe não será visitados e
+``poderão'' ser excluídos da Análise Semântica.
+
+Mesmo que não existam os métodos ``preamble\_statements'' e
+``language\_construct\_rules'' definidos na classe ``TreeTransformer'',
+eles também pode ser visitados diretamente a partir de algum nodo pai deles ou
+até algum de seus filhos.
+Inclusive,
+esta foi uma das alterações realizadas no fork ``pushdown'' da ferramenta Lark.
+Por padrão,
+ao iterar pela árvore,
+``Lark'' somente passa como parâmetro da função o nodo correspondente ao método atualmente sendo chamado e
+uma lista de filhos.
+Entretanto,
+``pushdown'' também passa um terceiro parâmetro que é uma referência para o nó raíz da árvore e
+mantém a variável ``parent'' como um atributo da árvore que aponta para o nó pai do nó atual.
+
+Foi realizado \textit{fork} da ferramenta Lark para poder~=se realizar pequenas alterações que facilitam o entendimento do funcionamento interno da ferramenta como adição de logs e
+alterações nos algoritmos de iteração nas árvores geradas pela ferramenta.
+Por isso,
+em alguns lugares do código será encontrado ``pushdown'' ao invés de ``lark''.
+Já em outros,
+continuará~=se sendo chamada Lark de Lark para simplificar a retrocompatibilidade com a biblioteca original e
+facilitar a realização do \textit{fork}.
+\begin{lstlisting}[caption={Construtor do Analisador Semântico},label={semanticAnalizerConstructor},style=mypython]
+class TreeTransformer(pushdown.Transformer):
+    """
+        Transforms the Derivation Tree nodes into meaningful string representations,
+        allowing simple recursive parsing and conversion to Abstract Syntax Tree.
+    """
+
+    def __init__(self):
+        ## Saves all the semantic errors detected so far
+        self.errors = []
+
+        ## Saves all warnings noted so far
+        self.warnings = []
+
+        ## Whether the mandatory/obligatory global scope name statement was declared
+        self.is_master_scope_name_set = False
+
+        ## Whether the mandatory/obligatory global language name statement was declared
+        self.is_target_language_name_set = False
+
+        ## Can only be one scope called `contexts`
+        self.has_called_language_construct_rules = False
+
+        ## Pending constants declarations
+        self.constant_usages = {}
+
+        ## Pending constants usages
+        self.constant_definitions = {}
+
+        ## A list of miscellaneous_language_rules include contexts defined for duplication checking
+        self.defined_includes = {}
+
+        ## A list of required includes to check for missing includes
+        self.required_includes = {}
+
+        ## A list of regular expressions used on match statements,
+        ## for validation when the constants definitions are completely know
+        self.pending_match_statements = []
+
+        ## Responsible for calculating all open and close commands scoping
+        self.open_blocks = {}
+        self.indentation_level = 0
+        self.indentation_blocks = []
+\end{lstlisting}
+
+O formatador de código~=fonte não é composto somente uma parte única e
+altamente acoplada, mas pelo contrário,
+um conjunto de partes altamente coesas e
+completamente independentes onde cada uma dessas partes recebe a Árvore de Sintaxe Abstrata do Analisador Semântico,
+para então realizar a formatação do programa de entrada junto com as configurações que esta parte aceita.
+
+Continuamente chamar diversos algoritmos independentes possui uma grande a perda de performance em comparação com os formatadores de código~=fonte apresentados na \fullref{source_code_beautifiers}.
+Estes formatadores tem como principal características realizar a formatação de código em uma única passada,
+i.e.,
+a Árvore de Sintaxe de programa de entrada é completamente reconstruída,
+para então ser serializada novamente em texto de acordo com as configurações de formatador.
+
+Ao leitor mais desatento,
+pode parecer que então não existe muita diferença entre a ferramenta de formatação proposta neste trabalho para as já existentes.
+Entretanto,
+estre trabalho permite que o usuário entre com a gramática da linguagem a ser formatada,
+diferentes dos outros trabalhos onde esta gramática já vem junto do formatador.
+Formadores de código~=fonte como apresentados na \fullref{source_code_beautifiers} são construído programando~=se as produções da gramática diretamente no código~=fonte do formatador (Descendentes Recursivos,
+reveja a seção \fullref{gramaticasVersusLinguagens}).
+
+Ao não permitir que o usuário possa entrar com a gramática do programa,
+restringe~=se o formatador a somente funcionar com as gramáticas que foram programadas dentro do seu código~=fonte.
+Uma vez que o usuário da ferramenta precisa programar ela para ter suporte a sua linguagem,
+isso dificulta a adição do suporte de novas linguagens de formatação,
+pois precisa~=se programar as suas gramáticas dentro do código~=fonte do formatador.
+
+
+\section{Formatador de Código}
+
 
