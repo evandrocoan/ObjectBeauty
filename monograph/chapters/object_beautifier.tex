@@ -284,7 +284,9 @@ No \typeref{exemploDeGramaticaPawn4},
 é mostrado mais alguns exemplos de uso do operador ``match'' classificando diversos tipos de numéricos (da linguagem sendo descrita pela gramática).
 É importante notar que a ordem no qual os operadores como ``match'' aparecem é importante.
 Ao realizar o reconhecido o programa de entrada utilizando esta gramática,
-a Árvore de Sintaxe Abstrata será interpretada diversas vezes,
+a Árvore de Sintaxe Abstrata\footnote{%
+Do inglês (AST), Abstract Syntax Tree.
+} \cite{ahoCompilerDragonBook} será interpretada diversas vezes,
 iniciando no símbolo inicial até chegar ao último símbolo da gramática.
 
 O processo de interpretação irá reiniciar infinitamente até que nenhum texto seja mais consumido por nenhum dos operadores da gramática.
@@ -449,7 +451,7 @@ um conjunto de partes altamente coesas e
 completamente independentes onde cada uma dessas partes recebe a Árvore de Sintaxe Abstrata do Analisador Semântico,
 para então realizar a formatação do programa de entrada junto com as configurações que esta parte aceita.
 
-Continuamente chamar diversos algoritmos independentes possui uma grande a perda de performance em comparação com os formatadores de código~=fonte apresentados na \fullref{source_code_beautifiers}.
+Continuamente chamar diversos algoritmos independentes possui uma grande a perda de performance em comparação com os formatadores de código~=fonte apresentados no \fullref{source_code_beautifiers}.
 Estes formatadores tem como principal características realizar a formatação de código em uma única passada,
 i.e.,
 a Árvore de Sintaxe de programa de entrada é completamente reconstruída,
@@ -461,7 +463,7 @@ Entretanto,
 estre trabalho permite que o usuário entre com a gramática da linguagem a ser formatada,
 diferentes dos outros trabalhos onde esta gramática já vem junto do formatador.
 Formadores de código~=fonte como apresentados na \fullref{source_code_beautifiers} são construído programando~=se as produções da gramática diretamente no código~=fonte do formatador (Descendentes Recursivos,
-reveja a seção \fullref{gramaticasVersusLinguagens}).
+reveja a \fullref{gramaticasVersusLinguagens}).
 
 Ao não permitir que o usuário possa entrar com a gramática do programa,
 restringe~=se o formatador a somente funcionar com as gramáticas que foram programadas dentro do seu código~=fonte.
