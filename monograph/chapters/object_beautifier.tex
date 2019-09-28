@@ -367,17 +367,31 @@ Esta visita acontece simplesmente chamado métodos que a classe ``TreeTransforme
 Definido no \typeref{semanticAnalizerConstructor}.
 } define e
 que possuem os mesmos nomes do que os símbolos terminais definidos na metagramática.
+Então,
+cada nodo ou
+função deve retornar qual será o novo nodo que irá o substituir na Árvore de Sintaxe.
+Assim,
+no final do processo,
+um a um,
+cada nodo da Árvore de Sintaxe será convertido para um nodo da Árvore de Sintaxe Abstrata.
 
+Um jeito fácil de excluir um nodo da Árvore de Sintaxe é simplesmente definir uma função com o nome de seu não~=terminal que returna ``null''.
 Por exemplo,
 o trecho da metagramática apresentado no \typeref{simboloInicialDaMetagramatica} possui alguns os símbolos não terminais como ``preamble\_statements'' e
 ``language\_construct\_rules''. Então,
 para estes dados símbolos,
 serão chamados os métodos da classe ``TreeTransformer'' que possuem os nomes ``preamble\_statements'' e
 ``language\_construct\_rules''.
-Casos não existam esses métodos,
+
+Caso não existam os métodos ``preamble\_statements'' e
+``language\_construct\_rules'' na classe ``TreeTransformer'',
 os nós ``preamble\_statements'' e
-``language\_construct\_rules'' da Árvore de Sintaxe não será visitados e
-``poderão'' ser excluídos da Análise Semântica.
+``language\_construct\_rules'' da Árvore de Sintaxe não serão visitados e
+``poderão'' ser excluídos da Análise Semântica (mas não da Árvore de Sintaxe Abstrata).
+Note que,
+nodos não existentes classe ``TreeTransformer'' não serão excluídos da Árvore final,
+mas eles serão mantidos intactos,
+a não ser que algum outro nodo os altere diretamente.
 
 Mesmo que não existam os métodos ``preamble\_statements'' e
 ``language\_construct\_rules'' definidos na classe ``TreeTransformer'',
@@ -474,4 +488,83 @@ pois precisa~=se programar as suas gramáticas dentro do código~=fonte do forma
 
 \section{Formatador de Código}
 
+No \typeref{construtorDoFormatador},
+pode ser encontrado o construtor do formatador de código~=fonte.
+Comparando~=o com o construtor do Analisador Semântico \typeref{semanticAnalizerConstructor},
+pode~=se notar que algumas diferenças.
+Em ambos os casos,
+o processo todo se completará ao percorrer toda a árvore.
+No caso do Analisador Semântico,
+a Árvore de Sintaxe.
+E no caso do Formatador de Código,
+a Árvore de Sintaxe Abstrata.
+
+Diferentemente do Analisador Semântico,
+o Formatador de Código faz herança do tipo ``Interpreter'' em vez de ``Transformer''.
+A diferença é simples,
+``Interpreter'' visita a árvore partindo das folhas até chegar na raiz visitando todos os nodos filhos,
+já ``Transformer'' visita a árvore partindo da raíz até chegar nos nodos pais,
+i.e.,
+ele não visita os nodos filhos automaticamente como ``Transformer'' faz.
+
+``Interpreter'' também recebe diretamente no construtor qual será a árvore que ele irá iterar sobre.
+Nos demais aspectos,
+``Interpreter'' funciona igual ao ``Transformer'',
+exceto no ponto onde ``Transformer'' cria no final do processo uma nova árvore,
+enquanto ``Interpreter'' não cria árvore alguma.
+O parâmetro chamado ``program'' que o construtor ``Transformer'' recebe,
+é o programa a ser formatado pelo formatador.
+No final processo,
+``Interpreter'' terá em sua variável ``self.program'' o programa completamente formatado.
+\begin{lstlisting}[caption={Construtor do Formatador},label={construtorDoFormatador},style=mypython]
+class Backend(pushdown.Interpreter):
+
+    def __init__(self, tree, program, settings):
+        super().__init__()
+        self.tree = tree
+        self.program = ParsedProgram( program, settings )
+
+        ## A list of lists, where each list saves all the matches performed by
+        ## the last match_statement on scope_name_statement
+        self.last_match_stack = []
+
+        ## This is set to False every push statement, and set to True, after
+        ## every match statement. This way we can know whether there is a match
+        ## statement after a push statement.
+        self.is_there_push_after_match = False
+        self.is_there_scope_after_match = False
+
+        self.cached_includes = {}
+        self.cache_includes( tree )
+
+        self.visit( tree )
+        log( 4, "Tree: \n%s", tree.pretty( debug=0 ) )
+\end{lstlisting}
+
+Enquanto ``Interpreter'' é responsável por somente ``passear'' pela Árvore de Sintaxe Abstrata,
+a classe ``ParsedProgram'' \typeref{construtorDeParsedProgram} é responsável por realmente fazer a formatação de código de acordo com a instruções vindas da Árvore de Sintaxe Abstrata.
+No final do processo,
+``ParsedProgram'' terá na variável ``new\_program'' todos os pedaços do program programa formatado.
+
+Uma vez que ``Interpreter'' termina de construir todos os pedaços de código~=fonte formatado,
+a função ``get\_new\_program'' irá juntos dos os pedaços e
+salvá~=los na variável ``cached\_new\_program'',
+para evitar ter que recalcular o novo programa toda vez que se pedir~=se sua nova versão.
+\begin{lstlisting}[caption={Construtor de ParsedProgram},label={construtorDeParsedProgram},style=mypython]
+class ParsedProgram(object):
+    """
+        Represents a program as chunks of data as (text_chunk_start_position,
+        text_chunk).
+    """
+
+    def __init__(self, program, settings):
+        super().__init__()
+        self.initial_size = len( program )
+        self.program = program
+        self.settings = OrderedDict( sorted( settings.items(), key=lambda item: len( str( item ) ) ) )
+
+        self.new_program = []
+        self.cached_new_program = []
+        log( 4, "program %s: `%s`", len( str( self.program ) ), self.program )
+\end{lstlisting}
 
