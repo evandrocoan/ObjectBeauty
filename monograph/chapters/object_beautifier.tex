@@ -6,8 +6,9 @@
 \label{software_implementation}
 
 Neste capítulo será explicado o funcionamento e
-implementação de uma nova ferramenta de formatação e
-os desafios de trabalhos futuros sobre esta implementação.
+implementação de uma nova ferramenta de formatação.
+A proposta desta nova ferramenta é permitir que usuários possam entrar com a gramática de qualquer linguagem,
+por meio de uma metagramática para então formatar o código da linguagem descrita pela gramática.
 
 
 \section{Uma Gramática de Gramáticas}
@@ -16,20 +17,23 @@ Na \fullref{introducaoGramaticas},
 foi explicado o que são gramáticas.
 Mas,
 como gramáticas podem ser expressadas?
-Isso depende de como o Analisador delas foi implementado,
+Isso depende de como seu analisador foi implementado\advisor{.}{,
 sendo assim,
-um detalhe de implementação.
-Usualmente,
-os Analisadores seguem uma notação comum como EBNF\footnote{
+um detalhe de implementação.%
+} \advisor{Analisadores}{Usualmente,
+analisadores} seguem uma notação comum como EBNF\footnote{
 Do inglês,
 \textit{Extended Backus–Naur Form} uma extensão do padrão BNF.
 }\cite{teachingEbnf,antlrBookTerrentParr},
-que não difere muito de um Analisador para outros,
-exceto por detalhes de implementação específicos de cada Analisador.
+\advisor{que diverge de acordo com detalhes de implementação.
+}{%
+que não difere muito de um analisador para outro,
+exceto por detalhes de implementação específicos de cada analisador.
+}
 
 Para realizar a implementação da nova ferramenta de formatação de código,
 foi realizado a construção de uma nova gramática de gramáticas de uma nova linguagem chamada de ``ObjectBeauty'',
-uma meta~=linguagem \cite{compilersCompilerMetaLanguage}.
+uma metalinguagem \cite{compilersCompilerMetaLanguage}.
 Na \typeref{MyWorflowForLarkTraduzido} é apresentado o fluxo de uso comum para um analisador.
 Neste processo,
 o desenvolvedor da linguagem escreve a gramática de especificação desta linguagem,
@@ -44,11 +48,11 @@ gera~=se um Compilador para tal linguagem.
 
 Já este trabalho faz um uso fora do comum.
 Como mostrado na \typeref{MyWorflowForLarkTraduzido2},
-primeiro especifica~=se uma gramática de gramáticas (meta~=linguagem) que será utilizada pelos usuários da nova ferramenta de formatação.
-Para escrever esta nova meta~=linguagem,
+primeiro especifica~=se uma metalinguagem que será utilizada pelos usuários da nova ferramenta de formatação.
+Para escrever esta nova metalinguagem,
 utilizou~=se a ferramenta Lark \cite{larkContextualLexer}.
 Usualmente a ferramenta ``Lark'' é utilizada somente como um gerador de compiladores \typeref{MyWorflowForLarkTraduzido},
-entretanto neste contexto é utilizado como um compilador de compiladores \typeref{MyWorflowForLarkTraduzido2}.
+entretanto neste contexto é utilizado como um compilador de compiladores (\typeref{MyWorflowForLarkTraduzido2}).
 \begin{figure}[h]
 \centering
 \includegraphics[width=1.0\textwidth]{MyWorflowForLarkTraduzido2.png}
@@ -57,8 +61,8 @@ entretanto neste contexto é utilizado como um compilador de compiladores \typer
 \end{figure}
 
 Em vez de permitir com que o usuário final da aplicação opere diretamente com o Analisador da \typeref{MyWorflowForLarkTraduzido},
-foi criado uma nova gramática de gramáticas como mostrado nas \typeref{MyWorflowForLarkTraduzido2}.
-Esta nova gramática simplifica o processo de escrita de gramáticas ao criar uma nova especificação de gramáticas,
+foi criado uma nova metagramática como mostrado nas \typeref{MyWorflowForLarkTraduzido2}.
+Esta nova metagramática simplifica o processo de escrita de gramáticas ao criar uma nova especificação de gramáticas,
 somente com os recursos necessários para se possa trabalhar com formatação de código.
 A final,
 não é objetivo deste trabalho fazer a análise completa de programas,
@@ -90,20 +94,37 @@ deseja realizar a formatação de seus códigos~=fonte.
 \label{ParsersPublicAudienceTraduzido}
 \end{figure}
 
-Esta não é a primeira vez que uma gramática de gramáticas com simplificação foi escrita.
-Em trabalhos como \citeonline{rustSublimeTextSyntaxSyntec,sublimeTextSyntax,vsCodeSyntaxHighlighthing} foram realizados as mesmos simplificações aqui apresentadas.
-Existem algumas diferenças técnicas da gramática de gramáticas deste trabalho com as dos recém apresentados.
-Como por exemplo,
-esta gramática de gramáticas não suporta a classificação do mesmo trecho de código~=fonte por múltiplos tipos de escopo \cite{vsCodeSyntaxHighlighthing}.
+Até este ponto,
+já falou~=se de metagramática e
+metalinguagem com a exceção dos metaprogramas \cite{tradeoffsInMetaprogramming}.
+Nas \typeref{MyWorflowForLarkTraduzido2,ParsersPublicAudienceTraduzido},
+por simplificação foram omitidos o relacionamento dos metaprogramas com a metagramática e
+metalinguagem.
+Metaprogramas fazer como parte da entrada do metacompilador junto com a metagramática para gerar um novo compilador.
+Neste trabalho,
+os metaprogramas serão as gramáticas que serão utilizadas pelos formatadores de código~=fonte.
 
-Foi escolhido a criação de uma nova metagramática por que as gramáticas já existentes como \citeonline{rustSublimeTextSyntaxSyntec,vsCodeSyntaxHighlighthing}
+Os metaprogramas (ou gramáticas) são entradas diretas do metacompilador (a ferramenta Lark na \typeref{MyWorflowForLarkTraduzido2}).
+Na \typeref{ParsersPublicAudienceTraduzido},
+não pode~=se ver diretamente que as gramáticas das linguagens serão os metaprogramas,
+mas o quadro em azul mais a esquerda ligado por linhas pontilhadas explica que os erros léxicos e
+sintáticos nas gramáticas de entrada serão mostrados pela ferramenta Lark.
+Isso acontece por que as gramáticas (ou metaprogramas) são entradas diretamente na ferramenta Lark.
+
+Esta não é a primeira vez que uma metagramática com simplificações foi escrita.
+Em trabalhos como \citeonline{rustSublimeTextSyntaxSyntec,sublimeTextSyntax,vsCodeSyntaxHighlighthing} foram realizados as mesmas simplificações aqui apresentadas.
+Existem algumas diferenças técnicas da metagramática deste trabalho com as dos recém apresentados.
+Como por exemplo,
+a implementação desta metagramática ainda não suporta a classificação do mesmo trecho de código~=fonte por múltiplos tipos de escopo \cite{vsCodeSyntaxHighlighthing}.
+
+Foi escolhido a criação de uma nova metagramática por que as implementações de metagramáticas já existentes como \citeonline{rustSublimeTextSyntaxSyntec,vsCodeSyntaxHighlighthing}
 \begin{inparaenum}[1)]
-\item não são capazes de reconhecer todas as características de todas as linguagens de formatação e
+\item não são capazes de reconhecer todas as características de todas as linguagens de programação e
 \item não possuem sintaxe própria,
 i.e.,
 elas utilizam de outras linguagens como YAML,
 XML e
-JSON para fazer a especificação da gramática.
+JSON para fazer a especificação da metagramática.
 \end{inparaenum}
 Assim,
 fazendo a especificação de uma nova metagramática,
@@ -146,7 +167,7 @@ Para mais informações sobre a utilização de arquivos de temas em editores de
 
 Como já explicado na seção anterior,
 uma metagramática é gramática de gramáticas e
-foi utilizado a ferramenta ``Lark'' \cite{larkContextualLexer} como um meta~=compilador ou
+foi utilizado a ferramenta ``Lark'' \cite{larkContextualLexer} como um metacompilador ou
 compilador de compiladores.
 Nesta seção será explicado a como a metalinguagem (especificada pela metagramática) utilizada foi construída,
 começando com o seu símbolo inicial.
