@@ -94,8 +94,6 @@ melhorados ou completados. Mais especificamente,
 sobre a metalinguagem e
 gerador de formatadores criados:
 \begin{enumerate}
-\item Adicionar suporte especificação de múltiplos escopos a um mesmo trecho de código \cite{vsCodeSyntaxHighlighthing}.
-\item Adicionar suporte a aritmética de escopos como ``function.block.python - block'' \cite{textMateScopeExclusion}.
 \item Adicionar quaisquer regras semânticas da metalinguagem que não foram adicionadas no analisador semântico.
 \item Reduzir o uso de memória e
 otimizar a performance em tempo de execução,
@@ -108,6 +106,10 @@ são omitidos.
 ``set'' e
 outros mais que forem julgados necessários para tornar o uso da metalinguagem mais fácil ou
 melhorar a sua performance para casos específicos de uso.
+\item Adicionar suporte especificação de múltiplos escopos a um mesmo trecho de código \cite{vsCodeSyntaxHighlighthing},
+definindo alguma estrutura de dados adequada,
+capaz de permitir consultas e
+aritméticas de escopos \cite{textMateScopeExclusion} com performance constante $\Theta(1)$.
 \item Melhorar a legibilidade e
 facilitar a escrita das gramáticas,
 removendo a necessidade de chaves de abertura ``\{'' e
