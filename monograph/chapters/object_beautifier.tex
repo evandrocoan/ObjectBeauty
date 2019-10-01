@@ -8,7 +8,7 @@
 Neste capítulo será explicado o funcionamento e
 implementação de uma nova ferramenta de formatação.
 A proposta desta nova ferramenta é permitir que usuários possam entrar com a gramática de qualquer linguagem,
-por meio de uma metagramática para então formatar o código da linguagem descrita pela gramática.
+por meio de uma metagramática para então formatar o código~=fonte da linguagem descrita pela gramática.
 
 
 \section{Uma Gramática de Gramáticas}
@@ -31,10 +31,11 @@ que não difere muito de um analisador para outro,
 exceto por detalhes de implementação específicos de cada analisador.
 }
 
-Para realizar a implementação da nova ferramenta de formatação de código,
+Para realizar a implementação da nova ferramenta de Formatação de Código,
 foi realizado a construção de uma nova gramática de gramáticas de uma nova linguagem chamada de ``ObjectBeauty'',
 uma metalinguagem \cite{compilersCompilerMetaLanguage}.
-Na \typeref{MyWorflowForLarkTraduzido} é apresentado o fluxo de uso comum para um analisador.
+Na \typeref{MyWorflowForLarkTraduzido},
+é apresentado o fluxo de uso comum para um analisador.
 Neste processo,
 o desenvolvedor da linguagem escreve a gramática de especificação desta linguagem,
 que é entregue a algum Analisador e
@@ -48,22 +49,35 @@ gera~=se um Compilador para tal linguagem.
 
 Já este trabalho faz um uso fora do comum.
 Como mostrado na \typeref{MyWorflowForLarkTraduzido2},
-primeiro especifica~=se uma metalinguagem que será utilizada pelos usuários da nova ferramenta de formatação.
+primeiro especifica~=se uma metalinguagem que será utilizada pelos usuários da nova ferramenta de Formatação de Código.
 Para escrever esta nova metalinguagem,
-utilizou~=se a ferramenta Lark \cite{larkContextualLexer}.
-Usualmente a ferramenta ``Lark'' é utilizada somente como um gerador de compiladores \typeref{MyWorflowForLarkTraduzido},
-entretanto neste contexto é utilizado como um compilador de compiladores (\typeref{MyWorflowForLarkTraduzido2}).
+utilizou~=se o Analisador Lark \cite{larkContextualLexer}.
+Usualmente o Analisador Lark é utilizado somente como um gerador de compiladores (\typeref{MyWorflowForLarkTraduzido}),
+entretanto neste contexto Lark é utilizado como um compilador de compiladores (\typeref{MyWorflowForLarkTraduzido2}).
+Para este trabalho,
+foi realizado um \textit{fork} \cite{overviewOfGitHubForks,mayTheForkBeWithYou,collaborationAmongGitHubUsers} do Analisador Lark,
+renomeado o Analisador Lark para ``pushdown''\footnote{%
+O código~=fonte do \textit{fork} pode ser encontrado em \url{https://github.com/evandrocoan/pushdownparser}.
+}.
 \begin{figure}[h]
 \centering
 \includegraphics[width=1.0\textwidth]{MyWorflowForLarkTraduzido2.png}
-\caption[Uso feito pela nova ferramenta de formatação]{Uso feito pela nova ferramenta de formatação -- Fonte Própria \cite{larkErrorRecovery}}
+\caption[Uso feito pela nova ferramenta de Formatação de Código]{Uso feito pela nova ferramenta de Formatação de Código -- Fonte Própria \cite{larkErrorRecovery}}
 \label{MyWorflowForLarkTraduzido2}
 \end{figure}
+
+Foi realizado um \textit{fork} do Analisador Lark para poder~=se realizar pequenas alterações que facilitam o entendimento do funcionamento interno da ferramenta como adição de logs e
+alterações nos algoritmos de iteração nas árvores geradas pela ferramenta.
+Por isso,
+em alguns lugares do código~=fonte será encontrado o nome ``pushdown'' ao invés de ``lark''.
+Já em outros,
+continua~=se sendo chamado Lark de Lark para simplificar a retrocompatibilidade com a biblioteca original e
+facilitar a realização da integração de novos updates vindos do repositório original do Analisador Lark para o \textit{fork} realizado.
 
 Em vez de permitir com que o usuário final da aplicação opere diretamente com o Analisador da \typeref{MyWorflowForLarkTraduzido},
 foi criado uma nova metagramática como mostrado nas \typeref{MyWorflowForLarkTraduzido2}.
 Esta nova metagramática simplifica o processo de escrita de gramáticas ao criar uma nova especificação de gramáticas,
-somente com os recursos necessários para se possa trabalhar com formatação de código.
+somente com os recursos necessários para se possa trabalhar com formatação de código~=fonte.
 A final,
 não é objetivo deste trabalho fazer a análise completa de programas,
 pela sua sintaxe e
@@ -71,13 +85,13 @@ semântica e
 gerar código~=binário executável.
 
 Na \typeref{ParsersPublicAudienceTraduzido},
-pode~=se encontrar uma relação entre o funcionamento das diversas partes da ferramenta de formatação de código~=fonte e
+pode~=se encontrar uma relação entre o funcionamento das diversas partes da ferramenta de Formatação de Código e
 a audiência alvo.
 Basicamente existem três grupos distintos de usuários ou
 audiência:
 \begin{inparaenum}[1)]
 \item quem escreve ou
-desenvolve a ferramenta de formatação de código~=fonte desenvolvida neste trabalho e
+desenvolve a ferramenta de Formatação de Código proposta por este trabalho e
 defini as regras da metalinguagem (especificada pela sua metagramática,
 i.e.,
 a gramática de gramáticas),
@@ -90,7 +104,7 @@ deseja realizar a formatação de seus códigos~=fonte.
 \begin{figure}[h]
 \centering
 \includegraphics[width=1.0\textwidth]{ParsersPublicAudienceTraduzido.png}
-\caption[Relacionamentos entre os Diferentes Públicos deste Projeto]{Relacionamentos Entre os Diferentes Públicos deste Projeto -- Fonte Própria \cite{larkErrorRecovery}}
+\caption[Relacionamentos entre os Diferentes Públicos deste Projeto]{Relacionamentos entre os Diferentes Públicos deste Projeto -- Fonte Própria \cite{larkErrorRecovery}}
 \label{ParsersPublicAudienceTraduzido}
 \end{figure}
 
@@ -100,16 +114,33 @@ metalinguagem com a exceção dos metaprogramas \cite{tradeoffsInMetaprogramming
 Nas \typeref{MyWorflowForLarkTraduzido2,ParsersPublicAudienceTraduzido},
 por simplificação foram omitidos o relacionamento dos metaprogramas com a metagramática e
 metalinguagem.
-Metaprogramas fazer como parte da entrada do metacompilador junto com a metagramática para gerar um novo compilador.
+Metaprogramas fazem parte da entrada do metacompilador (\typeref{MetacompilerMetagrammarMetaprogram}) junto com a metagramática para gerar um novo compilador (ou Formatador de Código).
 Neste trabalho,
 os metaprogramas serão as gramáticas que serão utilizadas pelos formatadores de código~=fonte.
 
-Os metaprogramas (ou gramáticas) são entradas diretas do metacompilador (a ferramenta Lark na \typeref{MyWorflowForLarkTraduzido2}).
+Os metaprogramas (ou gramáticas) são entradas diretas do metacompilador (o Analisador Lark na \typeref{MyWorflowForLarkTraduzido2}).
 Na \typeref{ParsersPublicAudienceTraduzido},
 não pode~=se ver diretamente que as gramáticas das linguagens serão os metaprogramas,
 mas o quadro em azul mais a esquerda ligado por linhas pontilhadas explica que os erros léxicos e
-sintáticos nas gramáticas de entrada serão mostrados pela ferramenta Lark.
-Isso acontece por que as gramáticas (ou metaprogramas) são entradas diretamente na ferramenta Lark.
+sintáticos nas gramáticas de entrada serão mostrados pelo Analisador Lark.
+Isso acontece por que as gramáticas (ou metaprogramas) são entradas diretamente no Analisador Lark.
+
+Na \typeref{MetacompilerMetagrammarMetaprogram},
+encontra~=se uma extensão da \typeref{MyWorflowForLarkTraduzido2},
+e pode~=se ver claramente as relações entre Metagramáticas,
+Metacompiladores e Metaprogramas. Por simplificação,
+mostra~=se o nodo ``Arvore de Sintaxe'' sem explicitamente falar sobre sua Análise Semântica e
+propriamente a construção do Compilador (ou do Formatador de Código).
+Vale lembrar que trata~=se de um Compilador de Compiladores,
+e não um Compilador de Analisadores.
+Por isso vemos que os Metaprogramas (ou gramáticas) são entradas diretas dos Metacompilador,
+e não do Formatador de Código.
+\begin{figure}[h]
+\centering
+\includegraphics[width=1.0\textwidth]{MetacompilerMetagrammarMetaprogram.png}
+\caption[Relação entre Metagramáticas, Metacompiladores e Metaprogramas]{Relação entre Metagramáticas, Metacompiladores e Metaprogramas -- Fonte Própria \cite{larkErrorRecovery}}
+\label{MetacompilerMetagrammarMetaprogram}
+\end{figure}
 
 Esta não é a primeira vez que uma metagramática com simplificações foi escrita.
 Em trabalhos como \citeonline{rustSublimeTextSyntaxSyntec,sublimeTextSyntax,vsCodeSyntaxHighlighthing} foram realizados as mesmas simplificações aqui apresentadas.
@@ -167,7 +198,7 @@ Para mais informações sobre a utilização de arquivos de temas em editores de
 
 Como já explicado na seção anterior,
 uma metagramática é gramática de gramáticas e
-foi utilizado a ferramenta ``Lark'' \cite{larkContextualLexer} como um metacompilador ou
+foi utilizado o Analisador Lark \cite{larkContextualLexer} como um metacompilador ou
 compilador de compiladores.
 Nesta seção será explicado a como a metalinguagem (especificada pela metagramática) utilizada foi construída,
 começando com o seu símbolo inicial.
@@ -231,7 +262,10 @@ Mais tarde,
 as informações de escopo atribuídas por operadores como ``match'' e
 ``captures'' serão utilizadas pelo formatador de código~=fonte.
 Com estas informações,
-o formatador de código~=fonte será capaz de realizar as operações de formatação somente sobre os trechos de código que o usuário definir.
+o Formatador de Código será capaz de realizar as operações de formatação somente sobre os trechos de código~=fonte que o usuário definir.
+Realizando assim,
+a formatação seletiva de código~=fonte,
+contrário da formatação total de código~=fonte como acontece nos demais trabalhos (\typeref{performanceDoFormator}).
 \begin{lstlisting}[caption={Exemplo de Gramática -- Símbolo Inicial},label={exemploDeGramaticaPawn1},style=yaml_style]
 name: Abstract Machine Language
 scope: source.sma
@@ -341,7 +375,7 @@ o classifica em escopos terminam seu trabalho,
 não deveria existir mais nenhum texto ser reconhecido.
 Caso exista,
 ou a gramática não estava preparada para reconhecer todo o programa de entrada,
-ou estes trechos de código são frutos de algum erro no programa de entrada.
+ou estes trechos de código~=fonte são frutos de algum erro no programa de entrada.
 \begin{lstlisting}[caption={Exemplo de Gramática -- Reconhecimento de Erros},label={exemploDeGramaticaPawn5},style=yaml_style]
 check_brackets: {
     match: \) {
@@ -353,11 +387,11 @@ check_brackets: {
 
 \section{Analisador Semântico}
 
-Depois que a gramática na metalinguagem apresentada na seção anterior é analisada pelo Analisador Lark,
-a ferramenta Lark entrega a árvore de sintaxe da gramática da linguagem sendo descrita pela gramática.
-Todas as verificações de corretude da sintaxe da gramática são verificadas pela ferramenta Lark,
+Depois que um metaprograma da metalinguagem apresentada na seção anterior é analisada pelo Analisador Lark,
+o Analisador Lark entrega a Árvore de Sintaxe da gramática da linguagem sendo descrita pelo metaprograma (\typeref{MetacompilerMetagrammarMetaprogram}).
+Todas as verificações de corretude da sintaxe da gramática são verificadas pelo Analisador Lark,
 com base na metagramática da metalinguagem.
-Portando,
+Portanto,
 somente resta ser implementado o Analisador Semântico para verificar se a linguagem descrita respeita as regras semânticas da metalinguagem explicadas na seção anterior,
 \nameref{metalinguagemGrammar}.
 
@@ -366,75 +400,18 @@ o Analisador Semântico recebe como entrada a Árvore de Sintaxe do programa de 
 e uma vez que o Analisador Semântico termina seu trabalho,
 ele devolve Árvore de Sintaxe Abstrata completa.
 Então,
-utilizado a Árvore de Sintaxe Abstrata,
+utilizando a Árvore de Sintaxe Abstrata,
 realiza~=se a formatação de código~=fonte recebendo um programa de entrada e
-as configurações do formatador.
+as configurações do formatador (\typeref{MetacompilerMetagrammarMetaprogram}).
 
 No \typeref{semanticAnalizerConstructor},
 pode~=se ver o construtor do Analisador Semântico.
-Pode~=se estranhar seu construtor não receber como parâmetros a Árvore de Sintaxe,
+Pode~=se estranhar seu construtor não receber como parâmetro a Árvore de Sintaxe,
 entretanto,
 a ela não é passada pelo construtor mas sim por um método chamado ``transform(tree)''.
-Esta é uma característica da analisador Lark utilizada.
-Neste trabalho,
-foi realizado um \textit{fork} \cite{overviewOfGitHubForks,mayTheForkBeWithYou,collaborationAmongGitHubUsers} da analisador Lark e
-foi renomeado o analisador Lark para ``pushdown''\footnote{%
-O código do \textit{fork} pode ser encontrado em \url{https://github.com/evandrocoan/pushdownparser}.
-}.
-
-A função ``transform(tree)'' do ferramenta Lark simplesmente inicia a análise do programa visitando todos os nós da Árvore de Sintaxe,
+Esta é uma característica do Analisador Lark utilizado.
+A função ``transform(tree)'' do Analisador Lark simplesmente inicia a análise do programa visitando todos os nós da Árvore de Sintaxe,
 partindo das folhas até chegar na raíz.
-Esta visita acontece simplesmente chamado métodos que a classe ``TreeTransformer''\footnote{%
-Definido no \typeref{semanticAnalizerConstructor}.
-} define e
-que possuem os mesmos nomes do que os símbolos terminais definidos na metagramática.
-Então,
-cada nodo ou
-função deve retornar qual será o novo nodo que irá o substituir na Árvore de Sintaxe.
-Assim,
-no final do processo,
-um a um,
-cada nodo da Árvore de Sintaxe será convertido para um nodo da Árvore de Sintaxe Abstrata.
-
-Um jeito fácil de excluir um nodo da Árvore de Sintaxe é simplesmente definir uma função com o nome de seu não~=terminal que returna ``null''.
-Por exemplo,
-o trecho da metagramática apresentado no \typeref{simboloInicialDaMetagramatica} possui alguns os símbolos não terminais como ``preamble\_statements'' e
-``language\_construct\_rules''. Então,
-para estes dados símbolos,
-serão chamados os métodos da classe ``TreeTransformer'' que possuem os nomes ``preamble\_statements'' e
-``language\_construct\_rules''.
-
-Caso não existam os métodos ``preamble\_statements'' e
-``language\_construct\_rules'' na classe ``TreeTransformer'',
-os nós ``preamble\_statements'' e
-``language\_construct\_rules'' da Árvore de Sintaxe não serão visitados e
-``poderão'' ser excluídos da Análise Semântica (mas não da Árvore de Sintaxe Abstrata).
-Note que,
-nodos não existentes classe ``TreeTransformer'' não serão excluídos da Árvore final,
-mas eles serão mantidos intactos,
-a não ser que algum outro nodo os altere diretamente.
-
-Mesmo que não existam os métodos ``preamble\_statements'' e
-``language\_construct\_rules'' definidos na classe ``TreeTransformer'',
-eles também pode ser visitados diretamente a partir de algum nodo pai deles ou
-até algum de seus filhos.
-Inclusive,
-esta foi uma das alterações realizadas no fork ``pushdown'' da ferramenta Lark.
-Por padrão,
-ao iterar pela árvore,
-``Lark'' somente passa como parâmetro da função o nodo correspondente ao método atualmente sendo chamado e
-uma lista de filhos.
-Entretanto,
-``pushdown'' também passa um terceiro parâmetro que é uma referência para o nó raíz da árvore e
-mantém a variável ``parent'' como um atributo da árvore que aponta para o nó pai do nó atual.
-
-Foi realizado \textit{fork} da ferramenta Lark para poder~=se realizar pequenas alterações que facilitam o entendimento do funcionamento interno da ferramenta como adição de logs e
-alterações nos algoritmos de iteração nas árvores geradas pela ferramenta.
-Por isso,
-em alguns lugares do código será encontrado ``pushdown'' ao invés de ``lark''.
-Já em outros,
-continuará~=se sendo chamada Lark de Lark para simplificar a retrocompatibilidade com a biblioteca original e
-facilitar a realização do \textit{fork}.
 \begin{lstlisting}[caption={Construtor do Analisador Semântico},label={semanticAnalizerConstructor},style=mypython]
 class TreeTransformer(pushdown.Transformer):
     """
@@ -480,14 +457,62 @@ class TreeTransformer(pushdown.Transformer):
         self.indentation_blocks = []
 \end{lstlisting}
 
+A visita dos nodos pela função ``transform(tree)'' acontece simplesmente chamado métodos que a classe ``TreeTransformer''\footnote{%
+Definido no \typeref{semanticAnalizerConstructor}.
+} define e
+que possuem os mesmos nomes que os símbolos não=terminais definidos pela metagramática.
+Então,
+cada nodo ou
+função deve retornar qual será o novo nodo que irá o substituir na Árvore de Sintaxe.
+Assim,
+no final do processo,
+um a um,
+cada nodo da Árvore de Sintaxe será convertido para um nodo da Árvore de Sintaxe Abstrata.
+
+Um jeito fácil de excluir um nodo da Árvore de Sintaxe é simplesmente definir uma função com o nome de seu não~=terminal que returna ``null''.
+Por exemplo,
+o trecho da metagramática apresentado no \typeref{simboloInicialDaMetagramatica} possui alguns os símbolos não terminais como ``preamble\_statements'' e
+``language\_construct\_rules''. Então,
+para estes dados símbolos,
+serão chamados os métodos da classe ``TreeTransformer'' que possuem os nomes ``preamble\_statements'' e
+``language\_construct\_rules''.
+
+Caso não existam os métodos ``preamble\_statements'' e
+``language\_construct\_rules'' na classe ``TreeTransformer'',
+os nós ``preamble\_statements'' e
+``language\_construct\_rules'' da Árvore de Sintaxe não serão visitados e
+``poderão'' ser excluídos da Análise Semântica (mas não da Árvore de Sintaxe Abstrata).
+Note que,
+nodos não existentes classe ``TreeTransformer'' não serão excluídos da Árvore final,
+mas eles serão mantidos intactos,
+a não ser que algum outro nodo os altere diretamente.
+
+Mesmo que não existam os métodos ``preamble\_statements'' e
+``language\_construct\_rules'' definidos na classe ``TreeTransformer'',
+eles também pode ser visitados diretamente a partir de algum nodo pai deles ou
+até algum de seus filhos.
+Inclusive,
+esta foi uma das alterações realizadas no fork ``pushdown'' do Analisador Lark.
+Por padrão,
+ao iterar pela árvore,
+o Analisador Lark somente passa como parâmetro da função o nodo correspondente ao método atualmente sendo chamado e
+uma lista de filhos.
+Entretanto,
+``pushdown'' também passa um terceiro parâmetro que é uma referência para o nó raíz da árvore e
+mantém a variável ``parent'' como um atributo da árvore que aponta para o nó pai do nó atual.
+
 O formatador de código~=fonte não é composto somente uma parte única e
 altamente acoplada, mas pelo contrário,
 um conjunto de partes altamente coesas e
 completamente independentes onde cada uma dessas partes recebe a Árvore de Sintaxe Abstrata do Analisador Semântico,
 para então realizar a formatação do programa de entrada junto com as configurações que esta parte aceita.
 
+
+\subsection{Performance}
+\label{performanceDoFormator}
+
 Continuamente chamar diversos algoritmos independentes possui uma grande a perda de performance em comparação com os formatadores de código~=fonte apresentados no \fullref{source_code_beautifiers}.
-Estes formatadores tem como principal características realizar a formatação de código em uma única passada,
+Estes formatadores tem como principal características realizar a formatação de código~=fonte em uma única passada,
 i.e.,
 a Árvore de Sintaxe de programa de entrada é completamente reconstruída,
 para então ser serializada novamente em texto de acordo com as configurações de formatador.
@@ -563,7 +588,7 @@ class Backend(pushdown.Interpreter):
 \end{lstlisting}
 
 Enquanto ``Interpreter'' é responsável por somente ``passear'' pela Árvore de Sintaxe Abstrata,
-a classe ``ParsedProgram'' \typeref{construtorDeParsedProgram} é responsável por realmente fazer a formatação de código de acordo com a instruções vindas da Árvore de Sintaxe Abstrata.
+a classe ``ParsedProgram'' \typeref{construtorDeParsedProgram} é responsável por realmente fazer a formatação de código~=fonte de acordo com a instruções vindas da Árvore de Sintaxe Abstrata.
 No final do processo,
 ``ParsedProgram'' terá na variável ``new\_program'' todos os pedaços do program programa formatado.
 
