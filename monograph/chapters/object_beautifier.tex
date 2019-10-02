@@ -23,7 +23,7 @@ um detalhe de implementação.%
 } \advisor{Analisadores}{Usualmente,
 analisadores} seguem uma notação comum como EBNF\footnote{
 Do inglês,
-\textit{Extended Backus–Naur Form} uma extensão do padrão BNF.
+\textit{Extended Backus–Naur Form} uma extensão do padrão BNF (\textit{Backus–Naur Form}).
 }\cite{teachingEbnf,antlrBookTerrentParr},
 \advisor{que diverge de acordo com detalhes de implementação.
 }{%
@@ -38,12 +38,12 @@ Na \typeref{MyWorflowForLarkTraduzido},
 é apresentado o fluxo de uso comum para um analisador.
 Neste processo,
 o desenvolvedor da linguagem escreve a gramática de especificação desta linguagem,
-que é entregue a algum Analisador e
-gera~=se um Compilador para tal linguagem.
+que é entregue a algum analisador e
+gera~=se um compilador para tal linguagem.
 \begin{figure}[h]
 \centering
 \includegraphics[width=1.0\textwidth]{MyWorflowForLarkTraduzido.png}
-\caption[Fluxo de uso comum de um Analisador]{Fluxo de uso comum de um Analisador -- Fonte Própria \cite{larkErrorRecovery}}
+\caption[Fluxo de uso comum de um analisador]{Fluxo de uso comum de um analisador -- Fonte Própria \cite{larkErrorRecovery}}
 \label{MyWorflowForLarkTraduzido}
 \end{figure}
 
@@ -74,7 +74,7 @@ Já em outros,
 continua~=se sendo chamado Lark de Lark para simplificar a retrocompatibilidade com a biblioteca original e
 facilitar a realização da integração de novos updates vindos do repositório original do Analisador Lark para o \textit{fork} realizado.
 
-Em vez de permitir com que o usuário final da aplicação opere diretamente com o Analisador da \typeref{MyWorflowForLarkTraduzido},
+Em vez de permitir com que o usuário final da aplicação opere diretamente com o analisador da \typeref{MyWorflowForLarkTraduzido},
 foi criado uma nova metagramática como mostrado nas \typeref{MyWorflowForLarkTraduzido2}.
 Esta nova metagramática simplifica o processo de escrita de gramáticas ao criar uma nova especificação de gramáticas,
 somente com os recursos necessários para se possa trabalhar com formatação de código~=fonte.
@@ -183,13 +183,14 @@ Por exemplo, a palavra ``function'' possui simultaneamente os escopos
 
 Os nomes utilizados na \typeref{TexMateScopes} podem ser qualquer texto que usuário especificador daquela gramática desejar.
 Entretanto,
-pode~=se perceber que o nome dos escopos recém apresentados aparentam seguir um padrão.
+pode~=se perceber que o nome dos escopos recém apresentados parecem seguir um padrão.
 Por conversão,
 desenvolvedores de gramáticas para os editores de texto como \citeonline{sublimeTextSyntax,vsCodeSyntaxHighlighthing},
 seguem uma conversão de nomes para que as utilizações dos escopos gerados pelas gramáticas sejam compatíveis entre si.
 
-Fazendo o uso desta convenção,
-as gramáticas ficam compatíveis com um maior número de arquivos de temas onde são especificados os nomes dos escopos serão utilizados para especificar as cores a serem utilizadas pelo editor de texto.
+Fazendo o uso de uma conversão para nomes de escopos,
+as gramáticas ficam compatíveis com um maior número de arquivos de temas (ou configurações de cores),
+onde são especificados os nomes dos escopos serão utilizados para especificar as cores a serem utilizadas pelo editor de texto.
 Para mais informações sobre a utilização de arquivos de temas em editores de texto veja \citeonline{sublimeTextScopeNaming,vsCodeSyntaxHighlighthing}.
 
 
@@ -204,7 +205,9 @@ Nesta seção será explicado a como a metalinguagem (especificada pela metagram
 começando com o seu símbolo inicial.
 No \typeref{simboloInicialDaMetagramatica},
 defini~=se que o programa é constituído de três grandes áreas,
-que devem acontecer uma em sequencia da outra:
+que devem acontecer uma em sequencia da outra\footnote{
+Para mais informações sobre a sintaxe de entrada de gramáticas do Analisador Lark consulte a documentação \cite{larkGrammarReference,larkStyleCheat}.
+}:
 \begin{enumerate}
 \item A produção ``preamble\_statements'' define características globais da gramática como um nome,
 e um escopo que será atribuído a toda gramática.
@@ -213,7 +216,7 @@ Em comparação com linguagens de programação como ``C'',
 ele pode ser considerado similar ao método ``main''.
 \item A produção ``miscellaneous\_language\_rules'' permite a definição de diversos contextos\footnote{
 Contexto refere~=se a um bloco de operadores ou
-instruções como ``include'' e
+conjunto de instruções como ``include'' e
 ``match''.
 } com grupos de produções da gramática (\fullref{definicaoDeGramatica}),
 que podem ser incluídos a partir do símbolo inicial da gramática definido no item ``language\_construct\_rules''.
@@ -253,7 +256,7 @@ mesmo gramáticas inteiras no contexto da gramática atual.
 Entretanto,
 a implementação de ``include'' realizada neste trabalho somente consegue realizar includes de contextos definidos no mesmo arquivo.
 
-No exemplo \typeref{exemploDeGramaticaPawn1},
+No exemplo do \typeref{exemploDeGramaticaPawn1},
 o operador ``include'' está incluindo contextos da gramática atual que serão definidas mais tarde neste mesmo arquivo.
 Já o operador ``match'' utilizado no final serve para realizar propriamente o reconhecimento do programa de entrada e
 atribuir a ele o escopo ``constant.boolean.language.pawn''.
@@ -265,7 +268,7 @@ Com estas informações,
 o Formatador de Código será capaz de realizar as operações de formatação somente sobre os trechos de código~=fonte que o usuário definir.
 Realizando assim,
 a formatação seletiva de código~=fonte,
-contrário da formatação total de código~=fonte como acontece nos demais trabalhos (\typeref{performanceDoFormator}).
+contrário da formatação total de código~=fonte como acontece nos demais trabalhos (\fullref{performanceDoFormator}).
 \begin{lstlisting}[caption={Exemplo de Gramática -- Símbolo Inicial},label={exemploDeGramaticaPawn1},style=yaml_style]
 name: Abstract Machine Language
 scope: source.sma
@@ -287,7 +290,6 @@ No \typeref{exemploDeGramaticaPawn2},
 ``pop''.
 O operadores ``push'' e
 ``pop'' são responsáveis por manter uma pilha de contextos que permite aplicar um mesmo escopo por várias linhas utilizado o operador ``meta\_scope''.
-
 A diferença entre o operador ``scope'' e
 ``meta\_scope'' é que o operador ``scope'' atribuí o escopo diretamente ao texto reconhecido pelo um operador ``match''.
 Já o operador ``meta\_scope'' permite aplicar o escopo a todo o texto desde o primeiro até o último ``match'',
@@ -312,16 +314,24 @@ parens: {
 No \typeref{exemploDeGramaticaPawn3},
 é introduzido o uso do operador ``captures''.
 O operador ``captures'' atribuí simultaneamente diversos escopos com uma única expressão regular.
-Cada um dos números listados equivalem a um dos grupos de captura \cite{expressionGrammarsWithRegexLikeCaptures} da expressão regular utilizada no operador ``captures''.
+Cada um dos números listados equivalem a um dos grupos de captura da expressão regular utilizada no operador ``captures''.
+O operador ``scope'' pode ser considerado um caso especial do operador ``captures'' quando utiliza~=se o Grupo de Captura 0.
 
-O operador ``scope'' pode ser considerado um caso especial do operador ``captures'' quando utiliza~=se o grupo de captura 0,
-que refere~=se a toda a expressão regular encontrada.
+Motores de expressões regulares geralmente suportam um recurso chamado de Grupos de Captura \cite{expressionGrammarsWithRegexLikeCaptures}.
 Por exemplo,
-ao invés de utilizar o operador``scope:
-algo'',
+a expressão regular ``foo(bar)zoo(car)'' possuí 3 grupos de captura quando analisado o texto de entrada ``foobarzoocar'':
+\begin{inparaenum}[1)] \setcounter{enumi}{-1}
+\item foobarzoocar
+\item bar
+\item car,
+\end{inparaenum}%
+onde o grupo de captura 0 refere~=se a toda a expressão regular encontrada.
+Portanto,
+ao invés de utilizar~=se o operador ``scope:
+constant.numeric.pawn'',
 poderia~=se utilizar equivalentemente o operador ``captures:
 0.
-algo''.
+constant.numeric.pawn''.
 \begin{lstlisting}[caption={Exemplo de Gramática -- Grupos de Captura},label={exemploDeGramaticaPawn3},style=yaml_style]
 numbers: {
     match: '(\d+)(\.\{2\})(\d+)' {
@@ -342,9 +352,9 @@ Ao realizar o reconhecido o programa de entrada utilizando esta gramática,
 a Árvore de Sintaxe Abstrata\footnote{%
 Do inglês (AST), Abstract Syntax Tree.
 } \cite{ahoCompilerDragonBook} será interpretada diversas vezes,
-iniciando no símbolo inicial até chegar ao último símbolo da gramática.
+partindo no símbolo inicial até chegar ao último símbolo da gramática.
 
-O processo de interpretação irá reiniciar infinitamente até que nenhum texto seja mais consumido por nenhum dos operadores da gramática.
+O processo de interpretação irá reiniciar indefinidamente até que nenhum texto seja mais consumido por nenhum dos operadores da gramática.
 Assim,
 uma vez que um trecho de código~=fonte já foi classificado,
 ele será ignorado quando os próximos operadores forem aplicados,
@@ -387,7 +397,7 @@ check_brackets: {
 
 \section{Analisador Semântico}
 
-Depois que um metaprograma da metalinguagem apresentada na seção anterior é analisada pelo Analisador Lark,
+Depois que um metaprograma da metalinguagem apresentada na seção anterior é reconhecido pelo Analisador Lark,
 o Analisador Lark entrega a Árvore de Sintaxe da gramática da linguagem sendo descrita pelo metaprograma (\typeref{MetacompilerMetagrammarMetaprogram}).
 Todas as verificações de corretude da sintaxe da gramática são verificadas pelo Analisador Lark,
 com base na metagramática da metalinguagem.
@@ -402,7 +412,7 @@ ele devolve Árvore de Sintaxe Abstrata completa.
 Então,
 utilizando a Árvore de Sintaxe Abstrata,
 realiza~=se a formatação de código~=fonte recebendo um programa de entrada e
-as configurações do formatador (\typeref{MetacompilerMetagrammarMetaprogram}).
+as configurações do formatador (\typeref{ParsersPublicAudienceTraduzido,MetacompilerMetagrammarMetaprogram}).
 
 No \typeref{semanticAnalizerConstructor},
 pode~=se ver o construtor do Analisador Semântico.
@@ -457,10 +467,8 @@ class TreeTransformer(pushdown.Transformer):
         self.indentation_blocks = []
 \end{lstlisting}
 
-A visita dos nodos pela função ``transform(tree)'' acontece simplesmente chamado métodos que a classe ``TreeTransformer''\footnote{%
-Definido no \typeref{semanticAnalizerConstructor}.
-} define e
-que possuem os mesmos nomes que os símbolos não=terminais definidos pela metagramática.
+A visita dos nodos pela função ``transform(tree)'' acontece simplesmente chamado métodos que a classe ``TreeTransformer'' (Definido no \typeref{semanticAnalizerConstructor}) define e
+que possuem os mesmos nomes que os símbolos não~=terminais definidos pela metagramática.
 Então,
 cada nodo ou
 função deve retornar qual será o novo nodo que irá o substituir na Árvore de Sintaxe.
@@ -482,26 +490,26 @@ Caso não existam os métodos ``preamble\_statements'' e
 os nós ``preamble\_statements'' e
 ``language\_construct\_rules'' da Árvore de Sintaxe não serão visitados e
 ``poderão'' ser excluídos da Análise Semântica (mas não da Árvore de Sintaxe Abstrata).
-Note que,
-nodos não existentes classe ``TreeTransformer'' não serão excluídos da Árvore final,
-mas eles serão mantidos intactos,
-a não ser que algum outro nodo os altere diretamente.
+Nodos não analisados pela classe ``TreeTransformer'' não serão excluídos da Árvore de Sintaxe Abstrata,
+eles serão mantidos intactos,
+a não ser que algum outro nodo os altere diretamente na Árvore de Sintaxe.
 
 Mesmo que não existam os métodos ``preamble\_statements'' e
 ``language\_construct\_rules'' definidos na classe ``TreeTransformer'',
-eles também pode ser visitados diretamente a partir de algum nodo pai deles ou
+eles também podem ser visitados diretamente a partir de algum nodo pai deles ou
 até algum de seus filhos.
 Inclusive,
 esta foi uma das alterações realizadas no fork ``pushdown'' do Analisador Lark.
 Por padrão,
 ao iterar pela árvore,
 o Analisador Lark somente passa como parâmetro da função o nodo correspondente ao método atualmente sendo chamado e
-uma lista de filhos.
+uma lista de nodos filhos.
 Entretanto,
 ``pushdown'' também passa um terceiro parâmetro que é uma referência para o nó raíz da árvore e
-mantém a variável ``parent'' como um atributo da árvore que aponta para o nó pai do nó atual.
+mantém a variável ``parent'',
+acessível como um atributo da classe ``TreeTransformer''.
 
-O formatador de código~=fonte não é composto somente uma parte única e
+O Formatador de Código não é composto somente uma parte única e
 altamente acoplada, mas pelo contrário,
 um conjunto de partes altamente coesas e
 completamente independentes onde cada uma dessas partes recebe a Árvore de Sintaxe Abstrata do Analisador Semântico,
@@ -511,7 +519,7 @@ para então realizar a formatação do programa de entrada junto com as configur
 \subsection{Performance}
 \label{performanceDoFormator}
 
-Continuamente chamar diversos algoritmos independentes possui uma grande a perda de performance em comparação com os formatadores de código~=fonte apresentados no \fullref{source_code_beautifiers}.
+Continuamente chamar diversos algoritmos independentes possui uma perda de performance em comparação com os formatadores de código~=fonte apresentados no \fullref{source_code_beautifiers}.
 Estes formatadores tem como principal características realizar a formatação de código~=fonte em uma única passada,
 i.e.,
 a Árvore de Sintaxe de programa de entrada é completamente reconstruída,
@@ -520,16 +528,16 @@ para então ser serializada novamente em texto de acordo com as configurações 
 Ao leitor mais desatento,
 pode parecer que então não existe muita diferença entre a ferramenta de formatação proposta neste trabalho para as já existentes.
 Entretanto,
-estre trabalho permite que o usuário entre com a gramática da linguagem a ser formatada,
+este trabalho permite que o usuário entre com a gramática da linguagem a ser formatada,
 diferentes dos outros trabalhos onde esta gramática já vem junto do formatador.
-Formadores de código~=fonte como apresentados na \fullref{source_code_beautifiers} são construído programando~=se as produções da gramática diretamente no código~=fonte do formatador (Descendentes Recursivos,
+Formadores de código~=fonte como apresentados na \fullref{source_code_beautifiers} são construídos programando~=se as produções da gramática diretamente no código~=fonte do formatador (Descendentes Recursivos,
 reveja a \fullref{gramaticasVersusLinguagens}).
 
-Ao não permitir que o usuário possa entrar com a gramática do programa,
+Ao não permitir~=se que o usuário possa entrar com a gramática do programa,
 restringe~=se o formatador a somente funcionar com as gramáticas que foram programadas dentro do seu código~=fonte.
 Uma vez que o usuário da ferramenta precisa programar ela para ter suporte a sua linguagem,
-isso dificulta a adição do suporte de novas linguagens de formatação,
-pois precisa~=se programar as suas gramáticas dentro do código~=fonte do formatador.
+isso dificulta a adição do suporte de novas linguagens ao formatador,
+pois precisa~=se programar as suas gramáticas diretamente dentro do código~=fonte do formatador.
 
 
 \section{Formatador de Código}
@@ -596,7 +604,7 @@ Uma vez que ``Interpreter'' termina de construir todos os pedaços de código~=f
 a função ``get\_new\_program'' irá juntos dos os pedaços e
 salvá~=los na variável ``cached\_new\_program'',
 para evitar ter que recalcular o novo programa toda vez que se pedir~=se sua nova versão.
-\begin{lstlisting}[caption={Construtor de ParsedProgram},label={construtorDeParsedProgram},style=mypython]
+\begin{lstlisting}[caption={Construtor de ``ParsedProgram''},label={construtorDeParsedProgram},style=mypython]
 class ParsedProgram(object):
     """
         Represents a program as chunks of data as (text_chunk_start_position,
