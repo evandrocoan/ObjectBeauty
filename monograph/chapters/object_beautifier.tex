@@ -158,17 +158,18 @@ Existem algumas diferenças técnicas da metagramática deste trabalho com as do
 Como por exemplo,
 a implementação da metagramática realizada ainda não suporta a classificação do mesmo trecho de código~=fonte por múltiplos tipos de escopo \cite{vsCodeSyntaxHighlighthing}.
 
-Foi escolhida a criação de uma nova metagramática por que as implementações de metagramáticas já existentes como \citeonline{rustSublimeTextSyntaxSyntec,vsCodeSyntaxHighlighthing}
-\begin{inparaenum}[1)]
-\item não são capazes de reconhecer todas as características de todas as linguagens de programação e
-\item não possuem sintaxe própria,
+Foi escolhida a criação de uma nova metagramática por que as implementações de metagramáticas já existentes como \citeonline{rustSublimeTextSyntaxSyntec,vsCodeSyntaxHighlighthing}:
+\begin{enumerate}[1)]
+\item Não utilizam explicitamente nenhum analisador,
+realizando a programação das produções da gramática diretamente no código~=fonte (\fullref{gramaticasVersusLinguagens}).
+\item Não são capazes de reconhecer todas as características de todas as linguagens de programação (devido a optimizações para maior performance).
+\item Não possuem sintaxe própria,
 i.e.,
-elas utilizam de outras linguagens como YAML,
+utilizam~=se de outras linguagens como YAML,
 XML e
 JSON para fazer a especificação da metagramática.
-\end{inparaenum}
-Assim,
-fazendo a especificação de uma nova metagramática,
+\end{enumerate}
+Fazendo a especificação de uma nova metagramática,
 é possível adaptar~=se a especificação da sintaxe das gramáticas de acordo as necessidades específicas sem ter que depender de características de outras linguagens como YAML,
 XML ou
 JSON.
@@ -418,14 +419,21 @@ Portanto,
 somente resta ser implementado o Analisador Semântico para verificar se a linguagem descrita respeita as regras semânticas da metalinguagem explicadas na seção anterior,
 \nameref{metalinguagemGrammar}.
 
-Neste trabalho,
-o Analisador Semântico recebe como entrada a Árvore de Sintaxe do programa de entrada,
+Neste trabalho (\typeref{CodeFormatterClassDiagram}),
+o Analisador Semântico que deriva de ``Transformer'' recebe como entrada a Árvore de Sintaxe do programa de entrada,
 e uma vez que o Analisador Semântico termina seu trabalho,
 ele devolve Árvore de Sintaxe Abstrata completa.
 Então,
 utilizando a Árvore de Sintaxe Abstrata,
-realiza~=se a formatação de código~=fonte recebendo um programa de entrada e
+``Backend'' que deriva de ``Interpreter'',
+realiza a formatação de código~=fonte recebendo um programa de entrada e
 as configurações do formatador (\typeref{ParsersPublicAudienceTraduzido,MetacompilerMetagrammarMetaprogram}).
+\begin{figure}[h]
+\centering
+\includegraphics[width=1.0\textwidth]{CodeFormatterClassDiagram.png}
+\caption[Diagrama das Principais Classes]{Diagrama das Principais Classes -- Fonte Própria}
+\label{CodeFormatterClassDiagram}
+\end{figure}
 
 No \typeref{semanticAnalizerConstructor},
 pode~=se ver o construtor do Analisador Semântico.
@@ -434,7 +442,7 @@ Entretanto,
 a ela não é passada pelo construtor mas sim por um método chamado ``transform(tree)''.
 Esta é uma característica do Analisador Lark utilizado.
 A função ``transform(tree)'' do Analisador Lark simplesmente inicia a análise do programa visitando todos os nós da Árvore de Sintaxe,
-partindo das folhas até chegar na raíz.
+partindo das folhas até chegar na raíz (\fullref{compiladoresEtradutores}).
 \begin{lstlisting}[caption={Construtor do Analisador Semântico},label={semanticAnalizerConstructor},style=mypython]
 class TreeTransformer(pushdown.Transformer):
     """
@@ -522,6 +530,9 @@ Entretanto,
 mantém a variável ``parent'',
 acessível como um atributo da classe ``TreeTransformer''.
 
+
+\section{Formatador de Código}
+
 O Formatador de Código não é composto somente uma parte única e
 altamente acoplada.
 Mas \advisor{}{pelo contrário,} um conjunto de partes altamente coesas e
@@ -553,7 +564,7 @@ isso dificulta a adição do suporte de novas linguagens ao formatador,
 pois precisa~=se programar as suas gramáticas diretamente dentro do código~=fonte do formatador.
 
 
-\section{Formatador de Código}
+\subsection{Formatação}
 
 No \typeref{construtorDoFormatador},
 pode ser encontrado o construtor do formatador de código~=fonte.
@@ -567,9 +578,9 @@ e no caso do Formatador de Código,
 a Árvore de Sintaxe Abstrata.
 
 Diferentemente do Analisador Semântico,
-o Formatador de Código faz herança do tipo ``Interpreter'' em vez de ``Transformer''.
+o Formatador de Código faz herança do tipo ``Interpreter'' em vez de ``Transformer'' (\typeref{CodeFormatterClassDiagram}).
 A diferença é simples,
-``Interpreter'' visita a árvore partindo das folhas até chegar na raiz visitando todos os nodos filhos,
+``Interpreter'' visita a árvore partindo das folhas até chegar na raíz visitando todos os nodos filhos (\fullref{compiladoresEtradutores}),
 já ``Transformer'' visita a árvore partindo da raíz até chegar nos nodos pais,
 i.e.,
 ele não visita os nodos filhos automaticamente como ``Transformer'' faz.
@@ -635,4 +646,7 @@ class ParsedProgram(object):
         self.cached_new_program = []
         log( 4, "program %s: `%s`", len( str( self.program ) ), self.program )
 \end{lstlisting}
+
+
+\subsection{Exemplo}
 
