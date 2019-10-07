@@ -15,11 +15,11 @@ def escape_html(input_text):
     return dominate.util.escape( input_text, quote=False ).replace("\n", "<br />" )
 
 def get_div_doc(input_text):
-    return '<span grammar_scope="none" theme_scope="none">%s</span>' % escape_html( input_text )
+    return '<span grammar_scope="none" setting_scope="none">%s</span>' % escape_html( input_text )
 
-def get_font_doc(input_text, color, grammar_scope, theme_scope):
-    return '<font color="%s" grammar_scope="%s" theme_scope="%s">%s</font>' % (
-            color, grammar_scope, theme_scope, escape_html( input_text )
+def get_font_doc(input_text, formatted_text, setting, grammar_scope, setting_scope):
+    return '<font setting="%s" grammar_scope="%s" setting_scope="%s" input_text="%s">%s</font>' % (
+            setting, grammar_scope, setting_scope, input_text, escape_html( formatted_text )
         )
 
 def get_html_header(title):
@@ -38,17 +38,17 @@ def get_html_footer():
     )
 
 
-class ParsedProgram(object):
+class AbstractFormatter(object):
     """
         Represents a program as chunks of data as (text_chunk_start_position,
         text_chunk).
     """
 
-    def __init__(self, program, theme):
+    def __init__(self, program, settings):
         super().__init__()
         self.initial_size = len( program )
         self.program = program
-        self.theme = OrderedDict( sorted( theme.items(), key=lambda item: len( str( item ) ) ) )
+        self.settings = OrderedDict( sorted( settings.items(), key=lambda item: item ) )
 
         self.new_program = []
         self.cached_new_program = []
@@ -116,25 +116,25 @@ class ParsedProgram(object):
 
         def select():
             for index in range( len(program_scopes), 0, -1 ):
-                program_scope = ".".join( [program_scopes[inner_index] for inner_index in range( 0, index ) ] )
+                program_scope = ".".join( [ program_scopes[inner_index] for inner_index in range( 0, index ) ] )
 
-                for theme_scopes, theme_color in self.theme.items():
-                    theme_scopes = theme_scopes.split( '.' )
+                for setting_scopes, setting_value in self.settings.items():
+                    setting_scopes = setting_scopes.split( '.' )
 
-                    for index in range( 1, len(theme_scopes) + 1 ):
-                        theme_scope = ".".join( [theme_scopes[inner_index] for inner_index in range( 0, index ) ] )
-                        # log( 4, "theme_color: %s, comparing `%s` with `%s`", theme_color, program_scope, theme_scope )
+                    for index in range( 1, len(setting_scopes) + 1 ):
+                        setting_scope = ".".join( [ setting_scopes[inner_index] for inner_index in range( 0, index ) ] )
+                        log( 8, "setting_value: %s, comparing `%s` with `%s`", setting_value, program_scope, setting_scope )
 
-                        if theme_scope == program_scope:
-                            # log( 4, "Selecting %s with %s", theme_scope, theme_color )
-                            return theme_color, theme_scope
+                        if setting_scope == program_scope:
+                            log( 8, "Selecting %s with %s", setting_scope, setting_value )
+                            return setting_value, setting_scope
 
             return "", ""
 
-        first_matched_color, theme_scope = select()
+        matched_setting, setting_scope = select()
 
-        # log( 4, "first_matched_color: %s", first_matched_color )
-        return first_matched_color, theme_scope
+        log( 8, "matched_setting: '%s' (on %s)", matched_setting, setting_scope )
+        return matched_setting, setting_scope
 
     def add_match(self, scope_name, last_match_stack, match):
         log( 4, "add_match: %s", match )
@@ -180,20 +180,31 @@ class ParsedProgram(object):
         assert len( self.program ) == self.initial_size, "Expected %s got %s" % ( self.initial_size, len(self.program) )
 
     def _generate_chunk_html(self, grammar_scope, matched_text, match_start, match_end):
-        first_matched_color, theme_scope = self.get_theme(grammar_scope)
-        doc = get_font_doc( matched_text, first_matched_color, grammar_scope, theme_scope )
+        matched_setting, setting_scope = self.get_theme(grammar_scope)
+        formatted_text = self.format_text( matched_text, matched_setting )
 
-        self.new_program.append( ( match_start, match_end, doc ) )
-        log( 4, "formatted_text: %s", doc )
+        html_fragment = get_font_doc( matched_text, formatted_text, matched_setting, grammar_scope, setting_scope )
+        self.new_program.append( ( match_start, match_end, html_fragment ) )
+
+        log( 4, "formatted_text: %s", html_fragment )
         log( 4, "program %s: `%s`", len( str( self.program ) ), self.program )
+
+    def format_text(matched_text, matched_setting):
+        return matched_text
+
+
+class SingleSpaceFormatter(AbstractFormatter):
+
+    def format_text(self, matched_text, matched_setting):
+        return matched_text
 
 
 class Backend(pushdown.Interpreter):
 
-    def __init__(self, tree, program, theme):
+    def __init__(self, formatter, tree, program, settings):
         super().__init__()
         self.tree = tree
-        self.program = ParsedProgram( program, theme )
+        self.program = formatter( program, settings )
 
         ## A list of lists, where each list saves all the matches performed by
         ## the last match_statement on scope_name_statement

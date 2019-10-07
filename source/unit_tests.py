@@ -715,5 +715,55 @@ class TestCodeHighlighterBackEnd(TestingGrammarUtilities):
         """, generated_html )
 
 
+class TestCodeFormatterBackEnd(TestingGrammarUtilities):
+
+    def _getBackend(self, example_grammar, example_program, example_theme):
+        function_file = get_relative_path( "examples/%s.html" % getCallerName(), __file__ )
+        # log( 1, "function_file: %s", function_file )
+
+        tree = self._getError( example_grammar, True )
+        backend = code_formatter.Backend( code_formatter.SingleSpaceFormatter, tree, example_program, example_theme )
+        generated_html = backend.generated_html()
+
+        with open( function_file, 'w', newline='\n', encoding='utf-8' ) as output_file:
+            output_file.write( generated_html )
+            output_file.write("\n")
+
+        return generated_html
+
+    def test_singleIfStamement(self):
+        example_grammar = wrap_text(
+        r"""
+            scope: source.sma
+            name: Abstract Machine Language
+            contexts: {
+                match: if\( {
+                    scope: if.statement.definition
+                    push: {
+                        meta_scope: if.statement.body
+                        match: \) {
+                            scope: if.statement.definition
+                            pop: true
+                        }
+                    }
+                }
+            }
+        """ )
+
+        example_program = wrap_text(
+        r"""if(something) bar""" )
+
+        example_settings = \
+        {
+            "if.statement.body" : 1,
+        }
+
+        generated_html = self._getBackend(example_grammar, example_program, example_settings)
+
+        self.assertTextEqual(
+        r"""
+        """, generated_html )
+
+
 if __name__ == "__main__":
     main()

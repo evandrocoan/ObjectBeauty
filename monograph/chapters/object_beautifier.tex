@@ -601,7 +601,7 @@ class Backend(pushdown.Interpreter):
     def __init__(self, tree, program, settings):
         super().__init__()
         self.tree = tree
-        self.program = ParsedProgram( program, settings )
+        self.program = AbstractFormatter( program, settings )
 
         ## A list of lists, where each list saves all the matches performed by
         ## the last match_statement on scope_name_statement
@@ -621,16 +621,16 @@ class Backend(pushdown.Interpreter):
 \end{lstlisting}
 
 Enquanto ``Interpreter'' é responsável por somente ``passear'' pela Árvore de Sintaxe Abstrata,
-a classe ``ParsedProgram'' \typeref{construtorDeParsedProgram} é responsável por realmente fazer a formatação de código~=fonte de acordo com a instruções vindas da Árvore de Sintaxe Abstrata.
+a classe ``AbstractFormatter'' \typeref{construtorDeParsedProgram} é responsável por realmente fazer a formatação de código~=fonte de acordo com a instruções vindas da Árvore de Sintaxe Abstrata.
 No final do processo,
-``ParsedProgram'' terá na variável ``new\_program'' todos os pedaços do programa formatado.
+``AbstractFormatter'' terá na variável ``new\_program'' todos os pedaços do programa formatado.
 
 Uma vez que ``Interpreter'' termina de construir todos os pedaços de código~=fonte formatado,
 a função ``get\_new\_program'' irá unir dos os pedaços e
 salvá~=los na variável ``cached\_new\_program'',
 para evitar ter que recalcular o novo programa toda vez que pedir~=se a sua nova versão.
-\begin{lstlisting}[caption={Construtor de ``ParsedProgram''},label={construtorDeParsedProgram},style=mypython]
-class ParsedProgram(object):
+\begin{lstlisting}[caption={Construtor de ``AbstractFormatter''},label={construtorDeParsedProgram},style=mypython]
+class AbstractFormatter(object):
     """
         Represents a program as chunks of data as (text_chunk_start_position,
         text_chunk).
