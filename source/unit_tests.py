@@ -755,7 +755,7 @@ class TestCodeFormatterBackEnd(TestingGrammarUtilities):
 
         example_settings = \
         {
-            "if.statement.body" : 1,
+            "if.statement.body" : 2,
         }
 
         generated_html = self._getBackend(example_grammar, example_program, example_settings)

@@ -38,7 +38,7 @@ que não difere muito de um analisador para outro,
 exceto por detalhes de implementação específicos de cada analisador.
 }
 
-Para realizar a implementação da nova ferramenta de formatação de código,
+Para realizar a implementação da nova ferramenta de formatação de código~=fonte,
 foi realizado a construção de uma nova gramática de gramáticas de uma nova linguagem chamada de ``ObjectBeauty'',
 uma metalinguagem \cite{compilersCompilerMetaLanguage}.
 Na \typeref{MyWorflowForLarkTraduzido},
@@ -443,7 +443,7 @@ a ela não é passada pelo construtor mas sim por um método chamado ``transform
 Esta é uma característica do Analisador Lark utilizado.
 A função ``transform(tree)'' do Analisador Lark simplesmente inicia a análise do programa visitando todos os nós da Árvore de Sintaxe,
 partindo das folhas até chegar na raíz (\fullref{compiladoresEtradutores}).
-\begin{lstlisting}[caption={Construtor do Analisador Semântico},label={semanticAnalizerConstructor},style=mypython]
+\begin{lstlisting}[caption={Construtor do Analisador Semântico},label={semanticAnalizerConstructor},style=python_style]
 class TreeTransformer(pushdown.Transformer):
     """
         Transforms the Derivation Tree nodes into meaningful string representations,
@@ -595,13 +595,13 @@ que o construtor de ``Transformer'' recebe,
 é o programa a ser formatado pelo formatador.
 No final processo,
 ``Interpreter'' terá em sua variável ``self.program'' o novo programa completamente formatado.
-\begin{lstlisting}[caption={Construtor do Formatador},label={construtorDoFormatador},style=mypython]
+\begin{lstlisting}[caption={Construtor do Formatador},label={construtorDoFormatador},style=python_style]
 class Backend(pushdown.Interpreter):
 
-    def __init__(self, tree, program, settings):
+    def __init__(self, formatter, tree, program, settings):
         super().__init__()
         self.tree = tree
-        self.program = AbstractFormatter( program, settings )
+        self.program = formatter( program, settings )
 
         ## A list of lists, where each list saves all the matches performed by
         ## the last match_statement on scope_name_statement
@@ -629,7 +629,7 @@ Uma vez que ``Interpreter'' termina de construir todos os pedaços de código~=f
 a função ``get\_new\_program'' irá unir dos os pedaços e
 salvá~=los na variável ``cached\_new\_program'',
 para evitar ter que recalcular o novo programa toda vez que pedir~=se a sua nova versão.
-\begin{lstlisting}[caption={Construtor de ``AbstractFormatter''},label={construtorDeParsedProgram},style=mypython]
+\begin{lstlisting}[caption={Construtor de ``AbstractFormatter''},label={construtorDeParsedProgram},style=python_style]
 class AbstractFormatter(object):
     """
         Represents a program as chunks of data as (text_chunk_start_position,
@@ -649,4 +649,68 @@ class AbstractFormatter(object):
 
 
 \subsection{Exemplo}
+
+Caso este trabalho fosse utilizado para adicionar cores,
+como feito em editores de texto,
+este seria o ponto onde as implementações divergem.
+Por facilidade,
+a formatação de código~=fonte recebe como entrada o programa em texto simples,
+e como resultado,
+retorna uma página HTML \cite{parallelParserForHTML}.
+Com isso,
+sendo possível observar com mais facilidade o código~=fonte original e
+formatado,
+e as metainformações atribuídas pela gramática da linguagem como atributos das tags HTML.
+
+No \typeref{exemploDeFormatacaoDeCodigo},
+existe um trecho de HTML gerado com as metainformações agregadas as trecho de programa não~=formatado ``if(something) bar'' resultando no trecho de programa formatado ``if( \ something \ ) bar''.
+\begin{quadro}[h]
+\caption{Exemplo de Formatação de Código}
+\label{exemploDeFormatacaoDeCodigo}
+\begin{bluebox}
+\lstset{xleftmargin=2em,aboveskip=0pt}
+
+    \begin{lstlisting}[caption={Exemplo de HTML Gerado pelo Formatador de Código},label={exemploDeHTMLGerado},style=HTML5]
+    <body style="white-space: pre; font-family: monospace;">
+        <span setting="unformatted" grammar_scope="if.statement.definition" setting_scope="" original_program="if(">if(</span>
+        <span setting="1" grammar_scope="if.statement.body" setting_scope="if.statement.body" original_program="something">  something  </span>
+        <span setting="unformatted" grammar_scope="if.statement.definition" setting_scope="" original_program=")">)</span>
+        <span grammar_scope="none" setting_scope="none"> bar</span>
+    </body>
+    \end{lstlisting}
+    \begin{lstlisting}[caption={Exemplo de Gramática Utilizada pelo Formatador de Código},label={exemploDeGramaticaUtilizada},style=yaml_style]
+    scope: source.sma
+    name: Abstract Machine Language
+    contexts: {
+        match: if\( {
+            scope: if.statement.definition
+            push: {
+                meta_scope: if.statement.body
+                match: \) {
+                    scope: if.statement.definition
+                    pop: true
+                }
+            }
+        }
+    }
+    \end{lstlisting}
+    \begin{lstlisting}[caption={Exemplo de Configuração Utilizada pelo Formatador de Código},label={exemploDeConfiguracaoUtilizada},style=python_style]
+    {
+        "if.statement.body" : 2,
+    }
+    \end{lstlisting}
+    \begin{lstlisting}[caption={Exemplo de Formatador de Código},label={exemploDeFormatadorDeCodigo},style=python_style]
+    class SingleSpaceFormatter(AbstractFormatter):
+
+        def format_text(self, matched_text, matched_setting):
+            matched_text = matched_text.strip( " " )
+
+            if matched_setting:
+                return " " * matched_setting + matched_text + " " * matched_setting
+
+            else:
+                return matched_text
+    \end{lstlisting}
+\end{bluebox}
+\end{quadro}
 

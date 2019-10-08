@@ -2343,6 +2343,43 @@
 }
 
 
+@article{parallelParserForHTML,
+    author = {Zhao, Zhijia and Bebenita, Michael and Herman, Dave and Sun, Jianhua and Shen, Xipeng},
+    title = {HPar: A Practical Parallel Parser for HTML--taming HTML Complexities for Parallel Parsing},
+    journal = {ACM Trans. Archit. Code Optim.},
+    issue_date = {December 2013},
+    volume = {10},
+    number = {4},
+    month = dec,
+    year = {2013},
+    issn = {1544-3566},
+    pages = {44:1--44:25},
+    articleno = {44},
+    numpages = {25},
+    url = {http://doi.acm.org/10.1145/2555289.2555301},
+    doi = {10.1145/2555289.2555301},
+    acmid = {2555301},
+    publisher = {ACM},
+    address = {New York, NY, USA},
+    keywords = {HTML parsing, multicore, parallelization},
+    abstract = {Parallelizing HTML parsing is challenging due to the
+    complexities of HTML documents and the inherent dependencies in its parsing
+    algorithm. As a result, despite numerous studies in parallel parsing, HTML
+    parsing remains sequential today. It forms one of the final barriers for
+    fully parallelizing browser operations to minimize the browser’s response
+    time—an important variable for user experiences, especially on portable
+    devices. This article provides a comprehensive analysis on the special
+    complexities of parallel HTML parsing and presents a systematic exploration
+    in overcoming those difficulties through specially designed speculative
+    parallelizations. This work develops, to the best of our knowledge, the
+    first pipelining and data-level parallel HTML parsers. The data-level
+    parallel parser, named HPar, achieves up to 2.4× speedup on quadcore
+    devices. This work demonstrates the feasibility of efficient, parallel HTML
+    parsing for the first time and offers a set of novel insights for parallel
+    HTML parsing},
+}
+
+
 @article{compilersCompilerMetaLanguage,
     author = {Book, Erwin and Shorre, Dewey Val and Sherman, Steven J.},
     title = {The CWIC/36O System, a Compiler for Writing and Implementing Compilers},

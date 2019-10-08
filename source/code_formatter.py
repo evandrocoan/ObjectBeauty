@@ -14,12 +14,13 @@ log = getLogger(1, __name__, time=0, tick=0, msecs=0)
 def escape_html(input_text):
     return dominate.util.escape( input_text, quote=False ).replace("\n", "<br />" )
 
-def get_div_doc(input_text):
-    return '<span grammar_scope="none" setting_scope="none">%s</span>' % escape_html( input_text )
+def get_div_doc(original_program):
+    return '<span grammar_scope="none" setting_scope="none">%s</span>' % escape_html( original_program )
 
-def get_font_doc(input_text, formatted_text, setting, grammar_scope, setting_scope):
-    return '<font setting="%s" grammar_scope="%s" setting_scope="%s" input_text="%s">%s</font>' % (
-            setting, grammar_scope, setting_scope, input_text, escape_html( formatted_text )
+def get_font_doc(original_program, formatted_text, setting, grammar_scope, setting_scope):
+    log('setting', setting)
+    return '<span setting="%s" grammar_scope="%s" setting_scope="%s" original_program="%s">%s</span>' % (
+            setting, grammar_scope, setting_scope, original_program, escape_html( formatted_text )
         )
 
 def get_html_header(title):
@@ -48,6 +49,8 @@ class AbstractFormatter(object):
         super().__init__()
         self.initial_size = len( program )
         self.program = program
+
+        ## No need to sort the settings other than always having the some logs output
         self.settings = OrderedDict( sorted( settings.items(), key=lambda item: item ) )
 
         self.new_program = []
@@ -98,13 +101,6 @@ class AbstractFormatter(object):
         fixed_program = sorted( self.new_program, key=lambda item: item[0] )
         fixed_program_len = len(fixed_program)
 
-        # for index in range( 0, fixed_program_len - 1 ):
-        #     current_chunk = fixed_program[index]
-        #     next_chunk = fixed_program[index+1]
-
-        #     if current_chunk[1] > next_chunk[0]:
-        #         fixed_program[index], fixed_program[index+1] = fixed_program[index+1], fixed_program[index]
-
         log( 4, "fixed_program:\n%s", pprint.pformat( [( item[0], item[1], str(item[2]) )for item in fixed_program], indent=2, width=200 ) )
         log( 4, "cached_new_program: %s", self.cached_new_program )
 
@@ -112,22 +108,19 @@ class AbstractFormatter(object):
         return self.cached_new_program
 
     def get_theme(self, scope_name):
-        program_scopes = scope_name.split( '.' )
 
         def select():
-            for index in range( len(program_scopes), 0, -1 ):
-                program_scope = ".".join( [ program_scopes[inner_index] for inner_index in range( 0, index ) ] )
 
-                for setting_scopes, setting_value in self.settings.items():
-                    setting_scopes = setting_scopes.split( '.' )
+            for setting_scopes, setting_value in self.settings.items():
+                setting_scopes = setting_scopes.split( '.' )
 
-                    for index in range( 1, len(setting_scopes) + 1 ):
-                        setting_scope = ".".join( [ setting_scopes[inner_index] for inner_index in range( 0, index ) ] )
-                        log( 8, "setting_value: %s, comparing `%s` with `%s`", setting_value, program_scope, setting_scope )
+                for index in range( 1, len(setting_scopes) + 1 ):
+                    setting_scope = ".".join( [ setting_scopes[inner_index] for inner_index in range( 0, index ) ] )
+                    log( 8, "setting_value: %s, comparing `%s` with `%s`", setting_value, scope_name, setting_scope )
 
-                        if setting_scope == program_scope:
-                            log( 8, "Selecting %s with %s", setting_scope, setting_value )
-                            return setting_value, setting_scope
+                    if setting_scope == scope_name:
+                        log( 8, "Selecting %s with %s", setting_scope, setting_value )
+                        return setting_value, setting_scope
 
             return "", ""
 
@@ -181,11 +174,15 @@ class AbstractFormatter(object):
 
     def _generate_chunk_html(self, grammar_scope, matched_text, match_start, match_end):
         matched_setting, setting_scope = self.get_theme(grammar_scope)
-        formatted_text = self.format_text( matched_text, matched_setting )
 
-        html_fragment = get_font_doc( matched_text, formatted_text, matched_setting, grammar_scope, setting_scope )
+        if setting_scope:
+            formatted_text = self.format_text( matched_text, matched_setting )
+            html_fragment = get_font_doc( matched_text, formatted_text, matched_setting, grammar_scope, setting_scope )
+
+        else:
+            html_fragment = get_font_doc( matched_text, matched_text, "unformatted", grammar_scope, setting_scope )
+
         self.new_program.append( ( match_start, match_end, html_fragment ) )
-
         log( 4, "formatted_text: %s", html_fragment )
         log( 4, "program %s: `%s`", len( str( self.program ) ), self.program )
 
@@ -196,7 +193,13 @@ class AbstractFormatter(object):
 class SingleSpaceFormatter(AbstractFormatter):
 
     def format_text(self, matched_text, matched_setting):
-        return matched_text
+        matched_text = matched_text.strip( " " )
+
+        if matched_setting:
+            return " " * matched_setting + matched_text + " " * matched_setting
+
+        else:
+            return matched_text
 
 
 class Backend(pushdown.Interpreter):
