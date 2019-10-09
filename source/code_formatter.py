@@ -18,7 +18,6 @@ def get_div_doc(original_program):
     return '<span grammar_scope="none" setting_scope="none">%s</span>' % escape_html( original_program )
 
 def get_font_doc(original_program, formatted_text, setting, grammar_scope, setting_scope):
-    log('setting', setting)
     return '<span setting="%s" grammar_scope="%s" setting_scope="%s" original_program="%s">%s</span>' % (
             setting, grammar_scope, setting_scope, original_program, escape_html( formatted_text )
         )

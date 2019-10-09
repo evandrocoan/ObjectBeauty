@@ -190,9 +190,7 @@ section=TITLE, % Título de seções em caixa alta
 % Part 2
 \addtoincludeonly{chapters/object_beautifier}
 % \addtoincludeonly{chapters/conclusion}
-
-% \addtoincludeonly{aftertext/apendice_a}
-% \addtoincludeonly{aftertext/abstracts}
+% \addtoincludeonly{aftertext/aftertext}
 
 % Control whether the full document will be generated
 % Note: It will also generate severals errors like the following, which can be ignored
@@ -209,23 +207,14 @@ section=TITLE, % Título de seções em caixa alta
 % Disable \openright default behavior
 \ifforcedinclude\openany\else\fi
 
-\ifenglish
-    \hypersetup
-    {
-        pdfauthor={Author},
-        pdfsubject={Thesis' Abstract},
-        pdfcreator={LaTeX with abnTeX2 for UFSC},
-        pdfkeywords={abnt}{latex}{UFSC}{abntex2}{thesis},
-    }
-\else
-    \hypersetup
-    {
-        pdfauthor={Autores},
-        pdfsubject={Resumo da tese},
-        pdfcreator={LaTeX com abnTeX2 para UFSC},
-        pdfkeywords={abnt}{latex}{UFSC}{abntex2}{tese},
-    }
-\fi
+\hypersetup
+{
+    pdfsubject={Thesis' Abstract},
+    pdfcreator={LaTeX with abnTeX2 for UFSC},
+    pdftitle={\imprimirtitulo},
+    pdfauthor={\imprimirautor},%
+    pdfkeywords={\lang{\palavraschaveingles}{\palavraschaveportugues}},%
+}
 
 
 % https://tex.stackexchange.com/questions/171999/overfull-hbox-in-biblatex
@@ -324,7 +313,7 @@ section=TITLE, % Título de seções em caixa alta
         \setlength\midchapskip{20pt}
         \setlength\afterchapskip{20pt}
 
-        \include{aftertext/apendice_a}
+        \include{aftertext/appendices}
     \end{apendicesenv}
 
     % Inicia os anexos

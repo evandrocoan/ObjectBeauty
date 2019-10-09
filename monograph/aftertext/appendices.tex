@@ -1,0 +1,59 @@
+
+
+% Is it possible to keep my translation together with original text?
+% https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
+\chapter{Manual do Formatador de Código}
+\label{manualDoFormatadorDeCodigo}
+
+Não foi cria do nenhuma interface gráfica ou
+de linha de comando que faça a entrada do programa a ser formatado e
+das configurações do formatador.
+Para realizar os testes de funcionamento do formatador,
+foram realizados testes de unidade automatizados.
+Existem duas implementações que utilizam a metalinguagem.
+Uma utiliza a metalinguagem para adicionar cores,
+como feito em editores de texto e
+a outra realiza a formatação de código~=fonte.
+
+\begin{code}
+\caption{Arquivo ``source/main.py''}
+\label{main}
+\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{antlr}{../source/main.py}
+\end{code}
+
+
+\section{Código~=Fonte dos Testes de Unidade}
+
+\begin{code}
+\caption{Arquivo ``source/unit\_tests.py''}
+\label{unit_tests}
+\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/unit_tests.py}
+\end{code}
+
+
+\section{Código~=Fonte da Metagramática}
+
+\begin{code}
+\caption{Arquivo ``source/grammars\_grammar.pushdown''}
+\label{grammars_grammar}
+\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/grammars_grammar.pushdown}
+\end{code}
+
+
+\section{Código~=Fonte do Analisador Semântico}
+
+\begin{code}
+\caption{Arquivo ``source/semantic\_analyzer.py''}
+\label{semantic_analyzer}
+\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/semantic_analyzer.py}
+\end{code}
+
+
+\section{Código~=Fonte do Formatador}
+
+\begin{code}
+\caption{Arquivo ``source/code\_formatter.py''}
+\label{code_formatter}
+\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/code_formatter.py}
+\end{code}
+

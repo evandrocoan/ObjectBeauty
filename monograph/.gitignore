@@ -5,6 +5,7 @@
 /.gitignore
 /example.pdf
 /tmp
+/cache
 
 *.sublime-workspace
 *.pdf
