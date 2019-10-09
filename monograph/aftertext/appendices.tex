@@ -15,45 +15,68 @@ Uma utiliza a metalinguagem para adicionar cores,
 como feito em editores de texto e
 a outra realiza a formatação de código~=fonte.
 
+Nos \typeref{mainHighlighterPy,mainFormatterPy},
+encontra~=se um exemplo simples de programa que pode ser construído para executar o Formatador de Código.
+Sua construção é a mesma utilizada para a criação dos testes de unidade (\typeref{unitTestsPy}).
+Tanto o \typeref{mainFormatterPy} quanto do o \typeref{mainHighlighterPy} geram como resultado um arquivo HTML,
+contendo como conteúdo o resultado de seu trabalho.
 \begin{code}
-\caption{Arquivo ``source/main.py''}
-\label{main}
-\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{antlr}{../source/main.py}
+\caption{Arquivo ``source/main\_formatter.py''}
+\label{mainHighlighterPy}
+\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/main_formatter.py}
+\end{code}
+\begin{code}
+\caption{Arquivo ``source/main\_highlighter.py''}
+\label{mainFormatterPy}
+\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/main_formatter.py}
+\end{code}
+\begin{code}
+\caption{Arquivo ``source/utilities.py''}
+\label{utilitiesPy}
+\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/utilities.py}
 \end{code}
 
 
-\section{Código~=Fonte dos Testes de Unidade}
+\chapter{Código dos Testes de Unidade}
 
 \begin{code}
 \caption{Arquivo ``source/unit\_tests.py''}
-\label{unit_tests}
+\label{unitTestsPy}
 \inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/unit_tests.py}
 \end{code}
 
 
-\section{Código~=Fonte da Metagramática}
-
-\begin{code}
-\caption{Arquivo ``source/grammars\_grammar.pushdown''}
-\label{grammars_grammar}
-\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/grammars_grammar.pushdown}
-\end{code}
-
-
-\section{Código~=Fonte do Analisador Semântico}
+\chapter{Código do Analisador Semântico}
 
 \begin{code}
 \caption{Arquivo ``source/semantic\_analyzer.py''}
-\label{semantic_analyzer}
+\label{semanticAnalyzerPy}
 \inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/semantic_analyzer.py}
 \end{code}
 
 
-\section{Código~=Fonte do Formatador}
+\chapter{Código de Adição de Cores}
+
+\begin{code}
+\caption{Arquivo ``source/code\_highlighter.py''}
+\label{codeHighlighterPy}
+\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/code_highlighter.py}
+\end{code}
+
+
+\chapter{Código do Formatador}
 
 \begin{code}
 \caption{Arquivo ``source/code\_formatter.py''}
-\label{code_formatter}
+\label{codeFormatterPy}
 \inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/code_formatter.py}
 \end{code}
 
+
+\chapter{Código da Metagramática}
+
+\begin{code}
+\caption{Arquivo ``source/grammars\_grammar.pushdown''}
+\label{grammarsGrammarPy}
+\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/grammars_grammar.pushdown}
+\end{code}
