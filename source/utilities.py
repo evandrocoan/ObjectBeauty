@@ -3,7 +3,7 @@
 
 ####################### Licensing #######################################################
 #
-#   Copyright 2018 @ Evandro Coan
+#   Copyright 2019 @ Evandro Coan
 #   Helper functions and classes
 #
 #  Redistributions of source code must retain the above
