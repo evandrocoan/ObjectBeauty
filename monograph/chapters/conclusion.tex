@@ -44,26 +44,39 @@
         the desired settings.
 \end{enumerate}
 }{%
+    Neste trabalho foi desenvolvidos duas ferramentas que utilizam a mesma metagramática.
+    A primeira ferramenta feita foi a de Adição de Cores e
+    a segunda foi o Formatador de Código.
+    Primeiro foi desenvolvida a ferramenta de Adição de Cores para facilitar os testes da metalinguagem e
+    do analisador semântico.
+    Como a ferramenta de Adição de Cores foi a primeira desenvolvida,
+    ela obteve a criação de mais testes de unidade para assegurar que a implementação do analisador semântico e
+    da metagramática estão funcionais.
+
+    Uma vez que se comprovou o funcionamento da metalinguagem,
+    foi realizada um implementação mínima de um formatador de código~=fonte.
+    Ambas as implementações são somente uma prova de conceito do que pode ser feito com a metalinguagem desenvolvida.
     A diferença desta nova proposta de ferramenta de formatação de código~=fonte para as demais é a troca de responsabilidades entre usuários finais da ferramenta e
     os desenvolvedores desta ferramenta e
     das gramáticas para os usuários finais.
     Formatadores de código~=fonte usualmente somente expõe controladamente quais são as mudanças que podem ocorrer ao formatar o código~=fonte.
 
-    A maior parte das ferramentas raramente permite que usuários finais tenham o controle total das mudanças no código~=fonte,
-    i.e.,
-    enquanto utilizando a ferramenta desenvolvida neste trabalho,
+    A maior parte das ferramentas raramente permite que usuários finais tenham o controle total das mudanças no código~=fonte.
+    Enquanto utilizando a ferramenta desenvolvida neste trabalho,
     é facilmente possível escrever regras de formatação que quebrem a sintaxe e
     semântica da linguagem sendo formatada.
-    Entretanto,
-    utilizando~=se as ferramentas usuais de formatação,
+    Por exemplo,
+    na linguagem ``Go'' \cite{programmingLanguageGolang},
+    diferentemente de todas as demais linguagens,
+    é um erro de sintaxe adicionar a chave ``\{'' de abertura de bloco em uma linha nova.
+
+    Utilizando~=se as ferramentas usuais de formatação,
     fica impedido que configurações de formatação do usuário final quebrem o código~=fonte da linguagem sendo formatada,
     a não ser em casos de \textit{bugs} na ferramenta de formatação.
-
     As ferramentas de formatação em geral,
     tentam reconstruir a árvore de sintaxe da linguagem a ser formatada.
-    Neste caso,
-    esta é a maior diferença da ferramenta desenvolvida neste trabalho onde isto não é um requisito.
-    O usuário final pode escolher entre simplesmente especificar a gramática da linguagem com o mínimo necessário para atingir somente as suas necessidades de formatação de código~=fonte.
+    Neste trabalho,
+    o usuário final pode escolher entre simplesmente especificar a gramática da linguagem com o mínimo necessário para atingir somente as suas necessidades de formatação de código~=fonte.
     Mas ao mesmo tempo,
     ele também pode realizar a especificação completa de toda a sintaxe da sua linguagem.
 
@@ -74,8 +87,7 @@
     o usuário final precisará conhecer quais são as regras semânticas da linguagem que ele está realizando a formatação,
     e configurar o formatador de modo que ele não quebre nenhuma das regras semânticas desta linguagem.
 
-    Concluindo,
-    a ferramenta desenvolvida neste trabalho não seria recomendada ser utilizada por usuários que não possuem conhecimentos plenos sobre semântica das linguagens que querem realizar a formatação de código~=fonte.
+    A ferramenta desenvolvida neste trabalho não seria recomendada ser utilizada por usuários que não possuem conhecimentos sobre semântica das linguagens que querem realizar a formatação de código~=fonte.
     Neste caso,
     recomenda~=se que seja utilizado as demais ferramentas de formatação que são mais especificas para cada linguagem individualmente e
     possuem inerentemente os conhecimentos específicos da sintaxe e
@@ -83,13 +95,9 @@
 }
 
 
-\section{\lang{Future Works}{Trabalhos Futuros}}
+\chapter{\lang{Future Works}{Trabalhos Futuros}}
 
-Como sendo um trabalho de nível de graduação,
-que partiu desde a especificação inicial da metalinguagem,
-incluindo sua análise sintática e
-semântica,
-existem incontáveis pontos que precisam ser reescritos,
+Existem incontáveis pontos que precisam ser reescritos,
 melhorados ou completados. Mais especificamente,
 sobre a metalinguagem e
 gerador de formatadores criados:
@@ -117,6 +125,16 @@ fechamento ``\}'' de blocos,
 fazendo a separação de blocos ser feita de acordo com a indentação como em linguagens como Python e
 YAML.
 \end{enumerate}%
+
+A atual estrutura de composição dos formatadores de código~=fonte não suporta que diversos formatadores realizem a formatação simultaneamente.
+Somente um formatador,
+que extende da classe ``AbstractFormatter'' pode estar em funcionamento ao mesmo tempo.
+Entretanto,
+este formatador recebe como parâmetro de sua função ``format\_text'',
+o trecho de código~=fonte a ser formatador e
+o escopo dele.
+Com essas informações ele poderia em tese,
+chamar diferentes formatadores mais especializados de acordo com o seu parâmetro escopo.
 
 Em relação aos formatadores gerados pelo gerador de formatadores,
 eles precisaram ser completamente reescritos,
