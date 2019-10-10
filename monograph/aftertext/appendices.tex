@@ -9,14 +9,15 @@ Não foi cria do nenhuma interface gráfica ou
 de linha de comando que faça a entrada do programa a ser formatado e
 das configurações do formatador.
 Para realizar os testes de funcionamento do formatador,
-foram realizados testes de unidade automatizados.
-Existem duas implementações que utilizam a metalinguagem.
-Uma utiliza a metalinguagem para adicionar cores,
+foram realizados testes de unidade automatizados (\typeref{unitTestsPy}).
+Existem duas implementações que utilizam a metalinguagem (\typeref{grammarsGrammarPy}).
+Uma utiliza a metalinguagem para adicionar cores (\typeref{codeHighlighterPy}),
 como feito em editores de texto e
-a outra realiza a formatação de código~=fonte.
+a outra realiza a formatação de código~=fonte (\typeref{codeFormatterPy}).
 
 Nos \typeref{mainHighlighterPy,mainFormatterPy},
-encontra~=se um exemplo simples de programa que pode ser construído para executar o Formatador de Código.
+encontra~=se um exemplo simples de programa que pode ser construído para executar o Formatador de Código e
+a Adição de Cores.
 Sua construção é a mesma utilizada para a criação dos testes de unidade (\typeref{unitTestsPy}).
 Tanto o \typeref{mainFormatterPy} quanto do o \typeref{mainHighlighterPy} geram como resultado um arquivo HTML,
 contendo como conteúdo o resultado de seu trabalho.

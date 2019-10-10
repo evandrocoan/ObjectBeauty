@@ -624,7 +624,6 @@ Enquanto ``Interpreter'' é responsável por somente ``passear'' pela Árvore de
 a classe ``AbstractFormatter'' \typeref{construtorDeParsedProgram} é responsável por realmente fazer a formatação de código~=fonte de acordo com a instruções vindas da Árvore de Sintaxe Abstrata.
 No final do processo,
 ``AbstractFormatter'' terá na variável ``new\_program'' todos os pedaços do programa formatado.
-
 Uma vez que ``Interpreter'' termina de construir todos os pedaços de código~=fonte formatado,
 a função ``get\_new\_program'' irá unir dos os pedaços e
 salvá~=los na variável ``cached\_new\_program'',
@@ -647,11 +646,44 @@ class AbstractFormatter(object):
         log( 4, "program %s: `%s`", len( str( self.program ) ), self.program )
 \end{lstlisting}
 
+A linha ``sorted'' realiza a ordenação do configurações sem nenhuma necessidade prática neste caso.
+Ela garante que a ordem no qual as configurações irão ser processadas seja sempre a mesma.
+No caso da Adição de Cores,
+``sorted'' é uma função obrigatória para garantir que os nomes das cores da configurações sejam atribuídas de acordo com a ordem de funcionamento do tema \cite{vsCodeSyntaxHighlighthing,sublimeTextScopeNaming}.
+
+A linha ``len( program )'' não possui nenhuma influência nos resultados do programa,
+seja para formatação ou
+adição de cores.
+Entretanto,
+ela é constantemente verificado durantes as operações que realizam o consumo do programa de entrada pelas regras da metagramática para garantir que o tamanho programa original não seja perdido.
+É necessário uma sincronia entre os índices do programa original com o programa formatado para que ambos possam ser sincronizados no final do processo.
+Assim,
+uma que os algoritmos de adição de cores ou
+formatação estivem propriamente testados,
+não seria mais necessário manter o uso da variável ``len( program )''.
+
+Durante o processo de consumo,
+o programa de entrada é modificado e
+os caracteres que foram consumidos são substituídos pelo caractere ``§''.
+A existência do caractere de marcação de consumo ``§'' é uma fraqueza do algoritmo implementado,
+pois pode levar programas que contenham este caractere ao erro.
+Ele também trás uma ineficiência no consumo de novos caracteres.
+Os caracteres que já foram substituídos por ``§'',
+serão reanalisados continuamente até o final do análise do programa de entrada.
+A utilização do caractere ``§'' foi realizada para simplificar a implementação do algoritmo de consumo.
+
+Com o caractere ``§'' colocado no lugar dos caracteres que já foram consumidos,
+é possível reconstruir o programa de entrada no final da análise simplesmente ordenando todos pedaços que de programa formatado que estão armazenada na variável ``new\_program''.
+Como o tamanho do programa original não fui modificado,
+também é possível facilmente integrar no programa formatado,
+todas as partes do programa original que não foram formatados,
+no caso do formatador,
+ou coloridas do caso da adição de cores.
+
 
 \subsection{Exemplo}
 
-Por facilidade,
-a formatação de código~=fonte recebe como entrada o programa em texto simples,
+A formatação de código~=fonte recebe como entrada o programa em texto simples,
 e como resultado,
 retorna uma página HTML \cite{parallelParserForHTML}.
 Com isso,
@@ -711,3 +743,16 @@ onde ``if( \ something \ ) bar'' é o resultado da formatação de código~=font
 \end{bluebox}
 \end{quadro}
 
+Como pode ser percebido,
+a gramática de entrada no \typeref{exemploDeFormatacaoDeCodigo} não consome a palavra ``bar'' do programa de entrada ``if(something) bar''.
+Esta é uma característica importante deste formatador de código.
+Todo texto que não é consumido,
+ou pela gramática de entrada,
+ou pelo formatador de código ou
+adição de cores,
+será mantido intacto no final do processo de formatação ou
+adição de cores.
+Assim,
+pode~=se ter o formatador de código já em funcionamento com gramática mais simples possível,
+ou que já atenda as características mínimas que deseja~=se formatar ou
+adicionar de cores.
