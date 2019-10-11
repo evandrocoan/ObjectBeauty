@@ -218,9 +218,7 @@ Nesta seção será discutido como a metalinguagem (especificada pela metagramá
 começando com o seu símbolo inicial.
 No \typeref{simboloInicialDaMetagramatica},
 defini~=se que o programa é constituído de três grandes áreas,
-que devem acontecer uma em sequencia da outra\footnote{
-Para mais informações sobre a sintaxe de entrada de gramáticas do Analisador Lark consulte a documentação \cite{larkGrammarReference,larkStyleCheat}.
-}:
+que devem acontecer uma em sequencia da outra:
 \begin{enumerate}
 \item A produção ``preamble\_statements'' define características globais da gramática como um nome,
 e um escopo que será atribuído a toda gramática.
@@ -252,6 +250,11 @@ miscellaneous_language_rules: /[^:\n]+/ ": " indentation_block
 target_language_name_statement: "name" ": " free_input_string
 master_scope_name_statement: "scope" ": " free_input_string
 \end{lstlisting}
+
+A sintase da metagramática utilizada no \typeref{simboloInicialDaMetagramatica} é uma adaptação especial do padrão EBNF que o Analisador Lark faz.
+Símbolos que possuem todas as letras em ``MAIÚSCULA'' definem os símbolos terminais da gramática.
+Enquanto símbolos escrito todos em letras ``minúsculas'' definem os símbolos não~=terminais da gramática.
+Para mais informações sobre a sintaxe de entrada de gramáticas do Analisador Lark consulte a documentação \cite{larkGrammarReference,larkStyleCheat}.
 
 Entre os \typeref{exemploDeGramaticaPawn1,exemploDeGramaticaPawn2,exemploDeGramaticaPawn3,exemploDeGramaticaPawn4},
 encontra~=se pequenos exemplos de gramáticas escritas na metalinguagem ``ObjectBeauty'' brevemente apresentada.

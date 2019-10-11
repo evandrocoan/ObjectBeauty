@@ -21,20 +21,39 @@ a Adição de Cores.
 Sua construção é a mesma utilizada para a criação dos testes de unidade (\typeref{unitTestsPy}).
 Tanto o \typeref{mainFormatterPy} quanto do o \typeref{mainHighlighterPy} geram como resultado um arquivo HTML,
 contendo como conteúdo o resultado de seu trabalho.
+
+Para realizar~=se a execução de qualquer arquivo deste projeto,
+é necessário ter um interpretador ``Python 3.6'' instalado,
+junto com as bibliotecas ``pip3'',
+``debug\_tools'', ``dominate'' e
+``pushdown''.
+Em uma instalação tradicional ``Ubuntu'',
+este pacotes podem ser instalados com os comandos:
+\begin{enumerate}[1)]
+\item \mintinline{shell}{sudo apt-get install python3 python3-pip}
+\item \mintinline{shell}{pip3 install -r requirements.txt} (\typeref{requirementsTxt})
+\item \mintinline{shell}{python3 main_formatter.py}
+\item \mintinline{shell}{python3 main_highlighter.py}
+\end{enumerate}
+\begin{code}
+\caption{Arquivo ``source/requirements.txt''}
+\label{requirementsTxt}
+\inputminted[fontsize=\small,fontfamily=zi4,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/requirements.txt}
+\end{code}
 \begin{code}
 \caption{Arquivo ``source/main\_formatter.py''}
 \label{mainHighlighterPy}
-\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/main_formatter.py}
+\inputminted[fontsize=\small,fontfamily=zi4,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/main_formatter.py}
 \end{code}
 \begin{code}
 \caption{Arquivo ``source/main\_highlighter.py''}
 \label{mainFormatterPy}
-\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/main_formatter.py}
+\inputminted[fontsize=\small,fontfamily=zi4,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/main_formatter.py}
 \end{code}
 \begin{code}
 \caption{Arquivo ``source/utilities.py''}
 \label{utilitiesPy}
-\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/utilities.py}
+\inputminted[fontsize=\small,fontfamily=zi4,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/utilities.py}
 \end{code}
 
 
@@ -43,7 +62,7 @@ contendo como conteúdo o resultado de seu trabalho.
 \begin{code}
 \caption{Arquivo ``source/unit\_tests.py''}
 \label{unitTestsPy}
-\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/unit_tests.py}
+\inputminted[fontsize=\small,fontfamily=zi4,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/unit_tests.py}
 \end{code}
 
 
@@ -52,7 +71,7 @@ contendo como conteúdo o resultado de seu trabalho.
 \begin{code}
 \caption{Arquivo ``source/semantic\_analyzer.py''}
 \label{semanticAnalyzerPy}
-\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/semantic_analyzer.py}
+\inputminted[fontsize=\small,fontfamily=zi4,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/semantic_analyzer.py}
 \end{code}
 
 
@@ -61,7 +80,7 @@ contendo como conteúdo o resultado de seu trabalho.
 \begin{code}
 \caption{Arquivo ``source/code\_highlighter.py''}
 \label{codeHighlighterPy}
-\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/code_highlighter.py}
+\inputminted[fontsize=\small,fontfamily=zi4,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/code_highlighter.py}
 \end{code}
 
 
@@ -70,7 +89,7 @@ contendo como conteúdo o resultado de seu trabalho.
 \begin{code}
 \caption{Arquivo ``source/code\_formatter.py''}
 \label{codeFormatterPy}
-\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/code_formatter.py}
+\inputminted[fontsize=\small,fontfamily=zi4,linenos=true,numberblanklines=true,breaklines=true]{python3}{../source/code_formatter.py}
 \end{code}
 
 
@@ -79,5 +98,5 @@ contendo como conteúdo o resultado de seu trabalho.
 \begin{code}
 \caption{Arquivo ``source/grammars\_grammar.pushdown''}
 \label{grammarsGrammarPy}
-\inputminted[fontsize=\small,linenos=true,numberblanklines=true,breaklines=true]{antlr}{../source/grammars_grammar.pushdown}
+\inputminted[fontsize=\small,fontfamily=zi4,linenos=true,numberblanklines=true,breaklines=true]{antlr}{../source/grammars_grammar.pushdown}
 \end{code}

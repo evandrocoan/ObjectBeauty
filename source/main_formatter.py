@@ -42,9 +42,6 @@ import pushdown
 import semantic_analyzer
 
 from pushdown import Lark
-from pushdown.indenter import Indenter
-
-from pprint import pformat
 from debug_tools import getLogger
 
 log = getLogger(__name__)
@@ -58,28 +55,27 @@ from utilities import make_png
 from debug_tools.utilities import get_relative_path
 
 ## The relative path the the pushdown grammar parser file from the current file
-grammar_file_path = get_relative_path( "grammars_grammar.pushdown", __file__ )
+grammar_path = get_relative_path( "examples/duplicated_contexts.beauty-grammar", __file__ )
+metagrammar_path = get_relative_path( "grammars_grammar.pushdown", __file__ )
 
 ## The parser used to build the Abstract Syntax Tree and parse the input text
-with open( grammar_file_path, "r", encoding='utf-8' ) as file:
-    meu_parser = Lark( file.read(), start='language_syntax', parser='lalr', lexer='contextual')
+with open( metagrammar_path, "r", encoding='utf-8' ) as file:
+    my_parser = Lark( file.read(), start='language_syntax', parser='lalr', lexer='contextual')
 
-# To generate the lexer/parser
-# python3 -m pushdown.tools.standalone ./grammars_grammar.pushdown > lexer.py
-def test():
-    # grammar_file_path = get_relative_path( "examples/programa_exemplo.beauty-grammar", __file__ )
-    grammar_file_path = get_relative_path( "examples/duplicated_contexts.beauty-grammar", __file__ )
+with open( grammar_path, "r", encoding='utf-8' ) as file:
+    syntax_tree = my_parser.parse(file.read())
+    make_png( syntax_tree, get_relative_path( "examples/duplicated_contexts.png", __file__ ), debug=True )
 
-    with open( grammar_file_path, "r", encoding='utf-8' ) as file:
-        tree = meu_parser.parse(file.read())
-        make_png( tree, get_relative_path( "examples/duplicated_contexts.png", __file__ ), debug=True )
-        # log( 1, tree.pretty() )
+    # print the Syntax Tree to the console
+    log( "Syntax Tree\n%s", syntax_tree.pretty() )
+    abstract_syntax_tree = semantic_analyzer.TreeTransformer().transform( syntax_tree )
 
-        new_tree = semantic_analyzer.TreeTransformer().transform( tree )
-        # make_png( tree, get_relative_path( "examples/duplicated_contexts.png", __file__ ) )
-        log( 1, "\n%s", new_tree.pretty(debug=True) )
+    # make_png( syntax_tree, get_relative_path( "examples/duplicated_contexts.png", __file__ ) )
+    log( "Abstract Syntax Tree\n%s", abstract_syntax_tree.pretty( debug=True ) )
 
+    backend = code_formatter.Backend( code_formatter.SingleSpaceFormatter, tree, example_program, example_theme )
+    generated_html = backend.generated_html()
 
-if __name__ == '__main__':
-    test()
-
+    with open( function_file, 'w', newline='\n', encoding='utf-8' ) as output_file:
+        output_file.write( generated_html )
+        output_file.write("\n")
