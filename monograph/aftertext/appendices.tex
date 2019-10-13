@@ -32,7 +32,7 @@ junto com as bibliotecas ``pip3'',
 ``debug\_tools'', ``dominate'' e
 ``pushdown''.
 Em uma instalação tradicional ``Ubuntu'',
-este pacotes podem ser instalados com os comandos:
+estes pacotes podem ser instalados com os seguintes comandos:
 \begin{enumerate}[1)]
 \item \mintinline{shell}{sudo apt-get install python3 python3-pip}
 \item \mintinline{shell}{pip3 install -r requirements.txt} (\typeref{requirementsTxt})
@@ -67,18 +67,15 @@ Para se executar os testes de unidade,
 basta executar o comando ``\mintinline{shell}{python3 unit_tests.py}''.
 No \typeref{unitTestsResults},
 pode~=se encontrar um exemplo de execução dos testes de unidade apresentados no \typeref{unitTestsPy}.
-Neste trabalho,
-foram desenvolvidas duas ferramentas que utilizam a mesma metagramática.
-A primeira ferramenta é o módulo de adição de cores e
-a segunda ferramenta é propriamente o formatador de código~=fonte.
-
 Primeiro foi desenvolvida a ferramenta de Adição de Cores para facilitar os testes da metalinguagem e
-do analisador semântico.
+do Analisador Semântico.
 Uma vez que se comprovou o funcionamento da metalinguagem,
 foi realizada um implementação mínima de um formatador de código~=fonte.
-Ambas as implementações são somente uma prova de conceito do que pode ser feito com a metalinguagem desenvolvida.
 
-A classe ``TestingGrammarUtilities'' é uma classe abstrata \cite{understandingDataAbstraction} que contém características necessárias a todos os tipos de testes de unidades implementados.
+Ambas as implementações do módulo de Adição de Cores quanto a do Formatador de Código são somente uma prova de conceito do que pode ser feito com a metalinguagem desenvolvida.
+No \typeref{unitTestsPy},
+a classe ``TestingGrammarUtilities'' é uma classe abstrata \cite{understandingDataAbstraction} que contém características necessárias a todos os tipos de testes de unidades implementados,
+tanto os testes de unidade de Adição de Cores quanto os testes de unidade do Formatador de Código.
 No total existem 22 testes:
 \begin{enumerate}[i)]
 \item 16 testes do Analisador Semântico \typeref{semanticAnalyzerPy} na classe testes ``TestSemanticRules''.
