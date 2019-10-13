@@ -63,7 +63,7 @@ from debug_tools.testing_utilities import wrap_text
 
 def main():
     # https://stackoverflow.com/questions/6813837/stop-testsuite-if-a-testcase-find-an-error
-    unittest.main(failfast=True)
+    unittest.main( failfast=True )
 
 def findCaller():
     return log.findCaller()

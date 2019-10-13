@@ -44,26 +44,15 @@
         the desired settings.
 \end{enumerate}
 }{%
-    Neste trabalho foi desenvolvidos duas ferramentas que utilizam a mesma metagramática.
-    A primeira ferramenta feita foi a de Adição de Cores e
-    a segunda foi o Formatador de Código.
-    Primeiro foi desenvolvida a ferramenta de Adição de Cores para facilitar os testes da metalinguagem e
-    do analisador semântico.
-    Como a ferramenta de Adição de Cores foi a primeira desenvolvida,
-    ela obteve a criação de mais testes de unidade para assegurar que a implementação do analisador semântico e
-    da metagramática estão funcionais.
-
-    Uma vez que se comprovou o funcionamento da metalinguagem,
-    foi realizada um implementação mínima de um formatador de código~=fonte.
-    Ambas as implementações são somente uma prova de conceito do que pode ser feito com a metalinguagem desenvolvida.
     A diferença desta nova proposta de ferramenta de formatação de código~=fonte para as demais é a troca de responsabilidades entre usuários finais da ferramenta e
     os desenvolvedores desta ferramenta e
     das gramáticas para os usuários finais.
-    Formatadores de código~=fonte usualmente somente expõe controladamente quais são as mudanças que podem ocorrer ao formatar o código~=fonte.
+    Formatadores de código~=fonte usualmente expõem as mudanças que podem ocorrer ao formatar o código~=fonte sem quebrar a suas regras sintáticas ou
+    semânticas.
 
     A maior parte das ferramentas raramente permite que usuários finais tenham o controle total das mudanças no código~=fonte.
     Enquanto utilizando a ferramenta desenvolvida neste trabalho,
-    é facilmente possível escrever regras de formatação que quebrem a sintaxe e
+    é possível escrever regras de formatação que quebrem a sintaxe e
     semântica da linguagem sendo formatada.
     Por exemplo,
     na linguagem ``Go'' \cite{programmingLanguageGolang},
@@ -71,12 +60,11 @@
     é um erro de sintaxe adicionar a chave ``\{'' de abertura de bloco em uma linha nova.
 
     Utilizando~=se as ferramentas usuais de formatação,
-    fica impedido que configurações de formatação do usuário final quebrem o código~=fonte da linguagem sendo formatada,
-    a não ser em casos de \textit{bugs} na ferramenta de formatação.
-    As ferramentas de formatação em geral,
-    tentam reconstruir a árvore de sintaxe da linguagem a ser formatada.
+    fica impedido que configurações do usuário quebre o código~=fonte da linguagem sendo formatada,
+    a não ser em casos de \textit{bugs} na ferramenta.
+    As ferramentas em geral tentam reconstruir a árvore de sintaxe da linguagem a ser formatada.
     Neste trabalho,
-    o usuário final pode escolher entre simplesmente especificar a gramática da linguagem com o mínimo necessário para atingir somente as suas necessidades de formatação de código~=fonte.
+    o usuário final pode escolher entre simplesmente especificar a gramática da linguagem com o mínimo necessário para atingir somente as suas necessidades.
     Mas ao mesmo tempo,
     ele também pode realizar a especificação completa de toda a sintaxe da sua linguagem.
 
@@ -84,23 +72,23 @@
     ainda não será o suficiente para impedir quebras nos códigos~=fonte sendo formatados,
     pois a sintaxe da linguagem não cobre os seus aspectos semânticos.
     Neste caso,
-    o usuário final precisará conhecer quais são as regras semânticas da linguagem que ele está realizando a formatação,
-    e configurar o formatador de modo que ele não quebre nenhuma das regras semânticas desta linguagem.
-
-    A ferramenta desenvolvida neste trabalho não seria recomendada ser utilizada por usuários que não possuem conhecimentos sobre semântica das linguagens que querem realizar a formatação de código~=fonte.
-    Neste caso,
-    recomenda~=se que seja utilizado as demais ferramentas de formatação que são mais especificas para cada linguagem individualmente e
-    possuem inerentemente os conhecimentos específicos da sintaxe e
-    semântica da linguagem.
+    o usuário final precisará conhecer quais são as regras semânticas da linguagem na qual ele está realizando a formatação,
+    e configurar o formatador para que ele não quebre nenhuma das regras semânticas da linguagem.
 }
 
 
-\chapter{\lang{Future Works}{Trabalhos Futuros}}
+\section{\lang{Future Works}{Trabalhos Futuros}}
 
-Existem incontáveis pontos que precisam ser reescritos,
-melhorados ou completados. Mais especificamente,
+O autor desse trabalho sugere alguns trabalhos futuros.
+Antes de novos formatadores de código~=fonte sejam implementados,
+estes pontos precisam ser revistos.
+Ao realizar estas mudanças,
+qualquer implementação já realizada para formatação será perdida devido ao número de mudanças realizadas,
+como em um efeito borboleta \cite{standardButterflyEffect}.
+Mais especificamente,
 sobre a metalinguagem e
-gerador de formatadores criados:
+gerador de formatadores criados,
+sugerem~=se as seguintes alterações:
 \begin{enumerate}
 \item Adicionar quaisquer regras semânticas da metalinguagem que não foram adicionadas no analisador semântico.
 \item Reduzir o uso de memória e
@@ -110,11 +98,10 @@ estratégias adotas não levaram estes pontos em consideração.
 \item Corrigir erros de interpretação da metalinguagem ou
 da especificação da metagramática quando alguns operadores como ``scope'' que tem um uso opcional,
 são omitidos.
-\item Implementar os operadores ``captures'',
-``set'' e
-outros mais que forem julgados necessários para tornar o uso da metalinguagem mais fácil ou
-melhorar a sua performance para casos específicos de uso.
-\item Adicionar suporte especificação de múltiplos escopos a um mesmo trecho de código \cite{vsCodeSyntaxHighlighthing},
+\item Implementar operadores como ``captures'' e
+``set'' para tornar o uso da metalinguagem mais fácil ou
+melhorar a sua performance em casos de uso específicos.
+\item Adicionar suporte à especificação de múltiplos escopos a um mesmo trecho de código \cite{vsCodeSyntaxHighlighthing},
 definindo alguma estrutura de dados adequada,
 capaz de permitir consultas e
 aritméticas de escopos \cite{textMateScopeExclusion} com performance constante $\Theta(1)$.
@@ -128,10 +115,10 @@ YAML.
 
 A atual estrutura de composição dos formatadores de código~=fonte não suporta que diversos formatadores realizem a formatação simultaneamente.
 Somente um formatador,
-que extende da classe ``AbstractFormatter'' pode estar em funcionamento ao mesmo tempo.
+que estende da classe ``AbstractFormatter'' pode estar em funcionamento ao mesmo tempo.
 Entretanto,
 este formatador recebe como parâmetro de sua função ``format\_text'',
-o trecho de código~=fonte a ser formatador e
+o trecho de código~=fonte a ser formatado e
 o escopo dele.
 Com essas informações ele poderia em tese,
 chamar diferentes formatadores mais especializados de acordo com o seu parâmetro escopo.
@@ -148,6 +135,5 @@ pode ser encontrada a concepção inicial de implementação da ferramenta de fo
 Uma vez que este trabalho for publicado,
 seu código~=fonte estará disponível.
 Então,
-seguindo as referências de \citeonline{objectBeautifierFutureWorks} será possível encontrar a especificação robusta e
-completa sobre a melhor implementação de formatadores de código~=fonte com os requerimentos deste trabalho.
+seguindo as referências de \citeonline{objectBeautifierFutureWorks} será possível encontrar a especificação completa sobre última versão implementação de formatadores de código~=fonte com os requerimentos deste trabalho.
 

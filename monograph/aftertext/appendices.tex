@@ -5,11 +5,15 @@
 \chapter{Manual do Formatador de Código}
 \label{manualDoFormatadorDeCodigo}
 
+A ferramenta desenvolvida neste trabalho não seria recomendada ser utilizada por usuários que não possuem conhecimentos sobre semântica das linguagens que querem realizar a formatação de código~=fonte.
+Neste caso,
+recomenda~=se que seja utilizado as demais ferramentas de formatação que são mais especificas para cada linguagem individualmente e
+possuem inerentemente os conhecimentos específicos da sintaxe e
+semântica da linguagem.
+
 Não foi criado nenhuma interface gráfica ou
 de linha de comando que faça a entrada do programa a ser formatado e
 das configurações do formatador.
-Para realizar os testes de funcionamento do formatador,
-foram realizados testes de unidade automatizados (\typeref{unitTestsPy}).
 Existem duas implementações que utilizam a metalinguagem (\typeref{grammarsGrammarPy}).
 Uma utiliza a metalinguagem para adicionar cores (\typeref{codeHighlighterPy}),
 como feito em editores de texto e
@@ -32,8 +36,8 @@ este pacotes podem ser instalados com os comandos:
 \begin{enumerate}[1)]
 \item \mintinline{shell}{sudo apt-get install python3 python3-pip}
 \item \mintinline{shell}{pip3 install -r requirements.txt} (\typeref{requirementsTxt})
-\item \mintinline{shell}{python3 main_formatter.py}
-\item \mintinline{shell}{python3 main_highlighter.py}
+\item \mintinline{shell}{python3 main_formatter.py} (\typeref{mainHighlighterPy})
+\item \mintinline{shell}{python3 main_highlighter.py} (\typeref{mainFormatterPy})
 \end{enumerate}
 \begin{code}
 \caption{Arquivo ``source/requirements.txt''}
@@ -59,6 +63,48 @@ este pacotes podem ser instalados com os comandos:
 
 \chapter{Código dos Testes de Unidade}
 
+Para se executar os testes de unidade,
+basta executar o comando ``\mintinline{shell}{python3 unit_tests.py}''.
+No \typeref{unitTestsResults},
+pode~=se encontrar um exemplo de execução dos testes de unidade apresentados no \typeref{unitTestsPy}.
+Neste trabalho,
+foram desenvolvidas duas ferramentas que utilizam a mesma metagramática.
+A primeira ferramenta é o módulo de adição de cores e
+a segunda ferramenta é propriamente o formatador de código~=fonte.
+
+Primeiro foi desenvolvida a ferramenta de Adição de Cores para facilitar os testes da metalinguagem e
+do analisador semântico.
+Uma vez que se comprovou o funcionamento da metalinguagem,
+foi realizada um implementação mínima de um formatador de código~=fonte.
+Ambas as implementações são somente uma prova de conceito do que pode ser feito com a metalinguagem desenvolvida.
+
+A classe ``TestingGrammarUtilities'' é uma classe abstrata \cite{understandingDataAbstraction} que contém características necessárias a todos os tipos de testes de unidades implementados.
+No total existem 22 testes:
+\begin{enumerate}[i)]
+\item 16 testes do Analisador Semântico \typeref{semanticAnalyzerPy} na classe testes ``TestSemanticRules''.
+\item 5 testes de Adição de Cores \typeref{codeHighlighterPy} na classe testes ``TestCodeHighlighterBackEnd''.
+\item 1 testes de Formatação de Código \typeref{codeFormatterPy} na classe testes ``TestCodeFormatterBackEnd''.
+\end{enumerate}%
+
+Como a ferramenta de Adição de Cores foi a primeira desenvolvida,
+ela obteve a criação de mais testes de unidade para assegurar que a implementação do Analisador Semântico \typeref{semanticAnalyzerPy} e
+da Metagramática estão funcionais.
+Uma vez feito isso,
+duplicou~=se o código~=fonte da implementação de adição de cores \typeref{codeHighlighterPy} e
+realizou~=se as alterações necessárias para que se faça a formatação de código~=fonte \typeref{codeFormatterPy}.
+\begin{code}
+\caption{Resultado da execução dos Testes de Unidade''}
+\label{unitTestsResults}
+\begin{minted}[fontsize=\small,fontfamily=zi4,linenos=true,numberblanklines=true,breaklines=true]{text}
+$ python3 unit_tests.py
+00:02:41:738.736391 1.52e-04 - source.<module>:52 - Importing __main__
+......................
+----------------------------------------------------------------------
+Ran 22 tests in 2.086s
+
+OK
+\end{minted}
+\end{code}
 \begin{code}
 \caption{Arquivo ``source/unit\_tests.py''}
 \label{unitTestsPy}

@@ -422,7 +422,8 @@ Portanto,
 somente resta ser implementado o Analisador Semântico para verificar se a linguagem descrita respeita as regras semânticas da metalinguagem explicadas na seção anterior,
 \nameref{metalinguagemGrammar}.
 
-Neste trabalho (\typeref{CodeFormatterClassDiagram}),
+O Diagrama de Classes é apresentado na \typeref{CodeFormatterClassDiagram}.
+Nele,
 o Analisador Semântico que deriva de ``Transformer'' recebe como entrada a Árvore de Sintaxe do programa de entrada,
 e uma vez que o Analisador Semântico termina seu trabalho,
 ele devolve Árvore de Sintaxe Abstrata completa.
@@ -748,7 +749,7 @@ onde ``if( \ something \ ) bar'' é o resultado da formatação de código~=font
 
 Como pode ser percebido,
 a gramática de entrada no \typeref{exemploDeFormatacaoDeCodigo} não consome a palavra ``bar'' do programa de entrada ``if(something) bar''.
-Esta é uma característica importante deste formatador de código.
+Esta é uma característica importante dos formatadores de código deste trabalho.
 Todo texto que não é consumido,
 ou pela gramática de entrada,
 ou pelo formatador de código ou

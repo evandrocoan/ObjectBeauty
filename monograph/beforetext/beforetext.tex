@@ -111,11 +111,10 @@
     % \listoftables*
 
     % inserir códigos fonte (List of Listings `lol`)
+    % https://tex.stackexchange.com/questions/511519/latex-keeps-showing-minted-environment-as-figures-instead-of-listening/511579#511579
     \ifforcedinclude\else\cleardoublepage\fi
     \addtotextpreliminarycontent{\lstlistlistingname}
     \pdfbookmark[0]{\lstlistlistingname}{lol}
-
-    % https://tex.stackexchange.com/questions/511519/latex-keeps-showing-minted-environment-as-figures-instead-of-listening/511579#511579
     {\renewcommand{\cftfigurename}{\listingname\space}
     \lstlistoflistings*
     }
