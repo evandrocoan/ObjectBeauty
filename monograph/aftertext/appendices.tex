@@ -111,6 +111,46 @@ OK
 
 \chapter{Código do Analisador Semântico}
 
+De todos os códigos~=fonte criados neste trabalho,
+o Analisador Semântico (\typeref{semanticAnalyzerPy}) é o maior deles.
+Sua implementação é utilizada diretamente pelo módulo de Adição de Cores e
+Formatação de Código.
+A regras do Analisador Semântico estão divididas entre dois tipos,
+erros e
+alertas.
+Um erro é algo que impede completamente o programa final de funcionar.
+Um alerta é algo que não impede que o programa final funcione corretamente,
+mas é algo que precisa ser revisto.
+
+Os testes das regras do Analisador Semântico podem ser encontradas na classe ``TestSemanticRules'' do \typeref{unitTestsPy}.
+A seguir pode~=se encontrar algumas das regras semânticas implementadas pelo Analisador Semântico do \typeref{semanticAnalyzerPy}.
+O nome de cada uma das regras a seguir começa com o prefixo ``test\_'' que corresponde ao nome do teste de unidade,
+criado para verificar tal regra semântica na classe de testes ``TestSemanticRules'' (\typeref{unitTestsPy}).
+\begin{enumerateoptional}[.]
+\item[``test\_duplicatedContext''] Detecção de contextos duplicados e
+emissão de um erro semântico.
+\item[``test\_duplicatedIncludes''] Detecção de inclusões duplicadas  e
+emissão de um erro semântico.
+\item[``test\_missingIncludeDetection''] Detecção da inclusão um bloco inexistente e
+emissão de um erro semântico.
+\item[``test\_invalidRegexInput''] Detecção de expressões regulares inválidas e
+emissão de um erro semântico.
+\item[``test\_duplicatedGlobalNames''] Detecção de múltiplas definições do nome da gramática e
+emissão de um erro semântico.
+\item[``test\_missingScopeGlobalName''] Detecção da falta da definição do nome do escopo global da gramática e
+emissão de um erro semântico.
+\item[``test\_missingNameGlobal''] Detecção de esquecer de definir o nome da gramática e
+emissão de um erro semântico.
+\item[``test\_unsusedInclude''] Detecção de criação de um contexto e
+em esquecer de utilizar ele e
+emissão de um alerta.
+\item[``test\_redifinedConst''] Detecção de redefinir um valor constante e
+emissão de um erro semântico.
+\item[``test\_unsusedConstantDeclaration''] Detecção de definir um valor constante e esquecer de utilizar ele e
+emissão de um alerta.
+\item[``test\_usingConstOutOfScope''] Detecção de tentativa de usar um valor constante fora do escopo dele e
+emissão de um erro semântico.
+\end{enumerateoptional}%
 \begin{code}
 \caption{Arquivo ``source/semantic\_analyzer.py''}
 \label{semanticAnalyzerPy}
