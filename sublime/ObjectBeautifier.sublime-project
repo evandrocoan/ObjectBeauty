@@ -123,7 +123,7 @@
         },
         {
             "name": "Monograph",
-            "cmd": ["make", "thesis"],
+            "cmd": ["make", "thesis", "--quiet"],
 
             "shell": true,
             "working_dir": "$project_path/../monograph",
@@ -139,42 +139,42 @@
             [
                 {
                     "name": "Thesis (Default)",
-                    "cmd": ["make", "thesis"],
+                    "cmd": ["make", "thesis", "--quiet"],
                 },
                 {
                     "name": "Thesis (Default) [Remote]",
                     "shell": true,
-                    "cmd": ["make", "remote"],
-                    "env": {"rules": "thesis debug=''", "debug": "", "args": ""},
+                    "cmd": ["make", "remote", "--quiet"],
+                    "env": {"rules": "thesis debug=''", "debug": ""},
                 },
                 {
                     "name": "Thesis Biber",
-                    "cmd": ["make", "biber"],
+                    "cmd": ["make", "biber", "--quiet"],
                 },
                 {
                     "name": "Thesis Biber [Remote]",
                     "shell": true,
-                    "cmd": ["make", "remote"],
-                    "env": {"rules": "biber debug=''", "debug": "", "args": ""},
+                    "cmd": ["make", "remote", "--quiet"],
+                    "env": {"rules": "biber debug=''", "debug": ""},
                 },
                 {
                     "name": "Thesis LaTeX",
-                    "cmd": ["make", "latex"],
+                    "cmd": ["make", "latex", "--quiet"],
                 },
                 {
                     "name": "Thesis LaTeX [Remote]",
                     "shell": true,
-                    "cmd": ["make", "remote"],
-                    "env": {"rules": "latex debug=''", "debug": "", "args": ""},
+                    "cmd": ["make", "remote", "--quiet"],
+                    "env": {"rules": "latex debug=''", "debug": ""},
                 },
                 {
                     "name": "Thesis Veryclean",
-                    "cmd": ["make", "veryclean"],
+                    "cmd": ["make", "veryclean", "--quiet"],
                 },
                 {
                     "name": "Thesis Veryclean [Remote]",
                     "shell": true,
-                    "cmd": ["make", "remote"],
+                    "cmd": ["make", "remote", "--quiet"],
                     "env": {"rules": "veryclean debug=''", "debug": "", "args": "--delete"},
                 },
             ],
