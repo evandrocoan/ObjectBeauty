@@ -263,55 +263,78 @@
     \cftsetindents{paragraph}     {0em} {6.0em}
     \cftsetindents{subparagraph}  {0em} {7.0em}
 
-    \makechapterstyle{fixedabntex2indentation}{%
-      \renewcommand{\chapterheadstart}{}
+    \makechapterstyle{fixedabntex2indentation}
+    {%
+        \renewcommand{\chapterheadstart}{}
 
-      \ifx \chapternamenumlength \undefined
-        \newlength{\chapternamenumlength}
-      \fi
+        \ifx \chapternamenumlength \undefined
+            \newlength{\chapternamenumlength}
+        \fi
 
-       % tamanhos de fontes de chapter e part
-       \ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
-         \setlength\beforechapskip{\baselineskip}
-         \renewcommand{\chaptitlefont}{\ABNTEXsectionfont\ABNTEXsectionfontsize}
-       }{%else
-         \setlength{\beforechapskip}{0pt}
-         \renewcommand{\chaptitlefont}{\ABNTEXchapterfont\ABNTEXchapterfontsize}
-       }
+        % tamanhos de fontes de chapter e part
+        \ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
+            \setlength\beforechapskip{\baselineskip}%
+            \renewcommand{\chaptitlefont}{\ABNTEXsectionfont\ABNTEXsectionfontsize}%
+        }{%else
+           \setlength{\beforechapskip}{0pt}%
+           \renewcommand{\chaptitlefont}{\ABNTEXchapterfont\ABNTEXchapterfontsize}%
+        }
 
-      \renewcommand{\chapnumfont}{\chaptitlefont}
-      \renewcommand{\parttitlefont}{\ABNTEXpartfont\ABNTEXpartfontsize}
-      \renewcommand{\partnumfont}{\ABNTEXpartfont\ABNTEXpartfontsize}
-      \renewcommand{\partnamefont}{\ABNTEXpartfont\ABNTEXpartfontsize}
+        \renewcommand{\chapnumfont}{\chaptitlefont}
+        \renewcommand{\parttitlefont}{\ABNTEXpartfont\ABNTEXpartfontsize}
+        \renewcommand{\partnumfont}{\ABNTEXpartfont\ABNTEXpartfontsize}
+        \renewcommand{\partnamefont}{\ABNTEXpartfont\ABNTEXpartfontsize}
 
-      % tamanhos de fontes de section, subsection, subsubsection e subsubsubsection
-      \setsecheadstyle{\ABNTEXsectionfont\ABNTEXsectionfontsize\ABNTEXsectionupperifneeded}
-      \setsubsecheadstyle{\ABNTEXsubsectionfont\ABNTEXsubsectionfontsize\ABNTEXsubsectionupperifneeded}
-      \setsubsubsecheadstyle{\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize\ABNTEXsubsubsectionupperifneeded}
-      \setsubsubsubsecheadstyle{\ABNTEXsubsubsubsectionfont\ABNTEXsubsubsubsectionfontsize\ABNTEXsubsubsubsectionupperifneeded}
+        % tamanhos de fontes de section, subsection, subsubsection e subsubsubsection
+        \setsecheadstyle{\ABNTEXsectionfont\ABNTEXsectionfontsize\ABNTEXsectionupperifneeded}
+        \setsubsecheadstyle{\ABNTEXsubsectionfont\ABNTEXsubsectionfontsize\ABNTEXsubsectionupperifneeded}
+        \setsubsubsecheadstyle{\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize\ABNTEXsubsubsectionupperifneeded}
+        \setsubsubsubsecheadstyle{\ABNTEXsubsubsubsectionfont\ABNTEXsubsubsubsectionfontsize\ABNTEXsubsubsubsectionupperifneeded}
 
-      % impressao do numero do capitulo
-      \renewcommand{\chapternamenum}{}
+        % impressao do numero do capitulo
+        \renewcommand{\chapternamenum}{}
 
-      % impressao do nome do capitulo
-      \renewcommand{\printchaptername}{%
-       \chaptitlefont
-       \ifthenelse{\boolean{abntex@apendiceousecao}}{\appendixname~~}{}%
-      }
+        % impressao do nome do capitulo
+        \renewcommand{\printchaptername}{%
+           \chaptitlefont%
+           \ifthenelse{\boolean{abntex@apendiceousecao}}{\appendixname}{}%
+        }
 
-      % impressao do titulo do capitulo
-      \def\printchaptertitle##1{%
-        \chaptitlefont%
-        \ifthenelse{\boolean{abntex@innonumchapter}}{\centering\ABNTEXchapterupperifneeded{##1}}{%
-        \ifthenelse{\boolean{abntex@apendiceousecao}}{%
-            \centering%
-            \settowidth{\chapternamenumlength}{\printchaptername\printchapternum\afterchapternum}%
-            \ABNTEXchapterupperifneeded{##1}%
-          }{%
-            \settowidth{\chapternamenumlength}{\printchaptername\printchapternum\afterchapternum}%
-            \parbox[t]{\columnwidth-\chapternamenumlength}{\ABNTEXchapterupperifneeded{##1}}}%
-         }
-      }
+        % impressao do titulo do capitulo
+        \def\printchaptertitle##1{%
+            \chaptitlefont%
+            \ifthenelse{\boolean{abntex@innonumchapter}}{\centering\ABNTEXchapterupperifneeded{##1}}{%
+            \ifthenelse{\boolean{abntex@apendiceousecao}}{%
+                \centering%
+                \settowidth{\chapternamenumlength}{\printchaptername\printchapternum\afterchapternum}%
+                \ABNTEXchapterupperifneeded{##1}%
+            }{%
+                \settowidth{\chapternamenumlength}{\printchaptername\printchapternum\afterchapternum}%
+                \parbox[t]{\columnwidth-\chapternamenumlength}{\ABNTEXchapterupperifneeded{##1}}}%
+            }%
+        }
+
+        % impressao do numero do capitulo
+        \renewcommand{\printchapternum}{%
+            \tocprintchapter%
+            \setboolean{abntex@innonumchapter}{false}%
+            \chapnumfont%
+            %\space\thechapter\space%
+            ~\thechapter~%
+            \ifthenelse{\boolean{abntex@apendiceousecao}}{%
+                \tocinnonumchapter%
+                \ABNTEXcaptiondelim~%
+            }{}%
+        }
+
+        \renewcommand{\ABNTEXcaptiondelim}{\textendash~}
+        \renewcommand{\afterchapternum}{}
+
+        % impressao do capitulo nao numerado
+        \renewcommand\printchapternonum{%
+            \tocprintchapternonum%
+            \setboolean{abntex@innonumchapter}{true}%
+        }
     }
 
     \chapterstyle{fixedabntex2indentation}
