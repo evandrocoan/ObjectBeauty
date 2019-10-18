@@ -127,28 +127,28 @@ A seguir pode~=se encontrar algumas das regras semânticas implementadas pelo An
 O nome de cada uma das regras a seguir começa com o prefixo ``test\_'' que corresponde ao nome do teste de unidade,
 criado para verificar tal regra semântica na classe de testes ``TestSemanticRules'' (\typeref{unitTestsPy}).
 \begin{enumerateoptional}[.]
-\item[``test\_duplicatedContext''] Detecção de contextos duplicados e
+\item[\bfseries\mintinline{text}{test_duplicatedContext}] Detecção de contextos duplicados e
 emissão de um erro semântico.
-\item[``test\_duplicatedIncludes''] Detecção de inclusões duplicadas  e
+\item[\bfseries\mintinline{text}{test_duplicatedIncludes}] Detecção de inclusões duplicadas  e
 emissão de um erro semântico.
-\item[``test\_missingIncludeDetection''] Detecção da inclusão um bloco inexistente e
+\item[\bfseries\mintinline{text}{test_missingIncludeDetection}] Detecção da inclusão um bloco inexistente e
 emissão de um erro semântico.
-\item[``test\_invalidRegexInput''] Detecção de expressões regulares inválidas e
+\item[\bfseries\mintinline{text}{test_invalidRegexInput}] Detecção de expressões regulares inválidas e
 emissão de um erro semântico.
-\item[``test\_duplicatedGlobalNames''] Detecção de múltiplas definições do nome da gramática e
+\item[\bfseries\mintinline{text}{test_duplicatedGlobalNames}] Detecção de múltiplas definições do nome da gramática e
 emissão de um erro semântico.
-\item[``test\_missingScopeGlobalName''] Detecção da falta da definição do nome do escopo global da gramática e
+\item[\bfseries\mintinline{text}{test_missingScopeGlobalName}] Detecção da falta da definição do nome do escopo global da gramática e
 emissão de um erro semântico.
-\item[``test\_missingNameGlobal''] Detecção de esquecer de definir o nome da gramática e
+\item[\bfseries\mintinline{text}{test_missingNameGlobal}] Detecção de esquecer de definir o nome da gramática e
 emissão de um erro semântico.
-\item[``test\_unsusedInclude''] Detecção de criação de um contexto e
+\item[\bfseries\mintinline{text}{test_unsusedInclude}] Detecção de criação de um contexto e
 em esquecer de utilizar ele e
 emissão de um alerta.
-\item[``test\_redifinedConst''] Detecção de redefinir um valor constante e
+\item[\bfseries\mintinline{text}{test_redifinedConst}] Detecção de redefinir um valor constante e
 emissão de um erro semântico.
-\item[``test\_unsusedConstantDeclaration''] Detecção de definir um valor constante e esquecer de utilizar ele e
+\item[\bfseries\mintinline{text}{test_unsusedConstantDeclaration}] Detecção de definir um valor constante e esquecer de utilizar ele e
 emissão de um alerta.
-\item[``test\_usingConstOutOfScope''] Detecção de tentativa de usar um valor constante fora do escopo dele e
+\item[\bfseries\mintinline{text}{test_usingConstOutOfScope}] Detecção de tentativa de usar um valor constante fora do escopo dele e
 emissão de um erro semântico.
 \end{enumerateoptional}%
 \begin{code}
