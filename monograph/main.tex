@@ -47,8 +47,9 @@
 \fi
 
 % Simple alias for English and Portuguese words
-\newcommand{\brazilword}[1]{\foreignlanguage{brazil}{#1}}
-\newcommand{\englishword}[1]{\foreignlanguage{english}{#1}}
+% https://tex.stackexchange.com/questions/513019/argument-of-bbltempd-has-an-extra
+\newcommand{\brazilword}[1]{\protect\foreignlanguage{brazil}{#1}}
+\newcommand{\englishword}[1]{\protect\foreignlanguage{english}{#1}}
 
 % Allow you to write `Evandro's house` in latex as `Evandro\s house` instead of `Evandro\textquotesingle{}s house`
 % https://tex.stackexchange.com/questions/31091/space-after-latex-commands
