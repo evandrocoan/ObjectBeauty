@@ -71,6 +71,8 @@ TEXT_CHUNK_END_: /(?:\\{|\\}|\\\$|[^\n{}\$])+(?=(?:\n|$))/
 braced_free_input_string: ( constant_usage | text_chunk )* ( braced_constant_usage_end | braced_text_chunk_end )
 braced_constant_usage_end: BRACED_CONSTANT_USAGE_END_
 braced_text_chunk_end: BRACED_TEXT_CHUNK_END_
+BRACED_CONSTANT_USAGE_END_: /(?:\$[^\n\$\:]+\:)(?=(?: \u007b))/
+BRACED_TEXT_CHUNK_END_: /(?:\\{|\\}|\\\$|[^\n{}\$])+(?=(?: \u007b))/
 
 match_statement: "match" ": " braced_free_input_string "{" ( _NEWLINE statements_list )* _NEWLINE "}"
 scope_name_statement: "scope" ": " free_input_string
@@ -101,5 +103,3 @@ INTEGER: "0".."9"
 // _INDENT: "  "
 // _DEDENT: "  "
 
-BRACED_CONSTANT_USAGE_END_: /(?:\$[^\n\$\:]+\:)(?=(?: {))/
-BRACED_TEXT_CHUNK_END_: /(?:\\{|\\}|\\\$|[^\n{}\$])+(?=(?: {))/

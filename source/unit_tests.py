@@ -372,8 +372,8 @@ class TestSemanticRules(TestingGrammarUtilities):
             braced_free_input_string: ( constant_usage | text_chunk )* ( braced_constant_usage_end | braced_text_chunk_end )
             braced_constant_usage_end: BRACED_CONSTANT_USAGE_END_
             braced_text_chunk_end: BRACED_TEXT_CHUNK_END_
-            BRACED_CONSTANT_USAGE_END_: /(?:\$[^\n\$\:]+\:)(?=(?: {))/
-            BRACED_TEXT_CHUNK_END_: /(\\{|\\}|\\\$|[^\n{}\$])+(?=(?: {))/
+            BRACED_CONSTANT_USAGE_END_: /(?:\$[^\n\$\:]+\:)(?=(?: \u007b))/
+            BRACED_TEXT_CHUNK_END_: /(\\{|\\}|\\\$|[^\n{}\$])+(?=(?: \u007b))/
         """,
         start='start', parser='lalr', lexer='contextual' )
         tree = my_parser.parse( r"true$constant:\$|false {" )
