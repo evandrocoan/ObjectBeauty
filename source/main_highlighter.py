@@ -38,15 +38,15 @@
 
 import os
 import sys
-import pushdown
+
+import code_highlighter
 import semantic_analyzer
 
 from pushdown import Lark
-from pushdown.indenter import Indenter
-
-from pprint import pformat
 from debug_tools import getLogger
+from debug_tools.testing_utilities import wrap_text
 
+program_name = "main_highlighter"
 log = getLogger(__name__)
 
 def assert_path(module):
@@ -58,28 +58,51 @@ from utilities import make_png
 from debug_tools.utilities import get_relative_path
 
 ## The relative path the the pushdown grammar parser file from the current file
-grammar_file_path = get_relative_path( "grammars_grammar.pushdown", __file__ )
+metagrammar_path = get_relative_path( "grammars_grammar.pushdown", __file__ )
 
-## The parser used to build the Abstract Syntax Tree and parse the input text
-with open( grammar_file_path, "r", encoding='utf-8' ) as file:
-    meu_parser = Lark( file.read(), start='language_syntax', parser='lalr', lexer='contextual')
+## The parser used to build the syntax tree and parse the input text
+with open( metagrammar_path, "r", encoding='utf-8' ) as file:
+    my_parser = Lark( file.read(), start='language_syntax', parser='lalr', lexer='contextual')
 
-# To generate the lexer/parser
-# python3 -m pushdown.tools.standalone ./grammars_grammar.pushdown > lexer.py
-def test():
-    # grammar_file_path = get_relative_path( "examples/programa_exemplo.beauty-grammar", __file__ )
-    grammar_file_path = get_relative_path( "examples/duplicated_contexts.beauty-grammar", __file__ )
+example_grammar = wrap_text(
+r"""
+    scope: source.sma
+    name: Abstract Machine Language
+    contexts: {
+        match: // {
+            scope: comment.start.sma
+            push: {
+                meta_scope: comment.line.sma
+                match: \n|\$ {
+                    pop: true
+                }
+            }
+        }
+    }
+""" )
 
-    with open( grammar_file_path, "r", encoding='utf-8' ) as file:
-        tree = meu_parser.parse(file.read())
-        make_png( tree, get_relative_path( "examples/duplicated_contexts.png", __file__ ), debug=True )
-        # log( 1, tree.pretty() )
+syntax_tree = my_parser.parse( example_grammar )
+make_png( syntax_tree, get_relative_path( "%s_syntax_tree.png" % program_name, __file__ ), debug=0, dpi=300 )
 
-        new_tree = semantic_analyzer.TreeTransformer().transform( tree )
-        # make_png( tree, get_relative_path( "examples/duplicated_contexts.png", __file__ ) )
-        log( 1, "\n%s", new_tree.pretty(debug=True) )
+log.clean( "Syntax Tree\n%s", syntax_tree.pretty( debug=1 ) )
+abstract_syntax_tree = semantic_analyzer.TreeTransformer().transform( syntax_tree )
 
+log.clean( "Abstract Syntax Tree\n%s", abstract_syntax_tree.pretty( debug=1 ) )
+make_png( abstract_syntax_tree, get_relative_path( "%s_abstract_syntax_tree.png" % program_name, __file__ ), debug=0, dpi=300 )
 
-if __name__ == '__main__':
-    test()
+example_program = wrap_text(
+r"""
+// Example single line commentary
+""" )
 
+example_theme = {
+    "comment" : "#FF0000",
+    "comment.line" : "#00FF00",
+}
+
+backend = code_highlighter.Backend( abstract_syntax_tree, example_program, example_theme )
+generated_html = backend.generated_html()
+
+with open( "%s.html" % program_name, 'w', newline='\n', encoding='utf-8' ) as output_file:
+    output_file.write( generated_html )
+    output_file.write("\n")

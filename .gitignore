@@ -29,3 +29,10 @@
 *.pyc
 *.app
 *.sublime-workspace
+
+/source/main_formatter.html
+/source/main_formatter_abstract_syntax_tree.png
+/source/main_formatter_syntax_tree.png
+/source/main_highlighter.html
+/source/main_highlighter_abstract_syntax_tree.png
+/source/main_highlighter_syntax_tree.png

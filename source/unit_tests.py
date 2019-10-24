@@ -757,12 +757,12 @@ class TestCodeHighlighterBackEnd(TestingGrammarUtilities):
 
 class TestCodeFormatterBackEnd(TestingGrammarUtilities):
 
-    def _getBackend(self, example_grammar, example_program, example_theme):
+    def _getBackend(self, example_grammar, example_program, example_settings):
         function_file = get_relative_path( "examples/%s.html" % getCallerName(), __file__ )
         # log( 1, "function_file: %s", function_file )
 
         tree = self._getError( example_grammar, True )
-        backend = code_formatter.Backend( code_formatter.SingleSpaceFormatter, tree, example_program, example_theme )
+        backend = code_formatter.Backend( code_formatter.SingleSpaceFormatter, tree, example_program, example_settings )
         generated_html = backend.generated_html()
 
         with open( function_file, 'w', newline='\n', encoding='utf-8' ) as output_file:
@@ -793,8 +793,7 @@ class TestCodeFormatterBackEnd(TestingGrammarUtilities):
         example_program = wrap_text(
         r"""if(something) bar""" )
 
-        example_settings = \
-        {
+        example_settings = {
             "if.statement.body" : 2,
         }
 

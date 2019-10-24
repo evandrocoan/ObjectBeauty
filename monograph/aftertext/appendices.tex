@@ -23,12 +23,31 @@ Uma utiliza a metalinguagem para adicionar cores (\typeref{codeHighlighterPy}),
 como feito em editores de texto e
 a outra realiza a formatação de código~=fonte (\typeref{codeFormatterPy}).
 
-Nos \typeref{mainHighlighterPy,mainFormatterPy},
+Nos \typeref{MainHighlighterPy,MainFormatterPy},
 encontra~=se um exemplo simples de programa que pode ser construído para executar o Formatador de Código e
 a Adição de Cores.
 Sua construção é a mesma utilizada para a criação dos testes de unidade (\typeref{unitTestsPy}).
-Tanto o \typeref{mainFormatterPy} quanto do o \typeref{mainHighlighterPy} geram como resultado um arquivo HTML,
+Tanto o \typeref{MainFormatterPy} quanto do o \typeref{MainHighlighterPy} geram como resultado um arquivo HTML,
 contendo como conteúdo o resultado de seu trabalho.
+
+Nos \typeref{MainFormatterPyResult,MainHighlighterPyResult},
+serão encontrados como nodos folhas das árvores,
+os tokens criados pelo analisador léxico.
+Eles seguem o mesmo padrão de notação do que os tokens utilizados pelo Analisador ANTLR \cite{antlrBookTerrentParr}.
+A implementação da exibição dos tokens no formato do analisador ANTLR 4 foi uma das implementações feitas no fork ``pushdown'' do analisador Lark (ver \typeref{aGrammarsGrammar}).
+
+Um token como ``\mintinline{shell}{[@7,151:166='comment.line.sma'<TEXT_CHUNK_END_>,7:25]}'' segue o modelo de representação do ANTLR 4 \cite{antlrBookTerrentParr} e
+contém as seguintes informações:
+\begin{inparaenum}[1)]
+\item ``\mintinline{shell}{@7}'' significa que ele é o sétimo token
+\item ``\mintinline{text}{151:166}'' é a posição caracteres do token no programa de entrada,
+\item ``\mintinline{shell}{='comment.line.sma'}'' é o lexema (ver \typeref{compiladoresEtradutores}) ou
+conteúdo do token propriamente dito,
+\item ``\mintinline{shell}{<TEXT_CHUNK_END_>}'' é o nome do token atribuído pela gramática de entrada,
+por fim,
+\item ``\mintinline{text}{7:25}'' é a linha e
+coluna do token no programa de entrada.
+\end{inparaenum}%
 
 Para se realizar a execução de qualquer arquivo deste projeto,
 é necessário ter um interpretador ``Python 3.6'' instalado,
@@ -40,28 +59,266 @@ estes pacotes podem ser instalados com os seguintes comandos:
 \begin{enumerate}[1)]
 \item \mintinline{shell}{sudo apt-get install python3 python3-pip}
 \item \mintinline{shell}{pip3 install -r requirements.txt} (\typeref{requirementsTxt})
-\item \mintinline{shell}{python3 main_formatter.py} (\typeref{mainHighlighterPy})
-\item \mintinline{shell}{python3 main_highlighter.py} (\typeref{mainFormatterPy})
+\item \mintinline{shell}{python3 main_formatter.py} (\typeref{MainHighlighterPy})
+\item \mintinline{shell}{python3 main_highlighter.py} (\typeref{MainFormatterPy})
 \end{enumerate}
+
 \begin{code}
 \caption{Arquivo ``source/requirements.txt''}
 \label{requirementsTxt}
 \inputminted{python3}{../source/requirements.txt}
 \end{code}
-\begin{code}
-\caption{Arquivo ``source/main\_formatter.py''}
-\label{mainHighlighterPy}
-\inputminted{python3}{../source/main_formatter.py}
-\end{code}
-\begin{code}
-\caption{Arquivo ``source/main\_highlighter.py''}
-\label{mainFormatterPy}
-\inputminted{python3}{../source/main_formatter.py}
-\end{code}
+
 \begin{code}
 \caption{Arquivo ``source/utilities.py''}
 \label{utilitiesPy}
 \inputminted{python3}{../source/utilities.py}
+\end{code}
+
+\begin{code}
+\caption{Arquivo ``source/main\_formatter.py''}
+\label{MainFormatterPy}
+\inputminted{python3}{../source/main_formatter.py}
+\end{code}
+
+\begin{code}
+\caption{Arquivo ``source/main\_highlighter.py''}
+\label{MainHighlighterPy}
+\inputminted{python3}{../source/main_highlighter.py}
+\end{code}
+
+
+\section{Resultado da Execução de ``main\_formatter.py''}
+
+O programa do \typeref{MainFormatterPy} faz a criação de 5 artefatos de resultado.
+Duas árvores em forma de figura,
+duas arvores em forma de texto e
+uma arquivo HTML.
+No \typeref{MainFormatterHtml},
+encontra~=se o arquivo HTML gerado pelo programa de exemplo (\typeref{MainFormatterPy}).
+
+Nas \typeref{MainFormatterSyntaxTree,MainFormatterAbstractSyntaxTree},
+encontram~=se as imagens geradas pelo programa ``main\_formatter.py'' (\typeref{MainFormatterPy}).
+No \typeref{MainFormatterPyResult},
+encontra~=se a saída da linha de comando que se obtém ao realizar a execução do programa de exemplo (\typeref{MainFormatterPy}).
+Ambas as figuras \typeref{MainFormatterSyntaxTree,MainFormatterAbstractSyntaxTree} quanto o \typeref{MainFormatterPyResult} representam os mesmos dados,
+mas mostrados de formas diferentes (figura \textit{versus} textual) e
+com níveis de detalhes diferentes.
+No \typeref{MainFormatterPyResult},
+são mostrado os nodos folhas das árvores com maior nível de detalhes.
+Já nas \typeref{MainFormatterSyntaxTree,MainFormatterAbstractSyntaxTree} os nodos folhas são mostrados com simplificações para que a figura possa vista em uma única tela.
+\begin{code}
+\caption{``main\_formatter.html'': Arquivo HTML Gerado pelo programa de exemplo ``main\_formatter.py''}
+\label{MainFormatterHtml}
+\begin{minted}{html}
+<!DOCTYPE html><html><head><title>Abstract Machine Language - source.sma</title></head>
+<body style="white-space: pre; font-family: monospace;"><span setting="unformatted" grammar_scope="if.statement.definition" setting_scope="" original_program="if(">if(</span><span setting="2" grammar_scope="if.statement.body" setting_scope="if.statement.body" original_program="something">  something  </span><span setting="unformatted" grammar_scope="if.statement.definition" setting_scope="" original_program=")">)</span><span grammar_scope="none" setting_scope="none"> bar</span></body></html>
+\end{minted}
+\end{code}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=1.0\textwidth]{main_formatter_syntax_tree.png}
+\caption[Árvore de Sintaxe ``main\_formatter\_syntax\_tree.png'']
+{Árvore de Sintaxe ``main\_formatter\_syntax\_tree.png'' -- Fonte Própria}
+\label{MainFormatterSyntaxTree}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=1.0\textwidth]{main_formatter_abstract_syntax_tree.png}
+\caption[Árvore de Sintaxe Abstrata ``main\_formatter\_abstract\_syntax\_tree.png'']
+{Árvore de Sintaxe Abstrata ``main\_formatter\_abstract\_syntax\_tree.png'' -- Fonte Própria}
+\label{MainFormatterAbstractSyntaxTree}
+\end{figure}
+
+\begin{code}
+\caption{Resultado da execução do arquivo ``source/main\_formatter.py''}
+\label{MainFormatterPyResult}
+\begin{minted}{text}
+$ python main_formatter.py
+Syntax Tree
+language_syntax
+  preamble_statements
+    master_scope_name_statement
+      free_input_string
+        text_chunk_end  [@1,7:16='source.sma'<TEXT_CHUNK_END_>,1:8]
+    target_language_name_statement
+      free_input_string
+        text_chunk_end  [@2,24:48='Abstract Machine Language'<TEXT_CHUNK_END_>,2:7]
+  language_construct_rules
+    indentation_block
+      enter_block       [@3,60:60='{'<OPEN_BRACE>,3:11]
+      statements_list
+        match_statement
+          braced_free_input_string
+            braced_text_chunk_end       [@4,73:76='if\\('<BRACED_TEXT_CHUNK_END_>,4:12]
+          statements_list
+            scope_name_statement
+              free_input_string
+                text_chunk_end  [@5,95:117='if.statement.definition'<TEXT_CHUNK_END_>,5:16]
+          statements_list
+            push_statement
+              indentation_block
+                enter_block     [@6,133:133='{'<OPEN_BRACE>,6:15]
+                statements_list
+                  meta_scope_statement
+                    free_input_string
+                      text_chunk_end    [@7,159:175='if.statement.body'<TEXT_CHUNK_END_>,7:25]
+                statements_list
+                  match_statement
+                    braced_free_input_string
+                      braced_text_chunk_end     [@8,196:197='\\)'<BRACED_TEXT_CHUNK_END_>,8:20]
+                    statements_list
+                      scope_name_statement
+                        free_input_string
+                          text_chunk_end        [@9,224:246='if.statement.definition'<TEXT_CHUNK_END_>,9:24]
+                    statements_list
+                      pop_statement
+                        free_input_string
+                          text_chunk_end        [@10,269:272='true'<TEXT_CHUNK_END_>,10:22]
+                leave_block     [@11,296:296='}'<CLOSE_BRACE>,12:9]
+      leave_block       [@12,304:304='}'<CLOSE_BRACE>,14:1]
+
+Abstract Syntax Tree
+language_syntax
+  preamble_statements
+    master_scope_name_statement InputString str: , is_out_of_scope: [], chunks: [source.sma], definitions: {}, errors: [], indentations: [<indent 2, open 133, close 296>, <indent 1, open 60, close 304>], is_resolved: False;
+    target_language_name_statement      InputString str: , is_out_of_scope: [], chunks: [Abstract Machine Language], definitions: {}, errors: [], indentations: [<indent 2, open 133, close 296>, <indent 1, open 60, close 304>], is_resolved: False;
+  language_construct_rules
+    indentation_block
+      statements_list
+        match_statement
+          InputString str: if\(, is_out_of_scope: [], chunks: [if\(], definitions: {}, errors: [], indentations: [<indent 2, open 133, close 296>, <indent 1, open 60, close 304>], is_resolved: True;
+          statements_list
+            scope_name_statement        InputString str: , is_out_of_scope: [], chunks: [if.statement.definition], definitions: {}, errors: [], indentations: [<indent 2, open 133, close 296>, <indent 1, open 60, close 304>], is_resolved: False;
+          statements_list
+            push_statement
+              indentation_block
+                statements_list
+                  meta_scope_statement  InputString str: , is_out_of_scope: [], chunks: [if.statement.body], definitions: {}, errors: [], indentations: [<indent 2, open 133, close 296>, <indent 1, open 60, close 304>], is_resolved: False;
+                statements_list
+                  match_statement
+                    InputString str: \), is_out_of_scope: [], chunks: [\)], definitions: {}, errors: [], indentations: [<indent 2, open 133, close 296>, <indent 1, open 60, close 304>], is_resolved: True;
+                    statements_list
+                      scope_name_statement      InputString str: , is_out_of_scope: [], chunks: [if.statement.definition], definitions: {}, errors: [], indentations: [<indent 2, open 133, close 296>, <indent 1, open 60, close 304>], is_resolved: False;
+                    statements_list
+                      pop_statement     InputString str: , is_out_of_scope: [], chunks: [true], definitions: {}, errors: [], indentations: [<indent 2, open 133, close 296>, <indent 1, open 60, close 304>], is_resolved: False;
+\end{minted}
+\end{code}
+
+
+\section{Resultado da Execução de ``main\_highlighter.py''}
+
+O programa do \typeref{MainHighlighterPy} faz a criação de 5 artefatos de resultado.
+Duas árvores em forma de figura,
+duas arvores em forma de texto e
+uma arquivo HTML.
+No \typeref{MainHighlighterHtml},
+encontra~=se o arquivo HTML gerado pelo programa de exemplo (\typeref{MainHighlighterPy}).
+
+Nas \typeref{MainHighlighterSyntaxTree,MainHighlighterAbstractSyntaxTree},
+encontram~=se as imagens geradas pelo programa ``main\_highlighter.py'' (\typeref{MainHighlighterPy}).
+No \typeref{MainHighlighterPyResult},
+encontra~=se a saída da linha de comando que se obtém ao realizar a execução do programa de exemplo (\typeref{MainHighlighterPy}).
+Ambas as figuras \typeref{MainHighlighterSyntaxTree,MainHighlighterAbstractSyntaxTree} quanto o \typeref{MainHighlighterPyResult} representam os mesmos dados,
+mas mostrados de formas diferentes (figura \textit{versus} textual) e
+com níveis de detalhes diferentes.
+No \typeref{MainHighlighterPyResult},
+são mostrado os nodos folhas das árvores com maior nível de detalhes.
+Já nas \typeref{MainHighlighterSyntaxTree,MainHighlighterAbstractSyntaxTree} os nodos folhas são mostrados com simplificações para que a figura possa vista em uma única tela.
+\begin{code}
+\caption{``main\_highlighter.html'': Arquivo HTML Gerado pelo programa de exemplo ``main\_highlighter.py''}
+\label{MainHighlighterHtml}
+\begin{minted}{html}
+<!DOCTYPE html><html><head><title>Abstract Machine Language - source.sma</title></head>
+<body style="white-space: pre; font-family: monospace;"><font color="#FF0000" grammar_scope="comment.start.sma" theme_scope="comment">//</font><font color="#00FF00" grammar_scope="comment.line.sma" theme_scope="comment.line"> Example single line commentary</font></body></html>
+\end{minted}
+\end{code}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=1.0\textwidth]{main_highlighter_syntax_tree.png}
+\caption[Árvore de Sintaxe ``main\_highlighter\_syntax\_tree.png'']
+{Árvore de Sintaxe ``main\_highlighter\_syntax\_tree.png'' -- Fonte Própria}
+\label{MainHighlighterSyntaxTree}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=1.0\textwidth]{main_highlighter_abstract_syntax_tree.png}
+\caption[Árvore de Sintaxe Abstrata ``main\_highlighter\_abstract\_syntax\_tree.png'']
+{Árvore de Sintaxe Abstrata ``main\_highlighter\_abstract\_syntax\_tree.png'' -- Fonte Própria}
+\label{MainHighlighterAbstractSyntaxTree}
+\end{figure}
+
+\begin{code}
+\caption{Resultado da execução do arquivo ``source/main\_highlighter.py''}
+\label{MainHighlighterPyResult}
+\begin{minted}{text}
+$ python main_highlighter.py
+Syntax Tree
+language_syntax
+  preamble_statements
+    master_scope_name_statement
+      free_input_string
+        text_chunk_end  [@1,7:16='source.sma'<TEXT_CHUNK_END_>,1:8]
+    target_language_name_statement
+      free_input_string
+        text_chunk_end  [@2,24:48='Abstract Machine Language'<TEXT_CHUNK_END_>,2:7]
+  language_construct_rules
+    indentation_block
+      enter_block       [@3,60:60='{'<OPEN_BRACE>,3:11]
+      statements_list
+        match_statement
+          braced_free_input_string
+            braced_text_chunk_end       [@4,73:74='//'<BRACED_TEXT_CHUNK_END_>,4:12]
+          statements_list
+            scope_name_statement
+              free_input_string
+                text_chunk_end  [@5,93:109='comment.start.sma'<TEXT_CHUNK_END_>,5:16]
+          statements_list
+            push_statement
+              indentation_block
+                enter_block     [@6,125:125='{'<OPEN_BRACE>,6:15]
+                statements_list
+                  meta_scope_statement
+                    free_input_string
+                      text_chunk_end    [@7,151:166='comment.line.sma'<TEXT_CHUNK_END_>,7:25]
+                statements_list
+                  match_statement
+                    braced_free_input_string
+                      braced_text_chunk_end     [@8,187:191='\\n|\\$'<BRACED_TEXT_CHUNK_END_>,8:20]
+                    statements_list
+                      pop_statement
+                        free_input_string
+                          text_chunk_end        [@9,216:219='true'<TEXT_CHUNK_END_>,9:22]
+                leave_block     [@10,243:243='}'<CLOSE_BRACE>,11:9]
+      leave_block       [@11,251:251='}'<CLOSE_BRACE>,13:1]
+
+Abstract Syntax Tree
+language_syntax
+  preamble_statements
+    master_scope_name_statement InputString str: , is_out_of_scope: [], chunks: [source.sma], definitions: {}, errors: [], indentations: [<indent 2, open 125, close 243>, <indent 1, open 60, close 251>], is_resolved: False;
+    target_language_name_statement      InputString str: , is_out_of_scope: [], chunks: [Abstract Machine Language], definitions: {}, errors: [], indentations: [<indent 2, open 125, close 243>, <indent 1, open 60, close 251>], is_resolved: False;
+  language_construct_rules
+    indentation_block
+      statements_list
+        match_statement
+          InputString str: //, is_out_of_scope: [], chunks: [//], definitions: {}, errors: [], indentations: [<indent 2, open 125, close 243>, <indent 1, open 60, close 251>], is_resolved: True;
+          statements_list
+            scope_name_statement        InputString str: , is_out_of_scope: [], chunks: [comment.start.sma], definitions: {}, errors: [], indentations: [<indent 2, open 125, close 243>, <indent 1, open 60, close 251>], is_resolved: False;
+          statements_list
+            push_statement
+              indentation_block
+                statements_list
+                  meta_scope_statement  InputString str: , is_out_of_scope: [], chunks: [comment.line.sma], definitions: {}, errors: [], indentations: [<indent 2, open 125, close 243>, <indent 1, open 60, close 251>], is_resolved: False;
+                statements_list
+                  match_statement
+                    InputString str: \n|$, is_out_of_scope: [], chunks: [\n|\$], definitions: {}, errors: [], indentations: [<indent 2, open 125, close 243>, <indent 1, open 60, close 251>], is_resolved: True;
+                    statements_list
+                      pop_statement     InputString str: , is_out_of_scope: [], chunks: [true], definitions: {}, errors: [], indentations: [<indent 2, open 125, close 243>, <indent 1, open 60, close 251>], is_resolved: False;
+\end{minted}
 \end{code}
 
 
@@ -94,7 +351,7 @@ Uma vez feito isso,
 duplicou~=se o código~=fonte da implementação de adição de cores \typeref{codeHighlighterPy} e
 realizou~=se as alterações necessárias para que se faça a formatação de código~=fonte \typeref{codeFormatterPy}.
 \begin{code}
-\caption{Resultado da execução dos Testes de Unidade''}
+\caption{Resultado da execução dos Testes de Unidade}
 \label{unitTestsResults}
 \begin{minted}{text}
 $ python3 unit_tests.py

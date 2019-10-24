@@ -42,6 +42,6 @@ from debug_tools import getLogger
 log = getLogger( 127, __name__ )
 
 
-def make_png(pushdown_tree, output_file, debug=False):
-    pushdown.tree.pydot__tree_to_png( pushdown_tree, output_file, "TB", debug=debug )
+def make_png(pushdown_tree, output_file, debug=False, **kwargs):
+    pushdown.tree.pydot__tree_to_png( pushdown_tree, output_file, "TB", debug=debug, **kwargs )
 

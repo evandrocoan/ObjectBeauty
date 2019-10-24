@@ -38,12 +38,15 @@
 
 import os
 import sys
-import pushdown
+
+import code_formatter
 import semantic_analyzer
 
 from pushdown import Lark
 from debug_tools import getLogger
+from debug_tools.testing_utilities import wrap_text
 
+program_name = "main_highlighter"
 log = getLogger(__name__)
 
 def assert_path(module):
@@ -55,27 +58,51 @@ from utilities import make_png
 from debug_tools.utilities import get_relative_path
 
 ## The relative path the the pushdown grammar parser file from the current file
-grammar_path = get_relative_path( "examples/duplicated_contexts.beauty-grammar", __file__ )
 metagrammar_path = get_relative_path( "grammars_grammar.pushdown", __file__ )
 
-## The parser used to build the Abstract Syntax Tree and parse the input text
+## The parser used to build the syntax tree and parse the input text
 with open( metagrammar_path, "r", encoding='utf-8' ) as file:
     my_parser = Lark( file.read(), start='language_syntax', parser='lalr', lexer='contextual')
 
-with open( grammar_path, "r", encoding='utf-8' ) as file:
-    syntax_tree = my_parser.parse(file.read())
-    make_png( syntax_tree, get_relative_path( "examples/duplicated_contexts.png", __file__ ), debug=True )
+example_grammar = wrap_text(
+r"""
+    scope: source.sma
+    name: Abstract Machine Language
+    contexts: {
+        match: if\( {
+            scope: if.statement.definition
+            push: {
+                meta_scope: if.statement.body
+                match: \) {
+                    scope: if.statement.definition
+                    pop: true
+                }
+            }
+        }
+    }
+""" )
 
-    # print the Syntax Tree to the console
-    log( "Syntax Tree\n%s", syntax_tree.pretty() )
-    abstract_syntax_tree = semantic_analyzer.TreeTransformer().transform( syntax_tree )
+syntax_tree = my_parser.parse( example_grammar )
+make_png( syntax_tree, get_relative_path( "%s_syntax_tree.png" % program_name, __file__ ), debug=0, dpi=300 )
 
-    # make_png( syntax_tree, get_relative_path( "examples/duplicated_contexts.png", __file__ ) )
-    log( "Abstract Syntax Tree\n%s", abstract_syntax_tree.pretty( debug=True ) )
+log.clean( "Syntax Tree\n%s", syntax_tree.pretty( debug=1 ) )
+abstract_syntax_tree = semantic_analyzer.TreeTransformer().transform( syntax_tree )
 
-    backend = code_formatter.Backend( code_formatter.SingleSpaceFormatter, tree, example_program, example_theme )
-    generated_html = backend.generated_html()
+log.clean( "Abstract Syntax Tree\n%s", abstract_syntax_tree.pretty( debug=1 ) )
+make_png( abstract_syntax_tree, get_relative_path( "%s_abstract_syntax_tree.png" % program_name, __file__ ), debug=0, dpi=300 )
 
-    with open( function_file, 'w', newline='\n', encoding='utf-8' ) as output_file:
-        output_file.write( generated_html )
-        output_file.write("\n")
+example_program = wrap_text(
+r"""
+if(something) bar
+""" )
+
+example_settings = {
+    "if.statement.body" : 2,
+}
+
+backend = code_formatter.Backend( code_formatter.SingleSpaceFormatter, abstract_syntax_tree, example_program, example_settings )
+generated_html = backend.generated_html()
+
+with open( "%s.html" % program_name, 'w', newline='\n', encoding='utf-8' ) as output_file:
+    output_file.write( generated_html )
+    output_file.write("\n")
