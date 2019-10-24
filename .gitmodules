@@ -1,6 +1,3 @@
-[submodule "code/lark-parser"]
-	path = source/pushdown
-	url = https://github.com/evandrocoan/pushdownparser
 [submodule "proposal/utilities"]
 	path = proposal/utilities
 	url = https://github.com/evandrocoan/latex_utilities

@@ -27,6 +27,9 @@
                 "source/libraries/doctest/scripts/bench/catch",
             ],
         },
+        {
+            "path": "F:\\SublimeText\\Data\\Packages\\pushdownparser",
+        },
     ],
     "build_systems":
     [
