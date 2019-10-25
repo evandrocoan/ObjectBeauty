@@ -34,14 +34,14 @@ Nos \typeref{MainFormatterPyResult,MainHighlighterPyResult},
 serão encontrados como nós folhas das árvores,
 os \textit{tokens} criados pelo analisador léxico.
 Eles seguem o mesmo padrão de notação do que os \textit{tokens} utilizados pelo Analisador ANTLR \cite{antlrBookTerrentParr}.
-A implementação da exibição dos \textit{tokens} no formato do analisador ANTLR 4 foi uma das implementações feitas no fork ``pushdown'' do Analisador Lark (ver \typeref{GrammarsGrammar}).
+A implementação da exibição dos \textit{tokens} no formato do analisador ANTLR 4 foi uma das implementações feitas no fork ``pushdown'' do Analisador Lark (Veja a \fullref{GrammarsGrammar}).
 
 Um \textit{token} como ``\mintinline{shell}{[@7,151:166='comment.line.sma'<TEXT_CHUNK_END_>,7:25]}'' segue o modelo de representação do ANTLR 4 \cite{antlrBookTerrentParr} e
 contém as seguintes informações:
 \begin{inparaenum}[1)]
 \item ``\mintinline{shell}{@7}'' significa que ele é o sétimo \textit{token}
 \item ``\mintinline{text}{151:166}'' é a posição caracteres do \textit{token} no programa de entrada,
-\item ``\mintinline{shell}{='comment.line.sma'}'' é o lexema (ver \typeref{compiladoresEtradutores}) ou
+\item ``\mintinline{shell}{='comment.line.sma'}'' é o lexema (Veja a \fullref{compiladoresEtradutores}) ou
 conteúdo do \textit{token} propriamente dito,
 \item ``\mintinline{shell}{<TEXT_CHUNK_END_>}'' é o nome do \textit{token} atribuído pela gramática de entrada,
 por fim,
@@ -458,7 +458,7 @@ pode~=se encontrar um exemplo explicito de utilização do \typeref{codeFormatte
 Neste capítulo pode~=se ver na integra o arquivo da gramática (\typeref{grammarsGrammarPushdown}) utilizadas pela adição de cores e
 formatação de código~=fonte.
 No \typeref{MainFormatterPy,MainHighlighterPy} pode~=se ver o importe explicito deste arquivo de gramática e
-seu recebimento pela Analisador Lark (veja \typeref{GrammarsGrammar}).
+seu recebimento pela Analisador Lark (Veja a \fullref{GrammarsGrammar}).
 Nesta gramática pode ser encontrado expressões redundantes como \mintinline{antlr}{enter_block:
 OPEN_BRACE} que servem para fazer com que a árvore de sintaxe tenha um nó com o nome ``\mintinline{text}{enter_block}'' e
 com que o analisador léxico gere um \textit{token} com o nome ``\mintinline{text}{OPEN_BRACE}''.
