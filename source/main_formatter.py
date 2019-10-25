@@ -46,7 +46,7 @@ from pushdown import Lark
 from debug_tools import getLogger
 from debug_tools.testing_utilities import wrap_text
 
-program_name = "main_highlighter"
+program_name = "main_formatter"
 log = getLogger(__name__)
 
 def assert_path(module):
