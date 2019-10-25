@@ -17,8 +17,8 @@ semântica da linguagem a ser formatada.
 
 Não foi criada nenhuma interface gráfica ou
 de linha de comando que faça a entrada do programa a ser formatado e
-das configurações do formatador.
-Existem duas implementações que utilizam a metalinguagem (\typeref{grammarsGrammarPy}).
+das configurações do formatador de código~=fonte.
+Existem duas implementações que utilizam a metalinguagem (\typeref{grammarsGrammarPushdown}).
 Uma utiliza a metalinguagem para adicionar cores (\typeref{codeHighlighterPy}),
 como feito em editores de texto e
 a outra realiza a formatação de código~=fonte (\typeref{codeFormatterPy}).
@@ -31,10 +31,10 @@ Tanto o \typeref{MainFormatterPy} quanto do o \typeref{MainHighlighterPy} geram 
 contendo como conteúdo o resultado de seu trabalho.
 
 Nos \typeref{MainFormatterPyResult,MainHighlighterPyResult},
-serão encontrados como nodos folhas das árvores,
-os tokens criados pelo analisador léxico.
-Eles seguem o mesmo padrão de notação do que os tokens utilizados pelo Analisador ANTLR \cite{antlrBookTerrentParr}.
-A implementação da exibição dos tokens no formato do analisador ANTLR 4 foi uma das implementações feitas no fork ``pushdown'' do analisador Lark (ver \typeref{aGrammarsGrammar}).
+serão encontrados como nós folhas das árvores,
+os \textit{tokens} criados pelo analisador léxico.
+Eles seguem o mesmo padrão de notação do que os \textit{tokens} utilizados pelo Analisador ANTLR \cite{antlrBookTerrentParr}.
+A implementação da exibição dos \textit{tokens} no formato do analisador ANTLR 4 foi uma das implementações feitas no fork ``pushdown'' do Analisador Lark (ver \typeref{GrammarsGrammar}).
 
 Um token como ``\mintinline{shell}{[@7,151:166='comment.line.sma'<TEXT_CHUNK_END_>,7:25]}'' segue o modelo de representação do ANTLR 4 \cite{antlrBookTerrentParr} e
 contém as seguintes informações:
@@ -105,8 +105,8 @@ Ambas as figuras \typeref{MainFormatterSyntaxTree,MainFormatterAbstractSyntaxTre
 mas mostrados de formas diferentes (figura \textit{versus} textual) e
 com níveis de detalhes diferentes.
 No \typeref{MainFormatterPyResult},
-são mostrado os nodos folhas das árvores com maior nível de detalhes.
-Já nas \typeref{MainFormatterSyntaxTree,MainFormatterAbstractSyntaxTree} os nodos folhas são mostrados com simplificações para que a figura possa vista em uma única tela.
+são mostrado os nós folhas das árvores com maior nível de detalhes.
+Já nas \typeref{MainFormatterSyntaxTree,MainFormatterAbstractSyntaxTree} os nós folhas são mostrados com simplificações para que a figura possa vista em uma única tela.
 \begin{code}
 \caption{``main\_formatter.html'': Arquivo HTML Gerado pelo programa de exemplo ``main\_formatter.py''}
 \label{MainFormatterHtml}
@@ -225,8 +225,8 @@ Ambas as figuras \typeref{MainHighlighterSyntaxTree,MainHighlighterAbstractSynta
 mas mostrados de formas diferentes (figura \textit{versus} textual) e
 com níveis de detalhes diferentes.
 No \typeref{MainHighlighterPyResult},
-são mostrado os nodos folhas das árvores com maior nível de detalhes.
-Já nas \typeref{MainHighlighterSyntaxTree,MainHighlighterAbstractSyntaxTree} os nodos folhas são mostrados com simplificações para que a figura possa vista em uma única tela.
+são mostrado os nós folhas das árvores com maior nível de detalhes.
+Já nas \typeref{MainHighlighterSyntaxTree,MainHighlighterAbstractSyntaxTree} os nós folhas são mostrados com simplificações para que a figura possa vista em uma única tela.
 \begin{code}
 \caption{``main\_highlighter.html'': Arquivo HTML Gerado pelo programa de exemplo ``main\_highlighter.py''}
 \label{MainHighlighterHtml}
@@ -449,8 +449,17 @@ criado para verificar tal regra semântica na classe de testes ``TestSemanticRul
 
 \chapter{Código da Metagramática}
 
+Neste capítulo pode~=se ver na integra o arquivo da gramática (\typeref{grammarsGrammarPushdown}) utilizadas pela adição de cores e
+formatação de código~=fonte.
+No \typeref{MainFormatterPy,MainHighlighterPy} pode~=se ver o importe explicito deste arquivo de gramática e
+seu recebimento pela Analisador Lark (veja \typeref{GrammarsGrammar}).
+Nesta gramática pode ser encontrado expressões redundantes como \mintinline{antlr}{enter_block:
+OPEN_BRACE} que servem para fazer com que a árvore de sintaxe tenha um nó com o nome ``\mintinline{antlr}{enter_block}'' e
+com que o analisador léxico gere um token com o nome ``\mintinline{antlr}{OPEN_BRACE}''.
+Estas características facilitam a manipulação da árvore de sintaxe e
+operações com \textit{tokens}.
 \begin{code}
 \caption{Arquivo ``source/grammars\_grammar.pushdown''}
-\label{grammarsGrammarPy}
+\label{grammarsGrammarPushdown}
 \inputminted{antlr}{../source/grammars_grammar.pushdown}
 \end{code}

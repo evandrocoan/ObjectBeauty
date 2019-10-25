@@ -19,7 +19,7 @@ Por exemplo,
 
 
 \section{Uma Gramática de Gramáticas}
-\label{aGrammarsGrammar}
+\label{GrammarsGrammar}
 
 Na \fullref{introducaoGramaticas},
 foi explicado o que são gramáticas.
@@ -140,7 +140,7 @@ Na \typeref{MetacompilerMetagrammarMetaprogram},
 encontra~=se uma extensão da \typeref{MyWorflowForLarkTraduzido2},
 e pode~=se ver claramente as relações entre Metagramáticas,
 Metacompiladores e Metaprogramas. Por simplificação,
-mostra~=se o nodo ``Árvore de Sintaxe'' sem explicitamente falar sobre sua Análise Semântica e
+mostra~=se o nó ``Árvore de Sintaxe'' sem explicitamente falar sobre sua Análise Semântica e
 propriamente a construção do Compilador (ou do Formatador de Código).
 Vale lembrar que trata~=se de um Compilador de Compiladores,
 e não um Compilador de Analisadores.
@@ -493,17 +493,17 @@ class TreeTransformer(pushdown.Transformer):
         self.indentation_blocks = []
 \end{lstlisting}
 
-A visita dos nodos da Árvore de Sintaxe pela função ``transform(tree)'' acontece simplesmente chamando os métodos que a classe ``TreeTransformer'' (Definido no \typeref{semanticAnalizerConstructor}) define e
+A visita dos nós da Árvore de Sintaxe pela função ``transform(tree)'' acontece simplesmente chamando os métodos que a classe ``TreeTransformer'' (Definido no \typeref{semanticAnalizerConstructor}) define e
 que possuem os mesmos nomes que os símbolos não~=terminais definidos pela metagramática.
 Então,
-cada nodo ou
-função deve retornar qual será o novo nodo que irá o substituir na Árvore de Sintaxe.
+cada nó ou
+função deve retornar qual será o novo nó que irá o substituir na Árvore de Sintaxe.
 Assim,
 no final do processo,
 um a um,
-cada nodo da Árvore de Sintaxe será convertido para um nodo da Árvore de Sintaxe Abstrata.
+cada nó da Árvore de Sintaxe será convertido para um nó da Árvore de Sintaxe Abstrata.
 
-Um jeito fácil de excluir um nodo da Árvore de Sintaxe é simplesmente definir uma função com o nome de seu não~=terminal que returna ``null''.
+Um jeito fácil de excluir um nó da Árvore de Sintaxe é simplesmente definir uma função com o nome de seu não~=terminal que returna ``null''.
 Por exemplo,
 o trecho da metagramática apresentado no \typeref{simboloInicialDaMetagramatica} possui alguns símbolos não~=terminais como ``preamble\_statements'' e
 ``language\_construct\_rules''. Então,
@@ -516,20 +516,20 @@ Caso não existam os métodos ``preamble\_statements'' e
 os nós ``preamble\_statements'' e
 ``language\_construct\_rules'' da Árvore de Sintaxe não serão visitados e
 ``poderão'' ser excluídos da Análise Semântica (mas não da Árvore de Sintaxe Abstrata).
-Nodos não analisados pela classe ``TreeTransformer'' não serão excluídos da Árvore de Sintaxe Abstrata,
+Nós não analisados pela classe ``TreeTransformer'' não serão excluídos da Árvore de Sintaxe Abstrata,
 eles serão mantidos intactos,
-a não ser que algum outro nodo os altere diretamente na Árvore de Sintaxe.
+a não ser que algum outro nó os altere diretamente na Árvore de Sintaxe.
 
 Mesmo que não existam os métodos ``preamble\_statements'' e
 ``language\_construct\_rules'' definidos na classe ``TreeTransformer'',
-eles também podem ser visitados diretamente a partir de algum nodo pai ou
+eles também podem ser visitados diretamente a partir de algum nó pai ou
 até algum de seus filhos.
 Inclusive,
 esta foi uma das alterações realizadas no fork ``pushdown'' do Analisador Lark.
 Por padrão,
 ao iterar pela árvore,
-o Analisador Lark somente passa como parâmetro da função o nodo correspondente ao método atualmente sendo chamado e
-uma lista de nodos filhos.
+o Analisador Lark somente passa como parâmetro da função o nó correspondente ao método atualmente sendo chamado e
+uma lista de nós filhos.
 Entretanto,
 ``pushdown'' também passa um terceiro parâmetro que é uma referência para o nó raíz da árvore e
 mantém a variável ``parent'',
@@ -585,10 +585,10 @@ a Árvore de Sintaxe Abstrata.
 Diferentemente do Analisador Semântico,
 o Formatador de Código faz herança do tipo ``Interpreter'' em vez de ``Transformer'' (\typeref{CodeFormatterClassDiagram}).
 A diferença é simples,
-``Interpreter'' visita a árvore partindo das folhas até chegar na raíz visitando todos os nodos filhos (\fullref{compiladoresEtradutores}),
-já ``Transformer'' visita a árvore partindo da raíz até chegar nos nodos pais,
+``Interpreter'' visita a árvore partindo das folhas até chegar na raíz visitando todos os nós filhos (\fullref{compiladoresEtradutores}),
+já ``Transformer'' visita a árvore partindo da raíz até chegar nos nós pais,
 i.e.,
-ele não visita os nodos filhos automaticamente como ``Transformer'' faz.
+ele não visita os nós filhos automaticamente como ``Transformer'' faz.
 
 ``Interpreter'' também recebe diretamente no construtor qual será a árvore que ele irá iterar sobre.
 Nos demais aspectos,
