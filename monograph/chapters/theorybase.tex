@@ -67,9 +67,9 @@ este resumo seria o equivalente as disciplinas de:
 No processo de compilação ou
 tradução,
 um Analisador Léxico cria múltiplos \textit{tokens}.
-Um token é composto por diversos atributos como a posição e
+Um \textit{token} é composto por diversos atributos como a posição e
 o \textit{lexema}, i.e.,
-a sequencia de caracteres que este token representa no programa de entrada.
+a sequencia de caracteres que este \textit{token} representa no programa de entrada.
 Uma vez que o programa é ``\textit{tokenizado}'' pelo Analisador Léxico,
 o Analisador Sintático constrói a Árvore Sintática do programa.
 
@@ -118,16 +118,16 @@ $V = V_n \cup V_t$,
 uma gramática é definida por quatro componentes:
 \begin{enumerate}%[nosep,nolistsep]
     \item \advisor{O}{Um} conjunto $V_t$ de símbolos terminais\advisor{ (também chamados
-    de tokens ou símbolos do alfabeto da linguagem).
+    de \textit{tokens} ou símbolos do alfabeto da linguagem).
     Cada terminal corresponde a um símbolo presente na linguagem.
     }{,
     chamados algumas vezes de ``\textit{tokens}'' devido a sua forte conexão.
     Cada terminal corresponde a um símbolo presente no alfabeto da linguagem.
     }%
     Durante a Análise Léxica,
-    os símbolos terminais serão utilizados definir os lexemas que são a base principal dos tokens.
+    os símbolos terminais serão utilizados definir os lexemas que são a base principal dos \textit{tokens}.
     Na composição da Árvore Sintática,
-    os ``\textit{tokens}'' ou terminais,
+    os ``\textit{tokens}'' ou símbolos terminais,
     serão sempre as folhas da Árvore Sintática.
 
     \item \advisor{O}{Um} conjunto $V_n$ de símbolos
@@ -694,7 +694,7 @@ que também o alimenta o Analisador Semântico,
 que alimenta a Tabela de Símbolos.
 Assim,
 o Analisador Sintático é capaz de consultar a Tabela de Símbolos \cite{ahoCompilerDragonBook} e
-descobrir se dado token ou
+descobrir se dado \textit{token} ou
 tratar~=se de um tipo ou
 uma variável numérica.
 

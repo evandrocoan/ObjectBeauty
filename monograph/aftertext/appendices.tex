@@ -36,17 +36,17 @@ os \textit{tokens} criados pelo analisador léxico.
 Eles seguem o mesmo padrão de notação do que os \textit{tokens} utilizados pelo Analisador ANTLR \cite{antlrBookTerrentParr}.
 A implementação da exibição dos \textit{tokens} no formato do analisador ANTLR 4 foi uma das implementações feitas no fork ``pushdown'' do Analisador Lark (ver \typeref{GrammarsGrammar}).
 
-Um token como ``\mintinline{shell}{[@7,151:166='comment.line.sma'<TEXT_CHUNK_END_>,7:25]}'' segue o modelo de representação do ANTLR 4 \cite{antlrBookTerrentParr} e
+Um \textit{token} como ``\mintinline{shell}{[@7,151:166='comment.line.sma'<TEXT_CHUNK_END_>,7:25]}'' segue o modelo de representação do ANTLR 4 \cite{antlrBookTerrentParr} e
 contém as seguintes informações:
 \begin{inparaenum}[1)]
-\item ``\mintinline{shell}{@7}'' significa que ele é o sétimo token
-\item ``\mintinline{text}{151:166}'' é a posição caracteres do token no programa de entrada,
+\item ``\mintinline{shell}{@7}'' significa que ele é o sétimo \textit{token}
+\item ``\mintinline{text}{151:166}'' é a posição caracteres do \textit{token} no programa de entrada,
 \item ``\mintinline{shell}{='comment.line.sma'}'' é o lexema (ver \typeref{compiladoresEtradutores}) ou
-conteúdo do token propriamente dito,
-\item ``\mintinline{shell}{<TEXT_CHUNK_END_>}'' é o nome do token atribuído pela gramática de entrada,
+conteúdo do \textit{token} propriamente dito,
+\item ``\mintinline{shell}{<TEXT_CHUNK_END_>}'' é o nome do \textit{token} atribuído pela gramática de entrada,
 por fim,
 \item ``\mintinline{text}{7:25}'' é a linha e
-coluna do token no programa de entrada.
+coluna do \textit{token} no programa de entrada.
 \end{inparaenum}%
 
 Para se realizar a execução de qualquer arquivo deste projeto,
@@ -455,7 +455,7 @@ No \typeref{MainFormatterPy,MainHighlighterPy} pode~=se ver o importe explicito 
 seu recebimento pela Analisador Lark (veja \typeref{GrammarsGrammar}).
 Nesta gramática pode ser encontrado expressões redundantes como \mintinline{antlr}{enter_block:
 OPEN_BRACE} que servem para fazer com que a árvore de sintaxe tenha um nó com o nome ``\mintinline{antlr}{enter_block}'' e
-com que o analisador léxico gere um token com o nome ``\mintinline{antlr}{OPEN_BRACE}''.
+com que o analisador léxico gere um \textit{token} com o nome ``\mintinline{antlr}{OPEN_BRACE}''.
 Estas características facilitam a manipulação da árvore de sintaxe e
 operações com \textit{tokens}.
 \begin{code}
