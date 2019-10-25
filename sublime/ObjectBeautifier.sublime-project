@@ -12,7 +12,7 @@
         "buildview.scroll": "last",
         "buildview.focus_build": false,
         "show_panel_on_build": true,
-        "restore_output_view_scroll": true,
+        // "restore_output_view_scroll": true,
     },
     "folders":
     [
