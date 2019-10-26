@@ -139,8 +139,7 @@
     encontra~=se mais de 500 configurações tais como o \typeref{uncrustifySettingSample},
     veja mais sobre configurações na \fullref{trabalhosRelacionados}.
 }
-\begin{lstlisting}[caption={Trecho do Arquivo de Configuração de
-Uncrustify},label={uncrustifySettingSample}]
+\begin{lstlisting}[caption={Trecho do Arquivo de Configuração de Uncrustify},label={uncrustifySettingSample}]
 # If the body of the namespace is longer than this
 # number, it won't be indented. Requires
 # indent_namespace=true. Default=0 (no limit)
@@ -447,14 +446,13 @@ Em vez de melhorar a leitura do código~=fonte,
 sua função é impossibilitar que o código~=fonte seja compreendido.
 Tais técnicas e
 utilidades para estes tipos de software podem ser encontradas com mais detalhes em \citeonline{codeObfuscationTechniques}.
-
 \begin{quadro}[h]
 \caption[Exemplo de Ofuscador de Código]{Exemplo de Ofuscador de Código \cite{familyOfSourceCodeObfuscators}}
 \label{exemploDeOfuscador}
 \begin{bluebox}
-\lstset{xleftmargin=2em,aboveskip=0pt}
-
-\begin{lstlisting}[caption={Antes do ofuscamento}]
+\begin{code}
+\caption{Antes do ofuscamento}
+\begin{minted}[xleftmargin=2em]{javascript}
 for (i=0; i < M.length; i++)
 {
    // Adjust position of clock hands
@@ -463,15 +461,19 @@ for (i=0; i < M.length; i++)
    ML.top = y[i] + HandY + ( i*HandHeight ) * Math.sin(min) + scroll;
    ML.left = x[i] + HandX + ( i*HandWidth ) * Math.cos(min);
 }
-\end{lstlisting}
+\end{minted}
+\end{code}
 
-\begin{lstlisting}[caption={Depois do ofuscamento}]
+\begin{code}
+\caption{Antes do ofuscamento}
+\begin{minted}[xleftmargin=2em]{javascript}
 for(O79=0;O79<l6x.length;O79++){var O63=(l70)?
 document.layers["nsM\151\156u\164\145s"+O79]:
 ieMinutes[O79].style;O63.top=l61[O79]+O76+(O79*O75)
 *Math.sin(O51)+l73;O63.left=l75[O79]+l77+(O79*l76)
 *Math.cos(O51);}
-\end{lstlisting}
+\end{minted}
+\end{code}
 \end{bluebox}
 \end{quadro}
 

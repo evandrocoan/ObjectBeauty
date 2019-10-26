@@ -233,7 +233,10 @@ conjunto de instruções como ``include'' e
 } com grupos de produções da gramática (\fullref{definicaoDeGramatica}),
 que podem ser incluídos a partir do símbolo inicial da gramática definido no item ``language\_construct\_rules''.
 \end{enumerate}%
-\begin{lstlisting}[caption={Simbolo Inicial da Metagramática ``ObjectBeauty''},label={simboloInicialDaMetagramatica},style=yaml_style]
+\begin{code}
+\caption{Simbolo Inicial da Metagramática ``ObjectBeauty''}
+\label{simboloInicialDaMetagramatica}
+\begin{minted}{antlr}
 language_syntax: _NEWLINE? preamble_statements _NEWLINE?
                     language_construct_rules _NEWLINE?
                     ( miscellaneous_language_rules _NEWLINE? )*
@@ -250,12 +253,14 @@ miscellaneous_language_rules: /[^:\n]+/ ": " indentation_block
 
 target_language_name_statement: "name" ": " free_input_string
 master_scope_name_statement: "scope" ": " free_input_string
-\end{lstlisting}
+\end{minted}
+\end{code}
 
 A sintase da metagramática utilizada no \typeref{simboloInicialDaMetagramatica} é uma adaptação especial do padrão EBNF que o Analisador Lark faz.
 Símbolos que possuem todas as letras em ``MAIÚSCULA'' definem os símbolos terminais da gramática.
 Enquanto símbolos escrito todos em letras ``minúsculas'' definem os símbolos não~=terminais da gramática.
-Para mais informações sobre a sintaxe de entrada de gramáticas do Analisador Lark consulte a documentação \cite{larkGrammarReference,larkStyleCheat}.
+Para mais informações sobre a sintaxe de entrada de gramáticas do Analisador Lark,
+consulte sua documentação \cite{larkGrammarReference,larkStyleCheat}.
 
 Entre os \typeref{exemploDeGramaticaPawn1,exemploDeGramaticaPawn2,exemploDeGramaticaPawn3,exemploDeGramaticaPawn4},
 encontra~=se pequenos exemplos de gramáticas escritas na metalinguagem ``ObjectBeauty'' brevemente apresentada.
@@ -286,7 +291,10 @@ o Formatador de Código será capaz de realizar as operações de formatação s
 Realizando assim,
 a formatação seletiva de código~=fonte,
 contrário da formatação total de código~=fonte como acontece nos demais trabalhos (\fullref{performanceDoFormator}).
-\begin{lstlisting}[caption={Exemplo de Gramática -- Símbolo Inicial},label={exemploDeGramaticaPawn1},style=yaml_style]
+\begin{code}
+\caption{Exemplo de Gramática -- Símbolo Inicial}
+\label{exemploDeGramaticaPawn1}
+\begin{minted}{yaml}
 name: Abstract Machine Language
 scope: source.sma
 
@@ -299,7 +307,8 @@ contexts: {
         scope: constant.boolean.language.pawn
     }
 }
-\end{lstlisting}
+\end{minted}
+\end{code}
 
 No \typeref{exemploDeGramaticaPawn2},
 é introduzido o uso dos operadores ``push'',
@@ -312,7 +321,10 @@ A diferença entre o operador ``scope'' e
 Já o operador ``meta\_scope'' permite aplicar o escopo a todo o texto desde o primeiro até o último ``match'',
 que desempilha com o operador ``pop'',
 o contexto empilhado inicialmente com um ``push''.
-\begin{lstlisting}[caption={Exemplo de Gramática -- Contextos},label={exemploDeGramaticaPawn2},style=yaml_style]
+\begin{code}
+\caption{Exemplo de Gramática -- Contextos}
+\label{exemploDeGramaticaPawn2}
+\begin{minted}{yaml}
 parens: {
     match: \( {
         scope: parens.begin.pawn
@@ -326,7 +338,8 @@ parens: {
         }
     }
 }
-\end{lstlisting}
+\end{minted}
+\end{code}
 
 No \typeref{exemploDeGramaticaPawn3},
 é introduzido o uso do operador ``captures''.
@@ -349,7 +362,10 @@ constant.numeric.pawn'',
 poderia~=se utilizar equivalentemente o operador ``captures:
 0.
 constant.numeric.pawn''.
-\begin{lstlisting}[caption={Exemplo de Gramática -- Grupos de Captura},label={exemploDeGramaticaPawn3},style=yaml_style]
+\begin{code}
+\caption{Exemplo de Gramática -- Grupos de Captura}
+\label{exemploDeGramaticaPawn3}
+\begin{minted}{yaml}
 numbers: {
     match: '(\d+)(\.\{2\})(\d+)' {
         captures: {
@@ -360,7 +376,8 @@ numbers: {
         }
     include: numeric
 }
-\end{lstlisting}
+\end{minted}
+\end{code}
 
 No \typeref{exemploDeGramaticaPawn4},
 é mostrado mais alguns exemplos de uso do operador ``match'' classificando diversos tipos de numéricos (da linguagem sendo descrita pela gramática).
@@ -376,7 +393,10 @@ Assim,
 uma vez que um trecho de código~=fonte já foi classificado,
 ele será ignorado quando os próximos operadores forem aplicados,
 evitando assim que o programa execute infinitamente.
-\begin{lstlisting}[caption={Exemplo de Gramática -- Tipos numéricos},label={exemploDeGramaticaPawn4},style=yaml_style]
+\begin{code}
+\caption{Exemplo de Gramática -- Tipos numéricos}
+\label{exemploDeGramaticaPawn4}
+\begin{minted}{yaml}
 numeric: {
     match: ([-]?0x[\da-f]+) {
         scope: constant.numeric.hex.pawn
@@ -388,7 +408,8 @@ numeric: {
         scope: constant.numeric.int.pawn
     }
 }
-\end{lstlisting}
+\end{minted}
+\end{code}
 
 Por fim,
 no \typeref{exemploDeGramaticaPawn5} é apresentado um exemplo não relacionado com formatação de código~=fonte.
@@ -404,13 +425,17 @@ não deveria existir mais nenhum texto ser reconhecido.
 Caso exista,
 ou a gramática não estava preparada para reconhecer todo o programa de entrada,
 ou estes trechos de código~=fonte são frutos de algum erro no programa de entrada.
-\begin{lstlisting}[caption={Exemplo de Gramática -- Reconhecimento de Erros},label={exemploDeGramaticaPawn5},style=yaml_style]
+\begin{code}
+\caption{Exemplo de Gramática -- Reconhecimento de Erros}
+\label{exemploDeGramaticaPawn5}
+\begin{minted}{yaml}
 check_brackets: {
     match: \) {
         scope: invalid.illegal.stray-bracket-end
     }
 }
-\end{lstlisting}
+\end{minted}
+\end{code}
 
 
 \section{Analisador Semântico}
@@ -448,7 +473,10 @@ a ela não é passada pelo construtor mas sim por um método chamado ``transform
 Esta é uma característica do Analisador Lark utilizado.
 A função ``transform(tree)'' do Analisador Lark simplesmente inicia a análise do programa visitando todos os nós da Árvore de Sintaxe,
 partindo das folhas até chegar na raíz (\fullref{compiladoresEtradutores}).
-\begin{lstlisting}[caption={Construtor do Analisador Semântico},label={semanticAnalizerConstructor},style=python_style]
+\begin{code}
+\caption{Construtor do Analisador Semântico}
+\label{semanticAnalizerConstructor}
+\begin{minted}{python}
 class TreeTransformer(pushdown.Transformer):
     """
         Transforms the Derivation Tree nodes into meaningful string representations,
@@ -491,7 +519,8 @@ class TreeTransformer(pushdown.Transformer):
         self.open_blocks = {}
         self.indentation_level = 0
         self.indentation_blocks = []
-\end{lstlisting}
+\end{minted}
+\end{code}
 
 A visita dos nós da Árvore de Sintaxe pela função ``transform(tree)'' acontece simplesmente chamando os métodos que a classe ``TreeTransformer'' (Definido no \typeref{semanticAnalizerConstructor}) define e
 que possuem os mesmos nomes que os símbolos não~=terminais definidos pela metagramática.
@@ -600,7 +629,10 @@ que o construtor de ``Transformer'' recebe,
 é o programa a ser formatado pelo formatador.
 No final processo,
 ``Interpreter'' terá em sua variável ``self.program'' o novo programa completamente formatado.
-\begin{lstlisting}[caption={Construtor do Formatador},label={construtorDoFormatador},style=python_style]
+\begin{code}
+\caption{Construtor do Formatador}
+\label{construtorDoFormatador}
+\begin{minted}{python}
 class Backend(pushdown.Interpreter):
 
     def __init__(self, formatter, tree, program, settings):
@@ -623,7 +655,8 @@ class Backend(pushdown.Interpreter):
 
         self.visit( tree )
         log( 4, "Tree: \n%s", tree.pretty( debug=0 ) )
-\end{lstlisting}
+\end{minted}
+\end{code}
 
 Enquanto ``Interpreter'' é responsável por somente ``passear'' pela Árvore de Sintaxe Abstrata,
 a classe ``AbstractFormatter'' \typeref{construtorDeParsedProgram} é responsável por realmente fazer a formatação de código~=fonte de acordo com a instruções vindas da Árvore de Sintaxe Abstrata.
@@ -633,7 +666,10 @@ Uma vez que ``Interpreter'' termina de construir todos os pedaços de código~=f
 a função ``get\_new\_program'' irá unir dos os pedaços e
 salvá~=los na variável ``cached\_new\_program'',
 para evitar ter que recalcular o novo programa toda vez que pedir~=se a sua nova versão.
-\begin{lstlisting}[caption={Construtor de ``AbstractFormatter''},label={construtorDeParsedProgram},style=python_style]
+\begin{code}
+\caption{Construtor de ``AbstractFormatter''}
+\label{construtorDeParsedProgram}
+\begin{minted}{python}
 class AbstractFormatter(object):
     """
         Represents a program as chunks of data as (text_chunk_start_position,
@@ -649,7 +685,8 @@ class AbstractFormatter(object):
         self.new_program = []
         self.cached_new_program = []
         log( 4, "program %s: `%s`", len( str( self.program ) ), self.program )
-\end{lstlisting}
+\end{minted}
+\end{code}
 
 A linha ``sorted'' realiza a ordenação do configurações sem nenhuma necessidade prática neste caso.
 Ela garante que a ordem no qual as configurações irão ser processadas seja sempre a mesma.
@@ -702,49 +739,66 @@ onde ``if( \ something \ ) bar'' é o resultado da formatação de código~=font
 \caption{Exemplo de Formatação de Código}
 \label{exemploDeFormatacaoDeCodigo}
 \begin{bluebox}
-\lstset{xleftmargin=2em,aboveskip=0pt}
+\begin{code}
+\label{exemploDeHTMLGerado}
+\caption{Antes do ofuscamento}
+\begin{minted}[xleftmargin=2em]{html}
+<body style="white-space: pre; font-family: monospace;">
+    <span setting="unformatted" grammar_scope="if.statement.definition" setting_scope="" original_program="if(">if(</span>
+    <span setting="1" grammar_scope="if.statement.body" setting_scope="if.statement.body" original_program="something">  something  </span>
+    <span setting="unformatted" grammar_scope="if.statement.definition" setting_scope="" original_program=")">)</span>
+    <span grammar_scope="none" setting_scope="none"> bar</span>
+</body>
+\end{minted}
+\end{code}
 
-    \begin{lstlisting}[caption={Exemplo de HTML Gerado pelo Formatador de Código},label={exemploDeHTMLGerado},style=HTML5]
-    <body style="white-space: pre; font-family: monospace;">
-        <span setting="unformatted" grammar_scope="if.statement.definition" setting_scope="" original_program="if(">if(</span>
-        <span setting="1" grammar_scope="if.statement.body" setting_scope="if.statement.body" original_program="something">  something  </span>
-        <span setting="unformatted" grammar_scope="if.statement.definition" setting_scope="" original_program=")">)</span>
-        <span grammar_scope="none" setting_scope="none"> bar</span>
-    </body>
-    \end{lstlisting}
-    \begin{lstlisting}[caption={Exemplo de Gramática Utilizada pelo Formatador de Código},label={exemploDeGramaticaUtilizada},style=yaml_style]
-    scope: source.sma
-    name: Abstract Machine Language
-    contexts: {
-        match: if\( {
-            scope: if.statement.definition
-            push: {
-                meta_scope: if.statement.body
-                match: \) {
-                    scope: if.statement.definition
-                    pop: true
-                }
+\begin{code}
+\label{exemploDeGramaticaUtilizada}
+\caption{Exemplo de Gramática Utilizada pelo Formatador de Código}
+\begin{minted}[xleftmargin=2em]{yaml}
+scope: source.sma
+name: Abstract Machine Language
+contexts: {
+    match: if\( {
+        scope: if.statement.definition
+        push: {
+            meta_scope: if.statement.body
+            match: \) {
+                scope: if.statement.definition
+                pop: true
             }
         }
     }
-    \end{lstlisting}
-    \begin{lstlisting}[caption={Exemplo de Configuração Utilizada pelo Formatador de Código},label={exemploDeConfiguracaoUtilizada},style=python_style]
-    {
-        "if.statement.body" : 2,
-    }
-    \end{lstlisting}
-    \begin{lstlisting}[caption={Exemplo de Formatador de Código},label={exemploDeFormatadorDeCodigo},style=python_style]
-    class SingleSpaceFormatter(AbstractFormatter):
+}
+\end{minted}
+\end{code}
 
-        def format_text(self, matched_text, matched_setting):
-            matched_text = matched_text.strip( " " )
+\begin{code}
+\label{exemploDeConfiguracaoUtilizada}
+\caption{Exemplo de Configuração Utilizada pelo Formatador de Código}
+\begin{minted}[xleftmargin=2em]{python}
+{
+    "if.statement.body" : 2,
+}
+\end{minted}
+\end{code}
 
-            if matched_setting:
-                return " " * matched_setting + matched_text + " " * matched_setting
+\begin{code}
+\label{exemploDeFormatadorDeCodigo}
+\caption{Exemplo de Formatador de Código}
+\begin{minted}[xleftmargin=2em]{python}
+class SingleSpaceFormatter(AbstractFormatter):
 
-            else:
-                return matched_text
-    \end{lstlisting}
+    def format_text(self, matched_text, matched_setting):
+        matched_text = matched_text.strip( " " )
+
+        if matched_setting:
+            return " " * matched_setting + matched_text + " " * matched_setting
+
+        else:
+            return matched_text
+\end{minted}
+\end{code}
 \end{bluebox}
 \end{quadro}
 
