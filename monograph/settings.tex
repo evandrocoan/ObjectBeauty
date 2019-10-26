@@ -24,6 +24,7 @@
 \@ifpackageloaded{babel}{\@ifpackagewith{babel}{brazil}{\addto\captionsbrazil{%
     \renewcommand{\mytextpreliminarylistname}{Breve Sumário}
 }}{}}{}
+\@ifundefined{advisor}{\newcommand{\advisor}[2]{}}{}
 \makeatother
 
 % Selects a sans serif font family
@@ -70,7 +71,7 @@
 
     % Controlling the spacing between one paragraph and another, try also \onelineskip
     % Default value for UFSC 0.0cm
-    \setlength{\parskip}{0.2cm}
+    \setlength{\parskip}{\advisor{0.0cm}{0.2cm}}
 
     % Paragraph size is given by
     % Default value for UFSC 1.0cm
@@ -291,16 +292,16 @@
         \setsubsubsecheadstyle{\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize\ABNTEXsubsubsectionupperifneeded}
         \setsubsubsubsecheadstyle{\ABNTEXsubsubsubsectionfont\ABNTEXsubsubsubsectionfontsize\ABNTEXsubsubsubsectionupperifneeded}
 
-        % impressao do numero do capitulo
+        % impressao do numero do capítulo
         \renewcommand{\chapternamenum}{}
 
-        % impressao do nome do capitulo
+        % impressao do nome do capítulo
         \renewcommand{\printchaptername}{%
            \chaptitlefont%
            \ifthenelse{\boolean{abntex@apendiceousecao}}{\appendixname}{}%
         }
 
-        % impressao do titulo do capitulo
+        % impressao do titulo do capítulo
         \def\printchaptertitle##1{%
             \chaptitlefont%
             \ifthenelse{\boolean{abntex@innonumchapter}}{\centering\ABNTEXchapterupperifneeded{##1}}{%
@@ -314,7 +315,7 @@
             }%
         }
 
-        % impressao do numero do capitulo
+        % impressao do numero do capítulo
         \renewcommand{\printchapternum}{%
             \tocprintchapter%
             \setboolean{abntex@innonumchapter}{false}%
@@ -330,7 +331,7 @@
         \renewcommand{\ABNTEXcaptiondelim}{\textendash~}
         \renewcommand{\afterchapternum}{}
 
-        % impressao do capitulo nao numerado
+        % impressao do capítulo nao numerado
         \renewcommand\printchapternonum{%
             \tocprintchapternonum%
             \setboolean{abntex@innonumchapter}{true}%

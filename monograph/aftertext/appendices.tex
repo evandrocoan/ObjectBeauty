@@ -31,23 +31,45 @@ Tanto o \typeref{MainFormatterPy} quanto do o \typeref{MainHighlighterPy} geram 
 contendo como conteúdo o resultado de seu trabalho.
 
 Nos \typeref{MainFormatterPyResult,MainHighlighterPyResult},
-serão encontrados como nós folhas das árvores,
+serão encontrados como nós folha das árvores,
 os \textit{tokens} criados pelo analisador léxico.
 Eles seguem o mesmo padrão de notação do que os \textit{tokens} utilizados pelo Analisador ANTLR \cite{antlrBookTerrentParr}.
-A implementação da exibição dos \textit{tokens} no formato do analisador ANTLR 4 foi uma das implementações feitas no fork ``pushdown'' do Analisador Lark (Veja a \fullref{GrammarsGrammar}).
+A implementação da exibição dos \textit{tokens} no formato do analisador ANTLR 4 foi uma das implementações feitas no \textit{fork} ``pushdown'' do Analisador Lark (Veja a \fullref{GrammarsGrammar}).
 
 Um \textit{token} como ``\mintinline{shell}{[@7,151:166='comment.line.sma'<TEXT_CHUNK_END_>,7:25]}'' segue o modelo de representação do ANTLR 4 \cite{antlrBookTerrentParr} e
 contém as seguintes informações:
 \begin{inparaenum}[1)]
-\item ``\mintinline{shell}{@7}'' significa que ele é o sétimo \textit{token}
-\item ``\mintinline{text}{151:166}'' é a posição caracteres do \textit{token} no programa de entrada,
+\item ``\mintinline{shell}{@7}'' significa que ele é o sétimo \textit{token};
+\item ``\mintinline{text}{151:166}'' é a posição caracteres do \textit{token} no programa de entrada;
 \item ``\mintinline{shell}{='comment.line.sma'}'' é o lexema (Veja a \fullref{compiladoresEtradutores}) ou
-conteúdo do \textit{token} propriamente dito,
+conteúdo do \textit{token} propriamente dito;
 \item ``\mintinline{shell}{<TEXT_CHUNK_END_>}'' é o nome do \textit{token} atribuído pela gramática de entrada,
-por fim,
+por fim;
 \item ``\mintinline{text}{7:25}'' é a linha e
 coluna do \textit{token} no programa de entrada.
 \end{inparaenum}%
+
+Tanto para a escrita do \typeref{codeHighlighterPy},
+quanto para a escrita do \typeref{codeFormatterPy},
+por consequência,
+foi utilizado em um primeiro momento a biblioteca ``dominate'' para realizar a construção da página HTML com a adição de cores ou
+código~=formatado. Entretanto,
+devido a \textit{bugs} na biblioteca ``dominate'',
+a página HTML era gerada de forma errada.
+Por fim,
+optou~=se em escrever o código necessário para gerar a páginas HTML,
+fazendo o uso da biblioteca ``dominate'' somente para realizar a conversão de caracteres especiais para seus correspondes em HTML.
+Por exemplo,
+o caractere ``<'' em HTML é escrito como ``\&lt;''.
+
+Não foi escolhido procurar uma outra biblioteca para fazer a criação de páginas HTML por que é não é fácil encontrar bibliotecas que façam somente a geração de páginas HTML.
+Em geral,
+as bibliotecas que geram páginas HTML são também servidores HTML ou
+Web,
+que vão além das necessidades deste projeto.
+Portando,
+optou~=se por fazer todo o código necessário para geração de páginas HTML.
+Dispensando a possibilidade de escolher~=se novamente uma outra ferramenta com mais bugs.
 
 Para se realizar a execução de qualquer arquivo deste projeto,
 é necessário ter um interpretador ``Python 3.6'' instalado,
@@ -431,7 +453,8 @@ criado para verificar tal regra semântica na classe de testes ``TestSemanticRul
 
 \chapter{Código de Adição de Cores}
 
-Neste capítulo pode~=se ver na integra o arquivo do formatador de código~=fonte (\typeref{codeHighlighterPy}) que faz uso da metagramática no \typeref{grammarsGrammarPushdown}.
+Neste capítulo,
+pode~=se ver na íntegra o arquivo do formatador de código~=fonte (\typeref{codeHighlighterPy}) que faz uso da metagramática no \typeref{grammarsGrammarPushdown}.
 No \typeref{MainHighlighterPy},
 pode~=se encontrar um exemplo explicito de utilização do \typeref{codeHighlighterPy}.
 \begin{code}
@@ -443,7 +466,8 @@ pode~=se encontrar um exemplo explicito de utilização do \typeref{codeHighligh
 
 \chapter{Código do Formatador}
 
-Neste capítulo pode~=se ver na integra o arquivo do formatador de código~=fonte (\typeref{codeFormatterPy}) que faz uso da metagramática no \typeref{grammarsGrammarPushdown}.
+Neste capítulo,
+pode~=se ver na íntegra o arquivo do formatador de código~=fonte (\typeref{codeFormatterPy}) que faz uso da metagramática no \typeref{grammarsGrammarPushdown}.
 No \typeref{MainFormatterPy},
 pode~=se encontrar um exemplo explicito de utilização do \typeref{codeFormatterPy}.
 \begin{code}
@@ -455,11 +479,14 @@ pode~=se encontrar um exemplo explicito de utilização do \typeref{codeFormatte
 
 \chapter{Código da Metagramática}
 
-Neste capítulo pode~=se ver na integra o arquivo da gramática (\typeref{grammarsGrammarPushdown}) utilizadas pela adição de cores e
+Neste capítulo,
+pode~=se ver na íntegra o arquivo da gramática (\typeref{grammarsGrammarPushdown}) utilizadas pela adição de cores e
 formatação de código~=fonte.
-No \typeref{MainFormatterPy,MainHighlighterPy} pode~=se ver o importe explicito deste arquivo de gramática e
+Nos \typeref{MainFormatterPy,MainHighlighterPy},
+pode~=se ver o importe explicito deste arquivo de gramática e
 seu recebimento pela Analisador Lark (Veja a \fullref{GrammarsGrammar}).
-Nesta gramática pode ser encontrado expressões redundantes como \mintinline{antlr}{enter_block:
+Nesta gramática,
+pode ser encontrado expressões redundantes como \mintinline{antlr}{enter_block:
 OPEN_BRACE} que servem para fazer com que a árvore de sintaxe tenha um nó com o nome ``\mintinline{text}{enter_block}'' e
 com que o analisador léxico gere um \textit{token} com o nome ``\mintinline{text}{OPEN_BRACE}''.
 Estas características facilitam a manipulação da árvore de sintaxe e

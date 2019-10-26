@@ -103,7 +103,7 @@ audiência:
 desenvolve a ferramenta de Formatação de Código proposta por este trabalho e
 define as regras da metalinguagem (especificada pela sua metagramática,
 i.e.,
-a gramática de gramáticas),
+a gramática de gramáticas);
 \item quem escreve ou
 desenvolve gramáticas de linguagens para serem formatadas de acordo com as regras da metalinguagem e
 \item quem escreve ou
@@ -184,7 +184,7 @@ nas demais linhas são apresentados as diversas classificações de escopos apli
 Por exemplo,
 a palavra ``function'' possui simultaneamente os escopos
 \begin{inparaenum}[1)]
-\item ``source.js''
+\item ``source.js'',
 \item ``meta.function.js'' e
 \item ``storage.type.function.js''.
 \end{inparaenum}
@@ -337,9 +337,9 @@ O operador ``scope'' pode ser considerado um caso especial do operador ``capture
 Motores de expressões regulares geralmente suportam um recurso chamado de Grupos de Captura \cite{expressionGrammarsWithRegexLikeCaptures}.
 Por exemplo,
 a expressão regular ``foo(bar)zoo(car)'' possuí 3 grupos de captura quando analisado o texto de entrada ``foobarzoocar'':
-\begin{inparaenum}[1)] \setcounter{enumi}{-1}
-\item foobarzoocar
-\item bar
+\begin{inparaenum}[1)]\setcounter{enumi}{-1}
+\item foobarzoocar,
+\item bar,
 \item car,
 \end{inparaenum}%
 onde o grupo de captura 0 refere~=se a toda a expressão regular encontrada.
@@ -525,7 +525,7 @@ Mesmo que não existam os métodos ``preamble\_statements'' e
 eles também podem ser visitados diretamente a partir de algum nó pai ou
 até algum de seus filhos.
 Inclusive,
-esta foi uma das alterações realizadas no fork ``pushdown'' do Analisador Lark.
+esta foi uma das alterações realizadas no \textit{fork} ``pushdown'' do Analisador Lark.
 Por padrão,
 ao iterar pela árvore,
 o Analisador Lark somente passa como parâmetro da função o nó correspondente ao método atualmente sendo chamado e
