@@ -37,11 +37,9 @@
         \clearpage
     }
 
-    \PRIVATEbookmarkthis{Contracapa}
-    \addtotextpreliminarycontent{Contracapa}
-
     % Folha de rosto (o * indica que haverá a ficha bibliográfica)
-    \imprimirfolhaderosto*
+    \imprimirfolhaderosto*{}
+    \addtotextpreliminarycontent{\folhaderostoname}
 
     % Inserir a ficha bibliografica
     %
