@@ -24,7 +24,7 @@
 \@ifpackageloaded{babel}{\@ifpackagewith{babel}{brazil}{\addto\captionsbrazil{%
     \renewcommand{\mytextpreliminarylistname}{Breve Sumário}
 }}{}}{}
-\@ifundefined{advisor}{\newcommand{\advisor}[2]{}}{}
+\@ifundefined{advisor}{\newcommand{\advisor}[2]{#1}}{}
 \makeatother
 
 % Selects a sans serif font family
