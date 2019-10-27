@@ -254,16 +254,9 @@
 
 % http://www.tex.ac.uk/FAQ-tocloftwrong.html
 % Use \setlength\cftsectionnumwidth{4em} to override all these values at once
+\makeatletter
 \ifadvisor
 \else
-    \cftsetindents{part}          {0em} {3em}
-    \cftsetindents{chapter}       {0em} {3em}
-    \cftsetindents{section}       {0em} {4.3em}
-    \cftsetindents{subsection}    {0em} {5.2em}
-    \cftsetindents{subsubsection} {0em} {5.1em}
-    \cftsetindents{paragraph}     {0em} {6.0em}
-    \cftsetindents{subparagraph}  {0em} {7.0em}
-
     \makechapterstyle{fixedabntex2indentation}
     {%
         \renewcommand{\chapterheadstart}{}
@@ -315,28 +308,38 @@
             }%
         }
 
-        % Impressão do número do capítulo
+        % https://tex.stackexchange.com/questions/264668/memoir-indentation-of-unnumbered-sections-in-table-of-contents
+        \renewcommand{\tocinnonumchapter}{%
+          \addtocontents{toc}{\cftsetindents{chapter}{2.5em}{2em}}%
+          \cftinserthook{toc}{A}}
+
+        % Impressão do número do capítulo (no capítulo e não toc)
         \renewcommand{\printchapternum}{%
-            \tocprintchapter%
             \setboolean{abntex@innonumchapter}{false}%
             \chapnumfont%
-            %\space\thechapter\space%
-            ~\thechapter~%
+            ~~\thechapter~%
             \ifthenelse{\boolean{abntex@apendiceousecao}}{%
                 \tocinnonumchapter%
-                \ABNTEXcaptiondelim~%
+                ~\ABNTEXcaptiondelim~~%
             }{}%
         }
 
-        \renewcommand{\ABNTEXcaptiondelim}{\textendash~}
+        \renewcommand{\ABNTEXcaptiondelim}{\textendash}
         \renewcommand{\afterchapternum}{}
 
         % Impressão do capítulo não numerado
         \renewcommand\printchapternonum{%
-            \tocprintchapternonum%
             \setboolean{abntex@innonumchapter}{true}%
         }
     }
-
     \chapterstyle{fixedabntex2indentation}
+
+    \cftsetindents{part}          {0em} {3em}
+    \cftsetindents{chapter}       {0em} {3em}
+    \cftsetindents{section}       {0em} {4.3em}
+    \cftsetindents{subsection}    {0em} {5.2em}
+    \cftsetindents{subsubsection} {0em} {5.1em}
+    \cftsetindents{paragraph}     {0em} {6.0em}
+    \cftsetindents{subparagraph}  {0em} {7.0em}
 \fi
+\makeatother
