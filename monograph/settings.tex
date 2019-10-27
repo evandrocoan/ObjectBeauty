@@ -292,16 +292,16 @@
         \setsubsubsecheadstyle{\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize\ABNTEXsubsubsectionupperifneeded}
         \setsubsubsubsecheadstyle{\ABNTEXsubsubsubsectionfont\ABNTEXsubsubsubsectionfontsize\ABNTEXsubsubsubsectionupperifneeded}
 
-        % impressao do numero do capítulo
+        % Impressão do número do capítulo
         \renewcommand{\chapternamenum}{}
 
-        % impressao do nome do capítulo
+        % Impressão do nome do capítulo
         \renewcommand{\printchaptername}{%
            \chaptitlefont%
            \ifthenelse{\boolean{abntex@apendiceousecao}}{\appendixname}{}%
         }
 
-        % impressao do titulo do capítulo
+        % Impressão do título do capítulo
         \def\printchaptertitle##1{%
             \chaptitlefont%
             \ifthenelse{\boolean{abntex@innonumchapter}}{\centering\ABNTEXchapterupperifneeded{##1}}{%
@@ -315,7 +315,7 @@
             }%
         }
 
-        % impressao do numero do capítulo
+        % Impressão do número do capítulo
         \renewcommand{\printchapternum}{%
             \tocprintchapter%
             \setboolean{abntex@innonumchapter}{false}%
@@ -331,7 +331,7 @@
         \renewcommand{\ABNTEXcaptiondelim}{\textendash~}
         \renewcommand{\afterchapternum}{}
 
-        % impressao do capítulo nao numerado
+        % Impressão do capítulo não numerado
         \renewcommand\printchapternonum{%
             \tocprintchapternonum%
             \setboolean{abntex@innonumchapter}{true}%
