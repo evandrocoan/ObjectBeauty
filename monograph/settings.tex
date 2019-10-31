@@ -69,14 +69,6 @@
     % Apply the style `VZ14` just created
     % \chapterstyle{VZ14}
 
-    % Controlling the spacing between one paragraph and another, try also \onelineskip
-    % Default value for UFSC 0.0cm
-    \setlength{\parskip}{\advisor{0.0cm}{0.2cm}}
-
-    % Paragraph size is given by
-    % Default value for UFSC 1.0cm
-    \setlength{\parindent}{1.3cm}
-
     % http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/memoir/memman.pdf
     \setlength\beforechapskip{0pt}
     \setlength\midchapskip{15pt}
@@ -88,6 +80,18 @@
     \checkandfixthelayout
 }{}
 \makeatother
+
+% Controlling the spacing between one paragraph and another, try also \onelineskip
+% Default value for UFSC 0.0cm
+\setlength{\parskip}{\advisor{0.0cm}{0.2cm}}
+
+% Paragraph size is given by
+% Default value for UFSC 1.0cm
+\setlength{\parindent}{1.3cm}
+
+% https://tex.stackexchange.com/questions/148647/how-to-remove-space-before-enumerate
+\advisor{}{\setlist[enumerate]{nosep}}
+
 
 % Color settings across the document
 \makeatletter
