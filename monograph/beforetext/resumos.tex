@@ -81,11 +81,10 @@
 
 
 \makeatletter
-
-
 \ifenglish
     \@ifundefined{imprimirbrazilabstract}{}{\imprimirbrazilabstract}
 
+    % https://tex.stackexchange.com/questions/331108/times-new-roman-in-latex-just-some-text
     % https://tex.stackexchange.com/questions/11707/how-to-force-output-to-a-left-or-right-page
     % https://tex.stackexchange.com/questions/132966/do-not-display-chapter-title-in-memoir-class
     \cleardoublepage\phantomsection
@@ -95,6 +94,7 @@
     \begin{otherlanguage*}{brazil}
         \setlength{\parskip}{0.2cm}
         \setlength{\parindent}{0.0cm}
+        \fontfamily{ptm}\selectfont
 
         \section*{Introdução}
         O resumo expandido é previsto na Resolução Normativa nº 95/CUn/2017, Art. 55, § 2, de 4 de
@@ -114,20 +114,31 @@
         O texto do resumo expandido deve ser redigido em português e conter as seguintes seções (ver
         modelo): Introdução, Objetivos, Metodologia, Resultados e Discussão e Considerações Finais.
         Deve apresentar no mínimo duas (02) e, no máximo, cinco (05) páginas contendo a mesma
-        formatação em A5 do resumo e do abstract, bem como palavras-chave.
+        formatação em A5 do resumo e do abstract, bem como palavras-chave. \englishword{\showfont}
 
         \section*{Objetivos}
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae dolor lacus. Ut
         accumsan vitae felis nec porttitor. Integer interdum fringilla feugiat. Nullam pulvinar sit
         amet tellus eget maximus. Donec sit amet magna eget justo semper fermentum vel eget velit.
         In iaculis imperdiet mauris, ac ornare libero placerat non. Nulla libero lectus, ullamcorper
-        ac ornare eget, pulvinar ac nulla.
-
-        Curabitur vestibulum non nisl eget sagittis. Proin
+        ac ornare eget, pulvinar ac nulla. Curabitur vestibulum non nisl eget sagittis. Proin
         gravida lacus id eros bibendum interdum. Mauris ullamcorper elementum tortor sed consequat.
         Integer tempus, est a lobortis vehicula, nisi mi fringilla augue, non semper leo metus in
         quam. Etiam in leo maximus, pulvinar mi eget, vehicula risus. Donec sed dui semper, dictum
         eros at, suscipit felis.
+
+        Nam sagittis vel orci at tempus. Nulla non pellentesque eros.
+        Quisque cursus leo massa, eu ultricies nisl lacinia a. Nulla sit amet elementum ligula.
+        Proin sodales venenatis dictum. Ut et est cursus, vulputate velit et, viverra odio. Interdum
+        et malesuada fames ac ante ipsum primis in faucibus. Maecenas purus diam, tempor a semper
+        et, finibus a ex. Cras sagittis felis urna, et consequat arcu lacinia ut. Praesent blandit
+        venenatis ante nec porta. Duis rutrum, tellus vitae ullamcorper auctor, lectus ex laoreet
+        est, ac tristique ipsum arcu vitae nibh. Nam efficitur felis ut mi consectetur, nec auctor
+        odio ornare. In tempor vulputate urna, vitae cursus enim egestas eu. Proin diam augue,
+        dignissim vitae ligula eget, lobortis ornare odio. Duis quis elit augue. Fusce quis rhoncus
+        tortor. Donec hendrerit at massa a mattis. Sed ipsum neque, aliquam ut sem sed, ultrices
+        varius ligula. Suspendisse blandit, dolor ac rhoncus lacinia, dolor purus cursus purus, et
+        accumsan orci neque a leo.
 
         \section*{Metodologia}
         Quisque efficitur dolor in lectus dapibus elementum. Nam ultrices blandit consectetur.
@@ -135,16 +146,54 @@
         Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In
         pulvinar velit sed mi sagittis ornare. Aenean rutrum suscipit egestas. Phasellus pharetra
         eget ex in volutpat. Quisque eu arcu nunc. Vivamus arcu ligula, pharetra at rhoncus sit
-        amet, pulvinar sed eros.
-
-        Sed porta ipsum ipsum, et fermentum magna volutpat sed. Vivamus
+        amet, pulvinar sed eros. Sed porta ipsum ipsum, et fermentum magna volutpat sed. Vivamus
         pharetra facilisis orci, sit amet luctus nisl pretium id. Sed consequat, arcu et congue
         pulvinar, risus enim aliquet purus, eget venenatis libero leo sit amet metus. Maecenas vitae
         elit sapien. Fusce mollis libero et gravida placerat. Proin ut quam quis justo aliquam
         dictum. Donec volutpat convallis suscipit. Vivamus metus nisl, placerat ac enim vitae,
         tempus ultricies odio.
 
+        Aliquam ac vehicula arcu, non bibendum nulla. Morbi libero sem,
+        imperdiet vel quam et, posuere tempus nunc. Maecenas dictum magna sit amet ligula facilisis
+        commodo. Aliquam tellus diam, ornare vel elementum in, dignissim id purus. Ut at tortor non
+        sem molestie euismod non at turpis. Phasellus vitae bibendum tellus. Suspendisse odio enim,
+        faucibus eget congue quis, semper sit amet tortor. Sed ac lectus est. Pellentesque nec
+        mattis mi, et varius dolor. Aliquam quis massa ac tellus malesuada sollicitudin. Maecenas
+        ultrices risus massa, nec auctor risus sagittis id. Praesent a sapien nulla. Donec
+        tincidunt, metus quis hendrerit facilisis, enim augue convallis elit, sed consequat lacus
+        odio vitae magna.
+
         \section*{Resultados e Discussão}
+        Nullam sed cursus leo. Donec commodo volutpat hendrerit. Fusce et tempus lectus, feugiat
+        consequat est. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+        inceptos himenaeos. Nam quis cursus mauris, non tempus orci. Phasellus lobortis et mauris at
+        vulputate. Sed nec nisl elementum lorem commodo gravida non a enim. Phasellus neque erat,
+        aliquet ac ligula ac, maximus vestibulum sem. Vestibulum vel tincidunt turpis. Donec lacinia
+        rutrum dolor dapibus bibendum. Mauris pharetra nibh nec tincidunt iaculis. Vivamus pharetra
+        bibendum nisl eget blandit. In lobortis diam non justo eleifend, id lobortis ante fringilla.
+        Donec libero tortor, suscipit vestibulum vestibulum id, rutrum accumsan turpis. Phasellus
+        sollicitudin luctus tincidunt. Suspendisse potenti. Nam semper metus et mi pharetra, in
+        pretium ligula fermentum. Integer consectetur, orci non placerat feugiat, dui ex gravida
+        augue, vel placerat ligula augue vel velit. Aliquam sollicitudin pellentesque congue. Donec
+        vitae turpis in ante posuere posuere. Pellentesque eu justo leo. Donec quis elit vitae leo
+        varius luctus quis eget justo.
+
+        Vestibulum elementum ex neque, quis commodo tortor porttitor
+        mattis. Mauris vel sagittis turpis. Aenean ligula turpis, eleifend at felis sed, cursus
+        condimentum orci. Fusce accumsan est odio, eu venenatis massa sodales in. Curabitur a tempor
+        nisl. Quisque consequat sed arcu a congue. In viverra, ex ut hendrerit condimentum, urna sem
+        euismod eros, nec suscipit turpis dolor eget augue. Aenean posuere tellus et consectetur
+        condimentum. Mauris et massa et nulla fringilla interdum. Duis quis posuere elit. Donec at
+        ex non arcu faucibus rutrum et vel lectus. Vivamus pellentesque vestibulum rutrum. Sed
+        pretium, purus sed efficitur feugiat, nisi justo eleifend nibh, id suscipit nunc massa nec
+        lectus. In euismod enim eu sapien dictum sodales. Fusce sit amet vulputate orci. Nulla
+        rutrum mauris at purus aliquet, ac sollicitudin leo laoreet. Etiam elementum posuere
+        feugiat. Maecenas sed libero non augue fermentum ultricies eget at mi. Aenean auctor
+        bibendum lacus, dignissim aliquet est tempus eget. Maecenas tempus, nulla id rhoncus
+        suscipit, augue leo auctor mi, eget tincidunt magna mi quis dui. Maecenas ut elit in turpis
+        tincidunt ultrices. Nulla id nulla aliquet, porttitor eros quis, egestas justo. Nunc nisi
+        quam, egestas a accumsan fermentum, ultricies ac elit.
+
         Nulla porta auctor vestibulum. Sed
         consectetur lacus molestie iaculis ullamcorper. Proin porta posuere massa a lacinia. Nunc a
         lacinia orci, non vehicula ante. Vestibulum ipsum velit, congue et neque aliquam, imperdiet
@@ -163,6 +212,20 @@
         quam. Etiam in leo maximus, pulvinar mi eget, vehicula risus. Donec sed dui semper, dictum
         eros at, suscipit felis.
 
+        Nam sagittis vel orci at tempus. Nulla non pellentesque eros.
+        Quisque cursus leo massa, eu ultricies nisl lacinia a. Nulla sit amet elementum ligula.
+        Proin sodales venenatis dictum. Ut et est cursus, vulputate velit et, viverra odio. Interdum
+        et malesuada fames ac ante ipsum primis in faucibus. Maecenas purus diam, tempor a semper
+        et, finibus a ex. Cras sagittis felis urna, et consequat arcu lacinia ut. Praesent blandit
+        venenatis ante nec porta. Duis rutrum, tellus vitae ullamcorper auctor, lectus ex laoreet
+        est, ac tristique ipsum arcu vitae nibh. Nam efficitur felis ut mi consectetur, nec auctor
+        odio ornare. In tempor vulputate urna, vitae cursus enim egestas eu. Proin diam augue,
+        dignissim vitae ligula eget, lobortis ornare odio. Duis quis elit augue. Fusce quis rhoncus
+        tortor. Donec hendrerit at massa a mattis. Sed ipsum neque, aliquam ut sem sed, ultrices
+        varius ligula. Suspendisse blandit, dolor ac rhoncus lacinia, dolor purus cursus purus, et
+        accumsan orci neque a leo.
+
+
         \imprimirpalavraschave{Palavras-chaves}{\begin{inparaitem}[]\palavraschaveportugues\end{inparaitem}}
 
     \end{otherlanguage*}
@@ -176,7 +239,5 @@
 
 \@ifundefined{imprimirfrenchabstract}{}{\imprimirfrenchabstract}
 \@ifundefined{imprimirspanishabstract}{}{\imprimirspanishabstract}
-
-
 \makeatother
 
