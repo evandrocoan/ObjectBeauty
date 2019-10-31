@@ -1,33 +1,27 @@
 %https://github.com/SublimeText/LaTeXTools/issues/1439
 %!TEX output_directory=setup/cache
 
-% Monograph LaTeX Template for UFSC based on:
-%
-% 1. https://github.com/royertiago/tcc
-% 2. http://portal.bu.ufsc.br/normalizacao/
-% 3. https://github.com/evandrocoan/ufscthesisx
-% 4. http://www.latextemplates.com/template/simple-sectioned-essay
-%
-% Initially translated from Portuguese with help of https://github.com/omegat-org/omegat
-% <Computer Assisted Translation of LaTeX document>
-% https://tex.stackexchange.com/questions/313732/computer-assisted-translation-of-latex-document
-%
-% In case a translation back to Portuguese is required, keep both languages toguether.
-% <Is it possible to keep my translation together with original text?>
-% https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
-%
 % You can build this using the command:
 % latexmk -pdf -jobname=output -output-directory=cache -aux-directory=cache -pdflatex="pdflatex -interaction=nonstopmode" -use-make main.tex
 
 % When the bibliography includes a cyclic reference to another bibliography,
-% you need to run `pdfTeX` 5 times on the following order:
-% 1. `pdfTeX`,
+% you need to run `pdflatex` 5 times on the following order:
+% 1. `pdflatex`,
 % 2. `biber`,
-% 3. `pdfTeX`
-% 4. `pdfTeX`
-% 5. `pdfTeX`
+% 3. `pdflatex`
+% 4. `pdflatex`
+% 5. `pdflatex`
 % 6. `biber`
-% 7. `pdfTeX`
+% 7. `pdflatex`
+
+% Monograph LaTeX Template for UFSC based on:
+% 1. https://github.com/royertiago/tcc
+% 2. http://portal.bu.ufsc.br/normalizacao/
+% 3. https://github.com/evandrocoan/ufscthesisx
+% 4. http://www.latextemplates.com/template/simple-sectioned-essay
+
+% Initially translated from Portuguese with help of https://github.com/omegat-org/omegat <Computer Assisted Translation of LaTeX document>
+% https://tex.stackexchange.com/questions/313732/computer-assisted-translation-of-latex-document
 
 % Allows you to write your thesis both in English and Portuguese
 % https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
@@ -70,9 +64,9 @@
 % http://tug.ctan.org/tex-archive/macros/latex/contrib/cleveref/cleveref.pdf
 \documentclass[
 \lang{english}{brazilian,brazil},
+% 12pt,        % Pode usar tamanho 12pt para defesa
 10pt,          % Padrão UFSC para versão final
 a4paper,       % Padrão UFSC para versão final
-% 12pt,        % Pode usar tamanho 12pt para defesa
 twoside,       % Impressão nos dois lados da folha
 chapter=TITLE, % Título de capítulos em caixa alta
 section=TITLE, % Título de seções em caixa alta
@@ -89,13 +83,13 @@ section=TITLE, % Título de seções em caixa alta
 % \subtitulo{\lang{Subtitle}{Subtítulo}}
 
 % FIXME: Siglas para grau de formação Dr./Dra., Me./Ma, Bel. Bela. (inglês: PhD., MSc., Bs.)
-\orientador[\lang{Supervisor}{Orientador}]{\brazilword{Rafael de Santiago, Dr.}}
+\orientador[\lang{Supervisor}{Orientador}]{\brazilword{Rafael de Santiago}, \lang{Phd.}{Dr.}}
 
 % FIXME: Se houver coorientador, descomente a linha abaixo
-% \coorientador[\lang{Co-supervisor}{Coorientador(a)}]{\brazilword{Nome do coorientador(a)}}
+% \coorientador[\lang{Co-supervisor}{Coorientador(a)}]{\brazilword{Nome do coorientador(a)}, \lang{Phd.}{Dr.}}
 
 % FIXME: Preencher com o nome do Coordenador de TCCs/Teses do seu curso
-\coordenador[Coordenador]{\brazilword{José Francisco Danilo De Guadalupe Correa Fletes}}
+\coordenador[Coordenador]{\brazilword{José Francisco Danilo De Guadalupe Correa Fletes}, \lang{Phd.}{Dr.}}
 
 % FIXME: Local da sua defesa
 \local{\brazilword{Florianópolis, Santa Catarina} -- \lang{Brazil}{Brasil}}
@@ -131,10 +125,7 @@ section=TITLE, % Título de seções em caixa alta
 }
 
 % FIXME: Preencha com Campus XXXXXX     ou     Centro de XXXXXX
-\campus{\lang
-    {Campus Reitor João David Ferreira Lima}
-    {Campus Reitor João David Ferreira Lima}%
-}
+\campus{\brazilword{Campus Reitor João David Ferreira Lima}}
 
 % FIXME: Data da sua defesa
 \data{\lang{30 of march of}{30 de março de} 2019}
@@ -260,22 +251,16 @@ section=TITLE, % Título de seções em caixa alta
     \setlength\midchapskip{20pt}
     \setlength\afterchapskip{20pt}
 
-    % PARTE
-    \advisor{}{%
-        \ifforcedinclude\else\part{\lang{Research}{Pesquisa}}\fi
-        \label{primeira_parte}
-    }
+    % PARTE 1
+    \advisor{}{\ifforcedinclude\else\part{\lang{Research}{Pesquisa}}\fi\label{primeira_parte}}
 
     % Introdução (exemplo de capítulo sem numeração, mas presente no Sumário)
     \include{chapters/introduction}
     \include{chapters/theorybase}
     \include{chapters/beautifiers}
 
-    % PARTE
-    \advisor{}{%
-        \ifforcedinclude\else\part{\lang{Implementation}{Implementação}}\fi
-        \label{segunda_parte}
-    }
+    % PARTE 2
+    \advisor{}{\ifforcedinclude\else\part{\lang{Implementation}{Implementação}}\fi\label{segunda_parte}}
 
     % Capítulo com exemplos de comandos inseridos de arquivo externo
     \include{chapters/object_beautifier}
@@ -309,7 +294,7 @@ section=TITLE, % Título de seções em caixa alta
     % Inicia os apêndices
     \begin{apendicesenv}
         % Imprime uma página indicando o início dos apêndices
-        % \ifforcedinclude\else\partapendices\fi
+        \advisor{}{\ifforcedinclude\else\partapendices\fi}
         \setlength\beforechapskip{50pt}
         \setlength\midchapskip{20pt}
         \setlength\afterchapskip{20pt}
@@ -320,7 +305,7 @@ section=TITLE, % Título de seções em caixa alta
     % Inicia os anexos
     \begin{anexosenv}
         % Imprime uma página indicando o início dos anexos
-        % \ifforcedinclude\else\partanexos\fi
+        \advisor{}{\ifforcedinclude\else\partanexos\fi}
         \setlength\beforechapskip{50pt}
         \setlength\midchapskip{20pt}
         \setlength\afterchapskip{20pt}
