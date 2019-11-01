@@ -51,7 +51,6 @@
     sempre} ser escritos pela mesma pessoa durante toda a vida desse projeto mas,
     o quão grande pode ser um projeto que uma pessoa pode fazer sozinha?
     Poderia uma pessoa escrever sozinha todo o sistema de controle de tráfego aéreo dos Estados Unidos?
-
     Uma vez que precisa\hyp{}se escrever sistemas computacionais maiores,
     % TODO: cite reference to `escrever sistemas computacionais maiores`
     tende\hyp{}se a colocar vários programadores,
@@ -61,7 +60,7 @@
     Com a criação de sistemas computacionais cada vez mais complexos,
     torna\hyp{}se um desafio ter em um único projeto diversos programadores,
     pois cada um possui características pessoais distintas,
-    e entende melhor o código escrito de acordo com seu costume,
+    e entende melhor o código~=fonte escrito de acordo com seu costume,
     já que previamente sabe como localizar~=se e
     entender melhor os seus elementos \cite{howProgrammersRead}.
 
@@ -78,30 +77,29 @@
             Perguntas como ``O quê são boas práticas de programação'' não são fáceis de responder.
         }%
         \advisor{%
-            Cada programador escreve seu código de sua maneira.
             Por exemplo,
             quanto a indentação,
             há programadores que preferem usar 2,
             4, ou 8 espaços; quanto legibilidade,
             há programadores que preferem o uso de linhas em branco antes de estruturas de controle%
         }{%
-            Cada programador aprende a escrever seus códigos de uma determinada maneira,
+            Cada programador aprende a escrever seus códigos~=fonte de uma determinada maneira,
             seja utilizando 2, 4,
             ou 8 espaços para criar blocos de indentação,
             ou sempre deixar uma linha em branco antes de estruturas de controle como if\s,
             while\s, etc%
-        } \cite{naturalCodingConventions}.
+        } \cite{naturalCodingConventions}.%
     }
-
     Quando diferentes programadores cooperam em grandes projetos,
     \advisor{como unir pessoas com experiências e
         preferências diferentes?%
     }{%
     como essas pessoas todas poderiam trabalhar juntas,
-    mesmo elas não tendo as mesmas experiências?} \advisor{Uma}{Assim,
-    uma} barreira adicional \advisor{ao}{para cada um desses programadores no} desenvolvimento do projeto será aprender as diferenças de trabalho que cada um desses desenvolvedores possuem entre si.
+    mesmo elas não tendo as mesmas experiências?} Uma barreira adicional \advisor{ao}{para cada um desses programadores no} desenvolvimento do projeto será concluir um trabalho com diferentes colegas de equipe,
+    dado que a tarefa de codificação é complexa e
+    as etapas de projeto podem ser realizadas de diferentes formas.
 
-    Uma dessas diferenças é a maneira no qual cada programador organiza estrutura de seu código no requisito de formatação \cite{transformationForDomainSpecificOptimisation}.
+    Uma dessas diferenças é a maneira no qual cada programador organiza a estrutura do código~=fonte de acordo com seu estilo de formatação \cite{transformationForDomainSpecificOptimisation}.
     Por exemplo,
     imagine que um certo ``Programador A'' tem o costume de deixar uma linha em branco antes de cada estrutura de controle\advisor{.}{
     do tipo ``if'', ``for'',
@@ -110,7 +108,7 @@
     possui o costume oposto,
     ele jamais deixa uma linha em branco antes dessas estruturas de controle.
     Então,
-    o quê pode dar de errado quando ambos os programadores ``A'' e
+    o quê pode acontecer de errado quando ambos os programadores ``A'' e
     ``B'' trabalham num mesmo projeto?
 
     \advisor{%
@@ -119,26 +117,26 @@
     B.%
     }{%
     Existem algumas possibilidades,
-    uma delas poderia ser que a metade do código escrita pelo ``Programador A'' estará de um jeito.
+    uma delas poderia ser que a metade do código~=fonte escrita pelo ``Programador A'' estará de um jeito.
     Já a outra metade escrita pelo ``Programador B'' estará de outro.%
     } Então,
     que tipos de problema isso poderia causar?
-    Uma vez que o código não está mais todo escrito sobre um mesmo padrão,
+    Uma vez que o código~=fonte não está mais todo escrito sobre um mesmo padrão,
     \advisor{%
-    há uma dificuldade na leitura do código como algo homogêneo.
+    há uma dificuldade na leitura do código~=fonte como algo homogêneo.
     Os próprios Programadores A e
-    B, autores do código, teriam dificuldades,
-    pois ele segue um estilo diferente ao que A e
+    B, autores do código~=fonte, teriam dificuldades,
+    pois o código~=fonte segue um estilo diferente ao que A e
     B estão habituados.
     }{%
     certas heurísticas tem sua taxa de acerto reduzida ao fazer o reconhecimento dos padrões.
-    }
-
+    }%
     Um exemplo de padrão que estaria prejudicado seria o de rapidamente identificar onde pode estar uma estrutura de controle,\advisor{}{
     como ``if'' ou
     ``for''} de acordo com a presença ou
     não de uma linha em branco antes dela,
-    já que a presença de uma linha em branco faz um destacamento maior sendo facilmente reconhecida como um separador de blocos de código \cite{aPrettyGoodFormatting}.
+    já que a presença de uma linha em branco faz um destacamento maior\advisor{.}{
+    sendo facilmente reconhecida como um separador de blocos de código~=fonte \cite{aPrettyGoodFormatting}.}
 }
 
 \lang{%
@@ -155,11 +153,11 @@
     \advisor{}{E por mais uma vez,
         estas heurísticas são fortemente dependentes do aprendizado de cada programador durante sua vida.
         Imagine um segundo programador que não esta habituado com a heurística de outro,
-        e toda vez que ele for ler o código deste terceiro programador,
-        ela estará perdido para poder se localizar rapidamente dentro do código.
+        e toda vez que ele for ler o código~=fonte deste terceiro programador,
+        ela estará perdido para poder se localizar rapidamente dentro do código~=fonte.
         E portanto,
         o que isso significa?
-        Que ele terá que atentamente ler o código escrito por este terceiro programador,
+        Que ele terá que atentamente ler o código~=fonte escrito por este terceiro programador,
         uma vez que a sua organização difere dos padrões no qual ele sabe como rapidamente se localizar \cite{quantifyingProgramComprehension}.
     }
 }
@@ -193,18 +191,18 @@
             funcionando como parte da sintaxe da linguagem.
 
             \item Outros podem ter determinadas características na formatação da escrita
-            de seus códigos devido a algum aspecto emocional ou físico.
+            de seus códigos~=fonte devido a algum aspecto emocional ou físico.
             Emocionalmente o programador pode ``não gostar'' de alguma característica por que
             \advisor{}{sofreu algum trauma ou} simplesmente pode estar muito acostumado a ter ter visualmente todos os elementos muito próximos um dos outros na tela.
             Assim,
-            mesmo tal característica não sendo nada fácil para que outras pessoas entendam o código,
+            mesmo tal característica não sendo nada fácil para que outras pessoas entendam o código~=fonte,
             ela pode ser muito fácil de ser compreendida pelo próprio programador que a escreveu,
-            já que o mesmo vem a muitos anos habituado a realizar a escrita de seus códigos desta determinada forma,
+            já que o mesmo vem a muitos anos habituado a realizar a escrita de seus códigos~=fonte desta determinada forma,
             portanto é muito hábil com a mesma e
             rapidamente consegue entender o que escreve.
 
             \advisor{}{\item Uma característica física que pode determinar a
-                formatação de código de alguém pode ser um teclado defeituoso.
+                formatação de código~=fonte de alguém pode ser um teclado defeituoso.
                 Caso determinada tecla não funcione adequadamente e
                 a pessoa não se dê ao trabalho de comprar um teclado novo,
                 a pessoa pode então adquirir um novo hábito,
@@ -213,10 +211,10 @@
                 Por exemplo,
                 suponha que a sua tecla ``TAB'' não funcione.
                 Assim,
-                ao invés de somente pressionar ``TAB'' uma vez para indentar seu código,
+                ao invés de somente pressionar ``TAB'' uma vez para indentar seu código~=fonte,
                 você ganha habito de pressionar a tecla de espaços 4 vezes.
                 Portanto,
-                nasce um motivo para alguém utilizar espaços ao invés ``TAB\s'' para realizar a indentação de seu código.
+                nasce um motivo para alguém utilizar espaços ao invés ``TAB\s'' para realizar a indentação de seu código~=fonte.
             }
         \end{enumerate}
     }
@@ -233,13 +231,12 @@
     allow you to better understand what each programmer is doing every time he formalizes a change in the code through a `commit',
     as in `git' systems for example \cite{usingSourceControl}.
 }{%
-    Indo além de como programadores leem código enquanto estão escrevendo ele,
-    também tem que se preocupar como o código será salvo no sistema de arquivos,
+    Indo além de como programadores leem código~=fonte enquanto estão escrevendo o código~=fonte,
+    também tem que se preocupar como o código~=fonte será salvo no sistema de arquivos,
     em seu formato de texto simples.
-    Já que para compartilhar código e
+    Já que para compartilhar código~=fonte e
     trabalhar em times de forma eficiente,
     é essencial utilizar um sistema de versionamento \cite{whyVersionControlIsCritical}.
-
     \advisor{%
     Tal ferramenta deve permitir rastrear mudanças \cite{gettingProductive},
     habilitando que se entenda melhor as atividades de cada programador \cite{usingSourceControl}.
@@ -247,19 +244,19 @@
     Tal ferramenta deve permitir facilmente realizar o rastreamento das mudanças \cite{gettingProductive} e
     assim,
     permitir que entenda~=se melhor o que cada programador está fazendo,
-    todas as vezes que eles formalizam uma nova alteração no código\hyp{}fonte,
+    todas as vezes que eles formalizam uma nova alteração no código~=fonte,
     por exemplo,
     através de uma ``commit'' como conhecidas em sistemas \textit{git} \cite{usingSourceControl}.
     }%
     Permitindo que gerentes de projetos e
     os próprios programadores,
-    tenham o controle das (e de suas) mudanças no código \cite{redesignOfGit}.
+    tenham o controle das (e de suas) mudanças no código~=fonte \cite{redesignOfGit}.
 }
 
 \begin{citacao}
-    Há duas razões principais para impor um formato de código único em um projeto.
+    Há duas razões principais para impor um formato de código~=fonte único em um projeto.
     A primeira razão tem a ver com o controle de versão:
-    quando todo mundo formata o código de forma idêntica,
+    quando todo mundo formata o código~=fonte de forma idêntica,
     todas as alterações nos arquivos têm a garantia de terem algum significado.
     Nada mais de coisas como adicionar ou
     remover um espaço aleatoriamente,
@@ -294,39 +291,45 @@
 }{%
     \advisor{
         Ao trabalhar com um sistema de versionamento como \textit{git},
-        recomenda\hyp{}se manter todo o código sobre um único estilo,
-        devido a problemas que podem ser gerados ao permitir que cada programador escreva como lhe bem entender.
-        Por exemplo,
-        gerando ruídos de formatação,
+        recomenda\hyp{}se manter todo o código~=fonte sobre um único estilo,
+        devido a problemas que podem ser gerados ao permitir que cada programador escreva códigos~=fonte livremente em seu estilo.
+        Ao permitir que cada programador escreva códigos~=fonte livremente em seu estilo,
+        isso pode gerar problemas como ruídos de formatação,
         dificultando a revisão do código~=fonte,
-        uma vez que cada programador que agora precisa entender diferentes estilos de formatação aplicados em um único arquivo ou
+        uma vez que cada programador precisa entender diferentes estilos de formatação aplicados em um único arquivo ou
         projeto \cite{quitDiffCalculating}.
 
         Caso todos os programadores decidam re~=escrever o histórico,
         fazendo mudanças insignificantes como inserindo novas linhas antes de cada ``if'',
-        eles perdem um tempo precioso que eles poderiam utilizar para escrever código.
-        E no fim,
+        os programadores precisam dedicar tempo de projeto para formatar o código,
+        o que poderia ser evitado e
+        utilizado para escrever código~=fonte.
+        No fim,
         o histórico \textit{git} irá conter ruídos desnecessários.
         Um bom uso de um sistema de versionamento é somente conter mudanças se sejam significativas,
         como criações de novas funções,
-        correção de bugs,
+        correção de \textit{bugs},
         etc \cite{findingRegressionsInProjects}.
+        Ferramentas de versionamento auxiliam na manutenção,
+        rastreabilidade de responsabilidades e
+        alterações,
+        mas não apóiam na manutenção de um estilo de formatação único para uma equipe de programadores.
     }{
         Segue\hyp{}se estas conclusões devido aos problemas gerados ao permitir que cada programador escreva como lhe agrada melhor.
         Caso cada um escreva como bem entende,
-        irá existir ruídos de formatação em abundância espalhados por tudo o código\hyp{}fonte,
-        o quê complicará a revisão de código,
+        irá existir ruídos de formatação em abundância espalhados por tudo o código~=fonte,
+        o quê complicará a revisão de código~=fonte,
         dificultando entender o que cada programador fez \cite{quitDiffCalculating}.
 
         Portando,
         caso todos os programadores decidam re~=escrever o histórico,
         fazendo mudanças insignificantes como inserindo novas linhas antes de cada ``if'':
     \begin{enumerate}
-        \item Eles irão desperdiçar um tempo que eles poderiam estar utilizando para escrever código.
+        \item Eles irão desperdiçar um tempo que eles poderiam estar utilizando para escrever código~=fonte.
         \item O histórico \textit{git} irá conter ruídos desnecessários,
         pois o foco de um sistema de versionamento são conter mudanças se sejam significantes,
         como criações de novas funções,
-        correção de bugs,
+        correção de \textit{bugs},
         etc \cite{findingRegressionsInProjects}.
     \end{enumerate}
     }%
@@ -347,13 +350,13 @@
         just because some night shift programmer had just removed them \cite{whoWroteThisCrap}?
     }{%
         Poderia~=se também pensar em uma abordagem para criar um novo sistema de controle de versão,
-        que foca apenas mudanças significativas no código enquanto faz~=se a revisão das mudanças no código.
+        que foca apenas mudanças significativas no código~=fonte enquanto faz~=se a revisão das mudanças no código~=fonte.
         No entanto,
         essa abordagem poderia não ser ideal,
         pois, por exemplo,
-        permitiria que os programadores iniciassem guerras tediosas de ajustes de código improdutivos.
+        permitiria que os programadores iniciassem guerras tediosas de ajustes de código~=fonte improdutivos.
         Por exemplo,
-        imagine como seria se todo os dias você tivesse que passar pelo código re~=adicionando novas linhas antes de cada um dos seus amados if\s,
+        imagine como seria se todo os dias você tivesse que passar pelo código~=fonte re~=adicionando novas linhas antes de cada um dos seus amados if\s,
         só porque algum programador do turno da noite tinha acabado de removê-los \cite{whoWroteThisCrap}?
     }
 }
@@ -377,7 +380,7 @@
     Estas ferramentas também são conhecidos como ``\textit{Source Code Beautifiers}'' ou
     ``Formatadores de Código''.
     Com isso,
-    espera\hyp{}se que o desenvolvimento de códigos demande menos trabalho,
+    espera\hyp{}se que o desenvolvimento de códigos~=fonte demande menos trabalho,
     pois o desenvolvedor pode focar mais seus esforços pensando sobre o problema que está sendo resolvido,
     ao contrário de tentar decifrar o que está escrito \advisor{em estilo incomum a sua experiência%
         }{em sua frente por meio de layouts extravagantes ou incomuns%
@@ -463,7 +466,7 @@ extensível a diversas linguagem de programação por meio de gramáticas.
 \begin{enumerate}
     \item Analisar a fundamentação teórica de linguagens formais e
     compiladores.
-    \item Analisar o estado da arte das ferramentas que fazem formatação de código.
+    \item Analisar o estado da arte das ferramentas que fazem formatação de código~=fonte.
     \lang{%
         \item Propose a unique tool that allowing several and distinct
         programming `best practices' being implemented in several programming languages,
@@ -493,7 +496,7 @@ extensível a diversas linguagem de programação por meio de gramáticas.
 
 \section{Método de Pesquisa}
 
-No \typeref{fundamentacaoTeorica} foi realizado pesquisas em artigos científicos,
+Foram realizados pesquisas em artigos científicos,
 livros e
 sites para obter~=se referências e
 resolver dúvidas pendentes sobre quaisquer conteúdos.
@@ -512,18 +515,19 @@ Estes termos foram utilizados em sites como:
 \item \url{https://arxiv.org/}.
 \end{inparaenum}%
 
-No \typeref{source_code_beautifiers} foi escolhido explicar sobre um formatador de código configurável por arquivos de texto e
+Foi escolhido explicar sobre um formatador de código~=fonte configurável por arquivos de texto e
 outro configurável por uma interface gráfica com o usuário por que estes dois tipos de exemplo definem bem toda a classe de formatadores.
 Isto é,
 não existem grandes diferenças de uso e
 implementação entres estes dois formatadores e
 os demais.
 
-No \typeref{software_implementation} é proposto um novo formatador de código~=fonte configurável por arquivos de texto e
+Por fim,
+é proposto um novo formatador de código~=fonte configurável por arquivos de texto e
 extensível para novas linguagem de programação através da especificação de suas gramáticas.
 Para que as gramáticas de novas linguagens de programação possam ser interpretadas,
-também foi proposto uma nova gramática de gramáticas de linguagens de programação.
-Esta nova gramática de gramáticas é então utilizada pela nova ferramenta de formatação para realizar as alterações nos códigos~=fonte escolhidos pelo usuário.
+também foi proposto uma nova metagramática \cite{theUseOfMetaRules}.
+Esta nova metalinguagem \cite{compilersCompilerMetaLanguage} é então utilizada pela nova ferramenta de formatação para realizar as alterações nos códigos~=fonte escolhidos pelo usuário.
 Para construção desta ferramenta,
 foi utilizado a linguagem Python e
 testes de unidade e
@@ -533,12 +537,19 @@ integração \cite{continuousIntegration}.
 \section{Estruturação do Texto}
 
 A criação deste trabalho dividi~=se em três áreas distintas.
-No \typeref{fundamentacaoTeorica} é realizado uma fundamentação teórica sobre os conceitos necessários para desenvolvimento de compiladores e
+No \typeref{fundamentacaoTeorica},
+é realizado uma fundamentação teórica sobre os conceitos necessários para desenvolvimento de compiladores e
 especificação de gramáticas.
-No \typeref{source_code_beautifiers} é explicado sobre dois tipos distintos de formatadores de código~=fonte.
-Um formatador de código configurável por arquivos de texto e
+No \typeref{source_code_beautifiers},
+é explicado sobre dois tipos distintos de formatadores de código~=fonte.
+Um formatador de código~=fonte configurável por arquivos de texto e
 outro configurável por uma interface gráfica com o usuário.
 Por fim,
-no \typeref{software_implementation} é apresentado a proposta e
+nos \typeref{software_implementation,chapter:conclusion},
+é apresentado a proposta e
 implementação de uma nova ferramenta de formatação de código~=fonte e
 quais serão os desafios\slash{}trabalhos futuros que podem ser feitos sobre esta nova ferramenta.
+No \typeref{manualDoFormatadorDeCodigo},
+é apresentado como utilizar a implementação realizado neste trabalho,
+seja para adicionar cores ou
+formatar código~=fonte.
