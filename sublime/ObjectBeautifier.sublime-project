@@ -149,7 +149,7 @@
                     "name": "Thesis (Default) [Remote]",
                     "shell": true,
                     "cmd": ["make", "remote", "--quiet"],
-                    "env": {"rules": "thesis debug='1' halt='1'", "debug": ""},
+                    "env": {"rules": "thesis debug='0' halt='1'", "debug": "0"},
                 },
                 {
                     "name": "Thesis Biber",
@@ -160,7 +160,7 @@
                     "name": "Thesis Biber [Remote]",
                     "shell": true,
                     "cmd": ["make", "remote", "--quiet"],
-                    "env": {"rules": "biber debug='1' halt='1'", "debug": ""},
+                    "env": {"rules": "biber debug='0' halt='1'", "debug": "0"},
                 },
                 {
                     "name": "Thesis LaTeX",
@@ -171,7 +171,7 @@
                     "name": "Thesis LaTeX [Remote]",
                     "shell": true,
                     "cmd": ["make", "remote", "--quiet"],
-                    "env": {"rules": "latex debug='1' halt='1'", "debug": ""},
+                    "env": {"rules": "latex debug='0' halt='1'", "debug": "0"},
                 },
                 {
                     "name": "Thesis Veryclean",
@@ -182,7 +182,7 @@
                     "name": "Thesis Veryclean [Remote]",
                     "shell": true,
                     "cmd": ["make", "remote", "--quiet"],
-                    "env": {"rules": "veryclean debug='1' halt='1'", "debug": "", "args": "--delete"},
+                    "env": {"rules": "veryclean debug='0' halt='1'", "debug": "0", "args": "--delete"},
                 },
             ],
         },
