@@ -6,10 +6,7 @@
     \begin{otherlanguage*}{brazil}
     \begin{resumo}[Resumo]
 
-        Faz~=se um estudo sobre o que é e
-        para que servem os Formatadores de Código,
-        assim como as abordagens utilizadas nas mais variadas Ferramentas de Formatação de Código.
-        Os softwares Formatadores de Código~=Fonte atuais,
+        \textit{Softwares} Formatadores de Código~=Fonte atuais,
         também conhecidos como \textit{Source Code Beautifiers},
         são limitados a um conjunto similar,
         ou mesmo à uma única linguagem de programação,
@@ -17,8 +14,18 @@
         Nesse contexto,
         propõe~=se uma ferramenta que permita por meio de gramáticas,
         a especificação de quais linguagens de programação deseja~=se realizar a formatação.
-        Assim,
-        centralizando em um único programa a formatação de código das mais diversas linguagens de programação pela especificação de suas gramáticas.
+        Utilizando um analisador já existente,
+        foi desenvolvido uma metagramática e
+        então construído um analisador semântico para a nova metalinguagem.
+        Por fim,
+        dois protótipos de ferramentas foram desenvolvidos sobre a nova metalinguagem.
+        Um formatador de código~=fonte e
+        uma ferramenta de adição de cores (Também conhecida como \textit{Source Code Highlighters}).
+        Com ambas as ferramentas,
+        é possível trabalhar com qualquer linguagem no qual a sua gramática foi especificada (seguindo das regras da metalinguagem desenvolvida neste trabalho).
+        Enquanto a ferramenta de adição de cores já pode ser considerada completa (por que o processo de adição de cores em si é simples),
+        a ferramenta de formatação de código~=fonte no futuro precisará ser completamente reescrita,
+        para adequar~=se propriamente a qualquer processo de formatação de código~=fonte.
 
         \imprimirpalavraschave{Palavras~=chaves}{\begin{inparaitem}[]\palavraschaveportugues\end{inparaitem}}
 
@@ -35,9 +42,6 @@
     \begin{otherlanguage*}{english}
     \begin{resumo}[Abstract]
 
-        A study about nowadays used Source Code Formatters,
-        and as well,
-        the programming algorithms used in most Source Code Formatting Tools.
         Cutting edge Source Code Formatting Softwares,
         also known as Source Code Beautifiers,
         are limited to a common set,
@@ -45,9 +49,18 @@
         and many formatters are limited in what they can do.
         In this context,
         it is also proposed a new Source Code Formatting Tool allowing users to input their favourite languages grammars.
-        Therefore,
-        formatting all programming languages they would like a single formatting software,
-        by the input of their languages grammars specification.
+        Using an existing parser,
+        a metagrammar was developed and
+        then a semantic parser was built for the new metalanguage.
+        Finally,
+        two tool prototypes were developed with the new metalanguage.
+        A source code formatter and
+        a source code highlighter.
+        With both tools,
+        it is possible to work with any language in which its grammar was specified (following the rules of metalanguage developed in this paper).
+        While the color addition tool can already be considered complete (because the color addition process itself is simple),
+        the source code formatting tool in the future will need to be completely rewritten,
+        to suit any source code formatting requirements.
 
         \imprimirpalavraschave{Keywords}{\begin{inparaitem}[]\palavraschaveingles\end{inparaitem}}
 
