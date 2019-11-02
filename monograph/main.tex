@@ -55,13 +55,6 @@
 
 % Uncomment the following line if you want to use other biblatex settings
 % \PassOptionsToPackage{style=numeric,repeatfields=true,backend=biber,backref=true,citecounter=true}{biblatex}
-
-% Disable the empty pages automatically put by memoir class, except the ones by \cleardoublepage
-% \PassOptionsToClass{openany}{memoir}
-
-% The UFSC font size is 10.5, but memoir embedded by `abntex2` only accepts 10 and 11pt.
-% However, problem will be fixed the `ufscthesisx` package.
-% http://tug.ctan.org/tex-archive/macros/latex/contrib/cleveref/cleveref.pdf
 \documentclass[
 \lang{english}{brazilian,brazil},
 12pt, % Padrão UFSC para versão final
@@ -71,7 +64,8 @@ chapter=TITLE, % Título de capítulos em caixa alta
 section=TITLE, % Título de seções em caixa alta
 ]{setup/ufscthesisx}
 
-% % Utilize o arquivo aftertext/references.bib para incluir sua bibliografia.
+% Utilize o arquivo aftertext/references.bib para incluir sua bibliografia.
+% http://tug.ctan.org/tex-archive/macros/latex/contrib/cleveref/cleveref.pdf
 \addbibresource{aftertext/references.bib}
 
 % FIXME: Preencha com seus dados
@@ -228,7 +222,7 @@ section=TITLE, % Título de seções em caixa alta
 % https://tex.stackexchange.com/questions/32208/footnote-runs-onto-second-page
 \interfootnotelinepenalty=10000
 
-% Disable \openright default behavior
+% Disable the empty pages automatically put by memoir class, except the ones by \cleardoublepage
 \ifforcedinclude\openany\else\fi
 
 
