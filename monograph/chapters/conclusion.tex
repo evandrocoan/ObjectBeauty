@@ -48,12 +48,12 @@
     Como esta ferramenta difere das demais já existentes?
     A diferença desta nova proposta de ferramenta de formatação de código~=fonte para as demais é a troca de responsabilidades entre usuários finais da ferramenta e
     os desenvolvedores desta ferramenta e
-    das gramáticas para os usuários finais.
+    das gramáticas para esses usuários.
     Formatadores de código~=fonte usualmente expõem as mudanças que podem ocorrer ao formatar o código~=fonte sem quebrar a suas regras sintáticas ou
     semânticas.
 
     A maior parte das ferramentas raramente permite que usuários finais tenham o controle total das mudanças no código~=fonte.
-    Enquanto utilizando a ferramenta desenvolvida neste trabalho,
+    \advisor{Utilizando}{Enquanto utilizando} a ferramenta desenvolvida neste trabalho,
     é possível escrever regras de formatação que quebrem a sintaxe e
     semântica da linguagem sendo formatada.
     Por exemplo,
@@ -62,7 +62,7 @@
     é um erro de sintaxe adicionar a chave ``\{'' de abertura de bloco em uma linha nova.
 
     Utilizando~=se as ferramentas usuais de formatação,
-    fica impedido que configurações do usuário quebre o código~=fonte da linguagem sendo formatada,
+    fica impedido que configurações do usuário cause erros sintáticos ou semânticos código~=fonte da linguagem sendo formatada,
     a não ser em casos de \textit{bugs} na ferramenta.
     As ferramentas em geral tentam reconstruir a árvore de sintaxe da linguagem a ser formatada.
     Neste trabalho,
@@ -75,19 +75,26 @@
     pois a sintaxe da linguagem não cobre os seus aspectos semânticos.
     Neste caso,
     o usuário final precisará conhecer quais são as regras semânticas da linguagem na qual ele está realizando a formatação,
-    e configurar o formatador para que ele não quebre nenhuma das regras semânticas da linguagem.
+    e configurar o formatador de código~fonte de modo que ele não quebre nenhuma das regras semânticas da linguagem.
 }
+
+Em \citeonline{objectBeautifierFutureWorks},
+pode ser encontrada a concepção inicial de implementação da ferramenta de formatação de código~=fonte deste trabalho.
+Uma vez que este trabalho for publicado,
+seu código~=fonte estará disponível.
+Então,
+seguindo as referências de \citeonline{objectBeautifierFutureWorks} será possível encontrar a especificação completa sobre última versão implementação de formatadores de código~=fonte com os requerimentos deste trabalho.
 
 
 \section{\lang{Future Works}{Trabalhos Futuros}}
 
-O autor desse trabalho sugere alguns trabalhos futuros.
+O autor desse trabalho sugere alguns trabalhos futuros \citeonline{objectBeautifierFutureWorks}.
 Antes de novos formatadores de código~=fonte sejam implementados,
 estes pontos precisam ser revistos.
 Ao realizar estas mudanças,
-qualquer implementação já realizada para formatação será perdida devido ao número de mudanças realizadas,
-como em um efeito borboleta \cite{standardButterflyEffect}.
-Mais especificamente,
+qualquer implementação já realizada para formatação será perdida devido ao número de mudanças realizadas\advisor{.}{,
+como em um efeito borboleta \cite{standardButterflyEffect}.%
+} Mais especificamente,
 sobre a metalinguagem e
 gerador de formatadores criados,
 sugerem~=se as seguintes alterações:
@@ -131,11 +138,4 @@ uma vez que as melhorias feitas no gerador de formatadores e
 metalinguagem linguagem forem concluídas.
 A implementação atual dos formatadores pode ser considerada nula,
 uma vez que toda sua lógica de funcionamento é construída como um simples iteração descendente pela Árvore de Sintaxe Abstrata gerada pelo analisador semântico.
-
-Em \citeonline{objectBeautifierFutureWorks},
-pode ser encontrada a concepção inicial de implementação da ferramenta de formatação de código~=fonte deste trabalho.
-Uma vez que este trabalho for publicado,
-seu código~=fonte estará disponível.
-Então,
-seguindo as referências de \citeonline{objectBeautifierFutureWorks} será possível encontrar a especificação completa sobre última versão implementação de formatadores de código~=fonte com os requerimentos deste trabalho.
 

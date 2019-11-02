@@ -7,8 +7,8 @@
 
 
 Esse apêndice apresenta um manual da ferramenta.
-Não recomendada~=se que usuários que não possuam conhecimentos sobre a semântica das linguagens de programação,
-utilizem esta ferramenta para realizar a formatação de código~=fonte.
+Não recomenda~=se que usuários que não possuam conhecimentos sobre a semântica das linguagens de programação\advisor{}{,
+} utilizem esta ferramenta para realizar a formatação de código~=fonte.
 Neste caso,
 o mais indicado é que seja utilizado as demais ferramentas de formatação,
 que são mais especificas para cada linguagem individualmente e
@@ -28,7 +28,10 @@ encontra~=se um exemplo simples de programa que pode ser construído para execut
 a Adição de Cores.
 Sua construção é a mesma utilizada para a criação dos testes de unidade (\typeref{unitTestsPy}).
 Tanto o \typeref{MainFormatterPy} quanto do o \typeref{MainHighlighterPy} geram como resultado um arquivo HTML,
-contendo como conteúdo o resultado de seu trabalho.
+contendo como conteúdo o resultado de seu trabalho,
+i.e., respectivamente,
+o código~=fonte formatado ou
+com a adição de cores.
 
 Nos \typeref{MainFormatterPyResult,MainHighlighterPyResult},
 serão encontrados como nós folha das árvores,
@@ -355,7 +358,7 @@ do Analisador Semântico.
 Uma vez que se comprovou o funcionamento da metalinguagem,
 foi realizada um implementação mínima de um formatador de código~=fonte.
 
-Ambas as implementações do módulo de Adição de Cores quanto a do Formatador de Código são somente uma prova de conceito do que pode ser feito com a metalinguagem desenvolvida.
+Tanto as implementações do módulo de Adição de Cores quanto a do Formatador de Código são somente uma prova de conceito do que pode ser feito com a metalinguagem desenvolvida.
 No \typeref{unitTestsPy},
 a classe ``TestingGrammarUtilities'' é uma classe abstrata \cite{understandingDataAbstraction} que contém características necessárias a todos os tipos de testes de unidades implementados,
 tanto os testes de unidade de Adição de Cores quanto os testes de unidade do Formatador de Código.
@@ -398,7 +401,7 @@ De todos os códigos~=fonte criados neste trabalho,
 o Analisador Semântico (\typeref{semanticAnalyzerPy}) é o maior deles.
 Sua implementação é utilizada diretamente pelo módulo de Adição de Cores e
 Formatação de Código.
-A regras do Analisador Semântico estão divididas entre dois tipos,
+As regras do Analisador Semântico estão divididas entre dois tipos,
 erros e
 alertas.
 Um erro é algo que impede completamente o programa final de funcionar.

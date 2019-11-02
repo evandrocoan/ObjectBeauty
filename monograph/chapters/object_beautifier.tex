@@ -5,7 +5,8 @@
 \chapter{Uma Ferramenta de Formatação}
 \label{software_implementation}
 
-Neste capítulo será explicado o funcionamento e
+Neste capítulo,
+será explicado o funcionamento e
 implementação de uma nova ferramenta de formatação.
 A proposta desta nova ferramenta é permitir que usuários possam entrar com a gramática de qualquer linguagem,
 por meio de uma metagramática\footnote{
@@ -256,7 +257,7 @@ master_scope_name_statement: "scope" ": " free_input_string
 \end{minted}
 \end{code}
 
-A sintase da metagramática utilizada no \typeref{simboloInicialDaMetagramatica} é uma adaptação especial do padrão EBNF que o Analisador Lark faz.
+A sintaxe da metagramática utilizada no \typeref{simboloInicialDaMetagramatica} é uma adaptação especial do padrão EBNF que o Analisador Lark faz.
 Símbolos que possuem todas as letras em ``MAIÚSCULA'' definem os símbolos terminais da gramática.
 Enquanto símbolos escrito todos em letras ``minúsculas'' definem os símbolos não~=terminais da gramática.
 Para mais informações sobre a sintaxe de entrada de gramáticas do Analisador Lark,
@@ -467,7 +468,7 @@ as configurações do formatador (\typeref{ParsersPublicAudienceTraduzido,Metaco
 
 No \typeref{semanticAnalizerConstructor},
 pode~=se ver o construtor do Analisador Semântico.
-Pode~=se estranhar seu construtor não receber como parâmetro a Árvore de Sintaxe.
+Pode~=se notar que seu construtor não recebe como parãmetro a Árvore de Sintaxe.
 Entretanto,
 a ela não é passada pelo construtor mas sim por um método chamado ``transform(tree)''.
 Esta é uma característica do Analisador Lark utilizado.
@@ -567,9 +568,10 @@ acessível como um atributo da classe ``TreeTransformer''.
 
 \section{Formatador de Código}
 
-O Formatador de Código não é composto somente uma parte única e
+O Formatador de Código não é composto somente por uma parte única e
 altamente acoplada.
-Mas \advisor{}{pelo contrário,} um conjunto de partes altamente coesas e
+\advisor{Um}{Mas pelo contrário,
+um} conjunto de partes altamente coesas e
 completamente independentes onde cada uma dessas partes recebe a Árvore de Sintaxe Abstrata do Analisador Semântico,
 para então realizar a formatação do programa de entrada junto com as configurações que esta parte aceita.
 
@@ -587,7 +589,7 @@ Ao leitor mais desatento,
 pode parecer que então não existe muita diferença entre a ferramenta de formatação proposta neste trabalho para as já existentes.
 Entretanto,
 este trabalho permite que o usuário entre com a gramática da linguagem a ser formatada,
-diferentes dos outros trabalhos onde esta gramática já é incluída ao formatador.
+diferente de outros trabalhos onde a gramática já é incluída ao código~=fonte do formatador.
 Formadores de código~=fonte como apresentados na \fullref{source_code_beautifiers} são construídos programando~=se as produções da gramática diretamente no código~=fonte do formatador (Descendentes Recursivos,
 reveja a \fullref{gramaticasVersusLinguagens}).
 
