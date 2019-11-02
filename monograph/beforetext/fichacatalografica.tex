@@ -2,7 +2,7 @@
 
 \ifenglish
 
-Legal Notes
+Legal Notes:
 
 There is no warranty for any part of the documented software. The authors have taken care in the
 preparation of this thesis, but make no expressed or implied warranty of any kind and assume no
@@ -11,7 +11,7 @@ damages in connection with or arising out of the use of the information or progr
 
 \else
 
-Notas legais
+Notas legais:
 
 Não há garantia para qualquer parte do software documentado. Os autores tomaram cuidado na
 preparação desta tese, mas não fazem nenhuma garantia expressa ou implícita de qualquer tipo e não
@@ -39,7 +39,9 @@ contidos.
 
         \framebox[\textwidth]
         {
+            % https://tex.stackexchange.com/questions/369918/use-the-value-of-title-with-removed-linebreak
             \begin{minipage}{0.98\textwidth}
+            \begingroup \let\\=\space
 
                 \ttfamily
                 \imprimirautor
@@ -64,7 +66,7 @@ contidos.
 
                 % https://tex.stackexchange.com/questions/54055/using-lower-case-roman-numerals-in-enumerate-lists
                 % https://tex.stackexchange.com/questions/61811/how-to-define-inparaenum-in-the-preamble
-                \hspace{0.44cm}
+                \hspace{0.5cm}
                 \begin{inparaenum}
                     \lang{\palavraschaveinglescomvirgula}{\palavraschaveportuguescomvirgula}
                 \end{inparaenum}
@@ -78,6 +80,7 @@ contidos.
 
                 \hspace{7.75cm} CDU 02:141:005.7
 
+            \endgroup
             \end{minipage}
         }
 
