@@ -105,7 +105,7 @@ define as regras da metalinguagem (especificada pela sua metagramática,
 i.e.,
 a gramática de gramáticas);
 \item quem escreve ou
-desenvolve gramáticas de linguagens para serem formatadas de acordo com as regras da metalinguagem e
+desenvolve gramáticas de linguagens para serem formatadas de acordo com as regras da metalinguagem e;
 \item quem escreve ou
 desenvolve programas de computador e
 deseja realizar a formatação de seus códigos~=fonte.
@@ -162,8 +162,8 @@ a implementação da metagramática realizada ainda não suporta a classificaç�
 Foi escolhida a criação de uma nova metagramática por que as implementações de metagramáticas já existentes como \citeonline{rustSublimeTextSyntaxSyntec,vsCodeSyntaxHighlighthing}:
 \begin{enumerate}[1)]
 \item Não utilizam explicitamente nenhum analisador,
-realizando a programação das produções da gramática diretamente no código~=fonte (\fullref{gramaticasVersusLinguagens}).
-\item Não são capazes de reconhecer todas as características de todas as linguagens de programação (devido a optimizações para maior performance).
+realizando a programação das produções da gramática diretamente no código~=fonte (\fullref{gramaticasVersusLinguagens});
+\item Não são capazes de reconhecer todas as características de todas as linguagens de programação (devido a optimizações para maior performance);
 \item Não possuem sintaxe própria,
 i.e.,
 utilizam~=se de outras linguagens como YAML,
@@ -184,8 +184,8 @@ nas demais linhas são apresentados as diversas classificações de escopos apli
 Por exemplo,
 a palavra ``function'' possui simultaneamente os escopos
 \begin{inparaenum}[1)]
-\item ``source.js'',
-\item ``meta.function.js'' e
+\item ``source.js'';
+\item ``meta.function.js'' e;
 \item ``storage.type.function.js''.
 \end{inparaenum}
 \begin{figure}[h]
@@ -222,10 +222,10 @@ defini~=se que o programa é constituído de três grandes áreas,
 que devem acontecer uma em sequencia da outra:
 \begin{enumerate}
 \item A produção ``preamble\_statements'' define características globais da gramática como um nome,
-e um escopo que será atribuído a toda gramática.
+e um escopo que será atribuído a toda gramática;
 \item A produção ``language\_construct\_rules'' define qual será o símbolo inicial da gramática.
 Em comparação com linguagens de programação como ``C'',
-ele pode ser considerado similar ao método ``main''.
+ele pode ser considerado similar ao método ``main'';
 \item A produção ``miscellaneous\_language\_rules'' permite a definição de diversos contextos\footnote{
 Contexto refere~=se a um bloco de operadores ou
 conjunto de instruções como ``include'' e
@@ -351,9 +351,9 @@ Motores de expressões regulares geralmente suportam um recurso chamado de Grupo
 Por exemplo,
 a expressão regular ``foo(bar)zoo(car)'' possuí 3 grupos de captura quando analisado o texto de entrada ``foobarzoocar'':
 \begin{inparaenum}[1)]\setcounter{enumi}{-1}
-\item foobarzoocar,
-\item bar,
-\item car,
+\item foobarzoocar;
+\item bar;
+\item car;
 \end{inparaenum}%
 onde o grupo de captura 0 refere~=se a toda a expressão regular encontrada.
 Portanto,

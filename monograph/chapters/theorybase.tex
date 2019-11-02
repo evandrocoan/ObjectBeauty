@@ -6,14 +6,14 @@
 \label{fundamentacaoTeorica}
 
 De acordo com o funcionamento de muitos Formatadores de Código (Veja o \fullref{source_code_beautifiers}) e
-da ferramenta que será desenvolvida (veja \fullref{software_implementation}),
-será explicado resumidamente toda a teoria necessária para construção de compiladores,
+da ferramenta que foi desenvolvida (veja \fullref{software_implementation}),
+foi explicado resumidamente toda a teoria necessária para construção de compiladores,
 incluindo as classes de complexidade para medidas da eficiência dos compiladores.
 Seguindo um currículo acadêmico de um curso de Ciências da Computação,
 este resumo seria o equivalente as disciplinas de:
 \begin{inparaenum}[1)]
-\item Teoria da Computação,
-\item Linguagens Formais, e
+\item Teoria da Computação;
+\item Linguagens Formais, e;
 \item Construção de Compiladores.
 \end{inparaenum}
 
@@ -128,7 +128,7 @@ uma gramática é definida por quatro componentes:
     os símbolos terminais serão utilizados definir os lexemas que são a base principal dos \textit{tokens}.
     Na composição da Árvore Sintática,
     os ``\textit{tokens}'' ou símbolos terminais,
-    serão sempre as folhas da Árvore Sintática.
+    serão sempre as folhas da Árvore Sintática;
 
     \item \advisor{O}{Um} conjunto $V_n$ de símbolos
     não~=terminais\advisor{ (algumas vezes chamados de ``variáveis sintáticas'').}{,
@@ -146,7 +146,7 @@ uma gramática é definida por quatro componentes:
     e para evitar confusões entre quais são os símbolos terminais e não~=terminais,
     a intersecção entre o conjunto de símbolos terminais e
     não~=terminais é sempre vazia, i.e.,
-    $V_n \cap V_t = \varnothing$.
+    $V_n \cap V_t = \varnothing$;
 
     \item \label{definicaoDeGramatica}Um conjunto de produções $P$.
     Uma produção consiste em uma dupla elementos.
@@ -424,6 +424,12 @@ Do inglês, \textit{Parsing Table},
 \caption[Gramáticas Determinísticas \textit{versus} suas Linguagens]{Gramáticas Determinísticas \textit{versus} suas Linguagens -- Fonte Própria,
 \citeonline{llVersusLrContainment,llContainmentInLalr,beatty1982,ahoCompilerDragonBook,grammarsAndTheMinimalParsers}}
 \label{LinguagensDeterministicas}
+\nota{%
+    Apesar da fonte da figura ser o próprio autor deste texto,
+    o conhecimento requirido para construir tão complexa figura não.
+    Portanto,
+    foi requerido pesquisa em várias fontes para confirmar que a figura não expressa informações erradas.
+}
 \end{figure}
 
 É importante notar que usualmente o processo de análise por um analisador,
@@ -445,7 +451,6 @@ Quando a tabela está construída sem conflitos (este analisador portanto,
 entra em cena o algoritmo de análise na segunda etapa,
 que utilizando a Tabela de Análise,
 realiza o reconhecimento do programa de entrada.
-
 Como única diferença entre os Analisadores LR(K),
 LALR(K) e
 SLR(K) é exatamente construção da Tabela de Análise,
@@ -485,8 +490,8 @@ Veja a \fullref{buscaEmLarguraEProfundidade} para saber mais.
 \subsection{Reduções e Derivações}
 \label{reducoesEderivacoes}
 
-Diferente Máquinas Reconhecedoras específicas como Automatos Finitos,
-os analisadores recebem diretamente como entrada uma gramática de uma dada linguagem.
+Diferente de máquinas específicas como Automatos Finitos,
+analisadores recebem diretamente como entrada uma gramática de uma dada linguagem.
 Mas diferente de gramáticas e
 Analisadores LL(K),
 Analisadores LR(K) especificamente funcionam de modo contrário.
@@ -502,11 +507,11 @@ Tanto Derivações quanto Reduções podem ser descritas em termos que quantos p
 \begin{enumerate}%[nosep,nolistsep]
     \item Quanto um derivação é denotada como ``$S \Rightarrow a a $'',
     isso significa que somente um passo é necessário para sair do símbolo inicial ``$S$'' e
-    chegar no símbolo final ``$a a$''.
+    chegar no símbolo final ``$a a$'';
     \item Quanto um derivação é denotada como ``$S \xRightarrow{*} a a $'',
     isso significa que são necessários,
     desde zero (nenhum) até infinitos passos para sair do símbolo inicial ``$S$'' e
-    chegar no símbolo final ``$a a$''.
+    chegar no símbolo final ``$a a$'';
     \item Quanto um derivação é denotada como ``$S \xRightarrow{+} a a $'',
     isso significa que são necessários,
     desde um passo até infinitos passos para sair do símbolo inicial ``$S$'' e
@@ -539,13 +544,11 @@ Entretanto,
 caso no final do processo,
 não chegue~=se em um Estado de Aceitação \cite{ahoCompilerDragonBook},
 tem~=se somente a construção de uma Árvore de Derivação partial.
-
 No caso dos Analisadores Ascendentes,
 será uma floresta de árvores,
 por que somente no final da análise,
 com a chegada ao símbolo inicial da gramática,
 completa~=se custura de todas a árvores que foram parcialmente construídas durante o processo de análise (\textit{Bottom~=Up}).
-
 Já no caso dos Analisadores Descendentes,
 não existe uma floresta de árvores.
 Como parte~=se diretamente do símbolo inicial da gramática,
@@ -560,11 +563,11 @@ Como pode ser observado na \typeref{LinguagensDeterministicas},
 existem Gramáticas SLR(K) que não são Gramáticas LL(K) por que para uma gramática ser LL(K),
 ela precisa respeitar 3 propriedades,
 \begin{inparaenum}[1)]
-    \item Não possuir Recursão a Esquerda,
-    \item Estar fatorada e
+    \item Não possuir Recursão a Esquerda;
+    \item Estar fatorada e;
     \item $\forall\; A\, \in\, V_n\; |\; A\,
             \xRightarrow{*}\, \varepsilon\,
-            \land\, First(A)\, \cap\, Follow(A) = \varnothing$
+            \land\, First(A)\, \cap\, Follow(A) = \varnothing$.
 \end{inparaenum}
 \cite{ahoCompilerDragonBook}.
 
@@ -592,7 +595,6 @@ com o objeto de viabilizar a implementação de Analisadores Ascendentes Determi
 Gramáticas de Linguagens Determinísticas são chamadas de LR,
 por que todas as Linguagens Determinísticas são reconhecidas por Analisadores LR(K),
 uma vez que \citeonline{knuthLrParser1965} provou que todas as Gramáticas Determinísticas são aceitas por um Analisador LR(K).
-
 Assim,
 além da hierarquia de Chomsky,
 também classifica~=se as gramáticas de acordo com o tipo de analisador que reconhece as linguagens representadas por elas.
@@ -600,17 +602,18 @@ Como mostrado na \typeref{LinguagensDeterministicas},
 nem todas as Gramáticas Livre de Contexto são de gramáticas Determinísticas e
 uma gramática é Determinística somente se ela pode ser reconhecida por um Analisador LR(K).
 
-Portanto uma maneira fácil de decidir se uma dada gramática é determinística ou
+Portanto,
+uma maneira fácil de decidir se uma dada gramática é determinística ou
 não,
 é tentar construir a sua Tabela de Análise para um Analisador LR(K).
 Caso consiga~=se construir com sucesso (sem conflitos) a Tabela de Análise Sintática \cite{ahoCompilerDragonBook},
 a gramática é LR(K),
 caso contrário a gramática não é determinística.
-
 A mesma técnica pode ser aplicada no caso de analisadores menos poderosos como LALR(K),
 entretanto,
 uma vez que não se consiga construir a Tabela de Análise Sintática,
-não se pode ter certeza se dada gramática é ou não determinística.
+não se pode ter certeza se dada gramática é ou
+não determinística.
 
 
 \subsection{Análise Semântica}
@@ -643,7 +646,6 @@ não a seu significado (semântica).
 Nem todas as linguagens podem ser analisadas completamente em diferentes etapas,
 como Análise Léxica, Sintática e Semântica. Muitas vezes,
 estas três etapas acontecem em paralelo como realizado na implementação do compilador da Linguagem C \cite{jourdan2017,whyCcannotBeParsedWithALR1Parser}.
-
 A Gramática da Linguagem C não é Livre de Contexto Determinística devido as ambiguidades\footnote{
 Conhecido também como Não~=Determinismo,
 veja o \fullref{exemploDeAmbiguidadeLinguistica}.
@@ -665,8 +667,8 @@ pois sua gramática é ambígua.
     UM TIGRE DE BENGALA ESTÁ ME ATACANDO!
 
     \begin{enumerate}%[nosep,nolistsep]
-        \item Um tigre que está utilizando uma bengala para se locomover está atrás de você.
-        \item Um tigre que veio da grande área metropolitana de Bengala na Ásia está atrás de você.
+        \item Um tigre que está utilizando uma bengala para se locomover está atrás de você;
+        \item Um tigre que veio da grande área metropolitana de Bengala na Ásia está atrás de você;
         \item Um torcedor do Criciúma (tigre) que usa sua bengala,
         depois que seu time perdeu de 7 à 1 está atrás de você.
     \end{enumerate}
@@ -715,7 +717,7 @@ deixando a gramática somente com aspectos determinísticos.
 \label{alteracoesNosAnalisadoresSintaticos}
 
 Dependendo de como o Analisador Sintático de Gramáticas Livre de Contexto é alterado,
-o conjunto de gramáticas aceitos por tal analisador pode deixar de serem Livres de Contexto.
+o conjunto de gramáticas aceitas por tal analisador pode deixar de serem Livres de Contexto.
 As gramáticas somente continuarão Livre de Contexto caso estas alterações sejam somente mover checagens da etapa de Análise Sintática para a etapa de Análise Semântica sem realizar alterações no Analisador Sintático.
 
 Quanto se adiciona suporte a Aspectos Sensíveis ao Contexto \cite{contextSensitiveParsing} a Gramáticas Livre de Contexto por meio de alterações do Analisador Sintático,
@@ -875,9 +877,10 @@ $\Theta(n^1)$.
 \begin{figure}[h]
 \centering
 \includegraphics[width=1.0\textwidth]{ParserNonDeterministic.png}
-\caption[Árvore de Computação com 4 Passos de um Problema da Classe $NP$]{Árvore de Computação com 4 Passos de um Problema da Classe $NP$ -- Fonte Própria}
+\caption[Árvore de Computação com 4 Passos de um Problema da Classe $NP$]{Árvore de Computação com 4 Passos\protect\footnotemark{} de um Problema da Classe $NP$ -- Fonte Própria}
 \label{ParserNonDeterministic}
 \end{figure}
+\footnotetext{Não~=Determinísticos.}
 
 O que torna a computação Não~=Determinística\footnote{
 E pertencente a classe dos problemas Não~=Determinístico Polinomial.
@@ -946,7 +949,7 @@ tem~=se um tempo exponential ao tamanho da entrada.
 \begin{figure}[h]
 \centering
 \includegraphics[width=1.0\textwidth]{ParserDeterministic.png}
-\caption[Árvore de Computação com 15 Passos]{Árvore de Computação com 15 Passos -- Fonte Própria}
+\caption[Árvore de Computação com 15 Passos (Determinísticos)]{Árvore de Computação com 15 Passos (Determinísticos) -- Fonte Própria}
 \label{ParserDeterministic}
 \end{figure}
 
@@ -996,9 +999,10 @@ encontra~=se a variação de execução de um Analisador Determinístico que uti
 \begin{figure}[h]
 \centering
 \includegraphics[width=1.0\textwidth]{ParserDeterministicBreadth.png}
-\caption[Árvore de Computação com 15 Passos utilizando Busca em Largura]{Árvore de Computação com 15 Passos utilizando Busca em Largura -- Fonte Própria}
+\caption[Árvore de Computação com 15 Passos utilizando Busca em Largura]{Árvore de Computação com 15 Passos\protect\footnotemark{} utilizando Busca em Largura -- Fonte Própria}
 \label{ParserDeterministicBreadth}
 \end{figure}
+\footnotetext{Não~=Determinísticos.}
 
 Tanto o algoritmo de Busca em Largura quanto Busca em Profundidade,
 não precisam exatamente seguir resolvendo o problema pela esquerda ou

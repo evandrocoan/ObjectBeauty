@@ -361,8 +361,8 @@ a classe ``TestingGrammarUtilities'' é uma classe abstrata \cite{understandingD
 tanto os testes de unidade de Adição de Cores quanto os testes de unidade do Formatador de Código.
 No total existem 22 testes:
 \begin{enumerate}[i)]
-\item 16 testes do Analisador Semântico \typeref{semanticAnalyzerPy} na classe testes ``TestSemanticRules''.
-\item 5 testes de Adição de Cores \typeref{codeHighlighterPy} na classe testes ``TestCodeHighlighterBackEnd''.
+\item 16 testes do Analisador Semântico \typeref{semanticAnalyzerPy} na classe testes ``TestSemanticRules'';
+\item 5 testes de Adição de Cores \typeref{codeHighlighterPy} na classe testes ``TestCodeHighlighterBackEnd'';
 \item 1 testes de Formatação de Código \typeref{codeFormatterPy} na classe testes ``TestCodeFormatterBackEnd''.
 \end{enumerate}%
 
@@ -411,35 +411,35 @@ O nome de cada uma das regras a seguir começa com o prefixo ``test\_'' que corr
 criado para verificar tal regra semântica na classe de testes ``TestSemanticRules'' (\typeref{unitTestsPy}).
 \begin{enumerateoptional}[1.]
     \item[\bfseries\mintinline{text}{test_duplicatedContext}] Detecção de contextos duplicados e
-    emissão de um erro semântico.
+    emissão de um erro semântico;
 
     \item[\bfseries\mintinline{text}{test_duplicatedIncludes}] Detecção de inclusões duplicadas  e
-    emissão de um erro semântico.
+    emissão de um erro semântico;
 
     \item[\bfseries\mintinline{text}{test_invalidRegexInput}] Detecção de expressões regulares inválidas e
-    emissão de um erro semântico.
+    emissão de um erro semântico;
 
     \item[\bfseries\mintinline{text}{test_missingIncludeDetection}] Detecção da inclusão um bloco inexistente e
-    emissão de um erro semântico.
+    emissão de um erro semântico;
 
     \item[\bfseries\mintinline{text}{test_duplicatedGlobalNames}] Detecção de múltiplas definições do nome da gramática e
-    emissão de um erro semântico.
+    emissão de um erro semântico;
 
     \item[\bfseries\mintinline{text}{test_missingScopeGlobalName}] Detecção da falta da definição do nome do escopo global da gramática e
-    emissão de um erro semântico.
+    emissão de um erro semântico;
 
     \item[\bfseries\mintinline{text}{test_missingNameGlobal}] Detecção de esquecer de definir o nome da gramática e
-    emissão de um erro semântico.
+    emissão de um erro semântico;
 
     \item[\bfseries\mintinline{text}{test_unsusedInclude}] Detecção de criação de um contexto e
     em esquecer de utilizar ele e
-    emissão de um alerta.
+    emissão de um alerta;
 
     \item[\bfseries\mintinline{text}{test_redifinedConst}] Detecção de redefinir um valor constante e
-    emissão de um erro semântico.
+    emissão de um erro semântico;
 
     \item[\bfseries\mintinline{text}{test_unsusedConstantDeclaration}] Detecção de definir um valor constante e esquecer de utilizar ele e
-    emissão de um alerta.
+    emissão de um alerta;
 
     \item[\bfseries\mintinline{text}{test_usingConstOutOfScope}] Detecção de tentativa de usar um valor constante fora do escopo dele e
     emissão de um erro semântico.
