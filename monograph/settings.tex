@@ -90,7 +90,11 @@
 \setlength{\parindent}{1.3cm}
 
 % https://tex.stackexchange.com/questions/148647/how-to-remove-space-before-enumerate
-\advisor{}{\setlist[enumerate]{nosep}}
+% https://tex.stackexchange.com/questions/433543/behaviour-of-enumitem-setlist
+\advisor{}{
+\setlist*[enumerate]{nosep}
+\setlist*[enumerateoptional]{nosep}
+}
 
 
 % Color settings across the document
