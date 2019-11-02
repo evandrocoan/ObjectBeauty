@@ -64,10 +64,9 @@
 % http://tug.ctan.org/tex-archive/macros/latex/contrib/cleveref/cleveref.pdf
 \documentclass[
 \lang{english}{brazilian,brazil},
-% 12pt,        % Pode usar tamanho 12pt para defesa
-10pt,          % Padrão UFSC para versão final
-a4paper,       % Padrão UFSC para versão final
-twoside,       % Impressão nos dois lados da folha
+12pt, % Padrão UFSC para versão final
+a4paper, % Padrão UFSC para versão final
+twoside, % Impressão nos dois lados da folha
 chapter=TITLE, % Título de capítulos em caixa alta
 section=TITLE, % Título de seções em caixa alta
 ]{setup/ufscthesisx}
@@ -283,9 +282,9 @@ section=TITLE, % Título de seções em caixa alta
     % Referências bibliográficas
     \begingroup
         % https://tex.stackexchange.com/questions/163559/how-to-modify-line-spacing-per-entry-of-bibliography
-        % \linespread{1.18}\selectfont
+        \advisor{}{\linespread{1.18}\selectfont}
 
-        % https://tex.stackexchange.com/questions/17128/using-bibtex-to-make-a-list-of-references-without
+        % https://tex.stackexchange.com/questions/17128/using-bibtex-to-make-a-list-of-references-without-having-citations-in-the-body
         % \nocite{*}
         \printbibliography[title=REFERÊNCIAS]
     \endgroup
@@ -304,16 +303,16 @@ section=TITLE, % Título de seções em caixa alta
         \include{aftertext/appendices}
     \end{apendicesenv}
 
-    % Inicia os anexos
-    \begin{anexosenv}
-        % Imprime uma página indicando o início dos anexos
-        \advisor{}{\ifforcedinclude\else\partanexos\fi}
-        \setlength\beforechapskip{50pt}
-        \setlength\midchapskip{20pt}
-        \setlength\afterchapskip{20pt}
+    % % Inicia os anexos
+    % \begin{anexosenv}
+    %     % Imprime uma página indicando o início dos anexos
+    %     \advisor{}{\ifforcedinclude\else\partanexos\fi}
+    %     \setlength\beforechapskip{50pt}
+    %     \setlength\midchapskip{20pt}
+    %     \setlength\afterchapskip{20pt}
 
-        % \include{aftertext/apendice_a}
-    \end{anexosenv}
+    %     \include{aftertext/apendice_a}
+    % \end{anexosenv}
 
     % INDICE REMISSIVO
     \ifforcedinclude\else
