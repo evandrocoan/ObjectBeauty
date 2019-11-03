@@ -56,11 +56,11 @@ este resumo seria o equivalente as disciplinas de:
     tem~=se um processo de compilação \cite{translatorGenerationCompilier}.
     }
     \begin{figure}[h]
+    \caption{Processo de Tradução}
+    \label{ProcessoTraducao}
     \centering
     \includegraphics[width=1.0\textwidth]{ProcessoTraducao.png}
-    \caption[Processo de Tradução]{Processo de Tradução -- Fonte Própria,
-    \citeonline{ahoCompilerDragonBook}}
-    \label{ProcessoTraducao}
+    \fonte{Própria, baseado em \citeonline{ahoCompilerDragonBook}}
     \end{figure}
 }
 
@@ -177,7 +177,7 @@ uma gramática é definida por quatro componentes:
 
 
 \subsection{Hierarquia de Chomsky}
-\label{hierarquiaDeChomsky}
+\label{sectionHierarquiaDeChomsky}
 
 Todas as gramáticas que existem são no mínimo\footnote{
 Caso contrário não serão gramáticas,
@@ -192,8 +192,10 @@ também pode~=se \advisor{compreender}{realizar diversas classificações como} 
 onde uma linguagem pode ser classificada como Regular,
 Livre de Contexto,
 Sensível ao Contexto e
-Irrestrita (\typeref{HierarquiaDeChomsky}).
+Irrestrita (\typeref{FigureHierarquiaDeChomsky}).
 \begin{figure}[h]
+\caption{Hierarquia de Chomsky}
+\label{FigureHierarquiaDeChomsky}
 \centering
 \includegraphics[width=1.0\textwidth]{HierarquiaDeChomsky.png}
 \begin{minipage}{\textwidth} \footnotesize
@@ -208,7 +210,6 @@ Por fim,
 para Automatos Finitos Não~=Determinísticos ou
 Analisadores com Backtracking,
 tempo exponencial.
-
 **Para Gramáticas Livres de Contexto Determinísticas,
 também conhecidas como LR(K),
 complexidade linear ao tamanho da palavra de entrada (Veja a \fullref{gramaticasVersusLinguagens}).
@@ -216,16 +217,12 @@ Para Gramáticas Livre de Contexto Não~=Determinísticas,
 vale o mesmo que para Linguagens Regulares Não~=Determinísticas logo acima,
 mas no lugar de Automatos Finitos,
 utilizam~=se Máquinas de Pilha.
-
-***Para verificar se uma dada sentença pertence ou não a linguagem.
+***Para verificar se uma dada sentença pertence ou
+não a linguagem.
+Veja \citeonline{complexityClasses,computationalComplexityAuroraBarak} para aprender mais sobre Classes de Complexidade.
 \end{minipage}
-\caption[Hierarquia de Chomsky]{Hierarquia de Chomsky -- Fonte Própria\protect\footnotemark,
-\citeonline{sipserBook,ahoTheoryOfParsing,efficientNonDeterministicParsers,johnCocke}}
-\label{HierarquiaDeChomsky}
+\fonte{Própria, baseado em \citeonline{sipserBook,ahoTheoryOfParsing,efficientNonDeterministicParsers,johnCocke}}
 \end{figure}
-\footnotetext{
-Veja \citeonline{computationalComplexityAuroraBarak,complexityClasses} para aprender mais sobre Classes de Complexidade.
-}
 
 Toda Gramática Regular ou
 Livre de Contexto,
@@ -233,7 +230,7 @@ Livre de Contexto,
 Sensível ao Contexto,
 uma vez que Gramáticas Livres de Contexto ou
 Regulares são um subconjunto das Gramáticas Irrestritas ou
-Sensíveis ao Contexto como apresentado na \typeref{HierarquiaDeChomsky}.
+Sensíveis ao Contexto como apresentado na \typeref{FigureHierarquiaDeChomsky}.
 Por isso,
 também pode~=se chamar uma dada Gramática Regular de Irrestrita ou
 Livre de Contexto.
@@ -410,7 +407,7 @@ as Gramáticas Determinísticas\footnote{
 As Gramáticas Determinísticas representam o conjunto de Linguagens que podem ser Analisadas Deterministicamente e
 tais Linguagens também podem ser conhecidas como LR(K),
 LR(K).
-Reveja os parágrafos após a \typeref{HierarquiaDeChomsky}.
+Reveja os parágrafos após a \typeref{FigureHierarquiaDeChomsky}.
 },
 que podem ser classificadas como LR(K),
 LL(K), etc, i.e.,
@@ -419,16 +416,15 @@ Do inglês, \textit{Parsing Table},
 \cite{ahoCompilerDragonBook}.
 }.
 \begin{figure}[h]
+\caption{Gramáticas Determinísticas \textit{versus} suas Linguagens}
+\label{LinguagensDeterministicas}
 \centering
 \includegraphics[width=1.0\textwidth]{LinguagensDeterministicas.png}
-\caption[Gramáticas Determinísticas \textit{versus} suas Linguagens]{Gramáticas Determinísticas \textit{versus} suas Linguagens -- Fonte Própria,
-\citeonline{llVersusLrContainment,llContainmentInLalr,beatty1982,ahoCompilerDragonBook,grammarsAndTheMinimalParsers}}
-\label{LinguagensDeterministicas}
+\fonte{Própria, baseado em \citeonline{llVersusLrContainment,llContainmentInLalr,beatty1982,ahoCompilerDragonBook,grammarsAndTheMinimalParsers}}
 \nota{%
     Apesar da fonte da figura ser o próprio autor deste texto,
-    o conhecimento requirido para construir tão complexa figura não.
-    Portanto,
-    foi requerido pesquisa em várias fontes para confirmar que a figura não expressa informações erradas.
+    o conhecimento requirido para construir tão complexa figura não,
+    requerendo pesquisa em várias fontes.
 }
 \end{figure}
 
@@ -476,7 +472,7 @@ No caso de conflitos na Tabela de Análise,
 a gramática não pode ser analisada deterministicamente e
 algoritmos de análise com backtracking\footnote{
 Ou algoritmos de tempo polinomial como CYK,
-reveja a \fullref{hierarquiaDeChomsky}.
+reveja a \fullref{sectionHierarquiaDeChomsky}.
 }
 precisam ser utilizados para construção da Árvore Sintática.
 Como mostrado para Máquinas de Turing Não~=Determinísticas na \fullref{mecanismosReconhecedores},
@@ -680,7 +676,7 @@ Como o Compilador da Linguagem C é escrito programaticamente,
 ele é equivalente a uma Máquina de Turing e
 portanto possui em pior caso,
 tempo infinito de execução,
-reveja a \fullref{HierarquiaDeChomsky}.
+reveja a \fullref{FigureHierarquiaDeChomsky}.
 }'' da linguagem tratando a ambiguidade relativa ao uso do símbolo asterisco ou
 estrela ``*'' como operador de multiplicação ou
 declaração de variável do tipo ponteiro.
@@ -757,7 +753,7 @@ mesmo que seu dispositivo reconhecedor equivalente,
 os Automatos Finitos,
 não tenham Turing Completude\footnote{
 Caso isso esteja confuso,
-reveja a \typeref{HierarquiaDeChomsky} e
+reveja a \typeref{FigureHierarquiaDeChomsky} e
 note que de todas as Linguagens,
 quem tem Turing Completude são as Linguagens Irrestritas,
 enquanto Automatos Finitos são um subconjunto das Máquinas de Turing \cite{finiteAutomataTuringComplete}.
@@ -804,7 +800,7 @@ Em contra~=partida,
 Gramáticas Livre de Contexto Não~=Determinísticas também podem ser analisadas em tempo polinomial,
 por exemplo,
 com complexidade de tempo $\Theta(n^3)$ ao utilizar o algoritmo de parsing CYK (\citeonline{larkContextualLexer} e
-\fullref{hierarquiaDeChomsky}).
+\fullref{sectionHierarquiaDeChomsky}).
 
 
 \advisor{}{%
@@ -875,10 +871,11 @@ com expoente de $n$ igual a $1$,
 i.e.,
 $\Theta(n^1)$.
 \begin{figure}[h]
+\caption{Árvore de Computação com 4 Passos\protect\footnotemark{} de um Problema da Classe $NP$}
+\label{ParserNonDeterministic}
 \centering
 \includegraphics[width=1.0\textwidth]{ParserNonDeterministic.png}
-\caption[Árvore de Computação com 4 Passos de um Problema da Classe $NP$]{Árvore de Computação com 4 Passos\protect\footnotemark{} de um Problema da Classe $NP$ -- Fonte Própria}
-\label{ParserNonDeterministic}
+\fonte{Própria}
 \end{figure}
 \footnotetext{Não~=Determinísticos.}
 
@@ -902,9 +899,9 @@ as compare.
 O tempo de execução será linear ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Regular e
 implementado através de um Automato Finito.
 O tempo de execução será polinomial ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Livre de Contexto Ambígua (Gramática Não~=Determinística) e
-implementado através de algum algoritmo com tempo polinomial como CYK (\fullref{hierarquiaDeChomsky}).
+implementado através de algum algoritmo com tempo polinomial como CYK (\fullref{sectionHierarquiaDeChomsky}).
 
-Como já explicado nas observações da \typeref{HierarquiaDeChomsky},
+Como já explicado nas observações da \typeref{FigureHierarquiaDeChomsky},
 existem duas classes distintas de complexidade para Gramáticas Livre de Contexto Não~=Determinísticas.
 Quando faz~=se uma Análise de uma Gramáticas Livre de Contexto Não~=Determinística,
 tem~=se como resultado várias possíveis Árvores de Derivação\footnote{
@@ -947,10 +944,11 @@ Com isso,
 ao invés de um tempo polinomial ao tamanho da entrada,
 tem~=se um tempo exponential ao tamanho da entrada.
 \begin{figure}[h]
+\caption{Árvore de Computação com 15 Passos (Determinísticos)}
+\label{ParserDeterministic}
 \centering
 \includegraphics[width=1.0\textwidth]{ParserDeterministic.png}
-\caption[Árvore de Computação com 15 Passos (Determinísticos)]{Árvore de Computação com 15 Passos (Determinísticos) -- Fonte Própria}
-\label{ParserDeterministic}
+\fonte{Própria}
 \end{figure}
 
 Para que uma Máquina de Turing Determinística possa processar uma Gramática Não~=Determinística,
@@ -997,10 +995,11 @@ A \typeref{ParserDeterministic} mostrou um exemplo de uso do algoritmo de Busca 
 Já na \typeref{ParserDeterministicBreadth},
 encontra~=se a variação de execução de um Analisador Determinístico que utilizou o algoritmo de Busca em Largura.
 \begin{figure}[h]
+\caption{Árvore de Computação com 15 Passos\protect\footnotemark{} utilizando Busca em Largura}
+\label{ParserDeterministicBreadth}
 \centering
 \includegraphics[width=1.0\textwidth]{ParserDeterministicBreadth.png}
-\caption[Árvore de Computação com 15 Passos utilizando Busca em Largura]{Árvore de Computação com 15 Passos\protect\footnotemark{} utilizando Busca em Largura -- Fonte Própria}
-\label{ParserDeterministicBreadth}
+\fonte{Própria}
 \end{figure}
 \footnotetext{Não~=Determinísticos.}
 

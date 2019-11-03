@@ -2,7 +2,7 @@
 
 % Is it possible to keep my translation together with original text?
 % https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
-\chapter{Manual do Formatador de Código}
+\chapter[Manual do Formatador]{Manual do Formatador de Código}
 \label{manualDoFormatadorDeCodigo}
 
 
@@ -23,7 +23,7 @@ Uma utiliza a metalinguagem para adicionar cores (\typeref{codeHighlighterPy}),
 como feito em editores de texto e
 a outra realiza a formatação de código~=fonte (\typeref{codeFormatterPy}).
 
-Nos \typeref{MainHighlighterPy,MainFormatterPy},
+Nos \typeref{MainFormatterPy,MainHighlighterPy,utilitiesPy},
 encontra~=se um exemplo simples de programa que pode ser construído para executar o Formatador de Código e
 a Adição de Cores.
 Sua construção é a mesma utilizada para a criação dos testes de unidade (\typeref{unitTestsPy}).
@@ -84,20 +84,14 @@ estes pacotes podem ser instalados com os seguintes comandos:
 \begin{enumerate}[1)]
 \item \mintinline{shell}{sudo apt-get install python3 python3-pip}
 \item \mintinline{shell}{pip3 install -r requirements.txt} (\typeref{requirementsTxt})
-\item \mintinline{shell}{python3 main_formatter.py} (\typeref{MainHighlighterPy})
-\item \mintinline{shell}{python3 main_highlighter.py} (\typeref{MainFormatterPy})
+\item \mintinline{shell}{python3 main_formatter.py} (\typeref{MainFormatterPy})
+\item \mintinline{shell}{python3 main_highlighter.py} (\typeref{MainHighlighterPy})
 \end{enumerate}
 
 \begin{code}
 \caption{Arquivo ``source/requirements.txt''}
 \label{requirementsTxt}
 \inputminted{python3}{../source/requirements.txt}
-\end{code}
-
-\begin{code}
-\caption{Arquivo ``source/utilities.py''}
-\label{utilitiesPy}
-\inputminted{python3}{../source/utilities.py}
 \end{code}
 
 \begin{code}
@@ -112,8 +106,14 @@ estes pacotes podem ser instalados com os seguintes comandos:
 \inputminted{python3}{../source/main_highlighter.py}
 \end{code}
 
+\begin{code}
+\caption{Arquivo ``source/utilities.py''}
+\label{utilitiesPy}
+\inputminted{python3}{../source/utilities.py}
+\end{code}
 
-\chapter[Execução de main\_formatter.py]{Execução de ``main\_formatter.py''}
+
+\chapter[main\_formatter.py]{Execução de ``main\_formatter.py''}
 
 O programa do \typeref{MainFormatterPy} faz a criação de 5 artefatos de resultado.
 Duas árvores em forma de figura,
@@ -142,19 +142,19 @@ Já nas \typeref{MainFormatterSyntaxTree,MainFormatterAbstractSyntaxTree} os nó
 \end{code}
 
 \begin{figure}[h]
+\caption{Árvore de Sintaxe ``main\_formatter\_syntax\_tree.png''}
+\label{MainFormatterSyntaxTree}
 \centering
 \includegraphics[width=1.0\textwidth]{main_formatter_syntax_tree.png}
-\caption[Árvore de Sintaxe ``main\_formatter\_syntax\_tree.png'']
-{Árvore de Sintaxe ``main\_formatter\_syntax\_tree.png'' -- Fonte Própria}
-\label{MainFormatterSyntaxTree}
+\fonte{Própria}
 \end{figure}
 
 \begin{figure}[h]
+\caption{Árvore de Sintaxe Abstrata ``main\_formatter\_abstract\_syntax\_tree.png''}
+\label{MainFormatterAbstractSyntaxTree}
 \centering
 \includegraphics[width=1.0\textwidth]{main_formatter_abstract_syntax_tree.png}
-\caption[Árvore de Sintaxe Abstrata ``main\_formatter\_abstract\_syntax\_tree.png'']
-{Árvore de Sintaxe Abstrata ``main\_formatter\_abstract\_syntax\_tree.png'' -- Fonte Própria}
-\label{MainFormatterAbstractSyntaxTree}
+\fonte{Própria}
 \end{figure}
 
 \begin{code}
@@ -233,7 +233,7 @@ language_syntax
 \end{code}
 
 
-\chapter[Execução de main\_highlighter.py]{Execução de ``main\_highlighter.py''}
+\chapter[main\_highlighter.py]{Execução de ``main\_highlighter.py''}
 
 O programa do \typeref{MainHighlighterPy} faz a criação de 5 artefatos de resultado.
 Duas árvores em forma de figura,
@@ -262,19 +262,19 @@ Já nas \typeref{MainHighlighterSyntaxTree,MainHighlighterAbstractSyntaxTree} os
 \end{code}
 
 \begin{figure}[h]
+\caption{Árvore de Sintaxe ``main\_highlighter\_syntax\_tree.png''}
+\label{MainHighlighterSyntaxTree}
 \centering
 \includegraphics[width=1.0\textwidth]{main_highlighter_syntax_tree.png}
-\caption[Árvore de Sintaxe ``main\_highlighter\_syntax\_tree.png'']
-{Árvore de Sintaxe ``main\_highlighter\_syntax\_tree.png'' -- Fonte Própria}
-\label{MainHighlighterSyntaxTree}
+\fonte{Própria}
 \end{figure}
 
 \begin{figure}[h]
+\caption{Árvore de Sintaxe Abstrata ``main\_highlighter\_abstract\_syntax\_tree.png'' -- Fonte Própria}
+\label{MainHighlighterAbstractSyntaxTree}
 \centering
 \includegraphics[width=1.0\textwidth]{main_highlighter_abstract_syntax_tree.png}
-\caption[Árvore de Sintaxe Abstrata ``main\_highlighter\_abstract\_syntax\_tree.png'']
-{Árvore de Sintaxe Abstrata ``main\_highlighter\_abstract\_syntax\_tree.png'' -- Fonte Própria}
-\label{MainHighlighterAbstractSyntaxTree}
+\fonte{Própria}
 \end{figure}
 
 \begin{code}
@@ -347,7 +347,7 @@ language_syntax
 \end{code}
 
 
-\chapter{Código dos Testes de Unidade}
+\chapter[Testes de Unidade]{Código dos Testes de Unidade}
 
 Para se executar os testes de unidade,
 basta executar o comando ``\mintinline{shell}{python3 unit_tests.py}''.
@@ -395,7 +395,7 @@ OK
 \end{code}
 
 
-\chapter{Código do Analisador Semântico}
+\chapter[Analisador Semântico]{Código do Analisador Semântico}
 
 De todos os códigos~=fonte criados neste trabalho,
 o Analisador Semântico (\typeref{semanticAnalyzerPy}) é o maior deles.
@@ -412,7 +412,7 @@ Os testes das regras do Analisador Semântico podem ser encontradas na classe ``
 A seguir pode~=se encontrar algumas das regras semânticas implementadas pelo Analisador Semântico do \typeref{semanticAnalyzerPy}.
 O nome de cada uma das regras a seguir começa com o prefixo ``test\_'' que corresponde ao nome do teste de unidade,
 criado para verificar tal regra semântica na classe de testes ``TestSemanticRules'' (\typeref{unitTestsPy}).
-\begin{enumerateoptional}[1.]
+\begin{enumerateoptional}[1)]
     \item[\bfseries\mintinline{text}{test_duplicatedContext}] Detecção de contextos duplicados e
     emissão de um erro semântico;
 

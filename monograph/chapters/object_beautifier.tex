@@ -50,10 +50,18 @@ o desenvolvedor da linguagem escreve a gramática de especificação\advisor{}{
 desta linguagem} que é entregue a algum analisador e
 gera~=se um compilador para tal linguagem.
 \begin{figure}[h]
+\caption{Fluxo de uso comum de um analisador}
+\label{MyWorflowForLarkTraduzido}
 \centering
 \includegraphics[width=1.0\textwidth]{MyWorflowForLarkTraduzido.png}
-\caption[Fluxo de uso comum de um analisador]{Fluxo de uso comum de um analisador -- Fonte Própria \cite{larkErrorRecovery}}
-\label{MyWorflowForLarkTraduzido}
+\fonte{Própria, traduzido e adaptado de \citeonline{larkErrorRecovery}}
+\nota{Própria,
+traduzido e
+adaptado,
+são figuras desenvolvidas pelo autor,
+mas inicialmente publicadas em outro local,
+idioma e
+com o conteúdo um pouco diferente.}
 \end{figure}
 
 \advisor{Este trabalho faz um uso diferente}{Já este trabalho faz um uso fora do comum}.
@@ -71,10 +79,11 @@ renomeado o Analisador Lark para ``pushdown''\footnote{%
 O código~=fonte do \textit{fork} pode ser encontrado em \url{https://github.com/evandrocoan/pushdownparser}.
 }.
 \begin{figure}[h]
+\caption{Uso feito pela nova ferramenta de Formatação de Código}
+\label{MyWorflowForLarkTraduzido2}
 \centering
 \includegraphics[width=1.0\textwidth]{MyWorflowForLarkTraduzido2.png}
-\caption[Uso feito pela nova ferramenta de Formatação de Código]{Uso feito pela nova ferramenta de Formatação de Código -- Fonte Própria \cite{larkErrorRecovery}}
-\label{MyWorflowForLarkTraduzido2}
+\fonte{Própria, traduzido e adaptado de \citeonline{larkErrorRecovery}}
 \end{figure}
 
 Foi realizado um \textit{fork} do Analisador Lark para poder~=se realizar pequenas alterações que facilitam o entendimento do funcionamento interno da ferramenta como adição de logs e
@@ -112,10 +121,11 @@ desenvolve programas de computador e
 deseja realizar a formatação de seus códigos~=fonte.
 \end{inparaenum}%
 \begin{figure}[h]
+\caption{Relacionamentos entre os Diferentes Públicos deste Projeto}
+\label{ParsersPublicAudienceTraduzido}
 \centering
 \includegraphics[width=1.0\textwidth]{ParsersPublicAudienceTraduzido.png}
-\caption[Relacionamentos entre os Diferentes Públicos deste Projeto]{Relacionamentos entre os Diferentes Públicos deste Projeto -- Fonte Própria \cite{larkErrorRecovery}}
-\label{ParsersPublicAudienceTraduzido}
+\fonte{Própria, traduzido e adaptado de \citeonline{larkErrorRecovery}}
 \end{figure}
 
 Até este ponto,
@@ -148,10 +158,11 @@ e não um Compilador de Analisadores.
 Por isso vemos que os Metaprogramas (ou gramáticas) são entradas diretas dos Metacompilador,
 e não do Formatador de Código.
 \begin{figure}[h]
+\caption{Relação entre Metagramáticas, Metacompiladores e Metaprogramas}
+\label{MetacompilerMetagrammarMetaprogram}
 \centering
 \includegraphics[width=1.0\textwidth]{MetacompilerMetagrammarMetaprogram.png}
-\caption[Relação entre Metagramáticas, Metacompiladores e Metaprogramas]{Relação entre Metagramáticas, Metacompiladores e Metaprogramas -- Fonte Própria \cite{larkErrorRecovery}}
-\label{MetacompilerMetagrammarMetaprogram}
+\fonte{Própria, traduzido e adaptado de \citeonline{larkErrorRecovery}}
 \end{figure}
 
 Esta não é a primeira vez que uma metagramática com simplificações foi escrita.
@@ -190,10 +201,11 @@ a palavra ``function'' possui simultaneamente os escopos
 \item ``storage.type.function.js''.
 \end{inparaenum}
 \begin{figure}[h]
+\caption{Exemplo de Classificação de Código~=Fonte com Múltiplos Escopos}
+\label{TexMateScopes}
 \centering
 \includegraphics[width=1.0\textwidth]{TexMateScopes.png}
-\caption[Exemplo de Classificação de Código~=Fonte com Múltiplos Escopos]{Exemplo de Classificação de Código~=Fonte com Múltiplos Escopos -- Fonte \citeonline{vsCodeSyntaxHighlighthing}}
-\label{TexMateScopes}
+\fonte{\citeonline{vsCodeSyntaxHighlighthing}}
 \end{figure}
 
 Os nomes utilizados na \typeref{TexMateScopes} podem ser qualquer texto que usuário especificador daquela gramática atribuiu.
@@ -460,10 +472,11 @@ utilizando a Árvore de Sintaxe Abstrata,
 realiza a formatação de código~=fonte recebendo um programa de entrada e
 as configurações do formatador (\typeref{ParsersPublicAudienceTraduzido,MetacompilerMetagrammarMetaprogram}).
 \begin{figure}[h]
+\caption{Diagrama das Principais Classes}
+\label{CodeFormatterClassDiagram}
 \centering
 \includegraphics[width=1.0\textwidth]{CodeFormatterClassDiagram.png}
-\caption[Diagrama das Principais Classes]{Diagrama das Principais Classes -- Fonte Própria}
-\label{CodeFormatterClassDiagram}
+\fonte{Própria}
 \end{figure}
 
 No \typeref{semanticAnalizerConstructor},
