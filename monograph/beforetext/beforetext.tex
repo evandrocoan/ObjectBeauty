@@ -1,13 +1,11 @@
 
 
-% How to fix destination with the same identifier (name{page.A}) has been already used, duplicate ignored?
-% https://tex.stackexchange.com/questions/386446/how-to-fix-destination-with-the-same-identifier-namepage-a-has-been-already
-\hypersetup{pageanchor=false}
-
-
 % ELEMENTOS PRÉ-TEXTUAIS
 \ifforcedinclude\else
     % pretextual settings
+    % https://tex.stackexchange.com/questions/386446/how-to-fix-destination-with-the-same-identifier-namepage-a-has-been-already
+    % https://tex.stackexchange.com/questions/67989/pdftex-warning-has-been-referenced-but-does-not-exist-replaced-by-a-fixed-one
+    \hypersetup{pageanchor=false}
     \PRIVATEbookmarkthis{Capa}
     \addtotextpreliminarycontent{Capa}
     \pretextual
@@ -17,6 +15,10 @@
     % https://tex.stackexchange.com/questions/227711/blank-page-after-titlingpage
     \advisor{}{\AtBeginShipoutNext{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}}
     \imprimircapa
+
+    % https://tex.stackexchange.com/questions/386446/how-to-fix-destination-with-the-same-identifier-namepage-a-has-been-already
+    % https://tex.stackexchange.com/questions/67989/pdftex-warning-has-been-referenced-but-does-not-exist-replaced-by-a-fixed-one
+    \hypersetup{pageanchor=true}
 
     % Custom list throw LaTeX Error: Command \mycustomfiction already defined?
     % https://tex.stackexchange.com/questions/388489/custom-list-throw-latex-error-command-mycustomfiction-already-defined/
@@ -168,11 +170,4 @@
     }
 
 \end{KeepFromToc}
-
-
-
-% How to fix destination with the same identifier (name{page.A}) has been already used, duplicate ignored?
-% https://tex.stackexchange.com/questions/386446/how-to-fix-destination-with-the-same-identifier-namepage-a-has-been-already
-\hypersetup{pageanchor=true}
-
 
