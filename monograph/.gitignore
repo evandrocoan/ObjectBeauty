@@ -6,6 +6,7 @@
 /example.pdf
 /tmp
 /cache
+/latexcache
 /.time_flag.txt
 
 *.sublime-workspace
