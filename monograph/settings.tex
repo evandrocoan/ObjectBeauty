@@ -137,6 +137,51 @@
 }{}
 \makeatother
 
+% % Muda equação para 'Equação (n)'
+% \counterwithout{equation}{chapter}
+% \def\equationautorefname~#1\null{%
+%   Equação~(#1)\null
+% }
+
+% \DeclareFieldFormat{url}{Disponível~em:\addspace\url{#1}}
+% \setlength\bibitemsep{\baselineskip}
+
+% ---
+% Filtering and Mapping Bibliographies
+% ---
+\DeclareSourcemap{
+    \maps[datatype=bibtex]{
+        % remove fields that are always useless
+        \map{
+            \step[fieldset=abstract, null]
+            \step[fieldset=pagetotal, null]
+        }
+        % remove URLs for types that are primarily printed
+%       \map{
+%           \pernottype{software}
+%           \pernottype{online}
+%           \pernottype{report}
+%           \pernottype{techreport}
+%           \pernottype{standard}
+%           \pernottype{manual}
+%           \pernottype{misc}
+%           \step[fieldset=url, null]
+%           \step[fieldset=urldate, null]
+%       }
+        \map{
+            \pertype{inproceedings}
+            % remove mostly redundant conference information
+            \step[fieldset=venue, null]
+            \step[fieldset=eventdate, null]
+            \step[fieldset=eventtitle, null]
+            % do not show ISBN for proceedings
+            \step[fieldset=isbn, null]
+            % Citavi bug
+            \step[fieldset=volume, null]
+        }
+    }
+}
+
 % Backref package settings, pages with citations in bibliography
 \newcommand{\biblatexcitedntimes}{\autocap{c}ited \arabic{citecounter} times}
 \newcommand{\biblatexcitedonetime}{\autocap{c}ited one time}
