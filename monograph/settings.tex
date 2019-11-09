@@ -1,6 +1,8 @@
 %----------------------------------------------------------------------------------------
 %   Thesis Tweaks and Utilities
 %----------------------------------------------------------------------------------------
+\makeatletter
+
 
 % Uncomment this if you are debugging pages' badness Underfull & Overflow
 % https://tex.stackexchange.com/questions/115908/geometry-showframe-landscape
@@ -20,12 +22,10 @@
 
 % Add missing translations for Portuguese
 % https://tex.stackexchange.com/questions/8564/what-is-the-right-way-to-redefine-macros-defined-by-babel
-\makeatletter
 \@ifpackageloaded{babel}{\@ifpackagewith{babel}{brazil}{\addto\captionsbrazil{%
-    \renewcommand{\mytextpreliminarylistname}{Breve Sumário}
+  \renewcommand{\mytextpreliminarylistname}{Breve Sumário}
 }}{}}{}
 \@ifundefined{advisor}{\newcommand{\advisor}[2]{#1}}{}
-\makeatother
 
 % Selects a sans serif font family
 % \renewcommand{\sfdefault}{cmss}
@@ -35,51 +35,49 @@
 
 % Spacing between lines and paragraphs
 % https://tex.stackexchange.com/questions/70212/ifpackageloaded-question
-\makeatletter
 \@ifclassloaded{memoir}
 {
-    % New custom chapter style VZ14, see other chapters styles in:
-    % http://repositorios.cpai.unb.br/ctan/info/latex-samples/MemoirChapStyles/MemoirChapStyles.pdf
-    \newcommand\thickhrulefill{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@}
-    \makechapterstyle{VZ14} { %
-        % \thispagestyle{empty}
-        \setlength\beforechapskip{50pt}
-        \setlength\midchapskip{20pt}
-        \setlength\afterchapskip{20pt}
-        \renewcommand\chapternamenum{}
-        \renewcommand\printchaptername{}
-        \renewcommand\chapnamefont{\Huge\scshape}
-        \renewcommand\printchapternum {%
-            \chapnamefont\null\thickhrulefill\quad
-            \@chapapp\space\thechapter\quad\thickhrulefill
-        }
-        \renewcommand\printchapternonum {%
-            \par\thickhrulefill\par\vskip\midchapskip
-            \hrule\vskip\midchapskip
-        }
-        \renewcommand\chaptitlefont{\huge\scshape\centering}
-        \renewcommand\afterchapternum {%
-            \par\nobreak\vskip\midchapskip\hrule\vskip\midchapskip
-        }
-        \renewcommand\afterchaptertitle {%
-            \par\vskip\midchapskip\hrule\nobreak\vskip\afterchapskip
-        }
+  % New custom chapter style VZ14, see other chapters styles in:
+  % http://repositorios.cpai.unb.br/ctan/info/latex-samples/MemoirChapStyles/MemoirChapStyles.pdf
+  \newcommand\thickhrulefill{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@}
+  \makechapterstyle{VZ14} { %
+    % \thispagestyle{empty}
+    \setlength\beforechapskip{50pt}
+    \setlength\midchapskip{20pt}
+    \setlength\afterchapskip{20pt}
+    \renewcommand\chapternamenum{}
+    \renewcommand\printchaptername{}
+    \renewcommand\chapnamefont{\Huge\scshape}
+    \renewcommand\printchapternum {%
+      \chapnamefont\null\thickhrulefill\quad
+      \@chapapp\space\thechapter\quad\thickhrulefill
     }
+    \renewcommand\printchapternonum {%
+      \par\thickhrulefill\par\vskip\midchapskip
+      \hrule\vskip\midchapskip
+    }
+    \renewcommand\chaptitlefont{\huge\scshape\centering}
+    \renewcommand\afterchapternum {%
+      \par\nobreak\vskip\midchapskip\hrule\vskip\midchapskip
+    }
+    \renewcommand\afterchaptertitle {%
+      \par\vskip\midchapskip\hrule\nobreak\vskip\afterchapskip
+    }
+  }
 
-    % Apply the style `VZ14` just created
-    % \chapterstyle{VZ14}
+  % Apply the style `VZ14` just created
+  % \chapterstyle{VZ14}
 
-    % http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/memoir/memman.pdf
-    \setlength\beforechapskip{0pt}
-    \setlength\midchapskip{15pt}
-    \setlength\afterchapskip{15pt}
+  % http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/memoir/memman.pdf
+  \setlength\beforechapskip{0pt}
+  \setlength\midchapskip{15pt}
+  \setlength\afterchapskip{15pt}
 
-    % Memoir: Warnings “The material used in the headers is too large” w/ accented titles
-    % https://tex.stackexchange.com/questions/387293/how-to-change-the-page-layout-with-memoir
-    \setheadfoot{30.0pt}{\footskip}
-    \checkandfixthelayout
+  % Memoir: Warnings “The material used in the headers is too large” w/ accented titles
+  % https://tex.stackexchange.com/questions/387293/how-to-change-the-page-layout-with-memoir
+  \setheadfoot{30.0pt}{\footskip}
+  \checkandfixthelayout
 }{}
-\makeatother
 
 % Controlling the spacing between one paragraph and another, try also \onelineskip
 % Default value for UFSC 0.0cm
@@ -98,82 +96,79 @@
 
 
 % Color settings across the document
-\makeatletter
 \@ifpackageloaded{xcolor}
 {
-    % RGB colors in absolute values from 0 to 255 by using `RGB` tag
-    \definecolor{darkblue}{RGB}{26,13,178}
+  % RGB colors in absolute values from 0 to 255 by using `RGB` tag
+  \definecolor{darkblue}{RGB}{26,13,178}
 
-    % Colors names definitions as RGB colors in percentage notation by using `rgb` tag
-    \definecolor{mygreen}{rgb}{0,0.6,0}
-    \definecolor{mygray}{rgb}{0.5,0.5,0.5}
-    \definecolor{mymauve}{rgb}{0.58,0,0.82}
-    \definecolor{figcolor}{rgb}{1,0.4,0}
-    \definecolor{tabcolor}{rgb}{1,0.4,0}
-    \definecolor{eqncolor}{rgb}{1,0.4,0}
-    \definecolor{linkcolor}{rgb}{1,0.4,0}
-    \definecolor{citecolor}{rgb}{1,0.4,0}
-    \definecolor{seccolor}{rgb}{0,0,1}
-    \definecolor{abscolor}{rgb}{0,0,1}
-    \definecolor{titlecolor}{rgb}{0,0,1}
-    \definecolor{biocolor}{rgb}{0,0,1}
-    \definecolor{blue}{RGB}{41,5,195}
+  % Colors names definitions as RGB colors in percentage notation by using `rgb` tag
+  \definecolor{mygreen}{rgb}{0,0.6,0}
+  \definecolor{mygray}{rgb}{0.5,0.5,0.5}
+  \definecolor{mymauve}{rgb}{0.58,0,0.82}
+  \definecolor{figcolor}{rgb}{1,0.4,0}
+  \definecolor{tabcolor}{rgb}{1,0.4,0}
+  \definecolor{eqncolor}{rgb}{1,0.4,0}
+  \definecolor{linkcolor}{rgb}{1,0.4,0}
+  \definecolor{citecolor}{rgb}{1,0.4,0}
+  \definecolor{seccolor}{rgb}{0,0,1}
+  \definecolor{abscolor}{rgb}{0,0,1}
+  \definecolor{titlecolor}{rgb}{0,0,1}
+  \definecolor{biocolor}{rgb}{0,0,1}
+  \definecolor{blue}{RGB}{41,5,195}
 
-    % PDF Hyperlinks settings
-    \@ifpackageloaded{hyperref}
+  % PDF Hyperlinks settings
+  \@ifpackageloaded{hyperref}
+  {
+    \hypersetup
     {
-        \hypersetup
-        {
-            colorlinks=true,     % false: boxed links; true: colored links
-            linkcolor=darkblue,  % color of internal links
-            citecolor=darkblue, % color of links to bibliography
-            filecolor=black,     % color of file links
-            urlcolor=\advisor{black}{darkgreen},
-            bookmarksdepth=4,
-            pdfencoding=auto,%
-            psdextra,
-        }
+      colorlinks=true,     % false: boxed links; true: colored links
+      linkcolor=darkblue,  % color of internal links
+      citecolor=darkblue, % color of links to bibliography
+      filecolor=black,     % color of file links
+      urlcolor=\advisor{black}{darkgreen},
+      bookmarksdepth=4,
+      pdfencoding=auto,%
+      psdextra,
     }
+  }
 }{}
-\makeatother
-
-% \DeclareFieldFormat{url}{Disponível~em:\addspace\url{#1}}
-% \setlength\bibitemsep{\baselineskip}
 
 % ---
 % Filtering and Mapping Bibliographies
+% \DeclareFieldFormat{url}{Disponível~em:\addspace\url{#1}}
+
 % ---
 \DeclareSourcemap{
-    \maps[datatype=bibtex]{
-        % remove fields that are always useless
-        \map{
-            \step[fieldset=abstract, null]
-            \step[fieldset=pagetotal, null]
-        }
-        % remove URLs for types that are primarily printed
-%       \map{
-%           \pernottype{software}
-%           \pernottype{online}
-%           \pernottype{report}
-%           \pernottype{techreport}
-%           \pernottype{standard}
-%           \pernottype{manual}
-%           \pernottype{misc}
-%           \step[fieldset=url, null]
-%           \step[fieldset=urldate, null]
-%       }
-        \map{
-            \pertype{inproceedings}
-            % remove mostly redundant conference information
-            \step[fieldset=venue, null]
-            \step[fieldset=eventdate, null]
-            \step[fieldset=eventtitle, null]
-            % do not show ISBN for proceedings
-            \step[fieldset=isbn, null]
-            % Citavi bug
-            \step[fieldset=volume, null]
-        }
+  \maps[datatype=bibtex]{
+    % remove fields that are always useless
+    \map{
+      \step[fieldset=abstract, null]
+      \step[fieldset=pagetotal, null]
     }
+    % % remove URLs for types that are primarily printed
+    % \map{
+    %   \pernottype{software}
+    %   \pernottype{online}
+    %   \pernottype{report}
+    %   \pernottype{techreport}
+    %   \pernottype{standard}
+    %   \pernottype{manual}
+    %   \pernottype{misc}
+    %   \step[fieldset=url, null]
+    %   \step[fieldset=urldate, null]
+    % }
+    \map{
+      \pertype{inproceedings}
+      % remove mostly redundant conference information
+      \step[fieldset=venue, null]
+      \step[fieldset=eventdate, null]
+      \step[fieldset=eventtitle, null]
+      % do not show ISBN for proceedings
+      \step[fieldset=isbn, null]
+      % Citavi bug
+      \step[fieldset=volume, null]
+    }
+  }
 }
 
 % Backref package settings, pages with citations in bibliography
@@ -181,57 +176,55 @@
 \newcommand{\biblatexcitedonetime}{\autocap{c}ited one time}
 \newcommand{\biblatexcitednotimes}{\autocap{n}o citation in the text}
 
-\makeatletter
 \@ifpackageloaded{babel}{\@ifpackagewith{babel}{brazil}{\addto\captionsbrazil{%
-    \renewcommand{\biblatexcitedntimes}{\autocap{c}itado \arabic{citecounter} vezes}
-    \renewcommand{\biblatexcitedonetime}{\autocap{c}itado uma vez}
-    \renewcommand{\biblatexcitednotimes}{\autocap{n}enhuma citação no texto}
+  \renewcommand{\biblatexcitedntimes}{\autocap{c}itado \arabic{citecounter} vezes}
+  \renewcommand{\biblatexcitedonetime}{\autocap{c}itado uma vez}
+  \renewcommand{\biblatexcitednotimes}{\autocap{n}enhuma citação no texto}
 }}{}}{}
 \@ifpackageloaded{biblatex}
 {%
-    % https://tex.stackexchange.com/questions/483707/how-to-detect-whether-the-option-citecounter-was-enabled-on-biblatex
-    \ifx\blx@citecounter\relax
-        \message{Is citecounter defined? NO!^^J}
+  % https://tex.stackexchange.com/questions/483707/how-to-detect-whether-the-option-citecounter-was-enabled-on-biblatex
+  \ifx\blx@citecounter\relax
+    \message{Is citecounter defined? NO!^^J}
+  \else
+    \message{Is citecounter defined? YES!^^J}
+    \ifbacktracker
+      \message{Is backtracker defined? YES!^^J}
+      \renewbibmacro*{pageref}
+      {
+        \iflistundef{pageref}
+        {\printtext{\biblatexcitednotimes}}
+        {%
+          \printtext
+          {%
+            \ifnumgreater{\value{citecounter}}{1}
+              {\biblatexcitedntimes}
+              {\biblatexcitedonetime}
+          }%
+          \setunit{\addspace}%
+          \ifnumgreater{\value{pageref}}{1}
+            {\bibstring{backrefpages}\ppspace}
+            {\bibstring{backrefpage}\ppspace}%
+          \printlist[pageref][-\value{listtotal}]{pageref}%
+        }%
+      }
+
+      \DefineBibliographyStrings{brazil}
+      {
+        backrefpage  = {na página},
+        backrefpages = {nas páginas},
+      }
+
+      \DefineBibliographyStrings{english}
+      {
+        backrefpage  = {on page},
+        backrefpages = {on pages},
+      }
     \else
-        \message{Is citecounter defined? YES!^^J}
-        \ifbacktracker
-            \message{Is backtracker defined? YES!^^J}
-            \renewbibmacro*{pageref}
-            {
-                \iflistundef{pageref}
-                {\printtext{\biblatexcitednotimes}}
-                {%
-                    \printtext
-                    {%
-                        \ifnumgreater{\value{citecounter}}{1}
-                            {\biblatexcitedntimes}
-                            {\biblatexcitedonetime}
-                    }%
-                    \setunit{\addspace}%
-                    \ifnumgreater{\value{pageref}}{1}
-                        {\bibstring{backrefpages}\ppspace}
-                        {\bibstring{backrefpage}\ppspace}%
-                    \printlist[pageref][-\value{listtotal}]{pageref}%
-                }%
-            }
-
-            \DefineBibliographyStrings{brazil}
-            {
-                backrefpage  = {na página},
-                backrefpages = {nas páginas},
-            }
-
-            \DefineBibliographyStrings{english}
-            {
-                backrefpage  = {on page},
-                backrefpages = {on pages},
-            }
-        \else
-            \message{Is backtracker defined? NO!^^J}
-        \fi
+      \message{Is backtracker defined? NO!^^J}
     \fi
+  \fi
 }{}
-\makeatother
 
 % https://tex.stackexchange.com/questions/391695/is-possible-to-remove-the-link-color-of-the-comma-on-the-citation-link
 % \DeclareFieldFormat{citehyperref}{#1}
@@ -247,23 +240,23 @@
 % https://tex.stackexchange.com/questions/398666/how-to-correctly-insert-and-justify-abstract
 \ifadvisor
 \else
-    \DeclareFieldFormat{abstract}%
-    {%
-        \vspace*{-0.5mm}\par\justifying
-        \begin{adjustwidth}{1cm}{}
-            \textbf{\bibsentence\bibstring{abstract}:} #1
-        \end{adjustwidth}
+  \DeclareFieldFormat{abstract}%
+  {%
+    \vspace*{-0.5mm}\par\justifying
+    \begin{adjustwidth}{1cm}{}
+      \textbf{\bibsentence\bibstring{abstract}:} #1
+    \end{adjustwidth}
+  }
+  \renewbibmacro*{finentry}%
+  {%
+    \iffieldundef{abstract}
+    {\finentry}
+    {\finentrypunct
+      \printfield{abstract}%
+      \renewcommand*{\finentrypunct}{}%
+      \finentry
     }
-    \renewbibmacro*{finentry}%
-    {%
-        \iffieldundef{abstract}
-        {\finentry}
-        {\finentrypunct
-            \printfield{abstract}%
-            \renewcommand*{\finentrypunct}{}%
-            \finentry
-        }
-    }
+  }
 \fi
 
 
@@ -301,92 +294,94 @@
 
 % http://www.tex.ac.uk/FAQ-tocloftwrong.html
 % Use \setlength\cftsectionnumwidth{4em} to override all these values at once
-\makeatletter
 \ifadvisor
 \else
-    \makechapterstyle{fixedabntex2indentation}
-    {%
-        \renewcommand{\chapterheadstart}{}
+  \makechapterstyle{fixedabntex2indentation}
+  {%
+    \renewcommand{\chapterheadstart}{}
 
-        \ifx \chapternamenumlength \undefined
-            \newlength{\chapternamenumlength}
-        \fi
+    \ifx \chapternamenumlength \undefined
+      \newlength{\chapternamenumlength}
+    \fi
 
-        % tamanhos de fontes de chapter e part
-        \ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
-            \setlength\beforechapskip{\baselineskip}%
-            \renewcommand{\chaptitlefont}{\ABNTEXsectionfont\ABNTEXsectionfontsize}%
-        }{%else
-           \setlength{\beforechapskip}{0pt}%
-           \renewcommand{\chaptitlefont}{\ABNTEXchapterfont\ABNTEXchapterfontsize}%
-        }
-
-        \renewcommand{\chapnumfont}{\chaptitlefont}
-        \renewcommand{\parttitlefont}{\ABNTEXpartfont\ABNTEXpartfontsize}
-        \renewcommand{\partnumfont}{\ABNTEXpartfont\ABNTEXpartfontsize}
-        \renewcommand{\partnamefont}{\ABNTEXpartfont\ABNTEXpartfontsize}
-
-        % tamanhos de fontes de section, subsection, subsubsection e subsubsubsection
-        \setsecheadstyle{\ABNTEXsectionfont\ABNTEXsectionfontsize\ABNTEXsectionupperifneeded}
-        \setsubsecheadstyle{\ABNTEXsubsectionfont\ABNTEXsubsectionfontsize\ABNTEXsubsectionupperifneeded}
-        \setsubsubsecheadstyle{\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize\ABNTEXsubsubsectionupperifneeded}
-        \setsubsubsubsecheadstyle{\ABNTEXsubsubsubsectionfont\ABNTEXsubsubsubsectionfontsize\ABNTEXsubsubsubsectionupperifneeded}
-
-        % Impressão do número do capítulo
-        \renewcommand{\chapternamenum}{}
-
-        % Impressão do nome do capítulo
-        \renewcommand{\printchaptername}{%
-           \chaptitlefont%
-           \ifthenelse{\boolean{abntex@apendiceousecao}}{\appendixname}{}%
-        }
-
-        % Impressão do título do capítulo
-        \def\printchaptertitle##1{%
-            \chaptitlefont%
-            \ifthenelse{\boolean{abntex@innonumchapter}}{\centering\ABNTEXchapterupperifneeded{##1}}{%
-            \ifthenelse{\boolean{abntex@apendiceousecao}}{%
-                \centering%
-                \settowidth{\chapternamenumlength}{\printchaptername\printchapternum\afterchapternum}%
-                \ABNTEXchapterupperifneeded{##1}%
-            }{%
-                \settowidth{\chapternamenumlength}{\printchaptername\printchapternum\afterchapternum}%
-                \parbox[t]{\columnwidth-\chapternamenumlength}{\ABNTEXchapterupperifneeded{##1}}}%
-            }%
-        }
-
-        % https://tex.stackexchange.com/questions/264668/memoir-indentation-of-unnumbered-sections-in-table-of-contents
-        \renewcommand{\tocinnonumchapter}{%
-          \addtocontents{toc}{\cftsetindents{chapter}{2.5em}{2em}}%
-          \cftinserthook{toc}{A}}
-
-        % Impressão do número do capítulo (no capítulo e não toc)
-        \renewcommand{\printchapternum}{%
-            \setboolean{abntex@innonumchapter}{false}%
-            \chapnumfont%
-            ~~\thechapter~%
-            \ifthenelse{\boolean{abntex@apendiceousecao}}{%
-                \tocinnonumchapter%
-                ~\ABNTEXcaptiondelim~~%
-            }{}%
-        }
-
-        \renewcommand{\ABNTEXcaptiondelim}{\textendash}
-        \renewcommand{\afterchapternum}{}
-
-        % Impressão do capítulo não numerado
-        \renewcommand\printchapternonum{%
-            \setboolean{abntex@innonumchapter}{true}%
-        }
+    % tamanhos de fontes de chapter e part
+    \ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
+      \setlength\beforechapskip{\baselineskip}%
+      \renewcommand{\chaptitlefont}{\ABNTEXsectionfont\ABNTEXsectionfontsize}%
+    }{%else
+       \setlength{\beforechapskip}{0pt}%
+       \renewcommand{\chaptitlefont}{\ABNTEXchapterfont\ABNTEXchapterfontsize}%
     }
-    \chapterstyle{fixedabntex2indentation}
 
-    \cftsetindents{part}          {0em} {3em}
-    \cftsetindents{chapter}       {0em} {3em}
-    \cftsetindents{section}       {0em} {4.3em}
-    \cftsetindents{subsection}    {0em} {5.2em}
-    \cftsetindents{subsubsection} {0em} {5.1em}
-    \cftsetindents{paragraph}     {0em} {6.0em}
-    \cftsetindents{subparagraph}  {0em} {7.0em}
+    \renewcommand{\chapnumfont}{\chaptitlefont}
+    \renewcommand{\parttitlefont}{\ABNTEXpartfont\ABNTEXpartfontsize}
+    \renewcommand{\partnumfont}{\ABNTEXpartfont\ABNTEXpartfontsize}
+    \renewcommand{\partnamefont}{\ABNTEXpartfont\ABNTEXpartfontsize}
+
+    % tamanhos de fontes de section, subsection, subsubsection e subsubsubsection
+    \setsecheadstyle{\ABNTEXsectionfont\ABNTEXsectionfontsize\ABNTEXsectionupperifneeded}
+    \setsubsecheadstyle{\ABNTEXsubsectionfont\ABNTEXsubsectionfontsize\ABNTEXsubsectionupperifneeded}
+    \setsubsubsecheadstyle{\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize\ABNTEXsubsubsectionupperifneeded}
+    \setsubsubsubsecheadstyle{\ABNTEXsubsubsubsectionfont\ABNTEXsubsubsubsectionfontsize\ABNTEXsubsubsubsectionupperifneeded}
+
+    % Impressão do número do capítulo
+    \renewcommand{\chapternamenum}{}
+
+    % Impressão do nome do capítulo
+    \renewcommand{\printchaptername}{%
+       \chaptitlefont%
+       \ifthenelse{\boolean{abntex@apendiceousecao}}{\appendixname}{}%
+    }
+
+    % Impressão do título do capítulo
+    \def\printchaptertitle##1{%
+      \chaptitlefont%
+      \ifthenelse{\boolean{abntex@innonumchapter}}{\centering\ABNTEXchapterupperifneeded{##1}}{%
+      \ifthenelse{\boolean{abntex@apendiceousecao}}{%
+        \centering%
+        \settowidth{\chapternamenumlength}{\printchaptername\printchapternum\afterchapternum}%
+        \ABNTEXchapterupperifneeded{##1}%
+      }{%
+        \settowidth{\chapternamenumlength}{\printchaptername\printchapternum\afterchapternum}%
+        \parbox[t]{\columnwidth-\chapternamenumlength}{\ABNTEXchapterupperifneeded{##1}}}%
+      }%
+    }
+
+    % https://tex.stackexchange.com/questions/264668/memoir-indentation-of-unnumbered-sections-in-table-of-contents
+    \renewcommand{\tocinnonumchapter}{%
+      \addtocontents{toc}{\cftsetindents{chapter}{2.5em}{2em}}%
+      \cftinserthook{toc}{A}}
+
+    % Impressão do número do capítulo (no capítulo e não toc)
+    \renewcommand{\printchapternum}{%
+      \setboolean{abntex@innonumchapter}{false}%
+      \chapnumfont%
+      ~~\thechapter~%
+      \ifthenelse{\boolean{abntex@apendiceousecao}}{%
+        \tocinnonumchapter%
+        ~\ABNTEXcaptiondelim~~%
+      }{}%
+    }
+
+    \renewcommand{\ABNTEXcaptiondelim}{\textendash}
+    \renewcommand{\afterchapternum}{}
+
+    % Impressão do capítulo não numerado
+    \renewcommand\printchapternonum{%
+      \setboolean{abntex@innonumchapter}{true}%
+    }
+  }
+  \chapterstyle{fixedabntex2indentation}
+
+  \cftsetindents{part}          {0em} {3em}
+  \cftsetindents{chapter}       {0em} {3em}
+  \cftsetindents{section}       {0em} {4.3em}
+  \cftsetindents{subsection}    {0em} {5.2em}
+  \cftsetindents{subsubsection} {0em} {5.1em}
+  \cftsetindents{paragraph}     {0em} {6.0em}
+  \cftsetindents{subparagraph}  {0em} {7.0em}
 \fi
+
+
 \makeatother
+
