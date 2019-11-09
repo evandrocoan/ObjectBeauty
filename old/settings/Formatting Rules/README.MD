@@ -30,7 +30,7 @@ Languages Inclusion:
 Java, Octave, Matlab, C++, Pawn, C, Javascript
 
 // This will set which regions are set to allow the insertion process to happens. Each settings
-// file can have from 1 until several inclusion blocks it wants to. For example, I can include 
+// file can have from 1 until several inclusion blocks it wants to. For example, I can include
 // only the lines set with the `^\s*#define\s*.*` regex expression where the contents of the
 // regex expression match it. Defines a expression which will map the beginning of a
 // inclusion block. Setting this block to empty will include all the source code. Setting an
@@ -38,7 +38,7 @@ Java, Octave, Matlab, C++, Pawn, C, Javascript
 // Example, `/\*\*`
 Inclusion Blocks:
 
-// This will set which regions are set to not allow the insertion to happens. The final  
+// This will set which regions are set to not allow the insertion to happens. The final
 // operating region is the sequentially declarations' sum of the Inclusion/Exclusion Blocks
 // by their declarations order. Each settings file can have from 0 until several exclusion
 // blocks it wants to. Defines a expression which will map the beginning of a exclusion
@@ -57,7 +57,7 @@ Unit Test Scope:
 Unit Test Input:
 if(hi)
 
-// This is the first Unit Test expected result for this settings file. You must to let this 
+// This is the first Unit Test expected result for this settings file. You must to let this
 // result exactly as you wish and properly set the settings to generate it.
 Unit Test Expected Output:
 if( hi )

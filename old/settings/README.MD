@@ -2,7 +2,7 @@
 # Formatting Configuration
 
 This folder contains all the formatting settings available. This way each subfolder is an individual
-settings for the language formatting. It is separated as this to group/tight together the 
+settings for the language formatting. It is separated as this to group/tight together the
 formatting settings and its Unit Test files.
 
 
