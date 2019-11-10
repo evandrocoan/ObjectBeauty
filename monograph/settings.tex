@@ -145,12 +145,46 @@
 % Filtering and Mapping Bibliographies
 % \DeclareFieldFormat{url}{Disponível~em:\addspace\url{#1}}
 
+% https://tex.stackexchange.com/questions/391695/is-possible-to-remove-the-link-color-of-the-comma-on-the-citation-link
+% \DeclareFieldFormat{citehyperref}{#1}
+
+% https://tex.stackexchange.com/questions/19105/how-can-i-put-more-space-between-bibliography-entries-biblatex
+\advisor{}{\setlength\bibitemsep{2.1\itemsep}}
+
+% % https://tex.stackexchange.com/questions/203764/reduce-font-size-of-bibliography-overfull-bibliography
+% \newcommand{\bibliographyfontsize}{\fontsize{10.0pt}{10.5pt}\selectfont}
+% \renewcommand*{\bibfont}{\bibliographyfontsize}
+
+% Uncomment this to insert the abstract into your bibliography entries when the abstract is available
+% https://tex.stackexchange.com/questions/398666/how-to-correctly-insert-and-justify-abstract
+\ifadvisor
+\else
+  \DeclareFieldFormat{abstract}%
+  {%
+    \vspace*{-0.5mm}\par\justifying
+    \begin{adjustwidth}{1cm}{}
+      \textbf{\bibsentence\bibstring{abstract}:} #1
+    \end{adjustwidth}
+  }
+  \renewbibmacro*{finentry}%
+  {%
+    \iffieldundef{abstract}
+    {\finentry}
+    {\finentrypunct
+      \printfield{abstract}%
+      \renewcommand*{\finentrypunct}{}%
+      \finentry
+    }
+  }
+\fi
+
 % ---
-\DeclareSourcemap{
-  \maps[datatype=bibtex]{
+\DeclareSourcemap
+{
+  \maps[datatype=bibtex]
+  {
     % remove fields that are always useless
     \map{
-      \step[fieldset=abstract, null]
       \step[fieldset=pagetotal, null]
     }
     % % remove URLs for types that are primarily printed
@@ -165,7 +199,8 @@
     %   \step[fieldset=url, null]
     %   \step[fieldset=urldate, null]
     % }
-    \map{
+    \map
+    {
       \pertype{inproceedings}
       % remove mostly redundant conference information
       \step[fieldset=venue, null]
@@ -233,39 +268,6 @@
     \fi
   \fi
 }{}
-
-% https://tex.stackexchange.com/questions/391695/is-possible-to-remove-the-link-color-of-the-comma-on-the-citation-link
-% \DeclareFieldFormat{citehyperref}{#1}
-
-% https://tex.stackexchange.com/questions/19105/how-can-i-put-more-space-between-bibliography-entries-biblatex
-\advisor{}{\setlength\bibitemsep{2.1\itemsep}}
-
-% % https://tex.stackexchange.com/questions/203764/reduce-font-size-of-bibliography-overfull-bibliography
-% \newcommand{\bibliographyfontsize}{\fontsize{10.0pt}{10.5pt}\selectfont}
-% \renewcommand*{\bibfont}{\bibliographyfontsize}
-
-% Uncomment this to insert the abstract into your bibliography entries when the abstract is available
-% https://tex.stackexchange.com/questions/398666/how-to-correctly-insert-and-justify-abstract
-\ifadvisor
-\else
-  \DeclareFieldFormat{abstract}%
-  {%
-    \vspace*{-0.5mm}\par\justifying
-    \begin{adjustwidth}{1cm}{}
-      \textbf{\bibsentence\bibstring{abstract}:} #1
-    \end{adjustwidth}
-  }
-  \renewbibmacro*{finentry}%
-  {%
-    \iffieldundef{abstract}
-    {\finentry}
-    {\finentrypunct
-      \printfield{abstract}%
-      \renewcommand*{\finentrypunct}{}%
-      \finentry
-    }
-  }
-\fi
 
 
 % https://tex.stackexchange.com/questions/14314/changing-the-font-of-the-numbers-in-the-toc-in-the-memoir-class
