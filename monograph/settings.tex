@@ -90,8 +90,16 @@
 % https://tex.stackexchange.com/questions/148647/how-to-remove-space-before-enumerate
 % https://tex.stackexchange.com/questions/433543/behaviour-of-enumitem-setlist
 \advisor{}{
-\setlist*[enumerate]{label=\arabic*,}
-\setlist*[enumerateoptional]{label=\arabic*,}
+    \setlist*[enumerate]{label=\arabic*,}
+    \setlist*[enumerateoptional]{label=\arabic*,}
+
+    % Patch the `abntex2` citacao environment removing the extra space from its top
+    % https://tex.stackexchange.com/questions/300340/topsep-itemsep-partopsep-and-parsep-what-does-each-of-them-mean-and-wha
+    \xpatchcmd{\citacao}
+    {\list{}}
+    {\list{}{\topsep=0pt}}
+    {}
+    {\FAILEDPATCHINGCITACAO}
 }
 
 
