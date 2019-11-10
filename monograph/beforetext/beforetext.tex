@@ -33,7 +33,7 @@
         \addcontentsline{toc}{chapter}{\mytextpreliminarylistname}
 
         % https://tex.stackexchange.com/questions/234398/list-of-figures-and-tables-when-there-are-no-figures-or-tables
-        \whenlistisnotempty{%
+        \whenlistisnotempty{\mytextpreliminarylistname}{%
             \begin{KeepFromToc}
                 \textpreliminarycontents
             \end{KeepFromToc}
@@ -98,7 +98,7 @@
     % inserir lista de figuras
     \ifforcedinclude\else\cleardoublepage\fi
     % https://tex.stackexchange.com/questions/234398/list-of-figures-and-tables-when-there-are-no-figures-or-tables
-    \whenlistisnotempty{%
+    \whenlistisnotempty{\listfigurename}{%
         \addtotextpreliminarycontent{\listfigurename}
         % https://tex.stackexchange.com/questions/121879/remove-spacing-between-per-chapter-figures-in-lof
         {\renewcommand{\addvspace}[1]{}
@@ -108,7 +108,7 @@
     % inserir lista de quadros
     \ifforcedinclude\else\cleardoublepage\fi
     % https://tex.stackexchange.com/questions/234398/list-of-figures-and-tables-when-there-are-no-figures-or-tables
-    \whenlistisnotempty{%
+    \whenlistisnotempty{\listofquadrosname}{%
         \addtotextpreliminarycontent{\listofquadrosname}
         % https://tex.stackexchange.com/questions/121879/remove-spacing-between-per-chapter-figures-in-lof
         {\renewcommand{\addvspace}[1]{}
@@ -118,7 +118,7 @@
     % inserir lista de tabelas
     \ifforcedinclude\else\cleardoublepage\fi
     % https://tex.stackexchange.com/questions/234398/list-of-figures-and-tables-when-there-are-no-figures-or-tables
-    \whenlistisnotempty{%
+    \whenlistisnotempty{\listtablename}{%
         \addtotextpreliminarycontent{\listtablename}
         % https://tex.stackexchange.com/questions/121879/remove-spacing-between-per-chapter-figures-in-lof
         {\renewcommand{\addvspace}[1]{}
@@ -129,7 +129,7 @@
     % https://tex.stackexchange.com/questions/511519/latex-keeps-showing-minted-environment-as-figures-instead-of-listening/511579#511579
     \ifforcedinclude\else\cleardoublepage\fi
     % https://tex.stackexchange.com/questions/234398/list-of-figures-and-tables-when-there-are-no-figures-or-tables
-    \whenlistisnotempty{%
+    \whenlistisnotempty{\lstlistlistingname}{%
         \addtotextpreliminarycontent{\lstlistlistingname}
         % https://tex.stackexchange.com/questions/121879/remove-spacing-between-per-chapter-figures-in-lof
         {\renewcommand{\addvspace}[1]{}
@@ -183,7 +183,7 @@
 
         % Add the table of contents to the brief table of contents
         % https://tex.stackexchange.com/questions/234398/list-of-figures-and-tables-when-there-are-no-figures-or-tables
-        \whenlistisnotempty{%
+        \whenlistisnotempty{\contentsname}{%
             \addtotextpreliminarycontent{\contentsname}
             \tableofcontents
         }{}
