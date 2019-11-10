@@ -32,9 +32,12 @@
         \phantomsection
         \addcontentsline{toc}{chapter}{\mytextpreliminarylistname}
 
-        \begin{KeepFromToc}
-            \textpreliminarycontents
-        \end{KeepFromToc}
+        % https://tex.stackexchange.com/questions/234398/list-of-figures-and-tables-when-there-are-no-figures-or-tables
+        \whenlistisnotempty{%
+            \begin{KeepFromToc}
+                \textpreliminarycontents
+            \end{KeepFromToc}
+        }
 
         \clearpage
     }
@@ -94,36 +97,44 @@
 \ifforcedinclude\else
     % inserir lista de figuras
     \ifforcedinclude\else\cleardoublepage\fi
-    \addtotextpreliminarycontent{\listfigurename}
-    \pdfbookmark[0]{\listfigurename}{lof}
-    % https://tex.stackexchange.com/questions/121879/remove-spacing-between-per-chapter-figures-in-lof
-    {\renewcommand{\addvspace}[1]{}
-    \listoffigures*}
+    % https://tex.stackexchange.com/questions/234398/list-of-figures-and-tables-when-there-are-no-figures-or-tables
+    \whenlistisnotempty{%
+        \addtotextpreliminarycontent{\listfigurename}
+        % https://tex.stackexchange.com/questions/121879/remove-spacing-between-per-chapter-figures-in-lof
+        {\renewcommand{\addvspace}[1]{}
+        \listoffigures*}
+    }{\pdfbookmark[0]{\listfigurename}{lof}}
 
     % inserir lista de quadros
     \ifforcedinclude\else\cleardoublepage\fi
-    \addtotextpreliminarycontent{\listofquadrosname}
-    \pdfbookmark[0]{\listofquadrosname}{loq}
-    % https://tex.stackexchange.com/questions/121879/remove-spacing-between-per-chapter-figures-in-lof
-    {\renewcommand{\addvspace}[1]{}
-    \listofquadros*}
+    % https://tex.stackexchange.com/questions/234398/list-of-figures-and-tables-when-there-are-no-figures-or-tables
+    \whenlistisnotempty{%
+        \addtotextpreliminarycontent{\listofquadrosname}
+        % https://tex.stackexchange.com/questions/121879/remove-spacing-between-per-chapter-figures-in-lof
+        {\renewcommand{\addvspace}[1]{}
+        \listofquadros*}
+    }{\pdfbookmark[0]{\listofquadrosname}{loq}}
 
     % inserir lista de tabelas
     \ifforcedinclude\else\cleardoublepage\fi
-    \addtotextpreliminarycontent{\listtablename}
-    \pdfbookmark[0]{\listtablename}{lot}
-    % https://tex.stackexchange.com/questions/121879/remove-spacing-between-per-chapter-figures-in-lof
-    {\renewcommand{\addvspace}[1]{}
-    \listoftables*}
+    % https://tex.stackexchange.com/questions/234398/list-of-figures-and-tables-when-there-are-no-figures-or-tables
+    \whenlistisnotempty{%
+        \addtotextpreliminarycontent{\listtablename}
+        % https://tex.stackexchange.com/questions/121879/remove-spacing-between-per-chapter-figures-in-lof
+        {\renewcommand{\addvspace}[1]{}
+        \listoftables*}
+    }{\pdfbookmark[0]{\listtablename}{lot}}
 
     % inserir códigos fonte (List of Listings `lol`)
     % https://tex.stackexchange.com/questions/511519/latex-keeps-showing-minted-environment-as-figures-instead-of-listening/511579#511579
     \ifforcedinclude\else\cleardoublepage\fi
-    \addtotextpreliminarycontent{\lstlistlistingname}
-    \pdfbookmark[0]{\lstlistlistingname}{lol}
-    % https://tex.stackexchange.com/questions/121879/remove-spacing-between-per-chapter-figures-in-lof
-    {\renewcommand{\addvspace}[1]{}
-    \lstlistoflistings*}
+    % https://tex.stackexchange.com/questions/234398/list-of-figures-and-tables-when-there-are-no-figures-or-tables
+    \whenlistisnotempty{%
+        \addtotextpreliminarycontent{\lstlistlistingname}
+        % https://tex.stackexchange.com/questions/121879/remove-spacing-between-per-chapter-figures-in-lof
+        {\renewcommand{\addvspace}[1]{}
+        \lstlistoflistings*}
+    }{\pdfbookmark[0]{\lstlistlistingname}{lol}}
 \fi
 
 
@@ -171,8 +182,11 @@
         \hypersetup{hidelinks}
 
         % Add the table of contents to the brief table of contents
-        \addtotextpreliminarycontent{\contentsname}
-        \tableofcontents
+        % https://tex.stackexchange.com/questions/234398/list-of-figures-and-tables-when-there-are-no-figures-or-tables
+        \whenlistisnotempty{%
+            \addtotextpreliminarycontent{\contentsname}
+            \tableofcontents
+        }{}
     }
 
 \end{KeepFromToc}
