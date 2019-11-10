@@ -68,6 +68,9 @@ section=TITLE, % Título de seções em caixa alta
 % http://tug.ctan.org/tex-archive/macros/latex/contrib/cleveref/cleveref.pdf
 \addbibresource{aftertext/references.bib}
 
+% https://www.overleaf.com/learn/latex/Inserting_Images
+\graphicspath{{pictures/}}
+
 % FIXME: Preencha com seus dados
 \autor{\brazilword{Evandro Coan}}
 \titulo{\lang{A Grammar Programmable\protect\\Source Code Formatting Tool}{Uma Ferramenta de Formatação\protect\\Programável Por Gramáticas}}
@@ -202,17 +205,6 @@ section=TITLE, % Título de seções em caixa alta
 % \forcedincludetrue
 
 
-% https://tex.stackexchange.com/questions/171999/overfull-hbox-in-biblatex
-% https://tex.stackexchange.com/questions/499457/why-my-document-is-not-hyphenation-on-words-starting-with-upper-case-letter-i
-\emergencystretch=5em
-
-% https://www.overleaf.com/learn/latex/Inserting_Images
-\graphicspath{{pictures/}}
-
-% https://tex.stackexchange.com/questions/23313/how-can-i-reduce-padding-after-figure
-% https://tex.stackexchange.com/questions/499580/how-to-keep-my-default-floating-environment-spacing-before-them-while-reducing
-% \xpretocmd{\figure}{\setlength{\belowcaptionskip}{-10pt}}{}{}
-
 % https://tex.stackexchange.com/questions/85113/xrightarrow-text
 \makeatletter
 \newcommand{\xRightarrow}[2][]{\ext@arrow 0359\Rightarrowfill@{#1}{#2}}
@@ -224,6 +216,14 @@ section=TITLE, % Título de seções em caixa alta
 
 % Disable the empty pages automatically put by memoir class, except the ones by \cleardoublepage
 \ifforcedinclude\openany\else\fi
+
+% https://tex.stackexchange.com/questions/171999/overfull-hbox-in-biblatex
+% https://tex.stackexchange.com/questions/499457/why-my-document-is-not-hyphenation-on-words-starting-with-upper-case-letter-i
+\emergencystretch=5em
+
+% https://tex.stackexchange.com/questions/23313/how-can-i-reduce-padding-after-figure
+% https://tex.stackexchange.com/questions/499580/how-to-keep-my-default-floating-environment-spacing-before-them-while-reducing
+% \xpretocmd{\figure}{\setlength{\belowcaptionskip}{-10pt}}{}{}
 
 
 \begin{document}
