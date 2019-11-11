@@ -276,7 +276,9 @@ section=TITLE, % Título de seções em caixa alta
     % Referências bibliográficas
     \begingroup
         % https://tex.stackexchange.com/questions/163559/how-to-modify-line-spacing-per-entry-of-bibliography
-        \advisor{\setlength\bibitemsep{\baselineskip}}{\linespread{1.18}\selectfont}
+        % https://tex.stackexchange.com/questions/19105/how-can-i-put-more-space-between-bibliography-entries-biblatex
+        \setlength\bibitemsep{\baselineskip}
+        \advisor{}{\linespread{1.18}\selectfont}
 
         % https://tex.stackexchange.com/questions/17128/using-bibtex-to-make-a-list-of-references-without-having-citations-in-the-body
         % \nocite{*}
