@@ -141,6 +141,7 @@
   }
 }{}
 
+
 % ---
 % Filtering and Mapping Bibliographies
 % \DeclareFieldFormat{url}{Disponível~em:\addspace\url{#1}}
@@ -175,41 +176,6 @@
   }
 \fi
 
-% ---
-\DeclareSourcemap
-{
-  \maps[datatype=bibtex]
-  {
-    % remove fields that are always useless
-    \map{
-      \step[fieldset=pagetotal, null]
-    }
-    % % remove URLs for types that are primarily printed
-    % \map{
-    %   \pernottype{software}
-    %   \pernottype{online}
-    %   \pernottype{report}
-    %   \pernottype{techreport}
-    %   \pernottype{standard}
-    %   \pernottype{manual}
-    %   \pernottype{misc}
-    %   \step[fieldset=url, null]
-    %   \step[fieldset=urldate, null]
-    % }
-    \map
-    {
-      \pertype{inproceedings}
-      % remove mostly redundant conference information
-      \step[fieldset=venue, null]
-      \step[fieldset=eventdate, null]
-      \step[fieldset=eventtitle, null]
-      % do not show ISBN for proceedings
-      \step[fieldset=isbn, null]
-      % Citavi bug
-      \step[fieldset=volume, null]
-    }
-  }
-}
 
 % Backref package settings, pages with citations in bibliography
 \newcommand{\biblatexcitedntimes}{\autocap{c}ited \arabic{citecounter} times}
