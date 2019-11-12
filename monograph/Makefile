@@ -43,7 +43,7 @@ ifeq (${UFSCTHESISX_MAINTEX_DIRECTORY},)
 endif
 
 ifeq (${UFSCTHESISX_ROOT_DIRECTORY},)
-	useless := $(eval export UFSCTHESISX_ROOT_DIRECTORY=~/LatexBuild/ObjectBeautifier)
+	useless := $(eval export UFSCTHESISX_ROOT_DIRECTORY=LatexBuild/ObjectBeautifier)
 endif
 
 ifeq (${UFSCTHESISX_REMOTE_PASSWORD},)
