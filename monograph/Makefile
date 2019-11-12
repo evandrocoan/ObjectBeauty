@@ -51,7 +51,7 @@ ifeq (${UFSCTHESISX_REMOTE_PASSWORD},)
 endif
 
 ifeq (${UFSCTHESISX_REMOTE_ADDRESS},)
-	useless := $(eval export UFSCTHESISX_REMOTE_ADDRESS=linux@192.168.0.222)
+	useless := $(eval export UFSCTHESISX_REMOTE_ADDRESS=root@192.168.0.222)
 endif
 
 include ./setup/makefile.mk
