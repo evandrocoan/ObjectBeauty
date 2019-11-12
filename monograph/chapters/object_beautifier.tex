@@ -49,7 +49,7 @@ Neste processo,
 o desenvolvedor da linguagem escreve a gramática de especificação\advisor{}{
 desta linguagem} que é entregue a algum analisador e
 gera~=se um compilador para tal linguagem.
-\begin{figure}[h]
+\begin{figure}[!htb]
 \caption{Fluxo de uso comum de um analisador}
 \label{MyWorflowForLarkTraduzido}
 \centering
@@ -78,7 +78,7 @@ foi realizado um \textit{fork} \cite{overviewOfGitHubForks,mayTheForkBeWithYou,c
 renomeado o Analisador Lark para ``pushdown''\footnote{%
 O código~=fonte do \textit{fork} pode ser encontrado em \url{https://github.com/evandrocoan/pushdownparser}.
 }.
-\begin{figure}[h]
+\begin{figure}[!htb]
 \caption{Uso feito pela nova ferramenta de Formatação de Código}
 \label{MyWorflowForLarkTraduzido2}
 \centering
@@ -120,7 +120,7 @@ desenvolve gramáticas de linguagens para serem formatadas de acordo com as regr
 desenvolve programas de computador e
 deseja realizar a formatação de seus códigos~=fonte.
 \end{inparaenum}%
-\begin{figure}[h]
+\begin{figure}[!htb]
 \caption{Relacionamentos entre os Diferentes Públicos deste Projeto}
 \label{ParsersPublicAudienceTraduzido}
 \centering
@@ -157,7 +157,7 @@ Vale lembrar que trata~=se de um Compilador de Compiladores,
 e não um Compilador de Analisadores.
 Por isso vemos que os Metaprogramas (ou gramáticas) são entradas diretas dos Metacompilador,
 e não do Formatador de Código.
-\begin{figure}[h]
+\begin{figure}[!htb]
 \caption{Relação entre Metagramáticas, Metacompiladores e Metaprogramas}
 \label{MetacompilerMetagrammarMetaprogram}
 \centering
@@ -200,7 +200,7 @@ a palavra ``function'' possui simultaneamente os escopos
 \item ``meta.function.js'' e;
 \item ``storage.type.function.js''.
 \end{inparaenum}
-\begin{figure}[h]
+\begin{figure}[!htb]
 \caption{Exemplo de Classificação de Código~=Fonte com Múltiplos Escopos}
 \label{TexMateScopes}
 \centering
@@ -471,7 +471,7 @@ utilizando a Árvore de Sintaxe Abstrata,
 ``Backend'' que deriva de ``Interpreter'',
 realiza a formatação de código~=fonte recebendo um programa de entrada e
 as configurações do formatador (\typeref{ParsersPublicAudienceTraduzido,MetacompilerMetagrammarMetaprogram}).
-\begin{figure}[h]
+\begin{figure}[!htb]
 \caption{Diagrama das Principais Classes}
 \label{CodeFormatterClassDiagram}
 \centering
@@ -750,7 +750,7 @@ e as metainformações atribuídas pela gramática da linguagem como atributos d
 No \typeref{exemploDeFormatacaoDeCodigo},
 encontra~=se um HTML gerado com as metainformações agregadas ao programa não~=formatado ``if(something) bar'',
 onde ``if( \ something \ ) bar'' é o resultado da formatação de código~=fonte.
-\begin{quadro}[h]
+\begin{quadro}[!htb]
 \caption{Exemplo de Formatação de Código}
 \label{exemploDeFormatacaoDeCodigo}
 \begin{bluebox}
