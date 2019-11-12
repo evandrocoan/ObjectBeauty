@@ -95,6 +95,10 @@
 
 % Some tables of contents
 \ifforcedinclude\else
+{
+    % https://tex.stackexchange.com/questions/179506/disable-colorlinks-locally-or-just-for-the-toc
+    \hypersetup{hidelinks}
+
     % inserir lista de figuras
     \ifforcedinclude\else\cleardoublepage\fi
     % https://tex.stackexchange.com/questions/234398/list-of-figures-and-tables-when-there-are-no-figures-or-tables
@@ -135,6 +139,7 @@
         {\renewcommand{\addvspace}[1]{}
         \lstlistoflistings*}
     }{\pdfbookmark[0]{\lstlistlistingname}{lol}}
+}
 \fi
 
 
@@ -151,42 +156,31 @@
 \ifforcedinclude\else\cleardoublepage\fi
 
 \begin{KeepFromToc}
-    \pdfbookmark[0]{\contentsname}{toc}
-
-    % What does “overfull hbox” mean?
     % https://tex.stackexchange.com/questions/35/what-does-overfull-hbox-mean
-    %
-    % How to avoid using \sloppy document-wide to fix overfull \hbox problems?
     % https://tex.stackexchange.com/questions/59122/how-to-avoid-using-sloppy-document-wide-to-fix-overfull-hbox-problems
-    %
-    % Adding color to table of contents and section headings
     % https://tex.stackexchange.com/questions/257007/adding-color-to-table-of-contents-and-section-headings
     {
-        % underfull vbox (badness 10000) has occurred while \output is active with memoir
+        % https://tex.stackexchange.com/questions/179506/disable-colorlinks-locally-or-just-for-the-toc
+        \hypersetup{hidelinks}
+
         % https://tex.stackexchange.com/questions/65711/underfull-vbox-badness-10000-with-memoir
         \raggedbottom
 
-        % Overfull \hbox warning for TOC entries when using memoir documentclass
         % https://tex.stackexchange.com/questions/49887/overfull-hbox-warning-for-toc-entries-when-using-memoir-documentclass
         % \makeatletter
             % \renewcommand{\@pnumwidth}{2em}
             % \renewcommand{\@tocrmarg}{3em}
         % \makeatother
 
-        % Memoir mysterious overfull hbox in TOC when mathptmx is used
         % https://tex.stackexchange.com/questions/57544/memoir-mysterious-overfull-hbox-in-toc-when-mathptmx-is-used
         % \setlength{\cftchapternumwidth}{2.25em}
-
-        % Disable `colorlinks` locally (or just for the ToC)
-        % https://tex.stackexchange.com/questions/179506/disable-colorlinks-locally-or-just-for-the-toc
-        \hypersetup{hidelinks}
 
         % Add the table of contents to the brief table of contents
         % https://tex.stackexchange.com/questions/234398/list-of-figures-and-tables-when-there-are-no-figures-or-tables
         \whenlistisnotempty{\contentsname}{%
             \addtotextpreliminarycontent{\contentsname}
             \tableofcontents
-        }{}
+        }{\pdfbookmark[0]{\contentsname}{toc}}
     }
 
 \end{KeepFromToc}
