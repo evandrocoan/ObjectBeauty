@@ -205,7 +205,7 @@
           {%
             \ifnumgreater{\value{citecounter}}{1}
               {\biblatexcitedntimes}
-              {\biblatexcitedonetime}
+              {\biblatexcitedonetime}%
           }%
           \setunit{\addspace}%
           \ifnumgreater{\value{pageref}}{1}
@@ -231,6 +231,73 @@
     \fi
   \fi
 }{}
+
+% https://tex.stackexchange.com/questions/516056/why-an-empty-or-not-biblatex-declaresourcemap-is-removing-my-bibliography-acces
+% https://github.com/abntex/biblatex-abnt/pull/56/files
+\DeclareStyleSourcemap{%% >>>2
+  % This maps some fields used in abntex2cite to biblatex fields.
+  \maps[datatype=bibtex]{%
+    \map{%
+      \step[fieldsource=conference-number,fieldtarget=number]%
+      \step[fieldsource=conference-year,fieldtarget=eventdate]%
+      \step[fieldsource=conference-location,fieldtarget=venue]%
+      \step[fieldsource=conference-number,fieldtarget=number]%
+      \step[fieldsource=org-short,fieldtarget=shortauthor]%
+      \step[fieldsource=urlaccessdate,fieldtarget=urldate]%
+      \step[fieldsource=year-presented,fieldtarget=eventyear]%
+      \step[fieldsource=furtherresp,fieldtarget=titleaddon]%
+      \step[typesource=journalpart,typetarget=supperiodical]%
+    }%
+    \map[overwrite=false]{%
+      \step[fieldsource=reprinted-from, final]%
+      \step[fieldset=related, origfieldval]%
+    }%
+    \map[overwrite=false]{%
+      \step[fieldsource=reprinted-text, final]%
+      \step[fieldset=relatedtype, fieldvalue={reprintfrom}]%
+    }%
+    \map{%
+      \pertype{patent}% Use the organization as sourcekey for patents
+      \step[fieldsource=organization, final]%
+      \step[fieldset=sortkey, origfieldval]%
+    }%
+    \map[overwrite=false]{%
+      \pertype{thesis}%
+      \pertype{phdthesis}%
+      \pertype{mastersthesis}%
+      \pertype{monography}%
+      \step[fieldset=bookpagination, fieldvalue={sheet}]%
+    }%
+    % remove fields that are always useless
+    \map{
+      \step[fieldset=abstract, null]
+      \step[fieldset=pagetotal, null]
+    }
+    % % remove URLs for types that are primarily printed
+    % \map{
+    %   \pernottype{software}
+    %   \pernottype{online}
+    %   \pernottype{report}
+    %   \pernottype{techreport}
+    %   \pernottype{standard}
+    %   \pernottype{manual}
+    %   \pernottype{misc}
+    %   \step[fieldset=url, null]
+    %   \step[fieldset=urldate, null]
+    % }
+    \map{
+      \pertype{inproceedings}
+      % remove mostly redundant conference information
+      \step[fieldset=venue, null]
+      \step[fieldset=eventdate, null]
+      \step[fieldset=eventtitle, null]
+      % do not show ISBN for proceedings
+      \step[fieldset=isbn, null]
+      % Citavi bug
+      \step[fieldset=volume, null]
+    }
+  }%
+}% <<<2
 
 
 % https://tex.stackexchange.com/questions/14314/changing-the-font-of-the-numbers-in-the-toc-in-the-memoir-class
