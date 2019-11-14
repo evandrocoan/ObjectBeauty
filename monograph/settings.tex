@@ -174,63 +174,64 @@
       \finentry
     }
   }
+
+  % Backref package settings, pages with citations in bibliography
+  \newcommand{\biblatexcitedntimes}{\autocap{c}ited \arabic{citecounter} times}
+  \newcommand{\biblatexcitedonetime}{\autocap{c}ited one time}
+  \newcommand{\biblatexcitednotimes}{\autocap{n}o citation in the text}
+
+  \@ifpackageloaded{babel}{\@ifpackagewith{babel}{brazil}{\addto\captionsbrazil{%
+    \renewcommand{\biblatexcitedntimes}{\autocap{c}itado \arabic{citecounter} vezes}
+    \renewcommand{\biblatexcitedonetime}{\autocap{c}itado uma vez}
+    \renewcommand{\biblatexcitednotimes}{\autocap{n}enhuma citação no texto}
+  }}{}}{}
+  \@ifpackageloaded{biblatex}
+  {%
+    % https://tex.stackexchange.com/questions/483707/how-to-detect-whether-the-option-citecounter-was-enabled-on-biblatex
+    \ifx\blx@citecounter\relax
+      \message{Is citecounter defined? NO!^^J}
+    \else
+      \message{Is citecounter defined? YES!^^J}
+      \ifbacktracker
+        \message{Is backtracker defined? YES!^^J}
+        % https://tex.stackexchange.com/questions/516054/how-to-use-a-dot-to-separate-my-new-bibliography-entry
+        \renewbibmacro*{pageref}
+        {%
+          \iflistundef{pageref}%
+          {\printtext{\biblatexcitednotimes}}
+          {%
+            \printtext
+            {%
+              \ifnumgreater{\value{citecounter}}{1}
+                {\biblatexcitedntimes}
+                {\biblatexcitedonetime}%
+            }%
+            \setunit{\addspace}%
+            \ifnumgreater{\value{pageref}}{1}
+              {\bibstring{backrefpages}\ppspace}
+              {\bibstring{backrefpage}\ppspace}%
+            \printlist[pageref][-\value{listtotal}]{pageref}%
+          }%
+        }
+
+        \DefineBibliographyStrings{brazil}
+        {
+          backrefpage  = {na página},
+          backrefpages = {nas páginas},
+        }
+
+        \DefineBibliographyStrings{english}
+        {
+          backrefpage  = {on page},
+          backrefpages = {on pages},
+        }
+      \else
+        \message{Is backtracker defined? NO!^^J}
+      \fi
+    \fi
+  }{}
 \fi
 
-
-% Backref package settings, pages with citations in bibliography
-\newcommand{\biblatexcitedntimes}{\autocap{c}ited \arabic{citecounter} times}
-\newcommand{\biblatexcitedonetime}{\autocap{c}ited one time}
-\newcommand{\biblatexcitednotimes}{\autocap{n}o citation in the text}
-
-\@ifpackageloaded{babel}{\@ifpackagewith{babel}{brazil}{\addto\captionsbrazil{%
-  \renewcommand{\biblatexcitedntimes}{\autocap{c}itado \arabic{citecounter} vezes}
-  \renewcommand{\biblatexcitedonetime}{\autocap{c}itado uma vez}
-  \renewcommand{\biblatexcitednotimes}{\autocap{n}enhuma citação no texto}
-}}{}}{}
-\@ifpackageloaded{biblatex}
-{%
-  % https://tex.stackexchange.com/questions/483707/how-to-detect-whether-the-option-citecounter-was-enabled-on-biblatex
-  \ifx\blx@citecounter\relax
-    \message{Is citecounter defined? NO!^^J}
-  \else
-    \message{Is citecounter defined? YES!^^J}
-    \ifbacktracker
-      \message{Is backtracker defined? YES!^^J}
-      \renewbibmacro*{pageref}
-      {
-        \iflistundef{pageref}
-        {\printtext{\biblatexcitednotimes}}
-        {%
-          \printtext
-          {%
-            \ifnumgreater{\value{citecounter}}{1}
-              {\biblatexcitedntimes}
-              {\biblatexcitedonetime}%
-          }%
-          \setunit{\addspace}%
-          \ifnumgreater{\value{pageref}}{1}
-            {\bibstring{backrefpages}\ppspace}
-            {\bibstring{backrefpage}\ppspace}%
-          \printlist[pageref][-\value{listtotal}]{pageref}%
-        }%
-      }
-
-      \DefineBibliographyStrings{brazil}
-      {
-        backrefpage  = {na página},
-        backrefpages = {nas páginas},
-      }
-
-      \DefineBibliographyStrings{english}
-      {
-        backrefpage  = {on page},
-        backrefpages = {on pages},
-      }
-    \else
-      \message{Is backtracker defined? NO!^^J}
-    \fi
-  \fi
-}{}
 
 % https://tex.stackexchange.com/questions/516056/why-an-empty-or-not-biblatex-declaresourcemap-is-removing-my-bibliography-acces
 % https://github.com/abntex/biblatex-abnt/pull/56/files
