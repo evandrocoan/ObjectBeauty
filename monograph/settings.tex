@@ -194,9 +194,10 @@
       \message{Is citecounter defined? YES!^^J}
       \ifbacktracker
         \message{Is backtracker defined? YES!^^J}
-        % https://tex.stackexchange.com/questions/516054/how-to-use-a-dot-to-separate-my-new-bibliography-entry
         \renewbibmacro*{pageref}
         {%
+          % https://tex.stackexchange.com/questions/516054/how-to-use-a-dot-to-separate-my-new-bibliography-entry
+          \renewcommand*{\bibpagerefpunct}{\addperiod\space}%
           \iflistundef{pageref}%
           {\printtext{\biblatexcitednotimes}}
           {%
