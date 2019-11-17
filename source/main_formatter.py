@@ -82,14 +82,15 @@ r"""
     }
 """ )
 
+def generate_image(tree, tree_name):
+    log.clean( "Generating '%s'...", tree_name )
+    make_png( tree, get_relative_path( tree_name, __file__ ), debug=0, dpi=300 )
+
 syntax_tree = my_parser.parse( example_grammar )
-make_png( syntax_tree, get_relative_path( "%s_syntax_tree.png" % program_name, __file__ ), debug=0, dpi=300 )
-
 log.clean( "Syntax Tree\n%s", syntax_tree.pretty( debug=1 ) )
-abstract_syntax_tree = semantic_analyzer.TreeTransformer().transform( syntax_tree )
 
+abstract_syntax_tree = semantic_analyzer.TreeTransformer().transform( syntax_tree )
 log.clean( "Abstract Syntax Tree\n%s", abstract_syntax_tree.pretty( debug=1 ) )
-make_png( abstract_syntax_tree, get_relative_path( "%s_abstract_syntax_tree.png" % program_name, __file__ ), debug=0, dpi=300 )
 
 example_program = wrap_text(
 r"""
@@ -103,6 +104,12 @@ example_settings = {
 backend = code_formatter.Backend( code_formatter.SingleSpaceFormatter, abstract_syntax_tree, example_program, example_settings )
 generated_html = backend.generated_html()
 
-with open( "%s.html" % program_name, 'w', newline='\n', encoding='utf-8' ) as output_file:
+html_file_name = "%s.html" % program_name
+log.clean( "Generating '%s'...", html_file_name )
+
+with open( html_file_name, 'w', newline='\n', encoding='utf-8' ) as output_file:
     output_file.write( generated_html )
     output_file.write("\n")
+
+generate_image( syntax_tree, "%s_syntax_tree.png" % program_name )
+generate_image( abstract_syntax_tree, "%s_abstract_syntax_tree.png" % program_name )
