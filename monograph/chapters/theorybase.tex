@@ -15,7 +15,7 @@ este resumo seria o equivalente as disciplinas de:
 \item Teoria da Computação;
 \item Linguagens Formais, e;
 \item Construção de Compiladores.
-\end{inparaenum}
+\end{inparaenum}%
 
 
 \section{Compiladores e Tradutores}
@@ -174,6 +174,68 @@ uma gramática é definida por quatro componentes:
     veja a \fullref{reducoesEderivacoes}.
     }.
 \end{enumerate}
+
+No \typeref{code:ExemploDeGramaticaLark},
+é possível ver um exemplo real de gramática aceito pelo Analisador Lark (\typeref{software_implementation}).
+Esta é uma gramática de uma linguagem finita que aceita 3 palavras:
+\begin{inparaenum}[1)]
+\item ``token sem nome'';
+\item ``token com nome'' e;
+\item ``token com outro nome''.
+\end{inparaenum}%
+No Analisador Lark,
+quando um token é declarado diretamente como ``token sem nome'',
+ele irá ser descartado da Árvore de Sintaxe.
+Como pode ser visto na \typeref{Figure:ArvoresDosTokens1},
+a árvore de sintaxe do programa ``token sem nome'',
+irá conter somente o símbolo inicial da gramática.
+Nas \typeref{Figure:ArvoresDosTokens1,Figure:ArvoresDosTokens2,Figure:ArvoresDosTokens3},
+pode ser visto a Árvore de Sintaxe de cada uma das 3 palavras da linguagem do \typeref{code:ExemploDeGramaticaLark}.
+\begin{code}
+\caption{Exemplo de Gramática Utilizada pelo Formatador de Código}
+\label{code:ExemploDeGramaticaLark}
+\begin{minted}[xleftmargin=2em]{python}
+import pushdown
+
+parser = pushdown.Lark(
+    """
+        simbolo_inicial: "token sem nome" | TOKEN_COM_NOME | nodo_da_arvore
+        TOKEN_COM_NOME: "token com nome"
+        nodo_da_arvore: TOKEN_COM_OUTRO_NOME
+        TOKEN_COM_OUTRO_NOME: "token com outro nome"
+    """,
+
+    start='simbolo_inicial',
+    parser="lalr",
+)
+
+pushdown.tree.pydot__tree_to_png( parser.parse( 'token sem nome' ), "token_sem_nome.png", "TB", debug=1, dpi=600 )
+pushdown.tree.pydot__tree_to_png( parser.parse( 'token com nome' ), "token_com_nome.png", "TB", debug=1, dpi=600 )
+pushdown.tree.pydot__tree_to_png( parser.parse( 'token com outro nome' ), "token_com_outro_nome.png", "TB", debug=1, dpi=600 )
+\end{minted}
+\end{code}
+\begin{figure}[H]
+\caption{Árvore do Programa ``token sem nome''}
+\label{Figure:ArvoresDosTokens1}
+\centering
+\includegraphics[width=0.30\textwidth]{token_sem_nome.png}
+\fonte{Própria}
+\end{figure}
+\begin{figure}[H]
+\caption{Árvore do Programa ``token com nome''}
+\label{Figure:ArvoresDosTokens2}
+\centering
+% https://tex.stackexchange.com/questions/86350/includegraphics-maximum-width
+\includegraphics[max width=1.0\textwidth]{token_com_nome.png}
+\fonte{Própria}
+\end{figure}
+\begin{figure}[H]
+\caption{Árvore do Programa ``token com outro nome''}
+\label{Figure:ArvoresDosTokens3}
+\centering
+\includegraphics[max width=1.0\textwidth]{token_com_outro_nome.png}
+\fonte{Própria}
+\end{figure}
 
 
 \subsection{Hierarquia de Chomsky}
@@ -564,7 +626,7 @@ ela precisa respeitar 3 propriedades,
     \item $\forall\; A\, \in\, V_n\; |\; A\,
             \xRightarrow{*}\, \varepsilon\,
             \land\, First(A)\, \cap\, Follow(A) = \varnothing$.
-\end{inparaenum}
+\end{inparaenum}%
 \cite{ahoCompilerDragonBook}.
 
 Entretanto,
@@ -622,7 +684,7 @@ Como será apresentado mais a frente nesta seção,
 \item Por fim,
 a Árvore Sintática também pode nem ser gerada em um estrutura de dados,
 ocorrendo diretamente Análise Semântica seguido da Geração de Código.
-\end{inparaenum}
+\end{inparaenum}%
 },
 somente depois que a Árvore Sintática é construída,
 realiza~=se o processo de Análise Semântica \cite{ahoCompilerDragonBook},
@@ -848,7 +910,7 @@ com complexidade de tempo $\Theta(n^3)$ ao utilizar o algoritmo de parsing CYK (
 
 \subsection{Complexidade Teórica $versus$ Real}
 
-Na Figura \typeref{ParserNonDeterministic},
+Na \typeref{ParserNonDeterministic},
 encontra~=se uma Árvore de Computação de um Analisador Não~=Determinístico.
 Diz~=se que que o tempo de execução de um Analisador Não~=Determinístico é Não~=Determinístico Polinomial ($NP$\footnote{
 Do inglês, \textit{Non~=Deterministic Polynomial Time},
@@ -860,7 +922,7 @@ está estritamente contida na classe de problemas $NP$ (Não~=Determinísticos P
 ao tamanho da entrada,
 por que um Analisador Não~=Determinístico executa simultaneamente todos os ramos de Computação Não~=Determinísticos \cite{hopcroftBook}.
 
-Como mostrado na Figura \typeref{ParserNonDeterministic},
+Como mostrado na \typeref{ParserNonDeterministic},
 após a cada um dos passo de computação 1,
 2, 3 e 4,
 todos os 15 ramos de computação foram concluídos.
@@ -893,7 +955,7 @@ $P$ representa o conjunto de problemas resolvidos tempo Determinístico Polinomi
 enquanto $NP$ o conjunto de Problemas resolvido em tempo Não~=Determinístico Polinomial (por Máquinas de Turing Não~=Determinísticas).
 Assim,
 um problema Não~=Determinístico Polinomial somente pode ser resolvido por uma Máquinas de Turing Determinística em tempo exponencial.
-Veja as Figuras \typeref{ParserNonDeterministic,ParserDeterministic} e
+Veja as \typeref{ParserNonDeterministic,ParserDeterministic} e
 as compare.
 
 O tempo de execução será linear ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Regular e
