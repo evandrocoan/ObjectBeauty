@@ -304,10 +304,7 @@ o Formatador de Código será capaz de realizar as operações de formatação s
 Realizando assim,
 a formatação seletiva de código~=fonte,
 contrário da formatação total de código~=fonte como acontece nos demais trabalhos (\fullref{performanceDoFormator}).
-\begin{code}
-\caption{Exemplo de Gramática -- Símbolo Inicial}
-\label{exemploDeGramaticaPawn1}
-\begin{minted}{yaml}
+\begin{lstlisting}[caption={Exemplo de Gramática, Símbolo Inicial},label={exemploDeGramaticaPawn1},style=yaml_style]
 name: Abstract Machine Language
 scope: source.sma
 
@@ -320,8 +317,7 @@ contexts: {
         scope: constant.boolean.language.pawn
     }
 }
-\end{minted}
-\end{code}
+\end{lstlisting}
 
 No \typeref{exemploDeGramaticaPawn2},
 é introduzido o uso dos operadores ``push'',
@@ -334,10 +330,7 @@ A diferença entre o operador ``scope'' e
 Já o operador ``meta\_scope'' permite aplicar o escopo a todo o texto desde o primeiro até o último ``match'',
 que desempilha com o operador ``pop'',
 o contexto empilhado inicialmente com um ``push''.
-\begin{code}
-\caption{Exemplo de Gramática -- Contextos}
-\label{exemploDeGramaticaPawn2}
-\begin{minted}{yaml}
+\begin{lstlisting}[caption={Exemplo de Gramática, Contextos},label={exemploDeGramaticaPawn2},style=yaml_style]
 parens: {
     match: \( {
         scope: parens.begin.pawn
@@ -351,8 +344,7 @@ parens: {
         }
     }
 }
-\end{minted}
-\end{code}
+\end{lstlisting}
 
 No \typeref{exemploDeGramaticaPawn3},
 é introduzido o uso do operador ``captures''.
@@ -375,10 +367,7 @@ constant.numeric.pawn'',
 poderia~=se utilizar equivalentemente o operador ``captures:
 0.
 constant.numeric.pawn''.
-\begin{code}
-\caption{Exemplo de Gramática -- Grupos de Captura}
-\label{exemploDeGramaticaPawn3}
-\begin{minted}{yaml}
+\begin{lstlisting}[caption={Exemplo de Gramática, Grupos de Captura},label={exemploDeGramaticaPawn3},style=yaml_style]
 numbers: {
     match: '(\d+)(\.\{2\})(\d+)' {
         captures: {
@@ -389,8 +378,7 @@ numbers: {
         }
     include: numeric
 }
-\end{minted}
-\end{code}
+\end{lstlisting}
 
 No \typeref{exemploDeGramaticaPawn4},
 é mostrado mais alguns exemplos de uso do operador ``match'' classificando diversos tipos de numéricos (da linguagem sendo descrita pela gramática).
@@ -406,10 +394,7 @@ Assim,
 uma vez que um trecho de código~=fonte já foi classificado,
 ele será ignorado quando os próximos operadores forem aplicados,
 evitando assim que o programa execute infinitamente.
-\begin{code}
-\caption{Exemplo de Gramática -- Tipos numéricos}
-\label{exemploDeGramaticaPawn4}
-\begin{minted}{yaml}
+\begin{lstlisting}[caption={Exemplo de Gramática, Tipos numéricos},label={exemploDeGramaticaPawn4},style=yaml_style]
 numeric: {
     match: ([-]?0x[\da-f]+) {
         scope: constant.numeric.hex.pawn
@@ -421,8 +406,7 @@ numeric: {
         scope: constant.numeric.int.pawn
     }
 }
-\end{minted}
-\end{code}
+\end{lstlisting}
 
 Por fim,
 no \typeref{exemploDeGramaticaPawn5} é apresentado um exemplo não relacionado com formatação de código~=fonte.
@@ -438,17 +422,13 @@ não deveria existir mais nenhum texto ser reconhecido.
 Caso exista,
 ou a gramática não estava preparada para reconhecer todo o programa de entrada,
 ou estes trechos de código~=fonte são frutos de algum erro no programa de entrada.
-\begin{code}
-\caption{Exemplo de Gramática -- Reconhecimento de Erros}
-\label{exemploDeGramaticaPawn5}
-\begin{minted}{yaml}
+\begin{lstlisting}[caption={Exemplo de Gramática, Reconhecimento de Erros},label={exemploDeGramaticaPawn5},style=yaml_style]
 check_brackets: {
     match: \) {
         scope: invalid.illegal.stray-bracket-end
     }
 }
-\end{minted}
-\end{code}
+\end{lstlisting}
 
 
 \section{Analisador Semântico}
@@ -767,10 +747,8 @@ onde ``if( \ something \ ) bar'' é o resultado da formatação de código~=font
 \end{minted}
 \end{code}
 
-\begin{code}
-\label{exemploDeGramaticaUtilizada}
-\caption{Exemplo de Gramática Utilizada pelo Formatador de Código}
-\begin{minted}[xleftmargin=2em]{yaml}
+\lstset{xleftmargin=2em,aboveskip=0pt}
+\begin{lstlisting}[caption={Exemplo de Gramática Utilizada pelo Formatador de Código},label={exemploDeGramaticaUtilizada},style=yaml_style]
 scope: source.sma
 name: Abstract Machine Language
 contexts: {
@@ -785,8 +763,7 @@ contexts: {
         }
     }
 }
-\end{minted}
-\end{code}
+\end{lstlisting}
 
 \begin{code}
 \label{exemploDeConfiguracaoUtilizada}
@@ -809,7 +786,6 @@ class SingleSpaceFormatter(AbstractFormatter):
 
         if matched_setting:
             return " " * matched_setting + matched_text + " " * matched_setting
-
         else:
             return matched_text
 \end{minted}
