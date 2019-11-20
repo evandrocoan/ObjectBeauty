@@ -27,7 +27,7 @@ Nos \typeref{MainFormatterPy,MainHighlighterPy,utilitiesPy},
 encontra~=se um exemplo simples de programa que pode ser construído para executar o Formatador de Código e
 a Adição de Cores.
 Sua construção é a mesma utilizada para a criação dos testes de unidade (\typeref{unitTestsPy}).
-Tanto o \typeref{MainFormatterPy} quanto do o \typeref{MainHighlighterPy} geram como resultado um arquivo HTML,
+Tanto o \typeref{MainFormatterPy} quanto o \typeref{MainHighlighterPy} geram como resultado um arquivo HTML,
 contendo como conteúdo o resultado de seu trabalho,
 i.e., respectivamente,
 o código~=fonte formatado ou
@@ -115,7 +115,8 @@ estes pacotes podem ser instalados com os seguintes comandos:
 
 \chapter[main\_formatter.py]{Execução de ``main\_formatter.py''}
 
-O programa do \typeref{MainFormatterPy} faz a criação de 5 artefatos de resultado.
+O programa do \typeref{MainFormatterPy},
+faz a criação de 5 artefatos de resultado.
 Duas árvores em forma de figura,
 duas arvores em forma de texto e
 uma arquivo HTML.
@@ -131,7 +132,8 @@ mas mostrados de formas diferentes (figura \textit{versus} textual) e
 com níveis de detalhes diferentes.
 No \typeref{MainFormatterPyResult},
 são mostrado os nós folhas das árvores com maior nível de detalhes.
-Já nas \typeref{MainFormatterSyntaxTree,MainFormatterAbstractSyntaxTree} os nós folhas são mostrados com simplificações para que a figura possa vista em uma única tela.
+Já nas \typeref{MainFormatterSyntaxTree,MainFormatterAbstractSyntaxTree},
+os nós folhas são mostrados com simplificações para que a figura possa vista em uma única tela.
 \begin{code}
 \caption{Arquivo HTML gerado pelo programa de exemplo ``main\_formatter.py''}
 \label{MainFormatterHtml}
@@ -239,7 +241,8 @@ Generating 'main_formatter_abstract_syntax_tree.png'...
 
 \chapter[main\_highlighter.py]{Execução de ``main\_highlighter.py''}
 
-O programa do \typeref{MainHighlighterPy} faz a criação de 5 artefatos de resultado.
+O programa do \typeref{MainHighlighterPy},
+faz a criação de 5 artefatos de resultado.
 Duas árvores em forma de figura,
 duas arvores em forma de texto e
 uma arquivo HTML.
@@ -255,7 +258,8 @@ mas mostrados de formas diferentes (figura \textit{versus} textual) e
 com níveis de detalhes diferentes.
 No \typeref{MainHighlighterPyResult},
 são mostrado os nós folhas das árvores com maior nível de detalhes.
-Já nas \typeref{MainHighlighterSyntaxTree,MainHighlighterAbstractSyntaxTree} os nós folhas são mostrados com simplificações para que a figura possa vista em uma única tela.
+Já nas \typeref{MainHighlighterSyntaxTree,MainHighlighterAbstractSyntaxTree},
+os nós folhas são mostrados com simplificações para que a figura possa vista em uma única tela.
 \begin{code}
 \caption{Arquivo HTML gerado pelo programa de exemplo ``main\_highlighter.py''}
 \label{MainHighlighterHtml}
@@ -372,17 +376,17 @@ a classe ``TestingGrammarUtilities'' é uma classe abstrata \cite{understandingD
 tanto os testes de unidade de Adição de Cores quanto os testes de unidade do Formatador de Código.
 No total existem 22 testes:
 \begin{enumerate}[i)]
-\item 16 testes do Analisador Semântico \typeref{semanticAnalyzerPy} na classe testes ``TestSemanticRules'';
-\item 5 testes de Adição de Cores \typeref{codeHighlighterPy} na classe testes ``TestCodeHighlighterBackEnd'';
-\item 1 testes de Formatação de Código \typeref{codeFormatterPy} na classe testes ``TestCodeFormatterBackEnd''.
+\item 16 testes do Analisador Semântico (\typeref{semanticAnalyzerPy}) na classe testes ``TestSemanticRules'';
+\item 5 testes de Adição de Cores (\typeref{codeHighlighterPy}) na classe testes ``TestCodeHighlighterBackEnd'';
+\item 1 testes de Formatação de Código (\typeref{codeFormatterPy}) na classe testes ``TestCodeFormatterBackEnd''.
 \end{enumerate}%
 
 Como a ferramenta de Adição de Cores foi a primeira desenvolvida,
-ela obteve a criação de mais testes de unidade para assegurar que a implementação do Analisador Semântico \typeref{semanticAnalyzerPy} e
+ela obteve a criação de mais testes de unidade para assegurar que a implementação do Analisador Semântico (\typeref{semanticAnalyzerPy}) e
 da Metagramática estão funcionais.
 Uma vez feito isso,
-duplicou~=se o código~=fonte da implementação de adição de cores \typeref{codeHighlighterPy} e
-realizou~=se as alterações necessárias para que se faça a formatação de código~=fonte \typeref{codeFormatterPy}.
+duplicou~=se o código~=fonte da implementação de adição de cores (\typeref{codeHighlighterPy}) e
+realizou~=se as alterações necessárias para que se faça a formatação de código~=fonte (\typeref{codeFormatterPy}).
 \begin{code}
 \caption{Resultado da execução dos Testes de Unidade}
 \label{unitTestsResults}
@@ -465,7 +469,8 @@ criado para verificar tal regra semântica na classe de testes ``TestSemanticRul
 \chapter{Código de Adição de Cores}
 
 Neste capítulo,
-pode~=se ver na íntegra o arquivo do formatador de código~=fonte (\typeref{codeHighlighterPy}) que faz uso da metagramática no \typeref{grammarsGrammarPushdown}.
+pode~=se ver na íntegra o arquivo do formatador de código~=fonte (\typeref{codeHighlighterPy}),
+que faz uso da metagramática no \typeref{grammarsGrammarPushdown}.
 No \typeref{MainHighlighterPy},
 pode~=se encontrar um exemplo explicito de utilização do \typeref{codeHighlighterPy}.
 \begin{code}

@@ -208,7 +208,8 @@ a palavra ``function'' possui simultaneamente os escopos
 \fonte{\citeonline{vsCodeSyntaxHighlighthing}}
 \end{figure}
 
-Os nomes utilizados na \typeref{TexMateScopes} podem ser qualquer texto que usuário especificador daquela gramática atribuiu.
+Os nomes utilizados na \typeref{TexMateScopes},
+podem ser qualquer texto que usuário especificador daquela gramática atribuiu.
 Entretanto,
 pode~=se perceber que o nome dos escopos recém apresentados parecem seguir um padrão.
 Por conversão,
@@ -269,7 +270,8 @@ master_scope_name_statement: "scope" ": " free_input_string
 \end{minted}
 \end{code}
 
-A sintaxe da metagramática utilizada no \typeref{simboloInicialDaMetagramatica} é uma adaptação especial do padrão EBNF que o Analisador Lark faz.
+A sintaxe da metagramática utilizada no \typeref{simboloInicialDaMetagramatica},
+é uma adaptação especial do padrão EBNF que o Analisador Lark faz.
 Símbolos que possuem todas as letras em ``MAIÚSCULA'' definem os símbolos terminais da gramática.
 Enquanto símbolos escrito todos em letras ``minúsculas'' definem os símbolos não~=terminais da gramática.
 Para mais informações sobre a sintaxe de entrada de gramáticas do Analisador Lark,
@@ -284,7 +286,8 @@ Por padrão,
 toda gramática ``ObjectBeauty'' precisa ter um contexto inicial ou
 símbolo inicial chamado de ``contexts''.
 
-O \typeref{exemploDeGramaticaPawn1} faz uso dos operadores ``include'' e
+O \typeref{exemploDeGramaticaPawn1},
+faz uso dos operadores ``include'' e
 ``match''.
 O operador ``include'' serve incluir partes de outras gramáticas ou
 mesmo gramáticas inteiras no contexto da gramática atual.
@@ -409,13 +412,15 @@ numeric: {
 \end{lstlisting}
 
 Por fim,
-no \typeref{exemploDeGramaticaPawn5} é apresentado um exemplo não relacionado com formatação de código~=fonte.
+no \typeref{exemploDeGramaticaPawn5},
+é apresentado um exemplo não relacionado com formatação de código~=fonte.
 A construção utilizada é comum para gramáticas que serão utilizadas para realizar a aplicação de cores em editores de texto \cite{vsCodeSyntaxHighlighthing}.
 Com ela é possível colorir o código~=fonte,
 destacando~=o como inválido no editor de texto,
 uma vez que uma inconsistência sintática foi encontrada na linguagem sendo analisada.
 
-Construções como a do \typeref{exemploDeGramaticaPawn5} funcionam usualmente quando elas são a última regra da gramática.
+Construções como a do \typeref{exemploDeGramaticaPawn5},
+funcionam usualmente quando elas são a última regra da gramática.
 Uma vez que todas as regras que consomem o programa de entrada e
 o classifica em escopos terminam seu trabalho,
 não deveria existir mais nenhum texto ser reconhecido.
@@ -528,7 +533,8 @@ cada nó da Árvore de Sintaxe será convertido para um nó da Árvore de Sintax
 
 Um jeito fácil de excluir um nó da Árvore de Sintaxe é simplesmente definir uma função com o nome de seu não~=terminal que returna ``null''.
 Por exemplo,
-o trecho da metagramática apresentado no \typeref{simboloInicialDaMetagramatica} possui alguns símbolos não~=terminais como ``preamble\_statements'' e
+o trecho da metagramática apresentado no \typeref{simboloInicialDaMetagramatica},
+possui alguns símbolos não~=terminais como ``preamble\_statements'' e
 ``language\_construct\_rules''. Então,
 para estes dados símbolos,
 serão chamados os métodos da classe ``TreeTransformer'' que possuem os nomes ``preamble\_statements'' e
@@ -597,7 +603,7 @@ pois precisa~=se programar as suas gramáticas diretamente dentro do código~=fo
 
 No \typeref{construtorDoFormatador},
 pode ser encontrado o construtor do formatador de código~=fonte.
-Comparando~=o com o construtor do Analisador Semântico \typeref{semanticAnalizerConstructor},
+Comparando~=o com o construtor do Analisador Semântico (\typeref{semanticAnalizerConstructor}),
 pode~=se notar algumas diferenças.
 Em ambos os casos,
 o processo todo se completará ao percorrer toda a árvore.
@@ -654,7 +660,7 @@ class Backend(pushdown.Interpreter):
 \end{code}
 
 Enquanto ``Interpreter'' é responsável por somente ``passear'' pela Árvore de Sintaxe Abstrata,
-a classe ``AbstractFormatter'' \typeref{construtorDeParsedProgram} é responsável por realmente fazer a formatação de código~=fonte de acordo com a instruções vindas da Árvore de Sintaxe Abstrata.
+a classe ``AbstractFormatter'' (\typeref{construtorDeParsedProgram}) é responsável por realmente fazer a formatação de código~=fonte de acordo com a instruções vindas da Árvore de Sintaxe Abstrata.
 No final do processo,
 ``AbstractFormatter'' terá na variável ``new\_program'' todos os pedaços do programa formatado.
 Uma vez que ``Interpreter'' termina de construir todos os pedaços de código~=fonte formatado,
@@ -794,7 +800,8 @@ class SingleSpaceFormatter(AbstractFormatter):
 \end{quadro}
 
 Como pode ser percebido,
-a gramática de entrada no \typeref{exemploDeFormatacaoDeCodigo} não consome a palavra ``bar'' do programa de entrada ``if(something) bar''.
+a gramática de entrada no \typeref{exemploDeFormatacaoDeCodigo},
+não consome a palavra ``bar'' do programa de entrada ``if(something) bar''.
 Esta é uma característica importante dos formatadores de código deste trabalho.
 Todo texto que não é consumido,
 ou pela gramática de entrada,
