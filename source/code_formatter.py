@@ -228,14 +228,13 @@ class AbstractFormatter(object):
 
 class SingleSpaceFormatter(AbstractFormatter):
 
-    def format_text(self, matched_text, matched_setting):
-        matched_text = matched_text.strip( " " )
+    def format_text(self, code_to_format, setting_value):
+        code_to_format = code_to_format.strip( " " )
 
-        if matched_setting:
-            return " " * matched_setting + matched_text + " " * matched_setting
-
+        if setting_value:
+            return " " * setting_value + code_to_format + " " * setting_value
         else:
-            return matched_text
+            return code_to_format
 
 
 class Backend(pushdown.Interpreter):
