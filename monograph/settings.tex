@@ -142,9 +142,11 @@
 }{}
 
 
-% ---
 % Filtering and Mapping Bibliographies
 % \DeclareFieldFormat{url}{Disponível~em:\addspace\url{#1}}
+
+% https://tex.stackexchange.com/questions/517526/how-to-make-biblatex-url-links-generated-with-brackets-around-it-url-correctly
+\DeclareFieldFormat{url}{\bibstring{urlfrom}\addcolon\space\textless\url{#1}\textgreater}
 
 % https://tex.stackexchange.com/questions/391695/is-possible-to-remove-the-link-color-of-the-comma-on-the-citation-link
 % \DeclareFieldFormat{citehyperref}{#1}
