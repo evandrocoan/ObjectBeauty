@@ -206,24 +206,28 @@ parser = pushdown.Lark(
     parser="lalr",
 )
 
-pushdown.tree.pydot__tree_to_png( parser.parse( 'token sem nome' ), "token_sem_nome.png", "TB", debug=1, dpi=600 )
-pushdown.tree.pydot__tree_to_png( parser.parse( 'token com nome' ), "token_com_nome.png", "TB", debug=1, dpi=600 )
-pushdown.tree.pydot__tree_to_png( parser.parse( 'token com outro nome' ), "token_com_outro_nome.png", "TB", debug=1, dpi=600 )
+def parseit(program, filename):
+    pushdown.tree.pydot__tree_to_png(
+            parser.parse( program ), filename, "TB", debug=1, dpi=600 )
+
+parseit( 'token sem nome',  "token_sem_nome.png" )
+parseit( 'token com nome',  "token_com_nome.png" )
+parseit( 'token com outro nome', "token_com_outro_nome.png" )
 \end{minted}
 \end{code}
 \begin{figure}[H]
 \caption{Árvore do Programa ``token sem nome''}
 \label{Figure:ArvoresDosTokens1}
 \centering
-\includegraphics[width=0.2388\textwidth]{token_sem_nome.png}
+% https://tex.stackexchange.com/questions/86350/includegraphics-maximum-width
+\includegraphics[max width=0.2388\textwidth]{token_sem_nome.png}
 \fonte{Própria}
 \end{figure}
 \begin{figure}[H]
 \caption{Árvore do Programa ``token com nome''}
 \label{Figure:ArvoresDosTokens2}
 \centering
-% https://tex.stackexchange.com/questions/86350/includegraphics-maximum-width
-\includegraphics[width=0.799\textwidth]{token_com_nome.png}
+\includegraphics[max width=0.799\textwidth]{token_com_nome.png}
 \fonte{Própria}
 \end{figure}
 \begin{figure}[H]
@@ -231,6 +235,74 @@ pushdown.tree.pydot__tree_to_png( parser.parse( 'token com outro nome' ), "token
 \label{Figure:ArvoresDosTokens3}
 \centering
 \includegraphics[max width=1.0\textwidth]{token_com_outro_nome.png}
+\fonte{Própria}
+\end{figure}
+
+No \typeref{code:ExemploDeEstruturaDeGramaticaLark},
+pode ser encontrado outro exemplo de gramática aceita pelo Analisador Lark.
+Nas \typeref{Figure:palavra12,Figure:palavra1,Figure:palavra2,Figure:palavra3},
+pode ser encontrado as 4 palavras da linguagem que esta gramática aceita.
+Nas \typeref{Figure:palavra1,Figure:palavra2,Figure:palavra3},
+pode~=se ver as palavras da linguagem (gramática do \typeref{code:ExemploDeEstruturaDeGramaticaLark}),
+no qual correspondem exatamente os símbolos do alfabeto da linguagem.
+Já a \typeref{Figure:palavra12},
+mostra como o conjunto de produções da gramática pode ser utilizado para montar a estrutura (sintaxe) da linguagem,
+combinando os símbolos do alfabeto da linguagem.
+\begin{code}
+\caption{Exemplo de Gramática com uma Estrutura de Sintaxe}
+\label{code:ExemploDeEstruturaDeGramaticaLark}
+\begin{minted}[xleftmargin=2em]{python}
+import pushdown
+
+parser = pushdown.Lark(
+    r"""
+        simbolo_inicial: NUMERO1 NUMERO2 |  NUMERO3  | nao_terminal
+        nao_terminal: NUMERO1 | NUMERO2
+        NUMERO1: "1"
+        NUMERO2: "2"
+        NUMERO3: "3"
+    """,
+
+    start='simbolo_inicial',
+    parser="lalr",
+)
+
+def parseit(program, filename):
+    pushdown.tree.pydot__tree_to_png(
+            parser.parse( program ), filename, "TB", debug=1, dpi=600 )
+
+parseit( '1', "palavra1.png" )
+parseit( '2', "palavra2.png" )
+parseit( '3', "palavra3.png" )
+parseit( '12', "palavra12.png" )
+\end{minted}
+\end{code}
+\begin{figure}[H]
+\caption{Árvore do Programa ``palavra12''}
+\label{Figure:palavra12}
+\centering
+\includegraphics[max width=0.896\textwidth]{palavra12.png}
+\fonte{Própria}
+\end{figure}
+\begin{figure}[H]
+\caption{Árvore do Programa ``palavra1''}
+\label{Figure:palavra1}
+\centering
+\includegraphics[max width=0.4435\textwidth]{palavra1.png}
+\fonte{Própria}
+\end{figure}
+\begin{figure}[H]
+\caption{Árvore do Programa ``palavra2''}
+\label{Figure:palavra2}
+\centering
+\includegraphics[max width=0.4435\textwidth]{palavra2.png}
+\fonte{Própria}
+\end{figure}
+\begin{figure}[H]
+\caption{Árvore do Programa ``palavra3''}
+\label{Figure:palavra3}
+\centering
+\includegraphics[max width=0.4435\textwidth]{palavra3.png}
 \fonte{Própria}
 \end{figure}
 
