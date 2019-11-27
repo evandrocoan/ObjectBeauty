@@ -109,13 +109,7 @@ Conceito abordado na
 \label{introducaoGramaticas}
 
 Gramáticas são conjuntos de regras que definem uma linguagem.
-Em linguagens formais,
-sendo $\alpha$ um não~=terminal,
-$\beta$ um terminal,
-$V_n$ um conjunto de não~=terminais,
-$V_t$ um conjunto de terminais e
-$V = V_n \cup V_t$,
-uma gramática é definida por quatro componentes:
+Uma gramática é definida por quatro componentes:
 \begin{enumerate}%[nosep,nolistsep]
     \item \advisor{O}{Um} conjunto $V_t$ de símbolos terminais\advisor{ (também chamados
     de \textit{tokens} ou símbolos do alfabeto da linguagem).
@@ -149,7 +143,8 @@ uma gramática é definida por quatro componentes:
 
     \item \label{definicaoDeGramatica}Um conjunto de produções $P$.
     Uma produção consiste em uma dupla elementos.
-    O primeiro elemento é a cabeça ou lado esquerdo e
+    O primeiro elemento é a cabeça ou
+    lado esquerdo e
     representa a substituição ou
     consumo que será feito no programa de entrada.
     Ele é obrigatoriamente constituído de no mínimo um símbolo não~=terminal e
@@ -158,15 +153,15 @@ uma gramática é definida por quatro componentes:
     O segundo elemento é a cauda ou
     lado direito da produção,
     composto de terminais e\slash{}ou não~=terminais.
-    Formalmente defini~=se uma produção pela seguinte regra,
+    Formalmente define~=se o conjunto de produções de uma gramática pela seguinte regra,
     onde ``*'' representa o operador de fechamento do conjunto \cite{hopcroftBook}:
     $$P = \{\; \alpha ::= \beta \;|\; \alpha \in V^* V_n V^* \land \beta \in V^* \;\}$$
 
     \item Um símbolo inicial selecionado a partir do conjunto de símbolos não~=terminais.
     O símbolo inicial é utilizado para definir qual será a raíz da Árvore Sintática,
     e.g.,
-    o última regra de produção utilizada para terminar o reconhecimento do programa de entrada em um Analisador Ascendente (Veja a \fullref{reducoesEderivacoes}),
-    e a primeira regra utilizada em um Analisador Descendente ou
+    uma das últimas regras de produção utilizada para terminar o reconhecimento do programa de entrada em um Analisador Ascendente,
+    e uma das primeira regras utilizada em um Analisador Descendente ou
     gerar~=se palavras desta linguagem\footnote{
     Processo natural quanto um Analisador Sintático realiza o reconhecimento de um programa de entrada.
     Para mais informações,
@@ -175,7 +170,7 @@ uma gramática é definida por quatro componentes:
 \end{enumerate}
 
 No \typeref{code:ExemploDeGramaticaLark},
-é possível ver um exemplo real de gramática aceito pelo Analisador Lark (\typeref{software_implementation}).
+é possível ver um exemplo real de gramática aceito pelo Analisador Lark.
 Esta é uma gramática de uma linguagem finita que aceita 3 palavras:
 \begin{inparaenum}[1)]
 \item ``token sem nome'';
@@ -217,6 +212,24 @@ parseit( 'token com nome',  "token_com_nome.png" )
 parseit( 'token com outro nome', "token_com_outro_nome.png" )
 \end{minted}
 \end{code}
+
+A sintaxe da gramática utilizada no \typeref{code:ExemploDeGramaticaLark},
+é uma adaptação especial do padrão EBNF que o Analisador Lark faz.
+Símbolos que possuem todas as letras em ``MAIÚSCULA'' definem os símbolos terminais da gramática.
+Enquanto símbolos escrito todos em letras ``minúsculas'' definem os símbolos não~=terminais da gramática.
+Para mais informações sobre a sintaxe de entrada de gramáticas do Analisador Lark,
+consulte sua documentação \cite{larkGrammarReference,larkStyleCheat}.
+
+A \typeref{Figure:ArvoresDosTokens1},
+representa a árvore de sintaxe completa da palavra ``token sem nome'',
+que a linguagem da gramática no ``\typeref{code:ExemploDeGramaticaLark}'' aceita.
+Como pode ser facilmente percebido,
+ela é uma árvore de sintaxe estranha.
+Cadê o \textit{token}?
+O \textit{token} da árvore foi descartado pelo analisador lark,
+por que ele não está dentro de uma produção de \textit{token}.
+Este é um recurso do analisador lark,
+que permite descartamos da árvore de sintaxe \textit{tokens} que julgam~=se desnecessários aparecem na árvore de sintaxe.
 \begin{figure}[H]
 \caption{Árvore do Programa ``token sem nome''}
 \label{Figure:ArvoresDosTokens1}
@@ -334,7 +347,7 @@ Irrestrita (\typeref{FigureHierarquiaDeChomsky}).
 \begin{minipage}{\textwidth} \footnotesize
 *Para Gramáticas Regulares Determinísticas,
 complexidade linear ao tamanho da palavra de entrada para determinar se uma dada palavra pertence ou
-não a linguagem.
+não à linguagem.
 Para Gramáticas Regulares Não~=Determinísticas,
 complexidade polinomial para construir as Árvores de Derivações e
 determinar se dada palavra pertence ou
