@@ -118,7 +118,7 @@ estes pacotes podem ser instalados com os seguintes comandos:
 O programa do \typeref{MainFormatterPy},
 faz a criação de 5 artefatos de resultado.
 Duas árvores em forma de figura,
-duas arvores em forma de texto e
+duas árvores em forma de texto e
 uma arquivo HTML.
 No \typeref{MainFormatterHtml},
 encontra~=se o arquivo HTML gerado pelo programa de exemplo (\typeref{MainFormatterPy}).
@@ -144,7 +144,7 @@ os nós folhas são mostrados com simplificações para que a figura possa vista
 \end{code}
 
 \begin{figure}[!htb]
-\caption{Árvore de Sintaxe ``main\_formatter\_syntax\_tree.png''}
+\caption{Árvore Sintática ``main\_formatter\_syntax\_tree.png''}
 \label{MainFormatterSyntaxTree}
 \centering
 \includegraphics[width=1.0\textwidth]{main_formatter_syntax_tree.png}
@@ -152,7 +152,7 @@ os nós folhas são mostrados com simplificações para que a figura possa vista
 \end{figure}
 
 \begin{figure}[!htb]
-\caption{Árvore de Sintaxe Abstrata ``main\_formatter\_abstract\_syntax\_tree.png''}
+\caption{Árvore Sintática Abstrata ``main\_formatter\_abstract\_syntax\_tree.png''}
 \label{MainFormatterAbstractSyntaxTree}
 \centering
 \includegraphics[width=1.0\textwidth]{main_formatter_abstract_syntax_tree.png}
@@ -244,7 +244,7 @@ Generating 'main_formatter_abstract_syntax_tree.png'...
 O programa do \typeref{MainHighlighterPy},
 faz a criação de 5 artefatos de resultado.
 Duas árvores em forma de figura,
-duas arvores em forma de texto e
+duas árvores em forma de texto e
 uma arquivo HTML.
 No \typeref{MainHighlighterHtml},
 encontra~=se o arquivo HTML gerado pelo programa de exemplo (\typeref{MainHighlighterPy}).
@@ -270,7 +270,7 @@ os nós folhas são mostrados com simplificações para que a figura possa vista
 \end{code}
 
 \begin{figure}[!htb]
-\caption{Árvore de Sintaxe ``main\_highlighter\_syntax\_tree.png''}
+\caption{Árvore Sintática ``main\_highlighter\_syntax\_tree.png''}
 \label{MainHighlighterSyntaxTree}
 \centering
 \includegraphics[width=1.0\textwidth]{main_highlighter_syntax_tree.png}
@@ -278,7 +278,7 @@ os nós folhas são mostrados com simplificações para que a figura possa vista
 \end{figure}
 
 \begin{figure}[!htb]
-\caption{Árvore de Sintaxe Abstrata ``main\_highlighter\_abstract\_syntax\_tree.png''}
+\caption{Árvore Sintática Abstrata ``main\_highlighter\_abstract\_syntax\_tree.png''}
 \label{MainHighlighterAbstractSyntaxTree}
 \centering
 \includegraphics[width=1.0\textwidth]{main_highlighter_abstract_syntax_tree.png}
@@ -503,9 +503,9 @@ pode~=se ver o importe explicito deste arquivo de gramática e
 seu recebimento pela Analisador Lark (Veja a \fullref{GrammarsGrammar}).
 Nesta gramática,
 pode ser encontrado expressões redundantes como \mintinline{antlr}{enter_block:
-OPEN_BRACE} que servem para fazer com que a árvore de sintaxe tenha um nó com o nome ``\mintinline{text}{enter_block}'' e
+OPEN_BRACE} que servem para fazer com que a árvore sintática tenha um nó com o nome ``\mintinline{text}{enter_block}'' e
 com que o analisador léxico gere um \textit{token} com o nome ``\mintinline{text}{OPEN_BRACE}''.
-Estas características facilitam a manipulação da árvore de sintaxe e
+Estas características facilitam a manipulação da árvore sintática e
 operações com \textit{tokens}.
 \begin{code}
 \caption{Arquivo ``source/grammars\_grammar.pushdown''}

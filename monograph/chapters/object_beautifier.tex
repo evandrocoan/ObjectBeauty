@@ -151,7 +151,7 @@ Na \typeref{MetacompilerMetagrammarMetaprogram},
 encontra~=se uma extensão da \typeref{MyWorflowForLarkTraduzido2},
 e pode~=se ver claramente as relações entre Metagramáticas,
 Metacompiladores e Metaprogramas. Por simplificação,
-mostra~=se o nó ``Árvore de Sintaxe'' sem explicitamente falar sobre sua Análise Semântica e
+mostra~=se o nó ``Árvore Sintática'' sem explicitamente falar sobre sua Análise Semântica e
 propriamente a construção do Compilador (ou do Formatador de Código).
 Vale lembrar que trata~=se de um Compilador de Compiladores,
 e não um Compilador de Analisadores.
@@ -381,7 +381,7 @@ No \typeref{exemploDeGramaticaPawn4},
 é mostrado mais alguns exemplos de uso do operador ``match'' classificando diversos tipos de numéricos (da linguagem sendo descrita pela gramática).
 É importante notar que a ordem no qual os operadores como ``match'' aparecem é importante.
 Ao realizar o reconhecido o programa de entrada utilizando esta gramática,
-a Árvore de Sintaxe Abstrata\footnote{%
+a Árvore Sintática Abstrata\footnote{%
 Do inglês (AST), Abstract Syntax Tree.
 } \cite{ahoCompilerDragonBook} será interpretada diversas vezes,
 partindo no símbolo inicial até chegar ao último símbolo da gramática.
@@ -433,7 +433,7 @@ check_brackets: {
 \section{Analisador Semântico}
 
 Depois que um metaprograma da metalinguagem apresentada na seção anterior é reconhecido pelo Analisador Lark,
-o Analisador Lark entrega a Árvore de Sintaxe da gramática da linguagem sendo descrita pelo metaprograma (\typeref{MetacompilerMetagrammarMetaprogram}).
+o Analisador Lark entrega a Árvore Sintática da gramática da linguagem sendo descrita pelo metaprograma (\typeref{MetacompilerMetagrammarMetaprogram}).
 Todas as verificações de corretude da sintaxe da gramática são verificadas pelo Analisador Lark,
 com base na metagramática da metalinguagem.
 Portanto,
@@ -442,11 +442,11 @@ somente resta ser implementado o Analisador Semântico para verificar se a lingu
 
 O Diagrama de Classes é apresentado na \typeref{CodeFormatterClassDiagram}.
 Nele,
-o Analisador Semântico que deriva de ``Transformer'' recebe como entrada a Árvore de Sintaxe do programa de entrada,
+o Analisador Semântico que deriva de ``Transformer'' recebe como entrada a Árvore Sintática do programa de entrada,
 e uma vez que o Analisador Semântico termina seu trabalho,
-ele devolve Árvore de Sintaxe Abstrata completa.
+ele devolve Árvore Sintática Abstrata completa.
 Então,
-utilizando a Árvore de Sintaxe Abstrata,
+utilizando a Árvore Sintática Abstrata,
 ``Backend'' que deriva de ``Interpreter'',
 realiza a formatação de código~=fonte recebendo um programa de entrada e
 as configurações do formatador (\typeref{ParsersPublicAudienceTraduzido,MetacompilerMetagrammarMetaprogram}).
@@ -460,11 +460,11 @@ as configurações do formatador (\typeref{ParsersPublicAudienceTraduzido,Metaco
 
 No \typeref{semanticAnalizerConstructor},
 pode~=se ver o construtor do Analisador Semântico.
-Pode~=se notar que seu construtor não recebe como parãmetro a Árvore de Sintaxe.
+Pode~=se notar que seu construtor não recebe como parãmetro a Árvore Sintática.
 Entretanto,
 a ela não é passada pelo construtor mas sim por um método chamado ``transform(tree)''.
 Esta é uma característica do Analisador Lark utilizado.
-A função ``transform(tree)'' do Analisador Lark simplesmente inicia a análise do programa visitando todos os nós da Árvore de Sintaxe,
+A função ``transform(tree)'' do Analisador Lark simplesmente inicia a análise do programa visitando todos os nós da Árvore Sintática,
 partindo das folhas até chegar na raíz (\fullref{compiladoresEtradutores}).
 \begin{code}
 \caption{Construtor do Analisador Semântico}
@@ -515,17 +515,17 @@ class TreeTransformer(pushdown.Transformer):
 \end{minted}
 \end{code}
 
-A visita dos nós da Árvore de Sintaxe pela função ``transform(tree)'' acontece simplesmente chamando os métodos que a classe ``TreeTransformer'' (Definido no \typeref{semanticAnalizerConstructor}) define e
+A visita dos nós da Árvore Sintática pela função ``transform(tree)'' acontece simplesmente chamando os métodos que a classe ``TreeTransformer'' (Definido no \typeref{semanticAnalizerConstructor}) define e
 que possuem os mesmos nomes que os símbolos não~=terminais definidos pela metagramática.
 Então,
 cada nó ou
-função deve retornar qual será o novo nó que irá o substituir na Árvore de Sintaxe.
+função deve retornar qual será o novo nó que irá o substituir na Árvore Sintática.
 Assim,
 no final do processo,
 um a um,
-cada nó da Árvore de Sintaxe será convertido para um nó da Árvore de Sintaxe Abstrata.
+cada nó da Árvore Sintática será convertido para um nó da Árvore Sintática Abstrata.
 
-Um jeito fácil de excluir um nó da Árvore de Sintaxe é simplesmente definir uma função com o nome de seu não~=terminal que returna ``null''.
+Um jeito fácil de excluir um nó da Árvore Sintática é simplesmente definir uma função com o nome de seu não~=terminal que returna ``null''.
 Por exemplo,
 o trecho da metagramática apresentado no \typeref{simboloInicialDaMetagramatica},
 possui alguns símbolos não~=terminais como ``preamble\_statements'' e
@@ -537,11 +537,11 @@ serão chamados os métodos da classe ``TreeTransformer'' que possuem os nomes `
 Caso não existam os métodos ``preamble\_statements'' e
 ``language\_construct\_rules'' na classe ``TreeTransformer'',
 os nós ``preamble\_statements'' e
-``language\_construct\_rules'' da Árvore de Sintaxe não serão visitados e
-``poderão'' ser excluídos da Análise Semântica (mas não da Árvore de Sintaxe Abstrata).
-Nós não analisados pela classe ``TreeTransformer'' não serão excluídos da Árvore de Sintaxe Abstrata,
+``language\_construct\_rules'' da Árvore Sintática não serão visitados e
+``poderão'' ser excluídos da Análise Semântica (mas não da Árvore Sintática Abstrata).
+Nós não analisados pela classe ``TreeTransformer'' não serão excluídos da Árvore Sintática Abstrata,
 eles serão mantidos intactos,
-a não ser que algum outro nó os altere diretamente na Árvore de Sintaxe.
+a não ser que algum outro nó os altere diretamente na Árvore Sintática.
 
 Mesmo que não existam os métodos ``preamble\_statements'' e
 ``language\_construct\_rules'' definidos na classe ``TreeTransformer'',
@@ -565,7 +565,7 @@ O Formatador de Código não é composto somente por uma parte única e
 altamente acoplada.
 \advisor{Um}{Mas pelo contrário,
 um} conjunto de partes altamente coesas e
-completamente independentes onde cada uma dessas partes recebe a Árvore de Sintaxe Abstrata do Analisador Semântico,
+completamente independentes onde cada uma dessas partes recebe a Árvore Sintática Abstrata do Analisador Semântico,
 para então realizar a formatação do programa de entrada junto com as configurações que esta parte aceita.
 
 
@@ -575,7 +575,7 @@ para então realizar a formatação do programa de entrada junto com as configur
 Continuamente chamar diversos algoritmos independentes possui uma perda de performance em comparação com os formatadores de código~=fonte apresentados no \fullref{source_code_beautifiers}.
 Estes formatadores tem como principal características realizar a formatação de código~=fonte em uma única passada,
 i.e.,
-a Árvore de Sintaxe de programa de entrada é completamente reconstruída,
+a Árvore Sintática de programa de entrada é completamente reconstruída,
 para então ser serializada novamente em texto de acordo com as configurações de formatador.
 
 Ao leitor mais desatento,
@@ -602,9 +602,9 @@ pode~=se notar algumas diferenças.
 Em ambos os casos,
 o processo todo se completará ao percorrer toda a árvore.
 No caso do Analisador Semântico,
-a Árvore de Sintaxe,
+a Árvore Sintática,
 e no caso do Formatador de Código,
-a Árvore de Sintaxe Abstrata.
+a Árvore Sintática Abstrata.
 
 Diferentemente do Analisador Semântico,
 o Formatador de Código faz herança do tipo ``Interpreter'' em vez de ``Transformer'' (\typeref{CodeFormatterClassDiagram}).
@@ -653,8 +653,8 @@ class Backend(pushdown.Interpreter):
 \end{minted}
 \end{code}
 
-Enquanto ``Interpreter'' é responsável por somente ``passear'' pela Árvore de Sintaxe Abstrata,
-a classe ``AbstractFormatter'' (\typeref{construtorDeParsedProgram}) é responsável por realmente fazer a formatação de código~=fonte de acordo com a instruções vindas da Árvore de Sintaxe Abstrata.
+Enquanto ``Interpreter'' é responsável por somente ``passear'' pela Árvore Sintática Abstrata,
+a classe ``AbstractFormatter'' (\typeref{construtorDeParsedProgram}) é responsável por realmente fazer a formatação de código~=fonte de acordo com a instruções vindas da Árvore Sintática Abstrata.
 No final do processo,
 ``AbstractFormatter'' terá na variável ``new\_program'' todos os pedaços do programa formatado.
 Uma vez que ``Interpreter'' termina de construir todos os pedaços de código~=fonte formatado,

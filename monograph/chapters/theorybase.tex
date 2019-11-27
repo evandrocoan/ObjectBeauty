@@ -179,12 +179,12 @@ Esta é uma gramática de uma linguagem finita que aceita 3 palavras:
 \end{inparaenum}%
 No Analisador Lark,
 quando um token é declarado diretamente como ``token sem nome'',
-ele irá ser descartado da Árvore de Sintaxe.
+ele irá ser descartado da Árvore Sintática.
 Como pode ser visto na \typeref{Figure:ArvoresDosTokens1},
-a árvore de sintaxe do programa ``token sem nome'',
+a árvore sintática do programa ``token sem nome'',
 irá conter somente o símbolo inicial da gramática.
 Nas \typeref{Figure:ArvoresDosTokens1,Figure:ArvoresDosTokens2,Figure:ArvoresDosTokens3},
-pode ser visto a Árvore de Sintaxe de cada uma das 3 palavras da linguagem do \typeref{code:ExemploDeGramaticaLark}.
+pode ser visto a Árvore Sintática de cada uma das 3 palavras da linguagem do \typeref{code:ExemploDeGramaticaLark}.
 \begin{code}
 \caption{Exemplo de Gramática Utilizada pelo Formatador de Código}
 \label{code:ExemploDeGramaticaLark}
@@ -221,15 +221,15 @@ Para mais informações sobre a sintaxe de entrada de gramáticas do Analisador 
 consulte sua documentação \cite{larkGrammarReference,larkStyleCheat}.
 
 A \typeref{Figure:ArvoresDosTokens1},
-representa a árvore de sintaxe completa da palavra ``token sem nome'',
+representa a árvore sintática completa da palavra ``token sem nome'',
 que a linguagem da gramática no ``\typeref{code:ExemploDeGramaticaLark}'' aceita.
 Como pode ser facilmente percebido,
-ela é uma árvore de sintaxe estranha.
+ela é uma árvore sintática estranha.
 Cadê o \textit{token}?
 O \textit{token} da árvore foi descartado pelo analisador lark,
 por que ele não está dentro de uma produção de \textit{token}.
 Este é um recurso do analisador lark,
-que permite descartamos da árvore de sintaxe \textit{tokens} que julgam~=se desnecessários aparecem na árvore de sintaxe.
+que permite descartamos da árvore sintática \textit{tokens} que julgam~=se desnecessários aparecem na árvore sintática.
 \begin{figure}[H]
 \caption{Árvore do Programa ``token sem nome''}
 \label{Figure:ArvoresDosTokens1}
