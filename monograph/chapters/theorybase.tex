@@ -422,7 +422,8 @@ não à linguagem.
 Para Gramáticas Regulares Não~=Determinísticas,
 complexidade polinomial para construir as Árvores de Derivações e
 determinar se dada palavra pertence ou
-não a linguagem com algoritmos como CYK \cite{hopcroftBook,cykParsingAlgorithm}.
+não a linguagem,
+com algoritmos como CYK (veja a \fullref{classesDeComplexidade}).
 Por fim,
 para Autômatos Finitos Não~=Determinísticos ou
 Analisadores com Backtracking,
@@ -500,7 +501,7 @@ que tratam~=se somente de Máquinas de Turing \cite{sipserBook} com Fita (ou mem
 Gramáticas de Linguagens Sensíveis ao Contexto pela definição formal,
 são todas aquelas nas quais todas as Produções $P$ da gramática possuem a seguinte forma.
 Onde os símbolos $\vert\alpha\vert$ e
-$\vert\beta\vert$ significam o tamanho dos conjuntos $\alpha$ e
+$\vert\beta\vert$ significam a quantidade (contável) de elementos dentro de $\alpha$ e
 $\beta$,
 respectivamente:
 $$ P = \{\; \alpha ::= \beta \;|\; \alpha \in V^* V_n V^* \land \beta \in V^*
@@ -572,27 +573,27 @@ geração de código.
 É importante fazer a distinção entre Gramáticas Livre de Contexto e
 as Linguagens Livre de Contexto.
 \citeonline{parikh1966},
-provou que existem linguagens nas quais não existem Gramáticas Não~=Ambíguas que representem estas linguagens.
+provou que existem linguagens para as quais não existe Gramática Não~=Ambígua que as representem.
 Tais linguagens são conhecidas como Linguagens Inerentemente Ambíguas\footnote{
 Do inglês,
 \textit{Inherently Ambiguous Languages}.
 Veja o que significa ambiguidade na \fullref{analiseSemantica}.
 }
-onde não existem Gramáticas Livre de Contexto Determinísticas capazes de representa~=las e
+onde não existe Gramática Livre de Contexto Determinística capaz de representá~=las e
 tais Linguagens somente podem ser reconhecidas por Analisadores com Backtracking \cite{ahoCompilerDragonBook} ou
 Autômatos de Pilha Não~=Determinísticos.
 
 A maior classe de Gramáticas Determinísticas suportadas por Analisadores Sintáticos são as Gramáticas LR(K)\footnote{
-Do inglês, \textit{Left~=to~=right,
-Rightmost derivation} em reverso com K símbolos de \textit{lookahead}.
+Do inglês, \textit{Left~=to~=right, Rightmost derivation},
+em reverso com K símbolos de \textit{lookahead}.
 \textit{Rightmost} significa que ao realizar as derivações,
 escolhe~=se sempre o não~=terminal mais a direita.
 }.
 Analisadores LR(K) \cite{ahoCompilerDragonBook} são Ascendentes e
 reconhecem um subconjunto das Linguagens Livre de Contexto (\typeref{LinguagensDeterministicas}).
 Já os Analisadores LL(K)\footnote{
-Do inglês, \textit{Left-to-right,
-Leftmost derivation} com K símbolos de \textit{lookahead}.
+Do inglês, \textit{Left-to-right, Leftmost derivation},
+com K símbolos de \textit{lookahead}.
 \textit{Leftmost} significa que ao realizar as derivações,
 escolhe~=se sempre o não~=terminal mais a esquerda.
 }
@@ -606,7 +607,7 @@ A \typeref{LinguagensDeterministicas},
 não é inteiramente um Diagrama de Venn \cite{generalizedVennDiagrams},
 inicialmente,
 nas camadas mais externas,
-ele é uma relação abstrata entre Linguagens Ambíguas e
+ela apresenta uma relação abstrata entre Linguagens Ambíguas e
 Gramáticas Determinísticas.
 O Conjunto das Gramáticas Livre de Contexto Determinísticas está contido dentro das Linguagens Livre de Contexto\footnote{
 Também existem Gramáticas Sensíveis ao Contexto Determinísticas \cite{contextSensitiveParsing},
@@ -632,8 +633,7 @@ podem ser representadas por Gramáticas Ambíguas e\slash{}ou Determinísticas.
 No terceiro nível encontra~=se as gramáticas que são mais importantes,
 as Gramáticas Determinísticas\footnote{
 As Gramáticas Determinísticas representam o conjunto de Linguagens que podem ser Analisadas Deterministicamente e
-tais Linguagens também podem ser conhecidas como LR(K),
-LR(K).
+tais Linguagens também podem ser conhecidas como LR(K).
 Reveja os parágrafos após a \typeref{FigureHierarquiaDeChomsky}.
 },
 que podem ser classificadas como LR(K),
@@ -698,16 +698,16 @@ de entrada que será analisado \cite{knuthLrParser1965,linearLL1AndLR1Grammars,g
 No caso de conflitos na Tabela de Análise,
 a gramática não pode ser analisada deterministicamente e
 algoritmos de análise com backtracking\footnote{
-Ou algoritmos de tempo polinomial como CYK,
-reveja a \fullref{sectionHierarquiaDeChomsky}.
+Ou algoritmos de tempo polinomial como CYK (veja a \fullref{classesDeComplexidade}).
 }
 precisam ser utilizados para construção da Árvore Sintática.
-Como mostrado para Máquinas de Turing Não~=Determinísticas na \fullref{mecanismosReconhecedores},
+\advisor{}{Como mostrado para Máquinas de Turing Não~=Determinísticas na \fullref{mecanismosReconhecedores},
+}%
 Analisadores com Backtracking também funcionam em pior caso,
 com tempo exponencial e
-podem escolher uma estratégia como Busca em Profundidade\footnote{
+podem escolher uma estratégia como Busca em Profundidade\advisor{}{\footnote{
 Veja a \fullref{buscaEmLarguraEProfundidade} para saber mais.
-} para executar os Ramos de Computação Não~=Determinístico.
+}} \cite{cormenIntroductionToAlgorithms} para executar os Ramos de Computação Não~=Determinística.
 
 
 \subsection{Reduções e Derivações}
@@ -725,17 +725,16 @@ Uma Derivação acontece quando uma regra de produção como ``$S \Rightarrow a 
 tem~=se como resultado ``$a a$'' a partir do símbolo de origem ``$S$''.
 Já uma Redução acontece quanto a dada regra de produção como ``$S \Rightarrow a a $'' de uma gramática reduz e
 tem~=se como resultado ``$S$'' a partir do símbolo de origem ``$a a$''.
-
 Tanto Derivações quanto Reduções podem ser descritas em termos que quantos passos são necessários para que se possa sair de um ponto até outro:
 \begin{enumerate}%[nosep,nolistsep]
-    \item Quanto um derivação é denotada como ``$S \Rightarrow a a $'',
+    \item Quando uma derivação é denotada como ``$S \Rightarrow a a $'',
     isso significa que somente um passo é necessário para sair do símbolo inicial ``$S$'' e
     chegar no símbolo final ``$a a$'';
-    \item Quanto um derivação é denotada como ``$S \xRightarrow{*} a a $'',
+    \item Quando uma derivação é denotada como ``$S \xRightarrow{*} a a $'',
     isso significa que são necessários,
     desde zero (nenhum) até infinitos passos para sair do símbolo inicial ``$S$'' e
     chegar no símbolo final ``$a a$'';
-    \item Quanto um derivação é denotada como ``$S \xRightarrow{+} a a $'',
+    \item Quando uma derivação é denotada como ``$S \xRightarrow{+} a a $'',
     isso significa que são necessários,
     desde um passo até infinitos passos para sair do símbolo inicial ``$S$'' e
     chegar no símbolo final ``$a a$''.
@@ -749,10 +748,11 @@ ao invés de $\Rightarrow$,
 $\xRightarrow{*}$ e
 $\xRightarrow{+}$ \cite{ahoCompilerDragonBook}.
 Enquanto gramáticas são geradores de palavras que partem do símbolo inicial da gramática até gerarem uma palavra da linguagem,
-Analisadores Ascendentes como LR(K) são reconhecedores de palavras.
+Analisadores Ascendentes são reconhecedores de palavras,
+para uma dada gramática de entrada.
 
 Diferente de gramáticas,
-Analisadores Ascendentes partem de uma palavra da linguagem até chegarem no símbolo inicial da gramática,
+Analisadores Ascendentes como LR(K) partem de uma palavra da linguagem até chegarem no símbolo inicial da gramática,
 consumindo toda a palavra de entrada e
 chegando em um Estado de Aceitação.
 Já Analisadores Descendentes como LL(K),
@@ -765,19 +765,20 @@ terminam no final do processo,
 gerando toda a Árvore de Derivação.
 Entretanto,
 caso no final do processo,
-não chegue~=se em um Estado de Aceitação \cite{ahoCompilerDragonBook},
-tem~=se somente a construção de uma Árvore de Derivação partial.
+não se chegue em um Estado de Aceitação \cite{ahoCompilerDragonBook},
+tem~=se somente a construção de uma Árvore de Derivação parcial.
 No caso dos Analisadores Ascendentes,
 será uma floresta de árvores,
 porque somente no final da análise,
 com a chegada ao símbolo inicial da gramática,
-completa~=se custura de todas a árvores que foram parcialmente construídas durante o processo de análise (\textit{Bottom~=Up}).
-Já no caso dos Analisadores Descendentes,
+completa~=se a costura de todas a árvores que foram parcialmente construídas durante o processo de análise (\textit{Bottom~=Up}).
+
+No caso dos Analisadores Descendentes,
 não existe uma floresta de árvores.
 Como parte~=se diretamente do símbolo inicial da gramática,
-a Árvore de Derivação desde o começo é construído como sendo uma única árvore (\textit{Top~=Down}).
+a Árvore de Derivação desde o começo é construída como sendo uma única árvore (\textit{Top~=Down}).
 Em caso de erros na construção da Árvore Sintática,
-ela terminará somente com algumas nós folha faltando.
+ela terminará somente com alguns nós~=folha faltando.
 
 
 \subsection{Analisadores LR(K)}
@@ -801,10 +802,10 @@ No caso da Recursão a Esquerda,
 o algoritmo de criação da Tabela de Análise Sintática da Gramática LR(K),
 LALR(K) ou SLR(K),
 não possui o problema de entrar em um loop infinito assim como acontecem com as Gramáticas LL(K),
-portanto aceitando~=se Gramáticas com Recursão a Esquerda \cite{ahoCompilerDragonBook}.
+portanto aceitando Gramáticas com Recursão a Esquerda \cite{ahoCompilerDragonBook}.
 
 Analisadores LR(K) requerem grandes quantidades de memória,
-proporcional ao tamanho da gramáticas de entrada para operar \cite{complexityOfLRKTesting}.
+proporcional ao tamanho da gramática de entrada \cite{complexityOfLRKTesting}.
 Por isso,
 \citeonline{lalrDeRemer1982},
 criaram os Analisadores LALR(K)\footnote{
@@ -824,14 +825,14 @@ Assim,
 além da hierarquia de Chomsky,
 também classifica~=se as gramáticas de acordo com o tipo de analisador que reconhece as linguagens representadas por elas.
 Como mostrado na \typeref{LinguagensDeterministicas},
-nem todas as Gramáticas Livre de Contexto são de gramáticas Determinísticas e
+nem todas as Gramáticas Livre de Contexto são gramáticas Determinísticas e
 uma gramática é Determinística somente se ela pode ser reconhecida por um Analisador LR(K).
 
 Portanto,
 uma maneira fácil de decidir se uma dada gramática é determinística ou
 não,
 é tentar construir a sua Tabela de Análise para um Analisador LR(K).
-Caso consiga~=se construir com sucesso (sem conflitos) a Tabela de Análise Sintática \cite{ahoCompilerDragonBook},
+Caso se consiga construir com sucesso (sem conflitos) a Tabela de Análise Sintática \cite{ahoCompilerDragonBook},
 a gramática é LR(K),
 caso contrário a gramática não é determinística.
 A mesma técnica pode ser aplicada no caso de analisadores menos poderosos como LALR(K),
@@ -849,7 +850,7 @@ Como será apresentado mais a frente nesta seção:
 \begin{inparaenum}[1)]
 \item O processo de Análise Semântica pode acontecer ao mesmo tempo que a Análise Sintática;
 \item Por fim,
-a Árvore Sintática também pode nem ser gerada em um estrutura de dados,
+a Árvore Sintática também pode nem ser gerada em uma estrutura de dados específica,
 ocorrendo diretamente Análise Semântica seguido da Geração de Código.
 \end{inparaenum}%
 },
@@ -865,15 +866,14 @@ mais.
 
 O Analisador Sintático representado por uma Gramática Livre de Contexto não tem poder suficiente para realizar verificações de significado,
 devido as limitações desse tipo de gramática,
-que restringem~=se a estrutura do programa e
-não a seu significado (semântica).
+que se restringem a estrutura do programa e
+não ao seu significado (semântica).
 
 Nem todas as linguagens podem ser analisadas completamente em diferentes etapas,
 como Análise Léxica, Sintática e Semântica. Muitas vezes,
 estas três etapas acontecem em paralelo como realizado na implementação do compilador da Linguagem C \cite{jourdan2017,whyCcannotBeParsedWithALR1Parser}.
 A Gramática da Linguagem C não é Livre de Contexto Determinística devido as ambiguidades\footnote{
-Conhecido também como Não~=Determinismo,
-veja o \fullref{exemploDeAmbiguidadeLinguistica}.
+Conhecido também como Não~=Determinismo.
 }
 existentes como a expressão ``\textit{x * y ;}''.
 Tal sentença pode ser ou
@@ -882,6 +882,7 @@ ou a multiplicação de dois números armazenados nas variáveis \textit{x} e
 \textit{y},
 portanto ela não pode ser aceita por um Analisador LR(K) tradicional,
 pois sua gramática é ambígua.
+Veja o \fullref{exemploDeAmbiguidadeLinguistica}.
 
 \begin{quadro}[!htb]
 \caption{Exemplo de Ambiguidade Linguística}
@@ -909,20 +910,20 @@ reveja a \fullref{FigureHierarquiaDeChomsky}.
 }'' da linguagem tratando a ambiguidade relativa ao uso do símbolo asterisco ou
 estrela ``*'' como operador de multiplicação ou
 declaração de variável do tipo ponteiro.
-Assim consegue saber se a expressão ``\textit{x * y ;}'' trata~=se de de uma mera multiplicação ou
-a declaração de uma variável,
+Assim,
+consegue saber se a expressão ``\textit{x * y ;}'' se trata de uma mera multiplicação ou
+se é a declaração de uma variável,
 com a realização ``simultânea'' da Análise Léxica,
 Sintática e
 Semântica.
 
 Uma vez que um novo \textit{token} é reconhecido,
 ele é alimentado para o Analisador Sintático,
-que também o alimenta o Analisador Semântico,
+que também alimenta o Analisador Semântico,
 que alimenta a Tabela de Símbolos.
 Assim,
 o Analisador Sintático é capaz de consultar a Tabela de Símbolos \cite{ahoCompilerDragonBook} e
-descobrir se dado \textit{token} ou
-tratar~=se de um tipo ou
+descobrir se dado \textit{token} é um tipo ou
 uma variável numérica.
 
 \advisor{Requer~=se}{Entretanto,
@@ -942,27 +943,27 @@ deixando a gramática somente com aspectos determinísticos.
 \label{alteracoesNosAnalisadoresSintaticos}
 
 Dependendo de como o Analisador Sintático de Gramáticas Livre de Contexto é alterado,
-o conjunto de gramáticas aceitas por tal analisador pode deixar de serem Livres de Contexto.
+o conjunto de gramáticas aceitas por tal analisador pode deixar de ser Livre de Contexto.
 As gramáticas somente continuarão Livre de Contexto caso estas alterações sejam somente mover checagens da etapa de Análise Sintática para a etapa de Análise Semântica sem realizar alterações no Analisador Sintático.
 
-Quanto se adiciona suporte a Aspectos Sensíveis ao Contexto \cite{contextSensitiveParsing} a Gramáticas Livre de Contexto por meio de alterações do Analisador Sintático,
+Quando se adiciona suporte a Aspectos Sensíveis ao Contexto \cite{contextSensitiveParsing} à Gramáticas Livre de Contexto por meio de alterações do Analisador Sintático,
 como feito no Analisador da Linguagem C,
 o analisador da gramática deixa de ser Livre de Contexto,
 suportando assim,
 algumas Gramáticas Sensíveis ao Contexto e\slash{}ou também algumas Gramáticas Não~=Determinísticas.
 
 Note que,
-a pesar disso não impede~=se que a gramática da Linguagem C,
+apesar disso não impede~=se que a gramática da Linguagem C,
 como mostrado na seção anterior,
 seja analisada com eficiência.
-Mas isso deixa a brechas para que ela possa não ser analisada com eficiência.
+Mas isso deixa brechas para que ela possa não ser analisada com eficiência.
 A diferença para um analisador onde a gramática é inteiramente Livre de Contexto,
 é que elas tem performance \textit{garantida} pela sua Classe de Complexidade (Veja a \fullref{classesDeComplexidade}).
 
 Sintaxe e
 Semântica de Linguagens são completamente ortogonais.
 Gramáticas de Linguagens Irrestritas\footnote{
-Não a linguagem na qual elas representam,
+Não a linguagem que elas representam,
 mas a própria gramática em si \cite{finiteAutomataTuringComplete}.
 }
 podem ser Turing Completas\footnote{
@@ -989,21 +990,6 @@ enquanto Autômatos Finitos são um subconjunto das Máquinas de Turing \cite{fi
 }
 \cite{turingCompleteRegularLanguages,finiteAutomataTuringComplete}.
 
-No \fullref{software_implementation},
-será mostrado a implementação de uma Gramática ``Livre de Contexto'' em um Analisador LALR(1),
-onde Aspectos Sensíveis ao Contexto serão analisados pelo Analisador Semântico,
-tal como feito na implementação do Compilador da Linguagem C apresentado.
-Mas com a diferença de que utiliza~=se um Analisador LALR(1) genérico,
-ao contrário de um analisador feito exclusivamente para a linguagem alvo.
-
-Este Analisador LALR(1),
-possui suporte a pequenos ``\textit{\englishword{hacks}}'' ou
-otimizações que permitem adicionar alguns aspectos Sensíveis ao Contexto ao Analisador LALR(1).
-Assim,
-as gramáticas aceitas por esse analisador incluem somente algumas Gramáticas Não~=Determinísticas,
-não incluindo todas as Gramáticas Livre de Contexto Ambíguas ou
-Sensíveis ao Contexto devido a limitações das alterações do algoritmo de Análise LALR(1) \cite{larkContextualLexer}.
-
 
 \section{\advisor{Compiladores e }{}Classes de Complexidade}
 \label{classesDeComplexidade}
@@ -1013,7 +999,7 @@ o conjunto de Linguagens Regulares pode ser considerado com complexidade linear\
 Complexidade linear é um caso particular de complexidade polinomial onde o grau do Polinômio é 1,
 i.e.,
 $\Theta(n)$.
-Aprenda mais sobre complexidade linear com \citeonline{cormenIntroductionToAlgorithms,computationalComplexityAuroraBarak}.
+Aprenda mais sobre classes de complexidade com \citeonline{cormenIntroductionToAlgorithms,computationalComplexityAuroraBarak}.
 }
 em tempo computacional para determinar de dada palavra pertence ou
 não a linguagem,
@@ -1026,10 +1012,23 @@ uma não pode ser convertida em outra.
 Gramáticas Não~=Determinísticas possuem complexidade exponential,
 quando analisadas por um Analisador com Backtracking.
 Em contra~=partida,
-Gramáticas Livre de Contexto Não~=Determinísticas também podem ser analisadas em tempo polinomial,
-por exemplo,
-com complexidade de tempo $\Theta(n^3)$ ao utilizar o algoritmo de parsing CYK (\citeonline{larkContextualLexer} e
-\fullref{sectionHierarquiaDeChomsky}).
+qualquer Gramática Livre de Contexto também pode ser analisada em tempo polinomial com algoritmos de análise como CYK ou
+Earley \cite{larkContextualLexer}.
+
+O algoritmo de análise CYK \cite{hopcroftBook,larkContextualLexer},
+possui complexidade de tempo $\Theta(n^3 \cdot \vert{G}\vert)$,
+onde $n$ é o tamanho do programa de entrada e
+$G$ é o tamanho da gramática de entrada na Forma Normal de Chomsky \cite{hopcroftBook}.
+Em tempo $\Theta(n^3)$ o algoritmo CYK constrói a tabela de análise que diz se dada palavra pertence ou
+não a linguagem.
+
+\citeonline{JayEarley},
+publicou um artigo com a especificação do algoritmo de análise Earley:
+\begin{inparaenum}[1)]
+\item Capaz de analisar qualquer Gramática Livre de Contexto ambígua em tempo $\Theta(n^3)$;
+\item Capaz de analisar qualquer Gramática Livre de Contexto não~=ambígua em tempo $\Theta(n^2)$ e;
+\item Capaz de analisar qualquer Gramática Livre de Contexto LR(K) em tempo $\Theta(n^1)$.
+\end{inparaenum}
 
 
 \advisor{}{%
@@ -1075,7 +1074,7 @@ com complexidade de tempo $\Theta(n^3)$ ao utilizar o algoritmo de parsing CYK (
 }
 
 
-\subsection{Complexidade Teórica $versus$ Real}
+\advisor{}{\subsection{Complexidade Teórica $versus$ Real}}
 
 Na \typeref{ParserNonDeterministic},
 encontra~=se uma Árvore de Computação de um Analisador Não~=Determinístico.
@@ -1090,10 +1089,10 @@ ao tamanho da entrada,
 porque um Analisador Não~=Determinístico executa simultaneamente todos os ramos de Computação Não~=Determinísticos \cite{hopcroftBook}.
 
 Como mostrado na \typeref{ParserNonDeterministic},
-após a cada um dos passo de computação 1,
+após cada um dos passos de computação 1,
 2, 3 e 4,
 todos os 15 ramos de computação foram concluídos.
-Cada um desses passos é corresponde a um item a ser analisado na entrada do programa.
+Cada um desses passos corresponde a um item a ser analisado na entrada do programa.
 E esta computação,
 acontece em tempo Não~=Determinístico Polinomial,
 com expoente de $n$ igual a $1$,
@@ -1117,18 +1116,21 @@ i.e.,
 mais de um Ramo de Computação,
 devido a ambiguidades da gramática de entrada \cite{detectingAmbiguityInGrammars,antlrBookTerrentParr}.
 
-Nesse contexto,
-$P$ representa o conjunto de problemas resolvidos tempo Determinístico Polinomial (por Máquinas de Turing Determinísticas),
-enquanto $NP$ o conjunto de Problemas resolvido em tempo Não~=Determinístico Polinomial (por Máquinas de Turing Não~=Determinísticas).
+\advisor{}{Nesse contexto,
+$P$ representa o conjunto de problemas resolvidos em tempo Determinístico Polinomial (por Máquinas de Turing Determinísticas),
+enquanto $NP$,
+o conjunto de Problemas resolvidos em tempo Não~=Determinístico Polinomial (por Máquinas de Turing Não~=Determinísticas).
 Assim,
-um problema Não~=Determinístico Polinomial somente pode ser resolvido por uma Máquinas de Turing Determinística em tempo exponencial.
+um problema Não~=Determinístico Polinomial,
+somente pode ser resolvido por uma Máquina de Turing Determinística em tempo exponencial.
 Veja as \typeref{ParserNonDeterministic,ParserDeterministic} e
 as compare.
+}
 
 O tempo de execução será linear ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Regular e
 implementado através de um Autômato Finito.
 O tempo de execução será polinomial ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Livre de Contexto Ambígua (Gramática Não~=Determinística) e
-implementado através de algum algoritmo com tempo polinomial como CYK (\fullref{sectionHierarquiaDeChomsky}).
+implementado através de algum algoritmo com tempo polinomial como CYK (\fullref{classesDeComplexidade}).
 
 Como já explicado nas observações da \typeref{FigureHierarquiaDeChomsky},
 existem duas classes distintas de complexidade para Gramáticas Livre de Contexto Não~=Determinísticas.
@@ -1136,21 +1138,24 @@ Quando faz~=se uma Análise de uma Gramáticas Livre de Contexto Não~=Determin�
 tem~=se como resultado várias possíveis Árvores de Derivação\footnote{
 Como a gramática é Não~=Determinística,
 existem muitas possíveis Árvores de Derivação,
-(devido à ambiguidades da gramática).
+(devido à ambiguidade da gramática).
 }.
 
 
-\subsection{Mecanismos Reconhecedores}
+\advisor{}{\subsection{Mecanismos Reconhecedores}
 \label{mecanismosReconhecedores}
+}
 
-Uma vez que o conjunto de Linguagens Determinísticas LR(K) (com tempo linear) está contida no conjunto das Linguagens Livres de Contexto,
-não considera~=se tempos Análise Lineares ou
+\advisor{}{Uma vez que o conjunto de Gramáticas Determinísticas LR(K) (com tempo linear) está contido no conjunto das Gramáticas Livres de Contexto,
+não se considera tempos Análise Lineares ou
 Polinomiais de execução para Linguagens Sensíveis ao Contexto ou
 Irrestritas,
-porque tudo o que é eficiente é Livre de Contexto e
-Determinístico e
+porque tudo o que possui eficiência garantida pela sua classe de complexidade são as Gramáticas Regulares e
+Livre de Contexto Determinísticas.
+Pelo outro lado,
 Gramáticas Sensíveis ao Contexto terão em pior caso,
 complexidade exponential \cite{growingContextSensitiveLanguages}.
+}
 
 Máquinas de Turing Não~=Determinísticas que resolvem os problemas da Classe $NP$ em tempo Não~=Determinístico Polinomial não existem fisicamente,
 portanto sua complexidade de tempo reduzida não pode ser alcançada e
@@ -1165,7 +1170,6 @@ Máquinas de Turing Determinísticas e
 Não~=Determinísticas são equivalentes,
 pois sempre é possível simular o funcionamento de uma Máquina de Turing Não~=Determinística,
 utilizando uma Máquina de Turing Determinística \cite{hopcroftBook}.
-
 Na \typeref{ParserDeterministic},
 encontra~=se a mesma Árvore de Computação apresentada na \typeref{ParserNonDeterministic},
 mas com a diferença de que desta vez utiliza~=se uma Máquina de Turing Determinística ao contrário de uma Máquina de Turing Não~=Determinística.
@@ -1181,7 +1185,7 @@ tem~=se um tempo exponential ao tamanho da entrada.
 \end{figure}
 
 Para que uma Máquina de Turing Determinística possa processar uma Gramática Não~=Determinística,
-é necessário execute cada um dos ramos de computação.
+é necessário que execute cada um dos ramos de computação.
 Já Máquinas de Turing Não~=Determinísticas\footnote{
 Máquinas de Turing da classe $NP$,
 somente existem teoricamente,
@@ -1193,50 +1197,60 @@ conseguindo assim, desempenho linear ou
 polinomial ao tamanho da entrada compondo os problemas da classe $NP$ (com tempo Não~=Determinístico Polinomial) \cite{hopcroftBook}.
 
 
-\subsection{Busca em Largura e Profundidade}
-\label{buscaEmLarguraEProfundidade}
+\advisor{}{
+    \subsection{Busca em Largura e Profundidade}
+    \label{buscaEmLarguraEProfundidade}
 
-Quando uma Máquina de Turing Determinística é utilizado para simular o funcionamento de uma Máquina de Turing Não~=Determinística,
-ela precisa decidir como escolher executar os Ramos de Computação Não~=Determinísticos \cite{sipserBook}.
-Duas principais abordagens distintas e
-conhecidas\footnote{
-Além dessas duas abordagens,
-existem muitas outras técnicas que podem ser cridas como misturas dessas duas estratégias extremas,
-como heurísticas e inteligências artificias.
+    Quando uma Máquina de Turing Determinística é utilizada para simular o funcionamento de uma Máquina de Turing Não~=Determinística,
+    ela precisa decidir como escolher executar os Ramos de Computação Não~=Determinísticos \cite{sipserBook}.
+    Duas principais abordagens distintas e
+    conhecidas\footnote{
+    Além dessas duas abordagens,
+    existem muitas outras técnicas que podem ser cridas como misturas dessas duas estratégias extremas,
+    como heurísticas e inteligências artificias.
+    }
+    são a Busca em Largura\footnote{
+    Do inglês, \textit{Breadth-First Search (BFS)}.
+    }
+    e Busca em Profundidade\footnote{
+    Do inglês, \textit{Depth-First Search (DFS)}.
+    }.
+    \advisor{}{Os algoritmos funcionamento desses algoritmos de busca podem ser encontrados em \citeonline{cormenIntroductionToAlgorithms}.}
+
+    Cada uma delas apresenta vantagens e
+    desvantagens.
+    Uma vantagem da Busca em Profundidade é possibilidade de ``sorte'',
+    caso o primeiro ramo não~=determinístico escolhido seja uma solução para o problema.
+    Em outros tipos de problema que utilizam a Busca em Profundidade,
+    pode~=se também ao contrário de ``sorte'',
+    ter o ``azar'' de que o primeiro ramo de computações seja infinito e
+    que nunca levarão a solução do problema.
+    \begin{figure}[!htb]
+    \caption{Árvore de Computação com 15 Passos\protect\footnotemark{} utilizando Busca em Largura}
+    \label{ParserDeterministicBreadth}
+    \centering
+    \includegraphics[width=1.0\textwidth]{ParserDeterministicBreadth.png}
+    \fonte{Própria}
+    \end{figure}
+    \footnotetext{Não~=Determinísticos.}
+
+    A \typeref{ParserDeterministic},
+    mostrou um exemplo de uso do algoritmo de Busca em Profundidade.
+    Já na \typeref{ParserDeterministicBreadth},
+    encontra~=se a variação de execução de um Analisador Determinístico que utilizou o algoritmo de Busca em Largura.
+    Tanto o algoritmo de Busca em Largura quanto Busca em Profundidade,
+    não precisam exatamente seguir resolvendo o problema pela esquerda ou
+    direita.
+    O que importa é a sua característica de avançar até o fim de algum dado ramo de computação,
+    ou seguir executando todos os ramos que fazem parte de um mesmo nível de computação \cite{cormenIntroductionToAlgorithms,efficientBreadthFirstSearch}.
 }
-são a Busca em Largura\footnote{
-Do inglês, \textit{Breadth-First Search (BFS)}.
-}
-e Busca em Profundidade\footnote{
-Do inglês, \textit{Depth-First Search (DFS)}.
-}.
-Os algoritmos funcionamento desses tipos de busca são detalhadas em \citeonline{cormenIntroductionToAlgorithms}.
 
-Cada uma delas apresenta suas vantagens e
-desvantagens.
-Uma vantagem da Busca em Profundidade é possibilidade de ``sorte'',
-caso o primeiro ramo não~=determinístico que escolhe~=se seja uma solução para o problema,
-i.e.,
-leve o analisador a um estado de aceitação,
-mas ao mesmo tempo de pode~=se ter ``sorte'',
-pode~=se ter o ``azar'' de que o primeiro ramo não~=determinístico seja um ramo infinito de computações que nunca levarão o analisador à um estado de aceitação.
-
-A \typeref{ParserDeterministic},
-mostrou um exemplo de uso do algoritmo de Busca em Profundidade.
-Já na \typeref{ParserDeterministicBreadth},
-encontra~=se a variação de execução de um Analisador Determinístico que utilizou o algoritmo de Busca em Largura.
-\begin{figure}[!htb]
-\caption{Árvore de Computação com 15 Passos\protect\footnotemark{} utilizando Busca em Largura}
-\label{ParserDeterministicBreadth}
-\centering
-\includegraphics[width=1.0\textwidth]{ParserDeterministicBreadth.png}
-\fonte{Própria}
-\end{figure}
-\footnotetext{Não~=Determinísticos.}
-
-Tanto o algoritmo de Busca em Largura quanto Busca em Profundidade,
-não precisam exatamente seguir resolvendo o problema pela esquerda ou
-direita.
-O que importa é a sua característica de avançar até o fim de algum dado ramo de computação,
-ou seguir executando todos os ramos que fazem parte de um mesmo nível de computação \cite{cormenIntroductionToAlgorithms,efficientBreadthFirstSearch}.
-
+Neste capítulo,
+foi apresentado um pouco sobre a Teoria da Computação e
+Linguagens Formais.
+Tal conteúdo,
+é ligado fortemente com matemática e
+provas formais.
+Diferente do conteúdo do próximo,
+que está mais ligado com às últimas mudanças do estado da arte para editores de texto e
+ferramentas de auxílio ao desenvolvimento de software.
