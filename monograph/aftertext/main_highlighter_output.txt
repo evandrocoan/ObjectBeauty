@@ -1,0 +1,66 @@
+$ python3 main_highlighter.py
+Syntax Tree
+language_syntax
+  preamble_statements
+    master_scope_name_statement
+      free_input_string
+        text_chunk_end  [@1,7:16='source.sma'<TEXT_CHUNK_END_>,1:8]
+    target_language_name_statement
+      free_input_string
+        text_chunk_end  [@2,24:48='Abstract Machine Language'<TEXT_CHUNK_END_>,2:7]
+  language_construct_rules
+    indentation_block
+      enter_block       [@3,60:60='{'<OPEN_BRACE>,3:11]
+      statements_list
+        match_statement
+          braced_free_input_string
+            braced_text_chunk_end       [@4,73:74='//'<BRACED_TEXT_CHUNK_END_>,4:12]
+          statements_list
+            scope_name_statement
+              free_input_string
+                text_chunk_end  [@5,93:109='comment.start.sma'<TEXT_CHUNK_END_>,5:16]
+          statements_list
+            push_statement
+              indentation_block
+                enter_block     [@6,125:125='{'<OPEN_BRACE>,6:15]
+                statements_list
+                  meta_scope_statement
+                    free_input_string
+                      text_chunk_end    [@7,151:166='comment.line.sma'<TEXT_CHUNK_END_>,7:25]
+                statements_list
+                  match_statement
+                    braced_free_input_string
+                      braced_text_chunk_end     [@8,187:191='\\n|\\$'<BRACED_TEXT_CHUNK_END_>,8:20]
+                    statements_list
+                      pop_statement
+                        free_input_string
+                          text_chunk_end        [@9,216:219='true'<TEXT_CHUNK_END_>,9:22]
+                leave_block     [@10,243:243='}'<CLOSE_BRACE>,11:9]
+      leave_block       [@11,251:251='}'<CLOSE_BRACE>,13:1]
+
+Abstract Syntax Tree
+language_syntax
+  preamble_statements
+    master_scope_name_statement InputString str: , is_out_of_scope: [], chunks: [source.sma], definitions: {}, errors: [], indentations: [<indent 2, open 125, close 243>, <indent 1, open 60, close 251>], is_resolved: False;
+    target_language_name_statement      InputString str: , is_out_of_scope: [], chunks: [Abstract Machine Language], definitions: {}, errors: [], indentations: [<indent 2, open 125, close 243>, <indent 1, open 60, close 251>], is_resolved: False;
+  language_construct_rules
+    indentation_block
+      statements_list
+        match_statement
+          InputString str: //, is_out_of_scope: [], chunks: [//], definitions: {}, errors: [], indentations: [<indent 2, open 125, close 243>, <indent 1, open 60, close 251>], is_resolved: True;
+          statements_list
+            scope_name_statement        InputString str: , is_out_of_scope: [], chunks: [comment.start.sma], definitions: {}, errors: [], indentations: [<indent 2, open 125, close 243>, <indent 1, open 60, close 251>], is_resolved: False;
+          statements_list
+            push_statement
+              indentation_block
+                statements_list
+                  meta_scope_statement  InputString str: , is_out_of_scope: [], chunks: [comment.line.sma], definitions: {}, errors: [], indentations: [<indent 2, open 125, close 243>, <indent 1, open 60, close 251>], is_resolved: False;
+                statements_list
+                  match_statement
+                    InputString str: \n|$, is_out_of_scope: [], chunks: [\n|\$], definitions: {}, errors: [], indentations: [<indent 2, open 125, close 243>, <indent 1, open 60, close 251>], is_resolved: True;
+                    statements_list
+                      pop_statement     InputString str: , is_out_of_scope: [], chunks: [true], definitions: {}, errors: [], indentations: [<indent 2, open 125, close 243>, <indent 1, open 60, close 251>], is_resolved: False;
+
+Generating 'main_highlighter.html'...
+Generating 'main_highlighter_syntax_tree.png'...
+Generating 'main_highlighter_abstract_syntax_tree.png'...
