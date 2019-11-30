@@ -45,17 +45,17 @@
         the desired settings.
 \end{enumerate}
 }{%
-    Como esta ferramenta difere das demais já existentes?
-    A diferença desta proposta de ferramenta de formatação de código~=fonte para as demais é a troca de responsabilidades entre usuários finais da ferramenta e
-    os desenvolvedores desta ferramenta e
-    das gramáticas para estes usuários.
-    Formatadores de código~=fonte usualmente expõem as mudanças que podem ocorrer ao formatar o código~=fonte sem permitir a quebra das regras sintáticas ou
-    semânticas da linguagem sendo formatada.
+    Neste trabalho foi proposta uma implementação de um algoritmo que trabalha diretamente com a Árvore Sintática da gramática do programa de entrada (\fullref{software_implementation}).
+    Apesar de simples,
+    esta implementação é o primeiro passo para criação de novos formatadores de código~=fonte.
+    Servindo de base para criação de novos algoritmos voltados a utilizar Árvore de Sintática da gramática da linguagem,
+    ao contrário da Árvore Sintática do programa de entrada.
 
-    A maior parte das ferramentas raramente permite que usuários finais tenham o controle total das alterações no código~=fonte.
-    \advisor{Utilizando}{Enquanto utilizando} a ferramenta desenvolvida neste trabalho,
+    A maior parte das ferramentas de formatação de código~=fonte raramente permite que usuários finais tenham o controle total das alterações no código~=fonte.
+    Em um primeiro momento,
+    utilizando a proposta desenvolvida neste trabalho,
     é possível escrever regras de formatação que quebrem a sintaxe e
-    semântica da linguagem sendo formatada.
+    semântica da linguagem que está sendo formatada.
     Por exemplo,
     na linguagem ``Go'' \cite{programmingLanguageGolang},
     diferentemente de todas as demais linguagens,
@@ -66,36 +66,43 @@
 
     Utilizando~=se as ferramentas usuais de formatação,
     fica impedido que configurações do usuário cause erros sintáticos ou
-    semânticos código~=fonte da linguagem sendo formatada,
+    semânticos código~=fonte da linguagem que está sendo formatada,
     a não ser em casos de \textit{bugs} na ferramenta.
-    As ferramentas em geral tentam reconstruir toda a árvore sintática da linguagem a ser formatada.
+    As ferramentas de formatação de código~=fonte em geral,
+    tentam reconstruir toda a Árvore Sintática do programa de entrada a ser formatado.
     Neste trabalho,
-    o usuário final pode escolher simplesmente especificar a gramática da linguagem com o mínimo necessário para atingir somente as suas necessidades.
-    Mas ao mesmo tempo,
-    ele também pode realizar a especificação completa de toda a sintaxe da sua linguagem.
+    é realizada a construção da Árvore de Sintática da gramática do programa ser formatado,
+    e não a Árvore Sintática do programa que está sendo formatado.
+    Com essa mudança,
+    cresce a necessidade da criação de toda uma nova gama de algoritmos de formatação,
+    que possam trabalhar com a Árvore Sintática da gramática dos programa que está sendo formatado,
+    ao contrário de trabalhar diretamente com a Árvore Sintática do programa que está sendo formatado.
 
-    Mesmo com a especificação completa da sintaxe da linguagem,
-    ainda não será o suficiente para impedir quebras nos códigos~=fonte sendo formatado,
-    pois a sintaxe da linguagem não cobre os seus aspectos semânticos.
-    Neste caso,
-    o usuário final precisará conhecer quais são as regras semânticas da linguagem na qual ele está realizando a formatação,
-    e configurar o formatador de código~=fonte de modo que ele não quebre nenhuma das regras semânticas da linguagem,
-    como pode acontecer no caso da linguagem ``Golang'',
-    recém~=apresentado.
+    A primeira vantagem de se trabalhar com a Árvore Sintática da gramática do programa que está sendo formatado,
+    ao contrário da Árvore Sintática do programa que está sendo formatado,
+    é a liberdade do usuário final poder escolher especificar exatamente quais são as partes da sintaxe do programa a ser formatado.
+    Com isso,
+    é possível especificar exatamente quais estruturas do programa devem ser formatados (e quais não),
+    além de permitir que facilmente sejam adicionado suporte a novas linguagens de programação recém criadas,
+    reutilizando estruturas de sintaxe comuns a linguagens já existentes.
+
+    Em um modelo de trabalho onde se faz a formatação do código~=fonte diretamente com a Árvore Sintática do programa de entrada,
+    é possível realizar verificações da semântica do programa que está sendo formatado com maior facilmente,
+    pelo acesso direto a Árvore Sintática do programa de entrada,
+    (base para Análise Semântica (\fullref{analiseSemantica})).
+    Por isso,
+    os algoritmos de formatação de código~=fonte desenvolvidos para este trabalho também irão precisar considerar os aspectos semânticos.
+    Entretanto,
+    estes algoritmos terão uma dificuldade adicional.
+    Enquanto os algoritmos de Análise Semântica trabalham com base na Árvore Sintática do programa de entrada,
+    os algoritmos de Análise Semântica deste trabalho precisam trabalhar com base na Árvore Sintática da gramática do programa de entrada.
+    O que levará a necessidade da criação de novos algoritmos de Análise Semântica capazes de trabalhar com a Árvore Sintática da gramática do programa de entrada.
 }
-
-Em \citeonline{objectBeautifierFutureWorks},
-pode ser encontrada a concepção inicial de implementação da ferramenta de formatação de código~=fonte deste trabalho.
-Uma vez que este trabalho for publicado,
-seu código~=fonte estará disponível.
-Então,
-seguindo as referências de \citeonline{objectBeautifierFutureWorks},
-será possível encontrar uma especificação mais completa sobre a implementação de formatadores de código~=fonte com os requerimentos deste trabalho.
 
 
 \section{\lang{Future Works}{Trabalhos Futuros}}
 
-O autor desse trabalho sugere alguns trabalhos futuros \citeonline{objectBeautifierFutureWorks}.
+O autor desse trabalho sugere alguns trabalhos futuros em \citeonline{objectBeautifierFutureWorks}.
 Antes que novos formatadores de código~=fonte sejam implementados,
 estes pontos precisam ser revistos.
 Ao realizar estas mudanças,
@@ -106,7 +113,6 @@ sobre a metalinguagem e
 gerador de formatadores criados,
 sugerem~=se as seguintes alterações:
 \begin{enumerate}
-\item Adicionar quaisquer regras semânticas da metalinguagem que não foram adicionadas no analisador semântico;
 \item Reduzir o uso de memória e
 otimizar a performance em tempo de execução,
 uma vez que os algoritmos e
@@ -126,7 +132,9 @@ facilitar a escrita das gramáticas,
 removendo a necessidade de chaves de abertura ``\{'' e
 fechamento ``\}'' de blocos (alterando a metagramática),
 fazendo a separação de blocos ser feita de acordo com a indentação como em linguagens como Python e
-YAML.
+YAML;
+\item Realizar a criação de uma nova estrutura de dados para representar o programa de entrada e
+avaliar se esta nova estrutura de dados é capaz de substituir utilização do caractere ``§'' em conjunto com a classe padrão de \textit{string} da linguagem Python (aumentado a eficiência dos algoritmos de análise do programa de entrada a ser formatado).
 \end{enumerate}%
 
 A atual estrutura de composição dos formatadores de código~=fonte não suporta que diversos formatadores realizem a formatação simultaneamente.
@@ -139,10 +147,10 @@ o escopo dele.
 Com essas informações ele poderia em tese,
 chamar diferentes formatadores mais especializados de acordo com o seu parâmetro escopo.
 
-Em relação aos formatadores gerados pelo gerador de formatadores,
+\advisor{}{Em relação aos formatadores gerados pelo gerador de formatadores,
 eles precisaram ser completamente reescritos,
 uma vez que as melhorias feitas no gerador de formatadores e
 metalinguagem linguagem forem concluídas.
 A implementação atual dos formatadores pode ser considerada nula,
 uma vez que toda sua lógica de funcionamento é construída como um simples iteração descendente pela Árvore Sintática Abstrata gerada pelo Analisador Semântico.
-
+}

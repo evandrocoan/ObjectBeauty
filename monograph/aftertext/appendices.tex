@@ -5,13 +5,12 @@
 \chapter[Manual do Formatador]{Manual do Formatador de Código}
 \label{manualDoFormatadorDeCodigo}
 
-
 Esse apêndice apresenta um manual da ferramenta.
 Não recomenda~=se que usuários que não possuam conhecimentos sobre a semântica das linguagens de programação\advisor{}{,
 } utilizem esta ferramenta para realizar a formatação de código~=fonte.
 Neste caso,
-o mais indicado é que seja utilizado as demais ferramentas de formatação,
-que são mais especificas para cada linguagem individualmente e
+o mais indicado é que sejam utilizados as demais ferramentas de formatação,
+que hoje são mais especificas para cada linguagem individualmente e
 possuem inerentemente os conhecimentos específicos da sintaxe e
 semântica da linguagem a ser formatada.
 
@@ -27,26 +26,28 @@ Nos \typeref{MainFormatterPy,MainHighlighterPy,utilitiesPy},
 encontra~=se um exemplo simples de programa que pode ser construído para executar o Formatador de Código e
 a Adição de Cores.
 Sua construção é a mesma utilizada para a criação dos testes de unidade (\typeref{unitTestsPy}).
-Tanto o \typeref{MainFormatterPy} quanto o \typeref{MainHighlighterPy} geram como resultado um arquivo HTML,
+Tanto o \typeref{MainFormatterPy} quanto o \typeref{MainHighlighterPy} geram como resultado arquivos HTML,
 contendo como conteúdo o resultado de seu trabalho,
 i.e., respectivamente,
 o código~=fonte formatado ou
 com a adição de cores.
 
 Nos \typeref{MainFormatterPyResult,MainHighlighterPyResult},
-serão encontrados como nós folha das árvores,
+serão encontrados como nós~=folha das árvores,
 os \textit{tokens} criados pelo analisador léxico.
-Eles seguem o mesmo padrão de notação do que os \textit{tokens} utilizados pelo Analisador ANTLR \cite{antlrBookTerrentParr}.
+Eles seguem o mesmo padrão de notação dos \textit{tokens} utilizados pelo Analisador ANTLR \cite{antlrBookTerrentParr}.
 A implementação da exibição dos \textit{tokens} no formato do analisador ANTLR 4 foi uma das implementações feitas no \textit{fork} ``pushdown'' do Analisador Lark (Veja a \fullref{GrammarsGrammar}).
 
-Um \textit{token} como ``\mintinline{shell}{[@7,151:166='comment.line.sma'<TEXT_CHUNK_END_>,7:25]}'' segue o modelo de representação do ANTLR 4 \cite{antlrBookTerrentParr} e
+Um \textit{token} como ``\mintinline{text}{[@7,151:166='comment.line.sma'<TEXT_CHUNK_END_>,7:25]}'' segue o modelo de representação do ANTLR 4 \cite{antlrBookTerrentParr} e
 contém as seguintes informações:
 \begin{inparaenum}[1)]
-\item ``\mintinline{shell}{@7}'' significa que ele é o sétimo \textit{token};
-\item ``\mintinline{text}{151:166}'' é a posição caracteres do \textit{token} no programa de entrada;
-\item ``\mintinline{shell}{='comment.line.sma'}'' é o lexema (Veja a \fullref{compiladoresEtradutores}) ou
+\item ``\mintinline{text}{@7}'' significa que ele é o sétimo \textit{token};
+\item ``\mintinline{text}{151:166}'' é o início e
+fim do lexema do \textit{token} no programa de entrada,
+contado apartir de 0 até o fim do programa;
+\item ``\mintinline{text}{='comment.line.sma'}'' é o lexema (Veja a \fullref{compiladoresEtradutores}) ou
 conteúdo do \textit{token} propriamente dito;
-\item ``\mintinline{shell}{<TEXT_CHUNK_END_>}'' é o nome do \textit{token} atribuído pela gramática de entrada,
+\item ``\mintinline{text}{<TEXT_CHUNK_END_>}'' é o nome do \textit{token} atribuído pela gramática de entrada,
 por fim;
 \item ``\mintinline{text}{7:25}'' é a linha e
 coluna do \textit{token} no programa de entrada.
@@ -66,14 +67,32 @@ Por exemplo,
 o caractere ``<'' em HTML é escrito como ``\&lt;''.
 
 Não foi escolhido procurar uma outra biblioteca para fazer a criação de páginas HTML,
-porque é não é fácil encontrar bibliotecas que façam somente a geração de páginas HTML.
-Em geral,
-as bibliotecas que geram páginas HTML são também servidores HTML ou
+porque ao pesquisar por bibliotecas que tinham somente esta função,
+não foi encontrado nenhuma similar.
+Para realizar a pesquisa,
+por uma nova biblioteca de geração de HTML,
+foram utilizados os seguintes critérios:
+\begin{inparaenum}[1)]
+\item Ser um biblioteca de código aberto (\textit{open~=source});
+\item Ser ativa,
+i.e.,
+possuir novos recursos (\textit{features}) ou
+\textit{bugs} sendo reportados e
+corrigidos no último ano.
+\end{inparaenum}
+
+Somente foram encontrados bibliotecas com \citeonline{flaskPython} conseguem gerar páginas HTML,
+mas que também são servidores HTML ou
 Web,
-que vão além das necessidades deste projeto.
+que vão muito além das necessidades deste projeto.
 Portando,
 optou~=se por fazer todo o código necessário para geração de páginas HTML.
-Dispensando a possibilidade de escolher~=se novamente uma outra ferramenta com mais \textit{bugs}.
+Dispensando a necessidade de escolher outra ferramenta.
+Não existe a necessidade explicita de utilizar um biblioteca HTML para gerar páginas HTML.
+Pode~=se tranquilamente escrever o código HTML necessário para as necessidades deste projeto,
+sem o uso de um biblioteca HTML.
+A vantagem de utilizar uma biblioteca HTML é uma melhor legibilidade do código escrito em Python,
+que será mais parecido com o código HTML \cite{webDevelopmentWithDjango}.
 
 Para se realizar a execução de qualquer arquivo deste projeto,
 é necessário ter um interpretador ``Python 3.6'' instalado,
@@ -130,11 +149,11 @@ No \typeref{MainFormatterPyResult},
 encontra~=se a saída da linha de comando que se obtém ao realizar a execução do programa de exemplo (\typeref{MainFormatterPy}).
 Ambas as figuras \typeref{MainFormatterSyntaxTree,MainFormatterAbstractSyntaxTree} quanto o \typeref{MainFormatterPyResult} representam os mesmos dados,
 mas mostrados de formas diferentes (figura \textit{versus} textual) e
-com níveis de detalhes diferentes.
+com níveis de detalhe diferentes.
 No \typeref{MainFormatterPyResult},
-são mostrado os nós folhas das árvores com maior nível de detalhes.
+são mostrado os nós~=folhas das árvores com maior nível de detalhe.
 Já nas \typeref{MainFormatterSyntaxTree,MainFormatterAbstractSyntaxTree},
-os nós folhas são mostrados com simplificações para que a figura possa vista em uma única tela.
+os nós~=folhas são mostrados com simplificações para que a figura possa ser vista em uma única tela.
 \begin{code}
 \caption{Arquivo HTML gerado pelo programa de exemplo ``main\_formatter.py''}
 \label{MainFormatterHtml}
@@ -175,7 +194,7 @@ Duas árvores em forma de figura,
 duas árvores em forma de texto e
 uma arquivo HTML.
 No \typeref{MainHighlighterHtml},
-encontra~=se o arquivo HTML gerado pelo programa de exemplo (\typeref{MainHighlighterPy}).
+encontra~=se o arquivo HTML gerado pelo programa exemplo (\typeref{MainHighlighterPy}).
 
 Nas \typeref{MainHighlighterSyntaxTree,MainHighlighterAbstractSyntaxTree},
 encontram~=se as imagens geradas pelo programa ``main\_highlighter.py'' (\typeref{MainHighlighterPy}).
@@ -183,11 +202,10 @@ No \typeref{MainHighlighterPyResult},
 encontra~=se a saída da linha de comando que se obtém ao realizar a execução do programa de exemplo (\typeref{MainHighlighterPy}).
 Ambas as figuras \typeref{MainHighlighterSyntaxTree,MainHighlighterAbstractSyntaxTree} quanto o \typeref{MainHighlighterPyResult} representam os mesmos dados,
 mas mostrados de formas diferentes (figura \textit{versus} textual) e
-com níveis de detalhes diferentes.
-No \typeref{MainHighlighterPyResult},
-são mostrado os nós folhas das árvores com maior nível de detalhes.
+com níveis de detalhe diferentes.
+No \typeref{MainHighlighterPyResult} são mostrado os nós~=folhas das árvores com maior nível de detalhe.
 Já nas \typeref{MainHighlighterSyntaxTree,MainHighlighterAbstractSyntaxTree},
-os nós folhas são mostrados com simplificações para que a figura possa vista em uma única tela.
+os nós~=folhas são mostrados com simplificações para que a figura possa ser vista em uma única tela.
 \begin{code}
 \caption{Arquivo HTML gerado pelo programa de exemplo ``main\_highlighter.py''}
 \label{MainHighlighterHtml}
@@ -222,16 +240,12 @@ os nós folhas são mostrados com simplificações para que a figura possa vista
 
 \chapter[Testes de Unidade]{Código dos Testes de Unidade}
 
-Para se executar os testes de unidade,
-basta executar o comando ``\mintinline{shell}{python3 unit_tests.py}''.
-No \typeref{unitTestsResults},
-pode~=se encontrar um exemplo de execução dos testes de unidade apresentados no \typeref{unitTestsPy}.
 Primeiro foi desenvolvida a ferramenta de Adição de Cores para facilitar os testes da metalinguagem e
 do Analisador Semântico.
 Uma vez que se comprovou o funcionamento da metalinguagem,
-foi realizada um implementação mínima de um formatador de código~=fonte.
+foi realizada uma implementação mínima de um formatador de código~=fonte.
 
-Tanto as implementações do módulo de Adição de Cores quanto a do Formatador de Código são somente uma prova de conceito do que pode ser feito com a metalinguagem desenvolvida.
+Tanto as implementações do módulo de Adição de Cores quanto do Formatador de Código são somente uma prova de conceito do que pode ser feito com a metalinguagem desenvolvida.
 No \typeref{unitTestsPy},
 a classe ``TestingGrammarUtilities'' é uma classe abstrata \cite{understandingDataAbstraction} que contém características necessárias a todos os tipos de testes de unidades implementados,
 tanto os testes de unidade de Adição de Cores quanto os testes de unidade do Formatador de Código.
@@ -242,12 +256,12 @@ No total existem 22 testes:
 \item 1 testes de Formatação de Código (\typeref{codeFormatterPy}) na classe testes ``TestCodeFormatterBackEnd''.
 \end{enumerate}%
 
-Como a ferramenta de Adição de Cores foi a primeira desenvolvida,
-ela obteve a criação de mais testes de unidade para assegurar que a implementação do Analisador Semântico (\typeref{semanticAnalyzerPy}) e
-da Metagramática estão funcionais.
-Uma vez feito isso,
-duplicou~=se o código~=fonte da implementação de adição de cores (\typeref{codeHighlighterPy}) e
-realizou~=se as alterações necessárias para que se faça a formatação de código~=fonte (\typeref{codeFormatterPy}).
+A ferramenta de Adição de Cores foi a primeira desenvolvida,
+portanto obteve a criação de mais testes de unidade para verificar a implementação do Analisador Semântico (\typeref{semanticAnalyzerPy}).
+Para se executar os testes de unidade,
+basta executar o comando ``\mintinline{text}{python3 unit_tests.py}''.
+No \typeref{unitTestsResults},
+pode~=se encontrar um exemplo de execução dos testes de unidade apresentados no \typeref{unitTestsPy}.
 \begin{code}
 \caption{Resultado da execução dos Testes de Unidade}
 \label{unitTestsResults}
@@ -277,13 +291,13 @@ Formatação de Código.
 As regras do Analisador Semântico estão divididas entre dois tipos,
 erros e
 alertas.
-Um erro é algo que impede completamente o programa final de funcionar.
-Um alerta é algo que não impede que o programa final funcione corretamente,
-mas é algo que precisa ser revisto.
+Um erro é algo que impede completamente a gramática final de funcionar.
+Um alerta é algo que precisa pode precisar ser revisado.
 
-Os testes das regras do Analisador Semântico podem ser encontradas na classe ``TestSemanticRules'' do \typeref{unitTestsPy}.
-A seguir pode~=se encontrar algumas das regras semânticas implementadas pelo Analisador Semântico do \typeref{semanticAnalyzerPy}.
-O nome de cada uma das regras a seguir começa com o prefixo ``test\_'' que corresponde ao nome do teste de unidade,
+A seguir pode~=se encontrar algumas regras semânticas implementadas pelo Analisador Semântico (\typeref{semanticAnalyzerPy}).
+A classe ``TestSemanticRules'' (\typeref{unitTestsPy}),
+apresenta testes automatizados do Analisador Semântico.
+O nome de cada uma das regras a seguir começa com o prefixo ``test\_'' que corresponde ao nome do teste de unidade automatizado,
 criado para verificar tal regra semântica na classe de testes ``TestSemanticRules'' (\typeref{unitTestsPy}).
 \begin{enumerateoptional}[1)]
     \item[\bfseries\mintinline{text}{test_duplicatedContext}] Detecção de contextos duplicados e
@@ -357,13 +371,14 @@ pode~=se encontrar um exemplo explicito de utilização do \typeref{codeFormatte
 \chapter{Código da Metagramática}
 
 Neste capítulo,
-pode~=se ver na íntegra o arquivo da gramática (\typeref{grammarsGrammarPushdown}) utilizadas pela adição de cores e
+pode~=se ver na íntegra o arquivo da gramática (\typeref{grammarsGrammarPushdown}) utilizada pela adição de cores e
 formatação de código~=fonte.
 Nos \typeref{MainFormatterPy,MainHighlighterPy},
-pode~=se ver o importe explicito deste arquivo de gramática e
-seu recebimento pela Analisador Lark (Veja a \fullref{GrammarsGrammar}).
+pode~=se ver o uso explicito deste arquivo de gramática (\mintinline{text}{get_relative_path( "grammars_grammar.pushdown",
+__file__ )})) e
+seu recebimento pelo Analisador Lark (Veja a \fullref{GrammarsGrammar}).
 Nesta gramática,
-pode ser encontrado expressões redundantes como \mintinline{antlr}{enter_block:
+podem ser encontradas produções como \mintinline{text}{enter_block:
 OPEN_BRACE} que servem para fazer com que a árvore sintática tenha um nó com o nome ``\mintinline{text}{enter_block}'' e
 com que o analisador léxico gere um \textit{token} com o nome ``\mintinline{text}{OPEN_BRACE}''.
 Estas características facilitam a manipulação da árvore sintática e

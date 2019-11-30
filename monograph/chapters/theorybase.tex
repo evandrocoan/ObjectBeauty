@@ -232,8 +232,8 @@ A sintaxe da gramática utilizada no \typeref{code:ExemploDeGramaticaLark},
 é uma adaptação especial do padrão EBNF que o Analisador Lark faz.
 Símbolos que possuem todas as letras em ``MAIÚSCULA'' definem os símbolos terminais da gramática que aparecerão na Árvore Sintática.
 Enquanto símbolos escrito todos em letras ``minúsculas'' definem os símbolos não~=terminais da gramática.
-Para mais informações sobre a sintaxe de entrada de gramáticas do Analisador Lark,
-consulte sua documentação \cite{larkGrammarReference,larkStyleCheat}.
+\advisor{}{Para mais informações sobre a sintaxe de entrada de gramáticas do Analisador Lark,
+consulte sua documentação \cite{larkGrammarReference,larkStyleCheat}.}
 
 A \typeref{Figure:ArvoresDosTokens1},
 representa a Árvore Sintática completa da palavra ``token sem nome'',
@@ -280,10 +280,10 @@ a Árvore Sintática da \typeref{Figure:ArvoresDosTokens3},
 apresenta um nó intermediário chamado de ``nodo\_da\_arvore''.
 O nó intermediário ``nodo\_da\_arvore'' é um exemplo de símbolo não~=terminal da gramática.
 Usualmente,
-os símbolos não~=terminais nunca são nós folhas das Árvores Sintáticas.
+os símbolos não~=terminais nunca são nós~=folhas das Árvores Sintáticas.
 Entretanto,
 caso a gramática de entrada possua símbolos inúteis \cite{hopcroftBook},
-podem existir ramificações da Árvore Sintática na qual símbolos não~=terminais são nós folhas.
+podem existir ramificações da Árvore Sintática na qual símbolos não~=terminais são nós~=folhas.
 \begin{figure}[H]
 \caption{Árvore do Programa ``token com outro nome''}
 \label{Figure:ArvoresDosTokens3}
@@ -442,7 +442,12 @@ não a linguagem.
 Veja \citeonline{complexityClasses,computationalComplexityAuroraBarak},
 para aprender mais sobre Classes de Complexidade.
 \end{minipage}
-\fonte{Própria, baseado em \citeonline{sipserBook,ahoTheoryOfParsing,efficientNonDeterministicParsers,johnCocke}}
+\fonte{Própria,
+baseado em \citeonline{sipserBook,ahoTheoryOfParsing,efficientNonDeterministicParsers,johnCocke}}
+\nota{As complexidades Linear,
+Polinomial,
+Exponential e
+Infinita são explicados na seção \fullref{classesDeComplexidade}}
 \end{figure}
 
 Toda Gramática Regular ou

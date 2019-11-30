@@ -121,7 +121,7 @@
     Uma possível implementação para tal ajuste fino,
     pode ser uma configuração específica como por exemplo a entrada booleana ``\textit{use\_spaces\_after\_if}'',
     em um arquivo de configuração para definir caso deva~=se ou
-    não ser adicionados espaços após cada ``if'' ao fazer a formatação da linguagem,
+    não adicionar espaços após cada ``if'' ao fazer a formatação da linguagem,
     i.e.,
     ``if (var)'' ao contrário de ``if(var)''.
 }
@@ -138,8 +138,14 @@
     ficará muito grande quando todos os aspectos das linguagens mais complexas como C ou
     C++ forem implementados.
     Em softwares como Uncrustify \cite{uncrustifySourceCode},
-    encontra~=se mais de 500 configurações tais como o \typeref{uncrustifySettingSample},
-    veja mais sobre configurações na \fullref{trabalhosRelacionados}.
+    encontram~=se mais de 500 configurações\footnote{
+    Veja mais sobre configurações na \fullref{trabalhosRelacionados}.
+    }
+    tais como o \typeref{uncrustifySettingSample}.
+    No \typeref{uncrustifySettingSample},
+    deve ser observado uma amostra das mais de 500 opções que um formatador de código~=fonte configurável por arquivos de configuração pode ter.
+    Também o quão difícil pode ser escrever e
+    entender o que cada uma dessas incontáveis opções significam.
 }
 \begin{lstlisting}[caption={Trecho do Arquivo de Configuração de Uncrustify},label={uncrustifySettingSample}]
 # If the body of the namespace is longer than this
@@ -174,36 +180,36 @@ indent_constr_colon = false # false/true
     which will be certainly limited \cite{eclisePeriodSettings} and
     still need to configure all over again.
 }{%
-    O problema é,
-    mesmo que se passe por todas essas configurações,
+    Mesmo que se passe por todas as configurações do formador de código~=fonte (amostrado no \typeref{uncrustifySettingSample}),
     realizando os ajustes de preferência do usuário,
     isso levará um bom tempo.
-    Infelizmente,
-    você ainda está apenas configurando uma e
+    Infelizmente com todo esse processo,
+    somente será realizado a configuração de uma e
     talvez algumas linguagens fortemente relacionadas,
-    dependendo do suporte que a ferramenta oferece.
+    dependendo do suporte que a ferramenta de formatação de código~=fonte oferece.
 
     No caso da ferramenta Uncrustify,
-    serão configurados linguagens como \textit{C},
-    \textit{C++}, \textit{C\#} e \textit{ObjectiveC},
-    veja mais linguagens na \fullref{trabalhosRelacionados}.
-    Para todos os outras linguagens,
-    você ainda precisará encontrar outra ferramenta de formatação,
+    serão configuradas linguagens como \textit{C},
+    \textit{C++}, \textit{C\#} e
+    \textit{ObjectiveC} (veja mais linguagens na \fullref{trabalhosRelacionados}).
+    Para todas as outras linguagens,
+    ainda será preciso encontrar outra ferramenta de formatação,
     que será certamente mais limitada no que ela pode customizar \cite{eclisePeriodSettings,uncrustifyNotMeetingCodingStandards},
     uma vez que Uncrustify já é uma das mais completas.
 
     Ao realiza~=se a migração de uma ferramenta de formatação como Uncrustify para outra,
     precisa~=se configurar novamente todas as novas opções já definidas para Uncrustify.
     Outra forte desvantagem do arquivo de configurações do Uncrustify segue na dificuldade de entender e
-    visualizar o que está sendo configurado para que possa~=se realizar a migração.
+    visualizar o que está sendo configurado para que se possa realizar a migração.
 
-    Algumas opções são claras e
-    fáceis de se entender,
-    já outras,
-    não consegue~=se ter a mínima ideia do que elas estão fazendo e
+    \advisor{}{Algumas opções de configuração do formatador de código~=fonte são claras e
+    fáceis de se entender.
+    Já outras,
+    não se consegue ter a mínima ideia do que elas estão fazendo ou
     qual será o seu resultado final.
     Por exemplo,
-    você consegue claramente entender o que a última regra do \typeref{uncrustifySettingSample} significa?
+    é possível claramente entender o que a última configuração do \typeref{uncrustifySettingSample} faz?
+    }
 }
 
 \advisor{}{%
@@ -236,11 +242,11 @@ indent_constr_colon = false # false/true
 
 \advisor{%
     Pode~=se compreender uma frase sem pontuação,
-    mas é mais fácil de fazer essa operação utilizando~=as.
+    mas é mais fácil de fazer essa operação utilizando a pontuação.
     Por exemplo:
 
     \noindent
-    umaboapontuacaocomcertezatornamascoisasmaisfaceisdeseler
+    umaboapontuacaocomcertezatornaascoisasmaisfaceisdeseler
 
     Um leitor hábil pode compreender facilmente a oração acima,
     mas a pontuação tornaria a tarefa mais fácil \cite{theTidyverseStyleGuide}.
@@ -267,14 +273,14 @@ indent_constr_colon = false # false/true
     ou relação sobre a compreensão de códigos~=fonte e
     formatadores de código.
     Alguns estudos como \citeonline{improvingCodeReadability},
-    implementam modelos de Inteligências Artificiais utilizados para classificar códigos~=fonte como ``bem legíveis'' ou
+    implementam modelos de Inteligência Artificial utilizados para classificar códigos~=fonte como ``bem legíveis'' ou
     ``mal legíveis''.
     Inicialmente estes estudos começam coletando dados de pessoas classificando códigos~=fonte como legíveis ou
     não,
-    para então treinar Inteligências Artificiais classificando códigos~=fonte.
+    para então treinar a Inteligência Artificial para classificar códigos~=fonte.
 
     Além desse estudo científico para classificar códigos~=fonte,
-    encontra~=se em outros lugares como \citeonline{pep8operatorsBlankLine},
+    encontram~=se em outros lugares como \citeonline{pep8operatorsBlankLine},
     dicas ou
     notas explicando quais características de formatação de código~=fonte ajudam ou
     prejudicam a legibilidade de código.
@@ -340,17 +346,17 @@ indent_constr_colon = false # false/true
     }}.
 \end{citacao}
 
-Como não pode~=se dizer certamente que ao utilizar ferramentas de formatação irá~=se ter um melhor desempenho,
+Como não se pode dizer certamente que ao utilizar ferramentas de formatação de código~=fonte se irá ter um melhor desempenho,
 cabe a cada desenvolvedor ou
-time de desenvolvimento decidir por si e
-sua experiência se ele sente a necessidade de algo mais durante o período de desenvolvimento.
+time de desenvolvimento decidir por sua experiência,
+se existe a necessidade de utilizar uma ferramenta de formatação de código~=fonte.
 
 
 \section{\lang{Related Works}{Trabalhos Relacionados}}
 \label{trabalhosRelacionados}
 
 Nesta seção,
-são relatados os trabalhos relacionados obtidos através de pesquisa na literatura utilizando metodologia especificada no \typeref{firstChapterIntroduction}.
+são relatados os trabalhos relacionados obtidos através de pesquisa na literatura utilizando a metodologia especificada no \typeref{firstChapterIntroduction}.
 Segundo \citeonline{uncrustifySourceCode},
 Uncrustify é capaz de formatar as linguagens:
 \begin{inparaenum}[1)]
@@ -367,7 +373,7 @@ De acordo com o site \citetitle{uncrustifyWebSite},
 a versão ``0.69.0'' possui 671 configurações para personalizar a formatação do código~=fonte como mostrado no \typeref{uncrustifySettingSample}.
 
 Existem muitas ferramentas e\slash{}ou editores de texto,
-e cada uma dessas ferramentas possuí suas vantagens e
+e cada uma dessas ferramentas possui suas vantagens e
 desvantagens \cite{prettyPrintingOfVisualSentences,anAbstractPrettyPrinter,improvingRefactoringSpeed}.
 Por isso,
 alguns desenvolvedores de software\advisor{}{
@@ -380,12 +386,9 @@ da tarefa que o desenvolvedor está realizando no momento.
 Trabalhos como \citeonline{editorConfig},
 não são diretamente um formatador de código~=fonte\advisor{.}{,
 tema foco desta monografia.
-} Mas sua relação com este trabalho é seu proposito de servir como uma ponte de compartilhamento de configurações entre todos os editores de texto.
+} Mas sua relação com este trabalho é seu propósito de servir como uma ponte de compartilhamento de configurações entre todos os editores de texto.
 Com isso,
 facilitando a troca de um editor pelo outro durante o desenvolvimento.
-Do mesmo jeito,
-este trabalho foca em propor uma ferramenta de formatação extensível várias linguagens de programação (Veja o \fullref{software_implementation}).
-
 \citeonline{universalIndentGUI},
 é outra ferramenta que não é um formatador de código~=fonte,
 mas sim uma interface comum a várias e
@@ -410,7 +413,7 @@ Entretanto,
 \citeonline{universalIndentGUI},
 enfrenta problemas como as limitações de sua interface gráfica.
 Como já mencionado na \typeref{trabalhosRelacionados},
-Uncrustify na sua versão ``0.69.0'' possuí 671 configurações de formatação de código~=fonte,
+Uncrustify na sua versão ``0.69.0'' possui 671 configurações de formatação de código~=fonte,
 mas a interface gráfica de \citeonline{universalIndentGUI},
 não possui \advisor{tal número de}{nem próximo de tantas} opções de configuração.
 
@@ -519,56 +522,75 @@ ainda pode~=se introduzir caos removendo todos os comentários e
 renomeando variáveis para nomes \advisor{sem significado de uso}{obtusos\footnote{Sem significado de uso.}} como ``A88''.
 
 
+\section{Adição de Cores}
+\label{secion:sourceCodeHighlighters}
+
+Ao pesquisar sobre formatadores de texto com os recém~=apresentados,
+é comum encontrar trabalhos conhecidos como \textit{Pretty~=Printing} ou
+\textit{Source Code Highlighters},
+que fazem a adição de cores à código~=fonte para serem melhores visualizados:
+\begin{inparaenum}[1)]
+\item Fazer maior destacamento aos elementos mais importes do código~=fonte;
+\item Fazer menor destacamento aos elementos considerados menos importantes;
+\item Fazer que elementos relacionados ou
+iguais possam ser facilmente encontrados,
+fazendo com que eles tenham a mesma cor,
+ou uma cor muito similar (além de estilos como negrito,
+itálico e
+sublinhado).
+\end{inparaenum}
+
+
 \advisor{}{%
-\subsection{Lista de curiosidades}
+    \section{Lista de curiosidades}
 
-\lang{%
-    On a distributed version control system,
-    continuous integration would be continuously running the system tests as long new code is integrated into main system from the distributed clients \cite{continuousIntegration}.
-}{}
+    \lang{%
+        On a distributed version control system,
+        continuous integration would be continuously running the system tests as long new code is integrated into main system from the distributed clients \cite{continuousIntegration}.
+    }{}
 
-\begin{enumerate}
-    % https://tex.stackexchange.com/questions/123104/inline-citations-with-only-author-title-and-year
-    \item \citeauthortitleyear{trackingChanges};
-    \item \citeauthortitleyear{aspectOriented};
-    \item \citeauthortitleyear{annotationAssistant};
-    \item \citeauthortitleyear{codePlagiarismDetection};
-    \item \citeauthortitleyear{softwarePortfolio};
-    \item \citeauthortitleyear{legacyAssets};
-    \item \citeauthortitleyear{massMaintenance};
-    \item \citeauthortitleyear{prettyPrinting};
-    \item \citeauthortitleyear{architectureFormatting};
-    \item \citeauthortitleyear{independentFramework};
-    \item \citeauthortitleyear{industrialApplication};
-    \item \citeauthortitleyear{toolsForProjectManagement};
-    \item \citeauthortitleyear{codeClassification};
-    \item \citeauthortitleyear{codeScanningPatterns};
-    \item \citeauthortitleyear{debuggingIntoExamples};
-    \item \citeauthortitleyear{programUnderstanding};
-    \item \citeauthortitleyear{documentingAndSharingKnowledge};
-    \item \citeauthortitleyear{autofoldingForSourceCode};
-    \item \citeauthortitleyear{learningSupportSystem};
-    \item \citeauthortitleyear{syntaxHighlightingInfluencing};
-    \item \citeauthortitleyear{improvingCodeReadability};
-    \item \citeauthortitleyear{howNovicesRead};
-    \item \citeauthortitleyear{theRoleOfMethodChains};
-    \item \citeauthortitleyear{codeComprehensionComparedToOO};
-    \item \citeauthortitleyear{enhancingLegacySoftwareSystemAnalysis};
-    \item \citeauthortitleyear{moldableCodeEditor};
-    \item \citeauthortitleyear{blindAndSightedProgrammers};
-    \item \citeauthortitleyear{pushdownAutomata};
-    \item \url{https://github.com/r-lib/styler};
-    \item \url{https://github.com/github/linguist};
-    \item \url{https://github.com/wbond/package_control_channel/issues/4310} Write a formatter utility;
-    \item \url{https://github.com/PyCQA/pydocstyle};
-    \item \url{https://github.com/PyCQA/pycodestyle};
-    \item \url{https://blog.codinghorror.com/check-in-early-check-in-often/};
-    \item \url{https://www.youtube.com/watch?v=2GqpdfIAhz8};
-    \item \url{http://langserver.org/};
-    \item \url{https://github.com/Microsoft/language-server-protocol};
-    \item \url{https://github.com/SublimeCodeIntel/SublimeCodeIntel};
-    \item \url{https://code.visualstudio.com/blogs/2016/06/27/common-language-protocol};
-    \item \url{https://www.eclipse.org/community/eclipse_newsletter/2017/may/article1.php};
-    \item \url{https://github.com/Microsoft/language-server-protocol/wiki/Protocol-Implementations}.
-\end{enumerate}
+    \begin{enumerate}
+        % https://tex.stackexchange.com/questions/123104/inline-citations-with-only-author-title-and-year
+        \item \citeauthortitleyear{trackingChanges};
+        \item \citeauthortitleyear{aspectOriented};
+        \item \citeauthortitleyear{annotationAssistant};
+        \item \citeauthortitleyear{codePlagiarismDetection};
+        \item \citeauthortitleyear{softwarePortfolio};
+        \item \citeauthortitleyear{legacyAssets};
+        \item \citeauthortitleyear{massMaintenance};
+        \item \citeauthortitleyear{prettyPrinting};
+        \item \citeauthortitleyear{architectureFormatting};
+        \item \citeauthortitleyear{independentFramework};
+        \item \citeauthortitleyear{industrialApplication};
+        \item \citeauthortitleyear{toolsForProjectManagement};
+        \item \citeauthortitleyear{codeClassification};
+        \item \citeauthortitleyear{codeScanningPatterns};
+        \item \citeauthortitleyear{debuggingIntoExamples};
+        \item \citeauthortitleyear{programUnderstanding};
+        \item \citeauthortitleyear{documentingAndSharingKnowledge};
+        \item \citeauthortitleyear{autofoldingForSourceCode};
+        \item \citeauthortitleyear{learningSupportSystem};
+        \item \citeauthortitleyear{syntaxHighlightingInfluencing};
+        \item \citeauthortitleyear{improvingCodeReadability};
+        \item \citeauthortitleyear{howNovicesRead};
+        \item \citeauthortitleyear{theRoleOfMethodChains};
+        \item \citeauthortitleyear{codeComprehensionComparedToOO};
+        \item \citeauthortitleyear{enhancingLegacySoftwareSystemAnalysis};
+        \item \citeauthortitleyear{moldableCodeEditor};
+        \item \citeauthortitleyear{blindAndSightedProgrammers};
+        \item \citeauthortitleyear{pushdownAutomata};
+        \item \url{https://github.com/r-lib/styler};
+        \item \url{https://github.com/github/linguist};
+        \item \url{https://github.com/wbond/package_control_channel/issues/4310} Write a formatter utility;
+        \item \url{https://github.com/PyCQA/pydocstyle};
+        \item \url{https://github.com/PyCQA/pycodestyle};
+        \item \url{https://blog.codinghorror.com/check-in-early-check-in-often/};
+        \item \url{https://www.youtube.com/watch?v=2GqpdfIAhz8};
+        \item \url{http://langserver.org/};
+        \item \url{https://github.com/Microsoft/language-server-protocol};
+        \item \url{https://github.com/SublimeCodeIntel/SublimeCodeIntel};
+        \item \url{https://code.visualstudio.com/blogs/2016/06/27/common-language-protocol};
+        \item \url{https://www.eclipse.org/community/eclipse_newsletter/2017/may/article1.php};
+        \item \url{https://github.com/Microsoft/language-server-protocol/wiki/Protocol-Implementations}.
+    \end{enumerate}
 }

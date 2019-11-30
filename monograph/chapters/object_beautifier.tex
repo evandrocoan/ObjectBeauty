@@ -166,8 +166,8 @@ e não do Formatador de Código.
 \end{figure}
 
 Esta não é a primeira vez que uma metagramática com simplificações foi escrita.
-Em trabalhos como \citeonline{rustSublimeTextSyntaxSyntec,sublimeTextSyntax,vsCodeSyntaxHighlighthing},
-foram realizados as mesmas simplificações aqui apresentadas.
+Em trabalhos relacionados com esta implementação de metagramática (\fullref{secion:sourceCodeHighlighters}),
+foram realizadas as mesmas simplificações aqui apresentadas.
 Existem algumas diferenças técnicas da metagramática deste trabalho com as dos recém~=apresentados.
 Como por exemplo,
 a implementação da metagramática realizada ainda não suporta a classificação do mesmo trecho de código~=fonte por múltiplos tipos de escopo \cite{vsCodeSyntaxHighlighthing}.
@@ -184,7 +184,7 @@ XML e
 JSON para fazer a especificação da metagramática.
 \end{enumerate}
 Fazendo a especificação de uma nova metagramática,
-é possível adaptar~=se a especificação da sintaxe das gramáticas de acordo as necessidades específicas sem ter que depender de características de outras linguagens como YAML,
+é possível adaptar~=se a especificação da sintaxe das gramáticas de acordo com as necessidades específicas sem ter que depender de características de outras linguagens como YAML,
 XML ou
 JSON.
 
@@ -192,7 +192,7 @@ JSON.
 \subsection{Escopos}
 
 Na \typeref{TexMateScopes},
-é mostrado na primeira linha o trecho de código~=fonte ``function f1 () \{'' e
+é mostrado na primeira linha o trecho de código~=fonte ``\mintinline{text}|function f1 () {|'' e
 nas demais linhas são apresentados as diversas classificações de escopos aplicados a cada um dos trechos do código~=fonte de amostra.
 Por exemplo,
 a palavra ``function'' possui simultaneamente os escopos:
@@ -220,7 +220,7 @@ seguem uma conversão de nomes para que as utilizações dos escopos gerados pel
 Fazendo o uso de uma conversão para nomes de escopos,
 as gramáticas ficam compatíveis com um maior número de arquivos de temas (ou configurações de cores),
 onde são especificados os nomes dos escopos serão utilizados para especificar as cores a serem utilizadas pelo editor de texto.
-Para mais informações sobre a utilização de arquivos de temas em editores de texto veja \citeonline{sublimeTextScopeNaming,vsCodeSyntaxHighlighthing}.
+\advisor{}{Para mais informações sobre a utilização de arquivos de temas em editores de texto veja \citeonline{sublimeTextScopeNaming,vsCodeSyntaxHighlighthing}.}
 
 
 \section{Metalinguagem}
@@ -272,7 +272,7 @@ master_scope_name_statement: "scope" ": " free_input_string
 \end{code}
 
 Entre os \typeref{exemploDeGramaticaPawn1,exemploDeGramaticaPawn2,exemploDeGramaticaPawn3,exemploDeGramaticaPawn4},
-encontra~=se pequenos exemplos de gramáticas escritas na metalinguagem ``ObjectBeauty'' brevemente apresentada.
+encontram~=se pequenos exemplos de gramáticas escritas na metalinguagem ``ObjectBeauty'' brevemente apresentada.
 No \typeref{exemploDeGramaticaPawn1},
 encontra~=se a definição do símbolo inicial da gramática da linguagem sendo descrita (pela metagramática) e
 pode~=se ver a metalinguagem sendo utilizada para definir uma linguagem chamada de ``Abstract Machine Language''.
@@ -283,13 +283,13 @@ símbolo inicial chamado de ``contexts''.
 O \typeref{exemploDeGramaticaPawn1},
 faz uso dos operadores ``include'' e
 ``match''.
-O operador ``include'' serve incluir partes de outras gramáticas ou
+O operador ``include'' serve para incluir partes de outras gramáticas ou
 mesmo gramáticas inteiras no contexto da gramática atual.
 Entretanto,
 a implementação de ``include'' realizada neste trabalho somente consegue realizar includes de contextos definidos no mesmo arquivo.
 
 No exemplo do \typeref{exemploDeGramaticaPawn1},
-o operador ``include'' está incluindo contextos da gramática atual que serão definidas mais tarde neste mesmo arquivo.
+o operador ``include'' está incluindo contextos (\typeref{metalinguagemGrammar}) da gramática atual que serão definidos mais tarde neste mesmo arquivo.
 Já o operador ``match'' utilizado no final serve para realizar propriamente o reconhecimento do programa de entrada e
 atribuir a ele o escopo ``constant.boolean.language.pawn''.
 
@@ -378,8 +378,8 @@ numbers: {
 \end{lstlisting}
 
 No \typeref{exemploDeGramaticaPawn4},
-é mostrado mais alguns exemplos de uso do operador ``match'' classificando diversos tipos de numéricos (da linguagem sendo descrita pela gramática).
-É importante notar que a ordem no qual os operadores como ``match'' aparecem é importante.
+são mostrados mais alguns exemplos de uso do operador ``match'' classificando diversos tipos de numéricos (da linguagem sendo descrita pela gramática).
+É importante notar que a ordem na qual os operadores como ``match'' aparecem é importante.
 Ao realizar o reconhecido o programa de entrada utilizando esta gramática,
 a Árvore Sintática Abstrata\footnote{%
 Do inglês (AST), Abstract Syntax Tree.
@@ -434,7 +434,7 @@ check_brackets: {
 
 Depois que um metaprograma da metalinguagem apresentada na seção anterior é reconhecido pelo Analisador Lark,
 o Analisador Lark entrega a Árvore Sintática da gramática da linguagem sendo descrita pelo metaprograma (\typeref{MetacompilerMetagrammarMetaprogram}).
-Todas as verificações de corretude da sintaxe da gramática são verificadas pelo Analisador Lark,
+Todas as verificações de corretude da sintaxe da gramática são executadas pelo Analisador Lark,
 com base na metagramática da metalinguagem.
 Portanto,
 somente resta ser implementado o Analisador Semântico para verificar se a linguagem descrita respeita as regras semânticas da metalinguagem explicadas na seção anterior,
@@ -572,16 +572,13 @@ para então realizar a formatação do programa de entrada junto com as configur
 \subsection{Performance}
 \label{performanceDoFormator}
 
-Continuamente chamar diversos algoritmos independentes possui uma perda de performance em comparação com os formatadores de código~=fonte apresentados no \fullref{source_code_beautifiers}.
+Continuamente chamar diversos algoritmos independentes acarreta uma perda de performance em comparação com os formatadores de código~=fonte apresentados no \fullref{source_code_beautifiers}.
 Estes formatadores tem como principal características realizar a formatação de código~=fonte em uma única passada,
 i.e.,
 a Árvore Sintática de programa de entrada é completamente reconstruída,
 para então ser serializada novamente em texto de acordo com as configurações de formatador.
 
-Ao leitor mais desatento,
-pode parecer que então não existe muita diferença entre a ferramenta de formatação proposta neste trabalho para as já existentes.
-Entretanto,
-este trabalho permite que o usuário entre com a gramática da linguagem a ser formatada,
+Este trabalho permite que o usuário entre com a gramática da linguagem a ser formatada,
 diferente de outros trabalhos onde a gramática já é incluída ao código~=fonte do formatador.
 Formadores de código~=fonte como apresentados na \fullref{source_code_beautifiers} são construídos programando~=se as produções da gramática diretamente no código~=fonte do formatador (Descendentes Recursivos,
 reveja a \fullref{gramaticasVersusLinguagens}).
@@ -591,6 +588,13 @@ restringe~=se o formatador a somente funcionar com as gramáticas que foram prog
 Uma vez que o usuário da ferramenta precisa programar o formatador de código para ter suporte a sua linguagem,
 isso dificulta a adição do suporte de novas linguagens ao formatador,
 pois precisa~=se programar as suas gramáticas diretamente dentro do código~=fonte do formatador.
+
+Um formatador pode ter pré~=configurado algumas gramáticas de algumas linguagens de programação,
+como acontece com o formatador Uncrustify (\fullref{trabalhosRelacionados}).
+O que Uncrustify consegue fazer é formatar um conjunto de linguagens onde sua gramática é parecida na maior parte dos aspectos.
+Caso fosse necessário expandir o formatador Uncrustify a suportar linguagens pouco relacionadas com as linguagens já existentes,
+o código~=fonte da implementação atual do formatador seria muito mais complexa.
+\advisor{}{Imagine como seria escrever uma única gramática que represente todas as linguagens de programação?}
 
 
 \subsection{Formatação}
@@ -683,39 +687,34 @@ class AbstractFormatter(object):
 \end{minted}
 \end{code}
 
-A linha ``sorted'' realiza a ordenação do configurações sem nenhuma necessidade prática neste caso.
+A linha ``sorted'' realiza a ordenação das configurações sem nenhuma necessidade prática neste caso.
 Ela garante que a ordem no qual as configurações irão ser processadas seja sempre a mesma.
-No caso da Adição de Cores,
-``sorted'' é uma função obrigatória para garantir que os nomes das cores da configurações sejam atribuídas de acordo com a ordem de funcionamento do tema \cite{vsCodeSyntaxHighlighthing,sublimeTextScopeNaming}.
+Entretanto,
+no caso da Adição de Cores,
+a linha ``sorted'' é uma função obrigatória para garantir que os nomes das cores das configurações sejam atribuídas de acordo com a ordem correta do tema (seleção de cores \cite{vsCodeSyntaxHighlighthing,sublimeTextScopeNaming}).
 
-A linha ``len( program )'' não possui nenhuma influência nos resultados do programa,
+A linha ``\mintinline{text}{len( program )}'' não possui nenhuma influência nos resultados do programa,
 seja para formatação ou
 adição de cores.
 Entretanto,
-ela é constantemente verificado durantes as operações que realizam o consumo do programa de entrada pelas regras da metagramática para garantir que o tamanho programa original não seja perdido.
-É necessário uma sincronia entre os índices do programa original com o programa formatado para que ambos possam ser sincronizados no final do processo.
-Assim,
-uma que os algoritmos de adição de cores ou
-formatação estivem propriamente testados,
-não seria mais necessário manter o uso da variável ``len( program )''.
+ela é constantemente verificada durante as operações que realizam o consumo do programa de entrada pelas regras da metagramática para garantir que o tamanho programa original não seja alterado.
+É necessário que os novos trechos de programa que são formatados saibam qual era a posição deles no programa de original (antes da formatação iniciar),
+para que as partes do programa original (que não foram formatadas) possam ser adicionadas no novo programa formatado no final do processo de formatação.
+Assim que os algoritmos de adição de cores ou
+formatação estiverem propriamente testados,
+não seria mais necessário manter o uso da variável ``\mintinline{text}{len( program )}''.
 
 Durante o processo de consumo,
 o programa de entrada é modificado e
-os caracteres que foram consumidos são substituídos pelo caractere ``§''.
-A existência do caractere de marcação de consumo ``§'' é uma fraqueza do algoritmo implementado,
-pois pode levar programas que contenham este caractere ao erro.
-Ele também trás uma ineficiência no consumo de novos caracteres.
-Os caracteres que já foram substituídos por ``§'',
-serão reanalisados continuamente até o final do análise do programa de entrada.
+os caracteres que foram consumidos pela gramática são substituídos pelo caractere ``§'' para impedir que eles sejam reconsumidos.
 A utilização do caractere ``§'' foi realizada para simplificar a implementação do algoritmo de consumo.
-
 Com o caractere ``§'' colocado no lugar dos caracteres que já foram consumidos,
 é possível reconstruir o programa de entrada no final da análise simplesmente ordenando todos pedaços que de programa formatado que estão armazenada na variável ``new\_program''.
 Como o tamanho do programa original não fui modificado,
 também é possível facilmente integrar no programa formatado,
 todas as partes do programa original que não foram formatados,
 no caso do formatador,
-ou coloridas do caso da adição de cores.
+ou não coloridas do caso da adição de cores.
 
 
 \subsection{Exemplo}
