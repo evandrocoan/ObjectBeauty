@@ -772,6 +772,41 @@
 }
 
 
+@online{packageDevSublime,
+    TITLE = {PackageDev - Tools to ease the creation of snippets, syntax definitions for Sublime Text},
+    AUTHOR = {Zachary King and Guillermo López-Anglada},
+    HOWPUBLISHED = {GitHub},
+    URL = {https://github.com/SublimeText/PackageDev},
+    year = {2011},
+    urlaccessdate = {2019-11-30},
+    abstract = {PackageDev provides syntax highlighting and other helpful
+    utility for Sublime Text resource files. Resource files are ways of
+    configuring the Sublime Text text editor to various extends, including but
+    not limited to: custom syntax definitions, context menus (and the main
+    menu), and key bindings. Thus, this package is ideal for package developers,
+    but even normal users of Sublime Text who want to configure it to their
+    liking should find it very useful.},
+}
+
+
+@online{sublimeTextColorSchemes,
+    TITLE = {Sublime Text - Color Schemes},
+    AUTHOR = {Jon Skinner},
+    URL = {https://www.sublimetext.com/docs/3/color_schemes.html},
+    year = {2015},
+    location = {Online},
+    urlaccessdate = {2019-11-30},
+    abstract = {The highlighting of source code and prose in Sublime Text is
+    controlled by a color scheme. A color scheme assigns colors and font styles
+    to scopes, which are assigned to the text by the syntax. The rest of the
+    look of the user interface is controlled by the theme. The theme controls
+    such elements as buttons select lists, the sidebar and tabs. Sublime Text
+    color schemes are implemented using .sublime-color-scheme files, containing
+    JSON. Sublime Text also supports a subset of features using the TextMate
+    .tmTheme format.},
+}
+
+
 @online{areContextSensitiveGrammarWithPolynomialTime,
     TITLE = {Are Context Sensitive Grammar with Polynomial Complexity Time?},
     AUTHOR = {Reinier Post},
@@ -1208,6 +1243,40 @@
 }
 
 
+@online{branchTemporarilyHighlightsWrong,
+    title         = {branch temporarily highlights wrong 3042},
+    author        = {Thomas Smith},
+    year          = {2019},
+    location      = {Online},
+    url           = {https://github.com/sublimehq/sublime_text/issues/3042},
+    urlaccessdate = {2019-11-30},
+    abstract      = {With certain inputs, branch rules can temporarily be in the
+    wrong state. Open a new tab and use the above syntax. Then type exactly A,
+    return, return, Z. Expected behavior: A should be green. Actual behavior: A
+    is red. However, if you modify the view, A will be recolored green. Also, if
+    you only type one newline, A will be green initially.},
+}
+
+
+@online{textMateEditor,
+    title         = {TextMate - A graphical text editor for macOS},
+    author        = {Allan Odgaard},
+    year          = {2004},
+    location      = {Online},
+    url           = {https://github.com/textmate/textmate},
+    urlaccessdate = {2019-11-30},
+    abstract      = {TextMate 1.0 was released on 5 October 2004, after 5 months
+    of development, followed by version 1.0.1 on 21 October 2004. The release
+    focused on implementing a small feature set well, and did not have a
+    preference window or a toolbar, didn’t integrate FTP, and had no options for
+    printing. At first only a small number of programming languages were
+    supported, as only a few “language bundles” had been created. Even so, some
+    developers found this early and incomplete version of TextMate a welcome
+    change to a market that was considered stagnated by the decade-long
+    dominance of BBEdit.},
+}
+
+
 @online{sublimeTextScopeNaming,
     title         = {SUBLIME TEXT 3 DOCUMENTATION, Scope Naming},
     author        = {Jon Skinner},
@@ -1398,6 +1467,40 @@
     of intellectual property when: source code must be delivered for public
     execution purposes (with interpretive languages like ECMAScript in web
     pages)},
+}
+
+
+@inproceedings{foundationsOfJSONSchema,
+    author = {Pezoa, Felipe and Reutter, Juan L. and Suarez, Fernando and Ugarte, Mart\'{\i}n and Vrgo\v{c}, Domagoj},
+    title = {Foundations of JSON Schema},
+    booktitle = {Proceedings of the 25th International Conference on World Wide Web},
+    series = {WWW '16},
+    year = {2016},
+    isbn = {978-1-4503-4143-1},
+    location = {Montr\&\#233;al, Qu\&\#233;bec, Canada},
+    pages = {263--273},
+    numpages = {11},
+    url = {https://doi.org/10.1145/2872427.2883029},
+    doi = {10.1145/2872427.2883029},
+    acmid = {2883029},
+    publisher = {International World Wide Web Conferences Steering Committee},
+    address = {Republic and Canton of Geneva, Switzerland},
+    keywords = {JSON, JSON schema, JSON validation, expressiveness of schema languages},
+    abstract = {JSON -- the most popular data format for sending API requests
+    and responses -- is still lacking a standardized schema or meta-data
+    definition that allows the developers to specify the structure of JSON
+    documents. JSON Schema is an attempt to provide a general purpose schema
+    language for JSON, but it is still work in progress, and the formal
+    specification has not yet been agreed upon. Why this could be a problem
+    becomes evident when examining the behaviour of numerous tools for
+    validating JSON documents against this initial schema proposal: although
+    they agree on most general cases, when presented with the greyer areas of
+    the specification they tend to differ significantly. In this paper we
+    provide the first formal definition of syntax and semantics for JSON Schema
+    and use it to show that implementing this layer on top of JSON is feasible
+    in practice. This is done both by analysing the theoretical aspects of the
+    validation problem and by showing how to set up and validate a JSON Schema
+    for Wikidata, the central storage for Wikimedia.},
 }
 
 
@@ -2534,6 +2637,51 @@
     algorithm with two state-of-the-art algorithms under the Graph500 benchmark
     with a variety of settings. The result shows our algorithm significantly
     outperforms the existing algorithms under all the settings.},
+}
+
+
+@article{complexityOfXMLSchema,
+    author = {Martens, Wim and Neven, Frank and Schwentick, Thomas and Bex, Geert Jan},
+    title = {Expressiveness and Complexity of XML Schema},
+    journal = {ACM Trans. Database Syst.},
+    issue_date = {September 2006},
+    volume = {31},
+    number = {3},
+    month = sep,
+    year = {2006},
+    issn = {0362-5915},
+    pages = {770--813},
+    numpages = {44},
+    url = {http://doi.acm.org/10.1145/1166074.1166076},
+    doi = {10.1145/1166074.1166076},
+    acmid = {1166076},
+    publisher = {ACM},
+    address = {New York, NY, USA},
+    keywords = {XML, XML Schema, validation},
+    abstract = {The common abstraction of XML Schema by unranked regular tree
+    languages is not entirely accurate. To shed some light on the actual
+    expressive power of XML Schema, intuitive semantical characterizations of
+    the Element Declarations Consistent (EDC) rule are provided. In particular,
+    it is obtained that schemas satisfying EDC can only reason about regular
+    properties of ancestors of nodes. Hence, with respect to expressive power,
+    XML Schema is closer to DTDs than to tree automata. These theoretical
+    results are complemented with an investigation of the XML Schema Definitions
+    (XSDs) occurring in practice, revealing that the extra expressiveness of
+    XSDs over DTDs is only used to a very limited extent. As this might be due
+    to the complexity of the XML Schema specification and the difficulty of
+    understanding the effect of constraints on typing and validation of schemas,
+    a simpler formalism equivalent to XSDs is proposed. It is based on
+    contextual patterns rather than on recursive types and it might serve as a
+    light-weight front end for XML Schema. Next, the effect of EDC on the way
+    XML documents can be typed is discussed. It is argued that a cleaner, more
+    robust, larger but equally feasible class is obtained by replacing EDC with
+    the notion of 1-pass preorder typing (1PPT): schemas that allow one to
+    determine the type of an element of a streaming document when its opening
+    tag is met. This notion can be defined in terms of grammars with restrained
+    competition regular expressions and there is again an equivalent syntactical
+    formalism based on contextual patterns. Finally, algorithms for recognition,
+    simplification, and inclusion of schemas for the various classes are
+    given.},
 }
 
 

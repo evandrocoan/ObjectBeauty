@@ -538,7 +538,205 @@ fazendo com que eles tenham a mesma cor,
 ou uma cor muito similar (além de estilos como negrito,
 itálico e
 sublinhado).
-\end{inparaenum}
+\end{inparaenum}%
+
+Editores de texto como \citeonline{sublimeTextSyntax},
+permitem que seus usuários escrevam as gramáticas das linguagens nas quais se quer editar seu código~=fonte,
+dentro do editor com suporte a adição de cores ao elementos do texto.
+Este processo é separado por dois ``arquivos de configuração'':
+\begin{inparaenum}[1)]
+\item O arquivo ``.sublime-syntax'' que contém propriamente a gramática da linguagem;
+\item O arquivo ``.sublime-color-scheme'' que contém as configurações de estilo para serem aplicados à uma ou
+mais gramáticas de diversas linguagens.
+\end{inparaenum}%
+Seguindo convenções de na escrita dos arquivos ``.sublime-syntax'' \cite{sublimeTextScopeNaming} e
+``.sublime-color-scheme'' \cite{sublimeTextColorSchemes},
+é possível utilizar um único arquivo ``.sublime-color-scheme'' com diversas gramáticas diferentes (``.sublime-syntax'').
+Também é possível utilizar um único arquivo ``.sublime-syntax'' com diversas configurações de cores ou
+estilos diferentes (``.sublime-color-scheme'').
+
+Como o código~=fonte do editor \citeonline{sublimeTextSyntax} é proprietário,
+\citeonline{rustSublimeTextSyntaxSyntec} fez a implementação de uma versão de código~=aberto que reconhece os arquivos de gramática (``.sublime-syntax'') e
+configurações de estilos (``.sublime-color-scheme'') do editor \citeonline{sublimeTextSyntax}.
+A iniciativa de \citeonline{rustSublimeTextSyntaxSyntec} aconteceu porque mesmo o editor de texto \citeonline{sublimeTextSyntax} sendo de código~=fechado,
+ele possui um grande número gramáticas e
+arquivos de estilos criados pelos seus usuários.
+Assim,
+esse grande número de especificações poderia ser utilizado por outros editores de texto,
+que gostariam de reutilizar a grande base de gramáticas e
+estilos já escritas para \citeonline{sublimeTextSyntax}.
+\citeonline{rustSublimeTextSyntaxSyntec} diferente de \citeonline{sublimeTextSyntax},
+é somente uma biblioteca que pode ser importada por outros editores de texto.
+
+\citeonline{vsCodeSyntaxHighlighthing} diferente de \citeonline{sublimeTextSyntax},
+é um editor de texto de código~=aberto que faz uso do mesmo esquema de gramáticas e
+arquivos de estilos.
+Entretanto,
+os arquivos de configuração e
+estilos utilizados por \citeonline{vsCodeSyntaxHighlighthing} e
+\citeonline{sublimeTextSyntax} não são completamente compatíveis,
+eles são similares.
+Ambos os trabalhos foram construídos em cima da mesma base,
+o editor de texto \citeonline{textMateEditor}.
+Cada um desses editores seguiu um rumo diferente do original \citeonline{textMateEditor} conforme eles foram sendo desenvolvidos.
+
+\citeonline{sublimeTextSyntax} continua compatível com os arquivos de gramáticas e
+estilos originais de \citeonline{textMateEditor},
+mas também fez a criação de novos operadores para especificação das gramáticas das linguagens (para poder especificar mais tipos linguagens de programação).
+Já \citeonline{vsCodeSyntaxHighlighthing},
+não fez a adição de novos recursos como \citeonline{sublimeTextSyntax},
+contudo,
+ele ainda não é completamente compatível com os arquivos de gramáticas originais devido a \textit{bugs} em sua implementação \cite{textMateScopeExclusion}.
+
+
+\subsection{Gramáticas}
+
+Apesar das suas diferenças,
+tanto \citeonline{sublimeTextSyntax}, quanto \citeonline{vsCodeSyntaxHighlighthing} ou \citeonline{textMateEditor},
+fazem uso do mesmo núcleo de funcionamento para especificação das gramáticas e
+estilos.
+O que muda de um para outro é o suporte a recursos mais avançados (como \citeonline{sublimeTextSyntax} faz) e
+o formatado de representação das informações.
+Enquanto \citeonline{textMateEditor} e
+\citeonline{vsCodeSyntaxHighlighthing} utilizam arquivos no formato XML\footnote{
+Do inglês,
+\textit{Extensible Markup Language}.
+} \cite{complexityOfXMLSchema} para representar as gramáticas e
+estilos,
+\citeonline{sublimeTextSyntax} faz uso do formato YAML \cite{yamlSpecificModelChecking} para gramáticas e
+JSON para estilos (``.sublime-color-scheme'').
+
+Tanto YAML quanto XML são equivalentes e
+podem representar a mesma informação sobre as gramáticas especificadas,
+portanto,
+tradutores (\fullref{compiladoresEtradutores}) como \citeonline{packageDevSublime} podem ser escritos sem dificuldade para converter uma gramática de \citeonline{textMateEditor} para \citeonline{sublimeTextSyntax}.
+Mas nem sempre no sentido contrário,
+uma vez que \citeonline{sublimeTextSyntax} faz a adição de novos operadores para especificação de suas gramáticas.
+
+Escolheu~=se mostrar um exemplo de gramática e
+estilos utilizados por \citeonline{sublimeTextSyntax} por que dos três trabalhos:
+\begin{inparaenum}[1)]
+\item Ele é consegue especificar mais diferentes tipos de gramáticas (pelos novos operadores adicionados,
+como ``set'' e
+``branch'' \cite{branchTemporarilyHighlightsWrong}) e;
+\item Utiliza YAML para representar suas gramáticas,
+tornando a leitura dos arquivos muito mais amigável do que XML,
+como utilizado pelos outros trabalhos \cite{textMateEditor,vsCodeSyntaxHighlighthing}.
+\end{inparaenum}%
+No \typeref{exemploDeUmArquivoSublimeSyntax},
+pode ser encontrado um exemplo funcional de gramática aceita por \citeonline{sublimeTextSyntax}.
+Mesmo não sendo capaz de descrever uma linguagem em todos os seus detalhes,
+este arquivo já é suficiente para encontrar as palavras~=chaves:
+\begin{inparaenum}[1)]
+\item \textit{if};
+\item \textit{else};
+\item \textit{for};
+\item e
+\textit{while},
+\end{inparaenum}%
+com o ``escopo \mintinline{text}|keyword.control.c|'' de uma certa linguagem chamada ``C'',
+onde os arquivos dela possuem as extensões ``.c'' e
+``.h''.
+\begin{code}
+\caption{Exemplo de um arquivo ``.sublime-syntax''}
+\label{exemploDeUmArquivoSublimeSyntax}
+\begin{minted}{yaml}
+%YAML 1.2
+---
+name: C
+file_extensions: [c, h]
+scope: source.c
+
+contexts:
+  main:
+    - match: \b(if|else|for|while)\b
+      scope: keyword.control.c
+\end{minted}
+\xpretocmd{\ABNTEXfontereduzida}{\setlength{\belowcaptionskip}{-13pt}}{}{}
+\fonte{\citeonline{sublimeTextSyntax}}
+\vspace{13pt}
+\end{code}
+
+Uma vez que o \typeref{exemploDeUmArquivoSublimeSyntax} classificou as palavras~=chave com o ``escopo \mintinline{text}|keyword.control.c|'',
+um editor de texto precisa somente mais de um arquivo de configuração para determinar como estas palavras~=chave devem ser exibidas.
+No \typeref{exemploDeUmArquivoSublimeColorScheme},
+encontra~=se um arquivo JSON de configuração de estilos.
+Nele,
+há a definição de três tipos de estilo diferentes.
+O último deles aplica ao nosso ``escopo \mintinline{text}|keyword.control.c|'',
+a cor de texto ``\mintinline{text}|#7F00FF|'' (RGB hexadecimal),
+com o estilo de fonte ``\textit{itálico}''.
+
+As demais especializações de escopos do arquivo (\typeref{exemploDeUmArquivoSublimeColorScheme}) não foram utilizadas porque a gramática (\typeref{exemploDeUmArquivoSublimeSyntax}),
+não fez sua utilização.
+Como arquivos de estilo podem ser utilizados com muitas gramáticas diferentes,
+e uma gramática pode ser utilizada com muitos arquivos de estilo diferentes,
+sempre poderão acontecer casos onde nem todas os escopos da gramática serão utilizados e
+nem todos os escopos dos arquivos de estilo serão utilizados.
+\begin{code}
+\caption{Exemplo de um arquivo ``.sublime-color-scheme''}
+\label{exemploDeUmArquivoSublimeColorScheme}
+\begin{minted}{json}
+{
+    "name": "Example Color Scheme",
+    "variables":
+    {
+        "green": "hsla(153, 80%, 40%, 1)",
+        "black": "#111",
+        "white": "rgb(242, 242, 242)"
+    },
+    "globals":
+    {
+        "background": "var(black)",
+        "foreground": "var(white)",
+        "caret": "color(var(white) alpha(0.8))"
+    },
+    "rules":
+    [
+        {
+            "name": "Comment",
+            "scope": "comment",
+            "foreground": "#888888"
+        },
+        {
+            "name": "String",
+            "scope": "string",
+            "foreground": "hsla(50, 100%, 50%, 1)",
+        },
+        {
+            "name": "Operators",
+            "scope": "keyword.control.c",
+            "foreground": "#7F00FF",
+            "font_style": "italic",
+        }
+    ]
+}
+\end{minted}
+\xpretocmd{\ABNTEXfontereduzida}{\setlength{\parskip}{10pt}\setlength{\belowcaptionskip}{-13pt}}{}{}
+\fonte{\citeonline{sublimeTextColorSchemes}}
+\vspace{13pt}
+\end{code}
+
+Em casos de estrema incompatibilidade,
+podem acontecer casos onde nenhum estilo pode ser aplicado,
+porque a gramática e
+o arquivo de estilo não concordam em nenhum nome de escopo.
+Por essas e
+outras,
+foram criados guias de estilos \cite{sublimeTextScopeNaming} onde criam~=se convenções de nomes de escopos para serem utilizados tanto por quem cria gramáticas,
+quanto por que cria arquivos de estilos para editores de texto.
+
+Mas porque exitem arquivos de estilos?
+Para que se possam trocar algumas,
+senão todas as cores que são exibidas pelo editor de texto.
+Por exemplo,
+durante o dia pode~=se gostar de utilizar cores de texto mais claras com um fundo branco,
+enquanto durante a noite,
+um fundo mais escuro com cores de texto mais claras.
+Ou ainda,
+diferentes programadores possuem diferentes preferências de cores.
+Assim,
+todos podem utilizar o mesmo editor de texto somente configurando o editor de texto com as suas preferências de estilo.
 
 
 \advisor{}{%
@@ -594,3 +792,8 @@ sublinhado).
         \item \url{https://github.com/Microsoft/language-server-protocol/wiki/Protocol-Implementations}.
     \end{enumerate}
 }
+
+No próximo capítulo será apresentado a união do estado da arte dos formatadores de código~=fonte,
+junto com o estado da arte das ferramentas de adição de cores recém~=apresentadas,
+na tentativa da criação de formatadores de código~=fonte com a flexibilidade de extensão das ferramentas de adição de cores.
+
