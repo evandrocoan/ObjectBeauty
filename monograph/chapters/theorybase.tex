@@ -175,8 +175,8 @@ considere que os símbolos:
     \item Um símbolo inicial selecionado a partir do conjunto de símbolos não~=terminais.
     O símbolo inicial é utilizado para definir qual será a raíz da Árvore Sintática,
     e.g.,
-    uma das últimas regras de produção utilizada para terminar o reconhecimento do programa de entrada em um Analisador Ascendente,
-    e uma das primeira regras utilizada em um Analisador Descendente ou
+    o símbolo inicial participará de uma das últimas regras de produção utilizada para terminar o reconhecimento do programa de entrada em um Analisador Ascendente,
+    e também participará de uma das primeira regras de produção utilizada em um Analisador Descendente ou
     gerar~=se palavras desta linguagem\footnote{
     Processo natural quanto um Analisador Sintático realiza o reconhecimento de um programa de entrada.
     Para mais informações,
@@ -229,7 +229,11 @@ parseit( 'token com outro nome', "token_com_outro_nome.png" )
 \end{code}
 
 A sintaxe da gramática utilizada no \typeref{code:ExemploDeGramaticaLark},
-é uma adaptação especial do padrão EBNF que o Analisador Lark faz.
+é uma adaptação especial do padrão EBNF\footnote{
+Do inglês,
+\textit{Extended Backus–Naur Form} uma extensão do padrão BNF (\textit{Backus–Naur Form}).
+}
+\cite{teachingEbnf,antlrBookTerrentParr,larkGrammarReference,larkStyleCheat} que o Analisador Lark faz.
 Símbolos que possuem todas as letras em ``MAIÚSCULA'' definem os símbolos terminais da gramática que aparecerão na Árvore Sintática.
 Enquanto símbolos escrito todos em letras ``minúsculas'' definem os símbolos não~=terminais da gramática.
 \advisor{}{Para mais informações sobre a sintaxe de entrada de gramáticas do Analisador Lark,
@@ -853,8 +857,8 @@ não determinística.
 Usualmente\footnote{
 Como será apresentado mais a frente nesta seção:
 \begin{inparaenum}[1)]
-\item O processo de Análise Semântica pode acontecer ao mesmo tempo que a Análise Sintática;
-\item Por fim,
+\item o processo de Análise Semântica pode acontecer ao mesmo tempo que a Análise Sintática;
+\item por fim,
 a Árvore Sintática também pode nem ser gerada em uma estrutura de dados específica,
 ocorrendo diretamente Análise Semântica seguido da Geração de Código.
 \end{inparaenum}%
@@ -921,15 +925,14 @@ se é a declaração de uma variável,
 com a realização ``simultânea'' da Análise Léxica,
 Sintática e
 Semântica.
-
 Uma vez que um novo \textit{token} é reconhecido,
-ele é alimentado para o Analisador Sintático,
-que também alimenta o Analisador Semântico,
-que alimenta a Tabela de Símbolos.
-Assim,
-o Analisador Sintático é capaz de consultar a Tabela de Símbolos \cite{ahoCompilerDragonBook} e
+ele é enviado ao Analisador Sintático que atualiza a Tabela de Símbolos \cite{ahoCompilerDragonBook}.
+Durante o processo de ``Análise Sintática'' então se utiliza da Tabela de Símbolos para eliminar a ambiguidade ``x * y;''.
+\advisor{}{Portanto,
+o ``Analisador Sintático'' é capaz de consultar a Tabela de Símbolos e
 descobrir se dado \textit{token} é um tipo ou
 uma variável numérica.
+}
 
 \advisor{Requer~=se}{Entretanto,
 requer~=se} cuidado sobre como as alterações do Analisador são feitas,
@@ -978,7 +981,7 @@ devido a sua equivalência com Máquinas de Turing e
 são capazes de realizar qualquer operação computacional.
 Mas,
 isso não pode ser confundido com as \textit{Strings} ou
-Programas gerados por essas gramáticas \cite{areThereDomainSpecificLanguages}.
+Programas gerados por essas gramáticas \cite{areThereDomainSpecificLanguages,yamlSpecificModelChecking}.
 
 Tais programas podem ou
 não ser Turing Completos.
@@ -1004,7 +1007,7 @@ o conjunto de Linguagens Regulares pode ser considerado com complexidade linear\
 Complexidade linear é um caso particular de complexidade polinomial onde o grau do Polinômio é 1,
 i.e.,
 $\Theta(n)$.
-Aprenda mais sobre classes de complexidade com \citeonline{cormenIntroductionToAlgorithms,computationalComplexityAuroraBarak}.
+\advisor{}{Aprenda mais sobre classes de complexidade com \citeonline{cormenIntroductionToAlgorithms,computationalComplexityAuroraBarak}.}
 }
 em tempo computacional para determinar de dada palavra pertence ou
 não a linguagem,
@@ -1030,9 +1033,9 @@ não a linguagem.
 \citeonline{JayEarley},
 publicou um artigo com a especificação do algoritmo de análise Earley:
 \begin{inparaenum}[1)]
-\item Capaz de analisar qualquer Gramática Livre de Contexto ambígua em tempo $\Theta(n^3)$;
-\item Capaz de analisar qualquer Gramática Livre de Contexto não~=ambígua em tempo $\Theta(n^2)$ e;
-\item Capaz de analisar qualquer Gramática Livre de Contexto LR(K) em tempo $\Theta(n^1)$.
+\item capaz de analisar qualquer Gramática Livre de Contexto ambígua em tempo $\Theta(n^3)$;
+\item capaz de analisar qualquer Gramática Livre de Contexto não~=ambígua em tempo $\Theta(n^2)$ e;
+\item capaz de analisar qualquer Gramática Livre de Contexto LR(K) em tempo $\Theta(n^1)$.
 \end{inparaenum}%
 
 
@@ -1104,13 +1107,12 @@ com expoente de $n$ igual a $1$,
 i.e.,
 $\Theta(n^1)$.
 \begin{figure}[!htb]
-\caption{Árvore de Computação com 4 Passos\protect\footnotemark{} de um Problema da Classe $NP$}
+\caption{Árvore de Computação com 4 Passos \advisor{Não~=Determinísticos}{} de um Problema da Classe $NP$}
 \label{ParserNonDeterministic}
 \centering
 \includegraphics[width=1.0\textwidth]{ParserNonDeterministic.png}
 \fonte{Própria}
 \end{figure}
-\footnotetext{Não~=Determinísticos.}
 
 O que torna a computação Não~=Determinística\footnote{
 E pertencente a classe dos problemas Não~=Determinístico Polinomial.
@@ -1256,6 +1258,6 @@ Linguagens Formais.
 Tal conteúdo,
 é ligado fortemente com matemática e
 provas formais.
-Diferente do conteúdo do próximo,
+Diferente do conteúdo do próximo capítulo,
 que está mais ligado com às últimas mudanças do estado da arte para editores de texto e
 ferramentas de auxílio ao desenvolvimento de software.

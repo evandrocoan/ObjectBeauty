@@ -18,6 +18,48 @@ Por exemplo,
 ``metadata'' são dados sobre os dados.
 } para então formatar o código~=fonte da linguagem descrita pela gramática.
 
+Para desenvolver este trabalho foi utilizada a linguagem Python \cite{webDevelopmentWithDjango},
+por que Python é uma linguagem simples de entender,
+e permite que se escreva códigos com maior velocidade.
+Em contra~=partida,
+Python como sendo uma linguagem interpretada,
+apresentada menor eficiência do que linguagens compiladas como C++.
+Entretanto,
+não é objetivo deste trabalho ter eficiência em tempo de execução.
+Somente apresentar uma prototipação rápida de algoritmos para uma nova proposta de formatadores de código~=fonte.
+
+Como Python é a linguagem de desenvolvimento deste trabalho,
+escolheu~=se utilizar o Analisador Lark por que ele é um dos analisadores escritos inteiramente na linguagem Python.
+Dentre os motivos para se utilizar o Analisador Lark,
+pode~=se citar:
+\begin{inparaenum}[1)]
+\item implementa vários algoritmos de análise como LALR \cite{lalrDeRemer1982},
+Earley \cite{JayEarley} e CYK \cite{hopcroftBook},
+podendo reconhecer todas as gramáticas livre de contexto (\fullref{classesDeComplexidade});
+\item não possui dependência de nenhuma outra biblioteca;
+\item tanto Analisador Léxico quanto Analisador Sintática são totalmente integrados na construção da gramática no formato EBNF,
+sem a necessidade de escrever nenhum código de programação (Python) adicional para fazer a Análise Léxica ou
+Sintática;
+\item é um projeto ativo de desenvolvimento \cite{larkCommitHistory},
+constantemente recebendo correções de problemas (\textit{bugs}) e
+adição de novos recursos (\textit{features}).
+\end{inparaenum}%
+No fim,
+qualquer analisador que atenda estas características de flexibilidade pode ser utilizado projeto.
+
+Para este trabalho,
+foi realizado um \textit{fork} \cite{overviewOfGitHubForks,mayTheForkBeWithYou,collaborationAmongGitHubUsers} do Analisador Lark,
+renomeado o Analisador Lark \cite{larkContextualLexer} para ``pushdown''\footnote{%
+O código~=fonte do \textit{fork} pode ser encontrado em \url{https://github.com/evandrocoan/pushdownparser}.
+}.
+Foi realizado um \textit{fork} do Analisador Lark para poder~=se realizar pequenas alterações que facilitam o entendimento do funcionamento interno da ferramenta como adição de logs e
+alterações nos algoritmos de iteração nas árvores geradas pela ferramenta.
+Por isso,
+em alguns lugares do código~=fonte é encontrado o nome ``pushdown'' ao invés de ``lark''.
+Já em outros,
+continua~=se sendo chamado Lark de Lark para simplificar a retrocompatibilidade com a biblioteca original e
+facilitar a realização da integração de novos updates vindos do repositório original do Analisador Lark para o \textit{fork} realizado.
+
 
 \section{Uma Gramática de Gramáticas}
 \label{GrammarsGrammar}
@@ -30,10 +72,7 @@ Isso depende de como seu analisador foi implementado\advisor{.}{,
 sendo assim,
 um detalhe de implementação.%
 } \advisor{Analisadores}{Usualmente,
-analisadores} seguem uma notação comum como EBNF\footnote{
-Do inglês,
-\textit{Extended Backus–Naur Form} uma extensão do padrão BNF (\textit{Backus–Naur Form}).
-}\cite{teachingEbnf,antlrBookTerrentParr},
+analisadores} seguem uma notação comum como EBNF \cite{teachingEbnf,antlrBookTerrentParr,larkGrammarReference,larkStyleCheat},
 \advisor{que diverge de acordo com detalhes de implementação.
 }{%
 que não difere muito de um analisador para outro,
@@ -64,20 +103,30 @@ idioma e
 com o conteúdo um pouco diferente.}
 \end{figure}
 
+Com algumas exceções,
+compiladores são usualmente construídos utilizando um compilador de compiladores (ou analisadores) \cite{compilersCompilerMetaLanguage}.
+Utilizando um Analisador (\typeref{MyWorflowForLarkTraduzido}),
+é escrita a gramática da linguagem para qual se quer construir um compilador (\fullref{introducaoGramaticas}).
+Após isso,
+o Analisador gera o código~=fonte do analisador léxico e
+sintático que aceita como entrada o programas da linguagem a ser compilada.
+Então,
+uma vez que os analisadores léxico e
+sintático terminam seu trabalho,
+tem~=se como resultado a Árvore Sintática do programa de entrada.
+
+A Árvore Sintática é utilizada então para realizar a Análise Semântica e
+geração de código,
+completando~=se a construção de um compilador.
+Para o processo de construção de um compilador,
+não basta somente utilizar~=se de um Analisador,
+mas também é necessário a escrita do código~=fonte do Analisador Semântico e
+a geração de código binário executável.
 \advisor{Este trabalho faz um uso diferente}{Já este trabalho faz um uso fora do comum}.
 Como mostrado na \typeref{MyWorflowForLarkTraduzido2},
 primeiro especifica~=se uma metalinguagem que será utilizada pelos usuários da nova ferramenta de Formatação de Código.
 Para escrever esta nova metalinguagem,
-utilizou~=se o Analisador Lark \cite{larkContextualLexer}.
-Usualmente,
-o Analisador Lark é utilizado somente como um gerador de compiladores (\typeref{MyWorflowForLarkTraduzido}),
-entretanto,
-neste contexto Lark é utilizado como um compilador de compiladores (\typeref{MyWorflowForLarkTraduzido2}).
-Para este trabalho,
-foi realizado um \textit{fork} \cite{overviewOfGitHubForks,mayTheForkBeWithYou,collaborationAmongGitHubUsers} do Analisador Lark,
-renomeado o Analisador Lark para ``pushdown''\footnote{%
-O código~=fonte do \textit{fork} pode ser encontrado em \url{https://github.com/evandrocoan/pushdownparser}.
-}.
+utilizou~=se o Analisador Lark.
 \begin{figure}[!htb]
 \caption{Uso feito pela nova ferramenta de Formatação de Código}
 \label{MyWorflowForLarkTraduzido2}
@@ -86,20 +135,47 @@ O código~=fonte do \textit{fork} pode ser encontrado em \url{https://github.com
 \fonte{Própria, traduzido e adaptado de \citeonline{larkErrorRecovery}}
 \end{figure}
 
-Foi realizado um \textit{fork} do Analisador Lark para poder~=se realizar pequenas alterações que facilitam o entendimento do funcionamento interno da ferramenta como adição de logs e
-alterações nos algoritmos de iteração nas árvores geradas pela ferramenta.
-Por isso,
-em alguns lugares do código~=fonte é encontrado o nome ``pushdown'' ao invés de ``lark''.
-Já em outros,
-continua~=se sendo chamado Lark de Lark para simplificar a retrocompatibilidade com a biblioteca original e
-facilitar a realização da integração de novos updates vindos do repositório original do Analisador Lark para o \textit{fork} realizado.
+Diferente da \typeref{MyWorflowForLarkTraduzido},
+na \typeref{MyWorflowForLarkTraduzido2} é adicionado mais uma etapa ao uso do Analisador.
+Antes exista somente o fluxo de comunicação ``Analisador -> Compilador'',
+agora o fluxo de informações segue como ``Gerador de Analisadores -> Gerador de Formadores -> Formatador''.
+Neste novo fluxo,
+``Gerador de Analisadores'' é o equivalente ao antigo ``Analisador'' e
+``Formatador'' é o equivalente ao antigo ``Compilador''.
+Entre eles,
+foi adicionado o ``Gerador de Formadores'',
+que é a criação de um novo tipo de Analisador de propósito específico,
+para uma nova DSL\footnote{
+Do inglês,
+\textit{Domain-Specific Language}.
+} \cite{areThereDomainSpecificLanguages,yamlSpecificModelChecking},
+linguagem de propósito específico (neste caso,
+a linguagem de uma gramática,
+uma metagramática).
+
+Essa nova DSL trata~=se de uma nova especificação de gramáticas,
+baseada nas gramáticas já utilizadas por editores de texto para adicionar cores aos códigos~=fontes exibidos em sua interface gráfica (\fullref{section:sourceCodeHighlightersGrammars}).
+Diferente das gramáticas já utilizadas por editores de texto para adicionar cores,
+é criada uma nova especificação de gramáticas para que no futuro ela posso conter recursos específicos para formatação de código~=fonte (e não adição de cores),
+e para que ela não seja dependentes de características de linguagens como YAML ou
+XML utilizada pelos editores de texto para especificação de suas gramáticas (\fullref{section:sourceCodeHighlighters}).
+
+Usualmente,
+o Analisador Lark é utilizado somente como um gerador de compiladores (\typeref{MyWorflowForLarkTraduzido}),
+entretanto,
+neste contexto Lark é utilizado como um compilador de compiladores (\typeref{MyWorflowForLarkTraduzido2}).
+A vantagem de utilizar outro analisador (Lark) para criar outro analisador (Gerador de Formatadores),
+é que a gramática de especificação do Gerador de Formatadores pode usufruir da flexibilidade que a utilização que analisadores trazem na especificação das gramáticas de uma linguagem.
+A facilidade em alterar gramática da linguagem utilizada,
+neste caso,
+a gramática de gramáticas (ou metagramática).
 
 Em vez de permitir com que o usuário final da aplicação opere diretamente com o analisador da \typeref{MyWorflowForLarkTraduzido},
 foi criado uma nova metagramática (uma gramática de gramáticas) como mostrado nas \typeref{MyWorflowForLarkTraduzido2}.
 Esta nova metagramática simplifica o processo de escrita de gramáticas ao criar uma nova especificação de gramáticas,
 somente com os recursos necessários para se possa trabalhar com formatação de código~=fonte.
-\advisor{Não}{A final, não}
-é objetivo deste trabalho fazer a análise completa de programas,
+\advisor{Não}{A final,
+não} é objetivo deste trabalho fazer a análise completa de programas,
 pela sua sintaxe, semântica,
 e gerar código~=binário executável.
 
@@ -140,7 +216,7 @@ os metaprogramas serão as gramáticas que serão utilizadas pelos formatadores 
 
 Os metaprogramas (ou gramáticas) são entradas diretas do metacompilador,
 o Analisador Lark na \typeref{MyWorflowForLarkTraduzido2},
-um Analisador LALR(1).
+utilizado para analisar uma gramática LALR(1) (\typeref{chapter:codigoDaMetagramatica}).
 Na \typeref{ParsersPublicAudienceTraduzido},
 não pode~=se ver diretamente que as gramáticas das linguagens serão os metaprogramas,
 mas o quadro em azul mais a esquerda ligado por linhas pontilhadas explica que os erros léxicos e
@@ -153,10 +229,9 @@ e pode~=se ver claramente as relações entre Metagramáticas,
 Metacompiladores e Metaprogramas. Por simplificação,
 mostra~=se o nó ``Árvore Sintática'' sem explicitamente falar sobre sua Análise Semântica e
 propriamente a construção do Compilador (ou do Formatador de Código).
-Vale lembrar que trata~=se de um Compilador de Compiladores,
-e não um Compilador de Analisadores.
-Por isso vemos que os Metaprogramas (ou gramáticas) são entradas diretas dos Metacompilador,
-e não do Formatador de Código.
+Vale lembrar que trata~=se de um Compilador de Analisadores de uma DSL,
+e não um Compilador de Analisadores de propósito geral.
+Isso significa que as gramáticas aceitas pelos analisadores gerados não são capazes de gerar analisadores de linguagens de propósito geral.
 \begin{figure}[!htb]
 \caption{Relação entre Metagramáticas, Metacompiladores e Metaprogramas}
 \label{MetacompilerMetagrammarMetaprogram}
@@ -166,35 +241,70 @@ e não do Formatador de Código.
 \end{figure}
 
 Esta não é a primeira vez que uma metagramática com simplificações foi escrita.
-Em trabalhos relacionados com esta implementação de metagramática (\fullref{secion:sourceCodeHighlighters}),
+Em trabalhos relacionados com esta implementação de metagramática (\fullref{section:sourceCodeHighlighters}),
 foram realizadas as mesmas simplificações aqui apresentadas.
 Existem algumas diferenças técnicas da metagramática deste trabalho com as dos recém~=apresentados.
 Como por exemplo,
 a implementação da metagramática realizada ainda não suporta a classificação do mesmo trecho de código~=fonte por múltiplos tipos de escopo \cite{vsCodeSyntaxHighlighthing}.
 
 Foi escolhida a criação de uma nova metagramática porque as implementações de metagramáticas já existentes como \citeonline{rustSublimeTextSyntaxSyntec,vsCodeSyntaxHighlighthing}:
-\begin{enumerate}[1)]
-\item Não utilizam explicitamente nenhum analisador,
+\begin{inparaenum}[1)]
+\item não utilizam explicitamente nenhum analisador,
 realizando a programação das produções da gramática diretamente no código~=fonte (\fullref{gramaticasVersusLinguagens});
-\item Não são capazes de reconhecer todas as características de todas as linguagens de programação (devido a optimizações para maior performance);
-\item Não possuem sintaxe própria,
+\item não são capazes de reconhecer todas as características de todas as linguagens de programação (devido a optimizações para maior performance);
+\item não possuem sintaxe própria,
 i.e.,
 utilizam~=se de outras linguagens como YAML,
 XML e JSON\footnote{%
 Do inglês,
 \textit{JavaScript Object Notation}.
 } \cite{foundationsOfJSONSchema} para fazer a especificação da metagramática.
-\end{enumerate}
+\end{inparaenum}
 Fazendo a especificação de uma nova metagramática,
 é possível adaptar~=se a especificação da sintaxe das gramáticas de acordo com as necessidades específicas sem ter que depender de características de outras linguagens como YAML,
 XML ou
 JSON.
 
+Na \typeref{MetacompilerMetagrammarMetaprogram},
+percebe~=se que os Metaprogramas (ou gramáticas) são entradas diretas dos Metacompilador,
+e não do Formatador de Código como mostrado nas figuras anteriores.
+Ambas as figuras estão corretas,
+entretanto,
+a \typeref{MetacompilerMetagrammarMetaprogram} é uma versão mais resumida de como o processo de análise léxica e
+sintática acontece.
+Analisadores sempre precisam como entrada ter uma gramática e
+a palavra de uma dada linguagem (que pode ou
+não ser aceita pelo analisador).
+
+Como já explicado no início desta seção (\typeref{GrammarsGrammar}),
+a ligação direta entre a gramática e
+a palavra da linguagem não precisa acontecer diretamente com analisador \typeref{MetacompilerMetagrammarMetaprogram}.
+Caso o analisador suporte,
+ao contrário de pedir para que o analisador gere o código~=fonte de um Analisador Léxico e
+Sintático (e funcione como um Compilador de Compiladores),
+ele pode ser utilizado diretamente recebendo como entrada a gramática da linguagem e
+uma palavra para análise,
+retornando uma Árvore Sintática como resultado processo ou
+erro de análise caso a palavra de entrada não pertença a linguagem.
+
+A existência do processo de receber como entrada a gramática de um linguagem e
+gerar código~=fonte de uma Analisador Léxico e
+Sintático capaz de receber um programa de entrada e
+gerar uma Árvore Sintática,
+é o que caracteriza um ``Analisador'' como um Compilador de Compiladores.
+Quando um ``Analisador'' não é capaz de gerar código~=fonte de um Analisador Léxico e
+Sintática,
+ele recebe como entrada diretamente a gramática e
+a palavra da linguagem e
+devolve como resultado a Árvore Sintática do programa de entrada ou
+um erro de análise,
+caso programa de entrada não pertença a linguagem da gramática.
+
 
 \subsection{Escopos}
 
-Na \typeref{TexMateScopes},
-é mostrado na primeira linha o trecho de código~=fonte ``\mintinline{text}|function f1 () {|'' e
+Como já inicialmente aprendizado na \typeref{section:sourceCodeHighlightersGrammars},
+na \typeref{TexMateScopes} é mostrado na primeira linha o trecho de código~=fonte ``\mintinline{text}|function f1 () {|'' e
 nas demais linhas são apresentados as diversas classificações de escopos aplicados a cada um dos trechos do código~=fonte de amostra.
 Por exemplo,
 a palavra ``function'' possui simultaneamente os escopos:
@@ -221,7 +331,7 @@ seguem uma conversão de nomes para que as utilizações dos escopos gerados pel
 
 Fazendo o uso de uma conversão para nomes de escopos,
 as gramáticas ficam compatíveis com um maior número de arquivos de temas (ou configurações de cores),
-onde são especificados os nomes dos escopos serão utilizados para especificar as cores a serem utilizadas pelo editor de texto.
+onde são especificados os nomes dos escopos serão utilizados para especificar as cores a serem utilizadas pelo editor de texto (\fullref{section:sourceCodeHighlightersGrammars}).
 \advisor{}{Para mais informações sobre a utilização de arquivos de temas em editores de texto veja \citeonline{sublimeTextScopeNaming,vsCodeSyntaxHighlighthing}.}
 
 
@@ -230,7 +340,7 @@ onde são especificados os nomes dos escopos serão utilizados para especificar 
 
 Como já explicado na seção anterior,
 uma metagramática é gramática de gramáticas e
-foi utilizado o Analisador Lark \cite{larkContextualLexer} como um metacompilador ou
+foi utilizado o Analisador Lark como um metacompilador ou
 compilador de compiladores.
 Nesta seção será discutido como a metalinguagem (especificada pela metagramática) utilizada foi construída,
 começando com o seu símbolo inicial.
@@ -808,3 +918,10 @@ Assim,
 pode~=se ter o formatador de código já em funcionamento com gramática mais simples possível,
 ou que já atenda as características mínimas que deseja~=se formatar ou
 adicionar de cores.
+
+Neste capítulo,
+foi visto um pouco sobre detalhes da implementação de metaprogramas,
+metagramáticas e
+metacompiladores para uso como um formatador de código~=fonte.
+No próximo capítulo será visto um pouco sobre o que se pode concluir sobre este trabalho e
+esperar dos seus trabalhos futuros.
