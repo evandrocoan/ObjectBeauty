@@ -2,7 +2,7 @@
 
 % Is it possible to keep my translation together with original text?
 % https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
-\chapter{Uma Ferramenta de Formatação}
+\chapter{Formatador Desenvolvido}
 \label{software_implementation}
 
 Neste capítulo,
@@ -45,7 +45,7 @@ constantemente recebendo correções de problemas (\textit{bugs}) e
 adição de novos recursos (\textit{features}).
 \end{inparaenum}%
 No fim,
-qualquer analisador que atenda estas características de flexibilidade pode ser utilizado projeto.
+qualquer analisador que atenda estas características de flexibilidade pode ser utilizado.
 
 Para este trabalho,
 foi realizado um \textit{fork} \cite{overviewOfGitHubForks,mayTheForkBeWithYou,collaborationAmongGitHubUsers} do Analisador Lark,
@@ -61,7 +61,280 @@ continua~=se sendo chamado Lark de Lark para simplificar a retrocompatibilidade 
 facilitar a realização da integração de novos updates vindos do repositório original do Analisador Lark para o \textit{fork} realizado.
 
 
-\section{Uma Gramática de Gramáticas}
+\section{Visão Geral}
+
+Nesta seção,
+será simplificadamente explicado como o algoritmo de formatação de código~=fonte deste trabalho funciona.
+Para mais tarde nas próximas seções,
+poder~=se entrar com mais detalhes sobre partes específicas do funcionamento,
+sem se preocupar com detalhes básicos do funcionamento do formatador de código~=fonte.
+No \typeref{code:exemploDeUmProgramaNaLinguagemJava},
+é apresentado um programa completo e
+funcional na linguagem Java,
+que imprime ``Hello World!'' quando chamado sem nenhum argumento de linha de comando (CLI\footnote{
+Do inglês,
+\textit{Command Line Interface}.
+},
+\cite{commandLineInterface}).
+Quando este mesmo programa Java é chamado com qualquer número de argumentos pela linha de comando,
+ele imprime ``Bye World!'' na saída padrão.
+\begin{code}
+\caption{Exemplo de um programa na linguagem Java}
+\label{code:exemploDeUmProgramaNaLinguagemJava}
+\begin{minted}{java}
+public class Main
+{
+    public static void main(String[] args)
+    {
+        if(args.length > 0)
+        {
+            System.out.println("Bye World!");
+        }
+        else
+        {
+            System.out.println("Hello World!");
+        }
+    }
+}
+\end{minted}
+\end{code}
+
+Irá ser introduzido o algoritmo de formatação proposto de forma ``simples\footnote{
+Com ``simples'',
+refere~=se a simplificação da Metagramática e
+Gerador de Formatadores utilizados nesta seção.
+Para uma apresentação mais complexa,
+confira a \fullref{metalinguagemGrammar}.
+}'',
+capaz que pegar somente o elemento ``\mintinline{text}|if(args.length > 0)|'' de um programa de entrada de qualquer linguagem,
+como o exemplo em Java apresentado no \typeref{code:exemploDeUmProgramaNaLinguagemJava}.
+Inicia~=se a com a apresentação de uma simplificação da metagramática utilizada neste trabalho.
+A metagramática completa pode encontrada no \typeref{chapter:codigoDaMetagramatica}.
+Ela segue as mesmas regras do Analisador Lark explicadas na \fullref{introducaoGramaticas}.
+Uma melhor descrição do uso dos operadores ``match'' e
+``scope'' definidos por essa metagramática,
+podem ser encontrados mais tarde na \fullref{metalinguagemGrammar}.
+\begin{code}
+\caption{Exemplo mínimo da metagramática}
+\label{code:exemploMinimoDeMetagramatica}
+\begin{minted}{antlr}
+language_syntax: _NEWLINE? ( match_statement | scope_name_statement )+ _NEWLINE?
+
+match_statement: "match" ": " /.+/ _NEWLINE
+scope_name_statement: "scope" ": " /.+/ _NEWLINE
+
+CR: "/r"
+LF: "/n"
+
+_NEWLINE: ( /\r?\n[\t ]*/ )+
+SPACES: /[\t \f]+/
+
+%ignore SPACES
+\end{minted}
+\end{code}
+
+No \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica},
+é apresentado um exemplo de gramática válida definida pelas regras da metagramática apresentada no \typeref{code:exemploMinimoDeMetagramatica}.
+Com a gramática do \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica} é possível reconhecer qualquer programa em que exista a estrura ``\mintinline{text}|if|'' com a seguinte forma ``\mintinline{text}|if(alguma coisa)|'' ou
+somente ``\mintinline{text}|if()|''.
+Uma vez que esses ``\mintinline{text}|if|''\s sejam reconhecidos,
+eles serão atribuídos ao escopo ``\mintinline{text}|if.statement.body|'',
+que representa a região do código~=fonte onde encontra~=se o conteúdo do ``\mintinline{text}|if|''.
+No exemplo do \typeref{code:exemploDeUmProgramaNaLinguagemJava} o escopo ``\mintinline{text}|if.statement.body|'' seria equivalente ao trecho de código~=fonte ``\mintinline{text}|args.length > 0|''.
+\begin{lstlisting}[caption={Exemplo de gramática pelas regras da mínima metagramática},label={code:exemploDeGramaticaPelasRegrasDaMetagramatica},style=yaml_style]
+match: (?<=if\().*(?=\))
+scope: if.statement.body
+\end{lstlisting}
+
+Agora,
+o que pode ser feito com a gramática do \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica}?
+Ela junto com a metagramática (\typeref{code:exemploMinimoDeMetagramatica}) devem ser entrada do Analisador Lark (\typeref{code:exemploDeUsoDaMetagramaticaEUmaGramatica}),
+que irá retornar como resultado a Árvore Sintática (\fullref{compiladoresEtradutores}).
+Então envia~=se a Árvore Sintática para o Analisador Semântico (\typeref{analisadoresSintaticos,analiseSemantica}) verificar se o programa (gramática) de entrada está semanticamente correta,
+e retornar como resultado a Árvore Sintática Abstrata (\typeref{performanceDoFormator,section:AnalisadorSemantico}).
+Veja no \typeref{chapter:execucaoDeMainFormatter} um exemplo de uma Árvore Sintática e
+uma Árvore Sintática Abstrata e
+as compare.
+
+No \typeref{code:exemploDeUsoDaMetagramaticaEUmaGramatica},
+é apresentado um programa em Python que faz uso do Analisador Lark recebendo a metagramática e
+gramática dos \typeref{code:exemploMinimoDeMetagramatica,code:exemploDeGramaticaPelasRegrasDaMetagramatica}.
+Este exemplo de uso do Analisador Lark é igual ao já apresentado na \fullref{introducaoGramaticas},
+com exceção da gramática (aqui representando um metagramática) e
+o programa de entrada (aqui representando uma gramática).
+\begin{code}
+\caption{Exemplo de uso da metagramática e uma gramática}
+\label{code:exemploDeUsoDaMetagramaticaEUmaGramatica}
+\begin{minted}{python}
+import pushdown
+
+parser = pushdown.Lark(
+    r"""
+        language_syntax: _NEWLINE? ( match_statement | scope_name_statement )+ _NEWLINE?
+
+        match_statement: "match" ": " /.+/ _NEWLINE
+        scope_name_statement: "scope" ": " /.+/ _NEWLINE
+
+        CR: "/r"
+        LF: "/n"
+
+        _NEWLINE: ( /\r?\n[\t ]*/ )+
+        SPACES: /[\t \f]+/
+
+        %ignore SPACES
+    """,
+
+    start='language_syntax',
+    parser="lalr",
+)
+
+def parseit(program, filename):
+    pushdown.tree.pydot__tree_to_png(
+            parser.parse( program ), filename, "TB", debug=1, dpi=600 )
+
+parseit( r"""
+match: (?<=if\().*(?=\))
+scope: if.statement.body
+""", "arvore_da_gramatica.png" )
+\end{minted}
+\end{code}
+
+Na \typeref{figure:arvoreSintaticaDaGramaticaDaMetagramatica} é apresentado a Árvore Sintática da gramática construída no programa Python de exemplo no \typeref{code:exemploDeUsoDaMetagramaticaEUmaGramatica}.
+Com uma Árvore Sintática agora pode~=se programaticamente iterar pelos nós da árvore e
+fazer uso do conteúdo dos nós em algum algoritmo específico.
+\begin{figure}[H]
+\caption{Árvore Sintática do \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica} criada pelo \typeref{code:exemploDeUsoDaMetagramaticaEUmaGramatica}}
+\label{figure:arvoreSintaticaDaGramaticaDaMetagramatica}
+\centering
+\includegraphics[max width=1.0\textwidth]{arvore_da_gramatica.png}
+\fonte{Própria}
+\end{figure}
+
+Assumindo que neste ponto,
+o programa (gramática) já está semanticamente validado,
+utiliza~=se a Árvore Sintática Abstrata da gramática da linguagem do código~=fonte (\typeref{code:exemploDeUmProgramaNaLinguagemJava}) para construir algum algoritmo ou
+estratégia que possa ser utilizada para realizar a formatação do código~=fonte inicialmente apresentado no \typeref{code:exemploDeUmProgramaNaLinguagemJava}.
+Seguindo a mesma estratégia utilizada por editores de texto em suas gramáticas (\fullref{section:sourceCodeHighlightersGrammars}),
+realizar~=se o consumo do programa de entrada,
+removendo dele as estruturas descritas pela gramática no \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica},
+até que não se possa mais remover nenhum elemento novo,
+terminando a reconhecimento do programa de entrada pela gramática utilizada.
+
+Ao fazer o processo de reconhecimento do programa de entrada,
+remove~=se os caracteres reconhecidos substituíndo eles por algum outro caractere de marcação (como ``§'') para que não altere~=se o tamanho original do programa de entrada.
+No \typeref{code:resultadoDoReconhecimentoDoProgramaJava} se pode ver como o programa original (\typeref{code:exemploDeUmProgramaNaLinguagemJava}) ficou ao final do processo de reconhecimento pela gramática no \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica}.
+Essa foi uma estratégia utilizada para se possa no final do processo de formatação se possa facilmente reintroduzir no programa os novos trechos de código~=fonte que foram formatados.
+\begin{code}
+\caption{Resultado do reconhecimento do programa Java pela gramática}
+\label{code:resultadoDoReconhecimentoDoProgramaJava}
+\begin{minted}{java}
+{
+    public static void main(String[] args)
+    {
+        if(§§§§§§§§§§§§§§§)
+        {
+            System.out.println("Bye World!");
+        }
+        else
+        {
+            System.out.println("Hello World!");
+        }
+    }
+}
+\end{minted}
+\end{code}
+
+Como pode ser percebido,
+a gramática de entrada no \typeref{code:resultadoDoReconhecimentoDoProgramaJava} não consome todo o programa de entrada (\typeref{code:exemploDeUmProgramaNaLinguagemJava}) no final do processo de reconhecimento (\typeref{code:resultadoDoReconhecimentoDoProgramaJava}).
+Esta é uma característica importante dos formatadores de código deste trabalho.
+Todo texto que não é consumido,
+ou pela gramática de entrada,
+ou pelo formatador de código ou
+adição de cores,
+será mantido intacto no final do processo de formatação ou
+adição de cores.
+Assim,
+pode~=se ter o formatador de código já em funcionamento com gramática mais simples possível,
+ou que já atenda as características mínimas que se deseja formatar ou
+adicionar de cores.
+
+Até este ponto,
+ainda não se mostrou como a parte mais importante deste trabalho deve acontecer,
+a formatação de código~=fonte.
+A estratégia deste trabalho foi realizar a formatação de código~=fonte ao reconhecer o programa de entrada (\typeref{code:exemploDeUmProgramaNaLinguagemJava}) ``removendo'' os caracteres reconhecidos,
+atribuíndo escopos (\typeref{section:sourceCodeHighlightersGrammars}) para cada um deles.
+Uma vez que o trecho de código~=fonte ``removido'' possui um escopo atribuído,
+um arquivo de configurações JSON como \typeref{code:exemploDeConfiguracaoUtilizadaMinimaDoFormatadorDeCodigo} é consultado.
+Caso exista uma ``configuração'' relacionada ao escopo recém~=reconhecido,
+o trecho de código~=fonte é enviado para um formatador especializado de código~=fonte como \typeref{code:exemploMinimoDeFormatadorDeCodigo}.
+\begin{code}
+\caption{Exemplo de configuração utilizada mínima do Formatador de Código}
+\label{code:exemploDeConfiguracaoUtilizadaMinimaDoFormatadorDeCodigo}
+\begin{minted}{python}
+{
+    "if.statement.body" : 2,
+}
+\end{minted}
+\end{code}
+
+O \typeref{code:exemploMinimoDeFormatadorDeCodigo} é uma especialização de uma classe maior responsável por navegar pela Árvore Sintática Abstrata das gramáticas das linguagens sendo formatadas.
+A sua função ``\mintinline{text}|format_text|'' será chamada sempre que um escopo for encontrado pela metagramática.
+Os valores dos parâmetros ``\mintinline{text}|code_to_format|'' e
+``\mintinline{text}|setting_value|'' serão o nome do escopo encontrado pela gramática e
+o valor da ``configuração'' correspondente encontrado no arquivo do \typeref{code:exemploDeConfiguracaoUtilizadaMinimaDoFormatadorDeCodigo}.
+\begin{code}
+\caption{Exemplo mínimo de Formatador de Código}
+\label{code:exemploMinimoDeFormatadorDeCodigo}
+\begin{minted}{python}
+class SingleSpaceFormatter(AbstractFormatter):
+
+    def format_text(self, code_to_format, setting_value):
+        code_to_format = code_to_format.strip( " " )
+
+        if setting_value:
+            return " " * setting_value + code_to_format + " " * setting_value
+        else:
+            return code_to_format
+\end{minted}
+\end{code}
+
+Por fim,
+no \typeref{code:resultadoDoFormatadorDeCodigoParaJava} encontra~=se o resultado da formatador para comparação com o código~=fonte original (\typeref{code:exemploDeUmProgramaNaLinguagemJava}).
+Como pode~=se perceber,
+esta formatação realizada não foi muito significativa.
+Entretanto,
+está~=se trabalhando várias simplificações de implementação.
+Em trabalhos futuros a este (\fullref{chapter:trabalhosFuturos}) se necessita criar maiores abstrações que permitam trabalhar com gramáticas de linguagens utilizado uma pilha de múltiplos contextos (\fullref{metalinguagemGrammar}),
+com já feito em editores de texto (\fullref{section:sourceCodeHighlighters}) que serviram de inspiração a este trabalho.
+\begin{code}
+\caption{Resultado do Formatador de Código para Java}
+\label{code:resultadoDoFormatadorDeCodigoParaJava}
+\begin{minted}{java}
+public class Main
+{
+    public static void main(String[] args)
+    {
+        if(  args.length > 0  )
+        {
+            System.out.println("Bye World!");
+        }
+        else
+        {
+            System.out.println("Hello World!");
+        }
+    }
+}
+\end{minted}
+\end{code}
+
+Nas próximas seções,
+será explicado em pouco mais de detalhes o mesmo funcionamento recém~=apresentado brevemente.
+Para maiores detalhes,
+consulte a implementação e
+exemplos de uso destes algoritmos nos \typeref{chapter:execucaoDeMainFormatter,chapter:codigoDoFormatador}.
+
+
+\section{Introdução à Metagramática}
 \label{GrammarsGrammar}
 
 Na \fullref{introducaoGramaticas},
@@ -288,10 +561,10 @@ retornando uma Árvore Sintática como resultado processo ou
 erro de análise caso a palavra de entrada não pertença a linguagem.
 
 A existência do processo de receber como entrada a gramática de um linguagem e
-gerar código~=fonte de uma Analisador Léxico e
+gerar código~=fonte de um Analisador Léxico e
 Sintático capaz de receber um programa de entrada e
 gerar uma Árvore Sintática,
-é o que caracteriza um ``Analisador'' como um Compilador de Compiladores.
+é o que caracteriza um ``Analisador'' como um ``Compilador de Compiladores''.
 Quando um ``Analisador'' não é capaz de gerar código~=fonte de um Analisador Léxico e
 Sintática,
 ele recebe como entrada diretamente a gramática e
@@ -301,41 +574,7 @@ um erro de análise,
 caso programa de entrada não pertença a linguagem da gramática.
 
 
-\subsection{Escopos}
-
-Como já inicialmente aprendizado na \typeref{section:sourceCodeHighlightersGrammars},
-na \typeref{TexMateScopes} é mostrado na primeira linha o trecho de código~=fonte ``\mintinline{text}|function f1 () {|'' e
-nas demais linhas são apresentados as diversas classificações de escopos aplicados a cada um dos trechos do código~=fonte de amostra.
-Por exemplo,
-a palavra ``function'' possui simultaneamente os escopos:
-\begin{inparaenum}[1)]
-\item ``source.js'';
-\item ``meta.function.js'' e;
-\item ``storage.type.function.js''.
-\end{inparaenum}%
-\begin{figure}[!htb]
-\caption{Exemplo de classificação de código~=fonte com múltiplos escopos}
-\label{TexMateScopes}
-\centering
-\includegraphics[width=1.0\textwidth]{TexMateScopes.png}
-\fonte{\citeonline{vsCodeSyntaxHighlighthing}}
-\end{figure}
-
-Os nomes utilizados na \typeref{TexMateScopes},
-podem ser qualquer texto que usuário especificador daquela gramática atribuiu.
-Entretanto,
-pode~=se perceber que o nome dos escopos recém apresentados parecem seguir um padrão.
-Por conversão,
-desenvolvedores de gramáticas para os editores de texto como \citeonline{sublimeTextSyntax,vsCodeSyntaxHighlighthing},
-seguem uma conversão de nomes para que as utilizações dos escopos gerados pelas gramáticas sejam compatíveis entre si.
-
-Fazendo o uso de uma conversão para nomes de escopos,
-as gramáticas ficam compatíveis com um maior número de arquivos de temas (ou configurações de cores),
-onde são especificados os nomes dos escopos serão utilizados para especificar as cores a serem utilizadas pelo editor de texto (\fullref{section:sourceCodeHighlightersGrammars}).
-\advisor{}{Para mais informações sobre a utilização de arquivos de temas em editores de texto veja \citeonline{sublimeTextScopeNaming,vsCodeSyntaxHighlighthing}.}
-
-
-\section{Metalinguagem}
+\section{Especificação da Metalinguagem}
 \label{metalinguagemGrammar}
 
 Como já explicado na seção anterior,
@@ -392,6 +631,37 @@ Por padrão,
 toda gramática ``ObjectBeauty'' precisa ter um contexto inicial ou
 símbolo inicial chamado de ``contexts''.
 
+Como já inicialmente aprendizado na \typeref{section:sourceCodeHighlightersGrammars},
+na \typeref{TexMateScopes} é mostrado na primeira linha o trecho de código~=fonte ``\mintinline{text}|function f1 () {|'' e
+nas demais linhas são apresentados as diversas classificações de escopos aplicados a cada um dos trechos do código~=fonte de amostra.
+Por exemplo,
+a palavra ``function'' possui simultaneamente os escopos:
+\begin{inparaenum}[1)]
+\item ``source.js'';
+\item ``meta.function.js'' e;
+\item ``storage.type.function.js''.
+\end{inparaenum}%
+\begin{figure}[!htb]
+\caption{Exemplo de classificação de código~=fonte com múltiplos escopos}
+\label{TexMateScopes}
+\centering
+\includegraphics[width=1.0\textwidth]{TexMateScopes.png}
+\fonte{\citeonline{vsCodeSyntaxHighlighthing}}
+\end{figure}
+
+Os nomes utilizados na \typeref{TexMateScopes},
+podem ser qualquer texto que usuário especificador daquela gramática atribuiu.
+Entretanto,
+pode~=se perceber que o nome dos escopos recém apresentados parecem seguir um padrão.
+Por conversão,
+desenvolvedores de gramáticas para os editores de texto como \citeonline{sublimeTextSyntax,vsCodeSyntaxHighlighthing},
+seguem uma conversão de nomes para que as utilizações dos escopos gerados pelas gramáticas sejam compatíveis entre si.
+
+Fazendo o uso de uma conversão para nomes de escopos,
+as gramáticas ficam compatíveis com um maior número de arquivos de temas (ou configurações de cores),
+onde são especificados os nomes dos escopos serão utilizados para especificar as cores a serem utilizadas pelo editor de texto (\fullref{section:sourceCodeHighlightersGrammars}).
+\advisor{}{Para mais informações sobre a utilização de arquivos de temas em editores de texto veja \citeonline{sublimeTextScopeNaming,vsCodeSyntaxHighlighthing}.}
+
 O \typeref{exemploDeGramaticaPawn1},
 faz uso dos operadores ``include'' e
 ``match''.
@@ -399,7 +669,6 @@ O operador ``include'' serve para incluir partes de outras gramáticas ou
 mesmo gramáticas inteiras no contexto da gramática atual.
 Entretanto,
 a implementação de ``include'' realizada neste trabalho somente consegue realizar includes de contextos definidos no mesmo arquivo.
-
 No exemplo do \typeref{exemploDeGramaticaPawn1},
 o operador ``include'' está incluindo contextos (\typeref{metalinguagemGrammar}) da gramática atual que serão definidos mais tarde neste mesmo arquivo.
 Já o operador ``match'' utilizado no final serve para realizar propriamente o reconhecimento do programa de entrada e
@@ -543,6 +812,7 @@ check_brackets: {
 
 
 \section{Analisador Semântico}
+\label{section:AnalisadorSemantico}
 
 Depois que um metaprograma da metalinguagem apresentada na seção anterior é reconhecido pelo Analisador Lark,
 o Analisador Lark entrega a Árvore Sintática da gramática da linguagem sendo descrita pelo metaprograma (\typeref{MetacompilerMetagrammarMetaprogram}).
@@ -672,17 +942,14 @@ acessível como um atributo da classe ``TreeTransformer''.
 
 
 \section{Formatador de Código}
+\label{performanceDoFormator}
 
 O Formatador de Código não é composto somente por uma parte única e
 altamente acoplada.
-\advisor{Um}{Mas pelo contrário,
-um} conjunto de partes altamente coesas e
+Mas pelo contrário,
+um conjunto de partes altamente coesas e
 completamente independentes onde cada uma dessas partes recebe a Árvore Sintática Abstrata do Analisador Semântico,
 para então realizar a formatação do programa de entrada junto com as configurações que esta parte aceita.
-
-
-\subsection{Performance}
-\label{performanceDoFormator}
 
 Continuamente chamar diversos algoritmos independentes acarreta uma perda de performance em comparação com os formatadores de código~=fonte apresentados no \fullref{source_code_beautifiers}.
 Estes formatadores tem como principal características realizar a formatação de código~=fonte em uma única passada,
@@ -707,9 +974,6 @@ O que Uncrustify consegue fazer é formatar um conjunto de linguagens onde sua g
 Caso fosse necessário expandir o formatador Uncrustify a suportar linguagens pouco relacionadas com as linguagens já existentes,
 o código~=fonte da implementação atual do formatador seria muito mais complexa.
 \advisor{}{Imagine como seria escrever uma única gramática que represente todas as linguagens de programação?}
-
-
-\subsection{Formatação}
 
 No \typeref{construtorDoFormatador},
 pode ser encontrado o construtor do formatador de código~=fonte.
@@ -827,97 +1091,6 @@ também é possível facilmente integrar no programa formatado,
 todas as partes do programa original que não foram formatados,
 no caso do formatador,
 ou não coloridas do caso da adição de cores.
-
-
-\subsection{Exemplo}
-
-A formatação de código~=fonte recebe como entrada o programa em texto simples,
-e como resultado,
-retorna uma página HTML \cite{parallelParserForHTML}.
-Com isso,
-sendo possível observar com mais facilidade o código~=fonte original e
-formatado,
-e as metainformações atribuídas pela gramática da linguagem como atributos das tags HTML.
-No \typeref{exemploDeFormatacaoDeCodigo},
-encontra~=se um HTML gerado com as metainformações agregadas ao programa não~=formatado ``if(something) bar'',
-onde ``if( \ something \ ) bar'' é o resultado da formatação de código~=fonte.
-\begin{quadro}[!htb]
-\caption{Exemplo de Formatação de Código}
-\label{exemploDeFormatacaoDeCodigo}
-\begin{bluebox}
-\begin{code}
-\label{exemploDeHTMLGerado}
-\caption{Exemplo de HTML gerado pelo Formatador de Código}
-\begin{minted}[xleftmargin=2em]{html}
-<body style="white-space: pre; font-family: monospace;">
-    <span setting="unformatted" grammar_scope="if.statement.definition" setting_scope="" original_program="if(">if(</span>
-    <span setting="1" grammar_scope="if.statement.body" setting_scope="if.statement.body" original_program="something">  something  </span>
-    <span setting="unformatted" grammar_scope="if.statement.definition" setting_scope="" original_program=")">)</span>
-    <span grammar_scope="none" setting_scope="none"> bar</span>
-</body>
-\end{minted}
-\end{code}
-
-\lstset{xleftmargin=2em,aboveskip=0pt}
-\begin{lstlisting}[caption={Exemplo de gramática utilizada pelo Formatador de Código},label={exemploDeGramaticaUtilizada},style=yaml_style]
-scope: source.sma source.c++ source.javascript source.rust
-name: Abstract Machine Language
-contexts: {
-    match: if\( {
-        scope: if.statement.definition
-        push: {
-            meta_scope: if.statement.body
-            match: \) {
-                scope: if.statement.definition
-                pop: true
-            }
-        }
-    }
-}
-\end{lstlisting}
-
-\begin{code}
-\label{exemploDeConfiguracaoUtilizada}
-\caption{Exemplo de configuração utilizada pelo Formatador de Código}
-\begin{minted}[xleftmargin=2em]{python}
-{
-    "if.statement.body" : 2,
-}
-\end{minted}
-\end{code}
-
-\begin{code}
-\label{exemploDeFormatadorDeCodigo}
-\caption{Exemplo de Formatador de Código}
-\begin{minted}[xleftmargin=2em]{python}
-class SingleSpaceFormatter(AbstractFormatter):
-
-    def format_text(self, code_to_format, setting_value):
-        code_to_format = code_to_format.strip( " " )
-
-        if setting_value:
-            return " " * setting_value + code_to_format + " " * setting_value
-        else:
-            return code_to_format
-\end{minted}
-\end{code}
-\end{bluebox}
-\end{quadro}
-
-Como pode ser percebido,
-a gramática de entrada no \typeref{exemploDeFormatacaoDeCodigo},
-não consome a palavra ``bar'' do programa de entrada ``if(something) bar''.
-Esta é uma característica importante dos formatadores de código deste trabalho.
-Todo texto que não é consumido,
-ou pela gramática de entrada,
-ou pelo formatador de código ou
-adição de cores,
-será mantido intacto no final do processo de formatação ou
-adição de cores.
-Assim,
-pode~=se ter o formatador de código já em funcionamento com gramática mais simples possível,
-ou que já atenda as características mínimas que deseja~=se formatar ou
-adicionar de cores.
 
 Neste capítulo,
 foi visto um pouco sobre detalhes da implementação de metaprogramas,

@@ -48,7 +48,7 @@
     Neste trabalho foi proposta uma implementação de um algoritmo que trabalha diretamente com a Árvore Sintática da gramática do programa de entrada (\fullref{software_implementation}).
     Apesar de simples,
     esta implementação é o primeiro passo para criação de novos formatadores de código~=fonte.
-    Servindo de base para criação de novos algoritmos voltados a utilizar Árvore de Sintática da gramática da linguagem,
+    Servindo de base para criação de novos algoritmos voltados a utilizar Árvore Sintática da gramática da linguagem,
     ao contrário da Árvore Sintática do programa de entrada.
 
     A maior parte das ferramentas de formatação de código~=fonte raramente permite que usuários finais tenham o controle total das alterações no código~=fonte.
@@ -69,9 +69,9 @@
     semânticos código~=fonte da linguagem que está sendo formatada,
     a não ser em casos de \textit{bugs} na ferramenta.
     As ferramentas de formatação de código~=fonte em geral,
-    tentam reconstruir toda a Árvore Sintática do programa de entrada a ser formatado.
+    tentam reconstruir toda a Árvore Sintática do programa de entrada a ser formatado (\fullref{trabalhosRelacionados}).
     Neste trabalho,
-    é realizada a construção da Árvore de Sintática da gramática do programa ser formatado,
+    é realizada a construção da Árvore Sintática da gramática do programa ser formatado,
     e não a Árvore Sintática do programa que está sendo formatado.
     Com essa mudança,
     cresce a necessidade da criação de toda uma nova gama de algoritmos de formatação,
@@ -80,7 +80,7 @@
 
     A primeira vantagem de se trabalhar com a Árvore Sintática da gramática do programa que está sendo formatado,
     ao contrário da Árvore Sintática do programa que está sendo formatado,
-    é a liberdade do usuário final poder escolher especificar exatamente quais são as partes da sintaxe do programa a ser formatado.
+    é a liberdade do usuário final poder escolher especificar exatamente quais são as partes da sintaxe do programa a ser formatado (como já é feito em editores de texto para adição de cores (\fullref{section:sourceCodeHighlighters}))).
     Com isso,
     é possível especificar exatamente quais estruturas do programa devem ser formatados (e quais não),
     além de permitir que facilmente sejam adicionado suporte a novas linguagens de programação recém criadas,
@@ -101,8 +101,10 @@
 
 
 \section{\lang{Future Works}{Trabalhos Futuros}}
+\label{chapter:trabalhosFuturos}
 
-O autor desse trabalho sugere alguns trabalhos futuros em \citeonline{objectBeautifierFutureWorks}.
+
+O autor desse trabalho sugere alguns trabalhos futuros em \citeonline{objectBeautifierFutureWorks,objectBeautifierChecklist}.
 Antes que novos formatadores de código~=fonte sejam implementados,
 estes pontos precisam ser revistos.
 Ao realizar estas mudanças,
@@ -119,10 +121,10 @@ uma vez que os algoritmos e
 estratégias adotas não levaram estes pontos em consideração;
 \item Corrigir erros de interpretação da metalinguagem ou
 da especificação da metagramática quando alguns operadores como ``scope'' que tem um uso opcional,
-são omitidos;
+são omitidos (\fullref{section:AnalisadorSemantico});
 \item Implementar operadores como ``captures'' e
 ``set'' para tornar o uso da metalinguagem mais fácil ou
-melhorar a sua performance em casos de uso específicos;
+melhorar a sua performance em casos de uso específicos \cite{sublimeTextSyntax};
 \item Adicionar suporte à especificação de múltiplos escopos a um mesmo trecho de código \cite{vsCodeSyntaxHighlighthing},
 definindo alguma estrutura de dados adequada,
 capaz de permitir consultas e
@@ -130,11 +132,11 @@ aritméticas de escopos \cite{textMateScopeExclusion} com performance constante 
 \item Melhorar a legibilidade e
 facilitar a escrita das gramáticas,
 removendo a necessidade de chaves de abertura ``\{'' e
-fechamento ``\}'' de blocos (alterando a metagramática),
+fechamento ``\}'' de blocos (alterando a metagramática (\fullref{metalinguagemGrammar})),
 fazendo a separação de blocos ser feita de acordo com a indentação como em linguagens como Python e
 YAML;
 \item Realizar a criação de uma nova estrutura de dados para representar o programa de entrada e
-avaliar se esta nova estrutura de dados é capaz de substituir utilização do caractere ``§'' em conjunto com a classe padrão de \textit{string} da linguagem Python (aumentado a eficiência dos algoritmos de análise do programa de entrada a ser formatado).
+avaliar se esta nova estrutura de dados é capaz de substituir utilização do caractere ``§'' em conjunto com a classe padrão de \textit{string} da linguagem Python (aumentado a eficiência dos algoritmos de análise do programa de entrada a ser formatado (\fullref{performanceDoFormator})).
 \end{enumerate}%
 
 A atual estrutura de composição dos formatadores de código~=fonte não suporta que diversos formatadores realizem a formatação simultaneamente.
