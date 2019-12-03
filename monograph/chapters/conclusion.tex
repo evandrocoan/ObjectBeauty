@@ -44,60 +44,60 @@
         applied to. Or `b)' create a new block including only the block within
         the desired settings.
 \end{enumerate}
-}{%
-    Neste trabalho foi proposta uma implementação de um algoritmo que trabalha diretamente com a Árvore Sintática da gramática do programa de entrada (\fullref{software_implementation}).
-    Apesar de simples,
-    esta implementação é o primeiro passo para criação de novos formatadores de código~=fonte.
-    Servindo de base para criação de novos algoritmos voltados a utilizar Árvore Sintática da gramática da linguagem,
-    ao contrário da Árvore Sintática do programa de entrada.
+}{}
 
-    A maior parte das ferramentas de formatação de código~=fonte raramente permite que usuários finais tenham o controle total das alterações no código~=fonte.
-    Em um primeiro momento,
-    utilizando a proposta desenvolvida neste trabalho,
-    é possível escrever regras de formatação que quebrem a sintaxe e
-    semântica da linguagem que está sendo formatada.
-    Por exemplo,
-    na linguagem ``Go'' \cite{programmingLanguageGolang},
-    diferentemente de todas as demais linguagens,
-    é um erro de sintaxe adicionar a chave ``\{'' de abertura de bloco em uma linha nova.
-    Por isso,
-    um formatador de código~=fonte para linguagem ``Golang'',
-    não deveria permitir a configuração de colocar a chave de abertura de blocos ``\{'' em uma nova linha.
+Neste trabalho foi proposta uma implementação de um algoritmo que trabalha diretamente com a Árvore Sintática da gramática do programa de entrada (\fullref{software_implementation}).
+Apesar de simples,
+esta implementação é o primeiro passo para criação de novos formatadores de código~=fonte.
+Servindo de base para criação de novos algoritmos voltados a utilizar Árvore Sintática da gramática da linguagem,
+ao contrário da Árvore Sintática do programa de entrada.
 
-    Utilizando~=se as ferramentas usuais de formatação,
-    fica impedido que configurações do usuário cause erros sintáticos ou
-    semânticos código~=fonte da linguagem que está sendo formatada,
-    a não ser em casos de \textit{bugs} na ferramenta.
-    As ferramentas de formatação de código~=fonte em geral,
-    tentam reconstruir toda a Árvore Sintática do programa de entrada a ser formatado (\fullref{trabalhosRelacionados}).
-    Neste trabalho,
-    é realizada a construção da Árvore Sintática da gramática do programa ser formatado,
-    e não a Árvore Sintática do programa que está sendo formatado.
-    Com essa mudança,
-    cresce a necessidade da criação de toda uma nova gama de algoritmos de formatação,
-    que possam trabalhar com a Árvore Sintática da gramática dos programa que está sendo formatado,
-    ao contrário de trabalhar diretamente com a Árvore Sintática do programa que está sendo formatado.
+A maior parte das ferramentas de formatação de código~=fonte raramente permite que usuários finais tenham o controle total das alterações no código~=fonte.
+Em um primeiro momento,
+utilizando a proposta desenvolvida neste trabalho,
+é possível escrever regras de formatação que quebrem a sintaxe e
+semântica da linguagem que está sendo formatada.
+Por exemplo,
+na linguagem ``Go'' \cite{programmingLanguageGolang},
+diferentemente de todas as demais linguagens,
+é um erro de sintaxe adicionar a chave ``\{'' de abertura de bloco em uma linha nova.
+Por isso,
+um formatador de código~=fonte para linguagem ``Golang'',
+não deveria permitir a configuração de colocar a chave de abertura de blocos ``\{'' em uma nova linha.
 
-    A primeira vantagem de se trabalhar com a Árvore Sintática da gramática do programa que está sendo formatado,
-    ao contrário da Árvore Sintática do programa que está sendo formatado,
-    é a liberdade do usuário final poder escolher especificar exatamente quais são as partes da sintaxe do programa a ser formatado (como já é feito em editores de texto para adição de cores (\fullref{section:sourceCodeHighlighters}))).
-    Com isso,
-    é possível especificar exatamente quais estruturas do programa devem ser formatados (e quais não),
-    além de permitir que facilmente sejam adicionado suporte a novas linguagens de programação recém criadas,
-    reutilizando estruturas de sintaxe comuns a linguagens já existentes.
+Utilizando~=se as ferramentas usuais de formatação,
+fica impedido que configurações do usuário cause erros sintáticos ou
+semânticos código~=fonte da linguagem que está sendo formatada,
+a não ser em casos de \textit{bugs} na ferramenta.
+As ferramentas de formatação de código~=fonte em geral,
+tentam reconstruir toda a Árvore Sintática do programa de entrada a ser formatado (\fullref{trabalhosRelacionados}).
+Neste trabalho,
+é realizada a construção da Árvore Sintática da gramática do programa ser formatado,
+e não a Árvore Sintática do programa que está sendo formatado.
+Com essa mudança,
+cresce a necessidade da criação de toda uma nova gama de algoritmos de formatação,
+que possam trabalhar com a Árvore Sintática da gramática dos programa que está sendo formatado,
+ao contrário de trabalhar diretamente com a Árvore Sintática do programa que está sendo formatado.
 
-    Em um modelo de trabalho onde se faz a formatação do código~=fonte diretamente com a Árvore Sintática do programa de entrada,
-    é possível realizar verificações da semântica do programa que está sendo formatado com maior facilmente,
-    pelo acesso direto a Árvore Sintática do programa de entrada,
-    (base para Análise Semântica (\fullref{analiseSemantica})).
-    Por isso,
-    os algoritmos de formatação de código~=fonte desenvolvidos para este trabalho também irão precisar considerar os aspectos semânticos.
-    Entretanto,
-    estes algoritmos terão uma dificuldade adicional.
-    Enquanto os algoritmos de Análise Semântica trabalham com base na Árvore Sintática do programa de entrada,
-    os algoritmos de Análise Semântica deste trabalho precisam trabalhar com base na Árvore Sintática da gramática do programa de entrada.
-    O que levará a necessidade da criação de novos algoritmos de Análise Semântica capazes de trabalhar com a Árvore Sintática da gramática do programa de entrada.
-}
+A primeira vantagem de se trabalhar com a Árvore Sintática da gramática do programa que está sendo formatado,
+ao contrário da Árvore Sintática do programa que está sendo formatado,
+é a liberdade do usuário final poder escolher especificar exatamente quais são as partes da sintaxe do programa a ser formatado (como já é feito em editores de texto para adição de cores (\fullref{section:sourceCodeHighlighters}))).
+Com isso,
+é possível especificar exatamente quais estruturas do programa devem ser formatados (e quais não),
+além de permitir que facilmente sejam adicionado suporte a novas linguagens de programação recém criadas,
+reutilizando estruturas de sintaxe comuns a linguagens já existentes.
+
+Em um modelo de trabalho onde se faz a formatação do código~=fonte diretamente com a Árvore Sintática do programa de entrada,
+é possível realizar verificações da semântica do programa que está sendo formatado com maior facilmente,
+pelo acesso direto a Árvore Sintática do programa de entrada,
+(base para Análise Semântica (\fullref{analiseSemantica})).
+Por isso,
+os algoritmos de formatação de código~=fonte desenvolvidos para este trabalho também irão precisar considerar os aspectos semânticos.
+Entretanto,
+estes algoritmos terão uma dificuldade adicional.
+Enquanto os algoritmos de Análise Semântica trabalham com base na Árvore Sintática do programa de entrada,
+os algoritmos de Análise Semântica deste trabalho precisam trabalhar com base na Árvore Sintática da gramática do programa de entrada.
+O que levará a necessidade da criação de novos algoritmos de Análise Semântica capazes de trabalhar com a Árvore Sintática da gramática do programa de entrada.
 
 
 \section{\lang{Future Works}{Trabalhos Futuros}}
