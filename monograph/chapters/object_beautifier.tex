@@ -62,6 +62,7 @@ facilitar a realização da integração de novos updates vindos do repositório
 
 
 \section{Visão Geral}
+\label{softwareImplementationVisaoGeral}
 
 Nesta seção,
 será simplificadamente explicado como o algoritmo de formatação de código~=fonte deste trabalho funciona.
@@ -183,7 +184,6 @@ parser = pushdown.Lark(
 
         %ignore SPACES
     """,
-
     start='language_syntax',
     parser="lalr",
 )
@@ -192,10 +192,13 @@ def parseit(program, filename):
     pushdown.tree.pydot__tree_to_png(
             parser.parse( program ), filename, "TB", debug=1, dpi=600 )
 
-parseit( r"""
-match: (?<=if\().*(?=\))
-scope: if.statement.body
-""", "arvore_da_gramatica.png" )
+parseit(
+    r"""
+        match: (?<=if\().*(?=\))
+        scope: if.statement.body
+    """,
+    "arvore_da_gramatica.png"
+)
 \end{minted}
 \end{code}
 

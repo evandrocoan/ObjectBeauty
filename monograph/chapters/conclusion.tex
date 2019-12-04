@@ -100,20 +100,71 @@ os algoritmos de Análise Semântica deste trabalho precisam trabalhar com base 
 O que levará a necessidade da criação de novos algoritmos de Análise Semântica capazes de trabalhar com a Árvore Sintática da gramática do programa de entrada.
 
 
+\section{Comparação com outros trabalhos}
+
+Dos três tipos trabalhos relacionados apresentados no \fullref{source_code_beautifiers},
+este trabalho é mais similar a dois deles.
+Os formatadores de código~=fonte configurado por arquivos de texto e
+as ferramentas de adição de cores.
+Pela lógica de funcionamento deste trabalho,
+não seria muito interessante que existisse uma interface gráfica como a da ferramenta \cite{universalIndentGUI},
+por que o objetivo deste trabalho é que resolva os problemas apresentados pelas ferramentas de formatação de código~=fonte hoje existentes.
+Enquanto que a criação de uma ferramenta de formatação com uma interface gráfica como a de \cite{universalIndentGUI} apresenta problemas (\fullref{trabalhosRelacionados}).
+
+A relação deste trabalho com os formatadores configurados por arquivos de texto,
+é que ambos são inteiramente configurados por arquivos de texto.
+Dependendo da complexidade das gramáticas escritas,
+ambos os trabalhos podem apresentar o problema de compreensão,
+i.e.,
+entender como determina configuração irá formatar o código~=fonte.
+Ambas as ferramentas possuem arquivos de configuração que são simples de alterar.
+No exemplo apresentado (\typeref{softwareImplementationVisaoGeral}),
+o resultado da formatação inteiramente controlado pelo valor de um número inteiro.
+
+A atual estrutura de composição dos formatadores de código~=fonte não suporta que diversos formatadores realizem a formatação simultaneamente.
+Somente um formatador,
+que estende da classe ``AbstractFormatter'' pode estar em funcionamento (\fullref{section:AnalisadorSemantico}).
+Entretanto,
+este formatador recebe como parâmetro de sua função ``format\_text'',
+o trecho de código~=fonte a ser formatado e
+o escopo dele.
+Com essas informações ele poderia em tese,
+chamar diferentes formatadores mais especializados de acordo com o seu parâmetro escopo.
+
+Assim em evoluções deste trabalho,
+diferente dos outros formatadores de código~=fonte (\fullref{trabalhosRelacionados}),
+espera~=se que existam diversos formatadores de código~=fonte (ou algoritmos de formatação),
+capazes de lidar com os diferentes aspectos das linguagens de programação que se deseja formatar seu código~=fonte.
+A simplicidade de configurações (como somente um número inteiro) poderia ser alterada e
+propor~=se configurações que sejam mais elaboradas (complexas).
+Permitindo que o usuário tenha maior controle sobre o processo de formatação de código~=fonte,
+em conjunto com as gramáticas escritas para esta ferramenta.
+
+Após estas breves comparações,
+na próxima seção sugere~=se algumas ideias e
+melhorias sobre o trabalho proposto.
+
+
 \section{\lang{Future Works}{Trabalhos Futuros}}
 \label{chapter:trabalhosFuturos}
 
-
-O autor desse trabalho sugere alguns trabalhos futuros em \citeonline{objectBeautifierFutureWorks,objectBeautifierChecklist}.
+\advisor{}{O autor desse trabalho sugere alguns trabalhos futuros em \citeonline{objectBeautifierFutureWorks,objectBeautifierChecklist}.
 Antes que novos formatadores de código~=fonte sejam implementados,
 estes pontos precisam ser revistos.
 Ao realizar estas mudanças,
 qualquer implementação já realizada para formatação será perdida devido ao número de alterações realizadas\advisor{.}{,
 como em um efeito borboleta \cite{standardButterflyEffect}.%
-} Mais especificamente,
-sobre a metalinguagem e
-gerador de formatadores criados,
-sugerem~=se as seguintes alterações:
+}%
+}
+
+Caso exista,
+o melhor trabalho futuro que pode ser feito é uma reinvenção do algoritmo de formação proposto (\fullref{softwareImplementationVisaoGeral}),
+que permita que as gramáticas fornecidas pelos usuários possam ser melhor utilizadas nos algoritmos de formatação de código~=fonte.
+Ou ainda,
+uma nova proposta de metagramática que por algum motivo seja mais robusta e
+simples de utilizar.
+Enquanto nenhum nova proposta de algoritmo surge,
+sugere~=se algumas melhorias sobre a implementação proposta neste trabalho.
 \begin{enumerate}
 \item Reduzir o uso de memória e
 otimizar a performance em tempo de execução,
@@ -128,7 +179,9 @@ melhorar a sua performance em casos de uso específicos \cite{sublimeTextSyntax}
 \item Adicionar suporte à especificação de múltiplos escopos a um mesmo trecho de código \cite{vsCodeSyntaxHighlighthing},
 definindo alguma estrutura de dados adequada,
 capaz de permitir consultas e
-aritméticas de escopos \cite{textMateScopeExclusion} com performance constante $\Theta(1)$;
+aritméticas de escopos \cite{textMateScopeExclusion} com performance constante $\Theta(1)$.
+Permitindo que estas operações possam ser utilizadas nos arquivos de configuração,
+melhorando o controle do usuário sobre a formatação de código~=fonte em conjunto com a gramática especificada;
 \item Melhorar a legibilidade e
 facilitar a escrita das gramáticas,
 removendo a necessidade de chaves de abertura ``\{'' e
@@ -137,17 +190,54 @@ fazendo a separação de blocos ser feita de acordo com a indentação como em l
 YAML;
 \item Realizar a criação de uma nova estrutura de dados para representar o programa de entrada e
 avaliar se esta nova estrutura de dados é capaz de substituir utilização do caractere ``§'' em conjunto com a classe padrão de \textit{string} da linguagem Python (aumentado a eficiência dos algoritmos de análise do programa de entrada a ser formatado (\fullref{performanceDoFormator})).
+\item Implementar uma interface de linha de comando (CLI (\typeref{softwareImplementationVisaoGeral})) que:
+\begin{inparaenum}[1)]
+\item automaticamente faça o carregamento de todas as gramáticas definidas em um diretório especificado;
+\item automaticamente faça o carregamento de todas as configurações definidas em outro diretório e
+associe estas configurações com as gramáticas correspondentes;
+\item automaticamente associe os conjuntos de gramáticas e
+configurações com um programa de entrada passado pela linha de comando.
+A separação dos diretórios de gramáticas e
+configurações é necessário para que se possa aplicar diferentes coleções de configurações de acordo com a vontade do usuário.
+\end{inparaenum}
+\item Implementar o carregamento automático de diferentes formatadores ou
+algoritmos de formatação como \typeref{code:exemploMinimoDeFormatadorDeCodigo},
+permitindo que eles trabalhem em conjunto.
+Combinando diferentes formatadores e
+suas configurações com as gramáticas implementadas pelos usuários.
+\item Implementar plugins de integração com editores de texto mais utilizados como \citeonline{sublimeTextSyntax} e
+\citeonline{vsCodeSyntaxHighlighthing}.
+Esta integração seria equivalente a implementação de uma linha de comando (CLI),
+mas com a diferença de que as funcionalidades da CLI estariam acessíveis de dentro dos editores de texto.
+\item Implementar algoritmos que permitam a formatação dinâmica de código~=fonte,
+i.e.,
+enquanto o usuário está escrevendo o código~=fonte em um editor de texto,
+o texto é automaticamente formatado na medida que ele é escrito.
+\item Implementar algoritmos que permitam editores de texto editar o código~=fonte de acordo com as configurações de formatação do usuário,
+enquanto estes mesmos arquivos são salvos no sistema de arquivos utilizando outras configurações,
+diferentes das configurações de visualização do código~=fonte.
+Tal característica seria útil para permitir que times de desenvolvimento possam trabalhar com diferentes configurações de formatação,
+e ao mesmo tempo manter o histórico do código~=fonte em um padrão fixo de formatação (\fullref{firstChapterIntroduction}).
+\item Um pouco fora do escopo deste trabalho,
+mas ainda relacionado com os últimos itens seria permitir a tradução dinâmica de código~=fonte.
+Nela,
+o usuário seria capaz de editar um arquivo de uma linguagem como XML,
+visualizado ele com um arquivo YAML.
+Ou seja,
+ao abrir um arquivo XML,
+ele é dinamicamente convertido para XML ao ser visualizado no editor de texto.
+Por fim,
+ao salvar o arquivo,
+ele é escrito novamente no sistema de arquivos com o seu formato original,
+XML.
+Tal característica seria útil por que algumas linguagem como XML podem ser difíceis de se entender,
+enquanto ao trabalhar com um formato equivalente como YAML pode ser de mais fácil entendimento (\typeref{section:sourceCodeHighlighters,firstChapterIntroduction}).
 \end{enumerate}%
 
-A atual estrutura de composição dos formatadores de código~=fonte não suporta que diversos formatadores realizem a formatação simultaneamente.
-Somente um formatador,
-que estende da classe ``AbstractFormatter'' pode estar em funcionamento.
-Entretanto,
-este formatador recebe como parâmetro de sua função ``format\_text'',
-o trecho de código~=fonte a ser formatado e
-o escopo dele.
-Com essas informações ele poderia em tese,
-chamar diferentes formatadores mais especializados de acordo com o seu parâmetro escopo.
+Com certeza estas não são todas as melhorias ou
+trabalhos futuros que podem ser feitos.
+Mas espera~=se que elas já sejam o suficiente para despertar a curiosidade e
+motivar a criação de novos trabalhos sobre formatadores de código~=fonte.
 
 \advisor{}{Em relação aos formatadores gerados pelo gerador de formatadores,
 eles precisaram ser completamente reescritos,
