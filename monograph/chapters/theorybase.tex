@@ -610,33 +610,8 @@ Diz~=se que uma linguagem é LR(K) ou
 LL(K) quando ela é reconhecida por este analisador.
 }.
 
-A \typeref{LinguagensDeterministicas},
-não é inteiramente um Diagrama de Venn \cite{generalizedVennDiagrams},
-inicialmente,
-nas camadas mais externas,
-ela apresenta uma relação abstrata entre Linguagens Ambíguas e
-Gramáticas Determinísticas.
-O Conjunto das Gramáticas Livre de Contexto Determinísticas está contido dentro das Linguagens Livre de Contexto\footnote{
-Também existem Gramáticas Sensíveis ao Contexto Determinísticas \cite{contextSensitiveParsing},
-entretanto,
-algoritmos de análise possuem em pior caso,
-complexidade exponencial \cite{areContextSensitiveGrammarWithPolynomialTime}.
-}.
-O primeiro nível significa que todas as Linguagens Inerentemente Ambíguas\footnote{
-É comum confundir~=se e
-chamar Gramáticas de Inerentemente Ambíguas,
-mas esse termo não existe para gramáticas.
-Ou elas são Ambíguas ou
-Não.
-Somente uma linguagem pode ser Inerentemente Ambígua.
-}
-são representáveis somente por Gramáticas Ambíguas.
-
-O segundo nível significa que Linguagens Não~=Inerentemente Ambíguas\footnote{
-Somente utilizado para enfatizar o conjunto de Linguagens na qual existem Gramáticas Ambíguas e
-Determinísticas (ou Não~=Ambíguas).
-}
-podem ser representadas por Gramáticas Ambíguas e\slash{}ou Determinísticas.
+Na \typeref{LinguagensDeterministicas},
+encontra~=se um Diagrama de Venn \cite{generalizedVennDiagrams} com a relação entre as classes de linguagens de acordo com os analisadores que as reconhecem.
 No terceiro nível encontra~=se as gramáticas que são mais importantes,
 as Gramáticas Determinísticas\footnote{
 As Gramáticas Determinísticas representam o conjunto de Linguagens que podem ser Analisadas Deterministicamente e
@@ -661,6 +636,48 @@ Do inglês, \textit{Parsing Table},
     requerendo pesquisa em várias fontes.
 }
 \end{figure}
+
+\advisor{}{
+    A \typeref{LinguagensDeterministicasInerentes},
+    não é inteiramente um Diagrama de Venn \cite{generalizedVennDiagrams},
+    inicialmente,
+    nas camadas mais externas,
+    ela apresenta uma relação abstrata entre Linguagens Ambíguas e
+    Gramáticas Determinísticas.
+    O Conjunto das Gramáticas Livre de Contexto Determinísticas está contido dentro das Linguagens Livre de Contexto\footnote{
+    Também existem Gramáticas Sensíveis ao Contexto Determinísticas \cite{contextSensitiveParsing},
+    entretanto,
+    algoritmos de análise possuem em pior caso,
+    complexidade exponencial \cite{areContextSensitiveGrammarWithPolynomialTime}.
+    }.
+
+    O primeiro nível significa que todas as Linguagens Inerentemente Ambíguas\footnote{
+    É comum confundir~=se e
+    chamar Gramáticas de Inerentemente Ambíguas,
+    mas esse termo não existe para gramáticas.
+    Ou elas são Ambíguas ou
+    Não.
+    Somente uma linguagem pode ser Inerentemente Ambígua.
+    }
+    são representáveis somente por Gramáticas Ambíguas.
+    O segundo nível significa que Linguagens Não~=Inerentemente Ambíguas\footnote{
+    Somente utilizado para enfatizar o conjunto de Linguagens na qual existem Gramáticas Ambíguas e
+    Determinísticas (ou Não~=Ambíguas).
+    }
+    podem ser representadas por Gramáticas Ambíguas e\slash{}ou Determinísticas.
+    \begin{figure}[!htb]
+    \caption{Gramáticas Determinísticas \textit{versus} suas Linguagens}
+    \label{LinguagensDeterministicasInerentes}
+    \centering
+    \includegraphics[width=1.0\textwidth]{LinguagensDeterministicasInerentes.png}
+    \fonte{Própria, baseado em \citeonline{llVersusLrContainment,llContainmentInLalr,beatty1982,ahoCompilerDragonBook,grammarsAndTheMinimalParsers}}
+    \nota{%
+        Apesar da fonte da figura ser o próprio autor deste texto,
+        o conhecimento requirido para construir tão complexa figura não,
+        requerendo pesquisa em várias fontes.
+    }
+    \end{figure}
+}
 
 É importante notar que usualmente o processo de análise por um analisador,
 seja ele LR(K) ou
