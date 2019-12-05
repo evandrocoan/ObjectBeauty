@@ -67,7 +67,7 @@
         },
 
         {
-            "name": "Call Unit Tests",
+            "name": "Run",
             "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
 
             "cmd": ["python", "unit_tests.py"],
@@ -80,18 +80,25 @@
             "variants":
             [
                 {
-                    "name": "Python",
-                    "cmd": ["python", "unit_tests.py"],
+                    "name": "main.py",
+                    "cmd": ["python", "main.py"],
                 },
                 {
-                    "name": "Python 3",
-                    "cmd": ["python3", "unit_tests.py"],
+                    "name": "main_formatter.py",
+                    "cmd": ["python", "main_formatter.py"],
+                },
+                {
+                    "name": "main_highlighter.py",
+                    "cmd": ["python", "main_highlighter.py"],
+                },
+                {
+                    "name": "unit_tests.py",
+                    "cmd": ["python", "unit_tests.py"],
                 },
                 {
                     "name": "Single Test",
                     "target": "run_python_tests",
-                    "cmd":
-                    [
+                    "cmd": [
                         "python", "unit_tests.py", "-v", "{test_class}.{test_func}",
                     ],
                 },
@@ -100,29 +107,6 @@
             "quiet": true,
             "target": "exec",
             "syntax": "Packages/UnitTesting/res/unit-testing-test-result.sublime-syntax",
-        },
-        {
-            "name": "Main Program",
-            "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
-
-            "cmd": ["python", "main.py"],
-            "working_dir": "$project_path/../source",
-
-            "variants":
-            [
-                {
-                    "name": "Python",
-                    "cmd": ["python", "main.py"],
-                },
-                {
-                    "name": "Python 3",
-                    "cmd": ["python3", "main.py"],
-                },
-            ],
-
-            "quiet": true,
-            "target": "exec",
-            "syntax": "Packages/Text/Plain text.tmLanguage",
         },
         {
             "name": "Monograph",
