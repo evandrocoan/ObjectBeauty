@@ -3,7 +3,7 @@
 % Is it possible to keep my translation together with original text?
 % https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
 \chapter{Formatador Desenvolvido}
-\label{software_implementation}
+\label{chapter:software_implementation}
 
 Neste capítulo,
 será explicado o funcionamento e
@@ -35,7 +35,7 @@ pode~=se citar:
 \begin{inparaenum}[1)]
 \item implementa vários algoritmos de análise como LALR \cite{lalrDeRemer1982},
 Earley \cite{JayEarley} e CYK \cite{hopcroftBook},
-podendo reconhecer todas as gramáticas livre de contexto (\fullref{classesDeComplexidade});
+podendo reconhecer todas as gramáticas livre de contexto (\fullref{section:classesDeComplexidade});
 \item não possui dependência de nenhuma outra biblioteca;
 \item tanto Analisador Léxico quanto Analisador Sintática são totalmente integrados na construção da gramática no formato EBNF,
 sem a necessidade de escrever nenhum código de programação (Python) adicional para fazer a Análise Léxica ou
@@ -66,7 +66,7 @@ facilitar a realização da integração de novos updates vindos do repositório
 
 
 \section{Visão Geral}
-\label{softwareImplementationVisaoGeral}
+\label{section:softwareImplementationVisaoGeral}
 
 Nesta seção,
 será simplificadamente explicado como o algoritmo de formatação de código~=fonte deste trabalho funciona.
@@ -109,16 +109,16 @@ Com ``simples'',
 refere~=se a simplificação da Metagramática e
 Gerador de Formatadores utilizados nesta seção.
 Para uma apresentação mais complexa,
-confira a \fullref{metalinguagemGrammar}.
+confira a \fullref{section:metalinguagemGrammar}.
 }'',
 capaz que pegar somente o elemento ``\mintinline{text}|if(args.length > 0)|'' de um programa de entrada de qualquer linguagem,
 como o exemplo em Java apresentado no \typeref{code:exemploDeUmProgramaNaLinguagemJava}.
 Inicia~=se a com a apresentação de uma simplificação da metagramática utilizada neste trabalho.
 A metagramática completa pode encontrada no \typeref{chapter:codigoDaMetagramatica}.
-Ela segue as mesmas regras do Analisador Lark explicadas na \fullref{introducaoGramaticas}.
+Ela segue as mesmas regras do Analisador Lark explicadas na \fullref{section:introducaoGramaticas}.
 Uma melhor descrição do uso dos operadores ``match'' e
 ``scope'' definidos por essa metagramática,
-podem ser encontrados mais tarde na \fullref{metalinguagemGrammar}.
+podem ser encontrados mais tarde na \fullref{section:metalinguagemGrammar}.
 \begin{code}
 \caption{Exemplo mínimo da metagramática}
 \label{code:exemploMinimoDeMetagramatica}
@@ -154,13 +154,13 @@ scope: if.statement.body
 Agora,
 o que pode ser feito com a gramática do \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica}?
 Ela junto com a metagramática (\typeref{code:exemploMinimoDeMetagramatica}) devem ser entrada do Analisador Lark (\typeref{code:exemploDeUsoDaMetagramaticaEUmaGramatica}),
-que irá devolver como resultado a Árvore Sintática (\fullref{compiladoresEtradutores}).
-Então envia~=se a Árvore Sintática para o Analisador Semântico (\typeref{analisadoresSintaticos,analiseSemantica}) verificar se o programa (gramática) de entrada está semanticamente correta,
+que irá devolver como resultado a Árvore Sintática (\fullref{section:compiladoresEtradutores}).
+Então envia~=se a Árvore Sintática para o Analisador Semântico (\typeref{section:analisadoresSintaticos,section:analiseSemantica}) verificar se o programa (gramática) de entrada está semanticamente correta,
 para então devolver como resultado a Árvore Sintática Abstrata\footnote{%
 Do inglês (AST),
 Abstract Syntax Tree.
 }
-(\typeref{desempenhoDoFormator,section:AnalisadorSemantico}).
+(\typeref{section:desempenhoDoFormator,section:AnalisadorSemantico}).
 
 A Árvore Sintática Abstrata representa a estrutura do programa de uma linguagem de programação \cite{improvingRefactoringSpeed,annotationAssistant}.
 Ela é originalmente construída a partir da Árvore Sintática,
@@ -175,7 +175,7 @@ as compare.
 No \typeref{code:exemploDeUsoDaMetagramaticaEUmaGramatica},
 é apresentado um programa em Python que faz uso do Analisador Lark recebendo a metagramática e
 gramática dos \typeref{code:exemploMinimoDeMetagramatica,code:exemploDeGramaticaPelasRegrasDaMetagramatica}.
-Este exemplo de uso do Analisador Lark é igual ao já apresentado na \fullref{introducaoGramaticas},
+Este exemplo de uso do Analisador Lark é igual ao já apresentado na \fullref{section:introducaoGramaticas},
 com exceção da gramática (aqui representando um metagramática) e
 o programa de entrada (aqui representando uma gramática).
 \begin{code}
@@ -345,7 +345,7 @@ Como pode~=se perceber,
 esta formatação realizada não foi muito significativa.
 Entretanto,
 está~=se trabalhando várias simplificações de implementação.
-Em trabalhos futuros a este (\fullref{chapter:trabalhosFuturos}) se necessita criar maiores abstrações que permitam trabalhar com gramáticas de linguagens utilizado uma pilha de múltiplos contextos (\fullref{metalinguagemGrammar}),
+Em trabalhos futuros a este (\fullref{section:trabalhosFuturos}) se necessita criar maiores abstrações que permitam trabalhar com gramáticas de linguagens utilizado uma pilha de múltiplos contextos (\fullref{section:metalinguagemGrammar}),
 com já feito em editores de texto (\fullref{section:sourceCodeHighlighters}) que serviram de inspiração a este trabalho.
 \begin{code}
 \caption{Resultado do Formatador de Código para Java}
@@ -376,9 +376,9 @@ exemplos de uso destes algoritmos nos \typeref{chapter:execucaoDeMainFormatter,c
 
 
 \section{Introdução à Metagramática}
-\label{GrammarsGrammar}
+\label{section:GrammarsGrammar}
 
-Na \fullref{introducaoGramaticas},
+Na \fullref{section:introducaoGramaticas},
 foi explicado o que são gramáticas.
 Mas,
 como gramáticas podem ser expressadas?
@@ -396,7 +396,7 @@ exceto por detalhes de implementação específicos de cada analisador.
 Para realizar a implementação da nova ferramenta de formatação de código~=fonte,
 foi realizado a construção de uma nova gramática de gramáticas de uma nova linguagem chamada de ``ObjectBeauty'',
 uma metalinguagem \cite{compilersCompilerMetaLanguage}.
-Na \typeref{MyWorflowForLarkTraduzido},
+Na \typeref{figure:MyWorflowForLarkTraduzido},
 é apresentado o fluxo de uso comum para um analisador.
 Neste processo,
 o desenvolvedor da linguagem escreve a gramática de especificação\advisor{}{
@@ -404,7 +404,7 @@ desta linguagem} que é entregue a algum analisador e
 gera~=se um compilador para tal linguagem.
 \begin{figure}[!htb]
 \caption{Fluxo de uso comum de um analisador}
-\label{MyWorflowForLarkTraduzido}
+\label{figure:MyWorflowForLarkTraduzido}
 \centering
 \includegraphics[width=1.0\textwidth]{MyWorflowForLarkTraduzido.png}
 \fonte{Própria, traduzido e adaptado de \citeonline{larkErrorRecovery}}
@@ -419,8 +419,8 @@ com o conteúdo um pouco diferente.}
 
 Com algumas exceções,
 compiladores são usualmente construídos utilizando um compilador de compiladores (ou analisadores) \cite{compilersCompilerMetaLanguage}.
-Utilizando um Analisador (\typeref{MyWorflowForLarkTraduzido}),
-é escrita a gramática da linguagem para qual se quer construir um compilador (\fullref{introducaoGramaticas}).
+Utilizando um Analisador (\typeref{figure:MyWorflowForLarkTraduzido}),
+é escrita a gramática da linguagem para qual se quer construir um compilador (\fullref{section:introducaoGramaticas}).
 Após isso,
 o Analisador gera o código~=fonte do analisador léxico e
 sintático que aceita como entrada o programas da linguagem a ser compilada.
@@ -437,20 +437,20 @@ não basta somente utilizar~=se de um Analisador,
 mas também é necessário a escrita do código~=fonte do Analisador Semântico e
 a geração de código binário executável.
 \advisor{Este trabalho faz um uso diferente}{Já este trabalho faz um uso fora do comum}.
-Como mostrado na \typeref{MyWorflowForLarkTraduzido2},
+Como mostrado na \typeref{figure:MyWorflowForLarkTraduzido2},
 primeiro especifica~=se uma metalinguagem que será utilizada pelos usuários da nova ferramenta de Formatação de Código.
 Para escrever esta nova metalinguagem,
 utilizou~=se o Analisador Lark.
 \begin{figure}[!htb]
 \caption{Uso feito pela nova ferramenta de Formatação de Código}
-\label{MyWorflowForLarkTraduzido2}
+\label{figure:MyWorflowForLarkTraduzido2}
 \centering
 \includegraphics[width=1.0\textwidth]{MyWorflowForLarkTraduzido2.png}
 \fonte{Própria, traduzido e adaptado de \citeonline{larkErrorRecovery}}
 \end{figure}
 
-Diferente da \typeref{MyWorflowForLarkTraduzido},
-na \typeref{MyWorflowForLarkTraduzido2} é adicionado mais uma etapa ao uso do Analisador.
+Diferente da \typeref{figure:MyWorflowForLarkTraduzido},
+na \typeref{figure:MyWorflowForLarkTraduzido2} é adicionado mais uma etapa ao uso do Analisador.
 Antes exista somente o fluxo de comunicação ``Analisador -> Compilador'',
 agora o fluxo de informações segue como ``Gerador de Analisadores -> Gerador de Formadores -> Formatador''.
 Neste novo fluxo,
@@ -475,17 +475,17 @@ e para que ela não seja dependentes de características de linguagens como YAML
 XML utilizada pelos editores de texto para especificação de suas gramáticas (\fullref{section:sourceCodeHighlighters}).
 
 Usualmente,
-o Analisador Lark é utilizado somente como um gerador de compiladores (\typeref{MyWorflowForLarkTraduzido}),
+o Analisador Lark é utilizado somente como um gerador de compiladores (\typeref{figure:MyWorflowForLarkTraduzido}),
 entretanto,
-neste contexto Lark é utilizado como um compilador de compiladores (\typeref{MyWorflowForLarkTraduzido2}).
+neste contexto Lark é utilizado como um compilador de compiladores (\typeref{figure:MyWorflowForLarkTraduzido2}).
 A vantagem de utilizar outro analisador (Lark) para criar outro analisador (Gerador de Formatadores),
 é que a gramática de especificação do Gerador de Formatadores pode usufruir da flexibilidade que a utilização que analisadores trazem na especificação das gramáticas de uma linguagem.
 A facilidade em alterar gramática da linguagem utilizada,
 neste caso,
 a gramática de gramáticas (ou metagramática).
 
-Em vez de permitir que o usuário final da aplicação opere diretamente com o analisador da \typeref{MyWorflowForLarkTraduzido},
-foi criado uma nova metagramática (uma gramática de gramáticas) como mostrado nas \typeref{MyWorflowForLarkTraduzido2}.
+Em vez de permitir que o usuário final da aplicação opere diretamente com o analisador da \typeref{figure:MyWorflowForLarkTraduzido},
+foi criado uma nova metagramática (uma gramática de gramáticas) como mostrado nas \typeref{figure:MyWorflowForLarkTraduzido2}.
 Esta nova metagramática simplifica o processo de escrita de gramáticas ao criar uma nova especificação de gramáticas,
 somente com os recursos necessários para que se possa trabalhar com formatação de código~=fonte.
 \advisor{Não}{A final,
@@ -493,7 +493,7 @@ não} é objetivo deste trabalho fazer a análise completa de programas,
 pela sua sintaxe, semântica,
 e gerar código~=binário executável.
 
-Na \typeref{ParsersPublicAudienceTraduzido},
+Na \typeref{figure:ParsersPublicAudienceTraduzido},
 pode~=se encontrar uma relação entre o funcionamento das diversas partes da ferramenta de Formatação de Código e
 a audiência alvo.
 Basicamente existem três grupos distintos de usuários ou
@@ -512,7 +512,7 @@ deseja realizar a formatação de seus códigos~=fonte.
 \end{inparaenum}%
 \begin{figure}[!htb]
 \caption{Relacionamentos entre os diferentes públicos deste projeto}
-\label{ParsersPublicAudienceTraduzido}
+\label{figure:ParsersPublicAudienceTraduzido}
 \centering
 \includegraphics[width=1.0\textwidth]{ParsersPublicAudienceTraduzido.png}
 \fonte{Própria, traduzido e adaptado de \citeonline{larkErrorRecovery}}
@@ -521,24 +521,24 @@ deseja realizar a formatação de seus códigos~=fonte.
 Até este ponto,
 já falou~=se de metagramática e
 metalinguagem com a exceção dos metaprogramas \cite{tradeoffsInMetaprogramming}.
-Nas \typeref{MyWorflowForLarkTraduzido2,ParsersPublicAudienceTraduzido},
+Nas \typeref{figure:MyWorflowForLarkTraduzido2,figure:ParsersPublicAudienceTraduzido},
 por simplificação foram omitidos o relacionamento dos metaprogramas com a metagramática e
 metalinguagem.
-Metaprogramas fazem parte da entrada do metacompilador (\typeref{MetacompilerMetagrammarMetaprogram}) junto com a metagramática para gerar um novo compilador (ou Formatador de Código).
+Metaprogramas fazem parte da entrada do metacompilador (\typeref{figure:MetacompilerMetagrammarMetaprogram}) junto com a metagramática para gerar um novo compilador (ou Formatador de Código).
 Neste trabalho,
 os metaprogramas serão as gramáticas que serão utilizadas pelos formatadores de código~=fonte.
 
 Os metaprogramas (ou gramáticas) são entradas diretas do metacompilador,
-o Analisador Lark na \typeref{MyWorflowForLarkTraduzido2},
+o Analisador Lark na \typeref{figure:MyWorflowForLarkTraduzido2},
 utilizado para analisar uma gramática LALR(1) (\typeref{chapter:codigoDaMetagramatica}).
-Na \typeref{ParsersPublicAudienceTraduzido},
+Na \typeref{figure:ParsersPublicAudienceTraduzido},
 não pode~=se ver diretamente que as gramáticas das linguagens serão os metaprogramas,
 mas o quadro em azul mais à esquerda ligado por linhas pontilhadas explica que os erros léxicos e
 sintáticos nas gramáticas de entrada serão mostrados pelo Analisador Lark.
 Isso acontece porque as gramáticas (ou metaprogramas) são entradas diretamente no Analisador Lark.
 
-Na \typeref{MetacompilerMetagrammarMetaprogram},
-encontra~=se uma extensão da \typeref{MyWorflowForLarkTraduzido2},
+Na \typeref{figure:MetacompilerMetagrammarMetaprogram},
+encontra~=se uma extensão da \typeref{figure:MyWorflowForLarkTraduzido2},
 e pode~=se ver claramente as relações entre Metagramáticas,
 Metacompiladores e Metaprogramas. Por simplificação,
 mostra~=se o nó ``Árvore Sintática'' sem explicitamente falar sobre sua Análise Semântica e
@@ -548,7 +548,7 @@ e não um Compilador de Analisadores de propósito geral.
 Isso significa que as gramáticas aceitas pelos analisadores gerados não são capazes de gerar analisadores de linguagens de propósito geral.
 \begin{figure}[!htb]
 \caption{Relação entre Metagramáticas, Metacompiladores e Metaprogramas}
-\label{MetacompilerMetagrammarMetaprogram}
+\label{figure:MetacompilerMetagrammarMetaprogram}
 \centering
 \includegraphics[width=1.0\textwidth]{MetacompilerMetagrammarMetaprogram.png}
 \fonte{Própria, traduzido e adaptado de \citeonline{larkErrorRecovery}}
@@ -564,7 +564,7 @@ a implementação da metagramática realizada ainda não suporta a classificaç�
 Foi escolhida a criação de uma nova metagramática porque as implementações de metagramáticas já existentes como \citeonline{rustSublimeTextSyntaxSyntec,vsCodeSyntaxHighlighthing}:
 \begin{inparaenum}[1)]
 \item não utilizam explicitamente nenhum analisador,
-realizando a programação das produções da gramática diretamente no código~=fonte (\fullref{gramaticasVersusLinguagens});
+realizando a programação das produções da gramática diretamente no código~=fonte (\fullref{section:gramaticasVersusLinguagens});
 \item não são capazes de reconhecer todas as características de todas as linguagens de programação (devido a optimizações para maior desempenho);
 \item não possuem sintaxe própria,
 i.e.,
@@ -579,20 +579,20 @@ Fazendo a especificação de uma nova metagramática,
 XML ou
 JSON.
 
-Na \typeref{MetacompilerMetagrammarMetaprogram},
+Na \typeref{figure:MetacompilerMetagrammarMetaprogram},
 percebe~=se que os Metaprogramas (ou gramáticas) são entradas diretas dos Metacompilador,
 e não do Formatador de Código como mostrado nas figuras anteriores.
 Ambas as figuras estão corretas,
 entretanto,
-a \typeref{MetacompilerMetagrammarMetaprogram} é uma versão mais resumida de como o processo de análise léxica e
+a \typeref{figure:MetacompilerMetagrammarMetaprogram} é uma versão mais resumida de como o processo de análise léxica e
 sintática acontece.
 Analisadores sempre precisam como entrada ter uma gramática e
 a palavra de uma dada linguagem (que pode ou
 não ser aceita pelo analisador).
 
-Como já explicado no início desta seção (\typeref{GrammarsGrammar}),
+Como já explicado no início desta seção (\typeref{section:GrammarsGrammar}),
 a ligação direta entre a gramática e
-a palavra da linguagem não precisa acontecer diretamente com analisador \typeref{MetacompilerMetagrammarMetaprogram}.
+a palavra da linguagem não precisa acontecer diretamente com analisador \typeref{figure:MetacompilerMetagrammarMetaprogram}.
 Caso o analisador suporte,
 ao contrário de pedir para que o analisador gere o código~=fonte de um Analisador Léxico e
 Sintático (e funcione como um Compilador de Compiladores),
@@ -616,7 +616,7 @@ caso programa de entrada não pertença a linguagem da gramática.
 
 
 \section{Especificação da Metalinguagem}
-\label{metalinguagemGrammar}
+\label{section:metalinguagemGrammar}
 
 Como já explicado na seção anterior,
 uma metagramática é gramática de gramáticas e
@@ -624,7 +624,7 @@ foi utilizado o Analisador Lark como um metacompilador ou
 compilador de compiladores.
 Nesta seção será discutido como a metalinguagem (especificada pela metagramática) utilizada foi construída,
 começando com o seu símbolo inicial.
-No \typeref{simboloInicialDaMetagramatica},
+No \typeref{code:simboloInicialDaMetagramatica},
 defini~=se que o programa é constituído de três grandes áreas,
 que devem acontecer uma em sequência da outra:
 \begin{enumerate}
@@ -642,7 +642,7 @@ que podem ser incluídos a partir do símbolo inicial da gramática definido no 
 \end{enumerate}%
 \begin{code}
 \caption{Simbolo Inicial da Metagramática ``ObjectBeauty''}
-\label{simboloInicialDaMetagramatica}
+\label{code:simboloInicialDaMetagramatica}
 \begin{minted}{antlr}
 language_syntax: _NEWLINE? preamble_statements _NEWLINE?
                     language_construct_rules _NEWLINE?
@@ -663,9 +663,9 @@ master_scope_name_statement: "scope" ": " free_input_string
 \end{minted}
 \end{code}
 
-Entre os \typeref{exemploDeGramaticaPawn1,exemploDeGramaticaPawn2,exemploDeGramaticaPawn3,exemploDeGramaticaPawn4},
+Entre os \typeref{code:exemploDeGramaticaPawn1,code:exemploDeGramaticaPawn2,code:exemploDeGramaticaPawn3,code:exemploDeGramaticaPawn4},
 encontram~=se pequenos exemplos de gramáticas escritas na metalinguagem ``ObjectBeauty'' brevemente apresentada.
-No \typeref{exemploDeGramaticaPawn1},
+No \typeref{code:exemploDeGramaticaPawn1},
 encontra~=se a definição do símbolo inicial da gramática da linguagem sendo descrita (pela metagramática) e
 pode~=se ver a metalinguagem sendo utilizada para definir uma linguagem chamada de ``Abstract Machine Language''.
 Por padrão,
@@ -673,7 +673,7 @@ toda gramática ``ObjectBeauty'' precisa ter um contexto inicial ou
 símbolo inicial chamado de ``contexts''.
 
 Como já inicialmente aprendizado na \typeref{section:sourceCodeHighlightersGrammars},
-na \typeref{TexMateScopes} é mostrado na primeira linha o trecho de código~=fonte ``\mintinline{text}|function f1 () {|'' e
+na \typeref{figure:TexMateScopes} é mostrado na primeira linha o trecho de código~=fonte ``\mintinline{text}|function f1 () {|'' e
 nas demais linhas são apresentados as diversas classificações de escopos aplicados a cada um dos trechos do código~=fonte de amostra.
 Por exemplo,
 a palavra ``function'' possui simultaneamente os escopos:
@@ -684,13 +684,13 @@ a palavra ``function'' possui simultaneamente os escopos:
 \end{inparaenum}%
 \begin{figure}[!htb]
 \caption{Exemplo de classificação de código~=fonte com múltiplos escopos}
-\label{TexMateScopes}
+\label{figure:TexMateScopes}
 \centering
 \includegraphics[width=1.0\textwidth]{TexMateScopes.png}
 \fonte{\citeonline{vsCodeSyntaxHighlighthing}}
 \end{figure}
 
-Os nomes utilizados na \typeref{TexMateScopes},
+Os nomes utilizados na \typeref{figure:TexMateScopes},
 podem ser qualquer texto que usuário especificador daquela gramática atribuiu.
 Entretanto,
 pode~=se perceber que o nome dos escopos recém apresentados parecem seguir um padrão.
@@ -703,15 +703,15 @@ as gramáticas ficam compatíveis com um maior número de arquivos de temas (ou 
 onde são especificados os nomes dos escopos serão utilizados para especificar as cores a serem utilizadas pelo editor de texto (\fullref{section:sourceCodeHighlightersGrammars}).
 \advisor{}{Para mais informações sobre a utilização de arquivos de temas em editores de texto veja \citeonline{sublimeTextScopeNaming,vsCodeSyntaxHighlighthing}.}
 
-O \typeref{exemploDeGramaticaPawn1},
+O \typeref{code:exemploDeGramaticaPawn1},
 faz uso dos operadores ``include'' e
 ``match''.
 O operador ``include'' serve para incluir partes de outras gramáticas ou
 mesmo gramáticas inteiras no contexto da gramática atual.
 Entretanto,
 a implementação de ``include'' realizada neste trabalho somente consegue realizar includes de contextos definidos no mesmo arquivo.
-No exemplo do \typeref{exemploDeGramaticaPawn1},
-o operador ``include'' está incluindo contextos (\typeref{metalinguagemGrammar}) da gramática atual que serão definidos mais tarde neste mesmo arquivo.
+No exemplo do \typeref{code:exemploDeGramaticaPawn1},
+o operador ``include'' está incluindo contextos (\typeref{section:metalinguagemGrammar}) da gramática atual que serão definidos mais tarde neste mesmo arquivo.
 Já o operador ``match'' utilizado no final serve para realizar propriamente o reconhecimento do programa de entrada e
 atribuir a ele o escopo ``constant.boolean.language.pawn''.
 
@@ -722,8 +722,8 @@ Com estas informações,
 o Formatador de Código será capaz de realizar as operações de formatação somente sobre os trechos de código~=fonte que o usuário definir.
 Realizando assim,
 a formatação seletiva de código~=fonte,
-contrário da formatação total de código~=fonte como acontece nos demais trabalhos (\fullref{desempenhoDoFormator}).
-\begin{lstlisting}[caption={Exemplo de Gramática, Símbolo Inicial},label={exemploDeGramaticaPawn1},style=yaml_style]
+contrário da formatação total de código~=fonte como acontece nos demais trabalhos (\fullref{section:desempenhoDoFormator}).
+\begin{lstlisting}[caption={Exemplo de Gramática, Símbolo Inicial},label={code:exemploDeGramaticaPawn1},style=yaml_style]
 name: Abstract Machine Language
 scope: source.sma
 
@@ -738,7 +738,7 @@ contexts: {
 }
 \end{lstlisting}
 
-No \typeref{exemploDeGramaticaPawn2},
+No \typeref{code:exemploDeGramaticaPawn2},
 é introduzido o uso dos operadores ``push'',
 ``meta\_scope'' e
 ``pop''.
@@ -749,7 +749,7 @@ A diferença entre o operador ``scope'' e
 Já o operador ``meta\_scope'' permite aplicar o escopo a todo o texto desde o primeiro até o último ``match'',
 que desempilha com o operador ``pop'',
 o contexto empilhado inicialmente com um ``push''.
-\begin{lstlisting}[caption={Exemplo de Gramática, Contextos},label={exemploDeGramaticaPawn2},style=yaml_style]
+\begin{lstlisting}[caption={Exemplo de Gramática, Contextos},label={code:exemploDeGramaticaPawn2},style=yaml_style]
 parens: {
     match: \( {
         scope: parens.begin.pawn
@@ -765,7 +765,7 @@ parens: {
 }
 \end{lstlisting}
 
-No \typeref{exemploDeGramaticaPawn3},
+No \typeref{code:exemploDeGramaticaPawn3},
 é introduzido o uso do operador ``captures''.
 O operador ``captures'' atribuí simultaneamente diversos escopos com uma única expressão regular.
 Cada um dos números listados equivalem a um dos grupos de captura da expressão regular utilizada no operador ``captures''.
@@ -786,7 +786,7 @@ constant.numeric.pawn'',
 poderia~=se utilizar equivalentemente o operador ``captures:
 0.
 constant.numeric.pawn''.
-\begin{lstlisting}[caption={Exemplo de Gramática, Grupos de Captura},label={exemploDeGramaticaPawn3},style=yaml_style]
+\begin{lstlisting}[caption={Exemplo de Gramática, Grupos de Captura},label={code:exemploDeGramaticaPawn3},style=yaml_style]
 numbers: {
     match: '(\d+)(\.\{2\})(\d+)' {
         captures: {
@@ -799,7 +799,7 @@ numbers: {
 }
 \end{lstlisting}
 
-No \typeref{exemploDeGramaticaPawn4},
+No \typeref{code:exemploDeGramaticaPawn4},
 são mostrados mais alguns exemplos de uso do operador ``match'' classificando diversos tipos de numéricos (da linguagem sendo descrita pela gramática).
 É importante notar que a ordem na qual os operadores como ``match'' aparecem é importante.
 Ao realizar o reconhecido o programa de entrada utilizando esta gramática,
@@ -811,7 +811,7 @@ Assim,
 uma vez que um trecho de código~=fonte já foi classificado,
 ele será ignorado quando os próximos operadores forem aplicados,
 evitando assim que o programa execute infinitamente.
-\begin{lstlisting}[caption={Exemplo de Gramática, Tipos numéricos},label={exemploDeGramaticaPawn4},style=yaml_style]
+\begin{lstlisting}[caption={Exemplo de Gramática, Tipos numéricos},label={code:exemploDeGramaticaPawn4},style=yaml_style]
 numeric: {
     match: ([-]?0x[\da-f]+) {
         scope: constant.numeric.hex.pawn
@@ -826,14 +826,14 @@ numeric: {
 \end{lstlisting}
 
 Por fim,
-no \typeref{exemploDeGramaticaPawn5},
+no \typeref{code:exemploDeGramaticaPawn5},
 é apresentado um exemplo não relacionado com formatação de código~=fonte.
 A construção utilizada é comum para gramáticas que serão utilizadas para realizar a aplicação de cores em editores de texto \cite{vsCodeSyntaxHighlighthing}.
 Com ela é possível colorir o código~=fonte,
 destacando~=o como inválido no editor de texto,
 uma vez que uma inconsistência sintática foi encontrada na linguagem sendo analisada.
 
-Construções como a do \typeref{exemploDeGramaticaPawn5},
+Construções como a do \typeref{code:exemploDeGramaticaPawn5},
 funcionam usualmente quando elas são a última regra da gramática.
 Uma vez que todas as regras que consomem o programa de entrada e
 o classifica em escopos terminam seu trabalho,
@@ -841,7 +841,7 @@ não deveria existir mais nenhum texto ser reconhecido.
 Caso exista,
 ou a gramática não estava preparada para reconhecer todo o programa de entrada,
 ou estes trechos de código~=fonte são frutos de algum erro no programa de entrada.
-\begin{lstlisting}[caption={Exemplo de Gramática, Reconhecimento de Erros},label={exemploDeGramaticaPawn5},style=yaml_style]
+\begin{lstlisting}[caption={Exemplo de Gramática, Reconhecimento de Erros},label={code:exemploDeGramaticaPawn5},style=yaml_style]
 check_brackets: {
     match: \) {
         scope: invalid.illegal.stray-bracket-end
@@ -854,14 +854,14 @@ check_brackets: {
 \label{section:AnalisadorSemantico}
 
 Depois que um metaprograma da metalinguagem apresentada na seção anterior é reconhecido pelo Analisador Lark,
-o Analisador Lark entrega a Árvore Sintática da gramática da linguagem sendo descrita pelo metaprograma (\typeref{MetacompilerMetagrammarMetaprogram}).
+o Analisador Lark entrega a Árvore Sintática da gramática da linguagem sendo descrita pelo metaprograma (\typeref{figure:MetacompilerMetagrammarMetaprogram}).
 Todas as verificações de corretude da sintaxe da gramática são executadas pelo Analisador Lark,
 com base na metagramática da metalinguagem.
 Portanto,
 somente resta ser implementado o Analisador Semântico para verificar se a linguagem descrita respeita as regras semânticas da metalinguagem explicadas na seção anterior,
-\nameref{metalinguagemGrammar}.
+\nameref{section:metalinguagemGrammar}.
 
-Um Diagrama de Classes é apresentado na \typeref{CodeFormatterClassDiagram}.
+Um Diagrama de Classes é apresentado na \typeref{figure:CodeFormatterClassDiagram}.
 Nele,
 o Analisador Semântico que deriva de ``Transformer'' recebe como entrada a Árvore Sintática do programa de entrada,
 e uma vez que o Analisador Semântico termina seu trabalho,
@@ -870,26 +870,26 @@ Então,
 utilizando a Árvore Sintática Abstrata,
 ``Backend'' que deriva de ``Interpreter'',
 realiza a formatação de código~=fonte recebendo um programa de entrada e
-as configurações do formatador (\typeref{ParsersPublicAudienceTraduzido,MetacompilerMetagrammarMetaprogram}).
+as configurações do formatador (\typeref{figure:ParsersPublicAudienceTraduzido,figure:MetacompilerMetagrammarMetaprogram}).
 \begin{figure}[!htb]
 \caption{Diagrama das principais classes}
-\label{CodeFormatterClassDiagram}
+\label{figure:CodeFormatterClassDiagram}
 \centering
 \includegraphics[width=1.0\textwidth]{CodeFormatterClassDiagram.png}
 \fonte{Própria}
 \end{figure}
 
-No \typeref{semanticAnalizerConstructor},
+No \typeref{code:semanticAnalizerConstructor},
 pode~=se ver o construtor do Analisador Semântico.
 Pode~=se notar que seu construtor não recebe como parãmetro a Árvore Sintática.
 Entretanto,
 a ela não é passada pelo construtor mas sim por um método chamado ``transform(tree)''.
 Esta é uma característica do Analisador Lark utilizado.
 A função ``transform(tree)'' do Analisador Lark simplesmente inicia a análise do programa visitando todos os nós da Árvore Sintática,
-partindo das folhas até chegar na raíz (\fullref{compiladoresEtradutores}).
+partindo das folhas até chegar na raíz (\fullref{section:compiladoresEtradutores}).
 \begin{code}
 \caption{Construtor do Analisador Semântico}
-\label{semanticAnalizerConstructor}
+\label{code:semanticAnalizerConstructor}
 \begin{minted}{python}
 class TreeTransformer(pushdown.Transformer):
     """
@@ -936,7 +936,7 @@ class TreeTransformer(pushdown.Transformer):
 \end{minted}
 \end{code}
 
-A visita dos nós da Árvore Sintática pela função ``transform(tree)'' acontece simplesmente chamando os métodos que a classe ``TreeTransformer'' (Definido no \typeref{semanticAnalizerConstructor}) define e
+A visita dos nós da Árvore Sintática pela função ``transform(tree)'' acontece simplesmente chamando os métodos que a classe ``TreeTransformer'' (Definido no \typeref{code:semanticAnalizerConstructor}) define e
 que possuem os mesmos nomes que os símbolos não~=terminais definidos pela metagramática.
 Então,
 cada nó ou
@@ -948,7 +948,7 @@ cada nó da Árvore Sintática será convertido para um nó da Árvore Sintátic
 
 Um jeito fácil de excluir um nó da Árvore Sintática é simplesmente definir uma função com o nome de seu não~=terminal que devolve ``null''.
 Por exemplo,
-o trecho da metagramática apresentado no \typeref{simboloInicialDaMetagramatica},
+o trecho da metagramática apresentado no \typeref{code:simboloInicialDaMetagramatica},
 possui alguns símbolos não~=terminais como ``preamble\_statements'' e
 ``language\_construct\_rules''. Então,
 para estes dados símbolos,
@@ -981,7 +981,7 @@ acessível como um atributo da classe ``TreeTransformer''.
 
 
 \section{Formatador de Código}
-\label{desempenhoDoFormator}
+\label{section:desempenhoDoFormator}
 
 O Formatador de Código não é composto somente por uma parte única e
 altamente acoplada.
@@ -990,7 +990,7 @@ um conjunto de partes altamente coesas e
 completamente independentes onde cada uma dessas partes recebe a Árvore Sintática Abstrata,
 para então realizar a formatação do programa de entrada junto com as configurações que esta parte aceita.
 
-Continuamente chamar diversos algoritmos independentes acarreta uma perda de desempenho em comparação com os formatadores de código~=fonte apresentados no \fullref{source_code_beautifiers}.
+Continuamente chamar diversos algoritmos independentes acarreta uma perda de desempenho em comparação com os formatadores de código~=fonte apresentados no \fullref{chapter:source_code_beautifiers}.
 Estes formatadores tem como principal características realizar a formatação de código~=fonte em uma única passada,
 i.e.,
 a Árvore Sintática de programa de entrada é completamente reconstruída,
@@ -998,8 +998,8 @@ para então ser serializada novamente em texto de acordo com as configurações 
 
 Este trabalho permite que o usuário entre com a gramática da linguagem a ser formatada,
 diferente de outros trabalhos onde a gramática já é incluída ao código~=fonte do formatador.
-Formadores de código~=fonte como apresentados na \fullref{source_code_beautifiers} são construídos programando~=se as produções da gramática diretamente no código~=fonte do formatador (Descendentes Recursivos,
-reveja a \fullref{gramaticasVersusLinguagens}).
+Formadores de código~=fonte como apresentados na \fullref{chapter:source_code_beautifiers} são construídos programando~=se as produções da gramática diretamente no código~=fonte do formatador (Descendentes Recursivos,
+reveja a \fullref{section:gramaticasVersusLinguagens}).
 
 Ao não permitir~=se que o usuário possa entrar com a gramática do programa,
 restringe~=se o formatador a somente funcionar com as gramáticas que foram programadas dentro do seu código~=fonte.
@@ -1008,15 +1008,15 @@ isso dificulta a adição do suporte de novas linguagens ao formatador,
 pois precisa~=se programar as suas gramáticas diretamente dentro do código~=fonte do formatador.
 
 Um formatador pode ter pré~=configurado algumas gramáticas de algumas linguagens de programação,
-como acontece com o formatador Uncrustify (\fullref{trabalhosRelacionados}).
+como acontece com o formatador Uncrustify (\fullref{section:trabalhosRelacionados}).
 O que Uncrustify consegue fazer é formatar um conjunto de linguagens onde sua gramática é parecida na maior parte dos aspectos.
 Caso fosse necessário expandir o formatador Uncrustify a suportar linguagens pouco relacionadas com as linguagens já existentes,
 o código~=fonte da implementação atual do formatador seria muito mais complexa.
 \advisor{}{Imagine como seria escrever uma única gramática que represente todas as linguagens de programação?}
 
-No \typeref{construtorDoFormatador},
+No \typeref{code:construtorDoFormatador},
 pode ser encontrado o construtor do formatador de código~=fonte.
-Comparando~=o com o construtor do Analisador Semântico (\typeref{semanticAnalizerConstructor}),
+Comparando~=o com o construtor do Analisador Semântico (\typeref{code:semanticAnalizerConstructor}),
 pode~=se notar algumas diferenças.
 Em ambos os casos,
 o processo todo se completará ao percorrer toda a árvore.
@@ -1026,9 +1026,9 @@ e no caso do Formatador de Código,
 a Árvore Sintática Abstrata.
 
 Diferentemente do Analisador Semântico,
-o Formatador de Código faz herança do tipo ``Interpreter'' em vez de ``Transformer'' (\typeref{CodeFormatterClassDiagram}).
+o Formatador de Código faz herança do tipo ``Interpreter'' em vez de ``Transformer'' (\typeref{figure:CodeFormatterClassDiagram}).
 A diferença é simples,
-``Interpreter'' visita a árvore partindo das folhas até chegar na raíz visitando todos os nós filhos (\fullref{compiladoresEtradutores}),
+``Interpreter'' visita a árvore partindo das folhas até chegar na raíz visitando todos os nós filhos (\fullref{section:compiladoresEtradutores}),
 já ``Transformer'' visita a árvore partindo da raíz até chegar nos nós pais,
 i.e.,
 ele não visita os nós filhos automaticamente como ``Transformer'' faz.
@@ -1045,7 +1045,7 @@ No final processo,
 ``Interpreter'' terá em sua variável ``self.program'' o novo programa completamente formatado.
 \begin{code}
 \caption{Construtor do Formatador}
-\label{construtorDoFormatador}
+\label{code:construtorDoFormatador}
 \begin{minted}{python}
 class Backend(pushdown.Interpreter):
 
@@ -1073,7 +1073,7 @@ class Backend(pushdown.Interpreter):
 \end{code}
 
 Enquanto ``Interpreter'' é responsável por somente ``passear'' pela Árvore Sintática Abstrata,
-a classe ``AbstractFormatter'' (\typeref{construtorDeParsedProgram}) é responsável por realmente fazer a formatação de código~=fonte de acordo com a instruções vindas da Árvore Sintática Abstrata.
+a classe ``AbstractFormatter'' (\typeref{code:construtorDeParsedProgram}) é responsável por realmente fazer a formatação de código~=fonte de acordo com a instruções vindas da Árvore Sintática Abstrata.
 No final do processo,
 ``AbstractFormatter'' terá na variável ``new\_program'' todos os pedaços do programa formatado.
 Uma vez que ``Interpreter'' termina de construir todos os pedaços de código~=fonte formatado,
@@ -1082,7 +1082,7 @@ salvá~=los na variável ``cached\_new\_program'',
 para evitar ter que recalcular o novo programa toda vez que pedir~=se a sua nova versão.
 \begin{code}
 \caption{Construtor de ``AbstractFormatter''}
-\label{construtorDeParsedProgram}
+\label{code:construtorDeParsedProgram}
 \begin{minted}{python}
 class AbstractFormatter(object):
     """

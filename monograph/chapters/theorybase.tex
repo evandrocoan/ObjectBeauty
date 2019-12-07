@@ -3,10 +3,10 @@
 % Is it possible to keep my translation together with original text?
 % https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
 \chapter{\lang{Theory base}{Fundamentação Teórica}}
-\label{fundamentacaoTeorica}
+\label{chapter:fundamentacaoTeorica}
 
-De acordo com o funcionamento de muitos Formatadores de Código (Veja o \fullref{source_code_beautifiers}) e
-da ferramenta que foi desenvolvida (veja o \fullref{software_implementation}),
+De acordo com o funcionamento de muitos Formatadores de Código (Veja o \fullref{chapter:source_code_beautifiers}) e
+da ferramenta que foi desenvolvida (veja o \fullref{chapter:software_implementation}),
 foi explicado resumidamente toda a teoria necessária para construção de compiladores,
 incluindo as classes de complexidade para medidas da eficiência dos compiladores.
 Seguindo um currículo acadêmico de um curso de Ciências da Computação,
@@ -19,7 +19,7 @@ este resumo seria o equivalente as disciplinas de:
 
 
 \section{Compiladores e Tradutores}
-\label{compiladoresEtradutores}
+\label{section:compiladoresEtradutores}
 
 \lang{%
     This work aims to propose a translator \cite{generatingInterpretiveTranslators},
@@ -47,7 +47,7 @@ este resumo seria o equivalente as disciplinas de:
     Por exemplo,
     dado um programa de entrada em C++ e
     um programa de saída em Java,
-    tem~=se um processo de tradução (\typeref{ProcessoTraducao}).
+    tem~=se um processo de tradução (\typeref{figure:ProcessoTraducao}).
     \advisor{A tradução é diferente de um processo de compilação,
     que é dotado de mais etapas \cite{translatorGenerationCompilier}.
     }{Pelo outro lado,
@@ -57,7 +57,7 @@ este resumo seria o equivalente as disciplinas de:
     }
     \begin{figure}[!htb]
     \caption{Processo de Tradução}
-    \label{ProcessoTraducao}
+    \label{figure:ProcessoTraducao}
     \centering
     \includegraphics[width=1.0\textwidth]{ProcessoTraducao.png}
     \fonte{Própria, baseado em \citeonline{ahoCompilerDragonBook}}
@@ -101,16 +101,16 @@ Rightmost derivation}) fazem a leitura do programa de entrada da esquerda para a
 Uma vantagem de um Analisador Ascendente é o suporte de uma maior classe de Gramáticas Determinísticas Livres de Contexto.
 Uma vantagem de um Analisador Descendente é a facilidade da recuperação de erros em relação aos Analisadores Ascendentes\footnote{
 Conceito abordado na
-\fullref{analisadoresSintaticos}.
+\fullref{section:analisadoresSintaticos}.
 }
 \cite{sippu1982,lr1ErrorRecovery,errorRecoveryForYaccParsers,repairingSyntaxErrorsInLR,larkJosefGrosch,errorsInLRParsers}.
 Existem tanto linguagens que Analisadores Ascendentes reconhecem,
 mas que Analisadores Descendentes não reconhecem e
-\textit{vice-versa} (veja a \fullref{LinguagensDeterministicas}).
+\textit{vice-versa} (veja a \fullref{figure:LinguagensDeterministicas}).
 
 
 \section{Gramáticas}
-\label{introducaoGramaticas}
+\label{section:introducaoGramaticas}
 
 Gramáticas são conjuntos de regras que definem uma linguagem.
 Uma gramática é definida por quatro componentes,
@@ -195,10 +195,10 @@ Esta é uma gramática de uma linguagem finita que aceita 3 palavras:
 No Analisador Lark,
 quando um token é declarado diretamente como ``token sem nome'',
 ele irá ser descartado da Árvore Sintática.
-Como pode ser visto na \typeref{Figure:ArvoresDosTokens1},
+Como pode ser visto na \typeref{figure:ArvoresDosTokens1},
 a árvore sintática do programa ``token sem nome'',
 irá conter somente o símbolo inicial da gramática.
-Nas \typeref{Figure:ArvoresDosTokens1,Figure:ArvoresDosTokens2,Figure:ArvoresDosTokens3},
+Nas \typeref{figure:ArvoresDosTokens1,figure:ArvoresDosTokens2,figure:ArvoresDosTokens3},
 pode ser visto a Árvore Sintática de cada uma das 3 palavras da linguagem do \typeref{code:ExemploDeGramaticaLark}.
 \begin{code}
 \caption{Exemplo de gramática utilizada pelo Analisador Lark}
@@ -238,7 +238,7 @@ Enquanto símbolos escritos todos em letras ``minúsculas'' definem os símbolos
 \advisor{}{Para mais informações sobre a sintaxe de entrada de gramáticas do Analisador Lark,
 consulte sua documentação \cite{larkGrammarReference,larkStyleCheat}.}
 
-A \typeref{Figure:ArvoresDosTokens1},
+A \typeref{figure:ArvoresDosTokens1},
 representa a Árvore Sintática completa da palavra ``token sem nome'',
 que a linguagem da gramática do \typeref{code:ExemploDeGramaticaLark} aceita.
 Como pode ser facilmente percebido,
@@ -250,35 +250,35 @@ Este é um recurso do Analisador Lark,
 que permite descartamos da Árvore Sintática \textit{tokens} que julgam~=se desnecessários aparecem na Árvore Sintática.
 \begin{figure}[H]
 \caption{Árvore do Programa ``token sem nome''}
-\label{Figure:ArvoresDosTokens1}
+\label{figure:ArvoresDosTokens1}
 \centering
 % https://tex.stackexchange.com/questions/86350/includegraphics-maximum-width
 \includegraphics[max width=0.2388\textwidth]{token_sem_nome.png}
 \fonte{Própria}
 \end{figure}
 
-A \typeref{Figure:ArvoresDosTokens2},
+A \typeref{figure:ArvoresDosTokens2},
 representa a Árvore Sintática completa da palavra ``token com nome'',
 que a linguagem da gramática do \typeref{code:ExemploDeGramaticaLark} aceita.
-Diferente da Árvore Sintática da \typeref{Figure:ArvoresDosTokens2},
-a Árvore Sintática da \typeref{Figure:ArvoresDosTokens2} possui como nó folha a palavra ``token com nome''.
+Diferente da Árvore Sintática da \typeref{figure:ArvoresDosTokens2},
+a Árvore Sintática da \typeref{figure:ArvoresDosTokens2} possui como nó folha a palavra ``token com nome''.
 Porque na gramática da linguagem,
 foi criado especificamente a produção ``\mintinline{text}{TOKEN_COM_NOME:
 "token com nome"}'',
 fazendo com que o Analisador Lark não descarte \textit{token} da Árvore Sintática.
 \begin{figure}[H]
 \caption{Árvore do Programa ``token com nome''}
-\label{Figure:ArvoresDosTokens2}
+\label{figure:ArvoresDosTokens2}
 \centering
 \includegraphics[max width=0.799\textwidth]{token_com_nome.png}
 \fonte{Própria}
 \end{figure}
 
-A \typeref{Figure:ArvoresDosTokens3},
+A \typeref{figure:ArvoresDosTokens3},
 representa a Árvore Sintática completa da palavra ``token com outro nome'',
 que a linguagem da gramática do \typeref{code:ExemploDeGramaticaLark} aceita.
-Diferente da Árvore Sintática das \typeref{Figure:ArvoresDosTokens1,Figure:ArvoresDosTokens2},
-a Árvore Sintática da \typeref{Figure:ArvoresDosTokens3},
+Diferente da Árvore Sintática das \typeref{figure:ArvoresDosTokens1,figure:ArvoresDosTokens2},
+a Árvore Sintática da \typeref{figure:ArvoresDosTokens3},
 apresenta um nó intermediário chamado de ``nodo\_da\_arvore''.
 O nó intermediário ``nodo\_da\_arvore'' é um exemplo de símbolo não~=terminal da gramática.
 Usualmente,
@@ -286,11 +286,11 @@ os símbolos não~=terminais não são nós~=folhas da Árvore Sintática.
 Entretanto,
 caso a gramática de entrada possua símbolos inúteis \cite{hopcroftBook},
 podem existir ramificações da Árvore Sintática na qual símbolos não~=terminais são nós~=folhas.
-Reveja também a \typeref{Figure:ArvoresDosTokens1},
+Reveja também a \typeref{figure:ArvoresDosTokens1},
 nela temos outro exemplo onde um não~=terminal foi um ``nó~=folha'' da Árvore Sintática.
 \begin{figure}[H]
 \caption{Árvore do Programa ``token com outro nome''}
-\label{Figure:ArvoresDosTokens3}
+\label{figure:ArvoresDosTokens3}
 \centering
 \includegraphics[max width=1.0\textwidth]{token_com_outro_nome.png}
 \fonte{Própria}
@@ -298,12 +298,12 @@ nela temos outro exemplo onde um não~=terminal foi um ``nó~=folha'' da Árvore
 
 No \typeref{code:ExemploDeEstruturaDeGramaticaLark},
 pode ser encontrado outro exemplo de gramática aceita pelo Analisador Lark.
-Nas \typeref{Figure:palavra12,Figure:palavra1,Figure:palavra2,Figure:palavra3},
+Nas \typeref{figure:palavra12,figure:palavra1,figure:palavra2,figure:palavra3},
 pode ser encontrado as 4 palavras da linguagem que esta gramática aceita.
-Nas \typeref{Figure:palavra1,Figure:palavra2,Figure:palavra3},
+Nas \typeref{figure:palavra1,figure:palavra2,figure:palavra3},
 pode~=se ver as palavras da linguagem (gramática do \typeref{code:ExemploDeEstruturaDeGramaticaLark}),
 na qual os \textit{tokens} correspondem exatamente aos símbolos do alfabeto da linguagem.
-Já a \typeref{Figure:palavra12},
+Já a \typeref{figure:palavra12},
 mostra~=se como o conjunto de produções da gramática pode ser utilizado para montar a estrutura (sintaxe) da linguagem,
 combinando os símbolos do alfabeto da linguagem.
 \begin{code}
@@ -335,14 +335,14 @@ parseit( '12', "palavra12.png" )
 \end{minted}
 \end{code}
 
-A \typeref{Figure:palavra12},
+A \typeref{figure:palavra12},
 representa a Árvore Sintática completa da palavra ``12'',
 que a linguagem da gramática do \typeref{code:ExemploDeEstruturaDeGramaticaLark} aceita.
-A \typeref{Figure:palavra12},
+A \typeref{figure:palavra12},
 é um bom exemplo para demonstrar a diferença entre sintaxe e
 semântica.
 Gramáticas Livre de Contexto somente representam a estrutura de um programa (ou palavra) de uma linguagem.
-O que é mostrado na \typeref{Figure:palavra12},
+O que é mostrado na \typeref{figure:palavra12},
 é a estrutura da palavra ``12'',
 isto é,
 como os símbolos ``1'' e
@@ -351,45 +351,45 @@ Já semanticamente (o significado),
 da estrutura formada pelos símbolos ``1'' e
 ``2'' do alfabeto,
 pode ser interpretado como o número ``12'' (doze),
-representado estruturalmente pela Árvore Sintática da \typeref{Figure:palavra12}.
+representado estruturalmente pela Árvore Sintática da \typeref{figure:palavra12}.
 \begin{figure}[H]
 \caption{Árvore da palavra ``12''}
-\label{Figure:palavra12}
+\label{figure:palavra12}
 \centering
 \includegraphics[max width=0.896\textwidth]{palavra12.png}
 \fonte{Própria}
 \end{figure}
 
-A \typeref{Figure:palavra1},
+A \typeref{figure:palavra1},
 representa a Árvore Sintática completa da palavra ``1'',
 que a linguagem da gramática do \typeref{code:ExemploDeEstruturaDeGramaticaLark} aceita.
 \begin{figure}[H]
 \caption{Árvore da palavra ``1''}
-\label{Figure:palavra1}
+\label{figure:palavra1}
 \centering
 \includegraphics[max width=0.4435\textwidth]{palavra1.png}
 \fonte{Própria}
 \end{figure}
 
-A \typeref{Figure:palavra2},
+A \typeref{figure:palavra2},
 representa a Árvore Sintática completa da palavra ``2'',
 que a linguagem da gramática do \typeref{code:ExemploDeEstruturaDeGramaticaLark} aceita.
 \begin{figure}[H]
 \caption{Árvore da palavra ``2''}
-\label{Figure:palavra2}
+\label{figure:palavra2}
 \centering
 \includegraphics[max width=0.4435\textwidth]{palavra2.png}
 \fonte{Própria}
 \end{figure}
 
-A \typeref{Figure:palavra3},
+A \typeref{figure:palavra3},
 representa a Árvore Sintática completa da palavra ``3'',
 que a linguagem da gramática do \typeref{code:ExemploDeEstruturaDeGramaticaLark} aceita.
-A Árvore Sintática da \typeref{Figure:palavra3},
+A Árvore Sintática da \typeref{figure:palavra3},
 apresenta a definição de um \textit{token} com o nome ``NUMERO3''.
 \begin{figure}[H]
 \caption{Árvore da palavra ``3''}
-\label{Figure:palavra3}
+\label{figure:palavra3}
 \centering
 \includegraphics[max width=0.4435\textwidth]{palavra3.png}
 \fonte{Própria}
@@ -397,7 +397,7 @@ apresenta a definição de um \textit{token} com o nome ``NUMERO3''.
 
 
 \subsection{Hierarquia de Chomsky}
-\label{sectionHierarquiaDeChomsky}
+\label{section:sectionHierarquiaDeChomsky}
 
 Todas as gramáticas que existem são no mínimo\footnote{
 Caso contrário não serão gramáticas,
@@ -406,7 +406,7 @@ Compiladores pode não se aplicar.
 }
 Gramáticas Tipo 0 \cite{ahoTheoryOfParsing,chomskyGrammars1956},
 também conhecidas como Gramáticas Irrestritas porque não possuem nenhuma restrição de complexidade de tempo\footnote{
-Veja a \typeref{FigureHierarquiaDeChomsky} e
+Veja a \typeref{figure:FigureHierarquiaDeChomsky} e
 perceba que Gramáticas Irrestritas são equivalentes a Máquinas de Turing,
 portanto podem em pior caso levar tempo infinito para responder.
 Aprenda mais a respeito procurando sobre o problema da parada \citeonline{turingMachinesRoyer,sipserBook} ou
@@ -420,10 +420,10 @@ também pode~=se \advisor{compreender}{realizar diversas classificações como} 
 onde uma linguagem pode ser classificada como Regular,
 Livre de Contexto,
 Sensível ao Contexto e
-Irrestrita (\typeref{FigureHierarquiaDeChomsky}).
+Irrestrita (\typeref{figure:FigureHierarquiaDeChomsky}).
 \begin{figure}[!htb]
 \caption{Hierarquia de Chomsky}
-\label{FigureHierarquiaDeChomsky}
+\label{figure:FigureHierarquiaDeChomsky}
 \centering
 \includegraphics[width=1.0\textwidth]{HierarquiaDeChomsky.png}
 \begin{minipage}{\textwidth} \footnotesize
@@ -435,7 +435,7 @@ complexidade polinomial para construir algumas Árvores de Derivações e
 determinar se dada palavra pertence ou
 não a linguagem,
 com algoritmos como CYK ou
-Earley (veja a \fullref{classesDeComplexidade}).
+Earley (veja a \fullref{section:classesDeComplexidade}).
 Por fim,
 para Autômatos Finitos Não~=Determinísticos ou
 Analisadores com Backtracking,
@@ -443,7 +443,7 @@ tempo exponencial.
 
 **Para Gramáticas Livres de Contexto Determinísticas,
 também conhecidas como LR(K),
-complexidade linear ao tamanho da palavra de entrada (Veja a \fullref{gramaticasVersusLinguagens}).
+complexidade linear ao tamanho da palavra de entrada (Veja a \fullref{section:gramaticasVersusLinguagens}).
 Para Gramáticas Livre de Contexto Não~=Determinísticas,
 vale o mesmo que para Linguagens Regulares Não~=Determinísticas logo acima,
 mas no lugar de Autômatos Finitos Não~=Determinísticos,
@@ -459,9 +459,9 @@ baseado em \citeonline{sipserBook,ahoTheoryOfParsing,efficientNonDeterministicPa
 \nota{As complexidades Linear,
 Polinomial,
 Exponential e
-Infinita são explicados na seção \fullref{classesDeComplexidade}.}
+Infinita são explicados na seção \fullref{section:classesDeComplexidade}.}
 \nota{Aprenda o que são Gramáticas Determinísticas ou
-Não~=Determinísticas lendo a \fullref{gramaticasVersusLinguagens}.}
+Não~=Determinísticas lendo a \fullref{section:gramaticasVersusLinguagens}.}
 \end{figure}
 
 Toda Gramática Regular ou
@@ -470,7 +470,7 @@ Livre de Contexto,
 Sensível ao Contexto,
 uma vez que Gramáticas Livres de Contexto ou
 Regulares são um subconjunto das Gramáticas Irrestritas ou
-Sensíveis ao Contexto como apresentado na \typeref{FigureHierarquiaDeChomsky}.
+Sensíveis ao Contexto como apresentado na \typeref{figure:FigureHierarquiaDeChomsky}.
 Por isso,
 também pode~=se chamar uma dada Gramática Regular de Irrestrita ou
 Livre de Contexto.
@@ -487,7 +487,7 @@ i.e.,
 o tipo mais eficiente em tempo computational\footnote{
 Tempo computational refere~=se ao número de passos ou
 instruções necessários para executar determinado procedimentos.
-Veja a \fullref{classesDeComplexidade}.
+Veja a \fullref{section:classesDeComplexidade}.
 } na qual uma dada linguagem pode ser representada.
 Entretanto,
 precisa~=se tomar cuidado quando se fala sobre gramáticas e
@@ -510,7 +510,7 @@ compiladores) para dada linguagem.
 
 Gramáticas Regulares (também conhecidas como Tipo 3) são todas aquelas reconhecidas por Autômatos Finitos Determinísticos e\slash{}ou Não~=Determinísticos.
 Autômatos reconhecem linguagens e
-gramáticas geram palavras de sua linguagem (\typeref{reducoesEderivacoes}).
+gramáticas geram palavras de sua linguagem (\typeref{section:reducoesEderivacoes}).
 Para toda linguagem reconhecida por Autômato Finito,
 existe uma Gramática Regular que gera palavras dessa linguagem.
 Gramáticas de Linguagens Regulares pela definição formal,
@@ -579,7 +579,7 @@ como nas Linguagens Irrestritas.
 
 
 \section{Analisadores Sintáticos}
-\label{analisadoresSintaticos}
+\label{section:analisadoresSintaticos}
 
 Analisadores são equivalentes à Mecanismos Reconhecedores como Autômatos Finitos,
 Autômatos de Pilha ou
@@ -603,14 +603,14 @@ existem muitos outros como Analisadores Semânticos (Gramáticas Sensíveis ao C
 sua sintaxe \cite{ahoCompilerDragonBook}.
 Analisadores Sintáticos possuem muito mais utilidade do que somente checar se a sintaxe do programa de entrada está correta,
 uma vez que eles também podem gerar a Árvore Sintática do programa\footnote{
-Como visto no começo desde capítulo na \fullref{compiladoresEtradutores}.
+Como visto no começo desde capítulo na \fullref{section:compiladoresEtradutores}.
 }
 que é utilizada para realizar a Análise Semântica e
 geração de código.
 
 
 \subsection{Gramáticas $versus$ Linguagens}
-\label{gramaticasVersusLinguagens}
+\label{section:gramaticasVersusLinguagens}
 
 É importante fazer a distinção entre Gramáticas Livre de Contexto e
 as Linguagens Livre de Contexto.
@@ -619,8 +619,8 @@ provou que existem linguagens para as quais não existe Gramática Não~=Ambígu
 Tais linguagens são conhecidas como Linguagens Inerentemente Ambíguas\footnote{
 Do inglês,
 \textit{Inherently Ambiguous Languages}.
-Veja o que significa ambiguidade na \fullref{analiseSemantica} e
-\typeref{exemploDeAmbiguidadeLinguistica}.
+Veja o que significa ambiguidade na \fullref{section:analiseSemantica} e
+\typeref{frame:exemploDeAmbiguidadeLinguistica}.
 }
 onde não existe Gramática Livre de Contexto Determinística capaz de representá~=las e
 tais Linguagens somente podem ser reconhecidas por Analisadores com Backtracking \cite{ahoCompilerDragonBook} ou
@@ -633,7 +633,7 @@ em reverso com K símbolos de \textit{lookahead}.
 escolhe~=se sempre o não~=terminal mais a direita.
 }.
 Analisadores LR(K) \cite{ahoCompilerDragonBook} são Ascendentes e
-reconhecem um subconjunto das Linguagens Livre de Contexto (\typeref{LinguagensDeterministicas}).
+reconhecem um subconjunto das Linguagens Livre de Contexto (\typeref{figure:LinguagensDeterministicas}).
 Já os Analisadores LL(K)\footnote{
 Do inglês, \textit{Left-to-right, Leftmost derivation},
 com K símbolos de \textit{lookahead}.
@@ -646,13 +646,13 @@ Diz~=se que uma linguagem é LR(K) ou
 LL(K) quando ela é reconhecida por este analisador.
 }.
 
-Na \typeref{LinguagensDeterministicas},
+Na \typeref{figure:LinguagensDeterministicas},
 encontra~=se um Diagrama de Venn \cite{generalizedVennDiagrams} com a relação entre as classes de linguagens de acordo com os analisadores que as reconhecem.
 No terceiro nível encontra~=se as gramáticas que são mais importantes,
 as Gramáticas Determinísticas\footnote{
 As Gramáticas Determinísticas representam o conjunto de Linguagens que podem ser Analisadas Deterministicamente e
 tais Linguagens também podem ser conhecidas como LR(K).
-Reveja os parágrafos após a \typeref{FigureHierarquiaDeChomsky}.
+Reveja os parágrafos após a \typeref{figure:FigureHierarquiaDeChomsky}.
 },
 que podem ser classificadas como LR(K),
 LL(K), etc, i.e.,
@@ -662,7 +662,7 @@ Do inglês, \textit{Parsing Table},
 }.
 \begin{figure}[!htb]
 \caption{Gramáticas Determinísticas \textit{versus} suas Linguagens}
-\label{LinguagensDeterministicas}
+\label{figure:LinguagensDeterministicas}
 \centering
 \includegraphics[width=1.0\textwidth]{LinguagensDeterministicas.png}
 \fonte{Própria, baseado em \citeonline{llVersusLrContainment,llContainmentInLalr,beatty1982,ahoCompilerDragonBook,grammarsAndTheMinimalParsers}}
@@ -674,7 +674,7 @@ Do inglês, \textit{Parsing Table},
 \end{figure}
 
 \advisor{}{
-    A \typeref{LinguagensDeterministicasInerentes},
+    A \typeref{figure:LinguagensDeterministicasInerentes},
     não é inteiramente um Diagrama de Venn \cite{generalizedVennDiagrams},
     inicialmente,
     nas camadas mais externas,
@@ -703,7 +703,7 @@ Do inglês, \textit{Parsing Table},
     podem ser representadas por Gramáticas Ambíguas e\slash{}ou Determinísticas.
     \begin{figure}[!htb]
     \caption{Gramáticas Determinísticas \textit{versus} suas Linguagens}
-    \label{LinguagensDeterministicasInerentes}
+    \label{figure:LinguagensDeterministicasInerentes}
     \centering
     \includegraphics[width=1.0\textwidth]{LinguagensDeterministicasInerentes.png}
     \fonte{Própria, baseado em \citeonline{llVersusLrContainment,llContainmentInLalr,beatty1982,ahoCompilerDragonBook,grammarsAndTheMinimalParsers}}
@@ -762,20 +762,20 @@ de entrada que será analisado \cite{knuthLrParser1965,linearLL1AndLR1Grammars,g
 No caso de conflitos na Tabela de Análise,
 a gramática não pode ser analisada deterministicamente e
 algoritmos de análise com backtracking\footnote{
-Ou algoritmos de tempo polinomial como CYK (veja a \fullref{classesDeComplexidade}).
+Ou algoritmos de tempo polinomial como CYK (veja a \fullref{section:classesDeComplexidade}).
 }
 precisam ser utilizados para construção da Árvore Sintática.
-\advisor{}{Como mostrado para Máquinas de Turing Não~=Determinísticas na \fullref{mecanismosReconhecedores},
+\advisor{}{Como mostrado para Máquinas de Turing Não~=Determinísticas na \fullref{section:mecanismosReconhecedores},
 }%
 Analisadores com Backtracking também funcionam em pior caso,
 com tempo exponencial e
 podem escolher uma estratégia como Busca em Profundidade\advisor{}{\footnote{
-Veja a \fullref{buscaEmLarguraEProfundidade} para saber mais.
+Veja a \fullref{section:buscaEmLarguraEProfundidade} para saber mais.
 }} \cite{cormenIntroductionToAlgorithms} para executar os Ramos de Computação Não~=Determinística.
 
 
 \subsection{Reduções e Derivações}
-\label{reducoesEderivacoes}
+\label{section:reducoesEderivacoes}
 
 Diferente de máquinas específicas como Autômatos Finitos,
 analisadores recebem diretamente como entrada uma gramática de uma dada linguagem.
@@ -847,7 +847,7 @@ ela terminará somente com alguns nós~=folhas faltando.
 
 \subsection{Analisadores LR(K)}
 
-Como pode ser observado na \typeref{LinguagensDeterministicas},
+Como pode ser observado na \typeref{figure:LinguagensDeterministicas},
 existem Gramáticas SLR(K) que não são Gramáticas LL(K) porque para uma gramática ser LL(K),
 ela precisa respeitar 3 propriedades:
 \begin{inparaenum}[1)]
@@ -888,7 +888,7 @@ provou que todas as Gramáticas Determinísticas são aceitas por um Analisador 
 Assim,
 além da hierarquia de Chomsky,
 também classifica~=se as gramáticas de acordo com o tipo de analisador que reconhece as linguagens representadas por elas.
-Como mostrado na \typeref{LinguagensDeterministicas},
+Como mostrado na \typeref{figure:LinguagensDeterministicas},
 nem todas as Gramáticas Livre de Contexto são Gramáticas Determinísticas e
 uma gramática é Determinística somente se ela pode ser reconhecida por um Analisador LR(K).
 
@@ -907,7 +907,7 @@ não Determinística.
 
 
 \subsection{Análise Semântica}
-\label{analiseSemantica}
+\label{section:analiseSemantica}
 
 Usualmente\footnote{
 Como será apresentado mais a frente nesta seção:
@@ -942,14 +942,14 @@ Na estrutura ou
 sintaxe de um programa C existem ambiguidades\footnote{
 Conhecido também como Não~=Determinismo.
 }
-(\typeref{exemploDeAmbiguidadeLinguistica}) semânticas como a expressão ``\mintinline{text}|x * y;|''.
+(\typeref{frame:exemploDeAmbiguidadeLinguistica}) semânticas como a expressão ``\mintinline{text}|x * y;|''.
 Tal sentença pode ser ou
 a declaração de um ponteiro chamado ``\mintinline{text}|y|'' do tipo ``\mintinline{text}|x|'',
 ou a multiplicação de dois números armazenados nas variáveis ``\mintinline{text}|x|'' e
 ``\mintinline{text}|y|''.
 \begin{quadro}[!htb]
 \caption{Exemplo de Ambiguidade Linguística}
-\label{exemploDeAmbiguidadeLinguistica}
+\label{frame:exemploDeAmbiguidadeLinguistica}
 \begin{bluebox}
     SOCORRO!
 
@@ -978,7 +978,7 @@ Como o Compilador da Linguagem C é escrito programaticamente,
 ele é equivalente a uma Máquina de Turing e
 portanto possui em pior caso,
 tempo infinito de execução,
-reveja a \fullref{FigureHierarquiaDeChomsky}.
+reveja a \fullref{figure:FigureHierarquiaDeChomsky}.
 }%
 construir o analisador da linguagem C.
 
@@ -1002,7 +1002,7 @@ requer~=se} cuidado sobre como as alterações do Analisador são feitas,
 pois pode~=se pensar que todas as gramáticas de todas as linguagens de programação são ``Livres de Contexto'' e
 Determinísticas,
 o que não é verdade,
-veja a próxima \fullref{alteracoesNosAnalisadoresSintaticos}.
+veja a próxima \fullref{section:alteracoesNosAnalisadoresSintaticos}.
 Uma vez que a gramática não é mais Livre de Contexto ou
 Determinística,
 pode~=se mover Aspectos Sensíveis ao Contexto para o Analisador Semântico,
@@ -1018,7 +1018,7 @@ que trabalham sobre a Árvore Sintática gerada pelo Analisador (LR(K)) para ver
 
 
 \subsection{Alterações nos Analisadores Sintáticos}
-\label{alteracoesNosAnalisadoresSintaticos}
+\label{section:alteracoesNosAnalisadoresSintaticos}
 
 Dependendo de como o Analisador Sintático de Gramáticas Livre de Contexto é alterado,
 o conjunto de gramáticas aceitas por tal analisador pode deixar de ser Livre de Contexto.
@@ -1036,7 +1036,7 @@ como mostrado na seção anterior,
 seja analisada com eficiência.
 Mas isso deixa brechas para que ela possa não ser analisada com eficiência.
 A diferença para um analisador onde a gramática é inteiramente Livre de Contexto,
-é que elas tem desempenho \textit{garantida} pela sua Classe de Complexidade (Veja a \fullref{classesDeComplexidade}).
+é que elas tem desempenho \textit{garantida} pela sua Classe de Complexidade (Veja a \fullref{section:classesDeComplexidade}).
 
 Sintaxe e
 Semântica de Linguagens são completamente ortogonais.
@@ -1061,7 +1061,7 @@ mesmo que seu dispositivo reconhecedor equivalente,
 os Autômatos Finitos,
 não tenham Turing Completude\footnote{
 Caso isso esteja confuso,
-reveja a \typeref{FigureHierarquiaDeChomsky} e
+reveja a \typeref{figure:FigureHierarquiaDeChomsky} e
 note que de todas as Linguagens,
 quem tem Turing Completude são as Linguagens Irrestritas,
 enquanto Autômatos Finitos são um subconjunto das Máquinas de Turing \cite{finiteAutomataTuringComplete}.
@@ -1070,7 +1070,7 @@ enquanto Autômatos Finitos são um subconjunto das Máquinas de Turing \cite{fi
 
 
 \section{\advisor{Compiladores e }{}Classes de Complexidade}
-\label{classesDeComplexidade}
+\label{section:classesDeComplexidade}
 
 Como um todo,
 o conjunto de Linguagens Regulares pode ser considerado com complexidade linear\footnote{
@@ -1154,7 +1154,7 @@ publicou um artigo com a especificação do algoritmo de análise Earley:
 
 \advisor{}{\subsection{Complexidade Teórica $versus$ Real}}
 
-Na \typeref{ParserNonDeterministic},
+Na \typeref{figure:ParserNonDeterministic},
 encontra~=se uma Árvore de Computação de um Analisador Não~=Determinístico.
 Diz~=se que o tempo de execução de um Analisador Não~=Determinístico é Não~=Determinístico Polinomial ($NP$\footnote{
 Do inglês, \textit{Non~=Deterministic Polynomial Time},
@@ -1166,7 +1166,7 @@ está estritamente contida na classe de problemas $NP$ (Não~=Determinísticos P
 ao tamanho da entrada,
 porque um Analisador Não~=Determinístico executa simultaneamente todos os Ramos de Computação Não~=Determinísticos \cite{hopcroftBook}.
 
-Como mostrado na \typeref{ParserNonDeterministic},
+Como mostrado na \typeref{figure:ParserNonDeterministic},
 após cada um dos passos de computação 1,
 2, 3 e 4,
 todos os 15 Ramos de Computação foram concluídos.
@@ -1178,7 +1178,7 @@ i.e.,
 $\Theta(n^1)$.
 \begin{figure}[!htb]
 \caption{Árvore de computação com 4 passos \advisor{Não~=Determinísticos}{} de um Problema da Classe $NP$}
-\label{ParserNonDeterministic}
+\label{figure:ParserNonDeterministic}
 \centering
 \includegraphics[width=1.0\textwidth]{ParserNonDeterministic.png}
 \fonte{Própria}
@@ -1199,7 +1199,7 @@ o conjunto de Problemas resolvidos em tempo Não~=Determinístico Polinomial (po
 \advisor{}{Portanto,
 um problema Não~=Determinístico Polinomial,
 somente pode ser resolvido por uma Máquina de Turing Determinística em tempo exponencial.
-Veja as \typeref{ParserNonDeterministic,ParserDeterministic} e
+Veja as \typeref{figure:ParserNonDeterministic,figure:ParserDeterministic} e
 as compare.
 }}
 
@@ -1207,18 +1207,18 @@ O tempo de execução será linear ao tamanho da entrada caso o Analisador Não~
 implementado através de um Autômato Finito.
 O tempo de execução será polinomial ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Livre de Contexto Ambígua (Gramática Não~=Determinística) e
 implementado através de algum algoritmo com tempo polinomial como CYK ou
-Earley (\fullref{classesDeComplexidade}).
+Earley (\fullref{section:classesDeComplexidade}).
 Quando faz~=se a Análise de uma Gramática Livre de Contexto Não~=Determinística,
 tem~=se como resultado várias possíveis Árvores de Derivação\footnote{
 Como a gramática é Não~=Determinística,
 existem muitas possíveis Árvores de Derivação,
 (devido à ambiguidade da gramática,
-\typeref{exemploDeAmbiguidadeLinguistica}).
+\typeref{frame:exemploDeAmbiguidadeLinguistica}).
 }.
 
 
 \advisor{}{\subsection{Mecanismos Reconhecedores}
-\label{mecanismosReconhecedores}
+\label{section:mecanismosReconhecedores}
 }
 
 \advisor{}{Uma vez que o conjunto de Gramáticas Determinísticas LR(K) (com tempo linear) está contido no conjunto das Gramáticas Livres de Contexto,
@@ -1246,15 +1246,15 @@ Máquinas de Turing Determinísticas e
 Não~=Determinísticas são equivalentes,
 pois sempre é possível simular o funcionamento de uma Máquina de Turing Não~=Determinística,
 utilizando uma Máquina de Turing Determinística \cite{hopcroftBook}.
-Na \typeref{ParserDeterministic},
-encontra~=se a mesma Árvore de Computação apresentada na \typeref{ParserNonDeterministic},
+Na \typeref{figure:ParserDeterministic},
+encontra~=se a mesma Árvore de Computação apresentada na \typeref{figure:ParserNonDeterministic},
 mas com a diferença de que desta vez utiliza~=se uma Máquina de Turing Determinística ao contrário de uma Máquina de Turing Não~=Determinística.
 Com isso,
 ao invés de um tempo polinomial ao tamanho da entrada,
 tem~=se um tempo exponential ao tamanho da entrada.
 \begin{figure}[!htb]
 \caption{Árvore de computação com 15 passos (Determinísticos)}
-\label{ParserDeterministic}
+\label{figure:ParserDeterministic}
 \centering
 \includegraphics[width=1.0\textwidth]{ParserDeterministicDepth.png}
 \fonte{Própria}
@@ -1268,14 +1268,14 @@ somente existem teoricamente,
 com a exceção de algums trabalhos como \citeonline{efficientNonDeterministicParsers},
 que tenta utilizar computação paralela para representar o Não~=Determinismo.
 }
-executam simultaneamente todos os Ramos de Computação Não~=Determinísticos (\typeref{ParserNonDeterministic}),
+executam simultaneamente todos os Ramos de Computação Não~=Determinísticos (\typeref{figure:ParserNonDeterministic}),
 conseguindo assim, desempenho linear ou
 polinomial ao tamanho da entrada compondo os problemas da classe $NP$ (com tempo Não~=Determinístico Polinomial) \cite{hopcroftBook}.
 
 
 \advisor{}{
     \subsection{Busca em Largura e Profundidade}
-    \label{buscaEmLarguraEProfundidade}
+    \label{section:buscaEmLarguraEProfundidade}
 
     Quando uma Máquina de Turing Determinística é utilizada para simular o funcionamento de uma Máquina de Turing Não~=Determinística,
     ela precisa decidir como escolher executar os Ramos de Computação Não~=Determinísticos \cite{sipserBook}.
@@ -1303,16 +1303,16 @@ polinomial ao tamanho da entrada compondo os problemas da classe $NP$ (com tempo
     que nunca leve a solução do problema.
     \begin{figure}[!htb]
     \caption{Árvore de computação com 15 passos\protect\footnotemark{} utilizando Busca em Largura}
-    \label{ParserDeterministicBreadth}
+    \label{figure:ParserDeterministicBreadth}
     \centering
     \includegraphics[width=1.0\textwidth]{ParserDeterministicBreadth.png}
     \fonte{Própria}
     \end{figure}
     \footnotetext{Não~=Determinísticos.}
 
-    A \typeref{ParserDeterministic},
+    A \typeref{figure:ParserDeterministic},
     mostrou um exemplo de uso do algoritmo de Busca em Profundidade.
-    Já na \typeref{ParserDeterministicBreadth},
+    Já na \typeref{figure:ParserDeterministicBreadth},
     encontra~=se a variação de execução de um Analisador Determinístico que utilizou o algoritmo de Busca em Largura.
     Tanto o algoritmo de Busca em Largura quanto Busca em Profundidade,
     não precisam exatamente seguir resolvendo o problema pela esquerda ou

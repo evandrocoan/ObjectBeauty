@@ -46,7 +46,7 @@
 \end{enumerate}
 }{}
 
-Neste trabalho foi proposta uma implementação de um algoritmo que trabalha diretamente com a Árvore Sintática da gramática do programa de entrada (\fullref{software_implementation}).
+Neste trabalho foi proposta uma implementação de um algoritmo que trabalha diretamente com a Árvore Sintática da gramática do programa de entrada (\fullref{chapter:software_implementation}).
 Apesar de simples,
 esta implementação é o primeiro passo para criação de novos formatadores de código~=fonte.
 Servindo de base para criação de novos algoritmos voltados a utilizar Árvore Sintática da gramática da linguagem,
@@ -70,7 +70,7 @@ fica impedido que configurações do usuário cause erros sintáticos ou
 semânticos código~=fonte da linguagem que está sendo formatada,
 a não ser em casos de \textit{bugs} na ferramenta.
 As ferramentas de formatação de código~=fonte em geral,
-tentam reconstruir toda a Árvore Sintática do programa de entrada a ser formatado (\fullref{trabalhosRelacionados}).
+tentam reconstruir toda a Árvore Sintática do programa de entrada a ser formatado (\fullref{section:trabalhosRelacionados}).
 Neste trabalho,
 é realizada a construção da Árvore Sintática da gramática do programa ser formatado,
 e não a Árvore Sintática do programa que está sendo formatado.
@@ -90,7 +90,7 @@ reutilizando estruturas de sintaxe comuns a linguagens já existentes.
 Em um modelo de trabalho onde se faz a formatação do código~=fonte diretamente com a Árvore Sintática do programa de entrada,
 é possível realizar verificações da semântica do programa que está sendo formatado com maior facilmente,
 pelo acesso direto a Árvore Sintática do programa de entrada,
-(base para Análise Semântica (\fullref{analiseSemantica}).
+(base para Análise Semântica (\fullref{section:analiseSemantica}).
 Por isso,
 os algoritmos de formatação de código~=fonte desenvolvidos para este trabalho também irão precisar considerar os aspectos semânticos.
 Entretanto,
@@ -102,14 +102,14 @@ O que levará a necessidade da criação de novos algoritmos de Análise Semânt
 
 \section{Comparação com outros trabalhos}
 
-Dos três tipos trabalhos relacionados apresentados no \fullref{source_code_beautifiers},
+Dos três tipos trabalhos relacionados apresentados no \fullref{chapter:source_code_beautifiers},
 este trabalho é mais similar a dois deles.
 Os formatadores de código~=fonte configurado por arquivos de texto e
 as ferramentas de adição de cores.
 Pela lógica de funcionamento deste trabalho,
 não seria muito interessante que existisse uma interface gráfica como a da ferramenta \cite{universalIndentGUI},
 porque o objetivo deste trabalho é que resolva os problemas apresentados pelas ferramentas de formatação de código~=fonte hoje existentes.
-Enquanto que a criação de uma ferramenta de formatação com uma interface gráfica como a de \cite{universalIndentGUI} apresenta problemas (\fullref{trabalhosRelacionados}).
+Enquanto que a criação de uma ferramenta de formatação com uma interface gráfica como a de \cite{universalIndentGUI} apresenta problemas (\fullref{section:trabalhosRelacionados}).
 
 A relação deste trabalho com os formatadores configurados por arquivos de texto,
 é que ambos são inteiramente configurados por arquivos de texto.
@@ -118,7 +118,7 @@ ambos os trabalhos podem apresentar o problema de compreensão,
 i.e.,
 entender como determina configuração irá formatar o código~=fonte.
 Ambas as ferramentas possuem arquivos de configuração que são simples de alterar.
-No exemplo apresentado (\typeref{softwareImplementationVisaoGeral}),
+No exemplo apresentado (\typeref{section:softwareImplementationVisaoGeral}),
 o resultado da formatação inteiramente controlado pelo valor de um número inteiro.
 
 A atual estrutura de composição dos formatadores de código~=fonte não suporta que diversos formatadores realizem a formatação simultaneamente.
@@ -132,7 +132,7 @@ Com essas informações ele poderia em tese,
 chamar diferentes formatadores mais especializados de acordo com o seu parâmetro escopo.
 
 Assim em evoluções deste trabalho,
-diferente dos outros formatadores de código~=fonte (\fullref{trabalhosRelacionados}),
+diferente dos outros formatadores de código~=fonte (\fullref{section:trabalhosRelacionados}),
 espera~=se que existam diversos formatadores de código~=fonte (ou algoritmos de formatação),
 capazes de lidar com os diferentes aspectos das linguagens de programação que se deseja formatar seu código~=fonte.
 A simplicidade de configurações (como somente um número inteiro) poderia ser alterada e
@@ -146,7 +146,7 @@ melhorias sobre o trabalho proposto.
 
 
 \section{\lang{Future Works}{Trabalhos Futuros}}
-\label{chapter:trabalhosFuturos}
+\label{section:trabalhosFuturos}
 
 \advisor{}{O autor desse trabalho sugere alguns trabalhos futuros em \citeonline{objectBeautifierFutureWorks,objectBeautifierChecklist}.
 Antes que novos formatadores de código~=fonte sejam implementados,
@@ -157,7 +157,7 @@ como em um efeito borboleta \cite{standardButterflyEffect}.
 }
 
 Caso exista,
-o melhor trabalho futuro que pode ser feito é uma reinvenção do algoritmo de formação proposto (\fullref{softwareImplementationVisaoGeral}),
+o melhor trabalho futuro que pode ser feito é uma reinvenção do algoritmo de formação proposto (\fullref{section:softwareImplementationVisaoGeral}),
 que permita que as gramáticas fornecidas pelos usuários possam ser melhor utilizadas nos algoritmos de formatação de código~=fonte.
 Ou ainda,
 uma nova proposta de metagramática que por algum motivo seja mais robusta e
@@ -184,12 +184,12 @@ melhorando o controle do usuário sobre a formatação de código~=fonte em conj
 \item Melhorar a legibilidade e
 facilitar a escrita das gramáticas,
 removendo a necessidade de chaves de abertura ``\{'' e
-fechamento ``\}'' de blocos (alterando a metagramática (\fullref{metalinguagemGrammar}),
+fechamento ``\}'' de blocos (alterando a metagramática (\fullref{section:metalinguagemGrammar}),
 fazendo a separação de blocos ser feita de acordo com a indentação como em linguagens como Python e
 YAML;
 \item Realizar a criação de uma nova estrutura de dados para representar o programa de entrada e
-avaliar se esta nova estrutura de dados é capaz de substituir utilização do caractere ``§'' em conjunto com a classe padrão de \textit{string} da linguagem Python (aumentado a eficiência dos algoritmos de análise do programa de entrada a ser formatado (\fullref{desempenhoDoFormator}).
-\item Implementar uma interface de linha de comando (CLI, \typeref{softwareImplementationVisaoGeral}) que:
+avaliar se esta nova estrutura de dados é capaz de substituir utilização do caractere ``§'' em conjunto com a classe padrão de \textit{string} da linguagem Python (aumentado a eficiência dos algoritmos de análise do programa de entrada a ser formatado (\fullref{section:desempenhoDoFormator}).
+\item Implementar uma interface de linha de comando (CLI, \typeref{section:softwareImplementationVisaoGeral}) que:
 \begin{inparaenum}[1)]
 \item automaticamente faça o carregamento de todas as gramáticas definidas em um diretório especificado;
 \item automaticamente faça o carregamento de todas as configurações definidas em outro diretório e
@@ -216,7 +216,7 @@ o texto é automaticamente formatado na medida que ele é escrito.
 enquanto estes mesmos arquivos são salvos no sistema de arquivos utilizando outras configurações,
 diferentes das configurações de visualização do código~=fonte.
 Tal característica seria útil para permitir que times de desenvolvimento possam trabalhar com diferentes configurações de formatação,
-e ao mesmo tempo manter o histórico do código~=fonte em um padrão fixo de formatação (\fullref{firstChapterIntroduction}).
+e ao mesmo tempo manter o histórico do código~=fonte em um padrão fixo de formatação (\fullref{chapter:firstChapterIntroduction}).
 \item Um pouco fora do escopo deste trabalho,
 mas ainda relacionado com os últimos itens seria permitir a tradução dinâmica de código~=fonte.
 Nela,
@@ -230,7 +230,7 @@ ao salvar o arquivo,
 ele é escrito novamente no sistema de arquivos com o seu formato original,
 XML.
 Tal característica seria útil porque algumas linguagem como XML podem ser difíceis de se entender,
-enquanto ao trabalhar com um formato equivalente como YAML pode ser de mais fácil entendimento (\typeref{section:sourceCodeHighlighters,firstChapterIntroduction}).
+enquanto ao trabalhar com um formato equivalente como YAML pode ser de mais fácil entendimento (\typeref{section:sourceCodeHighlighters,chapter:firstChapterIntroduction}).
 \end{enumerate}%
 
 Com certeza estas não são todas as melhorias ou

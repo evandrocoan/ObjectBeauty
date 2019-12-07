@@ -1,7 +1,7 @@
 
 
 \chapter{Estado da Arte}
-\label{source_code_beautifiers}
+\label{chapter:source_code_beautifiers}
 
 % \section{\lang{What does coding is}{Programação de computadores}}
 
@@ -91,10 +91,10 @@
 
 
 \section{Formatadores de código}
-\label{formatadores_de_codigo}
+\label{section:formatadores_de_codigo}
 
 \lang{%
-    A robust Code Beautifier can get a lot more complicated just with the basic definitions of formatting (\typeref{source_code_beautifiers}) applied over each language own characteristics as for example:
+    A robust Code Beautifier can get a lot more complicated just with the basic definitions of formatting (\typeref{chapter:source_code_beautifiers}) applied over each language own characteristics as for example:
     \begin{enumerate}[nosep,nolistsep]
         \item
             Add spaces before if\s name as in `if(var)' versus `if (var)';
@@ -139,15 +139,15 @@
     C++ forem implementados.
     Em softwares como Uncrustify \cite{uncrustifySourceCode},
     encontram~=se mais de 500 configurações\footnote{
-    Veja mais sobre configurações na \fullref{trabalhosRelacionados}.
+    Veja mais sobre configurações na \fullref{section:trabalhosRelacionados}.
     }
-    tais como o \typeref{uncrustifySettingSample}.
-    No \typeref{uncrustifySettingSample},
+    tais como o \typeref{code:uncrustifySettingSample}.
+    No \typeref{code:uncrustifySettingSample},
     deve ser observado uma amostra das mais de 500 opções que um formatador de código~=fonte configurável por arquivos de configuração pode ter.
     Também o quão difícil pode ser escrever e
     entender o que cada uma dessas incontáveis opções significam.
 }
-\begin{lstlisting}[caption={Trecho do Arquivo de Configuração de Uncrustify},label={uncrustifySettingSample}]
+\begin{lstlisting}[caption={Trecho do Arquivo de Configuração de Uncrustify},label={code:uncrustifySettingSample}]
 # If the body of the namespace is longer than this
 # number, it won't be indented. Requires
 # indent_namespace=true. Default=0 (no limit)
@@ -180,7 +180,7 @@ indent_constr_colon = false # false/true
     which will be certainly limited \cite{eclisePeriodSettings} and
     still need to configure all over again.
 }{%
-    Mesmo que se passe por todas as configurações do formador de código~=fonte (amostrado no \typeref{uncrustifySettingSample}),
+    Mesmo que se passe por todas as configurações do formador de código~=fonte (amostrado no \typeref{code:uncrustifySettingSample}),
     realizando os ajustes de preferência do usuário,
     isso levará um bom tempo.
     Infelizmente com todo esse processo,
@@ -191,7 +191,7 @@ indent_constr_colon = false # false/true
     No caso da ferramenta Uncrustify,
     serão configuradas linguagens como \textit{C},
     \textit{C++}, \textit{C\#} e
-    \textit{ObjectiveC} (veja mais linguagens na \fullref{trabalhosRelacionados}).
+    \textit{ObjectiveC} (veja mais linguagens na \fullref{section:trabalhosRelacionados}).
     Para todas as outras linguagens,
     ainda será preciso encontrar outra ferramenta de formatação,
     que será certamente mais limitada no que ela pode customizar \cite{eclisePeriodSettings,uncrustifyNotMeetingCodingStandards},
@@ -208,7 +208,7 @@ indent_constr_colon = false # false/true
     não se consegue ter a mínima ideia do que elas estão fazendo ou
     qual será o seu resultado final.
     Por exemplo,
-    é possível claramente entender o que a última configuração do \typeref{uncrustifySettingSample} faz?
+    é possível claramente entender o que a última configuração do \typeref{code:uncrustifySettingSample} faz?
     }
 }
 
@@ -353,10 +353,10 @@ se existe a necessidade de utilizar uma ferramenta de formatação de código~=f
 
 
 \section{\lang{Related Works}{Trabalhos Relacionados}}
-\label{trabalhosRelacionados}
+\label{section:trabalhosRelacionados}
 
 Nesta seção,
-são relatados os trabalhos relacionados obtidos através de pesquisa na literatura utilizando a metodologia especificada no \typeref{firstChapterIntroduction}.
+são relatados os trabalhos relacionados obtidos através de pesquisa na literatura utilizando a metodologia especificada no \typeref{chapter:firstChapterIntroduction}.
 Segundo \citeonline{uncrustifySourceCode},
 Uncrustify é capaz de formatar as linguagens:
 \begin{inparaenum}[1)]
@@ -370,7 +370,7 @@ Uncrustify é capaz de formatar as linguagens:
 \item VALA.
 \end{inparaenum}%
 De acordo com o site \citetitle{uncrustifyWebSite},
-a versão ``0.69.0'' possui 671 configurações para personalizar a formatação do código~=fonte como mostrado no \typeref{uncrustifySettingSample}.
+a versão ``0.69.0'' possui 671 configurações para personalizar a formatação do código~=fonte como mostrado no \typeref{code:uncrustifySettingSample}.
 
 Existem muitas ferramentas e\slash{}ou editores de texto,
 e cada uma dessas ferramentas possui suas vantagens e
@@ -393,19 +393,19 @@ facilitando a troca de um editor pelo outro durante o desenvolvimento.
 é outra ferramenta que não é um formatador de código~=fonte,
 mas sim uma interface comum às várias e
 diferentes ferramentas de formatação de código~=fonte.
-Na \typeref{UniversalIndentGUIScreenshot4},
+Na \typeref{figure:UniversalIndentGUIScreenshot4},
 pode~=se ver como é a interface com o usuário que esta ferramenta proporciona.
 
 \begin{figure}[!htb]
 \caption{Exemplo da tela de configuração de UniversalIndentGUI}
-\label{UniversalIndentGUIScreenshot4}
+\label{figure:UniversalIndentGUIScreenshot4}
 \centering
 \includegraphics[width=1.0\textwidth]{UniversalIndentGUIScreenshot4.png}
 \fonte{\citeonline{UniversalIndentGUIScreenshot4}}
 \nota{O nome da ferramenta é UniversalIndentGUI.}
 \end{figure}
 
-A interface da \typeref{UniversalIndentGUIScreenshot4},
+A interface da \typeref{figure:UniversalIndentGUIScreenshot4},
 permite que se escolha qual será o formatador de código que será utilizado,
 e permite que se carregue um arquivo de código~=fonte para ser formatado,
 e na medida em que se seleciona as opções pela interface gráfica,
@@ -413,7 +413,7 @@ pode~=se visualizar as mudanças no código~=fonte exemplo carregado.
 Entretanto,
 a ferramenta proposta por \citeonline{universalIndentGUI},
 enfrenta problemas como as limitações de sua interface gráfica.
-Como já mencionado na \typeref{trabalhosRelacionados},
+Como já mencionado na \typeref{section:trabalhosRelacionados},
 Uncrustify na sua versão ``0.69.0'' possui 671 configurações de formatação de código~=fonte,
 mas a interface gráfica de \citeonline{universalIndentGUI},
 não possui \advisor{tal número de}{nem próximo de tantas} opções de configuração.
@@ -426,7 +426,7 @@ assim não podendo ser utilizadas mais opções além das quais a\advisor{}{
 limitada} interface gráfica apresenta.
 
 Outra desvantagem da visualização das mudanças,
-como mostrado na \typeref{UniversalIndentGUIScreenshot4},
+como mostrado na \typeref{figure:UniversalIndentGUIScreenshot4},
 acontece quando o código~=fonte de amostra carregado não contém partes que são formatadas pela configuração utilizada na interface gráfica.
 Nesse caso,
 não será apresentada nenhuma alteração no código~=fonte de visualização,
@@ -440,7 +440,7 @@ editando arquivos de configuração \cite{uncrustifySourceCode},
 ou elas terão uma interface gráfica que permita ao usuário visualizar as suas alterações diretamente em uma amostra de código~=fonte \cite{universalIndentGUI}.
 
 Quanto ao seu funcionamento interno,
-formatadores de código~=fonte seguem o processo de tradução como apresentado na \fullref{compiladoresEtradutores}.
+formatadores de código~=fonte seguem o processo de tradução como apresentado na \fullref{section:compiladoresEtradutores}.
 Diferentemente do usual para um tradutor,
 um formatador realiza um processo de tradução onde o nível da linguagem e
 a própria linguagem de origem e
@@ -456,7 +456,7 @@ Ofuscadores\footnote{Do inglês,
 \citetitle{obfuscationWikipedia}.
 }
 são formatadores de código~=fonte que funcionam com objetivo contrário ao dos \textit{Beautifiers},
-veja o \typeref{exemploDeOfuscador}.
+veja o \typeref{frame:exemploDeOfuscador}.
 Em vez de melhorar a leitura do código~=fonte,
 sua função é impossibilitar que o código~=fonte seja compreendido ou
 eliminar caracteres desnecessários do código~=fonte.
@@ -464,7 +464,7 @@ Tais técnicas e
 utilidades para estes tipos de software podem ser encontradas com mais detalhes em \citeonline{codeObfuscationTechniques}.
 \begin{quadro}[!htb]
 \caption[Exemplo de Ofuscador de Código]{Exemplo de Ofuscador de Código \cite{familyOfSourceCodeObfuscators}}
-\label{exemploDeOfuscador}
+\label{frame:exemploDeOfuscador}
 \begin{bluebox}
 \begin{code}
 \caption{Antes do ofuscamento}
@@ -508,7 +508,7 @@ mais.
 Eventualmente,
 existem linguagens onde o uso de ofuscadores apresenta limitações.
 Por exemplo,
-diferente da linguagem \textit{JavaScript} utilizada no \typeref{exemploDeOfuscador},
+diferente da linguagem \textit{JavaScript} utilizada no \typeref{frame:exemploDeOfuscador},
 a sintaxe da linguagem YAML\footnote{
 Do inglês,
 \textit{YAML Ain't Markup Language},
@@ -613,7 +613,7 @@ JSON para estilos (``.sublime-color-scheme'').
 Tanto YAML quanto XML são equivalentes e
 podem representar a mesma informação sobre as gramáticas especificadas,
 portanto,
-tradutores (\fullref{compiladoresEtradutores}) como \citeonline{packageDevSublime} podem ser escritos sem dificuldade para converter uma gramática de \citeonline{textMateEditor} para \citeonline{sublimeTextSyntax}.
+tradutores (\fullref{section:compiladoresEtradutores}) como \citeonline{packageDevSublime} podem ser escritos sem dificuldade para converter uma gramática de \citeonline{textMateEditor} para \citeonline{sublimeTextSyntax}.
 Mas nem sempre no sentido contrário,
 uma vez que \citeonline{sublimeTextSyntax} faz a adição de novos operadores para especificação de suas gramáticas.
 
@@ -627,7 +627,7 @@ como ``set'' e
 tornando a leitura dos arquivos muito mais amigável do que XML,
 como utilizado pelos outros trabalhos \cite{textMateEditor,vsCodeSyntaxHighlighthing}.
 \end{inparaenum}%
-No \typeref{exemploDeUmArquivoSublimeSyntax},
+No \typeref{code:exemploDeUmArquivoSublimeSyntax},
 pode ser encontrado um exemplo funcional de gramática aceita por \citeonline{sublimeTextSyntax}.
 Mesmo não sendo capaz de descrever uma linguagem em todos os seus detalhes,
 este arquivo já é suficiente para encontrar as palavras~=chaves:
@@ -643,7 +643,7 @@ onde os arquivos dela possuem as extensões ``.c'' e
 ``.h''.
 \begin{code}
 \caption{Exemplo de um arquivo ``.sublime-syntax''}
-\label{exemploDeUmArquivoSublimeSyntax}
+\label{code:exemploDeUmArquivoSublimeSyntax}
 \begin{minted}{yaml}
 %YAML 1.2
 ---
@@ -661,9 +661,9 @@ contexts:
 \vspace{13pt}
 \end{code}
 
-Uma vez que o \typeref{exemploDeUmArquivoSublimeSyntax} classificou as palavras~=chave com o ``escopo \mintinline{text}|keyword.control.c|'',
+Uma vez que o \typeref{code:exemploDeUmArquivoSublimeSyntax} classificou as palavras~=chave com o ``escopo \mintinline{text}|keyword.control.c|'',
 um editor de texto precisa somente mais de um arquivo de configuração para determinar como estas palavras~=chave devem ser exibidas.
-No \typeref{exemploDeUmArquivoSublimeColorScheme},
+No \typeref{code:exemploDeUmArquivoSublimeColorScheme},
 encontra~=se um exemplo de arquivo JSON de configuração de estilos.
 Nele,
 há a definição de três tipos de estilo diferentes.
@@ -671,7 +671,7 @@ O último deles aplica ao nosso ``escopo \mintinline{text}|keyword.control.c|'',
 a cor de texto ``\mintinline{text}|#7F00FF|'' (RGB hexadecimal),
 com o estilo de fonte ``\textit{itálico}''.
 
-As demais especializações de escopos do arquivo (\typeref{exemploDeUmArquivoSublimeColorScheme}) não foram utilizadas porque a gramática (\typeref{exemploDeUmArquivoSublimeSyntax}),
+As demais especializações de escopos do arquivo (\typeref{code:exemploDeUmArquivoSublimeColorScheme}) não foram utilizadas porque a gramática (\typeref{code:exemploDeUmArquivoSublimeSyntax}),
 não fez sua utilização.
 Como arquivos de estilo podem ser utilizados com muitas gramáticas diferentes,
 e uma gramática pode ser utilizada com muitos arquivos de estilo diferentes,
@@ -679,7 +679,7 @@ sempre poderão acontecer casos onde nem todas os escopos da gramática serão u
 nem todos os escopos dos arquivos de estilo serão utilizados.
 \begin{code}
 \caption{Exemplo de um arquivo ``.sublime-color-scheme''}
-\label{exemploDeUmArquivoSublimeColorScheme}
+\label{code:exemploDeUmArquivoSublimeColorScheme}
 \begin{minted}{json}
 {
     "name": "Example Color Scheme",
