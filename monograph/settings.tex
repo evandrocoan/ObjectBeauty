@@ -93,6 +93,15 @@
     \setlist*[enumerate]{label=\arabic*,}
     \setlist*[enumerateoptional]{label=\arabic*,}
 
+    % https://tex.stackexchange.com/questions/24454/space-after-float-with-h
+    % https://tex.stackexchange.com/questions/23313/how-can-i-reduce-padding-after-figure
+    \AtBeginEnvironment{figure}{
+      \setlength{\intextsep}{5pt} % Vertical space above & below [h] floats
+      % \setlength{\textfloatsep}{10pt} % Vertical space below (above) [t] ([b]) floats
+      % \setlength{\abovecaptionskip}{10pt}
+      % \setlength{\belowcaptionskip}{5pt}
+    }
+
     % Patch the `abntex2` citacao environment removing the extra space from its top
     % https://tex.stackexchange.com/questions/300340/topsep-itemsep-partopsep-and-parsep-what-does-each-of-them-mean-and-wha
     \xpatchcmd{\citacao}
