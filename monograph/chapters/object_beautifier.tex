@@ -19,7 +19,7 @@ Por exemplo,
 } para então formatar o código~=fonte da linguagem descrita pela gramática.
 
 Para desenvolver este trabalho foi utilizada a linguagem Python \cite{webDevelopmentWithDjango},
-por que Python é uma linguagem simples de entender,
+porque Python é uma linguagem simples de entender,
 e permite que se escreva códigos com maior velocidade.
 Em contra~=partida,
 Python como sendo uma linguagem interpretada,
@@ -29,7 +29,7 @@ não é objetivo deste trabalho ter eficiência em tempo de execução.
 Somente apresentar uma prototipação rápida de algoritmos para uma nova proposta de formatadores de código~=fonte.
 
 Como Python é a linguagem de desenvolvimento deste trabalho,
-escolheu~=se utilizar o Analisador Lark por que ele é um dos analisadores escritos inteiramente na linguagem Python.
+escolheu~=se utilizar o Analisador Lark porque ele é um dos analisadores escritos inteiramente na linguagem Python.
 Dentre os motivos para se utilizar o Analisador Lark,
 pode~=se citar:
 \begin{inparaenum}[1)]
@@ -48,16 +48,20 @@ No fim,
 qualquer analisador que atenda estas características de flexibilidade pode ser utilizado.
 
 Para este trabalho,
-foi realizado um \textit{fork} \cite{overviewOfGitHubForks,mayTheForkBeWithYou,collaborationAmongGitHubUsers} do Analisador Lark,
+foi realizado um \textit{fork}\footnote{
+Uma cópia do código~=fonte,
+usualmente feita para realizar modificações no código~=fonte original.
+}
+\cite{overviewOfGitHubForks,mayTheForkBeWithYou,collaborationAmongGitHubUsers} do Analisador Lark,
 renomeado o Analisador Lark \cite{larkContextualLexer} para ``pushdown''\footnote{%
 O código~=fonte do \textit{fork} pode ser encontrado em \url{https://github.com/evandrocoan/pushdownparser}.
 }.
-Foi realizado um \textit{fork} do Analisador Lark para poder~=se realizar pequenas alterações que facilitam o entendimento do funcionamento interno da ferramenta como adição de logs e
-alterações nos algoritmos de iteração nas árvores geradas pela ferramenta.
+Foi realizado um \textit{fork} do Analisador Lark para poder realizar pequenas alterações que facilitam o entendimento do funcionamento interno da ferramenta como adição de logs e
+alterações nos algoritmos de navegação sobre as árvores geradas pela ferramenta.
 Por isso,
 em alguns lugares do código~=fonte é encontrado o nome ``pushdown'' ao invés de ``lark''.
 Já em outros,
-continua~=se sendo chamado Lark de Lark para simplificar a retrocompatibilidade com a biblioteca original e
+Lark continua sendo chamado de Lark para simplificar a retrocompatibilidade com a biblioteca original e
 facilitar a realização da integração de novos updates vindos do repositório original do Analisador Lark para o \textit{fork} realizado.
 
 
@@ -150,9 +154,20 @@ scope: if.statement.body
 Agora,
 o que pode ser feito com a gramática do \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica}?
 Ela junto com a metagramática (\typeref{code:exemploMinimoDeMetagramatica}) devem ser entrada do Analisador Lark (\typeref{code:exemploDeUsoDaMetagramaticaEUmaGramatica}),
-que irá retornar como resultado a Árvore Sintática (\fullref{compiladoresEtradutores}).
+que irá devolver como resultado a Árvore Sintática (\fullref{compiladoresEtradutores}).
 Então envia~=se a Árvore Sintática para o Analisador Semântico (\typeref{analisadoresSintaticos,analiseSemantica}) verificar se o programa (gramática) de entrada está semanticamente correta,
-e retornar como resultado a Árvore Sintática Abstrata (\typeref{performanceDoFormator,section:AnalisadorSemantico}).
+para então devolver como resultado a Árvore Sintática Abstrata\footnote{%
+Do inglês (AST),
+Abstract Syntax Tree.
+}
+(\typeref{desempenhoDoFormator,section:AnalisadorSemantico}).
+
+A Árvore Sintática Abstrata representa a estrutura do programa de uma linguagem de programação \cite{improvingRefactoringSpeed,annotationAssistant}.
+Ela é originalmente construída a partir da Árvore Sintática,
+adicionado~=se informações adicionais sobre o significado programa e
+removendo~=se elementos textuais como parenteses de procedência de operadores,
+que podem ser representados pela estrutura da árvore\advisor{}{
+(veja o \typeref{code:Abstract_syntax_tree_for_Euclidean_algorithm,figure:Abstract_syntax_tree_for_Euclidean_algorithm})}.
 Veja no \typeref{chapter:execucaoDeMainFormatter} um exemplo de uma Árvore Sintática e
 uma Árvore Sintática Abstrata e
 as compare.
@@ -222,6 +237,29 @@ realizar~=se o consumo do programa de entrada,
 removendo dele as estruturas descritas pela gramática no \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica},
 até que não se possa mais remover nenhum elemento novo,
 terminando a reconhecimento do programa de entrada pela gramática utilizada.
+\ifadvisor
+\else
+    \begin{code}
+    \caption{Pseudo~=código do algoritmo Euclidiano \cite{analysisOfTheBinaryEuclideanAlgorithm}}
+    \label{code:Abstract_syntax_tree_for_Euclidean_algorithm}
+    \begin{minted}[xleftmargin=2em]{python}
+    while b != 0
+      if a > b
+        a := a - b
+      else
+        b := b - a
+    return a
+    \end{minted}
+    \end{code}
+
+    \begin{figure}[!htb]
+    \caption{Árvore Sintática Abstrata do \typeref{code:Abstract_syntax_tree_for_Euclidean_algorithm}}
+    \label{figure:Abstract_syntax_tree_for_Euclidean_algorithm}
+    \centering
+    \includegraphics[width=1.0\textwidth]{Abstract_syntax_tree_for_Euclidean_algorithm.png}
+    \fonte{\citeonline{abstractSyntaxTreeForEuclideanAlgorithm}}
+    \end{figure}
+\fi
 
 Ao fazer o processo de reconhecimento do programa de entrada,
 remove~=se os caracteres reconhecidos substituíndo eles por algum outro caractere de marcação (como ``§'') para que não altere~=se o tamanho original do programa de entrada.
@@ -446,10 +484,10 @@ A facilidade em alterar gramática da linguagem utilizada,
 neste caso,
 a gramática de gramáticas (ou metagramática).
 
-Em vez de permitir com que o usuário final da aplicação opere diretamente com o analisador da \typeref{MyWorflowForLarkTraduzido},
+Em vez de permitir que o usuário final da aplicação opere diretamente com o analisador da \typeref{MyWorflowForLarkTraduzido},
 foi criado uma nova metagramática (uma gramática de gramáticas) como mostrado nas \typeref{MyWorflowForLarkTraduzido2}.
 Esta nova metagramática simplifica o processo de escrita de gramáticas ao criar uma nova especificação de gramáticas,
-somente com os recursos necessários para se possa trabalhar com formatação de código~=fonte.
+somente com os recursos necessários para que se possa trabalhar com formatação de código~=fonte.
 \advisor{Não}{A final,
 não} é objetivo deste trabalho fazer a análise completa de programas,
 pela sua sintaxe, semântica,
@@ -495,7 +533,7 @@ o Analisador Lark na \typeref{MyWorflowForLarkTraduzido2},
 utilizado para analisar uma gramática LALR(1) (\typeref{chapter:codigoDaMetagramatica}).
 Na \typeref{ParsersPublicAudienceTraduzido},
 não pode~=se ver diretamente que as gramáticas das linguagens serão os metaprogramas,
-mas o quadro em azul mais a esquerda ligado por linhas pontilhadas explica que os erros léxicos e
+mas o quadro em azul mais à esquerda ligado por linhas pontilhadas explica que os erros léxicos e
 sintáticos nas gramáticas de entrada serão mostrados pelo Analisador Lark.
 Isso acontece porque as gramáticas (ou metaprogramas) são entradas diretamente no Analisador Lark.
 
@@ -527,7 +565,7 @@ Foi escolhida a criação de uma nova metagramática porque as implementações 
 \begin{inparaenum}[1)]
 \item não utilizam explicitamente nenhum analisador,
 realizando a programação das produções da gramática diretamente no código~=fonte (\fullref{gramaticasVersusLinguagens});
-\item não são capazes de reconhecer todas as características de todas as linguagens de programação (devido a optimizações para maior performance);
+\item não são capazes de reconhecer todas as características de todas as linguagens de programação (devido a optimizações para maior desempenho);
 \item não possuem sintaxe própria,
 i.e.,
 utilizam~=se de outras linguagens como YAML,
@@ -535,7 +573,7 @@ XML e JSON\footnote{%
 Do inglês,
 \textit{JavaScript Object Notation}.
 } \cite{foundationsOfJSONSchema} para fazer a especificação da metagramática.
-\end{inparaenum}
+\end{inparaenum}%
 Fazendo a especificação de uma nova metagramática,
 é possível adaptar~=se a especificação da sintaxe das gramáticas de acordo com as necessidades específicas sem ter que depender de características de outras linguagens como YAML,
 XML ou
@@ -588,7 +626,7 @@ Nesta seção será discutido como a metalinguagem (especificada pela metagramá
 começando com o seu símbolo inicial.
 No \typeref{simboloInicialDaMetagramatica},
 defini~=se que o programa é constituído de três grandes áreas,
-que devem acontecer uma em sequencia da outra:
+que devem acontecer uma em sequência da outra:
 \begin{enumerate}
 \item A produção ``preamble\_statements'' define características globais da gramática como um nome,
 e um escopo que será atribuído a toda gramática;
@@ -599,7 +637,7 @@ ele pode ser considerado similar ao método ``main'';
 Contexto refere~=se a um bloco de operadores ou
 conjunto de instruções como ``include'' e
 ``match''.
-} com grupos de produções da gramática (\fullref{definicaoDeGramatica}),
+} com grupos de produções da gramática (\fullref{item:definicaoDeGramatica}),
 que podem ser incluídos a partir do símbolo inicial da gramática definido no item ``language\_construct\_rules''.
 \end{enumerate}%
 \begin{code}
@@ -684,7 +722,7 @@ Com estas informações,
 o Formatador de Código será capaz de realizar as operações de formatação somente sobre os trechos de código~=fonte que o usuário definir.
 Realizando assim,
 a formatação seletiva de código~=fonte,
-contrário da formatação total de código~=fonte como acontece nos demais trabalhos (\fullref{performanceDoFormator}).
+contrário da formatação total de código~=fonte como acontece nos demais trabalhos (\fullref{desempenhoDoFormator}).
 \begin{lstlisting}[caption={Exemplo de Gramática, Símbolo Inicial},label={exemploDeGramaticaPawn1},style=yaml_style]
 name: Abstract Machine Language
 scope: source.sma
@@ -707,7 +745,7 @@ No \typeref{exemploDeGramaticaPawn2},
 O operadores ``push'' e
 ``pop'' são responsáveis por manter uma pilha de contextos que permite aplicar um mesmo escopo por várias linhas utilizado o operador ``meta\_scope''.
 A diferença entre o operador ``scope'' e
-``meta\_scope'' é que o operador ``scope'' atribuí o escopo diretamente ao texto reconhecido pelo um operador ``match''.
+``meta\_scope'' é que o operador ``scope'' atribuí o escopo diretamente ao texto reconhecido pelo operador ``match''.
 Já o operador ``meta\_scope'' permite aplicar o escopo a todo o texto desde o primeiro até o último ``match'',
 que desempilha com o operador ``pop'',
 o contexto empilhado inicialmente com um ``push''.
@@ -765,9 +803,7 @@ No \typeref{exemploDeGramaticaPawn4},
 são mostrados mais alguns exemplos de uso do operador ``match'' classificando diversos tipos de numéricos (da linguagem sendo descrita pela gramática).
 É importante notar que a ordem na qual os operadores como ``match'' aparecem é importante.
 Ao realizar o reconhecido o programa de entrada utilizando esta gramática,
-a Árvore Sintática Abstrata\footnote{%
-Do inglês (AST), Abstract Syntax Tree.
-} \cite{ahoCompilerDragonBook} será interpretada diversas vezes,
+a Árvore Sintática Abstrata \cite{ahoCompilerDragonBook} será interpretada diversas vezes,
 partindo no símbolo inicial até chegar ao último símbolo da gramática.
 
 O processo de interpretação irá reiniciar indefinidamente até que nenhum texto seja mais consumido por nenhum dos operadores da gramática.
@@ -825,7 +861,7 @@ Portanto,
 somente resta ser implementado o Analisador Semântico para verificar se a linguagem descrita respeita as regras semânticas da metalinguagem explicadas na seção anterior,
 \nameref{metalinguagemGrammar}.
 
-O Diagrama de Classes é apresentado na \typeref{CodeFormatterClassDiagram}.
+Um Diagrama de Classes é apresentado na \typeref{CodeFormatterClassDiagram}.
 Nele,
 o Analisador Semântico que deriva de ``Transformer'' recebe como entrada a Árvore Sintática do programa de entrada,
 e uma vez que o Analisador Semântico termina seu trabalho,
@@ -904,13 +940,13 @@ A visita dos nós da Árvore Sintática pela função ``transform(tree)'' aconte
 que possuem os mesmos nomes que os símbolos não~=terminais definidos pela metagramática.
 Então,
 cada nó ou
-função deve retornar qual será o novo nó que irá o substituir na Árvore Sintática.
+função deve devolver qual será o novo nó que irá o substituir na Árvore Sintática.
 Assim,
 no final do processo,
 um a um,
 cada nó da Árvore Sintática será convertido para um nó da Árvore Sintática Abstrata.
 
-Um jeito fácil de excluir um nó da Árvore Sintática é simplesmente definir uma função com o nome de seu não~=terminal que returna ``null''.
+Um jeito fácil de excluir um nó da Árvore Sintática é simplesmente definir uma função com o nome de seu não~=terminal que devolve ``null''.
 Por exemplo,
 o trecho da metagramática apresentado no \typeref{simboloInicialDaMetagramatica},
 possui alguns símbolos não~=terminais como ``preamble\_statements'' e
@@ -945,16 +981,16 @@ acessível como um atributo da classe ``TreeTransformer''.
 
 
 \section{Formatador de Código}
-\label{performanceDoFormator}
+\label{desempenhoDoFormator}
 
 O Formatador de Código não é composto somente por uma parte única e
 altamente acoplada.
 Mas pelo contrário,
 um conjunto de partes altamente coesas e
-completamente independentes onde cada uma dessas partes recebe a Árvore Sintática Abstrata do Analisador Semântico,
+completamente independentes onde cada uma dessas partes recebe a Árvore Sintática Abstrata,
 para então realizar a formatação do programa de entrada junto com as configurações que esta parte aceita.
 
-Continuamente chamar diversos algoritmos independentes acarreta uma perda de performance em comparação com os formatadores de código~=fonte apresentados no \fullref{source_code_beautifiers}.
+Continuamente chamar diversos algoritmos independentes acarreta uma perda de desempenho em comparação com os formatadores de código~=fonte apresentados no \fullref{source_code_beautifiers}.
 Estes formatadores tem como principal características realizar a formatação de código~=fonte em uma única passada,
 i.e.,
 a Árvore Sintática de programa de entrada é completamente reconstruída,
@@ -1066,17 +1102,17 @@ class AbstractFormatter(object):
 \end{minted}
 \end{code}
 
-A linha ``sorted'' realiza a ordenação das configurações sem nenhuma necessidade prática neste caso.
+A linha ``\mintinline{text}{sorted}'' realiza a ordenação das configurações sem nenhuma necessidade prática neste caso.
 Ela garante que a ordem no qual as configurações irão ser processadas seja sempre a mesma.
 Entretanto,
 no caso da Adição de Cores,
-a linha ``sorted'' é uma função obrigatória para garantir que os nomes das cores das configurações sejam atribuídas de acordo com a ordem correta do tema (seleção de cores \cite{vsCodeSyntaxHighlighthing,sublimeTextScopeNaming}).
+a linha ``\mintinline{text}{sorted}'' é uma função obrigatória para garantir que os nomes das cores das configurações sejam atribuídas de acordo com a ordem correta do tema (seleção de cores \cite{vsCodeSyntaxHighlighthing,sublimeTextScopeNaming}).
 
 A linha ``\mintinline{text}{len( program )}'' não possui nenhuma influência nos resultados do programa,
 seja para formatação ou
 adição de cores.
 Entretanto,
-ela é constantemente verificada durante as operações que realizam o consumo do programa de entrada pelas regras da metagramática para garantir que o tamanho programa original não seja alterado.
+ela é constantemente verificada durante as operações que realizam o consumo do programa de entrada pelas regras da metagramática para garantir que o tamanho do programa original não seja alterado.
 É necessário que os novos trechos de programa que são formatados saibam qual era a posição deles no programa de original (antes da formatação iniciar),
 para que as partes do programa original (que não foram formatadas) possam ser adicionadas no novo programa formatado no final do processo de formatação.
 Assim que os algoritmos de adição de cores ou
@@ -1088,11 +1124,11 @@ o programa de entrada é modificado e
 os caracteres que foram consumidos pela gramática são substituídos pelo caractere ``§'' para impedir que eles sejam reconsumidos.
 A utilização do caractere ``§'' foi realizada para simplificar a implementação do algoritmo de consumo.
 Com o caractere ``§'' colocado no lugar dos caracteres que já foram consumidos,
-é possível reconstruir o programa de entrada no final da análise simplesmente ordenando todos pedaços que de programa formatado que estão armazenada na variável ``new\_program''.
-Como o tamanho do programa original não fui modificado,
+é possível reconstruir o programa de entrada no final da análise simplesmente ordenando todos os pedaços do programa formatado que estão armazenada na variável ``new\_program''.
+Como o tamanho do programa original não foi modificado,
 também é possível facilmente integrar no programa formatado,
 todas as partes do programa original que não foram formatados,
-no caso do formatador,
+no caso do formatador de código~=fonte,
 ou não coloridas do caso da adição de cores.
 
 Neste capítulo,

@@ -111,7 +111,7 @@
     possui o costume oposto,
     ele jamais deixa uma linha em branco antes dessas estruturas de controle.
     Então,
-    o quê pode acontecer de errado quando ambos os programadores ``A'' e
+    quais problemas podem acontecer quando ambos os programadores ``A'' e
     ``B'' trabalham num mesmo projeto?
 
     \advisor{%
@@ -238,7 +238,7 @@
     em seu formato de texto simples.
     Já que para compartilhar código~=fonte e
     trabalhar em times de forma eficiente,
-    é essencial utilizar um sistema de versionamento \cite{whyVersionControlIsCritical}.
+    é essencial utilizar um sistema de controle de versões (versionamento) \cite{whyVersionControlIsCritical}.
     \advisor{%
     Tal ferramenta deve permitir rastrear mudanças \cite{gettingProductive},
     habilitando que se entenda melhor as atividades de cada programador \cite{usingSourceControl}.
@@ -292,7 +292,7 @@
     not the addition of new blank lines \cite{findingRegressionsInProjects}.
 }{%
     \advisor{
-        Ao trabalhar com um sistema de versionamento como \textit{git},
+        Ao trabalhar com um sistema de controle de versões como \textit{git},
         recomenda~=se manter todo o código~=fonte sobre um único estilo,
         devido a problemas que podem ser gerados ao permitir que cada programador escreva códigos~=fonte livremente em seu estilo.
         Ao permitir que cada programador escreva códigos~=fonte livremente em seu estilo,
@@ -308,14 +308,14 @@
         utilizado para escrever código~=fonte.
         No fim,
         o histórico \textit{git} irá conter ruídos desnecessários.
-        Um bom uso de um sistema de versionamento é somente conter mudanças se sejam significativas,
+        Um bom uso de um sistema de controle de versões é somente conter mudanças que sejam significativas,
         como criações de novas funções,
         correção de \textit{bugs},
         etc \cite{findingRegressionsInProjects}.
-        Ferramentas de versionamento auxiliam na manutenção,
+        Ferramentas de controle de versões auxiliam na manutenção,
         rastreabilidade de responsabilidades e
         alterações,
-        mas não apóiam na manutenção de um estilo de formatação único para uma equipe de programadores.
+        mas não apoiam na manutenção de um estilo de formatação único para uma equipe de programadores.
     }{
         Segue~=se estas conclusões devido aos problemas gerados ao permitir que cada programador escreva como lhe agrada melhor.
         Caso cada um escreva como bem entende,
@@ -329,7 +329,7 @@
     \begin{enumerate}
         \item Eles irão desperdiçar um tempo que eles poderiam estar utilizando para escrever código~=fonte;
         \item O histórico \textit{git} irá conter ruídos desnecessários,
-        pois o foco de um sistema de versionamento são conter mudanças se sejam significantes,
+        pois o foco de um sistema de controle de versões são conter mudanças se sejam significantes,
         como criações de novas funções,
         correção de \textit{bugs},
         etc \cite{findingRegressionsInProjects}.
@@ -378,7 +378,8 @@
 }{%
     Assim,
     este trabalho tem por objetivo estudar e
-    desenvolver uma ferramenta de reorganização do código~=fonte nos aspectos estruturais\slash{}sintáticos.
+    desenvolver uma ferramenta de reorganização do código~=fonte nos aspectos estruturais ou
+    sintáticos (veja o último exemplo da \fullref{introducaoGramaticas}).
     Estas ferramentas também são conhecidas como ``\textit{Source Code Beautifiers}'' ou
     ``Formatadores de Código''.
     Com isso,
@@ -408,7 +409,7 @@ pela perda de controle da ferramenta de formatação de código~=fonte.
 \section{\lang{Goals}{Objetivos}}
 
 \advisor{%
-    Esta seção apresenta sucintamente os objetivos desse trabalho,
+    Esta seção apresenta sucintamente os objetivos deste trabalho,
     divididos em Objetivo Geral e
     Objetivos Específicos.
 }{%
@@ -458,10 +459,12 @@ pela perda de controle da ferramenta de formatação de código~=fonte.
     }
 }%
 
+
 \subsection{Objetivo Geral}
 
 Desenvolver um formatador de código~=fonte,
-extensível a diversas linguagem de programação por meio de gramáticas.
+extensível a diversas linguagem de programação por meio de uma nova definição gramáticas,
+especificada por uma metagramática.
 
 
 \subsection{Objetivos Específicos}
@@ -496,6 +499,9 @@ extensível a diversas linguagem de programação por meio de gramáticas.
     }
 \end{enumerate}
 
+Destes objetivos específicos,
+todos eles foram alcançados como pode ser observado dos \typeref{fundamentacaoTeorica,source_code_beautifiers,software_implementation,chapter:conclusion}.
+
 
 \section{Método de Pesquisa}
 
@@ -503,7 +509,7 @@ Foram realizados pesquisas em artigos científicos,
 livros e
 sites para obter~=se referências e
 resolver dúvidas pendentes sobre quaisquer conteúdos.
-Foi utilizado como guia as notas de aula retiradas das disciplinas relacionadas a construção deste trabalho.
+Foi utilizado como guia as notas de aula retiradas das disciplinas relacionadas à construção deste trabalho.
 Como palavras~=chave de pesquisa para encontrar trabalhos relacionados,
 foi utilizado termos como:
 \begin{inparaenum}[1)]
@@ -543,12 +549,12 @@ integração \cite{continuousIntegration}.
 
 A criação deste trabalho dividi~=se em três áreas distintas.
 No \typeref{fundamentacaoTeorica},
-é realizado uma fundamentação teórica sobre os conceitos necessários para desenvolvimento de compiladores e
-especificação de gramáticas.
+é realizado uma fundamentação teórica sobre que são gramáticas na teoria da computação e
+os conceitos necessários para desenvolvimento de compiladores.
 No \typeref{source_code_beautifiers},
 é explicado sobre dois tipos distintos de formatadores de código~=fonte.
-Um formatador de código~=fonte configurável por arquivos de texto e
-outro configurável por uma interface gráfica com o usuário.
+Um formatador de código~=fonte configurável por arquivos de texto (Uncrustify) e
+outro configurável por uma interface gráfica com o usuário (UniversalIndentGUI).
 Também explicado um pouco sobre as ferramentas de adição de cores ao código~=fonte sendo visualizado,
 utilizadas por editores de texto.
 No \typeref{software_implementation},
