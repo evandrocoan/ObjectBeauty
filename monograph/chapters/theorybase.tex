@@ -363,6 +363,10 @@ representado estruturalmente pela Árvore Sintática da \typeref{figure:palavra1
 A \typeref{figure:palavra1},
 representa a Árvore Sintática completa da palavra ``1'',
 que a linguagem da gramática do \typeref{code:ExemploDeEstruturaDeGramaticaLark} aceita.
+A Árvore Sintática da \typeref{figure:palavra1},
+apresenta a definição de um \textit{token} com o nome ``NUMERO1'' e
+o um uso de um único símbolo do alfabeto,
+o símbolo ``1'' (implicitamente derivado a partir das produções da gramática pelo Analisador Lark).
 \begin{figure}[H]
 \caption{Árvore da palavra ``1''}
 \label{figure:palavra1}
@@ -374,6 +378,10 @@ que a linguagem da gramática do \typeref{code:ExemploDeEstruturaDeGramaticaLark
 A \typeref{figure:palavra2},
 representa a Árvore Sintática completa da palavra ``2'',
 que a linguagem da gramática do \typeref{code:ExemploDeEstruturaDeGramaticaLark} aceita.
+A Árvore Sintática da \typeref{figure:palavra2},
+apresenta a definição de um \textit{token} com o nome ``NUMERO2'' e
+o um uso de um único símbolo do alfabeto,
+o símbolo ``2'' (implicitamente derivado a partir das produções da gramática pelo Analisador Lark).
 \begin{figure}[H]
 \caption{Árvore da palavra ``2''}
 \label{figure:palavra2}
@@ -386,7 +394,9 @@ A \typeref{figure:palavra3},
 representa a Árvore Sintática completa da palavra ``3'',
 que a linguagem da gramática do \typeref{code:ExemploDeEstruturaDeGramaticaLark} aceita.
 A Árvore Sintática da \typeref{figure:palavra3},
-apresenta a definição de um \textit{token} com o nome ``NUMERO3''.
+apresenta a definição de um \textit{token} com o nome ``NUMERO3'' e
+o um uso de um único símbolo do alfabeto,
+o símbolo ``3'' (implicitamente derivado a partir das produções da gramática pelo Analisador Lark).
 \begin{figure}[H]
 \caption{Árvore da palavra ``3''}
 \label{figure:palavra3}
@@ -394,6 +404,11 @@ apresenta a definição de um \textit{token} com o nome ``NUMERO3''.
 \includegraphics[max width=0.4435\textwidth]{palavra3.png}
 \fonte{Própria}
 \end{figure}
+
+Veja o \fullref{chapter:manualDoFormatadorDeCodigo} para uma descrição mais detalhada das informações que apareceram nos \textit{tokens} das Árvores Sintáticas nos exemplos anteriores.
+As gramáticas recém~=apresentadas e
+aceitas pelo Analisador Lark são Gramáticas Livre de Contexto.
+Na próxima seção será falado um pouco mais sobre os tipos de gramáticas.
 
 
 \subsection{Hierarquia de Chomsky}
@@ -415,7 +430,7 @@ Quanto tempo levaria para a seguinte instrução de um programa na Linguagem C t
 ``\mintinline{text}{for(;;);}''?
 },
 como os tipos de gramáticas a serem descritos nas próximas seções.
-A partir da adição de restrições sobre a definição formal de gramática recém apresentada,
+A partir da adição de restrições sobre a definição formal de gramática recém~=apresentada,
 também pode~=se \advisor{compreender}{realizar diversas classificações como} a hierarquia de \citeonline{chomskyGrammars1956},
 onde uma linguagem pode ser classificada como Regular,
 Livre de Contexto,
@@ -470,7 +485,8 @@ Livre de Contexto,
 Sensível ao Contexto,
 uma vez que Gramáticas Livres de Contexto ou
 Regulares são um subconjunto das Gramáticas Irrestritas ou
-Sensíveis ao Contexto como apresentado na \typeref{figure:FigureHierarquiaDeChomsky}.
+Sensíveis ao Contexto,
+como apresentado na \typeref{figure:FigureHierarquiaDeChomsky}.
 Por isso,
 também pode~=se chamar uma dada Gramática Regular de Irrestrita ou
 Livre de Contexto.
@@ -510,7 +526,7 @@ compiladores) para dada linguagem.
 
 Gramáticas Regulares (também conhecidas como Tipo 3) são todas aquelas reconhecidas por Autômatos Finitos Determinísticos e\slash{}ou Não~=Determinísticos.
 Autômatos reconhecem linguagens e
-gramáticas geram palavras de sua linguagem (\typeref{section:reducoesEderivacoes}).
+gramáticas geram palavras de sua linguagem (\fullref{section:reducoesEderivacoes}).
 Para toda linguagem reconhecida por Autômato Finito,
 existe uma Gramática Regular que gera palavras dessa linguagem.
 Gramáticas de Linguagens Regulares pela definição formal,
@@ -564,7 +580,7 @@ Aprenda mais a respeito procurando sobre o problema da parada \citeonline{turing
 Linguagens do Tipo 0 (ou Irrestritas) representam problemas indecidíveis e
 que podem ser representados por procedimentos \cite{sipserBook}.
 Já Linguagens do Tipo 1 (ou Sensíveis ao Contexto),
-representam todos os problemas computáveis e
+representam todos os problemas decidíveis e
 sua implementação pode ser representada por algoritmos\footnote{
 Aprenda mais sobre decidibilidade e
 computabilidade com \citeonline{turingMachinesRoyer,sipserBook}.
@@ -623,8 +639,10 @@ Veja o que significa ambiguidade na \fullref{section:analiseSemantica} e
 \typeref{frame:exemploDeAmbiguidadeLinguistica}.
 }
 onde não existe Gramática Livre de Contexto Determinística capaz de representá~=las e
-tais Linguagens somente podem ser reconhecidas por Analisadores com Backtracking \cite{ahoCompilerDragonBook} ou
-Autômatos de Pilha Não~=Determinísticos.
+tais Linguagens somente podem ser reconhecidas por Analisadores com Backtracking \cite{ahoCompilerDragonBook},
+Autômatos de Pilha Não~=Determinísticos ou
+algoritmos de análise como Earley e
+CYK (\fullref{section:classesDeComplexidade}).
 
 A maior classe de Gramáticas Determinísticas suportadas por Analisadores Sintáticos são as Gramáticas LR(K)\footnote{
 Do inglês, \textit{Left~=to~=right, Rightmost derivation},
@@ -648,7 +666,7 @@ LL(K) quando ela é reconhecida por este analisador.
 
 Na \typeref{figure:LinguagensDeterministicas},
 encontra~=se um Diagrama de Venn \cite{generalizedVennDiagrams} com a relação entre as classes de linguagens de acordo com os analisadores que as reconhecem.
-No terceiro nível encontra~=se as gramáticas que são mais importantes,
+Nela encontra~=se as gramáticas que são mais importantes,
 as Gramáticas Determinísticas\footnote{
 As Gramáticas Determinísticas representam o conjunto de Linguagens que podem ser Analisadas Deterministicamente e
 tais Linguagens também podem ser conhecidas como LR(K).
@@ -728,7 +746,7 @@ Recursive Descent).
 i.e.,
 com o programador construindo manualmente como deve acontecer cada transição de estado do analisador \cite{ahoCompilerDragonBook}.
 
-Na primeira etapa do analisador utilizam~=se algoritmos de construção da Tabela de Análise.
+Na primeira etapa de um analisador como LL(K) utilizam~=se algoritmos de construção da Tabela de Análise.
 Quando a tabela está construída sem conflitos (este analisador portanto,
 é Determinístico),
 entra em cena o algoritmo de análise na segunda etapa,
@@ -761,9 +779,9 @@ de entrada que será analisado \cite{knuthLrParser1965,linearLL1AndLR1Grammars,g
 
 No caso de conflitos na Tabela de Análise,
 a gramática não pode ser analisada deterministicamente e
-algoritmos de análise com backtracking\footnote{
-Ou algoritmos de tempo polinomial como CYK (veja a \fullref{section:classesDeComplexidade}).
-}
+algoritmos de análise com backtracking ou
+algoritmos de tempo polinomial como Earley e
+CYK (veja a \fullref{section:classesDeComplexidade}),
 precisam ser utilizados para construção da Árvore Sintática.
 \advisor{}{Como mostrado para Máquinas de Turing Não~=Determinísticas na \fullref{section:mecanismosReconhecedores},
 }%
@@ -779,10 +797,10 @@ Veja a \fullref{section:buscaEmLarguraEProfundidade} para saber mais.
 
 Diferente de máquinas específicas como Autômatos Finitos,
 analisadores recebem diretamente como entrada uma gramática de uma dada linguagem.
-Mas diferente de gramáticas e
+Mas diferente de Gramáticas e
 Analisadores LL(K),
 Analisadores LR(K) especificamente funcionam de modo contrário.
-Eles operam por meio de Reduções ao invés de Derivações como no caso das Gramáticas e
+Analisadores LR(K) operam por meio de Reduções ao contrário de Derivações como no caso das Gramáticas e
 Analisadores LL(K) \cite{ahoCompilerDragonBook}.
 
 Uma Derivação acontece quando uma regra de produção como ``$S \Rightarrow a a $'' de uma gramática expande e
@@ -828,14 +846,14 @@ Descendentes,
 terminam no final do processo,
 gerando toda a Árvore de Derivação.
 Entretanto,
-caso no final do processo,
+caso no final do processo reconhecimento de um Analisador Descendente,
 não se chegue em um Estado de Aceitação \cite{ahoCompilerDragonBook},
 tem~=se somente a construção de uma Árvore de Derivação parcial.
-No caso dos Analisadores Ascendentes,
-será uma floresta de árvores,
+Já no caso dos Analisadores Ascendentes,
+será uma floresta (de árvores),
 porque somente no final da análise,
 com a chegada ao símbolo inicial da gramática,
-completa~=se a costura de todas a árvores que foram parcialmente construídas durante o processo de análise (\textit{Bottom~=Up}).
+o Analisador Ascendente completa a ``costura'' de todas a árvores que foram parcialmente construídas durante o processo de análise (\textit{Bottom~=Up}).
 
 No caso dos Analisadores Descendentes,
 não existe uma floresta de árvores.
@@ -866,7 +884,7 @@ No caso da Recursão à Esquerda,
 o algoritmo de criação da Tabela de Análise Sintática da Gramática LR(K),
 LALR(K) ou SLR(K),
 não possui o problema de entrar em um loop infinito assim como acontecem com as Gramáticas LL(K),
-portanto aceitando Gramáticas com Recursão à Esquerda \cite{ahoCompilerDragonBook}.
+portanto aceitando~=se Gramáticas com Recursão à Esquerda \cite{ahoCompilerDragonBook}.
 
 Analisadores LR(K) requerem grandes quantidades de memória,
 proporcional ao tamanho da gramática de entrada \cite{complexityOfLRKTesting}.
@@ -886,7 +904,7 @@ porque todas as Linguagens Determinísticas são reconhecidas por Analisadores L
 uma vez que \citeonline{knuthLrParser1965},
 provou que todas as Gramáticas Determinísticas são aceitas por um Analisador LR(K).
 Assim,
-além da hierarquia de Chomsky,
+além da Hierarquia de Chomsky (\typeref{figure:FigureHierarquiaDeChomsky}),
 também classifica~=se as gramáticas de acordo com o tipo de analisador que reconhece as linguagens representadas por elas.
 Como mostrado na \typeref{figure:LinguagensDeterministicas},
 nem todas as Gramáticas Livre de Contexto são Gramáticas Determinísticas e
@@ -897,7 +915,8 @@ uma maneira fácil de decidir se uma dada gramática é Determinística ou
 não,
 é tentar construir a sua Tabela de Análise para um Analisador LR(K).
 Caso se consiga construir com sucesso (sem conflitos) a Tabela de Análise Sintática \cite{ahoCompilerDragonBook},
-a gramática é LR(K),
+a gramática é LR(K) e
+Determinística,
 caso contrário a gramática não é Determinística.
 A mesma técnica pode ser aplicada no caso de analisadores menos poderosos como LALR(K),
 entretanto,
@@ -979,7 +998,7 @@ ele é equivalente a uma Máquina de Turing e
 portanto possui em pior caso,
 tempo infinito de execução,
 reveja a \fullref{figure:FigureHierarquiaDeChomsky}.
-}%
+}
 construir o analisador da linguagem C.
 
 Assim,
@@ -1001,8 +1020,7 @@ uma variável numérica.
 requer~=se} cuidado sobre como as alterações do Analisador são feitas,
 pois pode~=se pensar que todas as gramáticas de todas as linguagens de programação são ``Livres de Contexto'' e
 Determinísticas,
-o que não é verdade,
-veja a próxima \fullref{section:alteracoesNosAnalisadoresSintaticos}.
+o que não é verdade (veja a próxima \fullref{section:alteracoesNosAnalisadoresSintaticos}).
 Uma vez que a gramática não é mais Livre de Contexto ou
 Determinística,
 pode~=se mover Aspectos Sensíveis ao Contexto para o Analisador Semântico,
@@ -1035,8 +1053,8 @@ apesar disso não impede~=se que a gramática da Linguagem C,
 como mostrado na seção anterior,
 seja analisada com eficiência.
 Mas isso deixa brechas para que ela possa não ser analisada com eficiência.
-A diferença para um analisador onde a gramática é inteiramente Livre de Contexto,
-é que elas tem desempenho \textit{garantida} pela sua Classe de Complexidade (Veja a \fullref{section:classesDeComplexidade}).
+A diferença para um analisador onde a gramática é inteiramente Livre de Contexto Determinística,
+é que ela tem desempenho \textit{garantida} pela sua Classe de Complexidade (Veja a \fullref{section:classesDeComplexidade}).
 
 Sintaxe e
 Semântica de Linguagens são completamente ortogonais.
@@ -1052,7 +1070,6 @@ são capazes de realizar qualquer operação computacional.
 Mas,
 isso não pode ser confundido com as \textit{Strings} ou
 Programas gerados por essas gramáticas \cite{areThereDomainSpecificLanguages,yamlSpecificModelChecking}.
-
 Tais programas podem ou
 não ser Turing Completos.
 Do lado oposto,
@@ -1097,7 +1114,9 @@ O algoritmo de análise CYK \cite{hopcroftBook,larkContextualLexer},
 possui complexidade de tempo $\Theta(n^3 \cdot \vert{G}\vert)$,
 onde $n$ é o tamanho do programa de entrada e
 $G$ é o tamanho da gramática de entrada na Forma Normal de Chomsky \cite{hopcroftBook}.
-Em tempo $\Theta(n^3)$ o algoritmo CYK constrói a Tabela de Análise que diz se dada palavra pertence ou
+Em tempo $\Theta(n^3)$ o algoritmo CYK utilizando a gramática e
+o programa de entrada,
+constrói a Tabela de Análise que diz se dada palavra pertence ou
 não a linguagem.
 
 \citeonline{JayEarley},
@@ -1107,6 +1126,13 @@ publicou um artigo com a especificação do algoritmo de análise Earley:
 \item capaz de analisar qualquer Gramática Livre de Contexto não~=ambígua em tempo $\Theta(n^2)$ e;
 \item capaz de analisar qualquer Gramática Livre de Contexto LR(K) em tempo $\Theta(n^1)$.
 \end{inparaenum}%
+Quando faz~=se a Análise de uma Gramática Livre de Contexto Não~=Determinística,
+tem~=se como resultado várias possíveis Árvores de Derivação\footnote{
+Como a gramática é Não~=Determinística,
+existem muitas possíveis Árvores de Derivação,
+(devido à ambiguidade da gramática,
+\typeref{frame:exemploDeAmbiguidadeLinguistica}).
+}.
 
 
 \advisor{}{%
@@ -1152,7 +1178,7 @@ publicou um artigo com a especificação do algoritmo de análise Earley:
 }
 
 
-\advisor{}{\subsection{Complexidade Teórica $versus$ Real}}
+\subsection{Complexidade Teórica $versus$ Real}
 
 Na \typeref{figure:ParserNonDeterministic},
 encontra~=se uma Árvore de Computação de um Analisador Não~=Determinístico.
@@ -1162,9 +1188,8 @@ comumente conhecida pela pergunta,
 $P \stackrel{?}{=} NP$, i.e.,
 a classe de problemas com complexidade de tempo Determinístico Polinomial,
 está estritamente contida na classe de problemas $NP$ (Não~=Determinísticos Polinomiais) \cite{computationalComplexityAuroraBarak}?
-})
-ao tamanho da entrada,
-porque um Analisador Não~=Determinístico executa simultaneamente todos os Ramos de Computação Não~=Determinísticos \cite{hopcroftBook}.
+}) ao tamanho da entrada,
+porque um Analisador Não~=Determinístico executa simultaneamente todos os Ramos de Computação Não~=Determinísticos \cite{hopcroftBook,turingMachinesRoyer}.
 
 Como mostrado na \typeref{figure:ParserNonDeterministic},
 após cada um dos passos de computação 1,
@@ -1203,23 +1228,15 @@ Veja as \typeref{figure:ParserNonDeterministic,figure:ParserDeterministic} e
 as compare.
 }}
 
-O tempo de execução será linear ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Regular e
-implementado através de um Autômato Finito.
+\advisor{}{O tempo de execução será linear ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Regular e
+implementado através de um Autômato Finito Não~=Determinístico.
 O tempo de execução será polinomial ao tamanho da entrada caso o Analisador Não~=Determinístico seja de uma Linguagem Livre de Contexto Ambígua (Gramática Não~=Determinística) e
-implementado através de algum algoritmo com tempo polinomial como CYK ou
-Earley (\fullref{section:classesDeComplexidade}).
-Quando faz~=se a Análise de uma Gramática Livre de Contexto Não~=Determinística,
-tem~=se como resultado várias possíveis Árvores de Derivação\footnote{
-Como a gramática é Não~=Determinística,
-existem muitas possíveis Árvores de Derivação,
-(devido à ambiguidade da gramática,
-\typeref{frame:exemploDeAmbiguidadeLinguistica}).
-}.
-
-
-\advisor{}{\subsection{Mecanismos Reconhecedores}
-\label{section:mecanismosReconhecedores}
+implementado através de um Autômato de Pilha Não~=Determinístico.
 }
+
+
+\subsection{Mecanismos Reconhecedores}
+\label{section:mecanismosReconhecedores}
 
 \advisor{}{Uma vez que o conjunto de Gramáticas Determinísticas LR(K) (com tempo linear) está contido no conjunto das Gramáticas Livres de Contexto,
 não se considera tempos Análise Lineares ou
