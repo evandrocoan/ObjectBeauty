@@ -141,9 +141,9 @@ considere que os símbolos:
     \item \advisor{O}{Um} conjunto $V_n$ de símbolos não~=terminais (algumas vezes chamados de ``variáveis sintáticas''),
     servem para agrupar vários não~=terminais e\slash{}ou terminais.
     Na composição da Árvore Sintática,
-    os símbolos não~=terminais usualmente serão somente os nós internos da Árvore Sintática\footnote{
+    os símbolos não~=terminais usualmente serão os nós internos da Árvore Sintática\footnote{
     Por exemplo,
-    desde que a gramática da linguagem não contenha símbolos inúteis,
+    quando a gramática da linguagem não contém símbolos inúteis,
     i.e.,
     todos os símbolos da gramática são férteis e
     permitem a geração de palavras além do conjunto vazio $\varnothing$ \cite{hopcroftBook}.
@@ -234,7 +234,7 @@ Do inglês,
 }
 \cite{teachingEbnf,antlrBookTerrentParr,larkGrammarReference,larkStyleCheat} que o Analisador Lark faz.
 Símbolos que possuem todas as letras em ``MAIÚSCULA'' definem os símbolos terminais da gramática que aparecerão na Árvore Sintática.
-Enquanto símbolos escrito todos em letras ``minúsculas'' definem os símbolos não~=terminais da gramática.
+Enquanto símbolos escritos todos em letras ``minúsculas'' definem os símbolos não~=terminais da gramática.
 \advisor{}{Para mais informações sobre a sintaxe de entrada de gramáticas do Analisador Lark,
 consulte sua documentação \cite{larkGrammarReference,larkStyleCheat}.}
 
@@ -261,8 +261,7 @@ A \typeref{Figure:ArvoresDosTokens2},
 representa a Árvore Sintática completa da palavra ``token com nome'',
 que a linguagem da gramática do \typeref{code:ExemploDeGramaticaLark} aceita.
 Diferente da Árvore Sintática da \typeref{Figure:ArvoresDosTokens2},
-a Árvore Sintática da \typeref{Figure:ArvoresDosTokens2},
-possui como nó folha a palavra ``token com nome''.
+a Árvore Sintática da \typeref{Figure:ArvoresDosTokens2} possui como nó folha a palavra ``token com nome''.
 Porque na gramática da linguagem,
 foi criado especificamente a produção ``\mintinline{text}{TOKEN_COM_NOME:
 "token com nome"}'',
@@ -283,10 +282,12 @@ a Árvore Sintática da \typeref{Figure:ArvoresDosTokens3},
 apresenta um nó intermediário chamado de ``nodo\_da\_arvore''.
 O nó intermediário ``nodo\_da\_arvore'' é um exemplo de símbolo não~=terminal da gramática.
 Usualmente,
-os símbolos não~=terminais nunca são nós~=folhas das Árvores Sintáticas.
+os símbolos não~=terminais não são nós~=folhas da Árvore Sintática.
 Entretanto,
 caso a gramática de entrada possua símbolos inúteis \cite{hopcroftBook},
 podem existir ramificações da Árvore Sintática na qual símbolos não~=terminais são nós~=folhas.
+Reveja também a \typeref{Figure:ArvoresDosTokens1},
+nela temos outro exemplo onde um não~=terminal foi um ``nó~=folha'' da Árvore Sintática.
 \begin{figure}[H]
 \caption{Árvore do Programa ``token com outro nome''}
 \label{Figure:ArvoresDosTokens3}
@@ -301,9 +302,9 @@ Nas \typeref{Figure:palavra12,Figure:palavra1,Figure:palavra2,Figure:palavra3},
 pode ser encontrado as 4 palavras da linguagem que esta gramática aceita.
 Nas \typeref{Figure:palavra1,Figure:palavra2,Figure:palavra3},
 pode~=se ver as palavras da linguagem (gramática do \typeref{code:ExemploDeEstruturaDeGramaticaLark}),
-na qual correspondem exatamente aos símbolos do alfabeto da linguagem.
+na qual os \textit{tokens} correspondem exatamente aos símbolos do alfabeto da linguagem.
 Já a \typeref{Figure:palavra12},
-mostra como o conjunto de produções da gramática pode ser utilizado para montar a estrutura (sintaxe) da linguagem,
+mostra~=se como o conjunto de produções da gramática pode ser utilizado para montar a estrutura (sintaxe) da linguagem,
 combinando os símbolos do alfabeto da linguagem.
 \begin{code}
 \caption{Exemplo de gramática com uma Estrutura de Sintaxe}
@@ -841,7 +842,7 @@ não existe uma floresta de árvores.
 Como parte~=se diretamente do símbolo inicial da gramática,
 a Árvore de Derivação desde o começo é construída como sendo uma única árvore (\textit{Top~=Down}).
 Em caso de erros na construção da Árvore Sintática,
-ela terminará somente com alguns nós~=folha faltando.
+ela terminará somente com alguns nós~=folhas faltando.
 
 
 \subsection{Analisadores LR(K)}
