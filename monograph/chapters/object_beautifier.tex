@@ -265,7 +265,13 @@ terminando a reconhecimento do programa de entrada pela gramática utilizada.
 
 Ao fazer o processo de reconhecimento do programa de entrada,
 remove~=se os caracteres reconhecidos,
-substituíndo eles por algum outro caractere de marcação (como ``\mintinline{text}|§|'') para que não altere~=se o tamanho original do programa de entrada.
+substituíndo eles por algum outro caractere de marcação (como ``\mintinline{text}|§|'',
+\textit{símbolo de seção}\footnote{%
+Do inglês,
+Section Sign.
+Também conhecido Sinal de Seção ou
+Sinal de Corte.
+}) para que não altere~=se o tamanho original do programa de entrada.
 No \typeref{code:resultadoDoReconhecimentoDoProgramaJava} se pode ver como o programa original (\typeref{code:exemploDeUmProgramaNaLinguagemJava}) ficou ao final do processo de reconhecimento pela gramática no \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica}.
 Essa foi uma estratégia utilizada para se possa no final do processo de formatação se possa facilmente reintroduzir no programa os novos trechos de código~=fonte que foram formatados.
 \begin{code}
@@ -656,7 +662,7 @@ conjunto de instruções como ``\mintinline{text}|include|'' e
 que podem ser incluídos a partir do símbolo inicial da gramática definido no item ``\mintinline{text}|language_construct_rules|''.
 \end{enumerate}%
 \begin{code}
-\caption[Simbolo Inicial da Metagramática ``ObjectBeauty'']{Simbolo Inicial da Metagramática ``\mintinline{text}|ObjectBeauty|'' (\typeref{chapter:codigoDaMetagramatica})}
+\caption[Símbolo Inicial da Metagramática ``ObjectBeauty'']{Símbolo Inicial da Metagramática ``\mintinline{text}|ObjectBeauty|'' (\typeref{chapter:codigoDaMetagramatica})}
 \label{code:simboloInicialDaMetagramatica}
 \begin{minted}{antlr}
 language_syntax: _NEWLINE? preamble_statements _NEWLINE?
@@ -1130,7 +1136,7 @@ enquanto ``\mintinline{text}|Interpreter|'' não cria árvore alguma.
 O parâmetro chamado ``\mintinline{text}|program|'',
 que o construtor de ``\mintinline{text}|Transformer|'' recebe,
 é o programa a ser formatado pelo formatador.
-No final processo,
+No final do processo,
 ``\mintinline{text}|Interpreter|'' terá em sua variável ``\mintinline{text}|self.program|'' o novo programa completamente formatado.
 
 Enquanto ``\mintinline{text}|Interpreter|'' é responsável por somente ``passear'' pela Árvore Sintática Abstrata,
@@ -1183,9 +1189,13 @@ não seria mais necessário manter o uso da variável ``\mintinline{text}{len( p
 
 Durante o processo de consumo,
 o programa de entrada é modificado e
-os caracteres que foram consumidos pela gramática são substituídos pelo caractere ``\mintinline{text}|§|'' para impedir que eles sejam reconsumidos.
-A utilização do caractere ``\mintinline{text}|§|'' foi realizada para simplificar a implementação do algoritmo de consumo.
-Com o caractere ``\mintinline{text}|§|'' colocado no lugar dos caracteres que já foram consumidos,
+os caracteres que foram consumidos pela gramática são substituídos por algum caractere qualquer\footnote{
+Não existe a necessidade de utilizar algum caractere em específico,
+mas é recomendável que este caractere já não exista no texto de entrada para evitar ambiguidades na gramática (\fullref{section:metalinguagemGrammar}) fornecida pelo usuário da ferramenta.
+}
+e fixo como ``\mintinline{text}|§|'' (\textit{símbolo de seção}) para impedir que eles sejam reconsumidos.
+A utilização do caractere ``\mintinline{text}|§|'' (\textit{símbolo de seção}) foi realizada para simplificar a implementação do algoritmo de consumo.
+Com o caractere ``\mintinline{text}|§|'' (\textit{símbolo de seção}) colocado no lugar dos caracteres que já foram consumidos,
 é possível reconstruir o programa de entrada no final da análise simplesmente ordenando todos os pedaços do programa formatado que estão armazenada na variável ``\mintinline{text}|new_program|''.
 Como o tamanho do programa original não foi modificado,
 também é possível facilmente integrar no programa formatado,

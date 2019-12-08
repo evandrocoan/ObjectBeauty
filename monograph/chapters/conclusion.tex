@@ -90,9 +90,13 @@ reutilizando estruturas de sintaxe comuns a linguagens já existentes.
 Em um modelo de trabalho onde se faz a formatação do código~=fonte diretamente com a Árvore Sintática do programa de entrada,
 é possível realizar verificações da semântica do programa que está sendo formatado com maior facilmente,
 pelo acesso direto a Árvore Sintática do programa de entrada,
-(base para Análise Semântica (\fullref{section:analiseSemantica}).
+base para Análise Semântica (\fullref{section:analiseSemantica}).
 Por isso,
-os algoritmos de formatação de código~=fonte desenvolvidos para este trabalho também irão precisar considerar os aspectos semânticos.
+os algoritmos de formatação de código~=fonte desenvolvidos para este trabalho também irão precisar considerar os aspectos semânticos,
+como a restrição do uso da chave de abertura de blocos da linguagem ``\mintinline{text}|Golang|''.
+
+Estes formatadores precisarão estar cientes de qual linguagem está sendo formatada e
+preversar a sua semântica.
 Entretanto,
 estes algoritmos terão uma dificuldade adicional.
 Enquanto os algoritmos de Análise Semântica trabalham com base na Árvore Sintática do programa de entrada,
@@ -107,9 +111,9 @@ este trabalho é mais similar a dois deles.
 Os formatadores de código~=fonte configurado por arquivos de texto e
 as ferramentas de adição de cores.
 Pela lógica de funcionamento deste trabalho,
-não seria muito interessante que existisse uma interface gráfica como a da ferramenta \cite{universalIndentGUI},
+não seria muito interessante que existisse uma interface gráfica como a da ferramenta de \citeonline{universalIndentGUI},
 porque o objetivo deste trabalho é que resolva os problemas apresentados pelas ferramentas de formatação de código~=fonte hoje existentes.
-Enquanto que a criação de uma ferramenta de formatação com uma interface gráfica como a de \cite{universalIndentGUI} apresenta problemas (\fullref{section:trabalhosRelacionados}).
+Enquanto que a criação de uma ferramenta de formatação com uma interface gráfica como a de \citeonline{universalIndentGUI} apresenta problemas (\fullref{section:trabalhosRelacionados}).
 
 A relação deste trabalho com os formatadores configurados por arquivos de texto,
 é que ambos são inteiramente configurados por arquivos de texto.
@@ -119,7 +123,7 @@ i.e.,
 entender como determina configuração irá formatar o código~=fonte.
 Ambas as ferramentas possuem arquivos de configuração que são simples de alterar.
 No exemplo apresentado (\fullref{section:softwareImplementationVisaoGeral}),
-o resultado da formatação inteiramente controlado pelo valor de um número inteiro.
+o resultado da formatação é inteiramente controlado pelo valor de um número inteiro.
 
 A atual estrutura de composição dos formatadores de código~=fonte não suporta que diversos formatadores realizem a formatação simultaneamente.
 Somente um formatador,
@@ -129,7 +133,7 @@ este formatador recebe como parâmetro de sua função ``\mintinline{text}|forma
 o trecho de código~=fonte a ser formatado e
 o escopo dele.
 Com essas informações ele poderia em tese,
-chamar diferentes formatadores mais especializados de acordo com o seu parâmetro escopo.
+chamar diferentes formatadores mais especializados de acordo com o seu parâmetro de escopo.
 
 Assim em evoluções deste trabalho,
 diferente dos outros formatadores de código~=fonte (\fullref{section:trabalhosRelacionados}),
@@ -184,11 +188,11 @@ melhorando o controle do usuário sobre a formatação de código~=fonte em conj
 \item Melhorar a legibilidade e
 facilitar a escrita das gramáticas,
 removendo a necessidade de chaves de abertura ``\mintinline{text}|{|'' e
-fechamento ``\mintinline{text}|}|'' de blocos (alterando a metagramática (\fullref{section:metalinguagemGrammar}),
-fazendo a separação de blocos ser feita de acordo com a indentação como em linguagens como Python e
+fechamento ``\mintinline{text}|}|'' de blocos (alterando a metagramática (\fullref{section:metalinguagemGrammar}).
+Fazendo com que a separação de blocos ser feita de acordo com a indentação como em linguagens como Python e
 YAML;
 \item Realizar a criação de uma nova estrutura de dados para representar o programa de entrada e
-avaliar se esta nova estrutura de dados é capaz de substituir utilização do caractere ``\mintinline{text}|§|'' em conjunto com a classe padrão de \textit{string} da linguagem Python (aumentado a eficiência dos algoritmos de análise do programa de entrada a ser formatado (\fullref{section:desempenhoDoFormator}).
+avaliar se esta nova estrutura de dados é capaz de substituir utilização do caractere ``\mintinline{text}|§|'' (\textit{símbolo de seção}) em conjunto com a classe padrão de \textit{string} da linguagem Python (aumentado a eficiência dos algoritmos de análise do programa de entrada a ser formatado (\fullref{section:desempenhoDoFormator}).
 \item Implementar uma interface de linha de comando (CLI, \fullref{section:softwareImplementationVisaoGeral}) que:
 \begin{inparaenum}[1)]
 \item automaticamente faça o carregamento de todas as gramáticas definidas em um diretório especificado;
