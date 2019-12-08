@@ -655,7 +655,7 @@ conjunto de instruções como ``\mintinline{text}|include|'' e
 que podem ser incluídos a partir do símbolo inicial da gramática definido no item ``\mintinline{text}|language_construct_rules|''.
 \end{enumerate}%
 \begin{code}
-\caption[Simbolo Inicial da Metagramática ``ObjectBeauty'']{Simbolo Inicial da Metagramática ``\mintinline{text}|ObjectBeauty|''}
+\caption[Simbolo Inicial da Metagramática ``ObjectBeauty'']{Simbolo Inicial da Metagramática ``\mintinline{text}|ObjectBeauty|'' (\typeref{chapter:codigoDaMetagramatica})}
 \label{code:simboloInicialDaMetagramatica}
 \begin{minted}{antlr}
 language_syntax: _NEWLINE? preamble_statements _NEWLINE?
@@ -821,7 +821,7 @@ numbers: {
 \end{lstlisting}
 
 No \typeref{code:exemploDeGramaticaPawn4},
-são mostrados mais alguns exemplos de uso do operador ``\mintinline{text}|match|'' classificando diversos tipos de numéricos (da linguagem sendo descrita pela gramática).
+são apresentados mais alguns exemplos de uso do operador ``\mintinline{text}|match|'' classificando diversos tipos de numéricos (da linguagem sendo descrita pela gramática).
 É importante notar que a ordem na qual os operadores como ``\mintinline{text}|match|'' aparecem é importante.
 Ao realizar o reconhecido o programa de entrada utilizando esta gramática,
 a Árvore Sintática Abstrata \cite{ahoCompilerDragonBook} será interpretada diversas vezes,
@@ -909,7 +909,7 @@ Esta é uma característica do Analisador Lark utilizado.
 A função ``\mintinline{text}|transform(tree)|'' do Analisador Lark simplesmente inicia a análise do programa visitando todos os nós da Árvore Sintática,
 partindo das folhas até chegar na raíz (\fullref{section:compiladoresEtradutores}).
 \begin{code}
-\caption{Construtor do Analisador Semântico}
+\caption[Construtor do Analisador Semântico]{Construtor do Analisador Semântico (\typeref{chapter:codigoDoAnalisadorSemantico})}
 \label{code:semanticAnalizerConstructor}
 \begin{minted}{python}
 class TreeTransformer(pushdown.Transformer):
@@ -1065,7 +1065,7 @@ que o construtor de ``\mintinline{text}|Transformer|'' recebe,
 No final processo,
 ``\mintinline{text}|Interpreter|'' terá em sua variável ``\mintinline{text}|self.program|'' o novo programa completamente formatado.
 \begin{code}
-\caption{Construtor do Formatador}
+\caption[Construtor do Formatador]{Construtor do Formatador (\typeref{chapter:codigoDoFormatador})}
 \label{code:construtorDoFormatador}
 \begin{minted}{python}
 class Backend(pushdown.Interpreter):
@@ -1102,7 +1102,7 @@ a função ``\mintinline{text}|get_new_program|'' irá unir dos os pedaços e
 salvá~=los na variável ``\mintinline{text}|cached_new_program|'',
 para evitar ter que recalcular o novo programa toda vez que pedir~=se a sua nova versão.
 \begin{code}
-\caption[Construtor de ``AbstractFormatter'']{Construtor de ``\mintinline{text}|AbstractFormatter|''}
+\caption[Construtor de ``AbstractFormatter'']{Construtor de ``\mintinline{text}|AbstractFormatter|'' (\typeref{chapter:codigoDoFormatador})}
 \label{code:construtorDeParsedProgram}
 \begin{minted}{python}
 class AbstractFormatter(object):
@@ -1135,10 +1135,11 @@ adição de cores.
 Entretanto,
 ela é constantemente verificada durante as operações que realizam o consumo do programa de entrada pelas regras da metagramática para garantir que o tamanho do programa original não seja alterado.
 É necessário que os novos trechos de programa que são formatados saibam qual era a posição deles no programa de original (antes da formatação iniciar),
-para que as partes do programa original (que não foram formatadas) possam ser adicionadas no novo programa formatado no final do processo de formatação.
+para que as partes do programa original (que não foram formatadas) possam ser adicionadas no novo programa formatado no final do processo de formatação\footnote{
 Assim que os algoritmos de adição de cores ou
 formatação estiverem propriamente testados,
 não seria mais necessário manter o uso da variável ``\mintinline{text}{len( program )}''.
+}.
 
 Durante o processo de consumo,
 o programa de entrada é modificado e
