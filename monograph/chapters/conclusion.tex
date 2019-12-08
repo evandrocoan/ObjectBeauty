@@ -58,12 +58,12 @@ utilizando a proposta desenvolvida neste trabalho,
 é possível escrever regras de formatação que quebrem a sintaxe e
 semântica da linguagem que está sendo formatada.
 Por exemplo,
-na linguagem ``Go'' \cite{programmingLanguageGolang},
+na linguagem ``\mintinline{text}|Go|'' \cite{programmingLanguageGolang},
 diferentemente de todas as demais linguagens,
-é um erro de sintaxe adicionar a chave ``\{'' de abertura de bloco em uma linha nova.
+é um erro de sintaxe adicionar a chave ``\mintinline{text}|{|'' de abertura de bloco em uma linha nova.
 Por isso,
-um formatador de código~=fonte para linguagem ``Golang'',
-não deveria permitir a configuração de colocar a chave de abertura de blocos ``\{'' em uma nova linha.
+um formatador de código~=fonte para linguagem ``\mintinline{text}|Golang|'',
+não deveria permitir a configuração de colocar a chave de abertura de blocos ``\mintinline{text}|{|'' em uma nova linha.
 
 Utilizando~=se as ferramentas usuais de formatação,
 fica impedido que configurações do usuário cause erros sintáticos ou
@@ -123,9 +123,9 @@ o resultado da formatação inteiramente controlado pelo valor de um número int
 
 A atual estrutura de composição dos formatadores de código~=fonte não suporta que diversos formatadores realizem a formatação simultaneamente.
 Somente um formatador,
-que estende da classe ``AbstractFormatter'' pode estar em funcionamento (\fullref{section:AnalisadorSemantico}).
+que estende da classe ``\mintinline{text}|AbstractFormatter|'' pode estar em funcionamento (\fullref{section:AnalisadorSemantico}).
 Entretanto,
-este formatador recebe como parâmetro de sua função ``format\_text'',
+este formatador recebe como parâmetro de sua função ``\mintinline{text}|format_text|'',
 o trecho de código~=fonte a ser formatado e
 o escopo dele.
 Com essas informações ele poderia em tese,
@@ -170,10 +170,10 @@ otimizar o desempenho em tempo de execução,
 uma vez que os algoritmos e
 estratégias adotas não levaram estes pontos em consideração;
 \item Corrigir erros de interpretação da metalinguagem ou
-da especificação da metagramática quando alguns operadores como ``scope'' que tem um uso opcional,
+da especificação da metagramática quando alguns operadores como ``\mintinline{text}|scope|'' que tem um uso opcional,
 são omitidos (\fullref{section:AnalisadorSemantico});
-\item Implementar operadores como ``captures'' e
-``set'' para tornar o uso da metalinguagem mais fácil ou
+\item Implementar operadores como ``\mintinline{text}|captures|'' e
+``\mintinline{text}|set|'' para tornar o uso da metalinguagem mais fácil ou
 melhorar o seu desempenho em casos de uso específicos \cite{sublimeTextSyntax};
 \item Adicionar suporte à especificação de múltiplos escopos a um mesmo trecho de código \cite{vsCodeSyntaxHighlighthing},
 definindo alguma estrutura de dados adequada,
@@ -183,12 +183,12 @@ Permitindo que estas operações possam ser utilizadas nos arquivos de configura
 melhorando o controle do usuário sobre a formatação de código~=fonte em conjunto com a gramática especificada;
 \item Melhorar a legibilidade e
 facilitar a escrita das gramáticas,
-removendo a necessidade de chaves de abertura ``\{'' e
-fechamento ``\}'' de blocos (alterando a metagramática (\fullref{section:metalinguagemGrammar}),
+removendo a necessidade de chaves de abertura ``\mintinline{text}|{|'' e
+fechamento ``\mintinline{text}|}|'' de blocos (alterando a metagramática (\fullref{section:metalinguagemGrammar}),
 fazendo a separação de blocos ser feita de acordo com a indentação como em linguagens como Python e
 YAML;
 \item Realizar a criação de uma nova estrutura de dados para representar o programa de entrada e
-avaliar se esta nova estrutura de dados é capaz de substituir utilização do caractere ``§'' em conjunto com a classe padrão de \textit{string} da linguagem Python (aumentado a eficiência dos algoritmos de análise do programa de entrada a ser formatado (\fullref{section:desempenhoDoFormator}).
+avaliar se esta nova estrutura de dados é capaz de substituir utilização do caractere ``\mintinline{text}|§|'' em conjunto com a classe padrão de \textit{string} da linguagem Python (aumentado a eficiência dos algoritmos de análise do programa de entrada a ser formatado (\fullref{section:desempenhoDoFormator}).
 \item Implementar uma interface de linha de comando (CLI, \typeref{section:softwareImplementationVisaoGeral}) que:
 \begin{inparaenum}[1)]
 \item automaticamente faça o carregamento de todas as gramáticas definidas em um diretório especificado;

@@ -121,9 +121,9 @@
     Uma possível implementação para tal ajuste fino,
     pode ser uma configuração específica como por exemplo a entrada booleana ``\mintinline{text}|use_spaces_after_if|'',
     em um arquivo de configuração para definir caso deva~=se ou
-    não adicionar espaços após cada ``if'' ao fazer a formatação da linguagem,
+    não adicionar espaços após cada ``\mintinline{text}|if|'' ao fazer a formatação da linguagem,
     i.e.,
-    ``if (var)'' ao contrário de ``if(var)''.
+    ``\mintinline{text}|if (var)|'' ao contrário de ``\mintinline{text}|if(var)|''.
 }
 
 \lang{
@@ -384,7 +384,7 @@ Uncrustify é capaz de formatar as linguagens:
 \item VALA.
 \end{inparaenum}%
 De acordo com o site \citetitle{uncrustifyWebSite},
-a versão ``0.69.0'' possui 671 configurações para personalizar a formatação do código~=fonte como mostrado no \typeref{code:uncrustifySettingSample}.
+a versão ``\mintinline{text}|0.69.0|'' possui 671 configurações para personalizar a formatação do código~=fonte como mostrado no \typeref{code:uncrustifySettingSample}.
 
 Existem muitas ferramentas e\slash{}ou editores de texto,
 e cada uma dessas ferramentas possui suas vantagens e
@@ -428,7 +428,7 @@ pode~=se visualizar as mudanças no código~=fonte exemplo carregado.
 Entretanto,
 a ferramenta proposta por \citeonline{universalIndentGUI} enfrenta problemas como as limitações de sua interface gráfica.
 Como já mencionado na \typeref{section:trabalhosRelacionados},
-Uncrustify na sua versão ``0.69.0'' possui 671 configurações de formatação de código~=fonte,
+Uncrustify na sua versão ``\mintinline{text}|0.69.0|'' possui 671 configurações de formatação de código~=fonte,
 mas a interface gráfica de \citeonline{universalIndentGUI},
 não possui \advisor{tal número de}{nem próximo de tantas} opções de configuração.
 
@@ -507,7 +507,7 @@ ieMinutes[O79].style;O63.top=l61[O79]+O76+(O79*O75)
 \end{quadro}
 
 Dentre as utilidades dos Ofuscadores está minimizar a quantidade de dados transmitidos entre um Servidor e
-um Cliente Web ao reduzir o tamanho dos arquivos de linguagens como \textit{JavaScript},
+um Cliente Web ao reduzir o tamanho dos arquivos de linguagens como \mintinline{text}|JavaScript|,
 quando eles são baixados pelos Navegadores de Internet ao acessar um site que utiliza essas linguagens de script.
 Como exemplo,
 pode~=se imaginar um arquivo com grande volume de comentários\advisor{.}{
@@ -521,8 +521,8 @@ mais.
 Eventualmente,
 existem linguagens onde o uso de ofuscadores apresenta limitações.
 Por exemplo,
-diferente da linguagem \textit{JavaScript} utilizada no \typeref{frame:exemploDeOfuscador},
-a sintaxe da linguagem YAML\footnote{
+diferente da linguagem \mintinline{text}|JavaScript| utilizada no \typeref{frame:exemploDeOfuscador},
+a sintaxe da linguagem \mintinline{text}|YAML|\footnote{
 Do inglês,
 \textit{YAML Ain't Markup Language},
 i.e.,
@@ -535,7 +535,7 @@ removendo~=se as indentações e
 linhas novas. Entretanto,
 mesmo sem esses elementos chave,
 ainda pode~=se introduzir caos removendo todos os comentários e
-renomeando variáveis para nomes \advisor{sem significado de uso}{obtusos\footnote{Sem significado de uso.}} como ``A88''.
+renomeando variáveis para nomes \advisor{sem significado de uso}{obtusos\footnote{Sem significado de uso.}} como ``\mintinline{text}|A88|''.
 
 
 \section{Adição de Cores}
@@ -561,19 +561,19 @@ permitem que seus usuários escrevam as gramáticas das linguagens nas quais se 
 dentro do editor com suporte a adição de cores ao elementos do texto.
 Este processo é separado por dois ``arquivos de configuração'':
 \begin{inparaenum}[1)]
-\item o arquivo ``.sublime-syntax'' que contém propriamente a gramática da linguagem;
-\item o arquivo ``.sublime-color-scheme'' que contém as configurações de estilo para serem aplicados à uma ou
+\item o arquivo ``\mintinline{text}|.sublime-syntax|'' que contém propriamente a gramática da linguagem;
+\item o arquivo ``\mintinline{text}|.sublime-color-scheme|'' que contém as configurações de estilo para serem aplicados à uma ou
 mais gramáticas de diversas linguagens.
 \end{inparaenum}%
-Seguindo convenções de na escrita dos arquivos ``.sublime-syntax'' \cite{sublimeTextScopeNaming} e
-``.sublime-color-scheme'' \cite{sublimeTextColorSchemes},
-é possível utilizar um único arquivo ``.sublime-color-scheme'' com diversas gramáticas diferentes (``.sublime-syntax'').
-Também é possível utilizar um único arquivo  de gramática (``.sublime-syntax'') com diversas configurações de cores ou
-estilos diferentes (``.sublime-color-scheme'').
+Seguindo convenções de na escrita dos arquivos ``\mintinline{text}|.sublime-syntax|'' \cite{sublimeTextScopeNaming} e
+``\mintinline{text}|.sublime-color-scheme|'' \cite{sublimeTextColorSchemes},
+é possível utilizar um único arquivo ``\mintinline{text}|.sublime-color-scheme|'' com diversas gramáticas diferentes (``\mintinline{text}|.sublime-syntax|'').
+Também é possível utilizar um único arquivo  de gramática (``\mintinline{text}|.sublime-syntax|'') com diversas configurações de cores ou
+estilos diferentes (``\mintinline{text}|.sublime-color-scheme|'').
 
 Como o código~=fonte do editor \citeonline{sublimeTextSyntax} é proprietário,
-\citeonline{rustSublimeTextSyntaxSyntec} fez a implementação de uma versão de código~=aberto que reconhece os arquivos de gramática (``.sublime-syntax'') e
-configurações de estilo (``.sublime-color-scheme'') do editor \citeonline{sublimeTextSyntax}.
+\citeonline{rustSublimeTextSyntaxSyntec} fez a implementação de uma versão de código~=aberto que reconhece os arquivos de gramática (``\mintinline{text}|.sublime-syntax|'') e
+configurações de estilo (``\mintinline{text}|.sublime-color-scheme|'') do editor \citeonline{sublimeTextSyntax}.
 A iniciativa de \citeonline{rustSublimeTextSyntaxSyntec} aconteceu porque mesmo o editor de texto \citeonline{sublimeTextSyntax} sendo de código~=fechado,
 ele possui um grande número gramáticas e
 arquivos de estilo criados pelos seus usuários.
@@ -621,7 +621,7 @@ Do inglês,
 } \cite{complexityOfXMLSchema} para representar as gramáticas e
 estilos,
 \citeonline{sublimeTextSyntax} faz uso do formato YAML \cite{yamlSpecificModelChecking} para gramáticas e
-JSON para estilos (``.sublime-color-scheme'').
+JSON para estilos (``\mintinline{text}|.sublime-color-scheme|'').
 
 Tanto YAML quanto XML são equivalentes e
 podem representar a mesma informação sobre as gramáticas especificadas,
@@ -634,8 +634,8 @@ Escolheu~=se mostrar um exemplo de gramática e
 estilo utilizados por \citeonline{sublimeTextSyntax} porque dos três trabalhos:
 \begin{inparaenum}[1)]
 \item ele é consegue especificar mais diferentes tipos de gramáticas (pelos novos operadores adicionados,
-como ``set'' e
-``branch'' \cite{branchTemporarilyHighlightsWrong}) e;
+como ``\mintinline{text}|set|'' e
+``\mintinline{text}|branch|'' \cite{branchTemporarilyHighlightsWrong}) e;
 \item utiliza YAML para representar suas gramáticas,
 tornando a leitura dos arquivos muito mais amigável do que XML,
 como utilizado pelos outros trabalhos \cite{textMateEditor,vsCodeSyntaxHighlighthing}.
@@ -651,11 +651,11 @@ este arquivo já é suficiente para encontrar as palavras~=chaves:
 \item e
 ``\mintinline{text}|while|'',
 \end{inparaenum}%
-com o ``escopo \mintinline{text}|keyword.control.c|'' de uma certa linguagem chamada ``C'',
-onde os arquivos dela possuem as extensões ``.c'' e
-``.h''.
+com o escopo ``\mintinline{text}|keyword.control.c|'' de uma certa linguagem chamada ``\mintinline{text}|C|'',
+onde os arquivos dela possuem as extensões ``\mintinline{text}|.c|'' e
+``\mintinline{text}|.h|''.
 \begin{code}
-\caption{Exemplo de um arquivo ``.sublime-syntax''}
+\caption{Exemplo de um arquivo ``\mintinline{text}|.sublime-syntax|''}
 \label{code:exemploDeUmArquivoSublimeSyntax}
 \begin{minted}{yaml}
 %YAML 1.2
@@ -674,13 +674,13 @@ contexts:
 \vspace{13pt}
 \end{code}
 
-Uma vez que o \typeref{code:exemploDeUmArquivoSublimeSyntax} classificou as palavras~=chave com o ``escopo \mintinline{text}|keyword.control.c|'',
+Uma vez que o \typeref{code:exemploDeUmArquivoSublimeSyntax} classificou as palavras~=chave com o escopo ``\mintinline{text}|keyword.control.c|'',
 um editor de texto precisa somente mais de um arquivo de configuração para determinar como estas palavras~=chave devem ser exibidas.
 No \typeref{code:exemploDeUmArquivoSublimeColorScheme},
 encontra~=se um exemplo de arquivo JSON de configuração de estilos.
 Nele,
 há a definição de três tipos de estilo diferentes.
-O último deles aplica ao nosso ``escopo \mintinline{text}|keyword.control.c|'',
+O último deles aplica ao nosso escopo ``\mintinline{text}|keyword.control.c|'',
 a cor de texto ``\mintinline{text}|#7F00FF|'' (RGB hexadecimal),
 com o estilo de fonte ``\textit{itálico}''.
 
@@ -691,7 +691,7 @@ e uma gramática pode ser utilizada com muitos arquivos de estilo diferentes,
 sempre poderão acontecer casos onde nem todas os escopos da gramática serão utilizados e
 nem todos os escopos dos arquivos de estilo serão utilizados.
 \begin{code}
-\caption{Exemplo de um arquivo ``.sublime-color-scheme''}
+\caption{Exemplo de um arquivo ``\mintinline{text}|.sublime-color-scheme|''}
 \label{code:exemploDeUmArquivoSublimeColorScheme}
 \begin{minted}{json}
 {

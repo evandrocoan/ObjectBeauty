@@ -62,7 +62,7 @@ Por isso,
 em alguns lugares do código~=fonte é encontrado o nome ``pushdown'' ao invés de ``lark''.
 Já em outros,
 Lark continua sendo chamado de Lark para simplificar a retrocompatibilidade com a biblioteca original e
-facilitar a realização da integração de novos updates vindos do repositório original do Analisador Lark para o \textit{fork} realizado.
+facilitar a realização da integração de novas atualizações vindos do repositório original do Analisador Lark para o \textit{fork} realizado.
 
 
 \section{Visão Geral}
@@ -76,13 +76,13 @@ sem se preocupar com detalhes básicos do funcionamento do formatador de código
 No \typeref{code:exemploDeUmProgramaNaLinguagemJava},
 é apresentado um programa completo e
 funcional na linguagem Java,
-que imprime ``Hello World!'' quando chamado sem nenhum argumento de linha de comando (CLI\footnote{
+que imprime ``\mintinline{text}|Hello World!|'' quando chamado sem nenhum argumento de linha de comando (CLI\footnote{
 Do inglês,
 \textit{Command Line Interface}.
 },
 \cite{commandLineInterface}).
 Quando este mesmo programa Java é chamado com qualquer número de argumentos pela linha de comando,
-ele imprime ``Bye World!'' na saída padrão.
+ele imprime ``\mintinline{text}|Bye World!|'' na saída padrão.
 \begin{code}
 \caption{Exemplo de um programa na linguagem Java}
 \label{code:exemploDeUmProgramaNaLinguagemJava}
@@ -116,8 +116,8 @@ como o exemplo em Java apresentado no \typeref{code:exemploDeUmProgramaNaLinguag
 Inicia~=se a com a apresentação de uma simplificação da metagramática utilizada neste trabalho.
 A metagramática completa pode encontrada no \typeref{chapter:codigoDaMetagramatica}.
 Ela segue as mesmas regras do Analisador Lark explicadas na \fullref{section:introducaoGramaticas}.
-Uma melhor descrição do uso dos operadores ``match'' e
-``scope'' definidos por essa metagramática,
+Uma melhor descrição do uso dos operadores ``\mintinline{text}|match|'' e
+``\mintinline{text}|scope|'' definidos por essa metagramática,
 podem ser encontrados mais tarde na \fullref{section:metalinguagemGrammar}.
 \begin{code}
 \caption{Exemplo mínimo da metagramática}
@@ -218,7 +218,7 @@ parseit(
 \end{code}
 
 Na \typeref{figure:arvoreSintaticaDaGramaticaDaMetagramatica} é apresentado a Árvore Sintática da gramática construída no programa Python de exemplo no \typeref{code:exemploDeUsoDaMetagramaticaEUmaGramatica}.
-Com uma Árvore Sintática agora pode~=se programaticamente iterar pelos nós da árvore e
+Com uma Árvore Sintática agora pode~=se programaticamente navegar pelos nós da árvore e
 fazer uso do conteúdo dos nós em algum algoritmo específico.
 \begin{figure}[H]
 \caption{Árvore Sintática do \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica} criada pelo \typeref{code:exemploDeUsoDaMetagramaticaEUmaGramatica}}
@@ -232,6 +232,7 @@ Assumindo que neste ponto,
 o programa (gramática) já está semanticamente validado,
 utiliza~=se a Árvore Sintática Abstrata da gramática da linguagem do código~=fonte (\typeref{code:exemploDeUmProgramaNaLinguagemJava}) para construir algum algoritmo ou
 estratégia que possa ser utilizada para realizar a formatação do código~=fonte inicialmente apresentado no \typeref{code:exemploDeUmProgramaNaLinguagemJava}.
+
 Seguindo a mesma estratégia utilizada por editores de texto em suas gramáticas (\fullref{section:sourceCodeHighlightersGrammars}),
 realizar~=se o consumo do programa de entrada,
 removendo dele as estruturas descritas pela gramática no \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica},
@@ -262,7 +263,8 @@ terminando a reconhecimento do programa de entrada pela gramática utilizada.
 \fi
 
 Ao fazer o processo de reconhecimento do programa de entrada,
-remove~=se os caracteres reconhecidos substituíndo eles por algum outro caractere de marcação (como ``§'') para que não altere~=se o tamanho original do programa de entrada.
+remove~=se os caracteres reconhecidos,
+substituíndo eles por algum outro caractere de marcação (como ``\mintinline{text}|§|'') para que não altere~=se o tamanho original do programa de entrada.
 No \typeref{code:resultadoDoReconhecimentoDoProgramaJava} se pode ver como o programa original (\typeref{code:exemploDeUmProgramaNaLinguagemJava}) ficou ao final do processo de reconhecimento pela gramática no \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica}.
 Essa foi uma estratégia utilizada para se possa no final do processo de formatação se possa facilmente reintroduzir no programa os novos trechos de código~=fonte que foram formatados.
 \begin{code}
@@ -307,7 +309,7 @@ atribuíndo escopos (\typeref{section:sourceCodeHighlightersGrammars}) para cada
 Uma vez que o trecho de código~=fonte ``removido'' possui um escopo atribuído,
 um arquivo de configurações JSON como \typeref{code:exemploDeConfiguracaoUtilizadaMinimaDoFormatadorDeCodigo} é consultado.
 Caso exista uma ``configuração'' relacionada ao escopo recém~=reconhecido,
-o trecho de código~=fonte é enviado para um formatador especializado de código~=fonte como \typeref{code:exemploMinimoDeFormatadorDeCodigo}.
+o trecho de código~=fonte é enviado para um formatador especializado de código~=fonte como o \typeref{code:exemploMinimoDeFormatadorDeCodigo}.
 \begin{code}
 \caption{Exemplo de configuração utilizada mínima do Formatador de Código}
 \label{code:exemploDeConfiguracaoUtilizadaMinimaDoFormatadorDeCodigo}
@@ -345,7 +347,7 @@ Como pode~=se perceber,
 esta formatação realizada não foi muito significativa.
 Entretanto,
 está~=se trabalhando várias simplificações de implementação.
-Em trabalhos futuros a este (\fullref{section:trabalhosFuturos}) se necessita criar maiores abstrações que permitam trabalhar com gramáticas de linguagens utilizado uma pilha de múltiplos contextos (\fullref{section:metalinguagemGrammar}),
+Para trabalhos futuros a este (\fullref{section:trabalhosFuturos}) é necessário criar maiores abstrações que permitam trabalhar com gramáticas de linguagens utilizado uma pilha de múltiplos contextos (\fullref{section:metalinguagemGrammar}),
 com já feito em editores de texto (\fullref{section:sourceCodeHighlighters}) que serviram de inspiração a este trabalho.
 \begin{code}
 \caption{Resultado do Formatador de Código para Java}
@@ -394,7 +396,7 @@ exceto por detalhes de implementação específicos de cada analisador.
 }
 
 Para realizar a implementação da nova ferramenta de formatação de código~=fonte,
-foi realizado a construção de uma nova gramática de gramáticas de uma nova linguagem chamada de ``ObjectBeauty'',
+foi realizado a construção de uma nova gramática de gramáticas de uma nova linguagem chamada de ``\mintinline{text}|ObjectBeauty|'',
 uma metalinguagem \cite{compilersCompilerMetaLanguage}.
 Na \typeref{figure:MyWorflowForLarkTraduzido},
 é apresentado o fluxo de uso comum para um analisador.
@@ -459,19 +461,31 @@ Neste novo fluxo,
 Entre eles,
 foi adicionado o ``Gerador de Formadores'',
 que é a criação de um novo tipo de Analisador de propósito específico,
-para uma nova DSL\footnote{
+para uma DSL\footnote{%
 Do inglês,
 \textit{Domain-Specific Language}.
 } \cite{areThereDomainSpecificLanguages,yamlSpecificModelChecking},
-linguagem de propósito específico (neste caso,
+uma linguagem de propósito específico (neste caso,
 a linguagem de uma gramática,
-uma metagramática).
+uma metalinguagem).
 
-Essa nova DSL trata~=se de uma nova especificação de gramáticas,
+Essa DSL trata~=se de uma especificação de gramáticas\footnote{
+Assim como DSL\s,
+estas gramáticas também são de para um propósito específico e
+não poderiam ser utilizadas para descrever linguagens de propósito geral,
+i.e.,
+a criação de outras metagramáticas de propósito geral \cite{turingCompleteRegularLanguages}.
+},
 baseada nas gramáticas já utilizadas por editores de texto para adicionar cores aos códigos~=fontes exibidos em sua interface gráfica (\fullref{section:sourceCodeHighlightersGrammars}).
 Diferente das gramáticas já utilizadas por editores de texto para adicionar cores,
-é criada uma nova especificação de gramáticas para que no futuro ela posso conter recursos específicos para formatação de código~=fonte (e não adição de cores),
-e para que ela não seja dependentes de características de linguagens como YAML ou
+é criada uma nova especificação de gramáticas para que no futuro ela posso conter recursos específicos para formatação de código~=fonte\footnote{
+\advisor{Não}{A final,
+não} é objetivo deste trabalho fazer a análise completa de programas,
+pela sua sintaxe, semântica,
+e gerar código~=binário executável (\typeref{section:compiladoresEtradutores}).
+}
+(e não adição de cores),
+e para que ela não seja dependente de características de linguagens como YAML ou
 XML utilizada pelos editores de texto para especificação de suas gramáticas (\fullref{section:sourceCodeHighlighters}).
 
 Usualmente,
@@ -480,18 +494,9 @@ entretanto,
 neste contexto Lark é utilizado como um compilador de compiladores (\typeref{figure:MyWorflowForLarkTraduzido2}).
 A vantagem de utilizar outro analisador (Lark) para criar outro analisador (Gerador de Formatadores),
 é que a gramática de especificação do Gerador de Formatadores pode usufruir da flexibilidade que a utilização que analisadores trazem na especificação das gramáticas de uma linguagem.
-A facilidade em alterar gramática da linguagem utilizada,
+A facilidade em alterar a gramática da linguagem utilizada,
 neste caso,
 a gramática de gramáticas (ou metagramática).
-
-Em vez de permitir que o usuário final da aplicação opere diretamente com o analisador da \typeref{figure:MyWorflowForLarkTraduzido},
-foi criado uma nova metagramática (uma gramática de gramáticas) como mostrado nas \typeref{figure:MyWorflowForLarkTraduzido2}.
-Esta nova metagramática simplifica o processo de escrita de gramáticas ao criar uma nova especificação de gramáticas,
-somente com os recursos necessários para que se possa trabalhar com formatação de código~=fonte.
-\advisor{Não}{A final,
-não} é objetivo deste trabalho fazer a análise completa de programas,
-pela sua sintaxe, semântica,
-e gerar código~=binário executável.
 
 Na \typeref{figure:ParsersPublicAudienceTraduzido},
 pode~=se encontrar uma relação entre o funcionamento das diversas partes da ferramenta de Formatação de Código e
@@ -592,25 +597,33 @@ não ser aceita pelo analisador).
 
 Como já explicado no início desta seção (\typeref{section:GrammarsGrammar}),
 a ligação direta entre a gramática e
-a palavra da linguagem não precisa acontecer diretamente com analisador \typeref{figure:MetacompilerMetagrammarMetaprogram}.
+a palavra da linguagem não precisa acontecer diretamente com o analisador da \typeref{figure:MetacompilerMetagrammarMetaprogram}.
 Caso o analisador suporte,
 ao contrário de pedir para que o analisador gere o código~=fonte de um Analisador Léxico e
 Sintático (e funcione como um Compilador de Compiladores),
 ele pode ser utilizado diretamente recebendo como entrada a gramática da linguagem e
 uma palavra para análise,
-retornando uma Árvore Sintática como resultado processo ou
+retornando uma Árvore Sintática como resultado do processo ou
 erro de análise caso a palavra de entrada não pertença a linguagem.
 
-A existência do processo de receber como entrada a gramática de um linguagem e
+A existência do processo de receber somente como entrada a gramática de uma linguagem e
 gerar código~=fonte de um Analisador Léxico e
-Sintático capaz de receber um programa de entrada e
+Sintático,
+capaz de receber um programa de entrada e
 gerar uma Árvore Sintática,
 é o que caracteriza um ``Analisador'' como um ``Compilador de Compiladores''.
 Quando um ``Analisador'' não é capaz de gerar código~=fonte de um Analisador Léxico e
-Sintática,
-ele recebe como entrada diretamente a gramática e
-a palavra da linguagem e
-devolve como resultado a Árvore Sintática do programa de entrada ou
+Sintático somente a partir de uma gramática de entrada,
+ele não é um ``Compilador de Compiladores''.
+Trata~=se somente de um ``Analisador'',
+que então precisa receber como entrada diretamente a gramática e
+a palavra da linguagem a ser analisada\footnote{
+A título de curiosidade,
+o Analisador Lark deste trabalho foi utilizado como um Analisador,
+entretanto Lark é capaz de funcionar tanto como um Analisador ou
+como um Compilador de Compiladores \cite{antlrBookTerrentParr}.
+}.
+Para então devolver como resultado a Árvore Sintática do programa de entrada ou
 um erro de análise,
 caso programa de entrada não pertença a linguagem da gramática.
 
@@ -625,23 +638,23 @@ compilador de compiladores.
 Nesta seção será discutido como a metalinguagem (especificada pela metagramática) utilizada foi construída,
 começando com o seu símbolo inicial.
 No \typeref{code:simboloInicialDaMetagramatica},
-defini~=se que o programa é constituído de três grandes áreas,
+a metagramática defini que o programa é constituído de três grandes áreas,
 que devem acontecer uma em sequência da outra:
 \begin{enumerate}
-\item A produção ``preamble\_statements'' define características globais da gramática como um nome,
+\item A produção ``\mintinline{text}|preamble_statements|'' define características globais da gramática como um nome,
 e um escopo que será atribuído a toda gramática;
-\item A produção ``language\_construct\_rules'' define qual será o símbolo inicial da gramática.
-Em comparação com linguagens de programação como ``C'',
-ele pode ser considerado similar ao método ``main'';
-\item A produção ``miscellaneous\_language\_rules'' permite a definição de diversos contextos\footnote{
+\item A produção ``\mintinline{text}|language_construct_rules|'' define qual será o símbolo inicial da gramática.
+Em comparação com linguagens de programação como ``\mintinline{text}|C|'',
+ele pode ser considerado similar ao método ``\mintinline{text}|main|'';
+\item A produção ``\mintinline{text}|miscellaneous_language_rules|'' permite a definição de diversos contextos\footnote{
 Contexto refere~=se a um bloco de operadores ou
-conjunto de instruções como ``include'' e
-``match''.
+conjunto de instruções como ``\mintinline{text}|include|'' e
+``\mintinline{text}|match|''.
 } com grupos de produções da gramática (\fullref{item:definicaoDeGramatica}),
-que podem ser incluídos a partir do símbolo inicial da gramática definido no item ``language\_construct\_rules''.
+que podem ser incluídos a partir do símbolo inicial da gramática definido no item ``\mintinline{text}|language_construct_rules|''.
 \end{enumerate}%
 \begin{code}
-\caption{Simbolo Inicial da Metagramática ``ObjectBeauty''}
+\caption{Simbolo Inicial da Metagramática ``\mintinline{text}|ObjectBeauty|''}
 \label{code:simboloInicialDaMetagramatica}
 \begin{minted}{antlr}
 language_syntax: _NEWLINE? preamble_statements _NEWLINE?
@@ -664,23 +677,30 @@ master_scope_name_statement: "scope" ": " free_input_string
 \end{code}
 
 Entre os \typeref{code:exemploDeGramaticaPawn1,code:exemploDeGramaticaPawn2,code:exemploDeGramaticaPawn3,code:exemploDeGramaticaPawn4},
-encontram~=se pequenos exemplos de gramáticas escritas na metalinguagem ``ObjectBeauty'' brevemente apresentada.
+encontram~=se pequenos exemplos de gramáticas escritas na metalinguagem ``\mintinline{text}|ObjectBeauty|'' brevemente apresentada.
 No \typeref{code:exemploDeGramaticaPawn1},
 encontra~=se a definição do símbolo inicial da gramática da linguagem sendo descrita (pela metagramática) e
-pode~=se ver a metalinguagem sendo utilizada para definir uma linguagem chamada de ``Abstract Machine Language''.
+pode~=se ver a metalinguagem sendo utilizada para definir uma linguagem chamada de ``\mintinline{text}|Abstract Machine Language|''.
 Por padrão,
-toda gramática ``ObjectBeauty'' precisa ter um contexto inicial ou
-símbolo inicial chamado de ``contexts''.
+toda gramática ``\mintinline{text}|ObjectBeauty|'' precisa ter um contexto inicial ou
+símbolo inicial chamado de ``\mintinline{text}|contexts|''.
 
 Como já inicialmente aprendizado na \typeref{section:sourceCodeHighlightersGrammars},
 na \typeref{figure:TexMateScopes} é mostrado na primeira linha o trecho de código~=fonte ``\mintinline{text}|function f1 () {|'' e
 nas demais linhas são apresentados as diversas classificações de escopos aplicados a cada um dos trechos do código~=fonte de amostra.
 Por exemplo,
-a palavra ``function'' possui simultaneamente os escopos:
+a palavra ``\mintinline{text}|function|'' possui simultaneamente os escopos:
 \begin{inparaenum}[1)]
-\item ``source.js'';
-\item ``meta.function.js'' e;
-\item ``storage.type.function.js''.
+\item ``\mintinline{text}|source.js|'';
+\item ``\mintinline{text}|meta.function.js|'' e;
+\item ``\mintinline{text}|storage.type.function.js|''.
+\end{inparaenum}%
+Enquanto o caractere ``\mintinline{text}|{|'' possui simultaneamente os escopos:
+\begin{inparaenum}[1)]
+\item ``\mintinline{text}|source.js|'';
+\item ``\mintinline{text}|meta.function.js|'';
+\item ``\mintinline{text}|meta.block.js|'' e;
+\item ``\mintinline{text}|punctuation.definition.block.js|''.
 \end{inparaenum}%
 \begin{figure}[!htb]
 \caption{Exemplo de classificação de código~=fonte com múltiplos escopos}
@@ -704,20 +724,20 @@ onde são especificados os nomes dos escopos serão utilizados para especificar 
 \advisor{}{Para mais informações sobre a utilização de arquivos de temas em editores de texto veja \citeonline{sublimeTextScopeNaming,vsCodeSyntaxHighlighthing}.}
 
 O \typeref{code:exemploDeGramaticaPawn1},
-faz uso dos operadores ``include'' e
-``match''.
-O operador ``include'' serve para incluir partes de outras gramáticas ou
+faz uso dos operadores ``\mintinline{text}|include|'' e
+``\mintinline{text}|match|''.
+O operador ``\mintinline{text}|include|'' serve para incluir partes de outras gramáticas ou
 mesmo gramáticas inteiras no contexto da gramática atual.
 Entretanto,
-a implementação de ``include'' realizada neste trabalho somente consegue realizar includes de contextos definidos no mesmo arquivo.
+a implementação de ``\mintinline{text}|include|'' realizada neste trabalho somente consegue realizar includes de contextos definidos no mesmo arquivo.
 No exemplo do \typeref{code:exemploDeGramaticaPawn1},
-o operador ``include'' está incluindo contextos (\typeref{section:metalinguagemGrammar}) da gramática atual que serão definidos mais tarde neste mesmo arquivo.
-Já o operador ``match'' utilizado no final serve para realizar propriamente o reconhecimento do programa de entrada e
-atribuir a ele o escopo ``constant.boolean.language.pawn''.
+o operador ``\mintinline{text}|include|'' está incluindo contextos (\fullref{section:metalinguagemGrammar}) da gramática atual que serão definidos mais tarde neste mesmo arquivo.
+Já o operador ``\mintinline{text}|match|'' utilizado no final serve para realizar propriamente o reconhecimento do programa de entrada e
+atribuir a ele o escopo ``\mintinline{text}|constant.boolean.language.pawn|''.
 
 Mais tarde,
-as informações de escopo atribuídas por operadores como ``match'' e
-``captures'' serão utilizadas pelo formatador de código~=fonte.
+as informações de escopo atribuídas por operadores como ``\mintinline{text}|match|'' e
+``\mintinline{text}|captures|'' serão utilizadas pelo formatador de código~=fonte.
 Com estas informações,
 o Formatador de Código será capaz de realizar as operações de formatação somente sobre os trechos de código~=fonte que o usuário definir.
 Realizando assim,
@@ -739,16 +759,16 @@ contexts: {
 \end{lstlisting}
 
 No \typeref{code:exemploDeGramaticaPawn2},
-é introduzido o uso dos operadores ``push'',
-``meta\_scope'' e
-``pop''.
-O operadores ``push'' e
-``pop'' são responsáveis por manter uma pilha de contextos que permite aplicar um mesmo escopo por várias linhas utilizado o operador ``meta\_scope''.
-A diferença entre o operador ``scope'' e
-``meta\_scope'' é que o operador ``scope'' atribuí o escopo diretamente ao texto reconhecido pelo operador ``match''.
-Já o operador ``meta\_scope'' permite aplicar o escopo a todo o texto desde o primeiro até o último ``match'',
-que desempilha com o operador ``pop'',
-o contexto empilhado inicialmente com um ``push''.
+é introduzido o uso dos operadores ``\mintinline{text}|push|'',
+``\mintinline{text}|meta_scope|'' e
+``\mintinline{text}|pop|''.
+O operadores ``\mintinline{text}|push|'' e
+``\mintinline{text}|pop|'' são responsáveis por manter uma pilha de contextos que permite aplicar um mesmo escopo por várias linhas utilizado o operador ``\mintinline{text}|meta_scope|''.
+A diferença entre o operador ``\mintinline{text}|scope|'' e
+``\mintinline{text}|meta_scope|'' é que o operador ``\mintinline{text}|scope|'' atribuí o escopo diretamente ao texto reconhecido pelo operador ``\mintinline{text}|match|''.
+Já o operador ``\mintinline{text}|meta_scope|'' permite aplicar o escopo a todo o texto desde o primeiro até o último ``\mintinline{text}|match|'',
+que desempilha com o operador ``\mintinline{text}|pop|'',
+o contexto empilhado inicialmente com o operador ``\mintinline{text}|push|''.
 \begin{lstlisting}[caption={Exemplo de Gramática, Contextos},label={code:exemploDeGramaticaPawn2},style=yaml_style]
 parens: {
     match: \( {
@@ -766,14 +786,14 @@ parens: {
 \end{lstlisting}
 
 No \typeref{code:exemploDeGramaticaPawn3},
-é introduzido o uso do operador ``captures''.
-O operador ``captures'' atribuí simultaneamente diversos escopos com uma única expressão regular.
-Cada um dos números listados equivalem a um dos grupos de captura da expressão regular utilizada no operador ``captures''.
-O operador ``scope'' pode ser considerado um caso especial do operador ``captures'' quando utiliza~=se o Grupo de Captura 0.
+é introduzido o uso do operador ``\mintinline{text}|captures|''.
+O operador ``\mintinline{text}|captures|'' atribuí simultaneamente diversos escopos com uma única expressão regular.
+Cada um dos números listados equivalem a um dos grupos de captura da expressão regular utilizada no operador ``\mintinline{text}|captures|''.
+O operador ``\mintinline{text}|scope|'' pode ser considerado um caso especial do operador ``\mintinline{text}|captures|'' quando utiliza~=se o Grupo de Captura 0.
 
 Motores de expressões regulares geralmente suportam um recurso chamado de Grupos de Captura \cite{expressionGrammarsWithRegexLikeCaptures}.
 Por exemplo,
-a expressão regular ``foo(bar)zoo(car)'' possuí 3 grupos de captura quando analisado o texto de entrada ``foobarzoocar'':
+a expressão regular ``\mintinline{text}|foo(bar)zoo(car)|'' possuí 3 grupos de captura quando analisado o texto de entrada ``\mintinline{text}|foobarzoocar|'':
 \begin{inparaenum}[1)]\setcounter{enumi}{-1}
 \item foobarzoocar;
 \item bar;
@@ -781,9 +801,9 @@ a expressão regular ``foo(bar)zoo(car)'' possuí 3 grupos de captura quando ana
 \end{inparaenum}%
 onde o grupo de captura 0 refere~=se a toda a expressão regular encontrada.
 Portanto,
-ao invés de utilizar~=se o operador ``scope:
+ao invés de utilizar~=se o operador ``\mintinline{text}|scope|:
 constant.numeric.pawn'',
-poderia~=se utilizar equivalentemente o operador ``captures:
+poderia~=se utilizar equivalentemente o operador ``\mintinline{text}|captures|:
 0.
 constant.numeric.pawn''.
 \begin{lstlisting}[caption={Exemplo de Gramática, Grupos de Captura},label={code:exemploDeGramaticaPawn3},style=yaml_style]
@@ -800,11 +820,11 @@ numbers: {
 \end{lstlisting}
 
 No \typeref{code:exemploDeGramaticaPawn4},
-são mostrados mais alguns exemplos de uso do operador ``match'' classificando diversos tipos de numéricos (da linguagem sendo descrita pela gramática).
-É importante notar que a ordem na qual os operadores como ``match'' aparecem é importante.
+são mostrados mais alguns exemplos de uso do operador ``\mintinline{text}|match|'' classificando diversos tipos de numéricos (da linguagem sendo descrita pela gramática).
+É importante notar que a ordem na qual os operadores como ``\mintinline{text}|match|'' aparecem é importante.
 Ao realizar o reconhecido o programa de entrada utilizando esta gramática,
 a Árvore Sintática Abstrata \cite{ahoCompilerDragonBook} será interpretada diversas vezes,
-partindo no símbolo inicial até chegar ao último símbolo da gramática.
+partindo do símbolo inicial até chegar ao último símbolo da gramática.
 
 O processo de interpretação irá reiniciar indefinidamente até que nenhum texto seja mais consumido por nenhum dos operadores da gramática.
 Assim,
@@ -863,12 +883,12 @@ somente resta ser implementado o Analisador Semântico para verificar se a lingu
 
 Um Diagrama de Classes é apresentado na \typeref{figure:CodeFormatterClassDiagram}.
 Nele,
-o Analisador Semântico que deriva de ``Transformer'' recebe como entrada a Árvore Sintática do programa de entrada,
+o Analisador Semântico que deriva de ``\mintinline{text}|Transformer|'' recebe como entrada a Árvore Sintática do programa de entrada,
 e uma vez que o Analisador Semântico termina seu trabalho,
 ele devolve Árvore Sintática Abstrata completa.
 Então,
 utilizando a Árvore Sintática Abstrata,
-``Backend'' que deriva de ``Interpreter'',
+``\mintinline{text}|Backend|'' que deriva de ``\mintinline{text}|Interpreter|'',
 realiza a formatação de código~=fonte recebendo um programa de entrada e
 as configurações do formatador (\typeref{figure:ParsersPublicAudienceTraduzido,figure:MetacompilerMetagrammarMetaprogram}).
 \begin{figure}[!htb]
@@ -883,9 +903,9 @@ No \typeref{code:semanticAnalizerConstructor},
 pode~=se ver o construtor do Analisador Semântico.
 Pode~=se notar que seu construtor não recebe como parãmetro a Árvore Sintática.
 Entretanto,
-a ela não é passada pelo construtor mas sim por um método chamado ``transform(tree)''.
+a ela não é passada pelo construtor mas sim por um método chamado ``\mintinline{text}|transform(tree)|''.
 Esta é uma característica do Analisador Lark utilizado.
-A função ``transform(tree)'' do Analisador Lark simplesmente inicia a análise do programa visitando todos os nós da Árvore Sintática,
+A função ``\mintinline{text}|transform(tree)|'' do Analisador Lark simplesmente inicia a análise do programa visitando todos os nós da Árvore Sintática,
 partindo das folhas até chegar na raíz (\fullref{section:compiladoresEtradutores}).
 \begin{code}
 \caption{Construtor do Analisador Semântico}
@@ -936,7 +956,7 @@ class TreeTransformer(pushdown.Transformer):
 \end{minted}
 \end{code}
 
-A visita dos nós da Árvore Sintática pela função ``transform(tree)'' acontece simplesmente chamando os métodos que a classe ``TreeTransformer'' (Definido no \typeref{code:semanticAnalizerConstructor}) define e
+A visita dos nós da Árvore Sintática pela função ``\mintinline{text}|transform(tree)|'' acontece simplesmente chamando os métodos que a classe ``\mintinline{text}|TreeTransformer|'' (Definido no \typeref{code:semanticAnalizerConstructor}) define e
 que possuem os mesmos nomes que os símbolos não~=terminais definidos pela metagramática.
 Então,
 cada nó ou
@@ -946,38 +966,38 @@ no final do processo,
 um a um,
 cada nó da Árvore Sintática será convertido para um nó da Árvore Sintática Abstrata.
 
-Um jeito fácil de excluir um nó da Árvore Sintática é simplesmente definir uma função com o nome de seu não~=terminal que devolve ``null''.
+Um jeito fácil de excluir um nó da Árvore Sintática é simplesmente definir uma função com o nome de seu não~=terminal que devolve ``\mintinline{text}|null|''.
 Por exemplo,
 o trecho da metagramática apresentado no \typeref{code:simboloInicialDaMetagramatica},
-possui alguns símbolos não~=terminais como ``preamble\_statements'' e
-``language\_construct\_rules''. Então,
+possui alguns símbolos não~=terminais como ``\mintinline{text}|preamble_statements|'' e
+``\mintinline{text}|language_construct_rules|''. Então,
 para estes dados símbolos,
-serão chamados os métodos da classe ``TreeTransformer'' que possuem os nomes ``preamble\_statements'' e
-``language\_construct\_rules''.
+serão chamados os métodos da classe ``\mintinline{text}|TreeTransformer|'' que possuem os nomes ``\mintinline{text}|preamble_statements|'' e
+``\mintinline{text}|language_construct_rules|''.
 
-Caso não existam os métodos ``preamble\_statements'' e
-``language\_construct\_rules'' na classe ``TreeTransformer'',
-os nós ``preamble\_statements'' e
-``language\_construct\_rules'' da Árvore Sintática não serão visitados e
+Caso não existam os métodos ``\mintinline{text}|preamble_statements|'' e
+``\mintinline{text}|language_construct_rules|'' na classe ``\mintinline{text}|TreeTransformer|'',
+os nós ``\mintinline{text}|preamble_statements|'' e
+``\mintinline{text}|language_construct_rules|'' da Árvore Sintática não serão visitados e
 ``poderão'' ser excluídos da Análise Semântica (mas não da Árvore Sintática Abstrata).
-Nós não analisados pela classe ``TreeTransformer'' não serão excluídos da Árvore Sintática Abstrata,
+Nós não analisados pela classe ``\mintinline{text}|TreeTransformer|'' não serão excluídos da Árvore Sintática Abstrata,
 eles serão mantidos intactos,
 a não ser que algum outro nó os altere diretamente na Árvore Sintática.
 
-Mesmo que não existam os métodos ``preamble\_statements'' e
-``language\_construct\_rules'' definidos na classe ``TreeTransformer'',
+Mesmo que não existam os métodos ``\mintinline{text}|preamble_statements|'' e
+``\mintinline{text}|language_construct_rules|'' definidos na classe ``\mintinline{text}|TreeTransformer|'',
 eles também podem ser visitados diretamente a partir de algum nó pai ou
 até algum de seus filhos.
 Inclusive,
 esta foi uma das alterações realizadas no \textit{fork} ``pushdown'' do Analisador Lark.
 Por padrão,
-ao iterar pela árvore,
+ao navegar pela árvore,
 o Analisador Lark somente passa como parâmetro da função o nó correspondente ao método atualmente sendo chamado e
 uma lista de nós filhos.
 Entretanto,
 ``pushdown'' também passa um terceiro parâmetro que é uma referência para o nó raíz da árvore e
-mantém a variável ``parent'',
-acessível como um atributo da classe ``TreeTransformer''.
+mantém a variável ``\mintinline{text}|parent|'',
+acessível como um atributo da classe ``\mintinline{text}|TreeTransformer|''.
 
 
 \section{Formatador de Código}
@@ -1026,23 +1046,23 @@ e no caso do Formatador de Código,
 a Árvore Sintática Abstrata.
 
 Diferentemente do Analisador Semântico,
-o Formatador de Código faz herança do tipo ``Interpreter'' em vez de ``Transformer'' (\typeref{figure:CodeFormatterClassDiagram}).
+o Formatador de Código faz herança do tipo ``\mintinline{text}|Interpreter|'' em vez de ``\mintinline{text}|Transformer|'' (\typeref{figure:CodeFormatterClassDiagram}).
 A diferença é simples,
-``Interpreter'' visita a árvore partindo das folhas até chegar na raíz visitando todos os nós filhos (\fullref{section:compiladoresEtradutores}),
-já ``Transformer'' visita a árvore partindo da raíz até chegar nos nós pais,
+``\mintinline{text}|Interpreter|'' visita a árvore partindo das folhas até chegar na raíz visitando todos os nós filhos (\fullref{section:compiladoresEtradutores}),
+já ``\mintinline{text}|Transformer|'' visita a árvore partindo da raíz até chegar nos nós pais,
 i.e.,
-ele não visita os nós filhos automaticamente como ``Transformer'' faz.
+ele não visita os nós filhos automaticamente como ``\mintinline{text}|Transformer|'' faz.
 
-``Interpreter'' também recebe diretamente no construtor qual será a árvore que ele irá iterar sobre.
+``\mintinline{text}|Interpreter|'' também recebe diretamente no construtor qual será a árvore que ele irá navegar sobre.
 Nos demais aspectos,
-``Interpreter'' funciona igual ao ``Transformer'',
-exceto no ponto onde ``Transformer'' cria uma nova árvore no final do processo,
-enquanto ``Interpreter'' não cria árvore alguma.
-O parâmetro chamado ``program'',
-que o construtor de ``Transformer'' recebe,
+``\mintinline{text}|Interpreter|'' funciona igual ao ``\mintinline{text}|Transformer|'',
+exceto no ponto onde ``\mintinline{text}|Transformer|'' cria uma nova árvore no final do processo,
+enquanto ``\mintinline{text}|Interpreter|'' não cria árvore alguma.
+O parâmetro chamado ``\mintinline{text}|program|'',
+que o construtor de ``\mintinline{text}|Transformer|'' recebe,
 é o programa a ser formatado pelo formatador.
 No final processo,
-``Interpreter'' terá em sua variável ``self.program'' o novo programa completamente formatado.
+``\mintinline{text}|Interpreter|'' terá em sua variável ``\mintinline{text}|self.program|'' o novo programa completamente formatado.
 \begin{code}
 \caption{Construtor do Formatador}
 \label{code:construtorDoFormatador}
@@ -1072,16 +1092,16 @@ class Backend(pushdown.Interpreter):
 \end{minted}
 \end{code}
 
-Enquanto ``Interpreter'' é responsável por somente ``passear'' pela Árvore Sintática Abstrata,
-a classe ``AbstractFormatter'' (\typeref{code:construtorDeParsedProgram}) é responsável por realmente fazer a formatação de código~=fonte de acordo com a instruções vindas da Árvore Sintática Abstrata.
+Enquanto ``\mintinline{text}|Interpreter|'' é responsável por somente ``passear'' pela Árvore Sintática Abstrata,
+a classe ``\mintinline{text}|AbstractFormatter|'' (\typeref{code:construtorDeParsedProgram}) é responsável por realmente fazer a formatação de código~=fonte de acordo com a instruções vindas da Árvore Sintática Abstrata.
 No final do processo,
-``AbstractFormatter'' terá na variável ``new\_program'' todos os pedaços do programa formatado.
-Uma vez que ``Interpreter'' termina de construir todos os pedaços de código~=fonte formatado,
-a função ``get\_new\_program'' irá unir dos os pedaços e
-salvá~=los na variável ``cached\_new\_program'',
+``\mintinline{text}|AbstractFormatter|'' terá na variável ``\mintinline{text}|new_program|'' todos os pedaços do programa formatado.
+Uma vez que ``\mintinline{text}|Interpreter|'' termina de construir todos os pedaços de código~=fonte formatado,
+a função ``\mintinline{text}|get_new_program|'' irá unir dos os pedaços e
+salvá~=los na variável ``\mintinline{text}|cached_new_program|'',
 para evitar ter que recalcular o novo programa toda vez que pedir~=se a sua nova versão.
 \begin{code}
-\caption{Construtor de ``AbstractFormatter''}
+\caption{Construtor de ``\mintinline{text}|AbstractFormatter|''}
 \label{code:construtorDeParsedProgram}
 \begin{minted}{python}
 class AbstractFormatter(object):
@@ -1121,10 +1141,10 @@ não seria mais necessário manter o uso da variável ``\mintinline{text}{len( p
 
 Durante o processo de consumo,
 o programa de entrada é modificado e
-os caracteres que foram consumidos pela gramática são substituídos pelo caractere ``§'' para impedir que eles sejam reconsumidos.
-A utilização do caractere ``§'' foi realizada para simplificar a implementação do algoritmo de consumo.
-Com o caractere ``§'' colocado no lugar dos caracteres que já foram consumidos,
-é possível reconstruir o programa de entrada no final da análise simplesmente ordenando todos os pedaços do programa formatado que estão armazenada na variável ``new\_program''.
+os caracteres que foram consumidos pela gramática são substituídos pelo caractere ``\mintinline{text}|§|'' para impedir que eles sejam reconsumidos.
+A utilização do caractere ``\mintinline{text}|§|'' foi realizada para simplificar a implementação do algoritmo de consumo.
+Com o caractere ``\mintinline{text}|§|'' colocado no lugar dos caracteres que já foram consumidos,
+é possível reconstruir o programa de entrada no final da análise simplesmente ordenando todos os pedaços do programa formatado que estão armazenada na variável ``\mintinline{text}|new_program|''.
 Como o tamanho do programa original não foi modificado,
 também é possível facilmente integrar no programa formatado,
 todas as partes do programa original que não foram formatados,

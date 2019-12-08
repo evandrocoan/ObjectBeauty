@@ -105,7 +105,7 @@
     Uma dessas diferenças é a maneira na qual cada programador organiza a estrutura do código~=fonte de acordo com seu estilo de formatação \cite{transformationForDomainSpecificOptimisation}.
     Por exemplo,
     imagine que um certo ``Programador A'' tem o costume de deixar uma linha em branco antes de cada estrutura de controle\advisor{.}{
-    do tipo ``if'', ``for'',
+    do tipo ``\mintinline{text}|if|'', ``\mintinline{text}|for|'',
     etc.
     } Já um outro ``Programador B'',
     possui o costume oposto,
@@ -135,8 +135,8 @@
     certas heurísticas tem sua taxa de acerto reduzida ao fazer o reconhecimento dos padrões.
     }%
     Um exemplo de padrão que estaria prejudicado seria o de rapidamente identificar onde pode estar uma estrutura de controle,\advisor{}{
-    como ``if'' ou
-    ``for''} de acordo com a presença ou
+    como ``\mintinline{text}|if|'' ou
+    ``\mintinline{text}|for|''} de acordo com a presença ou
     não de uma linha em branco antes dela,
     já que a presença de uma linha em branco faz um destacamento maior\advisor{.}{
     sendo facilmente reconhecida como um separador de blocos de código~=fonte \cite{aPrettyGoodFormatting}.}
@@ -145,10 +145,10 @@
 \lang{%
     But again this is something heavily dependent of what each one learning through their life time.
     Imagine another programmer do not liked this rule,
-    and when he was writing your code involving an ``if'',
+    and when he was writing your code involving an ``\mintinline{text}|if|'',
     he did not put such blank line another programmer is expecting.
     So when the first programmer start reading its the code and
-    look for ``if'',
+    look for ``\mintinline{text}|if|'',
     he will be expecting for blank lines before its if\s.
     But will lose some time searching until realize another programmer does not put them,
     or perhaps he forgot to insert them \cite{quantifyingProgramComprehension}.
@@ -212,12 +212,12 @@
             e uma vez que ela aprenda este habito,
             ela provavelmente continuará com ele mesmo depois de comprar um teclado novo.
             Por exemplo,
-            suponha que a sua tecla ``TAB'' não funcione.
+            suponha que a sua tecla ``\mintinline{text}|TAB|'' não funcione.
             Assim,
-            ao invés de somente pressionar ``TAB'' uma vez para indentar seu código~=fonte,
+            ao invés de somente pressionar ``\mintinline{text}|TAB|'' uma vez para indentar seu código~=fonte,
             você ganha habito de pressionar a tecla de espaços 4 vezes.
             Portanto,
-            nasce um motivo para alguém utilizar espaços ao invés ``TAB\s'' para realizar a indentação de seu código~=fonte.
+            nasce um motivo para alguém utilizar espaços ao invés ``\mintinline{text}|TAB|\s'' para realizar a indentação de seu código~=fonte.
         \end{enumerate}
     }
 }
@@ -248,7 +248,7 @@
     permitir que entenda~=se melhor o que cada programador está fazendo,
     todas as vezes que eles formalizam uma nova alteração no código~=fonte,
     por exemplo,
-    através de uma ``commit'' como conhecidas em sistemas \textit{git} \cite{usingSourceControl}.
+    através de uma ``\textit{commit}'' como conhecidas em sistemas \textit{git} \cite{usingSourceControl}.
     }%
     Permitindo que gerentes de projetos e
     os próprios programadores,
@@ -302,7 +302,7 @@
         projeto \cite{quitDiffCalculating}.
 
         Caso todos os programadores decidam re~=escrever o histórico,
-        fazendo mudanças insignificantes como inserindo novas linhas antes de cada ``if'',
+        fazendo mudanças insignificantes como inserindo novas linhas antes de cada ``\mintinline{text}|if|'',
         os programadores precisam dedicar tempo de projeto para formatar o código,
         o que poderia ser evitado e
         utilizado para escrever código~=fonte.
@@ -325,7 +325,7 @@
 
         Portando,
         caso todos os programadores decidam re~=escrever o histórico,
-        fazendo mudanças insignificantes como inserindo novas linhas antes de cada ``if'':
+        fazendo mudanças insignificantes como inserindo novas linhas antes de cada ``\mintinline{text}|if|'':
     \begin{enumerate}
         \item Eles irão desperdiçar um tempo que eles poderiam estar utilizando para escrever código~=fonte;
         \item O histórico \textit{git} irá conter ruídos desnecessários,

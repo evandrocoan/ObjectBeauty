@@ -169,7 +169,7 @@ considere que os símbolos:
     lado direito da produção,
     composto de terminais e\slash{}ou não~=terminais.
     Formalmente define~=se o conjunto de produções de uma gramática pela seguinte regra,
-    onde ``*'' representa o operador de fechamento do conjunto \cite{hopcroftBook}.
+    onde ``\mintinline{text}|*|'' representa o operador de fechamento do conjunto \cite{hopcroftBook}.
     Independente do tipo de gramática,
     está é a definição formal do que é uma gramática em teoria da computação e
     linguagens formais,
@@ -188,15 +188,15 @@ No \typeref{code:ExemploDeGramaticaLark},
 é possível ver um exemplo real de gramática aceito pelo Analisador Lark.
 Esta é uma gramática de uma linguagem finita que aceita 3 palavras:
 \begin{inparaenum}[1)]
-\item ``token sem nome'';
-\item ``token com nome'' e;
-\item ``token com outro nome''.
+\item ``\mintinline{text}|token sem nome|'';
+\item ``\mintinline{text}|token com nome|'' e;
+\item ``\mintinline{text}|token com outro nome|''.
 \end{inparaenum}%
 No Analisador Lark,
-quando um token é declarado diretamente como ``token sem nome'',
+quando um token é declarado diretamente como ``\mintinline{text}|token sem nome|'',
 ele irá ser descartado da Árvore Sintática.
 Como pode ser visto na \typeref{figure:ArvoresDosTokens1},
-a árvore sintática do programa ``token sem nome'',
+a árvore sintática do programa ``\mintinline{text}|token sem nome|'',
 irá conter somente o símbolo inicial da gramática.
 Nas \typeref{figure:ArvoresDosTokens1,figure:ArvoresDosTokens2,figure:ArvoresDosTokens3},
 pode ser visto a Árvore Sintática de cada uma das 3 palavras da linguagem do \typeref{code:ExemploDeGramaticaLark}.
@@ -239,7 +239,7 @@ Enquanto símbolos escritos todos em letras ``minúsculas'' definem os símbolos
 consulte sua documentação \cite{larkGrammarReference,larkStyleCheat}.}
 
 A \typeref{figure:ArvoresDosTokens1},
-representa a Árvore Sintática completa da palavra ``token sem nome'',
+representa a Árvore Sintática completa da palavra ``\mintinline{text}|token sem nome|'',
 que a linguagem da gramática do \typeref{code:ExemploDeGramaticaLark} aceita.
 Como pode ser facilmente percebido,
 ela é uma Árvore Sintática estranha.
@@ -249,7 +249,7 @@ porque ele não está dentro de uma produção de \textit{token} com nome em let
 Este é um recurso do Analisador Lark,
 que permite descartamos da Árvore Sintática \textit{tokens} que julgam~=se desnecessários aparecem na Árvore Sintática.
 \begin{figure}[H]
-\caption{Árvore do Programa ``token sem nome''}
+\caption{Árvore do Programa ``\mintinline{text}|token sem nome|''}
 \label{figure:ArvoresDosTokens1}
 \centering
 % https://tex.stackexchange.com/questions/86350/includegraphics-maximum-width
@@ -258,16 +258,16 @@ que permite descartamos da Árvore Sintática \textit{tokens} que julgam~=se des
 \end{figure}
 
 A \typeref{figure:ArvoresDosTokens2},
-representa a Árvore Sintática completa da palavra ``token com nome'',
+representa a Árvore Sintática completa da palavra ``\mintinline{text}|token com nome|'',
 que a linguagem da gramática do \typeref{code:ExemploDeGramaticaLark} aceita.
 Diferente da Árvore Sintática da \typeref{figure:ArvoresDosTokens2},
-a Árvore Sintática da \typeref{figure:ArvoresDosTokens2} possui como nó folha a palavra ``token com nome''.
+a Árvore Sintática da \typeref{figure:ArvoresDosTokens2} possui como nó folha a palavra ``\mintinline{text}|token com nome|''.
 Porque na gramática da linguagem,
 foi criado especificamente a produção ``\mintinline{text}{TOKEN_COM_NOME:
 "token com nome"}'',
 fazendo com que o Analisador Lark não descarte \textit{token} da Árvore Sintática.
 \begin{figure}[H]
-\caption{Árvore do Programa ``token com nome''}
+\caption{Árvore do Programa ``\mintinline{text}|token com nome|''}
 \label{figure:ArvoresDosTokens2}
 \centering
 \includegraphics[max width=0.799\textwidth]{token_com_nome.png}
@@ -275,12 +275,12 @@ fazendo com que o Analisador Lark não descarte \textit{token} da Árvore Sintá
 \end{figure}
 
 A \typeref{figure:ArvoresDosTokens3},
-representa a Árvore Sintática completa da palavra ``token com outro nome'',
+representa a Árvore Sintática completa da palavra ``\mintinline{text}|token com outro nome|'',
 que a linguagem da gramática do \typeref{code:ExemploDeGramaticaLark} aceita.
 Diferente da Árvore Sintática das \typeref{figure:ArvoresDosTokens1,figure:ArvoresDosTokens2},
 a Árvore Sintática da \typeref{figure:ArvoresDosTokens3},
-apresenta um nó intermediário chamado de ``nodo\_da\_arvore''.
-O nó intermediário ``nodo\_da\_arvore'' é um exemplo de símbolo não~=terminal da gramática.
+apresenta um nó intermediário chamado de ``\mintinline{text}|nodo_da_arvore|''.
+O nó intermediário ``\mintinline{text}|nodo_da_arvore|'' é um exemplo de símbolo não~=terminal da gramática.
 Usualmente,
 os símbolos não~=terminais não são nós~=folhas da Árvore Sintática.
 Entretanto,
@@ -289,7 +289,7 @@ podem existir ramificações da Árvore Sintática na qual símbolos não~=termi
 Reveja também a \typeref{figure:ArvoresDosTokens1},
 nela temos outro exemplo onde um não~=terminal foi um ``nó~=folha'' da Árvore Sintática.
 \begin{figure}[H]
-\caption{Árvore do Programa ``token com outro nome''}
+\caption{Árvore do Programa ``\mintinline{text}|token com outro nome|''}
 \label{figure:ArvoresDosTokens3}
 \centering
 \includegraphics[max width=1.0\textwidth]{token_com_outro_nome.png}
@@ -336,24 +336,24 @@ parseit( '12', "palavra12.png" )
 \end{code}
 
 A \typeref{figure:palavra12},
-representa a Árvore Sintática completa da palavra ``12'',
+representa a Árvore Sintática completa da palavra ``\mintinline{text}|12|'',
 que a linguagem da gramática do \typeref{code:ExemploDeEstruturaDeGramaticaLark} aceita.
 A \typeref{figure:palavra12},
 é um bom exemplo para demonstrar a diferença entre sintaxe e
 semântica.
 Gramáticas Livre de Contexto somente representam a estrutura de um programa (ou palavra) de uma linguagem.
 O que é mostrado na \typeref{figure:palavra12},
-é a estrutura da palavra ``12'',
+é a estrutura da palavra ``\mintinline{text}|12|'',
 isto é,
-como os símbolos ``1'' e
-``2'' do alfabeto da linguagem são estruturados.
+como os símbolos ``\mintinline{text}|1|'' e
+``\mintinline{text}|2|'' do alfabeto da linguagem são estruturados.
 Já semanticamente (o significado),
-da estrutura formada pelos símbolos ``1'' e
-``2'' do alfabeto,
-pode ser interpretado como o número ``12'' (doze),
+da estrutura formada pelos símbolos ``\mintinline{text}|1|'' e
+``\mintinline{text}|2|'' do alfabeto,
+pode ser interpretado como o número ``\mintinline{text}|12|'' (doze),
 representado estruturalmente pela Árvore Sintática da \typeref{figure:palavra12}.
 \begin{figure}[H]
-\caption{Árvore da palavra ``12''}
+\caption{Árvore da palavra ``\mintinline{text}|12|''}
 \label{figure:palavra12}
 \centering
 \includegraphics[max width=0.896\textwidth]{palavra12.png}
@@ -361,14 +361,14 @@ representado estruturalmente pela Árvore Sintática da \typeref{figure:palavra1
 \end{figure}
 
 A \typeref{figure:palavra1},
-representa a Árvore Sintática completa da palavra ``1'',
+representa a Árvore Sintática completa da palavra ``\mintinline{text}|1|'',
 que a linguagem da gramática do \typeref{code:ExemploDeEstruturaDeGramaticaLark} aceita.
 A Árvore Sintática da \typeref{figure:palavra1},
-apresenta a definição de um \textit{token} com o nome ``NUMERO1'' e
+apresenta a definição de um \textit{token} com o nome ``\mintinline{text}|NUMERO1|'' e
 o um uso de um único símbolo do alfabeto,
-o símbolo ``1'' (implicitamente derivado a partir das produções da gramática pelo Analisador Lark).
+o símbolo ``\mintinline{text}|1|'' (implicitamente derivado a partir das produções da gramática pelo Analisador Lark).
 \begin{figure}[H]
-\caption{Árvore da palavra ``1''}
+\caption{Árvore da palavra ``\mintinline{text}|1|''}
 \label{figure:palavra1}
 \centering
 \includegraphics[max width=0.4435\textwidth]{palavra1.png}
@@ -376,14 +376,14 @@ o símbolo ``1'' (implicitamente derivado a partir das produções da gramática
 \end{figure}
 
 A \typeref{figure:palavra2},
-representa a Árvore Sintática completa da palavra ``2'',
+representa a Árvore Sintática completa da palavra ``\mintinline{text}|2|'',
 que a linguagem da gramática do \typeref{code:ExemploDeEstruturaDeGramaticaLark} aceita.
 A Árvore Sintática da \typeref{figure:palavra2},
-apresenta a definição de um \textit{token} com o nome ``NUMERO2'' e
+apresenta a definição de um \textit{token} com o nome ``\mintinline{text}|NUMERO2|'' e
 o um uso de um único símbolo do alfabeto,
-o símbolo ``2'' (implicitamente derivado a partir das produções da gramática pelo Analisador Lark).
+o símbolo ``\mintinline{text}|2|'' (implicitamente derivado a partir das produções da gramática pelo Analisador Lark).
 \begin{figure}[H]
-\caption{Árvore da palavra ``2''}
+\caption{Árvore da palavra ``\mintinline{text}|2|''}
 \label{figure:palavra2}
 \centering
 \includegraphics[max width=0.4435\textwidth]{palavra2.png}
@@ -391,14 +391,14 @@ o símbolo ``2'' (implicitamente derivado a partir das produções da gramática
 \end{figure}
 
 A \typeref{figure:palavra3},
-representa a Árvore Sintática completa da palavra ``3'',
+representa a Árvore Sintática completa da palavra ``\mintinline{text}|3|'',
 que a linguagem da gramática do \typeref{code:ExemploDeEstruturaDeGramaticaLark} aceita.
 A Árvore Sintática da \typeref{figure:palavra3},
-apresenta a definição de um \textit{token} com o nome ``NUMERO3'' e
+apresenta a definição de um \textit{token} com o nome ``\mintinline{text}|NUMERO3|'' e
 o um uso de um único símbolo do alfabeto,
-o símbolo ``3'' (implicitamente derivado a partir das produções da gramática pelo Analisador Lark).
+o símbolo ``\mintinline{text}|3|'' (implicitamente derivado a partir das produções da gramática pelo Analisador Lark).
 \begin{figure}[H]
-\caption{Árvore da palavra ``3''}
+\caption{Árvore da palavra ``\mintinline{text}|3|''}
 \label{figure:palavra3}
 \centering
 \includegraphics[max width=0.4435\textwidth]{palavra3.png}
@@ -600,7 +600,7 @@ como nas Linguagens Irrestritas.
 Analisadores são equivalentes à Mecanismos Reconhecedores como Autômatos Finitos,
 Autômatos de Pilha ou
 Máquinas de Turing\advisor{}{
-\cite{simuladorDeAutomatosEMaquinasDeTuring}}.
+\cite{simuladorDeAutomatosEMaquinasDeTuring,turingMachinesRoyer}}.
 No caso de outros mecanismos como Autômatos Finitos,
 o reconhecimento é feito a partir da especificação ou
 construção do autômato que reconhece palavras de dada linguagem.
@@ -1003,7 +1003,7 @@ construir o analisador da linguagem C.
 
 Assim,
 o compilador da linguagem C consegue fazer a ``Análise Determinística'' da linguagem verificando o significado de uso símbolo asterisco ou
-estrela ``*'' como operador de multiplicação ou
+estrela ``\mintinline{text}|*|'' como operador de multiplicação ou
 declaração de variável do tipo ponteiro com a realização ``simultânea'' da Análise Léxica,
 Sintática e
 Semântica.
