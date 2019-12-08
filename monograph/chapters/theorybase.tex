@@ -424,7 +424,7 @@ também conhecidas como Gramáticas Irrestritas porque não possuem nenhuma rest
 Veja a \typeref{figure:FigureHierarquiaDeChomsky} e
 perceba que Gramáticas Irrestritas são equivalentes a Máquinas de Turing,
 portanto podem em pior caso levar tempo infinito para responder.
-Aprenda mais a respeito procurando sobre o problema da parada \citeonline{turingMachinesRoyer,sipserBook} ou
+Aprenda mais a respeito procurando sobre o problema da parada \cite{turingMachinesRoyer,sipserBook} ou
 responda a pergunta:
 Quanto tempo levaria para a seguinte instrução de um programa na Linguagem C terminar de executar:
 ``\mintinline{text}{for(;;);}''?
@@ -466,15 +466,15 @@ utilizam~=se Máquinas de Pilha Não~=Determinísticas.
 
 ***Para verificar se uma dada sentença pertence ou
 não a linguagem.
-Veja \citeonline{complexityClasses,computationalComplexityAuroraBarak},
-para aprender mais sobre Classes de Complexidade.
+\advisor{}{Veja \citeonline{complexityClasses,computationalComplexityAuroraBarak},
+para aprender mais sobre Classes de Complexidade.}
 \end{minipage}
 \fonte{Própria,
 baseado em \citeonline{sipserBook,ahoTheoryOfParsing,efficientNonDeterministicParsers,johnCocke}}
 \nota{As complexidades Linear,
 Polinomial,
 Exponential e
-Infinita são explicados na seção \fullref{section:classesDeComplexidade}.}
+Infinita são explicados na \fullref{section:classesDeComplexidade}.}
 \nota{Aprenda o que são Gramáticas Determinísticas ou
 Não~=Determinísticas lendo a \fullref{section:gramaticasVersusLinguagens}.}
 \end{figure}
@@ -502,8 +502,7 @@ pode~=se ter a impressão de que este é o melhor tipo de gramática,
 i.e.,
 o tipo mais eficiente em tempo computational\footnote{
 Tempo computational refere~=se ao número de passos ou
-instruções necessários para executar determinado procedimentos.
-Veja a \fullref{section:classesDeComplexidade}.
+instruções necessários para executar determinado procedimentos (\fullref{section:classesDeComplexidade}).
 } na qual uma dada linguagem pode ser representada.
 Entretanto,
 precisa~=se tomar cuidado quando se fala sobre gramáticas e
@@ -573,18 +572,18 @@ somente uma quantidade finita de símbolos podem estar na fita,
 que continuamente pode crescer ilimitadamente.
 },
 e diferente das Gramáticas Sensíveis ao Contexto,
-a Máquina de Turing não possui parada garantida\footnote{
+a Máquina de Turing não possui parada garantida\advisor{}{\footnote{
 Aprenda mais a respeito procurando sobre o problema da parada \citeonline{turingMachinesRoyer,sipserBook}.
-}.
+}}.
 
 Linguagens do Tipo 0 (ou Irrestritas) representam problemas indecidíveis e
 que podem ser representados por procedimentos \cite{sipserBook}.
 Já Linguagens do Tipo 1 (ou Sensíveis ao Contexto),
 representam todos os problemas decidíveis e
-sua implementação pode ser representada por algoritmos\footnote{
+sua implementação pode ser representada por algoritmos\advisor{}{\footnote{
 Aprenda mais sobre decidibilidade e
 computabilidade com \citeonline{turingMachinesRoyer,sipserBook}.
-},
+}},
 pois possuem parada garantida,
 apesar de terem em pior caso,
 tempo exponential ao contrário de tempo infinito\footnote{
@@ -1063,7 +1062,7 @@ Não a linguagem que elas representam,
 mas a própria gramática em si \cite{finiteAutomataTuringComplete}.
 }
 podem ser Turing Completas\footnote{
-A Turing Completude acontece quando uma dada linguagem pode simular o funcionamento completo de uma Máquina de Turing.
+A Turing Completude acontece quando uma dada linguagem pode simular o funcionamento completo de uma Máquina de Turing \cite{areThereDomainSpecificLanguages}.
 }
 devido a sua equivalência com Máquinas de Turing e
 são capazes de realizar qualquer operação computacional.

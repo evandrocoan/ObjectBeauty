@@ -268,9 +268,9 @@ remove~=se os caracteres reconhecidos,
 substituíndo eles por algum outro caractere de marcação (como ``\mintinline{text}|§|'',
 \textit{símbolo de seção}\footnote{%
 Do inglês,
-Section Sign.
-Também conhecido Sinal de Seção ou
-Sinal de Corte.
+section sign.
+Também conhecido sinal de seção ou
+sinal de corte.
 }) para que não altere~=se o tamanho original do programa de entrada.
 No \typeref{code:resultadoDoReconhecimentoDoProgramaJava} se pode ver como o programa original (\typeref{code:exemploDeUmProgramaNaLinguagemJava}) ficou ao final do processo de reconhecimento pela gramática no \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica}.
 Essa foi uma estratégia utilizada para se possa no final do processo de formatação se possa facilmente reintroduzir no programa os novos trechos de código~=fonte que foram formatados.
@@ -476,7 +476,7 @@ uma linguagem de propósito específico (neste caso,
 a linguagem de uma gramática,
 uma metalinguagem).
 
-Essa DSL trata~=se de uma especificação de gramáticas\footnote{
+Esta nova DSL trata~=se de uma especificação de gramáticas\footnote{
 Assim como DSL\s,
 estas gramáticas também são de para um propósito específico e
 não poderiam ser utilizadas para descrever linguagens de propósito geral,
@@ -1106,10 +1106,6 @@ class Backend(pushdown.Interpreter):
 
         log( 4, "include_statement: %s", include_statement )
         self.visit_children( self.cached_includes[include_statement] )
-
-    def miscellaneous_language_rules(self, tree):
-        miscellaneous_language_rules = tree.children[0]
-        log( 4, "miscellaneous_language_rules: %s", miscellaneous_language_rules )
 \end{minted}
 \end{code}
 
