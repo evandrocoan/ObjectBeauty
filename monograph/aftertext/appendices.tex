@@ -38,10 +38,10 @@ formatado,
 e as metainformações atribuídas pela gramática da linguagem como atributos das tags HTML.
 
 Nos \typeref{code:MainFormatterPyResult,code:MainHighlighterPyResult},
-serão encontrados como nós~=folha das árvores,
+serão encontrados como nós~=folhas das árvores,
 os \textit{tokens} criados pelo analisador léxico.
 Eles seguem o mesmo padrão de notação dos \textit{tokens} utilizados pelo Analisador ANTLR \cite{antlrBookTerrentParr}.
-A implementação da exibição dos \textit{tokens} no formato do analisador ANTLR 4 foi uma das implementações feitas no \textit{fork} ``pushdown'' do Analisador Lark (Veja a \fullref{section:GrammarsGrammar}).
+A implementação da exibição dos \textit{tokens} no formato do analisador ANTLR 4 foi uma das implementações feitas no \textit{fork} ``pushdown'' do Analisador Lark (\fullref{section:GrammarsGrammar}).
 
 Um \textit{token} como ``\mintinline{text}{[@7,151:166='comment.line.sma'<TEXT_CHUNK_END_>,7:25]}'' segue o modelo de representação do ANTLR 4 \cite{antlrBookTerrentParr} e
 contém as seguintes informações:
@@ -49,8 +49,8 @@ contém as seguintes informações:
 \item ``\mintinline{text}{@7}'' significa que ele é o sétimo \textit{token};
 \item ``\mintinline{text}{151:166}'' é o início e
 fim do lexema do \textit{token} no programa de entrada,
-contado apartir de 0 até o fim do programa;
-\item ``\mintinline{text}{='comment.line.sma'}'' é o lexema (Veja a \fullref{section:compiladoresEtradutores}) ou
+contado a partir de 0 até o fim do programa;
+\item ``\mintinline{text}{='comment.line.sma'}'' é o lexema (\fullref{section:compiladoresEtradutores}) ou
 conteúdo do \textit{token} propriamente dito;
 \item ``\mintinline{text}{<TEXT_CHUNK_END_>}'' é o nome do \textit{token} atribuído pela gramática de entrada,
 por fim;
@@ -59,8 +59,7 @@ coluna do \textit{token} no programa de entrada.
 \end{inparaenum}%
 
 Tanto para a escrita do \typeref{code:codeHighlighterPy},
-quanto para a escrita do \typeref{code:codeFormatterPy},
-por consequência,
+quanto para a escrita do \typeref{code:codeFormatterPy} por consequência,
 foi utilizado em um primeiro momento a biblioteca ``\mintinline{text}|dominate|'' para realizar a construção da página HTML com a adição de cores ou
 código~=formatado. Entretanto,
 devido a \textit{bugs} na biblioteca ``\mintinline{text}|dominate|'',
@@ -74,8 +73,7 @@ o caractere ``\mintinline{text}|<|'' em HTML é escrito como ``\mintinline{text}
 Não foi escolhido procurar uma outra biblioteca para fazer a criação de páginas HTML,
 porque ao pesquisar por bibliotecas que tinham somente esta função,
 não foi encontrado nenhuma similar.
-Para realizar a pesquisa,
-por uma nova biblioteca de geração de HTML,
+Para realizar a pesquisa por uma nova biblioteca de geração de HTML,
 foram utilizados os seguintes critérios:
 \begin{inparaenum}[1)]
 \item ser um biblioteca de código~=aberto (\textit{open~=source});
@@ -103,9 +101,19 @@ Para se realizar a execução de qualquer arquivo deste projeto,
 é necessário ter um interpretador ``Python 3.6'' instalado,
 junto com as bibliotecas ``\mintinline{text}|pip3|'',
 ``\mintinline{text}|debug_tools|'', ``\mintinline{text}|dominate|'' e
-``\mintinline{text}|pushdown|''.
+``\mintinline{text}|pushdown|'':
+\begin{inparaenum}[1)]
+\item ``\mintinline{text}|pip3|'' é o gerenciador de pacotes da linguagem Python,
+responsável fazer a instalação automatizada de pacotes ou
+bibliotecas da linguagem Python e
+permite que os outros pacotes de dependência deste projeto seja instalados facilmente.
+\item ``\mintinline{text}|debug_tools|'' é uma biblioteca de gerenciamento mensagens de ``\textit{debug}'' ou
+depuração \cite{debuggingIntoExamples,annotationAssistant} criada também pelo autor deste projeto \cite{debugToolsLogger},
+``\mintinline{text}|debug_tools|'' foi utilizada porque qualquer problema (\textit{bug}) ou
+recurso novo (\textit{feature}) necessário na ferramenta pode ser facilmente corrigido pelo autor.
+\end{inparaenum}%
 Em uma instalação tradicional ``Ubuntu'',
-estes pacotes podem ser instalados com os seguintes comandos:
+os pacotes requiridos por este projeto podem ser instalados com os seguintes comandos:
 \begin{enumerate}[1)]
 \item \mintinline{shell}{sudo apt-get install python3 python3-pip}
 \item \mintinline{shell}{pip3 install -r requirements.txt} (\typeref{code:requirementsTxt})
@@ -148,12 +156,12 @@ duas árvores em forma de texto e
 uma arquivo HTML.
 No \typeref{code:MainFormatterHtml},
 encontra~=se o arquivo HTML gerado pelo programa de exemplo (\typeref{code:MainFormatterPy}).
-
 Nas \typeref{figure:MainFormatterSyntaxTree,figure:MainFormatterAbstractSyntaxTree},
 encontram~=se as imagens geradas pelo programa ``\mintinline{text}|main_formatter.py|'' (\typeref{code:MainFormatterPy}).
 No \typeref{code:MainFormatterPyResult},
 encontra~=se a saída da linha de comando que se obtém ao realizar a execução do programa de exemplo (\typeref{code:MainFormatterPy}).
-Ambas as figuras \typeref{figure:MainFormatterSyntaxTree,figure:MainFormatterAbstractSyntaxTree} quanto o \typeref{code:MainFormatterPyResult} representam os mesmos dados,
+
+Ambas as \typeref{figure:MainFormatterSyntaxTree,figure:MainFormatterAbstractSyntaxTree} quanto o \typeref{code:MainFormatterPyResult} representam os mesmos dados,
 mas mostrados de formas diferentes (figura \textit{versus} textual) e
 com níveis de detalhe diferentes.
 No \typeref{code:MainFormatterPyResult},
@@ -201,12 +209,12 @@ duas árvores em forma de texto e
 uma arquivo HTML.
 No \typeref{code:MainHighlighterHtml},
 encontra~=se o arquivo HTML gerado pelo programa exemplo (\typeref{code:MainHighlighterPy}).
-
 Nas \typeref{figure:MainHighlighterSyntaxTree,figure:MainHighlighterAbstractSyntaxTree},
 encontram~=se as imagens geradas pelo programa ``\mintinline{text}|main_highlighter.py|'' (\typeref{code:MainHighlighterPy}).
 No \typeref{code:MainHighlighterPyResult},
 encontra~=se a saída da linha de comando que se obtém ao realizar a execução do programa de exemplo (\typeref{code:MainHighlighterPy}).
-Ambas as figuras \typeref{figure:MainHighlighterSyntaxTree,figure:MainHighlighterAbstractSyntaxTree} quanto o \typeref{code:MainHighlighterPyResult} representam os mesmos dados,
+
+Ambas as \typeref{figure:MainHighlighterSyntaxTree,figure:MainHighlighterAbstractSyntaxTree} quanto o \typeref{code:MainHighlighterPyResult} representam os mesmos dados,
 mas mostrados de formas diferentes (figura \textit{versus} textual) e
 com níveis de detalhe diferentes.
 No \typeref{code:MainHighlighterPyResult} são mostrado os nós~=folhas das árvores com maior nível de detalhe.
@@ -250,17 +258,17 @@ Primeiro foi desenvolvida a ferramenta de Adição de Cores para facilitar os te
 do Analisador Semântico.
 Uma vez que se comprovou o funcionamento da metalinguagem,
 foi realizada uma implementação mínima de um formatador de código~=fonte.
-
 Tanto as implementações do módulo de Adição de Cores quanto do Formatador de Código são somente uma prova de conceito do que pode ser feito com a metalinguagem desenvolvida.
+
 No \typeref{code:unitTestsPy},
 a classe ``\mintinline{text}|TestingGrammarUtilities|'' é uma classe abstrata \cite{understandingDataAbstraction} que contém características necessárias a todos os tipos de testes de unidades implementados,
 tanto os testes de unidade de Adição de Cores quanto os testes de unidade do Formatador de Código.
 No total existem 22 testes:
-\begin{enumerate}[i)]
+\begin{inparaenum}[i)]
 \item 16 testes do Analisador Semântico (\typeref{code:semanticAnalyzerPy}) na classe testes ``\mintinline{text}|TestSemanticRules|'';
 \item 5 testes de Adição de Cores (\typeref{code:codeHighlighterPy}) na classe testes ``\mintinline{text}|TestCodeHighlighterBackEnd|'';
-\item 1 testes de Formatação de Código (\typeref{code:codeFormatterPy}) na classe testes ``\mintinline{text}|TestCodeFormatterBackEnd|''.
-\end{enumerate}%
+\item 1 teste de Formatação de Código (\typeref{code:codeFormatterPy}) na classe testes ``\mintinline{text}|TestCodeFormatterBackEnd|''.
+\end{inparaenum}%
 
 A ferramenta de Adição de Cores foi a primeira desenvolvida,
 portanto obteve a criação de mais testes de unidade para verificar a implementação do Analisador Semântico (\typeref{code:semanticAnalyzerPy}).
@@ -299,9 +307,11 @@ As regras do Analisador Semântico estão divididas entre dois tipos,
 erros e
 alertas.
 Um erro é algo que impede completamente a gramática final de funcionar.
-Um alerta é algo que precisa pode precisar ser revisado.
+Um alerta é algo que pode precisar ser revisado ou
+ignorado.
 
-A seguir pode~=se encontrar algumas regras semânticas implementadas pelo Analisador Semântico (\typeref{code:semanticAnalyzerPy}).
+A seguir,
+pode~=se encontrar algumas regras semânticas implementadas pelo Analisador Semântico (\typeref{code:semanticAnalyzerPy}).
 A classe ``\mintinline{text}|TestSemanticRules|'' (\typeref{code:unitTestsPy}),
 apresenta testes automatizados do Analisador Semântico.
 O nome de cada uma das regras a seguir começa com o prefixo ``\mintinline{text}|test_|'' que corresponde ao nome do teste de unidade automatizado,
@@ -383,9 +393,9 @@ Neste capítulo,
 pode~=se ver na íntegra o arquivo da gramática (\typeref{code:grammarsGrammarPushdown}) utilizada pela adição de cores e
 formatação de código~=fonte.
 Nos \typeref{code:MainFormatterPy,code:MainHighlighterPy},
-pode~=se ver o uso explicito deste arquivo de gramática (\mintinline{text}{get_relative_path( "grammars_grammar.pushdown",
-__file__ )})) e
-seu recebimento pelo Analisador Lark (Veja a \fullref{section:GrammarsGrammar}).
+pode~=se ver o uso explicito deste arquivo de gramática (na linha referenciando o arquivo \mintinline{text}|"grammars_grammar.pushdown"|) e
+seu recebimento pelo Analisador Lark (\fullref{section:GrammarsGrammar}).
+
 Nesta gramática,
 podem ser encontradas produções como \mintinline{text}{enter_block:
 OPEN_BRACE} que servem para fazer com que a árvore sintática tenha um nó com o nome ``\mintinline{text}{enter_block}'' e
@@ -395,5 +405,5 @@ operações com \textit{tokens}.
 \begin{code}
 \caption[Arquivo ``source/grammars\_grammar.pushdown'']{Arquivo ``\mintinline{text}|source/grammars_grammar.pushdown|''}
 \label{code:grammarsGrammarPushdown}
-\inputminted[firstline=39,firstnumber=1]{antlr}{../source/grammars_grammar.pushdown}
+\inputminted[firstline=36,firstnumber=1]{antlr}{../source/grammars_grammar.pushdown}
 \end{code}

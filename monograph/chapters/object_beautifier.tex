@@ -41,7 +41,8 @@ podendo reconhecer todas as gramáticas livre de contexto (\fullref{section:clas
 sem a necessidade de escrever nenhum código de programação (Python) adicional para fazer a Análise Léxica ou
 Sintática;
 \item é um projeto ativo de desenvolvimento \cite{larkCommitHistory},
-constantemente recebendo correções de problemas (\textit{bugs}) e
+constantemente recebendo correções de problemas (\textit{bugs},
+\citeonline{findingRegressionsInProjects,debuggingIntoExamples}) e
 adição de novos recursos (\textit{features}).
 \end{inparaenum}%
 No fim,
@@ -167,7 +168,7 @@ Ela é originalmente construída a partir da Árvore Sintática,
 adicionado~=se informações adicionais sobre o significado programa e
 removendo~=se elementos textuais como parenteses de procedência de operadores,
 que podem ser representados pela estrutura da árvore\advisor{}{
-(veja o \typeref{code:Abstract_syntax_tree_for_Euclidean_algorithm,figure:Abstract_syntax_tree_for_Euclidean_algorithm})}.
+(\typeref{code:Abstract_syntax_tree_for_Euclidean_algorithm,figure:Abstract_syntax_tree_for_Euclidean_algorithm})}.
 Veja no \fullref{chapter:execucaoDeMainFormatter} um exemplo de uma Árvore Sintática e
 uma Árvore Sintática Abstrata e
 as compare.
@@ -587,7 +588,7 @@ JSON.
 
 Na \typeref{figure:MetacompilerMetagrammarMetaprogram},
 percebe~=se que os Metaprogramas (ou gramáticas) são entradas diretas dos Metacompilador,
-e não do Formatador de Código como mostrado nas figuras anteriores.
+e não do Formatador de Código como mostrado nas figuras anteriores (\typeref{figure:MyWorflowForLarkTraduzido,figure:MyWorflowForLarkTraduzido2,figure:ParsersPublicAudienceTraduzido}).
 Ambas as figuras estão corretas,
 entretanto,
 a \typeref{figure:MetacompilerMetagrammarMetaprogram} é uma versão mais resumida de como o processo de análise léxica e
@@ -631,14 +632,14 @@ caso programa de entrada não pertença a linguagem da gramática.
 \section{Especificação da Metalinguagem}
 \label{section:metalinguagemGrammar}
 
-Como já explicado na seção anterior,
+Como já explicado na seção anterior (\fullref{section:GrammarsGrammar}),
 uma metagramática é gramática de gramáticas e
 foi utilizado o Analisador Lark como um ``Metacompilador'' ou
 ``Compilador de Compiladores''.
 Nesta seção será discutido como a metalinguagem (especificada pela metagramática) utilizada foi construída,
 começando com o seu símbolo inicial.
 No \typeref{code:simboloInicialDaMetagramatica},
-a metagramática defini que o programa é constituído de três grandes áreas,
+a metagramática define que o programa é constituído de três grandes áreas,
 que devem acontecer uma em sequência da outra:
 \begin{enumerate}
 \item A produção ``\mintinline{text}|preamble_statements|'' define características globais da gramática como um nome,
@@ -660,8 +661,7 @@ que podem ser incluídos a partir do símbolo inicial da gramática definido no 
 \begin{minted}{antlr}
 language_syntax: _NEWLINE? preamble_statements _NEWLINE?
                     language_construct_rules _NEWLINE?
-                    ( miscellaneous_language_rules _NEWLINE? )*
-                    _NEWLINE?
+                    ( miscellaneous_language_rules _NEWLINE? )* _NEWLINE?
 
 preamble_statements: ( (
                         target_language_name_statement
@@ -674,6 +674,18 @@ miscellaneous_language_rules: /[^:\n]+/ ": " indentation_block
 
 target_language_name_statement: "name" ": " free_input_string
 master_scope_name_statement: "scope" ": " free_input_string
+
+indentation_block: enter_block _NEWLINE ( statements_list _NEWLINE )+ leave_block
+statements_list: match_statement | include_statement | push_statement
+                | pop_statement| constant_definition | scope_name_statement
+                | capturing_block | meta_scope_statement
+
+enter_block: OPEN_BRACE
+leave_block: CLOSE_BRACE
+OPEN_BRACE: "{"
+CLOSE_BRACE: "}"
+
+...
 \end{minted}
 \end{code}
 
@@ -690,13 +702,13 @@ Como já inicialmente apresentado na \fullref{section:sourceCodeHighlightersGram
 na \typeref{figure:TexMateScopes} é mostrado na primeira linha o trecho de código~=fonte ``\mintinline{text}|function f1 () {|'' e
 nas demais linhas são apresentados as diversas classificações de escopo aplicados a cada um dos trechos do código~=fonte de amostra.
 Por exemplo,
-a palavra ``\mintinline{text}|function|'' possui simultaneamente os escopos:
+a palavra ``\mintinline{text}|function|'' possui simultaneamente a pilha de escopos:
 \begin{inparaenum}[1)]
 \item ``\mintinline{text}|source.js|'';
 \item ``\mintinline{text}|meta.function.js|'' e;
 \item ``\mintinline{text}|storage.type.function.js|''.
 \end{inparaenum}%
-Enquanto o caractere ``\mintinline{text}|{|'' (chave de abertura de bloco) possui simultaneamente os escopos:
+Enquanto o caractere ``\mintinline{text}|{|'' (chave de abertura de bloco) possui simultaneamente a pilha de escopos:
 \begin{inparaenum}[1)]
 \item ``\mintinline{text}|source.js|'';
 \item ``\mintinline{text}|meta.function.js|'';
@@ -874,13 +886,12 @@ check_brackets: {
 \section{Analisador Semântico}
 \label{section:AnalisadorSemantico}
 
-Depois que um metaprograma da metalinguagem apresentada na seção anterior é reconhecido pelo Analisador Lark,
+Depois que um metaprograma da metalinguagem apresentada na seção anterior (\fullref{section:metalinguagemGrammar}) é reconhecido pelo Analisador Lark,
 o Analisador Lark entrega a Árvore Sintática da gramática da linguagem sendo descrita pelo metaprograma (\typeref{figure:MetacompilerMetagrammarMetaprogram}).
 Todas as verificações de corretude da sintaxe da gramática são executadas pelo Analisador Lark,
 com base na metagramática da metalinguagem.
 Portanto,
-somente resta ser implementado o Analisador Semântico para verificar se a linguagem descrita respeita as regras semânticas da metalinguagem explicadas na seção anterior,
-\nameref{section:metalinguagemGrammar}.
+somente resta ser implementado o Analisador Semântico para verificar se a linguagem descrita respeita as regras semânticas da metalinguagem explicadas na seção anterior (\fullref{section:metalinguagemGrammar}).
 
 Um Diagrama de Classes é apresentado na \typeref{figure:CodeFormatterClassDiagram}.
 Nele,
@@ -902,7 +913,7 @@ as configurações do formatador (\typeref{figure:ParsersPublicAudienceTraduzido
 
 No \typeref{code:semanticAnalizerConstructor},
 pode~=se ver o construtor do Analisador Semântico.
-Pode~=se notar que seu construtor não recebe como parãmetro a Árvore Sintática.
+Pode~=se notar que seu construtor não recebe como parâmetro a Árvore Sintática.
 Entretanto,
 a ela não é passada pelo construtor mas sim por um método chamado ``\mintinline{text}|transform(tree)|''.
 Esta é uma característica do Analisador Lark utilizado.
@@ -957,7 +968,7 @@ class TreeTransformer(pushdown.Transformer):
 \end{minted}
 \end{code}
 
-A visita dos nós da Árvore Sintática pela função ``\mintinline{text}|transform(tree)|'' acontece simplesmente chamando os métodos que a classe ``\mintinline{text}|TreeTransformer|'' (Definido no \typeref{code:semanticAnalizerConstructor}) define e
+A visita dos nós da Árvore Sintática pela função ``\mintinline{text}|transform(tree)|'' acontece simplesmente chamando os métodos que a classe ``\mintinline{text}|TreeTransformer|'' (\typeref{code:semanticAnalizerConstructor}) define e
 que possuem os mesmos nomes que os símbolos não~=terminais definidos pela metagramática.
 Então,
 cada nó ou
@@ -996,7 +1007,7 @@ ao navegar pela árvore,
 o Analisador Lark somente passa como parâmetro da função (de ``\mintinline{text}|TreeTransformer|'') o nó correspondente ao método atualmente sendo chamado e
 uma lista de nós~=filhos.
 Entretanto,
-``pushdown'' também passa um terceiro parâmetro que é uma referência para o nó raíz da árvore e
+``pushdown'' agora também passa um terceiro parâmetro que é uma referência para o nó raíz da árvore e
 mantém a variável ``\mintinline{text}|parent|'' (que aponta para o pai do nó atual da árvore),
 acessível como um atributo da classe ``\mintinline{text}|TreeTransformer|''.
 
@@ -1045,25 +1056,6 @@ No caso do Analisador Semântico,
 a Árvore Sintática,
 e no caso do Formatador de Código,
 a Árvore Sintática Abstrata.
-
-Diferentemente do Analisador Semântico,
-o Formatador de Código faz herança do tipo ``\mintinline{text}|Interpreter|'' em vez de ``\mintinline{text}|Transformer|'' (\typeref{figure:CodeFormatterClassDiagram}).
-A diferença é simples,
-``\mintinline{text}|Interpreter|'' visita a árvore partindo das folhas até chegar na raíz visitando todos os nós filhos (\fullref{section:compiladoresEtradutores}),
-já ``\mintinline{text}|Transformer|'' visita a árvore partindo da raíz até chegar nos nós pais,
-i.e.,
-ele não visita os nós~=filhos automaticamente como ``\mintinline{text}|Transformer|'' faz.
-
-``\mintinline{text}|Interpreter|'' também recebe diretamente no construtor qual será a árvore que ele irá navegar sobre.
-Nos demais aspectos,
-``\mintinline{text}|Interpreter|'' funciona igual ao ``\mintinline{text}|Transformer|'',
-exceto no ponto onde ``\mintinline{text}|Transformer|'' cria uma nova árvore no final do processo,
-enquanto ``\mintinline{text}|Interpreter|'' não cria árvore alguma.
-O parâmetro chamado ``\mintinline{text}|program|'',
-que o construtor de ``\mintinline{text}|Transformer|'' recebe,
-é o programa a ser formatado pelo formatador.
-No final processo,
-``\mintinline{text}|Interpreter|'' terá em sua variável ``\mintinline{text}|self.program|'' o novo programa completamente formatado.
 \begin{code}
 \caption[Construtor do Formatador]{Construtor do Formatador (\typeref{chapter:codigoDoFormatador})}
 \label{code:construtorDoFormatador}
@@ -1090,8 +1082,56 @@ class Backend(pushdown.Interpreter):
 
         self.visit( tree )
         log( 4, "Tree: \n%s", tree.pretty( debug=0 ) )
+
+    def target_language_name_statement(self, tree):
+        target_language_name = tree.children[0]
+
+        self.target_language_name = target_language_name
+        log( 4, "target_language_name: %s", target_language_name )
+
+    def master_scope_name_statement(self, tree):
+        master_scope_name = tree.children[0]
+
+        self.master_scope_name = master_scope_name
+        log( 4, "master_scope_name: %s", master_scope_name )
+
+    def include_statement(self, tree):
+        include_statement = str( tree.children[0] )
+
+        log( 4, "include_statement: %s", include_statement )
+        self.visit_children( self.cached_includes[include_statement] )
+
+    def miscellaneous_language_rules(self, tree):
+        miscellaneous_language_rules = tree.children[0]
+        log( 4, "miscellaneous_language_rules: %s", miscellaneous_language_rules )
 \end{minted}
 \end{code}
+
+Diferentemente do Analisador Semântico,
+o Formatador de Código faz herança do tipo ``\mintinline{text}|Interpreter|'' em vez de ``\mintinline{text}|Transformer|'' (\typeref{figure:CodeFormatterClassDiagram}).
+A diferença é simples,
+``\mintinline{text}|Interpreter|'' visita a árvore partindo das folhas até chegar na raíz visitando todos os nós filhos (\fullref{section:compiladoresEtradutores}),
+já ``\mintinline{text}|Transformer|'' visita a árvore partindo da raíz até chegar nos nós pais,
+i.e.,
+ele não visita os nós~=filhos automaticamente como ``\mintinline{text}|Transformer|'' faz.
+Foi escolhido utilizar ``\mintinline{text}|Interpreter|'' ao contrário de ``\mintinline{text}|Transformer|'' para fazer a interpretação da gramática,
+porque ele segue naturalmente o algoritmo de consumo do programa que gramáticas utilizadas para adição de cores já seguem (\fullref{section:sourceCodeHighlightersGrammars}).
+Enquanto o tipo ``\mintinline{text}|Transformer|'' segue melhor o fluxo para transformação e
+criação de uma nova árvore,
+neste caso,
+a Árvore Sintática Abstrata.
+
+``\mintinline{text}|Interpreter|'' diferente de ``\mintinline{text}|Transformer|'',
+recebe diretamente no construtor qual será a árvore que ele irá navegar sobre.
+Nos demais aspectos,
+``\mintinline{text}|Interpreter|'' funciona igual ao ``\mintinline{text}|Transformer|'',
+exceto no ponto onde ``\mintinline{text}|Transformer|'' cria uma nova árvore no final do processo,
+enquanto ``\mintinline{text}|Interpreter|'' não cria árvore alguma.
+O parâmetro chamado ``\mintinline{text}|program|'',
+que o construtor de ``\mintinline{text}|Transformer|'' recebe,
+é o programa a ser formatado pelo formatador.
+No final processo,
+``\mintinline{text}|Interpreter|'' terá em sua variável ``\mintinline{text}|self.program|'' o novo programa completamente formatado.
 
 Enquanto ``\mintinline{text}|Interpreter|'' é responsável por somente ``passear'' pela Árvore Sintática Abstrata,
 a classe ``\mintinline{text}|AbstractFormatter|'' (\typeref{code:construtorDeParsedProgram}) é responsável por realmente fazer a formatação de código~=fonte de acordo com a instruções vindas da Árvore Sintática Abstrata.
@@ -1100,7 +1140,7 @@ No final do processo,
 Uma vez que ``\mintinline{text}|Interpreter|'' termina de construir todos os pedaços de código~=fonte formatado,
 a função ``\mintinline{text}|get_new_program|'' irá unir dos os pedaços e
 salvá~=los na variável ``\mintinline{text}|cached_new_program|'',
-para evitar ter que recalcular o novo programa toda vez que pedir~=se a sua nova versão.
+para evitar ter que recalcular o novo programa toda vez que for solicitado a sua nova versão.
 \begin{code}
 \caption[Construtor de ``AbstractFormatter'']{Construtor de ``\mintinline{text}|AbstractFormatter|'' (\typeref{chapter:codigoDoFormatador})}
 \label{code:construtorDeParsedProgram}

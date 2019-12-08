@@ -5,8 +5,8 @@
 \chapter{\lang{Theory base}{Fundamentação Teórica}}
 \label{chapter:fundamentacaoTeorica}
 
-De acordo com o funcionamento de muitos Formatadores de Código (Veja o \fullref{chapter:source_code_beautifiers}) e
-da ferramenta que foi desenvolvida (veja o \fullref{chapter:software_implementation}),
+De acordo com o funcionamento de muitos Formatadores de Código (\fullref{chapter:source_code_beautifiers}) e
+da ferramenta que foi desenvolvida (\fullref{chapter:software_implementation}),
 foi explicado resumidamente toda a teoria necessária para construção de compiladores,
 incluindo as classes de complexidade para medidas da eficiência dos compiladores.
 Seguindo um currículo acadêmico de um curso de Ciências da Computação,
@@ -106,7 +106,7 @@ Conceito abordado na
 \cite{sippu1982,lr1ErrorRecovery,errorRecoveryForYaccParsers,repairingSyntaxErrorsInLR,larkJosefGrosch,errorsInLRParsers}.
 Existem tanto linguagens que Analisadores Ascendentes reconhecem,
 mas que Analisadores Descendentes não reconhecem e
-\textit{vice-versa} (veja a \fullref{figure:LinguagensDeterministicas}).
+\textit{vice-versa} (\fullref{figure:LinguagensDeterministicas}).
 
 
 \section{Gramáticas}
@@ -405,10 +405,10 @@ o símbolo ``\mintinline{text}|3|'' (implicitamente derivado a partir das produ�
 \fonte{Própria}
 \end{figure}
 
-Veja o \fullref{chapter:manualDoFormatadorDeCodigo} para uma descrição mais detalhada das informações que apareceram nos \textit{tokens} das Árvores Sintáticas nos exemplos anteriores.
+Veja o \fullref{chapter:manualDoFormatadorDeCodigo} para uma descrição mais detalhada das informações que apareceram nos \textit{tokens} das Árvores Sintáticas nos exemplos anteriores (\typeref{figure:ArvoresDosTokens1,figure:ArvoresDosTokens2,figure:ArvoresDosTokens3,figure:palavra12,figure:palavra1,figure:palavra2,figure:palavra3}).
 As gramáticas recém~=apresentadas e
 aceitas pelo Analisador Lark são Gramáticas Livre de Contexto.
-Na próxima seção será falado um pouco mais sobre os tipos de gramáticas.
+Na próxima seção será falado um pouco mais sobre os diferentes tipos de gramáticas.
 
 
 \subsection{Hierarquia de Chomsky}
@@ -450,7 +450,7 @@ complexidade polinomial para construir algumas Árvores de Derivações e
 determinar se dada palavra pertence ou
 não a linguagem,
 com algoritmos como CYK ou
-Earley (veja a \fullref{section:classesDeComplexidade}).
+Earley (\fullref{section:classesDeComplexidade}).
 Por fim,
 para Autômatos Finitos Não~=Determinísticos ou
 Analisadores com Backtracking,
@@ -458,7 +458,7 @@ tempo exponencial.
 
 **Para Gramáticas Livres de Contexto Determinísticas,
 também conhecidas como LR(K),
-complexidade linear ao tamanho da palavra de entrada (Veja a \fullref{section:gramaticasVersusLinguagens}).
+complexidade linear ao tamanho da palavra de entrada (\fullref{section:gramaticasVersusLinguagens}).
 Para Gramáticas Livre de Contexto Não~=Determinísticas,
 vale o mesmo que para Linguagens Regulares Não~=Determinísticas logo acima,
 mas no lugar de Autômatos Finitos Não~=Determinísticos,
@@ -781,7 +781,7 @@ No caso de conflitos na Tabela de Análise,
 a gramática não pode ser analisada deterministicamente e
 algoritmos de análise com backtracking ou
 algoritmos de tempo polinomial como Earley e
-CYK (veja a \fullref{section:classesDeComplexidade}),
+CYK (\fullref{section:classesDeComplexidade}),
 precisam ser utilizados para construção da Árvore Sintática.
 \advisor{}{Como mostrado para Máquinas de Turing Não~=Determinísticas na \fullref{section:mecanismosReconhecedores},
 }%
@@ -1050,11 +1050,11 @@ algumas Gramáticas Sensíveis ao Contexto e\slash{}ou também algumas Gramátic
 
 Note que,
 apesar disso não impede~=se que a gramática da Linguagem C,
-como mostrado na seção anterior,
+como mostrado na seção anterior (\fullref{section:analiseSemantica}),
 seja analisada com eficiência.
 Mas isso deixa brechas para que ela possa não ser analisada com eficiência.
 A diferença para um analisador onde a gramática é inteiramente Livre de Contexto Determinística,
-é que ela tem desempenho \textit{garantida} pela sua Classe de Complexidade (Veja a \fullref{section:classesDeComplexidade}).
+é que ela tem desempenho \textit{garantida} pela sua Classe de Complexidade (\fullref{section:classesDeComplexidade}).
 
 Sintaxe e
 Semântica de Linguagens são completamente ortogonais.
