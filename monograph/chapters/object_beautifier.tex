@@ -114,7 +114,7 @@ confira a \fullref{section:metalinguagemGrammar}.
 capaz que pegar somente o elemento ``\mintinline{text}|if(args.length > 0)|'' de um programa de entrada de qualquer linguagem,
 como o exemplo em Java apresentado no \typeref{code:exemploDeUmProgramaNaLinguagemJava}.
 Inicia~=se a com a apresentação de uma simplificação da metagramática utilizada neste trabalho.
-A metagramática completa pode encontrada no \typeref{chapter:codigoDaMetagramatica}.
+A metagramática completa pode encontrada no \fullref{chapter:codigoDaMetagramatica}.
 Ela segue as mesmas regras do Analisador Lark explicadas na \fullref{section:introducaoGramaticas}.
 Uma melhor descrição do uso dos operadores ``\mintinline{text}|match|'' e
 ``\mintinline{text}|scope|'' definidos por essa metagramática,
@@ -155,12 +155,12 @@ Agora,
 o que pode ser feito com a gramática do \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica}?
 Ela junto com a metagramática (\typeref{code:exemploMinimoDeMetagramatica}) devem ser entrada do Analisador Lark (\typeref{code:exemploDeUsoDaMetagramaticaEUmaGramatica}),
 que irá devolver como resultado a Árvore Sintática (\fullref{section:compiladoresEtradutores}).
-Então envia~=se a Árvore Sintática para o Analisador Semântico (\typeref{section:analisadoresSintaticos,section:analiseSemantica}) verificar se o programa (gramática) de entrada está semanticamente correta,
+Então envia~=se a Árvore Sintática para o Analisador Semântico (\fullref{section:analisadoresSintaticos,section:analiseSemantica}) verificar se o programa (gramática) de entrada está semanticamente correta,
 para então devolver como resultado a Árvore Sintática Abstrata\footnote{%
 Do inglês (AST),
 Abstract Syntax Tree.
 }
-(\typeref{section:desempenhoDoFormator,section:AnalisadorSemantico}).
+(\fullref{section:desempenhoDoFormator,section:AnalisadorSemantico}).
 
 A Árvore Sintática Abstrata representa a estrutura do programa de uma linguagem de programação \cite{improvingRefactoringSpeed,annotationAssistant}.
 Ela é originalmente construída a partir da Árvore Sintática,
@@ -168,7 +168,7 @@ adicionado~=se informações adicionais sobre o significado programa e
 removendo~=se elementos textuais como parenteses de procedência de operadores,
 que podem ser representados pela estrutura da árvore\advisor{}{
 (veja o \typeref{code:Abstract_syntax_tree_for_Euclidean_algorithm,figure:Abstract_syntax_tree_for_Euclidean_algorithm})}.
-Veja no \typeref{chapter:execucaoDeMainFormatter} um exemplo de uma Árvore Sintática e
+Veja no \fullref{chapter:execucaoDeMainFormatter} um exemplo de uma Árvore Sintática e
 uma Árvore Sintática Abstrata e
 as compare.
 
@@ -305,7 +305,7 @@ Até este ponto,
 ainda não se mostrou como a parte mais importante deste trabalho deve acontecer,
 a formatação de código~=fonte.
 A estratégia deste trabalho foi realizar a formatação de código~=fonte ao reconhecer o programa de entrada (\typeref{code:exemploDeUmProgramaNaLinguagemJava}) ``removendo'' os caracteres reconhecidos,
-atribuíndo escopos (\typeref{section:sourceCodeHighlightersGrammars}) para cada um deles.
+atribuíndo escopos (\fullref{section:sourceCodeHighlightersGrammars}) para cada um deles.
 Uma vez que o trecho de código~=fonte ``removido'' possui um escopo atribuído,
 um arquivo de configurações JSON como \typeref{code:exemploDeConfiguracaoUtilizadaMinimaDoFormatadorDeCodigo} é consultado.
 Caso exista uma ``configuração'' relacionada ao escopo recém~=reconhecido,
@@ -374,7 +374,7 @@ Nas próximas seções,
 será explicado em pouco mais de detalhes o mesmo funcionamento recém~=apresentado brevemente.
 Para maiores detalhes,
 consulte a implementação e
-exemplos de uso destes algoritmos nos \typeref{chapter:execucaoDeMainFormatter,chapter:codigoDoFormatador}.
+exemplos de uso destes algoritmos nos \fullref{chapter:execucaoDeMainFormatter,chapter:codigoDoFormatador}.
 
 
 \section{Introdução à Metagramática}
@@ -420,7 +420,7 @@ com o conteúdo um pouco diferente.}
 \end{figure}
 
 Com algumas exceções,
-compiladores são usualmente construídos utilizando um compilador de compiladores (ou analisadores) \cite{compilersCompilerMetaLanguage}.
+compiladores são usualmente construídos utilizando um Compilador de Compiladores (ou Analisadores) \cite{compilersCompilerMetaLanguage}.
 Utilizando um Analisador (\typeref{figure:MyWorflowForLarkTraduzido}),
 é escrita a gramática da linguagem para qual se quer construir um compilador (\fullref{section:introducaoGramaticas}).
 Após isso,
@@ -437,7 +437,7 @@ completando~=se a construção de um compilador.
 Para o processo de construção de um compilador,
 não basta somente utilizar~=se de um Analisador,
 mas também é necessário a escrita do código~=fonte do Analisador Semântico e
-a geração de código binário executável.
+a geração de código binário executável (\fullref{section:compiladoresEtradutores}).
 \advisor{Este trabalho faz um uso diferente}{Já este trabalho faz um uso fora do comum}.
 Como mostrado na \typeref{figure:MyWorflowForLarkTraduzido2},
 primeiro especifica~=se uma metalinguagem que será utilizada pelos usuários da nova ferramenta de Formatação de Código.
@@ -482,7 +482,7 @@ Diferente das gramáticas já utilizadas por editores de texto para adicionar co
 \advisor{Não}{A final,
 não} é objetivo deste trabalho fazer a análise completa de programas,
 pela sua sintaxe, semântica,
-e gerar código~=binário executável (\typeref{section:compiladoresEtradutores}).
+e gerar código~=binário executável (\fullref{section:compiladoresEtradutores}).
 }
 (e não adição de cores),
 e para que ela não seja dependente de características de linguagens como YAML ou
@@ -491,7 +491,7 @@ XML utilizada pelos editores de texto para especificação de suas gramáticas (
 Usualmente,
 o Analisador Lark é utilizado somente como um gerador de compiladores (\typeref{figure:MyWorflowForLarkTraduzido}),
 entretanto,
-neste contexto Lark é utilizado como um compilador de compiladores (\typeref{figure:MyWorflowForLarkTraduzido2}).
+neste contexto Lark é utilizado como um ``Compilador de Compiladores'' (\typeref{figure:MyWorflowForLarkTraduzido2}).
 A vantagem de utilizar outro analisador (Lark) para criar outro analisador (Gerador de Formatadores),
 é que a gramática de especificação do Gerador de Formatadores pode usufruir da flexibilidade que a utilização que analisadores trazem na especificação das gramáticas de uma linguagem.
 A facilidade em alterar a gramática da linguagem utilizada,
@@ -535,10 +535,10 @@ os metaprogramas serão as gramáticas que serão utilizadas pelos formatadores 
 
 Os metaprogramas (ou gramáticas) são entradas diretas do metacompilador,
 o Analisador Lark na \typeref{figure:MyWorflowForLarkTraduzido2},
-utilizado para analisar uma gramática LALR(1) (\typeref{chapter:codigoDaMetagramatica}).
+utilizado para analisar uma gramática LALR(1) (\fullref{chapter:codigoDaMetagramatica}).
 Na \typeref{figure:ParsersPublicAudienceTraduzido},
 não pode~=se ver diretamente que as gramáticas das linguagens serão os metaprogramas,
-mas o quadro em azul mais à esquerda ligado por linhas pontilhadas explica que os erros léxicos e
+mas o quadro em azul mais à esquerda ligado por linhas pontilhadas explica~=se que os erros léxicos e
 sintáticos nas gramáticas de entrada serão mostrados pelo Analisador Lark.
 Isso acontece porque as gramáticas (ou metaprogramas) são entradas diretamente no Analisador Lark.
 
@@ -550,7 +550,8 @@ mostra~=se o nó ``Árvore Sintática'' sem explicitamente falar sobre sua Anál
 propriamente a construção do Compilador (ou do Formatador de Código).
 Vale lembrar que trata~=se de um Compilador de Analisadores de uma DSL,
 e não um Compilador de Analisadores de propósito geral.
-Isso significa que as gramáticas aceitas pelos analisadores gerados não são capazes de gerar analisadores de linguagens de propósito geral.
+Isso significa que as gramáticas aceitas pelos analisadores gerados não são capazes de gerar analisadores de linguagens de propósito geral ou
+específico.
 \begin{figure}[!htb]
 \caption{Relação entre Metagramáticas, Metacompiladores e Metaprogramas}
 \label{figure:MetacompilerMetagrammarMetaprogram}
@@ -595,15 +596,15 @@ Analisadores sempre precisam como entrada ter uma gramática e
 a palavra de uma dada linguagem (que pode ou
 não ser aceita pelo analisador).
 
-Como já explicado no início desta seção (\typeref{section:GrammarsGrammar}),
+Como já explicado no início desta seção (\fullref{section:GrammarsGrammar}),
 a ligação direta entre a gramática e
 a palavra da linguagem não precisa acontecer diretamente com o analisador da \typeref{figure:MetacompilerMetagrammarMetaprogram}.
 Caso o analisador suporte,
 ao contrário de pedir para que o analisador gere o código~=fonte de um Analisador Léxico e
 Sintático (e funcione como um Compilador de Compiladores),
 ele pode ser utilizado diretamente recebendo como entrada a gramática da linguagem e
-uma palavra para análise,
-retornando uma Árvore Sintática como resultado do processo ou
+uma palavra para análise.
+Retornando uma Árvore Sintática como resultado do processo ou
 erro de análise caso a palavra de entrada não pertença a linguagem.
 
 A existência do processo de receber somente como entrada a gramática de uma linguagem e
@@ -620,8 +621,7 @@ que então precisa receber como entrada diretamente a gramática e
 a palavra da linguagem a ser analisada\footnote{
 A título de curiosidade,
 o Analisador Lark deste trabalho foi utilizado como um Analisador,
-entretanto Lark é capaz de funcionar tanto como um Analisador ou
-como um Compilador de Compiladores \cite{antlrBookTerrentParr}.
+entretanto Lark é capaz de funcionar tanto como um Analisador quanto como um ``Compilador de Compiladores'' \cite{antlrBookTerrentParr}.
 }.
 Para então devolver como resultado a Árvore Sintática do programa de entrada ou
 um erro de análise,
@@ -633,8 +633,8 @@ caso programa de entrada não pertença a linguagem da gramática.
 
 Como já explicado na seção anterior,
 uma metagramática é gramática de gramáticas e
-foi utilizado o Analisador Lark como um metacompilador ou
-compilador de compiladores.
+foi utilizado o Analisador Lark como um ``Metacompilador'' ou
+``Compilador de Compiladores''.
 Nesta seção será discutido como a metalinguagem (especificada pela metagramática) utilizada foi construída,
 começando com o seu símbolo inicial.
 No \typeref{code:simboloInicialDaMetagramatica},
@@ -647,7 +647,8 @@ e um escopo que será atribuído a toda gramática;
 Em comparação com linguagens de programação como ``\mintinline{text}|C|'',
 ele pode ser considerado similar ao método ``\mintinline{text}|main|'';
 \item A produção ``\mintinline{text}|miscellaneous_language_rules|'' permite a definição de diversos contextos\footnote{
-Contexto refere~=se a um bloco de operadores ou
+Na regras da gramática,
+contexto refere~=se a um bloco de operadores ou
 conjunto de instruções como ``\mintinline{text}|include|'' e
 ``\mintinline{text}|match|''.
 } com grupos de produções da gramática (\fullref{item:definicaoDeGramatica}),
@@ -685,9 +686,9 @@ Por padrão,
 toda gramática ``\mintinline{text}|ObjectBeauty|'' precisa ter um contexto inicial ou
 símbolo inicial chamado de ``\mintinline{text}|contexts|''.
 
-Como já inicialmente aprendizado na \typeref{section:sourceCodeHighlightersGrammars},
+Como já inicialmente apresentado na \fullref{section:sourceCodeHighlightersGrammars},
 na \typeref{figure:TexMateScopes} é mostrado na primeira linha o trecho de código~=fonte ``\mintinline{text}|function f1 () {|'' e
-nas demais linhas são apresentados as diversas classificações de escopos aplicados a cada um dos trechos do código~=fonte de amostra.
+nas demais linhas são apresentados as diversas classificações de escopo aplicados a cada um dos trechos do código~=fonte de amostra.
 Por exemplo,
 a palavra ``\mintinline{text}|function|'' possui simultaneamente os escopos:
 \begin{inparaenum}[1)]
@@ -695,7 +696,7 @@ a palavra ``\mintinline{text}|function|'' possui simultaneamente os escopos:
 \item ``\mintinline{text}|meta.function.js|'' e;
 \item ``\mintinline{text}|storage.type.function.js|''.
 \end{inparaenum}%
-Enquanto o caractere ``\mintinline{text}|{|'' possui simultaneamente os escopos:
+Enquanto o caractere ``\mintinline{text}|{|'' (chave de abertura de bloco) possui simultaneamente os escopos:
 \begin{inparaenum}[1)]
 \item ``\mintinline{text}|source.js|'';
 \item ``\mintinline{text}|meta.function.js|'';
@@ -992,11 +993,11 @@ Inclusive,
 esta foi uma das alterações realizadas no \textit{fork} ``pushdown'' do Analisador Lark.
 Por padrão,
 ao navegar pela árvore,
-o Analisador Lark somente passa como parâmetro da função o nó correspondente ao método atualmente sendo chamado e
-uma lista de nós filhos.
+o Analisador Lark somente passa como parâmetro da função (de ``\mintinline{text}|TreeTransformer|'') o nó correspondente ao método atualmente sendo chamado e
+uma lista de nós~=filhos.
 Entretanto,
 ``pushdown'' também passa um terceiro parâmetro que é uma referência para o nó raíz da árvore e
-mantém a variável ``\mintinline{text}|parent|'',
+mantém a variável ``\mintinline{text}|parent|'' (que aponta para o pai do nó atual da árvore),
 acessível como um atributo da classe ``\mintinline{text}|TreeTransformer|''.
 
 
@@ -1051,7 +1052,7 @@ A diferença é simples,
 ``\mintinline{text}|Interpreter|'' visita a árvore partindo das folhas até chegar na raíz visitando todos os nós filhos (\fullref{section:compiladoresEtradutores}),
 já ``\mintinline{text}|Transformer|'' visita a árvore partindo da raíz até chegar nos nós pais,
 i.e.,
-ele não visita os nós filhos automaticamente como ``\mintinline{text}|Transformer|'' faz.
+ele não visita os nós~=filhos automaticamente como ``\mintinline{text}|Transformer|'' faz.
 
 ``\mintinline{text}|Interpreter|'' também recebe diretamente no construtor qual será a árvore que ele irá navegar sobre.
 Nos demais aspectos,
