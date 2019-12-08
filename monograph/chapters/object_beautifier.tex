@@ -654,7 +654,7 @@ conjunto de instruções como ``\mintinline{text}|include|'' e
 que podem ser incluídos a partir do símbolo inicial da gramática definido no item ``\mintinline{text}|language_construct_rules|''.
 \end{enumerate}%
 \begin{code}
-\caption{Simbolo Inicial da Metagramática ``\mintinline{text}|ObjectBeauty|''}
+\caption[Simbolo Inicial da Metagramática ``ObjectBeauty'']{Simbolo Inicial da Metagramática ``\mintinline{text}|ObjectBeauty|''}
 \label{code:simboloInicialDaMetagramatica}
 \begin{minted}{antlr}
 language_syntax: _NEWLINE? preamble_statements _NEWLINE?
@@ -984,10 +984,10 @@ Nós não analisados pela classe ``\mintinline{text}|TreeTransformer|'' não ser
 eles serão mantidos intactos,
 a não ser que algum outro nó os altere diretamente na Árvore Sintática.
 
-Mesmo que não existam os métodos ``\mintinline{text}|preamble_statements|'' e
-``\mintinline{text}|language_construct_rules|'' definidos na classe ``\mintinline{text}|TreeTransformer|'',
+Mesmo que na classe ``\mintinline{text}|TreeTransformer|'' não existam definidos os métodos ``\mintinline{text}|preamble_statements|'' e
+``\mintinline{text}|language_construct_rules|'',
 eles também podem ser visitados diretamente a partir de algum nó pai ou
-até algum de seus filhos.
+até de algum de seus filhos.
 Inclusive,
 esta foi uma das alterações realizadas no \textit{fork} ``pushdown'' do Analisador Lark.
 Por padrão,
@@ -1101,7 +1101,7 @@ a função ``\mintinline{text}|get_new_program|'' irá unir dos os pedaços e
 salvá~=los na variável ``\mintinline{text}|cached_new_program|'',
 para evitar ter que recalcular o novo programa toda vez que pedir~=se a sua nova versão.
 \begin{code}
-\caption{Construtor de ``\mintinline{text}|AbstractFormatter|''}
+\caption[Construtor de ``AbstractFormatter'']{Construtor de ``\mintinline{text}|AbstractFormatter|''}
 \label{code:construtorDeParsedProgram}
 \begin{minted}{python}
 class AbstractFormatter(object):
