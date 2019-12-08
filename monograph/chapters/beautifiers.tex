@@ -119,7 +119,7 @@
     a ferramenta de formatação pode permitir que exista uma configuração específica para cada aspecto da linguagem.
 
     Uma possível implementação para tal ajuste fino,
-    pode ser uma configuração específica como por exemplo a entrada booleana ``\textit{use\_spaces\_after\_if}'',
+    pode ser uma configuração específica como por exemplo a entrada booleana ``\mintinline{text}|use_spaces_after_if|'',
     em um arquivo de configuração para definir caso deva~=se ou
     não adicionar espaços após cada ``if'' ao fazer a formatação da linguagem,
     i.e.,
@@ -148,11 +148,22 @@
     entender o que cada uma dessas incontáveis opções significam.
 }
 \begin{lstlisting}[caption={Trecho do Arquivo de Configuração de Uncrustify},label={code:uncrustifySettingSample}]
-# If the body of the namespace is longer than this
-# number, it won't be indented. Requires
-# indent_namespace=true. Default=0 (no limit)
-indent_namespace_limit = 0  # number
+...
 
+# Add or remove space before ','
+sp_before_comma = remove # ignore/add/remove/force
+
+# Add or remove space between an open paren
+# and comma: '(,' vs '( ,'
+sp_paren_comma = add # ignore/add/remove/force
+
+# Add or remove space after class ':'
+sp_after_class_colon = ignore # ignore/add/remove/force
+
+# Add or remove space before class ':'
+sp_before_class_colon = ignore # ignore/add/remove/force
+
+...
 # Whether the 'extern "C"' body is indented
 indent_extern = false       # false/true
 
@@ -166,6 +177,8 @@ indent_class_colon = false  # false/true
 # Whether to indent the stuff after a
 # leading class initializer colon
 indent_constr_colon = false # false/true
+
+...
 \end{lstlisting}
 
 \lang{%
@@ -189,9 +202,9 @@ indent_constr_colon = false # false/true
     dependendo do suporte que a ferramenta de formatação de código~=fonte oferece.
 
     No caso da ferramenta Uncrustify,
-    serão configuradas linguagens como \textit{C},
-    \textit{C++}, \textit{C\#} e
-    \textit{ObjectiveC} (veja mais linguagens na \fullref{section:trabalhosRelacionados}).
+    serão configuradas linguagens como "\mintinline{text}|C|'',
+    ``\mintinline{text}|C++|'', ``\mintinline{text}|C|'' e
+    ``\mintinline{text}|ObjectiveC|'' (veja mais linguagens na \fullref{section:trabalhosRelacionados}).
     Para todas as outras linguagens,
     ainda será preciso encontrar outra ferramenta de formatação,
     que será certamente mais limitada no que ela pode customizar \cite{eclisePeriodSettings,uncrustifyNotMeetingCodingStandards},
@@ -346,7 +359,8 @@ indent_constr_colon = false # false/true
     }}.
 \end{citacao}
 
-Como não se pode dizer certamente que ao utilizar ferramentas de formatação de código~=fonte se irá ter um melhor desempenho,
+No fim,
+como não se pode dizer certamente que ao utilizar ferramentas de formatação de código~=fonte se irá ter um melhor desempenho,
 cabe a cada desenvolvedor ou
 time de desenvolvimento decidir por sua experiência,
 se existe a necessidade de utilizar uma ferramenta de formatação de código~=fonte.
@@ -389,6 +403,7 @@ tema foco desta monografia.
 } Mas sua relação com este trabalho é seu propósito de servir como uma ponte de compartilhamento de configurações entre todos os editores de texto.
 Com isso,
 facilitando a troca de um editor pelo outro durante o desenvolvimento.
+
 \citeonline{universalIndentGUI},
 é outra ferramenta que não é um formatador de código~=fonte,
 mas sim uma interface comum às várias e
@@ -411,8 +426,7 @@ e permite que se carregue um arquivo de código~=fonte para ser formatado,
 e na medida em que se seleciona as opções pela interface gráfica,
 pode~=se visualizar as mudanças no código~=fonte exemplo carregado.
 Entretanto,
-a ferramenta proposta por \citeonline{universalIndentGUI},
-enfrenta problemas como as limitações de sua interface gráfica.
+a ferramenta proposta por \citeonline{universalIndentGUI} enfrenta problemas como as limitações de sua interface gráfica.
 Como já mencionado na \typeref{section:trabalhosRelacionados},
 Uncrustify na sua versão ``0.69.0'' possui 671 configurações de formatação de código~=fonte,
 mas a interface gráfica de \citeonline{universalIndentGUI},
@@ -442,11 +456,10 @@ ou elas terão uma interface gráfica que permita ao usuário visualizar as suas
 Quanto ao seu funcionamento interno,
 formatadores de código~=fonte seguem o processo de tradução como apresentado na \fullref{section:compiladoresEtradutores}.
 Diferentemente do usual para um tradutor,
-um formatador realiza um processo de tradução onde o nível da linguagem e
-a própria linguagem de origem e
-destino são o mesmo.
+um formatador de código~=fonte realiza um processo de tradução onde o nível da linguagem de origem e
+destino é o mesmo.
 Por exemplo,
-ao realizar a tradução de um programa em \textit{C++} para \textit{C++}.
+formatadores de código~=fonte realizam a ``tradução'' de um programa em ``\mintinline{text}|C++|'' para a própria linguagem novamente ``\mintinline{text}|C++|''.
 
 
 \section{\lang{Obfuscators}{Ofuscadores}}
@@ -632,11 +645,11 @@ pode ser encontrado um exemplo funcional de gramática aceita por \citeonline{su
 Mesmo não sendo capaz de descrever uma linguagem em todos os seus detalhes,
 este arquivo já é suficiente para encontrar as palavras~=chaves:
 \begin{inparaenum}[1)]
-\item \textit{if};
-\item \textit{else};
-\item \textit{for};
+\item ``\mintinline{text}|if|'';
+\item ``\mintinline{text}|else|'';
+\item ``\mintinline{text}|for|'';
 \item e
-\textit{while},
+``\mintinline{text}|while|'',
 \end{inparaenum}%
 com o ``escopo \mintinline{text}|keyword.control.c|'' de uma certa linguagem chamada ``C'',
 onde os arquivos dela possuem as extensões ``.c'' e
@@ -740,7 +753,7 @@ um fundo mais escuro com cores de texto mais claras.
 Ou ainda,
 diferentes programadores possuem diferentes preferências de cores.
 Assim,
-todos podem utilizar o mesmo editor de texto somente configurando o editor de texto com as suas preferências de estilo.
+todos podem utilizar o mesmo editor de texto somente configurando o editor de texto com as suas preferências de cores.
 
 
 \advisor{}{%
