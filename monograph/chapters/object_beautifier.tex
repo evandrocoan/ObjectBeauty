@@ -105,16 +105,19 @@ public class Main
 \end{minted}
 \end{code}
 
-Irá ser introduzido o algoritmo de formatação proposto de forma ``simples\footnote{
+Tendo como o exemplo o código~=fonte em Java apresentado no \typeref{code:exemploDeUmProgramaNaLinguagemJava},
+irá ser introduzido o algoritmo de formatação proposto de forma ``simples\footnote{
 Com ``simples'',
 refere~=se a simplificação da Metagramática e
 Gerador de Formatadores utilizados nesta seção.
 Para uma apresentação mais complexa,
 confira a \fullref{section:metalinguagemGrammar}.
 }'',
-capaz que pegar somente o elemento ``\mintinline{text}|if(args.length > 0)|'' de um programa de entrada de qualquer linguagem,
-como o exemplo em Java apresentado no \typeref{code:exemploDeUmProgramaNaLinguagemJava}.
-Inicia~=se a com a apresentação de uma simplificação da metagramática utilizada neste trabalho.
+capaz que pegar algum elemento com uma estrutura como ``\mintinline{text}|if(args.length > 0)|'',
+de um programa de entrada em uma linguagem qualquer e
+realizar a sua formatação.
+No \typeref{code:exemploMinimoDeMetagramatica},
+inicia~=se com a apresentação de uma simplificação da metagramática utilizada neste trabalho.
 A metagramática completa pode encontrada no \fullref{chapter:codigoDaMetagramatica}.
 Ela segue as mesmas regras do Analisador Lark explicadas na \fullref{section:introducaoGramaticas}.
 Uma melhor descrição do uso dos operadores ``\mintinline{text}|match|'' e
@@ -143,7 +146,7 @@ No \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica},
 é apresentado um exemplo de gramática válida definida pelas regras da metagramática apresentada no \typeref{code:exemploMinimoDeMetagramatica}.
 Com a gramática do \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica} é possível reconhecer qualquer programa em que exista a estrura ``\mintinline{text}|if|'' com a seguinte forma ``\mintinline{text}|if(alguma coisa)|'' ou
 somente ``\mintinline{text}|if()|''.
-Uma vez que esses ``\mintinline{text}|if|''\s sejam reconhecidos,
+Uma vez que esses ``\mintinline{text}|if|\s'' sejam reconhecidos,
 eles serão atribuídos ao escopo ``\mintinline{text}|if.statement.body|'',
 que representa a região do código~=fonte onde encontra~=se o conteúdo do ``\mintinline{text}|if|''.
 No exemplo do \typeref{code:exemploDeUmProgramaNaLinguagemJava} o escopo ``\mintinline{text}|if.statement.body|'' seria equivalente ao trecho de código~=fonte ``\mintinline{text}|args.length > 0|''.
@@ -153,7 +156,7 @@ scope: if.statement.body
 \end{lstlisting}
 
 Agora,
-o que pode ser feito com a gramática do \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica}?
+o quê pode ser feito com a gramática do \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica}?
 Ela junto com a metagramática (\typeref{code:exemploMinimoDeMetagramatica}) devem ser entrada do Analisador Lark (\typeref{code:exemploDeUsoDaMetagramaticaEUmaGramatica}),
 que irá devolver como resultado a Árvore Sintática (\fullref{section:compiladoresEtradutores}).
 Então envia~=se a Árvore Sintática para o Analisador Semântico (\fullref{section:analisadoresSintaticos,section:analiseSemantica}) verificar se o programa (gramática) de entrada está semanticamente correta,
@@ -230,7 +233,7 @@ fazer uso do conteúdo dos nós em algum algoritmo específico.
 \end{figure}
 
 Assumindo que neste ponto,
-o programa (gramática) já está semanticamente validado,
+o programa (a gramática de entrada) já está semanticamente validado (e a Árvore Sintática Abstrata já foi criada),
 utiliza~=se a Árvore Sintática Abstrata da gramática da linguagem do código~=fonte (\typeref{code:exemploDeUmProgramaNaLinguagemJava}) para construir algum algoritmo ou
 estratégia que possa ser utilizada para realizar a formatação do código~=fonte inicialmente apresentado no \typeref{code:exemploDeUmProgramaNaLinguagemJava}.
 
@@ -295,7 +298,7 @@ Essa foi uma estratégia utilizada para se possa no final do processo de formata
 \end{code}
 
 Como pode ser percebido,
-a gramática de entrada no \typeref{code:resultadoDoReconhecimentoDoProgramaJava} não consome todo o programa de entrada (\typeref{code:exemploDeUmProgramaNaLinguagemJava}) no final do processo de reconhecimento (\typeref{code:resultadoDoReconhecimentoDoProgramaJava}).
+a gramática de entrada no \typeref{code:exemploDeGramaticaPelasRegrasDaMetagramatica} não consome todo o programa de entrada (\typeref{code:exemploDeUmProgramaNaLinguagemJava}) no final do processo de reconhecimento (\typeref{code:resultadoDoReconhecimentoDoProgramaJava}).
 Esta é uma característica importante dos formatadores de código deste trabalho.
 Todo texto que não é consumido,
 ou pela gramática de entrada,
@@ -314,7 +317,7 @@ a formatação de código~=fonte.
 A estratégia deste trabalho foi realizar a formatação de código~=fonte ao reconhecer o programa de entrada (\typeref{code:exemploDeUmProgramaNaLinguagemJava}) ``removendo'' os caracteres reconhecidos,
 atribuíndo escopos (\fullref{section:sourceCodeHighlightersGrammars}) para cada um deles.
 Uma vez que o trecho de código~=fonte ``removido'' possui um escopo atribuído,
-um arquivo de configurações JSON como \typeref{code:exemploDeConfiguracaoUtilizadaMinimaDoFormatadorDeCodigo} é consultado.
+um arquivo de configurações JSON como o \typeref{code:exemploDeConfiguracaoUtilizadaMinimaDoFormatadorDeCodigo} é consultado.
 Caso exista uma ``configuração'' relacionada ao escopo recém~=reconhecido,
 o trecho de código~=fonte é enviado para um formatador especializado de código~=fonte como o \typeref{code:exemploMinimoDeFormatadorDeCodigo}.
 \begin{code}
