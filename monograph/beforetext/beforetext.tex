@@ -56,18 +56,20 @@
     % o conteúdo de implementação deste arquivo pelo comando abaixo:
     \PRIVATEbookmarkthis{Ficha Catalográfica}
     \addtotextpreliminarycontent{Ficha Catalográfica}
-\fi
 
-\include{beforetext/fichacatalografica}
-\ifforcedinclude\else\cleardoublepage\fi
+    \include{beforetext/fichacatalografica}
+    % https://tex.stackexchange.com/questions/91440/how-to-include-multiple-pages-in-latex
+    % \includepdf{Ficha_Catalografica.pdf}
+    \ifforcedinclude\else\cleardoublepage\fi
+\fi
 
 
 % Inserir errata
 
 % Inserir folha de aprovação. Isto é um exemplo de Folha de aprovação, elemento obrigatório da
 % NBR 14724/2011 (seção 4.2.1.3). Você pode utilizar este modelo até a aprovação do trabalho.
-% Após isso, substitua todo o conteúdo deste arquivo por uma imagem da página assinada pela banca com o comando  abaixo:
-
+% Após isso, substitua todo o conteúdo deste arquivo por uma imagem da página assinada pela
+% banca com o comando abaixo:
 \ifforcedinclude\else\cleardoublepage\fi
 \include{beforetext/folhadeaprovacao}
 % \includepdf{folhadeaprovacao_final.pdf}
