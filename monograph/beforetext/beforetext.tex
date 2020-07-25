@@ -26,11 +26,8 @@
         % Manually add the `\textpreliminarycontents` to the Table of Contents here
         % to keep the hyper link pointing to the beginning of the page, instead of
         % the beginning of `\textpreliminarycontents`
-
-        % When do I need to invoke \phantomsection?
         % https://tex.stackexchange.com/questions/44088/when-do-i-need-to-invoke-phantomsection
-        \phantomsection
-        \addcontentsline{toc}{chapter}{\mytextpreliminarylistname}
+        \phantomsection\addcontentsline{toc}{chapter}{\mytextpreliminarylistname}
 
         % https://tex.stackexchange.com/questions/234398/list-of-figures-and-tables-when-there-are-no-figures-or-tables
         \whenlistisnotempty{\mytextpreliminarylistname}{%
