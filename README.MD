@@ -9,8 +9,9 @@ configuration process.
 
 See the issue tracker https://github.com/evandrocoan/ObjectBeauty/issues for the actual development step of this project.
 
-Also read the full thesis/monograph written for this project
-[objectbeatypictures/final_thesis.pdf](../../../objectbeatypictures/blob/master/final_thesis.pdf)
+Also read the full thesis/monograph written for this project:
+1. [objectbeatypictures/final_thesis.pdf](../../../objectbeatypictures/blob/master/final_thesis.pdf) (official version)
+1. [objectbeatypictures/final_thesis_uncensored.pdf](../../../objectbeatypictures/blob/master/final_thesis_uncensored.pdf) (uncensured version)
 
 
 ___
