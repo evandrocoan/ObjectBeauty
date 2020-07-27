@@ -1,4 +1,4 @@
-# Just run make
+:: Just run make
 
 make %*
 
