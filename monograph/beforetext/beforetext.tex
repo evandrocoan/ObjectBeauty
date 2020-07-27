@@ -2,6 +2,15 @@
 
 % ELEMENTOS PRÉ-TEXTUAIS
 \ifforcedinclude\else
+    % Fix the \textpreliminarycontents not showing up when @twoside is disabled
+    \newboolean{ufscThesisXisMemoirTwoSidesEnabled}
+    \if@twoside
+        \setboolean{ufscThesisXisMemoirTwoSidesEnabled}{true}
+    \else
+        \setboolean{ufscThesisXisMemoirTwoSidesEnabled}{false}
+    \fi
+    \setboolean{@twoside}{true}
+
     % pretextual settings
     % https://tex.stackexchange.com/questions/386446/how-to-fix-destination-with-the-same-identifier-namepage-a-has-been-already
     % https://tex.stackexchange.com/questions/67989/pdftex-warning-has-been-referenced-but-does-not-exist-replaced-by-a-fixed-one
@@ -38,6 +47,11 @@
 
         \clearpage
     }
+
+    % Fix the \textpreliminarycontents not showing up when @twoside is disabled
+    \ifthenelse{\boolean{ufscThesisXisMemoirTwoSidesEnabled}}
+    {\setboolean{@twoside}{true}}
+    {\setboolean{@twoside}{false}}
 
     % Folha de rosto (o * indica que haverá a ficha bibliográfica)
     \imprimirfolhaderosto*{}
