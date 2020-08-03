@@ -54,8 +54,9 @@
     {\setboolean{@twoside}{false}}
 
     % Folha de rosto (o * indica que haverá a ficha bibliográfica)
-    \imprimirfolhaderosto*{}
+    % https://tex.stackexchange.com/questions/74439/table-of-contents-incorrect-page-numbering
     \addtotextpreliminarycontent{\folhaderostoname}
+    \imprimirfolhaderosto*{}
 
     % Inserir a ficha bibliografica
     %
