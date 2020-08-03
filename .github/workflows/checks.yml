@@ -29,10 +29,12 @@ jobs:
         run: |
           set -x
           RELEASE_TAG="1.0.${{ github.run_number }}"
-          RELEASE_FILE="monograph-latex.zip"
+          PREFIX_NAME="monograph-latex"
+          RELEASE_FILE="${PREFIX_NAME}.zip"
           RELEASE_NAME="${RELEASE_TAG}.zip"
 
           echo "::set-output name=RELEASE_TAG::${RELEASE_TAG}"
+          echo "::set-output name=PREFIX_NAME::${PREFIX_NAME}"
           echo "::set-output name=RELEASE_FILE::${RELEASE_FILE}"
           echo "::set-output name=RELEASE_NAME::${RELEASE_NAME}"
 
@@ -43,7 +45,24 @@ jobs:
             echo "::set-output name=RELEASE_FILE_EXISTS::false";
           fi
 
-      - name: Create release
+      - name: Create .zip Release
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+        run: |
+          set -x
+
+          # https://superuser.com/questions/392569/linux-specifying-top-level-directory-when-creating-zip-archive
+          CURRENT_DIRECTORY="$(pwd)"
+          cd ..
+          ln -s "${CURRENT_DIRECTORY}" "${{ steps.environment_variables.outputs.PREFIX_NAME }}"
+
+          # https://unix.stackexchange.com/questions/27362/zip-everything-in-current-directory
+          # https://askubuntu.com/questions/28476/how-do-i-zip-up-a-folder-but-exclude-the-git-subfolder
+          zip -9 -r "${CURRENT_DIRECTORY}/${{ steps.environment_variables.outputs.RELEASE_NAME }}" "${{ steps.environment_variables.outputs.PREFIX_NAME }}" -x'*/.git' -x'*/.git/*' -x'*.cdr*' -x'*.doc*' -x'*.pptx*' -x'*pictures/*.xml*' -x'*pictures/final_thesis.pdf*' -x'*pictures/final_thesis_uncensored.pdf*'
+
+          cd "${CURRENT_DIRECTORY}"
+          unzip "${{ steps.environment_variables.outputs.RELEASE_NAME }}"
+
+      - name: Create .pdf Release
         if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
         uses: xu-cheng/texlive-action/full@v1
         with:
@@ -51,15 +70,11 @@ jobs:
             set -x
             apk add make unzip zip python3
 
-            cd monograph
-            make release version="${{ steps.environment_variables.outputs.RELEASE_NAME }}"
-            unzip "${{ steps.environment_variables.outputs.RELEASE_NAME }}"
-
-            cd monograph
+            cd "${{ steps.environment_variables.outputs.PREFIX_NAME }}/monograph"
             make debug=1 halt=1
 
       # https://github.com/actions/create-release
-      - name: Create Release
+      - name: Create GitHub Release
         if: github.ref == 'refs/heads/master' && steps.environment_variables.outputs.RELEASE_FILE_EXISTS == 'false'
         id: create_release
         uses: actions/create-release@v1
@@ -97,6 +112,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: monograph/monograph/main.pdf
+          asset_path: ${{ steps.environment_variables.outputs.PREFIX_NAME }}/monograph/main.pdf
           asset_name: pdf_exemplo.pdf
           asset_content_type: application/pdf
