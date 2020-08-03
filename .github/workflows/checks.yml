@@ -1,0 +1,102 @@
+name: Checks
+
+on: [push, pull_request]
+
+# For a more complex build matrix example see:
+# https://github.com/evandroforks/anki/blob/master/.github/workflows/checks.yml
+jobs:
+
+  test:
+    name: Tests on ${{ matrix.os }}
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        # os: [ ubuntu-latest, macos-latest, windows-latest ]
+        os: [ ubuntu-latest ]
+
+      # Keep all systems running if something fails
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - name: Configure OS environment variables
+        id: environment_variables
+        run: |
+          set -x
+          RELEASE_TAG="1.0.${{ github.run_number }}"
+          RELEASE_FILE="monograph-latex.zip"
+          RELEASE_NAME="${RELEASE_TAG}.zip"
+
+          echo "::set-output name=RELEASE_TAG::${RELEASE_TAG}"
+          echo "::set-output name=RELEASE_FILE::${RELEASE_FILE}"
+          echo "::set-output name=RELEASE_NAME::${RELEASE_NAME}"
+
+          if curl --head --fail --show-error https://github.com/${GITHUB_REPOSITORY}/releases/${RELEASE_TAG};
+          then :
+            echo "::set-output name=RELEASE_FILE_EXISTS::true";
+          else
+            echo "::set-output name=RELEASE_FILE_EXISTS::false";
+          fi
+
+      - name: Create release
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+        uses: xu-cheng/texlive-action/full@v1
+        with:
+          run: |
+            set -x
+            apk add make unzip zip python3
+
+            cd monograph
+            make release version="${{ steps.environment_variables.outputs.RELEASE_NAME }}"
+            unzip "${{ steps.environment_variables.outputs.RELEASE_NAME }}"
+
+            cd monograph
+            make debug=1 halt=1
+
+      # https://github.com/actions/create-release
+      - name: Create Release
+        if: github.ref == 'refs/heads/master' && steps.environment_variables.outputs.RELEASE_FILE_EXISTS == 'false'
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.environment_variables.outputs.RELEASE_TAG }}
+          release_name: Version ${{ steps.environment_variables.outputs.RELEASE_TAG }}
+          body: |
+            Contains the most recent changes to the master branch of this project
+
+            Just download the file `${{ steps.environment_variables.outputs.RELEASE_FILE }}`, unpack it and build the `monograph/main.tex` file
+
+            [`${{ steps.environment_variables.outputs.RELEASE_FILE }}`](https://github.com/${{ github.repository }}/releases/latest/download/${{ steps.environment_variables.outputs.RELEASE_FILE }}) - `https://github.com/${{ github.repository }}/releases/latest/download/${{ steps.environment_variables.outputs.RELEASE_FILE }}`
+
+          draft: false
+          prerelease: false
+
+      # https://github.com/actions/upload-release-asset
+      - name: Upload .zip Asset
+        if: github.ref == 'refs/heads/master' && steps.environment_variables.outputs.RELEASE_FILE_EXISTS == 'false'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.environment_variables.outputs.RELEASE_NAME }}
+          asset_name: ${{ steps.environment_variables.outputs.RELEASE_FILE }}
+          asset_content_type: application/zip
+
+      - name: Upload .pdf Asset
+        if: github.ref == 'refs/heads/master' && steps.environment_variables.outputs.RELEASE_FILE_EXISTS == 'false'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: monograph/monograph/main.pdf
+          asset_name: pdf_exemplo.pdf
+          asset_content_type: application/pdf

@@ -13,6 +13,8 @@ Also read the full thesis/monograph written for this project:
 1. [objectbeatypictures/final_thesis.pdf](../../../objectbeatypictures/blob/master/final_thesis.pdf) (official version)
 1. [objectbeatypictures/final_thesis_uncensored.pdf](../../../objectbeatypictures/blob/master/final_thesis_uncensored.pdf) (uncensured version)
 
+You can also see the latest monograph text version automatically created and available on [releases](../../releases).
+
 
 ___
 ## Initial Motivation Standards
