@@ -3,12 +3,14 @@
 % ELEMENTOS PRÉ-TEXTUAIS
 \ifforcedinclude\else
     % Fix the \textpreliminarycontents not showing up when @twoside is disabled
-    \newboolean{ufscThesisXisMemoirTwoSidesEnabled}
-    \if@twoside
-        \setboolean{ufscThesisXisMemoirTwoSidesEnabled}{true}
-    \else
-        \setboolean{ufscThesisXisMemoirTwoSidesEnabled}{false}
-    \fi
+    \newif\ifufscThesisXisMemoirTwoSidesEnabled
+
+    % https://tex.stackexchange.com/questions/360785/how-do-i-check-if-a-document-is-oneside-or-twoside
+    \ifthenelse{\boolean{@twoside}}{%
+        \ufscThesisXisMemoirTwoSidesEnabledtrue%
+    }{%
+        \ufscThesisXisMemoirTwoSidesEnabledfalse%
+    }%
     \setboolean{@twoside}{true}
 
     % pretextual settings
@@ -49,9 +51,11 @@
     }
 
     % Fix the \textpreliminarycontents not showing up when @twoside is disabled
-    \ifthenelse{\boolean{ufscThesisXisMemoirTwoSidesEnabled}}
-    {\setboolean{@twoside}{true}}
-    {\setboolean{@twoside}{false}}
+    \ifufscThesisXisMemoirTwoSidesEnabled
+        \setboolean{@twoside}{true}
+    \else
+        \setboolean{@twoside}{false}
+    \fi
 
     % Folha de rosto (o * indica que haverá a ficha bibliográfica)
     % https://tex.stackexchange.com/questions/74439/table-of-contents-incorrect-page-numbering
