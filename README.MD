@@ -7,7 +7,7 @@ using a well understood architecture,
 development and
 configuration process.
 
-See the issue tracker https://github.com/evandrocoan/ObjectBeauty/issues for the actual development step of this project.
+See the issue tracker on [issues](../../issues) for the actual development step of this project.
 
 Also read the full thesis/monograph written for this project:
 1. [objectbeatypictures/final_thesis.pdf](../../../objectbeatypictures/blob/master/final_thesis.pdf) (official version)
