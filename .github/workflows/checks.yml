@@ -28,7 +28,7 @@ jobs:
         id: environment_variables
         run: |
           set -x
-          RELEASE_TAG="1.0.${{ github.run_number }}"
+          RELEASE_TAG="1.1.${{ github.run_number }}-$(git rev-parse --short HEAD)"
           PREFIX_NAME="monograph-latex"
           RELEASE_FILE="${PREFIX_NAME}.zip"
           RELEASE_NAME="${RELEASE_TAG}.zip"
